@@ -1,0 +1,7 @@
+files:
+  - source: /apps/browser/src/_locales/en/messages.json
+    translation: /apps/browser/src/_locales/%two_letters_code%/messages.json
+  - source: /apps/desktop/src/locales/en/messages.json
+    translation: /apps/desktop/src/locales/%two_letters_code%/messages.json
+  - source: /apps/web/src/locales/en/messages.json
+    translation: /apps/web/src/locales/%two_letters_code%/messages.json

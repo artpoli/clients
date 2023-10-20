@@ -5,3 +5,5 @@ files:
     translation: /apps/desktop/src/locales/%two_letters_code%/messages.json
   - source: /apps/web/src/locales/en/messages.json
     translation: /apps/web/src/locales/%two_letters_code%/messages.json
+  - source: /apps/browser/store/locales/en/copy.resx
+    translation: /apps/browser/store/locales/%two_letters_code%/copy.resx

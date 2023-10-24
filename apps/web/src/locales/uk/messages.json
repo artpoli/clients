@@ -1339,7 +1339,7 @@
     "message": "Дані успішно експортовано"
   },
   "importWarning": {
-    "message": "Ви імпортуєте дані до $ORGANIZATION$. Ваші дані можуть бути доступними учасникам цієї організації. Ви хочете продовжити?",
+    "message": "Ви імпортуєте дані до $ORGANIZATION$. Ваші дані можуть бути доступні учасникам цієї організації. Хочете продовжити?",
     "placeholders": {
       "organization": {
         "content": "$1",
@@ -7273,12 +7273,6 @@
   "alreadyHaveAccount": {
     "message": "Вже маєте обліковий запис?"
   },
-  "customBillingStart": {
-    "message": "Власний рахунок не відображений. Відвідайте "
-  },
-  "customBillingEnd": {
-    "message": " для отримання останнього рахунку."
-  },
   "typePasskey": {
     "message": "Ключ доступу"
   },
@@ -7287,5 +7281,9 @@
   },
   "passkeyNotCopiedAlert": {
     "message": "Ключ доступу не буде скопійовано до клонованого запису. Хочете продовжити клонування цього запису?"
+  },
+  "seeDetailedInstructions": {
+    "message": "See detailed instructions on our help site at",
+    "description": "This is followed a by a hyperlink to the help website."
   }
 }

@@ -7283,7 +7283,7 @@
     "message": "Ключ доступу не буде скопійовано до клонованого запису. Хочете продовжити клонування цього запису?"
   },
   "seeDetailedInstructions": {
-    "message": "See detailed instructions on our help site at",
+    "message": "Перегляньте докладні інструкції на нашому довідковому сайті",
     "description": "This is followed a by a hyperlink to the help website."
   }
 }

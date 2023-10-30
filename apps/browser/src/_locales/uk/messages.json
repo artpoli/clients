@@ -2502,7 +2502,7 @@
     "message": "Помилка розшифрування експортованого файлу. Ваш ключ шифрування відрізняється від ключа, використаного для експортування даних."
   },
   "invalidFilePassword": {
-    "message": "Invalid file password, please use the password you entered when you created the export file."
+    "message": "Неправильний пароль файлу. Використайте пароль, який ви вводили під час створення експортованого файлу."
   },
   "importDestination": {
     "message": "Призначення імпорту"
@@ -2615,67 +2615,67 @@
     "message": "Скористатися браузером"
   },
   "multifactorAuthenticationCancelled": {
-    "message": "Multifactor authentication cancelled"
+    "message": "Багатофакторну автентифікацію скасовано"
   },
   "noLastPassDataFound": {
-    "message": "No LastPass data found"
+    "message": "Дані LastPass не знайдено"
   },
   "incorrectUsernameOrPassword": {
-    "message": "Incorrect username or password"
+    "message": "Неправильне ім'я користувача або пароль"
   },
   "multifactorAuthenticationFailed": {
-    "message": "Multifactor authentication failed"
+    "message": "Збій багатофакторної автентифікації"
   },
   "includeSharedFolders": {
-    "message": "Include shared folders"
+    "message": "Включити спільні теки"
   },
   "lastPassEmail": {
-    "message": "LastPass Email"
+    "message": "Електронна пошта LastPass"
   },
   "importingYourAccount": {
-    "message": "Importing your account..."
+    "message": "Ваш обліковий запис імпортується..."
   },
   "lastPassMFARequired": {
-    "message": "LastPass multifactor authentication required"
+    "message": "Необхідно пройти багатофакторну автентифікацію LastPass"
   },
   "lastPassMFADesc": {
-    "message": "Enter your one-time passcode from your authentication app"
+    "message": "Введіть одноразовий код з програми для автентифікації"
   },
   "lastPassOOBDesc": {
-    "message": "Approve the login request in your authentication app or enter a one-time passcode."
+    "message": "Схваліть запит входу в програмі для автентифікації або введіть одноразовий код."
   },
   "passcode": {
-    "message": "Passcode"
+    "message": "Код"
   },
   "lastPassMasterPassword": {
-    "message": "LastPass master password"
+    "message": "Головний пароль LastPass"
   },
   "lastPassAuthRequired": {
-    "message": "LastPass authentication required"
+    "message": "Необхідно пройти автентифікацію LastPass"
   },
   "awaitingSSO": {
-    "message": "Awaiting SSO authentication"
+    "message": "Очікується автентифікація SSO"
   },
   "awaitingSSODesc": {
-    "message": "Please continue to log in using your company credentials."
+    "message": "Увійдіть з використанням облікових даних вашої компанії."
   },
   "seeDetailedInstructions": {
-    "message": "See detailed instructions on our help site at",
+    "message": "Перегляньте докладні інструкції на нашому довідковому сайті",
     "description": "This is followed a by a hyperlink to the help website."
   },
   "importDirectlyFromLastPass": {
-    "message": "Import directly from LastPass"
+    "message": "Імпортувати безпосередньо з LastPass"
   },
   "importFromCSV": {
-    "message": "Import from CSV"
+    "message": "Імпортувати з файлу CSV"
   },
   "lastPassTryAgainCheckEmail": {
-    "message": "Try again or look for an email from LastPass to verify it's you."
+    "message": "Спробуйте ще раз або перевірте електронну пошту від LastPass для підтвердження дії."
   },
   "collection": {
-    "message": "Collection"
+    "message": "Збірка"
   },
   "lastPassYubikeyDesc": {
-    "message": "Insert the YubiKey associated with your LastPass account into your computer's USB port, then touch its button."
+    "message": "Вставте YubiKey пов'язаний з обліковим записом LastPass в USB порт вашого комп'ютера, потім торкніться його кнопки."
   }
 }

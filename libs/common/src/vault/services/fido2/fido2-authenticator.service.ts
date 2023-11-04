@@ -12,6 +12,7 @@ import {
   Fido2AuthenticatorService as Fido2AuthenticatorServiceAbstraction,
   PublicKeyCredentialDescriptor,
 } from "../../abstractions/fido2/fido2-authenticator.service.abstraction";
+import { FallbackRequestedError } from "../../abstractions/fido2/fido2-client.service.abstraction";
 import { Fido2UserInterfaceService } from "../../abstractions/fido2/fido2-user-interface.service.abstraction";
 import { SyncService } from "../../abstractions/sync/sync.service.abstraction";
 import { CipherRepromptType } from "../../enums/cipher-reprompt-type";
@@ -24,7 +25,7 @@ import { joseToDer } from "./ecdsa-utils";
 import { Fido2Utils } from "./fido2-utils";
 import { guidToRawFormat, guidToStandardFormat } from "./guid-utils";
 
-// AAGUID: 6e8248d5-b479-40db-a3d8-11116f7e8349
+// AAGUID: d548826e-79b4-db40-a3d8-11116f7e8349
 export const AAGUID = new Uint8Array([
   0xd5, 0x48, 0x82, 0x6e, 0x79, 0xb4, 0xdb, 0x40, 0xa3, 0xd8, 0x11, 0x11, 0x6f, 0x7e, 0x83, 0x49,
 ]);
@@ -221,6 +222,11 @@ export class Fido2AuthenticatorService implements Fido2AuthenticatorServiceAbstr
         this.logService?.info(
           `[Fido2Authenticator] Aborting because no matching credentials were found in the vault.`
         );
+
+        if (params.fallbackSupported) {
+          throw new FallbackRequestedError();
+        }
+
         await userInterfaceSession.informCredentialNotFound();
         throw new Fido2AuthenticatorError(Fido2AuthenticatorErrorCode.NotAllowed);
       }

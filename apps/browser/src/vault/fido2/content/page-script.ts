@@ -66,6 +66,10 @@ navigator.credentials.create = async (
   options?: CredentialCreationOptions,
   abortController?: AbortController
 ): Promise<Credential> => {
+  if (!isWebauthnCall(options)) {
+    return await browserCredentials.create(options);
+  }
+
   const fallbackSupported =
     (options?.publicKey?.authenticatorSelection.authenticatorAttachment === "platform" &&
       browserNativeWebauthnPlatformAuthenticatorSupport) ||
@@ -106,6 +110,10 @@ navigator.credentials.get = async (
   options?: CredentialRequestOptions,
   abortController?: AbortController
 ): Promise<Credential> => {
+  if (!isWebauthnCall(options)) {
+    return await browserCredentials.get(options);
+  }
+
   const fallbackSupported = browserNativeWebauthnSupport;
 
   try {
@@ -141,22 +149,32 @@ navigator.credentials.get = async (
   }
 };
 
+function isWebauthnCall(options?: CredentialCreationOptions | CredentialRequestOptions) {
+  return options && "publicKey" in options;
+}
+
 /**
  * Wait for window to be focused.
  * Safari doesn't allow scripts to trigger webauthn when window is not focused.
  *
+ * @param fallbackWait How long to wait when the script is not able to add event listeners to `window.top`. Defaults to 500ms.
  * @param timeout Maximum time to wait for focus in milliseconds. Defaults to 5 minutes.
  * @returns Promise that resolves when window is focused, or rejects if timeout is reached.
  */
-async function waitForFocus(timeout: number = 5 * 60 * 1000) {
-  if (window.top.document.hasFocus()) {
-    return;
+async function waitForFocus(fallbackWait = 500, timeout = 5 * 60 * 1000) {
+  try {
+    if (window.top.document.hasFocus()) {
+      return;
+    }
+  } catch {
+    // Cannot access window.top due to cross-origin frame, fallback to waiting
+    return await new Promise((resolve) => window.setTimeout(resolve, fallbackWait));
   }
 
   let focusListener;
   const focusPromise = new Promise<void>((resolve) => {
     focusListener = () => resolve();
-    window.top.addEventListener("focus", focusListener, { once: true });
+    window.top.addEventListener("focus", focusListener);
   });
 
   let timeoutId;

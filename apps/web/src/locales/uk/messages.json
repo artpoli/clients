@@ -1546,7 +1546,7 @@
     "message": "Керувати"
   },
   "canManage": {
-    "message": "Can manage"
+    "message": "Може керувати"
   },
   "disable": {
     "message": "Вимкнути"
@@ -3471,7 +3471,7 @@
     "message": "Передплату оновлено"
   },
   "subscribedToSecretsManager": {
-    "message": "Subscription updated. You now have access to Secrets Manager."
+    "message": "Передплату оновлено. Тепер ви маєте доступ до менеджера секретів."
   },
   "additionalOptions": {
     "message": "Додаткові налаштування"
@@ -7278,16 +7278,16 @@
     }
   },
   "collectionManagement": {
-    "message": "Collection management"
+    "message": "Керування збіркою"
   },
   "collectionManagementDesc": {
-    "message": "Manage the collection behavior for the organization"
+    "message": "Керувати налаштуваннями збірок для організації"
   },
   "limitCollectionCreationDeletionDesc": {
-    "message": "Limit collection creation and deletion to owners and admins"
+    "message": "Дозволити створення та видалення збірок лише власникам та адміністраторам"
   },
   "collectionManagementUpdated": {
-    "message": "Collection management behavior saved"
+    "message": "Налаштування керування збірками збережено"
   },
   "passwordManagerPlanPrice": {
     "message": "Ціна плану менеджера паролів"
@@ -7336,10 +7336,10 @@
     "message": "Бета"
   },
   "assignCollectionAccess": {
-    "message": "Assign collection access"
+    "message": "Призначити доступ до збірки"
   },
   "editedCollections": {
-    "message": "Edited collections"
+    "message": "Відредаговані збірки"
   },
   "baseUrl": {
     "message": "URL-адреса сервера"
@@ -7351,13 +7351,13 @@
     "message": "Вже маєте обліковий запис?"
   },
   "customBillingStart": {
-    "message": "Custom billing is not reflected. Visit the "
+    "message": "Власний рахунок не відображений. Відвідайте "
   },
   "customBillingEnd": {
-    "message": " page for latest invoicing."
+    "message": " для отримання останнього рахунку."
   },
   "managePermissionRequired": {
-    "message": "At least one member or group must have can manage permission."
+    "message": "Принаймні один учасник або група повинні мати можливість керувати дозволами."
   },
   "typePasskey": {
     "message": "Ключ доступу"

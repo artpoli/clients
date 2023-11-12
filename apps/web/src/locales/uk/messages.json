@@ -647,8 +647,23 @@
   "customPasskeyNameInfo": {
     "message": "Назвіть свій ключ доступу для полегшення розпізнавання."
   },
+  "useForVaultEncryption": {
+    "message": "Використовувати для шифрування сховища"
+  },
+  "useForVaultEncryptionInfo": {
+    "message": "Виконуйте вхід і розблокування на підтримуваних пристроях без головного пароля. Дотримуйтесь підказок вашого браузера для завершення налаштування."
+  },
+  "useForVaultEncryptionErrorReadingPasskey": {
+    "message": "Помилка читання ключа доступу. Повторіть спробу або приберіть цю опцію."
+  },
   "encryptionNotSupported": {
     "message": "Шифрування не підтримується"
+  },
+  "encryptionNotEnabled": {
+    "message": "Шифрування не увімкнено"
+  },
+  "usedForEncryption": {
+    "message": "Використовується для шифрування"
   },
   "loginWithPasskeyEnabled": {
     "message": "Увійдіть з активованим ключем доступу"
@@ -2281,7 +2296,7 @@
     "message": "Звернутися до служби підтримки клієнтів"
   },
   "contactSupportShort": {
-    "message": "Contact Support"
+    "message": "Звернутися до служби підтримки"
   },
   "updatedPaymentMethod": {
     "message": "Спосіб оплати оновлено."
@@ -2746,6 +2761,9 @@
   },
   "webVault": {
     "message": "Веб сховище"
+  },
+  "cli": {
+    "message": "CLI"
   },
   "bitWebVault": {
     "message": "Веб сховище Bitwarden"
@@ -3492,7 +3510,7 @@
     }
   },
   "subscriptionUserSeatsWithoutAdditionalSeatsOption": {
-    "message": "You can invite up to $COUNT$ members for no additional charge. Contact Customer Support to upgrade your plan and invite more members.",
+    "message": "Ви можете запросити до $COUNT$ користувачів без додаткової оплати. Зверніться до служби підтримки, щоб підвищити рівень вашого тарифного плану та запросити більше учасників.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -3999,13 +4017,13 @@
     "message": "Усі функції команд, плюс:"
   },
   "includeAllTeamsStarterFeatures": {
-    "message": "All Teams Starter features, plus:"
+    "message": "Усі функції Teams Starter, а також:"
   },
   "chooseMonthlyOrAnnualBilling": {
-    "message": "Choose monthly or annual billing"
+    "message": "Виберіть місячну або річну оплату"
   },
   "abilityToAddMoreThanNMembers": {
-    "message": "Ability to add more than $COUNT$ members",
+    "message": "Можливість додати понад $COUNT$ учасників",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -6629,7 +6647,7 @@
     }
   },
   "teamsStarterPlanInvLimitReachedManageBilling": {
-    "message": "Teams Starter plans may have up to $SEATCOUNT$ members. Contact Customer Support to upgrade your plan and invite more members.",
+    "message": "Плани Teams Starter можуть мати до $SEATCOUNT$ учасників. Зверніться до служби підтримки, щоб підвищити рівень тарифного плану та запросити більше учасників.",
     "placeholders": {
       "seatcount": {
         "content": "$1",
@@ -6638,7 +6656,7 @@
     }
   },
   "teamsStarterPlanInvLimitReachedNoManageBilling": {
-    "message": "Teams Starter plans may have up to $SEATCOUNT$ members. Contact your organization owner to upgrade your plan and invite more members.",
+    "message": "Плани Teams Starter можуть мати до $SEATCOUNT$ учасників. Зверніться до власника вашої організації, щоб підвищити рівень тарифного плану та запросити більше учасників.",
     "placeholders": {
       "seatcount": {
         "content": "$1",
@@ -7037,11 +7055,11 @@
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Once authenticated, members will decrypt vault data using a key stored on their device. The single organization policy, SSO required policy, and account recovery administration policy with automatic enrollment will turn on when this option is used.'"
   },
   "orgPermissionsUpdatedMustSetPassword": {
-    "message": "Your organization permissions were updated, requiring you to set a master password.",
+    "message": "Оновлено дозволи вашої організації – вимагається встановлення головного пароля.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
   "orgRequiresYouToSetPassword": {
-    "message": "Your organization requires you to set a master password.",
+    "message": "Ваша організація вимагає, щоб ви встановили головний пароль.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
   "notFound": {
@@ -7371,5 +7389,8 @@
   "seeDetailedInstructions": {
     "message": "Перегляньте докладні інструкції на нашому довідковому сайті",
     "description": "This is followed a by a hyperlink to the help website."
+  },
+  "projectAccessUpdated": {
+    "message": "Project access updated"
   }
 }

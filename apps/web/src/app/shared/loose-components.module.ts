@@ -73,7 +73,6 @@ import { SettingsComponent } from "../settings/settings.component";
 import { VaultTimeoutInputComponent } from "../settings/vault-timeout-input.component";
 import { GeneratorComponent } from "../tools/generator.component";
 import { PasswordGeneratorHistoryComponent } from "../tools/password-generator-history.component";
-import { AccessComponent } from "../tools/send/access.component";
 import { AddEditComponent as SendAddEditComponent } from "../tools/send/add-edit.component";
 import { ToolsComponent } from "../tools/tools.component";
 import { PremiumBadgeComponent } from "../vault/components/premium-badge.component";
@@ -82,6 +81,8 @@ import { AddEditComponent } from "../vault/individual-vault/add-edit.component";
 import { AttachmentsComponent } from "../vault/individual-vault/attachments.component";
 import { CollectionsComponent } from "../vault/individual-vault/collections.component";
 import { FolderAddEditComponent } from "../vault/individual-vault/folder-add-edit.component";
+import { OrganizationBadgeModule } from "../vault/individual-vault/organization-badge/organization-badge.module";
+import { PipesModule } from "../vault/individual-vault/pipes/pipes.module";
 import { ShareComponent } from "../vault/individual-vault/share.component";
 import { AddEditComponent as OrgAddEditComponent } from "../vault/org-vault/add-edit.component";
 import { AttachmentsComponent as OrgAttachmentsComponent } from "../vault/org-vault/attachments.component";
@@ -103,12 +104,13 @@ import { SharedModule } from "./shared.module";
     DynamicAvatarComponent,
     EnvironmentSelectorModule,
     AccountFingerprintComponent,
+    OrganizationBadgeModule,
+    PipesModule,
     PasswordCalloutComponent,
   ],
   declarations: [
     AcceptFamilySponsorshipComponent,
     AcceptOrganizationComponent,
-    AccessComponent,
     AccountComponent,
     AddEditComponent,
     AddEditCustomFieldsComponent,
@@ -191,7 +193,6 @@ import { SharedModule } from "./shared.module";
     UserVerificationModule,
     PremiumBadgeComponent,
     AcceptOrganizationComponent,
-    AccessComponent,
     AccountComponent,
     AddEditComponent,
     AddEditCustomFieldsComponent,

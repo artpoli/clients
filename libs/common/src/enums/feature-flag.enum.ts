@@ -1,10 +1,10 @@
 export enum FeatureFlag {
-  DisplayEuEnvironmentFlag = "display-eu-environment",
   DisplayLowKdfIterationWarningFlag = "display-kdf-iteration-warning",
   Fido2VaultCredentials = "fido2-vault-credentials",
   TrustedDeviceEncryption = "trusted-device-encryption",
   PasswordlessLogin = "passwordless-login",
   AutofillV2 = "autofill-v2",
+  AutofillOverlay = "autofill-overlay",
   BrowserFilelessImport = "browser-fileless-import",
   ItemShare = "item-share",
   FlexibleCollections = "flexible-collections",

@@ -5,7 +5,6 @@ import { OrganizationData } from "../../../admin-console/models/data/organizatio
 import { PolicyData } from "../../../admin-console/models/data/policy.data";
 import { ProviderData } from "../../../admin-console/models/data/provider.data";
 import { Policy } from "../../../admin-console/models/domain/policy";
-import { AuthenticationStatus } from "../../../auth/enums/authentication-status";
 import { AdminAuthRequestStorable } from "../../../auth/models/domain/admin-auth-req-storable";
 import { EnvironmentUrls } from "../../../auth/models/domain/environment-urls";
 import { ForceSetPasswordReason } from "../../../auth/models/domain/force-set-password-reason";
@@ -187,7 +186,6 @@ export class AccountKeys {
 
 export class AccountProfile {
   apiKeyClientId?: string;
-  authenticationStatus?: AuthenticationStatus;
   convertAccountToKeyConnector?: boolean;
   name?: string;
   email?: string;
@@ -224,12 +222,9 @@ export class AccountSettings {
   clearClipboard?: number;
   collapsedGroupings?: string[];
   defaultUriMatch?: UriMatchType;
-  disableAddLoginNotification?: boolean;
   disableAutoBiometricsPrompt?: boolean;
   disableAutoTotpCopy?: boolean;
   disableBadgeCounter?: boolean;
-  disableChangedPasswordNotification?: boolean;
-  disableContextMenuItem?: boolean;
   disableGa?: boolean;
   dismissedAutoFillOnPageLoadCallout?: boolean;
   dontShowCardsCurrentTab?: boolean;
@@ -241,7 +236,6 @@ export class AccountSettings {
   environmentUrls: EnvironmentUrls = new EnvironmentUrls();
   equivalentDomains?: any;
   minimizeOnCopyToClipboard?: boolean;
-  neverDomains?: { [id: string]: any };
   passwordGenerationOptions?: PasswordGeneratorOptions;
   usernameGenerationOptions?: UsernameGeneratorOptions;
   generatorOptions?: GeneratorOptions;

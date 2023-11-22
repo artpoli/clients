@@ -614,6 +614,12 @@
   "loginWithPasskey": {
     "message": "Увійти з ключем доступу"
   },
+  "invalidPasskeyPleaseTryAgain": {
+    "message": "Invalid Passkey. Please try again."
+  },
+  "twoFactorForPasskeysNotSupportedOnClientUpdateToLogIn": {
+    "message": "2FA for passkeys is not supported. Update the app to log in."
+  },
   "loginWithPasskeyInfo": {
     "message": "Використовуйте згенерований ключ доступу для автоматичного входу без пароля. Ваша авторизація відбуватиметься з використанням біометрії, як-от розпізнавання обличчя чи відбитків пальців, або іншого методу безпеки FIDO2."
   },

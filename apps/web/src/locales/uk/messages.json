@@ -2481,7 +2481,7 @@
     }
   },
   "onPremHostingOptional": {
-    "message": "Попереднє розміщення (необов'язково)"
+    "message": "On-premises hosting (optional)"
   },
   "usersGetPremium": {
     "message": "Користувачі отримують доступ до можливостей Premium"

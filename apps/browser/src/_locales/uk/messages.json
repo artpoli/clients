@@ -620,7 +620,7 @@
     "message": "Запитувати про додавання запису, якщо його немає у вашому сховищі."
   },
   "addLoginNotificationDescAlt": {
-    "message": "Ask to add an item if one isn't found in your vault. Applies to all logged in accounts."
+    "message": "Запитувати про додавання запису, якщо такого не знайдено у вашому сховищі. Застосовується для всіх облікових записів, до яких виконано вхід."
   },
   "showCardsCurrentTab": {
     "message": "Показувати картки на вкладці"
@@ -655,13 +655,13 @@
     "message": "Запитувати про оновлення пароля запису, якщо на вебсайті виявлено його зміну."
   },
   "changedPasswordNotificationDescAlt": {
-    "message": "Ask to update a login's password when a change is detected on a website. Applies to all logged in accounts."
+    "message": "Запитувати про оновлення пароля для запису, якщо виявлено його зміну на вебсайті. Застосовується для всіх облікових записів, до яких виконано вхід."
   },
   "enableUsePasskeys": {
-    "message": "Ask to save and use passkeys"
+    "message": "Запитувати про збереження та використання ключів доступу"
   },
   "usePasskeysDesc": {
-    "message": "Ask to save new passkeys or log in with passkeys stored in your vault. Applies to all logged in accounts."
+    "message": "Запитувати про збереження нових ключів доступу та використання збережених ключів доступу. Застосовується для всіх облікових записів, до яких виконано вхід."
   },
   "notificationChangeDesc": {
     "message": "Ви хочете оновити цей пароль в Bitwarden?"
@@ -679,10 +679,10 @@
     "message": "Показувати в контекстному меню"
   },
   "contextMenuItemDesc": {
-    "message": "Use a secondary click to access password generation and matching logins for the website."
+    "message": "Використовувати контекстне меню для доступу до генератора паролів та відповідних записів для вебсайту."
   },
   "contextMenuItemDescAlt": {
-    "message": "Use a secondary click to access password generation and matching logins for the website. Applies to all logged in accounts."
+    "message": "Використовувати контекстне меню для доступу до генератора паролів та відповідних записів для вебсайту. Застосовується для всіх облікових записів, до яких виконано вхід."
   },
   "defaultUriMatchDetection": {
     "message": "Типове виявлення збігів URI",
@@ -698,7 +698,7 @@
     "message": "Змінити колірну тему додатка."
   },
   "themeDescAlt": {
-    "message": "Change the application's color theme. Applies to all logged in accounts."
+    "message": "Змінити колірну тему програми. Застосовується для всіх облікових записів, до яких виконано вхід."
   },
   "dark": {
     "message": "Темна",
@@ -991,7 +991,7 @@
     "message": "Середовище власного хостингу"
   },
   "selfHostedEnvironmentFooter": {
-    "message": "Вкажіть основну URL-адресу Bitwarden на вашому сервері."
+    "message": "Вкажіть основну URL-адресу Bitwarden, встановленого на локальному хостингу."
   },
   "customEnvironment": {
     "message": "Власне середовище"
@@ -1021,22 +1021,22 @@
     "message": "URL-адреси середовища збережено"
   },
   "showAutoFillMenuOnFormFields": {
-    "message": "Show auto-fill menu on form fields",
+    "message": "Меню автозаповнення на полях форм",
     "description": "Represents the message for allowing the user to enable the auto-fill overlay"
   },
   "showAutoFillMenuOnFormFieldsDescAlt": {
-    "message": "Applies to all logged in accounts."
+    "message": "Застосовується для всіх облікових записів, до яких виконано вхід."
   },
   "autofillOverlayVisibilityOff": {
-    "message": "Off",
+    "message": "Вимк",
     "description": "Overlay setting select option for disabling autofill overlay"
   },
   "autofillOverlayVisibilityOnFieldFocus": {
-    "message": "When field is selected (on focus)",
+    "message": "Якщо вибрано поле (у фокусі)",
     "description": "Overlay appearance select option for showing the field on focus of the input element"
   },
   "autofillOverlayVisibilityOnButtonClick": {
-    "message": "When auto-fill icon is selected",
+    "message": "Якщо вибрано піктограму автозаповнення",
     "description": "Overlay appearance select option for showing the field on click of the overlay icon"
   },
   "enableAutoFillOnPageLoad": {
@@ -1700,7 +1700,7 @@
     "message": "Bitwarden не запитуватиме про збереження даних входу для цих доменів. Потрібно оновити сторінку для застосування змін."
   },
   "excludedDomainsDescAlt": {
-    "message": "Bitwarden will not ask to save login details for these domains for all logged in accounts. You must refresh the page for changes to take effect."
+    "message": "Bitwarden не запитуватиме про збереження даних входу для цих доменів для всіх облікових записів, до яких виконано вхід. Потрібно оновити сторінку для застосування змін."
   },
   "excludedDomainsInvalidDomain": {
     "message": "$DOMAIN$ не є дійсним доменом",
@@ -2264,7 +2264,7 @@
     "message": "Як працює автозаповнення"
   },
   "autofillSelectInfoWithCommand": {
-    "message": "Select an item from this screen, use the shortcut $COMMAND$, or explore other options in settings.",
+    "message": "Виберіть елемент із цього екрану, скористайтеся комбінацією клавіш $COMMAND$, або дізнайтеся про інші можливості в налаштуваннях.",
     "placeholders": {
       "command": {
         "content": "$1",
@@ -2273,7 +2273,7 @@
     }
   },
   "autofillSelectInfoWithoutCommand": {
-    "message": "Select an item from this screen, or explore other options in settings."
+    "message": "Виберіть елемент із цього екрану або дізнайтеся про інші можливості в налаштуваннях."
   },
   "gotIt": {
     "message": "Зрозуміло"
@@ -2495,77 +2495,77 @@
     "description": "Message appearing below the autofill on load message when master password reprompt is set for a vault item."
   },
   "bitwardenOverlayButton": {
-    "message": "Bitwarden auto-fill menu button",
+    "message": "Кнопка меню автозаповнення Bitwarden",
     "description": "Page title for the iframe containing the overlay button"
   },
   "toggleBitwardenVaultOverlay": {
-    "message": "Toggle Bitwarden auto-fill menu",
+    "message": "Перемкнути меню автозаповнення Bitwarden",
     "description": "Screen reader and tool tip label for the overlay button"
   },
   "bitwardenVault": {
-    "message": "Bitwarden auto-fill menu",
+    "message": "Меню автозаповнення Bitwarden",
     "description": "Page title in overlay"
   },
   "unlockYourAccountToViewMatchingLogins": {
-    "message": "Unlock your account to view matching logins",
+    "message": "Розблокуйте обліковий запис, щоб побачити відповідні записи",
     "description": "Text to display in overlay when the account is locked."
   },
   "unlockAccount": {
-    "message": "Unlock account",
+    "message": "Розблокувати обліковий запис",
     "description": "Button text to display in overlay when the account is locked."
   },
   "fillCredentialsFor": {
-    "message": "Fill credentials for",
+    "message": "Заповнити облікові дані для",
     "description": "Screen reader text for when overlay item is in focused"
   },
   "partialUsername": {
-    "message": "Partial username",
+    "message": "Часткове ім'я користувача",
     "description": "Screen reader text for when a login item is focused where a partial username is displayed. SR will announce this phrase before reading the text of the partial username"
   },
   "noItemsToShow": {
-    "message": "No items to show",
+    "message": "Немає записів для показу",
     "description": "Text to show in overlay if there are no matching items"
   },
   "newItem": {
-    "message": "New item",
+    "message": "Новий запис",
     "description": "Button text to display in overlay when there are no matching items"
   },
   "addNewVaultItem": {
-    "message": "Add new vault item",
+    "message": "Додати новий запис сховища",
     "description": "Screen reader text (aria-label) for new item button in overlay"
   },
   "bitwardenOverlayMenuAvailable": {
-    "message": "Bitwarden auto-fill menu available. Press the down arrow key to select.",
+    "message": "Доступне меню автозаповнення Bitwarden. Натисніть клавішу стрілки для вибору.",
     "description": "Screen reader text for announcing when the overlay opens on the page"
   },
   "overrideBrowserAutofillTitle": {
-    "message": "Override browser auto-fill?",
+    "message": "Перевизначити автозаповнення браузера?",
     "description": "Dialog title facilitating the ability to override a chrome browser's default autofill behavior"
   },
   "overrideBrowserAutofillDescription": {
-    "message": "Leaving this setting off may cause conflicts between the Bitwarden auto-fill menu and your browser’s.",
+    "message": "Якщо залишити цей параметр вимкненим, може виникнути конфлікт між меню автозаповнення Bitwarden та вашого браузера.",
     "description": "Dialog message facilitating the ability to override a chrome browser's default autofill behavior"
   },
   "overrideBrowserAutofillPrivacyRequiredDescription": {
-    "message": "Leaving this setting off may cause conflicts between the Bitwarden auto-fill menu and your browser’s. Turning this on will restart the Bitwarden extension.",
+    "message": "Якщо залишити цей параметр вимкненим, може виникнути конфлікт між меню автозаповнення Bitwarden та вашого браузера. Якщо увімкнути, розширення Bitwarden перезапуститься.",
     "description": "Dialog message facilitating the ability to override a chrome browser's default autofill behavior"
   },
   "turnOn": {
-    "message": "Turn on"
+    "message": "Увімкнути"
   },
   "ignore": {
-    "message": "Ignore"
+    "message": "Ігнорувати"
   },
   "overrideBrowserAutoFillSettings": {
-    "message": "Override browser auto-fill settings",
+    "message": "Перевизначити налаштування автозаповнення браузера",
     "description": "Label for the setting that allows overriding the default browser autofill settings"
   },
   "extensionPrivacyPermissionNotGrantedTitle": {
-    "message": "Unable to override browser auto-fill",
+    "message": "Неможливо перевизначити автозаповнення браузера",
     "description": "Title for the dialog that appears when the user has not granted the extension permission to set privacy settings"
   },
   "extensionPrivacyPermissionNotGrantedDescription": {
-    "message": "Bitwarden must have access to the extension's privacy permission to override browser auto-fill settings.",
+    "message": "Bitwarden повинен мати доступ до дозволу приватності розширення, щоб перевизначати налаштування автозаповнення браузера.",
     "description": "Description for the dialog that appears when the user has not granted the extension permission to set privacy settings"
   },
   "importData": {
@@ -2678,6 +2678,9 @@
   },
   "confirmFilePassword": {
     "message": "Підтвердьте пароль файлу"
+  },
+  "typePasskey": {
+    "message": "Passkey"
   },
   "passkeyNotCopied": {
     "message": "Ключ доступу не буде скопійовано"

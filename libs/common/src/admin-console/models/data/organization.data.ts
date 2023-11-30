@@ -1,5 +1,5 @@
-import { ProductType, ProviderType } from "../../../enums";
-import { OrganizationUserStatusType, OrganizationUserType } from "../../enums";
+import { ProductType } from "../../../enums";
+import { OrganizationUserStatusType, OrganizationUserType, ProviderType } from "../../enums";
 import { PermissionsApi } from "../api/permissions.api";
 import { ProfileOrganizationResponse } from "../response/profile-organization.response";
 
@@ -56,7 +56,7 @@ export class OrganizationData {
     options: {
       isMember: boolean;
       isProviderUser: boolean;
-    }
+    },
   ) {
     this.id = response.id;
     this.name = response.name;

@@ -8,7 +8,7 @@ import {
   tdeDecryptionRequiredGuard,
   UnauthGuard,
 } from "@bitwarden/angular/auth/guards";
-import { canAccessFeature } from "@bitwarden/angular/guard/feature-flag.guard";
+import { canAccessFeature } from "@bitwarden/angular/platform/guard/feature-flag.guard";
 import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 
 import { flagEnabled, Flags } from "../utils/flags";
@@ -135,7 +135,7 @@ const routes: Routes = [
         data: { titleId: "acceptEmergency", doNotSaveUrl: false },
         loadComponent: () =>
           import("./auth/emergency-access/accept/accept-emergency.component").then(
-            (mod) => mod.AcceptEmergencyComponent
+            (mod) => mod.AcceptEmergencyComponent,
           ),
       },
       {
@@ -190,7 +190,7 @@ const routes: Routes = [
         path: "migrate-legacy-encryption",
         loadComponent: () =>
           import("./auth/migrate-encryption/migrate-legacy-encryption.component").then(
-            (mod) => mod.MigrateFromLegacyEncryptionComponent
+            (mod) => mod.MigrateFromLegacyEncryptionComponent,
           ),
       },
     ],
@@ -234,7 +234,7 @@ const routes: Routes = [
             path: "subscription",
             loadChildren: () =>
               import("./billing/individual/individual-billing.module").then(
-                (m) => m.IndividualBillingModule
+                (m) => m.IndividualBillingModule,
               ),
           },
           {

@@ -1,9 +1,8 @@
 import { mock } from "jest-mock-extended";
 
 import { AuthenticationStatus } from "@bitwarden/common/auth/enums/authentication-status";
-import { UriMatchType } from "@bitwarden/common/enums";
+import { UriMatchType, CipherType } from "@bitwarden/common/vault/enums";
 import { CipherRepromptType } from "@bitwarden/common/vault/enums/cipher-reprompt-type";
-import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 
 import { OverlayCipherData } from "../background/abstractions/overlay.background";
@@ -107,7 +106,7 @@ function createGenerateFillScriptOptionsMock(customFields = {}): GenerateFillScr
 
 function createAutofillScriptMock(
   customFields = {},
-  scriptTypes?: Record<string, string>
+  scriptTypes?: Record<string, string>,
 ): AutofillScript {
   let script: FillScript[] = [
     ["click_on_opid", "default-field"],
@@ -153,7 +152,7 @@ const overlayPagesTranslations = {
   addNewVaultItem: "addNewVaultItem",
 };
 function createInitAutofillOverlayButtonMessageMock(
-  customFields = {}
+  customFields = {},
 ): InitAutofillOverlayButtonMessage {
   return {
     command: "initAutofillOverlayButton",
@@ -182,7 +181,7 @@ function createAutofillOverlayCipherDataMock(index: number, customFields = {}): 
 }
 
 function createInitAutofillOverlayListMessageMock(
-  customFields = {}
+  customFields = {},
 ): InitAutofillOverlayListMessage {
   return {
     command: "initAutofillOverlayList",

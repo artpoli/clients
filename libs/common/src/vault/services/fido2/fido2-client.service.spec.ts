@@ -190,7 +190,7 @@ describe("FidoAuthenticatorService", () => {
             }),
           }),
           tab,
-          expect.anything()
+          expect.anything(),
         );
       });
 
@@ -198,7 +198,7 @@ describe("FidoAuthenticatorService", () => {
       it("should throw error if authenticator throws InvalidState", async () => {
         const params = createParams();
         authenticator.makeCredential.mockRejectedValue(
-          new Fido2AuthenticatorError(Fido2AuthenticatorErrorCode.InvalidState)
+          new Fido2AuthenticatorError(Fido2AuthenticatorErrorCode.InvalidState),
         );
 
         const result = async () => await client.createCredential(params, tab);
@@ -285,6 +285,7 @@ describe("FidoAuthenticatorService", () => {
         credentialId: guidToRawFormat(Utils.newGuid()),
         attestationObject: randomBytes(128),
         authData: randomBytes(64),
+        publicKey: randomBytes(64),
         publicKeyAlgorithm: -7,
       };
     }
@@ -368,7 +369,7 @@ describe("FidoAuthenticatorService", () => {
       it("should throw error if authenticator throws InvalidState", async () => {
         const params = createParams();
         authenticator.getAssertion.mockRejectedValue(
-          new Fido2AuthenticatorError(Fido2AuthenticatorErrorCode.InvalidState)
+          new Fido2AuthenticatorError(Fido2AuthenticatorErrorCode.InvalidState),
         );
 
         const result = async () => await client.assertCredential(params, tab);
@@ -453,7 +454,7 @@ describe("FidoAuthenticatorService", () => {
             ],
           }),
           tab,
-          expect.anything()
+          expect.anything(),
         );
       });
     });
@@ -475,7 +476,7 @@ describe("FidoAuthenticatorService", () => {
             allowCredentialDescriptorList: [],
           }),
           tab,
-          expect.anything()
+          expect.anything(),
         );
       });
     });

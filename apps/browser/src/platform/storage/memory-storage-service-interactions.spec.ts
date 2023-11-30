@@ -1,3 +1,8 @@
+/**
+ * need to update test environment so structuredClone works appropriately
+ * @jest-environment ../../libs/shared/test.environment.ts
+ */
+
 import { trackEmissions } from "@bitwarden/common/../spec/utils";
 
 import { BackgroundMemoryStorageService } from "./background-memory-storage.service";
@@ -29,7 +34,7 @@ describe("foreground background memory storage interaction", () => {
 
       const result = await foreground[action](key);
       expect(result).toEqual(value);
-    }
+    },
   );
 
   test("background should call save from foreground", async () => {

@@ -5,7 +5,7 @@ import { OrganizationService } from "@bitwarden/common/admin-console/abstraction
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { PasswordStrengthServiceAbstraction } from "@bitwarden/common/tools/password-strength";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
-import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
+import { CipherType } from "@bitwarden/common/vault/enums";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 import { BadgeTypes } from "@bitwarden/components";
 import { PasswordRepromptService } from "@bitwarden/vault";
@@ -28,7 +28,7 @@ export class WeakPasswordsReportComponent extends CipherReportComponent implemen
     protected passwordStrengthService: PasswordStrengthServiceAbstraction,
     protected organizationService: OrganizationService,
     modalService: ModalService,
-    passwordRepromptService: PasswordRepromptService
+    passwordRepromptService: PasswordRepromptService,
   ) {
     super(modalService, passwordRepromptService, organizationService);
   }
@@ -68,7 +68,7 @@ export class WeakPasswordsReportComponent extends CipherReportComponent implemen
                   .substr(0, atPosition)
                   .trim()
                   .toLowerCase()
-                  .split(/[^A-Za-z0-9]/)
+                  .split(/[^A-Za-z0-9]/),
               )
               .filter((i) => i.length >= 3);
           } else {
@@ -82,7 +82,7 @@ export class WeakPasswordsReportComponent extends CipherReportComponent implemen
         const result = this.passwordStrengthService.getPasswordStrength(
           login.password,
           null,
-          userInput.length > 0 ? userInput : null
+          userInput.length > 0 ? userInput : null,
         );
         this.passwordStrengthCache.set(cacheKey, result.score);
       }

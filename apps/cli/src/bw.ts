@@ -29,8 +29,9 @@ import { TokenService } from "@bitwarden/common/auth/services/token.service";
 import { TwoFactorService } from "@bitwarden/common/auth/services/two-factor.service";
 import { UserVerificationApiService } from "@bitwarden/common/auth/services/user-verification/user-verification-api.service";
 import { UserVerificationService } from "@bitwarden/common/auth/services/user-verification/user-verification.service";
-import { ClientType, KeySuffixOptions, LogLevelType } from "@bitwarden/common/enums";
+import { ClientType } from "@bitwarden/common/enums";
 import { ConfigApiServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config-api.service.abstraction";
+import { KeySuffixOptions, LogLevelType } from "@bitwarden/common/platform/enums";
 import { StateFactory } from "@bitwarden/common/platform/factories/state-factory";
 import { Account } from "@bitwarden/common/platform/models/domain/account";
 import { GlobalState } from "@bitwarden/common/platform/models/domain/global-state";
@@ -53,7 +54,6 @@ import { EventCollectionService } from "@bitwarden/common/services/event/event-c
 import { EventUploadService } from "@bitwarden/common/services/event/event-upload.service";
 import { SearchService } from "@bitwarden/common/services/search.service";
 import { SettingsService } from "@bitwarden/common/services/settings.service";
-import { TotpService } from "@bitwarden/common/services/totp.service";
 import { VaultTimeoutSettingsService } from "@bitwarden/common/services/vault-timeout/vault-timeout-settings.service";
 import { VaultTimeoutService } from "@bitwarden/common/services/vault-timeout/vault-timeout.service";
 import {
@@ -74,6 +74,7 @@ import { FolderApiService } from "@bitwarden/common/vault/services/folder/folder
 import { FolderService } from "@bitwarden/common/vault/services/folder/folder.service";
 import { SyncNotifierService } from "@bitwarden/common/vault/services/sync/sync-notifier.service";
 import { SyncService } from "@bitwarden/common/vault/services/sync/sync.service";
+import { TotpService } from "@bitwarden/common/vault/services/totp.service";
 import {
   VaultExportService,
   VaultExportServiceAbstraction,
@@ -187,26 +188,26 @@ export class Main {
     this.platformUtilsService = new CliPlatformUtilsService(ClientType.Cli, packageJson);
     this.logService = new ConsoleLogService(
       this.platformUtilsService.isDev(),
-      (level) => process.env.BITWARDENCLI_DEBUG !== "true" && level <= LogLevelType.Info
+      (level) => process.env.BITWARDENCLI_DEBUG !== "true" && level <= LogLevelType.Info,
     );
     this.cryptoFunctionService = new NodeCryptoFunctionService();
     this.encryptService = new EncryptServiceImplementation(
       this.cryptoFunctionService,
       this.logService,
-      true
+      true,
     );
     this.storageService = new LowdbStorageService(this.logService, null, p, false, true);
     this.secureStorageService = new NodeEnvSecureStorageService(
       this.storageService,
       this.logService,
-      () => this.cryptoService
+      () => this.cryptoService,
     );
 
     this.memoryStorageService = new MemoryStorageService();
 
     this.globalStateProvider = new DefaultGlobalStateProvider(
       this.memoryStorageService,
-      this.storageService
+      this.storageService,
     );
 
     this.messagingService = new NoopMessagingService();
@@ -214,7 +215,7 @@ export class Main {
     this.accountService = new AccountServiceImplementation(
       this.messagingService,
       this.logService,
-      this.globalStateProvider
+      this.globalStateProvider,
     );
 
     this.stateService = new StateService(
@@ -223,7 +224,7 @@ export class Main {
       this.memoryStorageService,
       this.logService,
       new StateFactory(GlobalState, Account),
-      this.accountService
+      this.accountService,
     );
 
     this.cryptoService = new CryptoService(
@@ -231,7 +232,7 @@ export class Main {
       this.encryptService,
       this.platformUtilsService,
       this.logService,
-      this.stateService
+      this.stateService,
     );
 
     this.appIdService = new AppIdService(this.storageService);
@@ -250,7 +251,7 @@ export class Main {
       this.environmentService,
       this.appIdService,
       async (expired: boolean) => await this.logout(),
-      customUserAgent
+      customUserAgent,
     );
 
     this.syncNotifierService = new SyncNotifierService();
@@ -267,18 +268,18 @@ export class Main {
       this.cryptoService,
       this.i18nService,
       this.cryptoFunctionService,
-      this.stateService
+      this.stateService,
     );
 
     this.cipherFileUploadService = new CipherFileUploadService(
       this.apiService,
-      this.fileUploadService
+      this.fileUploadService,
     );
 
     this.sendApiService = this.sendApiService = new SendApiService(
       this.apiService,
       this.fileUploadService,
-      this.sendService
+      this.sendService,
     );
 
     this.searchService = new SearchService(this.logService, this.i18nService);
@@ -288,7 +289,7 @@ export class Main {
     this.collectionService = new CollectionService(
       this.cryptoService,
       this.i18nService,
-      this.stateService
+      this.stateService,
     );
 
     this.providerService = new ProviderService(this.stateService);
@@ -302,7 +303,7 @@ export class Main {
     this.policyApiService = new PolicyApiService(
       this.policyService,
       this.apiService,
-      this.stateService
+      this.stateService,
     );
 
     this.keyConnectorService = new KeyConnectorService(
@@ -313,7 +314,7 @@ export class Main {
       this.logService,
       this.organizationService,
       this.cryptoFunctionService,
-      async (expired: boolean) => await this.logout()
+      async (expired: boolean) => await this.logout(),
     );
 
     this.twoFactorService = new TwoFactorService(this.i18nService, this.platformUtilsService);
@@ -323,7 +324,7 @@ export class Main {
     this.passwordGenerationService = new PasswordGenerationService(
       this.cryptoService,
       this.policyService,
-      this.stateService
+      this.stateService,
     );
 
     this.devicesApiService = new DevicesApiServiceImplementation(this.apiService);
@@ -335,7 +336,7 @@ export class Main {
       this.appIdService,
       this.devicesApiService,
       this.i18nService,
-      this.platformUtilsService
+      this.platformUtilsService,
     );
 
     this.authRequestCryptoService = new AuthRequestCryptoServiceImplementation(this.cryptoService);
@@ -357,7 +358,7 @@ export class Main {
       this.passwordStrengthService,
       this.policyService,
       this.deviceTrustCryptoService,
-      this.authRequestCryptoService
+      this.authRequestCryptoService,
     );
 
     this.configApiService = new ConfigApiService(this.apiService, this.authService);
@@ -368,7 +369,7 @@ export class Main {
       this.authService,
       this.environmentService,
       this.logService,
-      true
+      true,
     );
 
     this.cipherService = new CipherService(
@@ -380,14 +381,14 @@ export class Main {
       this.stateService,
       this.encryptService,
       this.cipherFileUploadService,
-      this.configService
+      this.configService,
     );
 
     this.folderService = new FolderService(
       this.cryptoService,
       this.i18nService,
       this.cipherService,
-      this.stateService
+      this.stateService,
     );
 
     this.folderApiService = new FolderApiService(this.folderService, this.apiService);
@@ -399,7 +400,7 @@ export class Main {
       this.stateService,
       this.cryptoService,
       this.i18nService,
-      this.userVerificationApiService
+      this.userVerificationApiService,
     );
 
     this.vaultTimeoutSettingsService = new VaultTimeoutSettingsService(
@@ -407,7 +408,7 @@ export class Main {
       this.tokenService,
       this.policyService,
       this.stateService,
-      this.userVerificationService
+      this.userVerificationService,
     );
 
     this.vaultTimeoutService = new VaultTimeoutService(
@@ -422,7 +423,7 @@ export class Main {
       this.authService,
       this.vaultTimeoutSettingsService,
       lockedCallback,
-      null
+      null,
     );
 
     this.syncService = new SyncService(
@@ -442,7 +443,7 @@ export class Main {
       this.folderApiService,
       this.organizationService,
       this.sendApiService,
-      async (expired: boolean) => await this.logout()
+      async (expired: boolean) => await this.logout(),
     );
 
     this.totpService = new TotpService(this.cryptoFunctionService, this.logService);
@@ -455,7 +456,7 @@ export class Main {
       this.importApiService,
       this.i18nService,
       this.collectionService,
-      this.cryptoService
+      this.cryptoService,
     );
     this.exportService = new VaultExportService(
       this.folderService,
@@ -463,7 +464,7 @@ export class Main {
       this.apiService,
       this.cryptoService,
       this.cryptoFunctionService,
-      this.stateService
+      this.stateService,
     );
 
     this.auditService = new AuditService(this.cryptoFunctionService, this.apiService);
@@ -476,14 +477,14 @@ export class Main {
     this.eventUploadService = new EventUploadService(
       this.apiService,
       this.stateService,
-      this.logService
+      this.logService,
     );
 
     this.eventCollectionService = new EventCollectionService(
       this.cipherService,
       this.stateService,
       this.organizationService,
-      this.eventUploadService
+      this.eventUploadService,
     );
   }
 

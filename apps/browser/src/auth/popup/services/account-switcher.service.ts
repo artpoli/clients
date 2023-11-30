@@ -15,7 +15,7 @@ export class AccountSwitcherService {
   constructor(
     private accountService: AccountService,
     private stateService: StateService,
-    private messagingService: MessagingService
+    private messagingService: MessagingService,
   ) {}
 
   get accountOptions$() {
@@ -31,7 +31,7 @@ export class AccountSwitcherService {
               id: id,
               isSelected: id === activeAccount?.id,
             };
-          }
+          },
         );
 
         if (!hasMaxAccounts) {
@@ -43,7 +43,7 @@ export class AccountSwitcherService {
         }
 
         return options;
-      })
+      }),
     );
   }
 
@@ -54,7 +54,7 @@ export class AccountSwitcherService {
       return;
     }
 
-    this.accountService.switchAccount(id as UserId);
+    await this.accountService.switchAccount(id as UserId);
     this.messagingService.send("switchAccount", { userId: id });
   }
 }

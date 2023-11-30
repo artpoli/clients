@@ -6,12 +6,12 @@ import { ExportComponent as BaseExportComponent } from "@bitwarden/angular/tools
 import { EventCollectionService } from "@bitwarden/common/abstractions/event/event-collection.service";
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { UserVerificationService } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
-import { EncryptedExportType } from "@bitwarden/common/enums";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { FileDownloadService } from "@bitwarden/common/platform/abstractions/file-download/file-download.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
+import { EncryptedExportType } from "@bitwarden/common/tools/enums/encrypted-export-type.enum";
 import { DialogService } from "@bitwarden/components";
 import { VaultExportServiceAbstraction } from "@bitwarden/exporter/vault-export";
 
@@ -37,7 +37,7 @@ export class ExportComponent extends BaseExportComponent {
     userVerificationService: UserVerificationService,
     formBuilder: UntypedFormBuilder,
     fileDownloadService: FileDownloadService,
-    dialogService: DialogService
+    dialogService: DialogService,
   ) {
     super(
       cryptoService,
@@ -51,7 +51,7 @@ export class ExportComponent extends BaseExportComponent {
       userVerificationService,
       formBuilder,
       fileDownloadService,
-      dialogService
+      dialogService,
     );
   }
 
@@ -60,7 +60,7 @@ export class ExportComponent extends BaseExportComponent {
       this.platformUtilsService.showToast(
         "error",
         this.i18nService.t("errorOccurred"),
-        this.i18nService.t("filePasswordAndConfirmFilePasswordDoNotMatch")
+        this.i18nService.t("filePasswordAndConfirmFilePasswordDoNotMatch"),
       );
       return;
     }
@@ -74,7 +74,7 @@ export class ExportComponent extends BaseExportComponent {
       this.platformUtilsService.showToast(
         "error",
         null,
-        this.i18nService.t("personalVaultExportPolicyInEffect")
+        this.i18nService.t("personalVaultExportPolicyInEffect"),
       );
       return;
     }

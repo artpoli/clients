@@ -3,7 +3,7 @@ import { LogService } from "@bitwarden/common/platform/abstractions/log.service"
 import { StateFactory } from "@bitwarden/common/platform/factories/state-factory";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { GlobalState } from "@bitwarden/common/platform/models/domain/global-state";
-import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
+import { CipherType } from "@bitwarden/common/vault/enums";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 
 import { Account } from "../../models/account";
@@ -46,7 +46,7 @@ export class MainContextMenuHandler {
   constructor(
     private stateService: BrowserStateService,
     private i18nService: I18nService,
-    private logService: LogService
+    private logService: LogService,
   ) {
     if (chrome.contextMenus) {
       this.create = (options) => {
@@ -89,7 +89,7 @@ export class MainContextMenuHandler {
     return new MainContextMenuHandler(
       await stateServiceFactory(cachedServices, serviceOptions),
       await i18nServiceFactory(cachedServices, serviceOptions),
-      await logServiceFactory(cachedServices, serviceOptions)
+      await logServiceFactory(cachedServices, serviceOptions),
     );
   }
 
@@ -274,7 +274,7 @@ export class MainContextMenuHandler {
       const authed = await this.stateService.getIsAuthenticated();
       await this.loadOptions(
         this.i18nService.t(authed ? "unlockVaultMenu" : "loginToVaultMenu"),
-        NOOP_COMMAND_SUFFIX
+        NOOP_COMMAND_SUFFIX,
       );
     }
   }

@@ -1,6 +1,7 @@
 import { ipcRenderer } from "electron";
 
-import { DeviceType, ThemeType, KeySuffixOptions } from "@bitwarden/common/enums";
+import { DeviceType } from "@bitwarden/common/enums";
+import { ThemeType, KeySuffixOptions } from "@bitwarden/common/platform/enums";
 import { EncString } from "@bitwarden/common/platform/models/domain/enc-string";
 
 import {
@@ -88,7 +89,7 @@ export default {
     menu: {
       label?: string;
       type?: "normal" | "separator" | "submenu" | "checkbox" | "radio";
-    }[]
+    }[],
   ): Promise<number> => ipcRenderer.invoke("openContextMenu", { menu }),
 
   getSystemTheme: (): Promise<ThemeType> => ipcRenderer.invoke("systemTheme"),

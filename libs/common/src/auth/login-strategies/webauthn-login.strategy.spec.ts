@@ -82,7 +82,7 @@ describe("WebAuthnLoginStrategy", () => {
       messagingService,
       logService,
       stateService,
-      twoFactorService
+      twoFactorService,
     );
 
     // Create credentials
@@ -128,7 +128,7 @@ describe("WebAuthnLoginStrategy", () => {
     // Arrange
     const idTokenResponse: IdentityTokenResponse = identityTokenResponseFactory(
       null,
-      userDecryptionOptsServerResponseWithWebAuthnPrfOption
+      userDecryptionOptsServerResponseWithWebAuthnPrfOption,
     );
 
     apiService.postIdentityToken.mockResolvedValue(idTokenResponse);
@@ -146,7 +146,7 @@ describe("WebAuthnLoginStrategy", () => {
         device: expect.objectContaining({
           identifier: deviceId,
         }),
-      })
+      }),
     );
 
     expect(authResult).toBeInstanceOf(AuthResult);
@@ -164,7 +164,7 @@ describe("WebAuthnLoginStrategy", () => {
     // Arrange
     const idTokenResponse: IdentityTokenResponse = identityTokenResponseFactory(
       null,
-      userDecryptionOptsServerResponseWithWebAuthnPrfOption
+      userDecryptionOptsServerResponseWithWebAuthnPrfOption,
     );
 
     apiService.postIdentityToken.mockResolvedValue(idTokenResponse);
@@ -179,16 +179,20 @@ describe("WebAuthnLoginStrategy", () => {
     // Act
     await webAuthnLoginStrategy.logIn(webAuthnCredentials);
 
-    // // Assert
+    // Assert
+    // Master key encrypted user key should be set
+    expect(cryptoService.setMasterKeyEncryptedUserKey).toHaveBeenCalledTimes(1);
+    expect(cryptoService.setMasterKeyEncryptedUserKey).toHaveBeenCalledWith(idTokenResponse.key);
+
     expect(cryptoService.decryptToBytes).toHaveBeenCalledTimes(1);
     expect(cryptoService.decryptToBytes).toHaveBeenCalledWith(
       idTokenResponse.userDecryptionOptions.webAuthnPrfOption.encryptedPrivateKey,
-      webAuthnCredentials.prfKey
+      webAuthnCredentials.prfKey,
     );
     expect(cryptoService.rsaDecrypt).toHaveBeenCalledTimes(1);
     expect(cryptoService.rsaDecrypt).toHaveBeenCalledWith(
       idTokenResponse.userDecryptionOptions.webAuthnPrfOption.encryptedUserKey.encryptedString,
-      mockPrfPrivateKey
+      mockPrfPrivateKey,
     );
     expect(cryptoService.setUserKey).toHaveBeenCalledWith(mockUserKey);
     expect(cryptoService.setPrivateKey).toHaveBeenCalledWith(idTokenResponse.privateKey);
@@ -201,7 +205,7 @@ describe("WebAuthnLoginStrategy", () => {
     // Arrange
     const idTokenResponse: IdentityTokenResponse = identityTokenResponseFactory(
       null,
-      userDecryptionOptsServerResponseWithWebAuthnPrfOption
+      userDecryptionOptsServerResponseWithWebAuthnPrfOption,
     );
 
     apiService.postIdentityToken.mockResolvedValue(idTokenResponse);
@@ -243,7 +247,7 @@ describe("WebAuthnLoginStrategy", () => {
     // Arrange
     const idTokenResponse: IdentityTokenResponse = identityTokenResponseFactory(
       null,
-      userDecryptionOptsServerResponseWithWebAuthnPrfOption
+      userDecryptionOptsServerResponseWithWebAuthnPrfOption,
     );
 
     apiService.postIdentityToken.mockResolvedValue(idTokenResponse);
@@ -261,7 +265,7 @@ describe("WebAuthnLoginStrategy", () => {
     // Arrange
     const idTokenResponse: IdentityTokenResponse = identityTokenResponseFactory(
       null,
-      userDecryptionOptsServerResponseWithWebAuthnPrfOption
+      userDecryptionOptsServerResponseWithWebAuthnPrfOption,
     );
 
     apiService.postIdentityToken.mockResolvedValue(idTokenResponse);
@@ -310,7 +314,7 @@ class MockPublicKeyCredential implements PublicKeyCredential {
   // Creating the array buffer from a known hex value allows us to
   // assert on the value in tests
   private prfKeyArrayBuffer: ArrayBuffer = Utils.hexStringToArrayBuffer(
-    "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+    "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
   );
 
   getClientExtensionResults(): any {

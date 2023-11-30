@@ -1,4 +1,4 @@
-import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
+import { CipherType } from "@bitwarden/common/vault/enums";
 
 import { BrowserApi } from "../../../platform/browser/browser-api";
 import BrowserPopupUtils from "../../../platform/popup/browser-popup-utils";
@@ -15,7 +15,7 @@ async function openViewVaultItemPopout(
     cipherId: string;
     action: string;
     forceCloseExistingWindows?: boolean;
-  }
+  },
 ) {
   const { cipherId, action, forceCloseExistingWindows } = cipherOptions;
   let promptWindowPath = "popup/index.html#/view-cipher?uilocation=popout";
@@ -52,7 +52,7 @@ async function openVaultItemPasswordRepromptPopout(
   cipherOptions: {
     cipherId: string;
     action: string;
-  }
+  },
 ) {
   await openViewVaultItemPopout(senderTab, {
     forceCloseExistingWindows: true,
@@ -69,7 +69,7 @@ async function openVaultItemPasswordRepromptPopout(
  */
 async function openAddEditVaultItemPopout(
   senderTab: chrome.tabs.Tab,
-  cipherOptions: { cipherId?: string; cipherType?: CipherType } = {}
+  cipherOptions: { cipherId?: string; cipherType?: CipherType } = {},
 ) {
   const { cipherId, cipherType } = cipherOptions;
   const { url, windowId } = senderTab;
@@ -115,7 +115,7 @@ async function openFido2Popout(
   options: {
     sessionId: string;
     fallbackSupported: boolean;
-  }
+  },
 ): Promise<chrome.windows.Window["id"]> {
   const { sessionId, fallbackSupported } = options;
   const promptWindowPath =

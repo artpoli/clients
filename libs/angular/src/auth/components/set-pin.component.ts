@@ -1,9 +1,9 @@
 import { Directive, OnInit } from "@angular/core";
 
 import { UserVerificationService } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
-import { KeySuffixOptions } from "@bitwarden/common/enums/key-suffix-options.enum";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
+import { KeySuffixOptions } from "@bitwarden/common/platform/enums/key-suffix-options.enum";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 
 import { ModalRef } from "../../components/modal/modal.ref";
@@ -19,7 +19,7 @@ export class SetPinComponent implements OnInit {
     private modalRef: ModalRef,
     private cryptoService: CryptoService,
     private userVerificationService: UserVerificationService,
-    private stateService: StateService
+    private stateService: StateService,
   ) {}
 
   async ngOnInit() {
@@ -41,7 +41,7 @@ export class SetPinComponent implements OnInit {
       this.pin,
       await this.stateService.getEmail(),
       await this.stateService.getKdfType(),
-      await this.stateService.getKdfConfig()
+      await this.stateService.getKdfConfig(),
     );
     const userKey = await this.cryptoService.getUserKey();
     const pinProtectedKey = await this.cryptoService.encrypt(userKey.key, pinKey);

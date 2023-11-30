@@ -24,7 +24,7 @@ export class SendAccessTextComponent {
   constructor(
     private i18nService: I18nService,
     private platformUtilsService: PlatformUtilsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {}
 
   get send(): SendAccessView {
@@ -40,7 +40,7 @@ export class SendAccessTextComponent {
     }
 
     this.formGroup.controls.sendText.patchValue(
-      this.showText ? this.send.text.text : this.send.text.maskedText
+      this.showText ? this.send.text.text : this.send.text.maskedText,
     );
   }
 
@@ -49,11 +49,14 @@ export class SendAccessTextComponent {
     this.platformUtilsService.showToast(
       "success",
       null,
-      this.i18nService.t("valueCopied", this.i18nService.t("sendTypeText"))
+      this.i18nService.t("valueCopied", this.i18nService.t("sendTypeText")),
     );
   }
 
   protected toggleText() {
     this.showText = !this.showText;
+    this.formGroup.controls.sendText.patchValue(
+      this.showText ? this.send.text.text : this.send.text.maskedText,
+    );
   }
 }

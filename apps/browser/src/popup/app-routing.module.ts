@@ -8,7 +8,7 @@ import {
   tdeDecryptionRequiredGuard,
   UnauthGuard,
 } from "@bitwarden/angular/auth/guards";
-import { canAccessFeature } from "@bitwarden/angular/guard/feature-flag.guard";
+import { canAccessFeature } from "@bitwarden/angular/platform/guard/feature-flag.guard";
 import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 
 import { fido2AuthGuard } from "../auth/guards/fido2-auth.guard";
@@ -27,6 +27,7 @@ import { SsoComponent } from "../auth/popup/sso.component";
 import { TwoFactorOptionsComponent } from "../auth/popup/two-factor-options.component";
 import { TwoFactorComponent } from "../auth/popup/two-factor.component";
 import { UpdateTempPasswordComponent } from "../auth/popup/update-temp-password.component";
+import { AutofillComponent } from "../autofill/popup/settings/autofill.component";
 import { GeneratorComponent } from "../tools/popup/generator/generator.component";
 import { PasswordGeneratorHistoryComponent } from "../tools/popup/generator/password-generator-history.component";
 import { SendAddEditComponent } from "../tools/popup/send/send-add-edit.component";
@@ -47,7 +48,6 @@ import { ViewComponent } from "../vault/popup/components/vault/view.component";
 import { FolderAddEditComponent } from "../vault/popup/settings/folder-add-edit.component";
 
 import { DebounceNavigationService } from "./services/debounceNavigationService";
-import { AutofillComponent } from "./settings/autofill.component";
 import { ExcludedDomainsComponent } from "./settings/excluded-domains.component";
 import { FoldersComponent } from "./settings/folders.component";
 import { HelpAndFeedbackComponent } from "./settings/help-and-feedback.component";
@@ -366,7 +366,7 @@ const routes: Routes = [
   {
     path: "account-switcher",
     component: AccountSwitcherComponent,
-    data: { state: "account-switcher" },
+    data: { state: "account-switcher", doNotSaveUrl: true },
   },
 ];
 

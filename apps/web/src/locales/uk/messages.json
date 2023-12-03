@@ -7323,7 +7323,7 @@
     "message": "Дозволити створення та видалення збірок лише власникам та адміністраторам"
   },
   "allowAdminAccessToAllCollectionItemsDesc": {
-    "message": "Owners and admins can manage all collections and items"
+    "message": "Власники та адміністратори можуть керувати всіма збірками та записами"
   },
   "collectionManagementUpdated": {
     "message": "Налаштування керування збірками збережено"
@@ -7408,7 +7408,7 @@
     "message": "Ключ доступу не буде скопійовано до клонованого запису. Хочете продовжити клонування цього запису?"
   },
   "modifiedCollectionManagement": {
-    "message": "Modified collection management setting $ID$.",
+    "message": "Змінено налаштування керування збіркою $ID$.",
     "placeholders": {
       "id": {
         "content": "$1",

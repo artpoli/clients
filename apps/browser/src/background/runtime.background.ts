@@ -1,5 +1,4 @@
 import { NotificationsService } from "@bitwarden/common/abstractions/notifications.service";
-import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { ConfigServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
@@ -20,6 +19,7 @@ import { BrowserStateService } from "../platform/services/abstractions/browser-s
 import { BrowserEnvironmentService } from "../platform/services/browser-environment.service";
 import BrowserPlatformUtilsService from "../platform/services/browser-platform-utils.service";
 import { AbortManager } from "../vault/background/abort-manager";
+import { Fido2Service } from "../vault/services/abstractions/fido2.service";
 
 import MainBackground from "./main.background";
 
@@ -42,6 +42,7 @@ export default class RuntimeBackground {
     private messagingService: MessagingService,
     private logService: LogService,
     private configService: ConfigServiceAbstraction,
+    private fido2Service: Fido2Service,
   ) {
     // onInstalled listener must be wired up before anything else, so we do it in the ctor
     chrome.runtime.onInstalled.addListener((details: any) => {
@@ -95,9 +96,9 @@ export default class RuntimeBackground {
           await closeUnlockPopout();
         }
 
+        await this.notificationsService.updateConnection(msg.command === "loggedIn");
         await this.main.refreshBadge();
         await this.main.refreshMenu(false);
-        this.notificationsService.updateConnection(msg.command === "unlocked");
         this.systemService.cancelProcessReload();
 
         if (item) {
@@ -131,11 +132,7 @@ export default class RuntimeBackground {
         await this.main.openPopup();
         break;
       case "triggerAutofillScriptInjection":
-        await this.autofillService.injectAutofillScripts(
-          sender,
-          await this.configService.getFeatureFlag<boolean>(FeatureFlag.AutofillV2),
-          await this.configService.getFeatureFlag<boolean>(FeatureFlag.AutofillOverlay),
-        );
+        await this.autofillService.injectAutofillScripts(sender.tab, sender.frameId);
         break;
       case "bgCollectPageDetails":
         await this.main.collectPageDetailsForContentScript(sender.tab, msg.sender, sender.frameId);
@@ -257,6 +254,9 @@ export default class RuntimeBackground {
       case "getClickedElementResponse":
         this.platformUtilsService.copyToClipboard(msg.identifier, { window: window });
         break;
+      case "triggerFido2ContentScriptInjection":
+        await this.fido2Service.injectFido2ContentScripts(sender);
+        break;
       case "fido2AbortRequest":
         this.abortManager.abort(msg.abortedRequestId);
         break;
@@ -320,6 +320,8 @@ export default class RuntimeBackground {
 
   private async checkOnInstalled() {
     setTimeout(async () => {
+      this.autofillService.loadAutofillScriptsOnInstall();
+
       if (this.onInstalledReason != null) {
         if (this.onInstalledReason === "install") {
           BrowserApi.createNewTab("https://bitwarden.com/browser-start/");

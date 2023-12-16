@@ -674,8 +674,8 @@
   "encryptionNotSupported": {
     "message": "Шифрование не поддерживается"
   },
-  "encryptionNotEnabled": {
-    "message": "Шифрование не включено"
+  "enablePasskeyEncryption": {
+    "message": "Настройка шифрования"
   },
   "usedForEncryption": {
     "message": "Используется для шифрования"
@@ -1074,6 +1074,9 @@
   "export": {
     "message": "Экспорт"
   },
+  "exportFrom": {
+    "message": "Экспорт из"
+  },
   "exportVault": {
     "message": "Экспорт хранилища"
   },
@@ -1149,6 +1152,9 @@
   },
   "length": {
     "message": "Длина"
+  },
+  "passwordMinLength": {
+    "message": "Минимальная длина пароля"
   },
   "uppercase": {
     "message": "Прописные буквы (A-Z)",
@@ -7434,5 +7440,11 @@
   },
   "seatLimitReachedContactYourProvider": {
     "message": "Лимит мест исчерпан. Свяжитесь с вашим провайдером для покупки дополнительных мест."
+  },
+  "collectionAccessRestricted": {
+    "message": "Доступ к коллекции ограничен"
+  },
+  "serviceAccountAccessUpdated": {
+    "message": "Доступ сервисного аккаунта изменен"
   }
 }

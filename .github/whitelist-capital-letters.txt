@@ -15,7 +15,10 @@
 ./libs/angular/src/scss/webfonts/Open_Sans-normal-600.woff
 ./libs/angular/src/scss/webfonts/Open_Sans-normal-800.woff
 ./libs/angular/src/scss/webfonts/Open_Sans-normal-400.woff
+./libs/admin-console/README.md
 ./libs/auth/README.md
+./libs/billing/README.md
+./libs/platform/README.md
 ./libs/tools/README.md
 ./libs/vault/README.md
 ./README.md
@@ -40,7 +43,6 @@
 ./apps/browser/README.md
 ./apps/browser/store/windows/AppxManifest.xml
 ./apps/browser/src/background/nativeMessaging.background.ts
-./apps/browser/src/popup/services/debounceNavigationService.ts
 ./apps/browser/src/models/browserComponentState.ts
 ./apps/browser/src/models/browserSendComponentState.ts
 ./apps/browser/src/models/browserGroupingsComponentState.ts

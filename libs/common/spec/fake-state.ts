@@ -1,8 +1,15 @@
 import { ReplaySubject, firstValueFrom, timeout } from "rxjs";
 
-import { DerivedUserState, GlobalState, UserState } from "../src/platform/state";
+import {
+  DerivedUserState,
+  GlobalState,
+  SingleUserState,
+  ActiveUserState,
+} from "../src/platform/state";
 // eslint-disable-next-line import/no-restricted-paths -- using unexposed options for clean typing in test class
 import { StateUpdateOptions } from "../src/platform/state/state-update-options";
+// eslint-disable-next-line import/no-restricted-paths -- using unexposed options for clean typing in test class
+import { UserState, activeMarker } from "../src/platform/state/user-state";
 import { UserId } from "../src/types/guid";
 
 const DEFAULT_TEST_OPTIONS: StateUpdateOptions<any, any> = {
@@ -41,7 +48,7 @@ export class FakeGlobalState<T> implements GlobalState<T> {
         ? await firstValueFrom(options.combineLatestWith.pipe(timeout(options.msTimeout)))
         : null;
     if (!options.shouldUpdate(current, combinedDependencies)) {
-      return;
+      return current;
     }
     const newState = configureState(current, combinedDependencies);
     this.stateSubject.next(newState);
@@ -70,7 +77,7 @@ export class FakeUserState<T> implements UserState<T> {
         ? await firstValueFrom(options.combineLatestWith.pipe(timeout(options.msTimeout)))
         : null;
     if (!options.shouldUpdate(current, combinedDependencies)) {
-      return;
+      return current;
     }
     const newState = configureState(current, combinedDependencies);
     this.stateSubject.next(newState);
@@ -96,4 +103,13 @@ export class FakeUserState<T> implements UserState<T> {
   get state$() {
     return this.stateSubject.asObservable();
   }
+}
+
+export class FakeSingleUserState<T> extends FakeUserState<T> implements SingleUserState<T> {
+  constructor(readonly userId: UserId) {
+    super();
+  }
+}
+export class FakeActiveUserState<T> extends FakeUserState<T> implements ActiveUserState<T> {
+  [activeMarker]: true;
 }

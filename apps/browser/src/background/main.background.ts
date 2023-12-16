@@ -156,7 +156,9 @@ import { BrowserSendService } from "../services/browser-send.service";
 import { BrowserSettingsService } from "../services/browser-settings.service";
 import VaultTimeoutService from "../services/vault-timeout/vault-timeout.service";
 import { BrowserFido2UserInterfaceService } from "../vault/fido2/browser-fido2-user-interface.service";
+import { Fido2Service as Fido2ServiceAbstraction } from "../vault/services/abstractions/fido2.service";
 import { BrowserFolderService } from "../vault/services/browser-folder.service";
+import Fido2Service from "../vault/services/fido2.service";
 import { VaultFilterService } from "../vault/services/vault-filter.service";
 
 import CommandsBackground from "./commands.background";
@@ -232,6 +234,7 @@ export default class MainBackground {
   authRequestCryptoService: AuthRequestCryptoServiceAbstraction;
   accountService: AccountServiceAbstraction;
   globalStateProvider: GlobalStateProvider;
+  fido2Service: Fido2ServiceAbstraction;
 
   // Passed to the popup for Safari to workaround issues with theming, downloading, etc.
   backgroundWindow = window;
@@ -493,6 +496,7 @@ export default class MainBackground {
       this.cipherService,
       this.collectionService,
       this.policyService,
+      this.accountService,
     );
 
     this.vaultTimeoutService = new VaultTimeoutService(
@@ -539,6 +543,7 @@ export default class MainBackground {
       this.folderApiService,
       this.organizationService,
       this.sendApiService,
+      this.configService,
       logoutCallback,
     );
     this.eventUploadService = new EventUploadService(
@@ -562,6 +567,7 @@ export default class MainBackground {
       this.logService,
       this.settingsService,
       this.userVerificationService,
+      this.configService,
     );
     this.auditService = new AuditService(this.cryptoFunctionService, this.apiService);
 
@@ -596,6 +602,7 @@ export default class MainBackground {
       this.messagingService,
     );
 
+    this.fido2Service = new Fido2Service();
     this.fido2UserInterfaceService = new BrowserFido2UserInterfaceService(this.authService);
     this.fido2AuthenticatorService = new Fido2AuthenticatorService(
       this.cipherService,
@@ -625,6 +632,7 @@ export default class MainBackground {
       this.platformUtilsService,
       systemUtilsServiceReloadCallback,
       this.stateService,
+      this.vaultTimeoutSettingsService,
     );
 
     // Other fields
@@ -643,6 +651,7 @@ export default class MainBackground {
       this.messagingService,
       this.logService,
       this.configService,
+      this.fido2Service,
     );
     this.nativeMessagingBackground = new NativeMessagingBackground(
       this.cryptoService,
@@ -722,6 +731,7 @@ export default class MainBackground {
       this.vaultTimeoutService,
       this.stateService,
       this.notificationsService,
+      this.accountService,
     );
     this.webRequestBackground = new WebRequestBackground(
       this.platformUtilsService,
@@ -775,6 +785,8 @@ export default class MainBackground {
     }
     await this.idleBackground.init();
     await this.webRequestBackground.init();
+
+    await this.fido2Service.init();
 
     if (this.platformUtilsService.isFirefox() && !this.isPrivateMode) {
       // Set Private Mode windows to the default icon - they do not share state with the background page
@@ -832,28 +844,41 @@ export default class MainBackground {
     }
   }
 
+  /**
+   * Switch accounts to indicated userId -- null is no active user
+   */
   async switchAccount(userId: UserId) {
-    if (userId != null) {
+    try {
       await this.stateService.setActiveUser(userId);
-    }
 
-    const status = await this.authService.getAuthStatus(userId);
-    const forcePasswordReset =
-      (await this.stateService.getForceSetPasswordReason({ userId: userId })) !=
-      ForceSetPasswordReason.None;
+      if (userId == null) {
+        await this.stateService.setRememberedEmail(null);
+        await this.refreshBadge();
+        await this.refreshMenu();
+        await this.overlayBackground.updateOverlayCiphers();
+        return;
+      }
 
-    await this.systemService.clearPendingClipboard();
-    await this.notificationsService.updateConnection(false);
+      const status = await this.authService.getAuthStatus(userId);
+      const forcePasswordReset =
+        (await this.stateService.getForceSetPasswordReason({ userId: userId })) !=
+        ForceSetPasswordReason.None;
 
-    if (status === AuthenticationStatus.Locked) {
-      this.messagingService.send("locked", { userId: userId });
-    } else if (forcePasswordReset) {
-      this.messagingService.send("update-temp-password", { userId: userId });
-    } else {
-      this.messagingService.send("unlocked", { userId: userId });
-      await this.refreshBadge();
-      await this.refreshMenu();
-      await this.syncService.fullSync(false);
+      await this.systemService.clearPendingClipboard();
+      await this.notificationsService.updateConnection(false);
+
+      if (status === AuthenticationStatus.Locked) {
+        this.messagingService.send("locked", { userId: userId });
+      } else if (forcePasswordReset) {
+        this.messagingService.send("update-temp-password", { userId: userId });
+      } else {
+        this.messagingService.send("unlocked", { userId: userId });
+        await this.refreshBadge();
+        await this.refreshMenu();
+        await this.overlayBackground.updateOverlayCiphers();
+        await this.syncService.fullSync(false);
+      }
+    } finally {
       this.messagingService.send("switchAccountFinish", { userId: userId });
     }
   }
@@ -878,16 +903,16 @@ export default class MainBackground {
     //Needs to be checked before state is cleaned
     const needStorageReseed = await this.needsStorageReseed();
 
+    const currentUserId = await this.stateService.getUserId();
     const newActiveUser = await this.stateService.clean({ userId: userId });
 
     if (newActiveUser != null) {
       // we have a new active user, do not continue tearing down application
-      this.switchAccount(newActiveUser as UserId);
+      await this.switchAccount(newActiveUser as UserId);
       this.messagingService.send("switchAccountFinish");
-      return;
     }
 
-    if (userId == null || userId === (await this.stateService.getUserId())) {
+    if (userId == null || userId === currentUserId) {
       this.searchService.clearIndex();
       this.messagingService.send("doneLoggingOut", { expired: expired, userId: userId });
     }

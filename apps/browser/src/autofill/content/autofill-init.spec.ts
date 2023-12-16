@@ -6,7 +6,7 @@ import { flushPromises, sendExtensionRuntimeMessage } from "../jest/testing-util
 import AutofillPageDetails from "../models/autofill-page-details";
 import AutofillScript from "../models/autofill-script";
 import AutofillOverlayContentService from "../services/autofill-overlay-content.service";
-import { RedirectFocusDirection } from "../utils/autofill-overlay.enum";
+import { AutofillOverlayVisibility, RedirectFocusDirection } from "../utils/autofill-overlay.enum";
 
 import { AutofillExtensionMessage } from "./abstractions/autofill-init";
 import AutofillInit from "./autofill-init";
@@ -16,6 +16,11 @@ describe("AutofillInit", () => {
   const autofillOverlayContentService = mock<AutofillOverlayContentService>();
 
   beforeEach(() => {
+    chrome.runtime.connect = jest.fn().mockReturnValue({
+      onDisconnect: {
+        addListener: jest.fn(),
+      },
+    });
     autofillInit = new AutofillInit(autofillOverlayContentService);
   });
 
@@ -297,6 +302,30 @@ describe("AutofillInit", () => {
           autofillInit["autofillOverlayContentService"].isCurrentlyFilling = false;
         });
 
+        it("skips attempting to remove the overlay if the autofillOverlayContentService is not present", () => {
+          const newAutofillInit = new AutofillInit(undefined);
+          newAutofillInit.init();
+          jest.spyOn(newAutofillInit as any, "removeAutofillOverlay");
+
+          sendExtensionRuntimeMessage({
+            command: "closeAutofillOverlay",
+            data: { forceCloseOverlay: false },
+          });
+
+          expect(newAutofillInit["autofillOverlayContentService"]).toBe(undefined);
+        });
+
+        it("removes the autofill overlay if the message flags a forced closure", () => {
+          sendExtensionRuntimeMessage({
+            command: "closeAutofillOverlay",
+            data: { forceCloseOverlay: true },
+          });
+
+          expect(
+            autofillInit["autofillOverlayContentService"].removeAutofillOverlay,
+          ).toHaveBeenCalled();
+        });
+
         it("ignores the message if a field is currently focused", () => {
           autofillInit["autofillOverlayContentService"].isFieldCurrentlyFocused = true;
 
@@ -453,6 +482,57 @@ describe("AutofillInit", () => {
           expect(autofillInit["removeAutofillOverlay"]).toHaveBeenCalled();
         });
       });
+
+      describe("updateAutofillOverlayVisibility", () => {
+        beforeEach(() => {
+          autofillInit["autofillOverlayContentService"].autofillOverlayVisibility =
+            AutofillOverlayVisibility.OnButtonClick;
+        });
+
+        it("skips attempting to update the overlay visibility if the autofillOverlayVisibility data value is not present", () => {
+          sendExtensionRuntimeMessage({
+            command: "updateAutofillOverlayVisibility",
+            data: {},
+          });
+
+          expect(autofillInit["autofillOverlayContentService"].autofillOverlayVisibility).toEqual(
+            AutofillOverlayVisibility.OnButtonClick,
+          );
+        });
+
+        it("updates the overlay visibility value", () => {
+          const message = {
+            command: "updateAutofillOverlayVisibility",
+            data: {
+              autofillOverlayVisibility: AutofillOverlayVisibility.Off,
+            },
+          };
+
+          sendExtensionRuntimeMessage(message);
+
+          expect(autofillInit["autofillOverlayContentService"].autofillOverlayVisibility).toEqual(
+            message.data.autofillOverlayVisibility,
+          );
+        });
+      });
+    });
+  });
+
+  describe("destroy", () => {
+    it("removes the extension message listeners", () => {
+      autofillInit.destroy();
+
+      expect(chrome.runtime.onMessage.removeListener).toHaveBeenCalledWith(
+        autofillInit["handleExtensionMessage"],
+      );
+    });
+
+    it("destroys the collectAutofillContentService", () => {
+      jest.spyOn(autofillInit["collectAutofillContentService"], "destroy");
+
+      autofillInit.destroy();
+
+      expect(autofillInit["collectAutofillContentService"].destroy).toHaveBeenCalled();
     });
   });
 });

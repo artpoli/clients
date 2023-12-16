@@ -268,6 +268,9 @@
   "length": {
     "message": "Länge"
   },
+  "passwordMinLength": {
+    "message": "Minimale Passwortlänge"
+  },
   "uppercase": {
     "message": "Großbuchstaben (A-Z)"
   },
@@ -365,6 +368,9 @@
   "unlockMethodNeededToChangeTimeoutActionDesc": {
     "message": "Richte eine Entsperrmethode ein, um deine Aktion bei Timeout-Timeout zu ändern."
   },
+  "unlockMethodNeeded": {
+    "message": "Lege eine Entsperrmethode in den Einstellungen fest"
+  },
   "rateExtension": {
     "message": "Erweiterung bewerten"
   },
@@ -404,6 +410,9 @@
   },
   "lockNow": {
     "message": "Jetzt sperren"
+  },
+  "lockAll": {
+    "message": "Alles sperren"
   },
   "immediately": {
     "message": "Sofort"
@@ -1027,6 +1036,12 @@
   "showAutoFillMenuOnFormFieldsDescAlt": {
     "message": "Gilt für alle angemeldeten Konten."
   },
+  "turnOffBrowserBuiltInPasswordManagerSettings": {
+    "message": "Deaktiviere die Einstellungen des eingebauten Passwort-Managers deines Browsers, um Konflikte zu vermeiden."
+  },
+  "turnOffBrowserBuiltInPasswordManagerSettingsLink": {
+    "message": "Browsereinstellungen bearbeiten."
+  },
   "autofillOverlayVisibilityOff": {
     "message": "Aus",
     "description": "Overlay setting select option for disabling autofill overlay"
@@ -1130,6 +1145,9 @@
   },
   "faviconDesc": {
     "message": "Ein wiedererkennbares Bild neben jeden Zugangsdaten anzeigen."
+  },
+  "faviconDescAlt": {
+    "message": "Ein wiedererkennbares Bild neben jeden Zugangsdaten anzeigen. Gilt für alle angemeldeten Konten."
   },
   "enableBadgeCounter": {
     "message": "Badge-Zähler anzeigen"
@@ -2264,7 +2282,7 @@
     "message": "So funktioniert Auto-Ausfüllen"
   },
   "autofillSelectInfoWithCommand": {
-    "message": "Select an item from this screen, use the shortcut $COMMAND$, or explore other options in settings.",
+    "message": "Wähle einen Eintrag von dieser Bildschirmseite, verwende das Tastaturkürzel $COMMAND$ oder entdecke andere Optionen in den Einstellungen.",
     "placeholders": {
       "command": {
         "content": "$1",
@@ -2273,7 +2291,7 @@
     }
   },
   "autofillSelectInfoWithoutCommand": {
-    "message": "Select an item from this screen, or explore other options in settings."
+    "message": "Wähle einen Eintrag von dieser Bildschirmseite oder entdecke andere Optionen in den Einstellungen."
   },
   "gotIt": {
     "message": "Verstanden"
@@ -2538,35 +2556,11 @@
     "message": "Bitwarden Auto-Ausfüllen Menü verfügbar. Drücke die Pfeiltaste nach unten zum Auswählen.",
     "description": "Screen reader text for announcing when the overlay opens on the page"
   },
-  "overrideBrowserAutofillTitle": {
-    "message": "Auto-Ausfüllen Funktion des Browsers überschreiben?",
-    "description": "Dialog title facilitating the ability to override a chrome browser's default autofill behavior"
-  },
-  "overrideBrowserAutofillDescription": {
-    "message": "Wenn du diese Einstellung deaktivierst, kann dies zu Konflikten zwischen dem Bitwarden Auto-Ausfüllen Menü und dem des Browsers führen.",
-    "description": "Dialog message facilitating the ability to override a chrome browser's default autofill behavior"
-  },
-  "overrideBrowserAutofillPrivacyRequiredDescription": {
-    "message": "Wenn du diese Einstellung deaktivierst, kann es zu Konflikten zwischen dem Bitwarden Auto-Ausfüllen Menü und dem des Browsers kommen. Wenn du diese Einstellung aktivierst, wird die Bitwarden-Erweiterung neu gestartet.",
-    "description": "Dialog message facilitating the ability to override a chrome browser's default autofill behavior"
-  },
   "turnOn": {
     "message": "Einschalten"
   },
   "ignore": {
     "message": "Ignorieren"
-  },
-  "overrideBrowserAutoFillSettings": {
-    "message": "Auto-Ausfüllen Einstellungen des Browsers überschreiben",
-    "description": "Label for the setting that allows overriding the default browser autofill settings"
-  },
-  "extensionPrivacyPermissionNotGrantedTitle": {
-    "message": "Konnte Auto-Ausfüllen Einstellungen des Browsers nicht überschreiben",
-    "description": "Title for the dialog that appears when the user has not granted the extension permission to set privacy settings"
-  },
-  "extensionPrivacyPermissionNotGrantedDescription": {
-    "message": "Bitwarden muss Zugriff auf die Datenschutz-Berechtigung der Erweiterung haben, um die Auto-Ausfüllen-Einstellungen des Browsers zu überschreiben.",
-    "description": "Description for the dialog that appears when the user has not granted the extension permission to set privacy settings"
   },
   "importData": {
     "message": "Daten importieren",
@@ -2796,5 +2790,35 @@
   },
   "lastPassYubikeyDesc": {
     "message": "Stecke den YubiKey, der mit deinem LastPass Konto verknüpft ist, in den USB-Port deines Computers und drücke dann den Knopf des YubiKey."
+  },
+  "switchAccount": {
+    "message": "Konto wechseln"
+  },
+  "switchAccounts": {
+    "message": "Konten wechseln"
+  },
+  "switchToAccount": {
+    "message": "Zum Konto wechseln"
+  },
+  "activeAccount": {
+    "message": "Aktives Konto"
+  },
+  "accountLimitReached": {
+    "message": "Kontolimit erreicht. Von einem Konto abmelden, um ein anderes hinzuzufügen."
+  },
+  "active": {
+    "message": "aktiv"
+  },
+  "locked": {
+    "message": "gesperrt"
+  },
+  "unlocked": {
+    "message": "entsperrt"
+  },
+  "server": {
+    "message": "Server"
+  },
+  "hostedAt": {
+    "message": "gehostet in"
   }
 }

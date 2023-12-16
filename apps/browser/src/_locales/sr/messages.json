@@ -268,6 +268,9 @@
   "length": {
     "message": "Дужина"
   },
+  "passwordMinLength": {
+    "message": "Минимална дужина лозинке"
+  },
   "uppercase": {
     "message": "Велика слова (A-Z)"
   },
@@ -365,6 +368,9 @@
   "unlockMethodNeededToChangeTimeoutActionDesc": {
     "message": "Подесите метод откључавања да бисте променили радњу временског ограничења сефа."
   },
+  "unlockMethodNeeded": {
+    "message": "Подесите метод откључавања у подешавањима"
+  },
   "rateExtension": {
     "message": "Оцени овај додатак"
   },
@@ -404,6 +410,9 @@
   },
   "lockNow": {
     "message": "Закључај одмах"
+  },
+  "lockAll": {
+    "message": "Закључај све"
   },
   "immediately": {
     "message": "Одмах"
@@ -1027,6 +1036,12 @@
   "showAutoFillMenuOnFormFieldsDescAlt": {
     "message": "Односи се на све пријављене налоге."
   },
+  "turnOffBrowserBuiltInPasswordManagerSettings": {
+    "message": "Искључите уграђен менаџер лозинки вашег претраживача да бисте избегли сукобе."
+  },
+  "turnOffBrowserBuiltInPasswordManagerSettingsLink": {
+    "message": "Измените подешавања претраживача."
+  },
   "autofillOverlayVisibilityOff": {
     "message": "Искључено",
     "description": "Overlay setting select option for disabling autofill overlay"
@@ -1130,6 +1145,9 @@
   },
   "faviconDesc": {
     "message": "Прикажи препознатљиву слику поред сваке ставке за пријаву."
+  },
+  "faviconDescAlt": {
+    "message": "Приказује препознатљиву слику поред сваке пријаве. Важи за све пријављене налоге."
   },
   "enableBadgeCounter": {
     "message": "Прикажи бедж са бројачем"
@@ -2538,35 +2556,11 @@
     "message": "Мени ауто-попуњавања Bitwarden-а је доступан. Притисните тастер са стрелицом надоле да бисте изабрали.",
     "description": "Screen reader text for announcing when the overlay opens on the page"
   },
-  "overrideBrowserAutofillTitle": {
-    "message": "Заменити ауто-попуњавање прегледача?",
-    "description": "Dialog title facilitating the ability to override a chrome browser's default autofill behavior"
-  },
-  "overrideBrowserAutofillDescription": {
-    "message": "Ако ову поставку оставите искљученом, може доћи до сукоба између Bitwarden менија ауто-попуњавања и вашег претраживача.",
-    "description": "Dialog message facilitating the ability to override a chrome browser's default autofill behavior"
-  },
-  "overrideBrowserAutofillPrivacyRequiredDescription": {
-    "message": "Ако ову поставку оставите искљученом, може доћи до сукоба између Битварден менија аутоматског попуњавања и вашег претраживача. Ако упалите, то ће поново покренути Bitwarden додатак.",
-    "description": "Dialog message facilitating the ability to override a chrome browser's default autofill behavior"
-  },
   "turnOn": {
     "message": "Укључи"
   },
   "ignore": {
     "message": "Игнориши"
-  },
-  "overrideBrowserAutoFillSettings": {
-    "message": "Заменити ауто-попуњавање прегледача",
-    "description": "Label for the setting that allows overriding the default browser autofill settings"
-  },
-  "extensionPrivacyPermissionNotGrantedTitle": {
-    "message": "Није могуће заменити ауто-попуњавање прегледача",
-    "description": "Title for the dialog that appears when the user has not granted the extension permission to set privacy settings"
-  },
-  "extensionPrivacyPermissionNotGrantedDescription": {
-    "message": "Bitwarden мора имати приступ дозволи приватности екстензије да би заменио подешавања ауто-попуњавања прегледача.",
-    "description": "Description for the dialog that appears when the user has not granted the extension permission to set privacy settings"
   },
   "importData": {
     "message": "Увези податке",
@@ -2796,5 +2790,35 @@
   },
   "lastPassYubikeyDesc": {
     "message": "Унети YubiKey који је асоциран са LastPass налогом у УСБ порт вашег рачунара, и затим додирните његово дугме."
+  },
+  "switchAccount": {
+    "message": "Промени налог"
+  },
+  "switchAccounts": {
+    "message": "Промени налог"
+  },
+  "switchToAccount": {
+    "message": "Пребаците се на налог"
+  },
+  "activeAccount": {
+    "message": "Активан налог"
+  },
+  "accountLimitReached": {
+    "message": "Граница налога достигнута. Одјавите се од једног налога да би додали други."
+  },
+  "active": {
+    "message": "активан"
+  },
+  "locked": {
+    "message": "закључан"
+  },
+  "unlocked": {
+    "message": "деблокиран"
+  },
+  "server": {
+    "message": "сервер"
+  },
+  "hostedAt": {
+    "message": "hosted at"
   }
 }

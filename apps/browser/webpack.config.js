@@ -170,7 +170,8 @@ const mainConfig = {
     "content/autofiller": "./src/autofill/content/autofiller.ts",
     "content/notificationBar": "./src/autofill/content/notification-bar.ts",
     "content/contextMenuHandler": "./src/autofill/content/context-menu-handler.ts",
-    "content/message_handler": "./src/autofill/content/message_handler.ts",
+    "content/bootstrap-content-message-handler":
+      "./src/autofill/content/bootstrap-content-message-handler.ts",
     "content/fido2/trigger-fido2-content-script-injection":
       "./src/vault/fido2/content/trigger-fido2-content-script-injection.ts",
     "content/fido2/content-script": "./src/vault/fido2/content/content-script.ts",
@@ -179,6 +180,7 @@ const mainConfig = {
     "overlay/button": "./src/autofill/overlay/pages/button/bootstrap-autofill-overlay-button.ts",
     "overlay/list": "./src/autofill/overlay/pages/list/bootstrap-autofill-overlay-list.ts",
     "encrypt-worker": "../../libs/common/src/platform/services/cryptography/encrypt.worker.ts",
+    "content/lp-fileless-importer": "./src/tools/content/lp-fileless-importer.ts",
   },
   optimization: {
     minimize: ENV !== "development",

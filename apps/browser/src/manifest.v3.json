@@ -3,7 +3,7 @@
   "minimum_chrome_version": "102.0",
   "name": "__MSG_extName__",
   "short_name": "__MSG_appName__",
-  "version": "2023.12.0",
+  "version": "2023.12.1",
   "description": "__MSG_extDesc__",
   "default_locale": "en",
   "author": "Bitwarden Inc.",
@@ -29,7 +29,7 @@
     },
     {
       "all_frames": false,
-      "js": ["content/message_handler.js"],
+      "js": ["content/bootstrap-content-message-handler.js"],
       "matches": ["http://*/*", "https://*/*", "file:///*"],
       "run_at": "document_start"
     },

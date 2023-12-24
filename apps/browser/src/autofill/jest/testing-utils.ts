@@ -11,8 +11,8 @@ function flushPromises() {
   });
 }
 
-function postWindowMessage(data: any, origin = "https://localhost/") {
-  globalThis.dispatchEvent(new MessageEvent("message", { data, origin }));
+function postWindowMessage(data: any, origin = "https://localhost/", source = window) {
+  globalThis.dispatchEvent(new MessageEvent("message", { data, origin, source }));
 }
 
 function sendExtensionRuntimeMessage(
@@ -28,6 +28,15 @@ function sendExtensionRuntimeMessage(
         sender || mock<chrome.runtime.MessageSender>(),
         sendResponse || jest.fn(),
       );
+    },
+  );
+}
+
+function triggerRuntimeOnConnectEvent(port: chrome.runtime.Port) {
+  (chrome.runtime.onConnect.addListener as unknown as jest.SpyInstance).mock.calls.forEach(
+    (call) => {
+      const callback = call[0];
+      callback(port);
     },
   );
 }
@@ -94,6 +103,7 @@ export {
   flushPromises,
   postWindowMessage,
   sendExtensionRuntimeMessage,
+  triggerRuntimeOnConnectEvent,
   sendPortMessage,
   triggerPortOnDisconnectEvent,
   triggerWindowOnFocusedChangedEvent,

@@ -326,6 +326,9 @@
   "password": {
     "message": "Пароль"
   },
+  "totp": {
+    "message": "Секретний ключ автентифікації"
+  },
   "passphrase": {
     "message": "Парольна фраза"
   },
@@ -511,6 +514,18 @@
   },
   "autofillError": {
     "message": "Не вдається заповнити пароль на цій сторінці. Скопіюйте і вставте ім'я користувача та/або пароль."
+  },
+  "totpCaptureError": {
+    "message": "Неможливо сканувати QR-код з поточної сторінки"
+  },
+  "totpCaptureSuccess": {
+    "message": "Ключ автентифікації додано"
+  },
+  "totpCapture": {
+    "message": "Скануйте QR-код програмою автентифікації"
+  },
+  "copyTOTP": {
+    "message": "Скопіюйте одноразовий код (TOTP)"
   },
   "loggedOut": {
     "message": "Ви вийшли"
@@ -2497,6 +2512,38 @@
     "message": "Згорнути/розгорнути",
     "description": "Toggling an expand/collapse state."
   },
+  "filelessImport": {
+    "message": "Імпортувати ваші дані до Bitwarden?",
+    "description": "Default notification title for triggering a fileless import."
+  },
+  "lpFilelessImport": {
+    "message": "Захистити ваші дані LastPass та імпортувати до Bitwarden?",
+    "description": "LastPass specific notification title for triggering a fileless import."
+  },
+  "lpCancelFilelessImport": {
+    "message": "Зберегти незашифрований файл",
+    "description": "LastPass specific notification button text for cancelling a fileless import."
+  },
+  "startFilelessImport": {
+    "message": "Імпортувати до Bitwarden",
+    "description": "Notification button text for starting a fileless import."
+  },
+  "importing": {
+    "message": "Триває імпортування...",
+    "description": "Notification message for when an import is in progress."
+  },
+  "dataSuccessfullyImported": {
+    "message": "Дані успішно імпортовано!",
+    "description": "Notification message for when an import has completed successfully."
+  },
+  "dataImportFailed": {
+    "message": "Помилка імпортування. Перевірте консоль для перегляду подробиць.",
+    "description": "Notification message for when an import has failed."
+  },
+  "importNetworkError": {
+    "message": "Під час імпортування сталася мережева помилка.",
+    "description": "Notification message for when an import has failed due to a network error."
+  },
   "aliasDomain": {
     "message": "Псевдонім домену"
   },
@@ -2802,6 +2849,9 @@
   },
   "activeAccount": {
     "message": "Активний обліковий запис"
+  },
+  "availableAccounts": {
+    "message": "Доступні облікові записи"
   },
   "accountLimitReached": {
     "message": "Досягнуто обмеження облікового запису. Вийдіть, щоб додати інший обліковий запис."

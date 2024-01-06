@@ -326,6 +326,9 @@
   "password": {
     "message": "Palavra-passe"
   },
+  "totp": {
+    "message": "Segredo de autenticação"
+  },
   "passphrase": {
     "message": "Frase de acesso"
   },
@@ -511,6 +514,18 @@
   },
   "autofillError": {
     "message": "Não é possível preencher automaticamente o item selecionado nesta página. Em vez disso, copie e cole as informações."
+  },
+  "totpCaptureError": {
+    "message": "Não é possível digitalizar o código QR a partir da página Web atual"
+  },
+  "totpCaptureSuccess": {
+    "message": "Chave de autenticação adicionada"
+  },
+  "totpCapture": {
+    "message": "Digitalize o código QR do autenticador a partir da página Web atual"
+  },
+  "copyTOTP": {
+    "message": "Copiar Chave de autenticação (TOTP)"
   },
   "loggedOut": {
     "message": "Sessão terminada"
@@ -2497,6 +2512,38 @@
     "message": "Alternar colapso",
     "description": "Toggling an expand/collapse state."
   },
+  "filelessImport": {
+    "message": "Importar os seus dados para o Bitwarden?",
+    "description": "Default notification title for triggering a fileless import."
+  },
+  "lpFilelessImport": {
+    "message": "Proteger os seus dados LastPass e importar para o Bitwarden?",
+    "description": "LastPass specific notification title for triggering a fileless import."
+  },
+  "lpCancelFilelessImport": {
+    "message": "Guardar como ficheiro não encriptado",
+    "description": "LastPass specific notification button text for cancelling a fileless import."
+  },
+  "startFilelessImport": {
+    "message": "Importar para o Bitwarden",
+    "description": "Notification button text for starting a fileless import."
+  },
+  "importing": {
+    "message": "A importar...",
+    "description": "Notification message for when an import is in progress."
+  },
+  "dataSuccessfullyImported": {
+    "message": "Dados importados com sucesso!",
+    "description": "Notification message for when an import has completed successfully."
+  },
+  "dataImportFailed": {
+    "message": "Erro de importação. Verifique a consola para obter detalhes.",
+    "description": "Notification message for when an import has failed."
+  },
+  "importNetworkError": {
+    "message": "Erro de rede encontrado durante a importação.",
+    "description": "Notification message for when an import has failed due to a network error."
+  },
   "aliasDomain": {
     "message": "Alias de domínio"
   },
@@ -2802,6 +2849,9 @@
   },
   "activeAccount": {
     "message": "Conta ativa"
+  },
+  "availableAccounts": {
+    "message": "Contas disponíveis"
   },
   "accountLimitReached": {
     "message": "Limite de contas atingido. Termine a sessão de uma das contas para adicionar outra."

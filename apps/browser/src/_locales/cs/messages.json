@@ -326,6 +326,9 @@
   "password": {
     "message": "Heslo"
   },
+  "totp": {
+    "message": "Tajný klíč autentizace"
+  },
   "passphrase": {
     "message": "Heslová fráze"
   },
@@ -512,6 +515,18 @@
   "autofillError": {
     "message": "Vybrané přihlašovací údaje nelze na této stránce automaticky vyplnit. Zkopírujte a vložte své přihlašovací údaje ručně."
   },
+  "totpCaptureError": {
+    "message": "Nelze naskenovat QR kód z aktuální webové stránky"
+  },
+  "totpCaptureSuccess": {
+    "message": "Byl přidán autentizační klíč"
+  },
+  "totpCapture": {
+    "message": "Naskenovat QR kód z aktuální webové stránky"
+  },
+  "copyTOTP": {
+    "message": "Kopírovat autentizační klíč (TOTP)"
+  },
   "loggedOut": {
     "message": "Odhlášení"
   },
@@ -688,7 +703,7 @@
     "message": "Zobrazit volby v kontextovém menu"
   },
   "contextMenuItemDesc": {
-    "message": "Použijte pravé tlačítko pro přístup k vytvoření hesla a odpovídajícímu přihlášení pro tuto stránku. "
+    "message": "Použijte pravé tlačítko pro přístup k vytvoření hesla a odpovídajícímu přihlášení pro tuto stránku."
   },
   "contextMenuItemDescAlt": {
     "message": "Použije pravé tlačítko pro přístup k vytvoření hesla a odpovídajícímu přihlášení pro tuto stránku. Platí pro všechny přihlášené účty."
@@ -2282,7 +2297,7 @@
     "message": "Jak na automatické vyplňování"
   },
   "autofillSelectInfoWithCommand": {
-    "message": "Select an item from this screen, use the shortcut $COMMAND$, or explore other options in settings.",
+    "message": "Vyberte položku z této obrazovky, použijte zkratku $COMMAND$ nebo prozkoumejte další volby v nastavení.",
     "placeholders": {
       "command": {
         "content": "$1",
@@ -2291,7 +2306,7 @@
     }
   },
   "autofillSelectInfoWithoutCommand": {
-    "message": "Select an item from this screen, or explore other options in settings."
+    "message": "Vyberte položku z této obrazovky nebo prozkoumejte další volby v nastavení."
   },
   "gotIt": {
     "message": "Rozumím"
@@ -2496,6 +2511,38 @@
   "toggleCollapse": {
     "message": "Přepnout sbalení",
     "description": "Toggling an expand/collapse state."
+  },
+  "filelessImport": {
+    "message": "Importovat data do Bitwardenu?",
+    "description": "Default notification title for triggering a fileless import."
+  },
+  "lpFilelessImport": {
+    "message": "Chránit Vaše data LastPass a importovat do Bitwardenu?",
+    "description": "LastPass specific notification title for triggering a fileless import."
+  },
+  "lpCancelFilelessImport": {
+    "message": "Uložit jako nešifrovaný soubor",
+    "description": "LastPass specific notification button text for cancelling a fileless import."
+  },
+  "startFilelessImport": {
+    "message": "Importovat do Bitwardenu",
+    "description": "Notification button text for starting a fileless import."
+  },
+  "importing": {
+    "message": "Importování...",
+    "description": "Notification message for when an import is in progress."
+  },
+  "dataSuccessfullyImported": {
+    "message": "Data byla úspěšně importována!",
+    "description": "Notification message for when an import has completed successfully."
+  },
+  "dataImportFailed": {
+    "message": "Chyba při importu. Podrobnosti naleznete v konzoli.",
+    "description": "Notification message for when an import has failed."
+  },
+  "importNetworkError": {
+    "message": "Při importu došlo k chybě sítě.",
+    "description": "Notification message for when an import has failed due to a network error."
   },
   "aliasDomain": {
     "message": "Doména aliasu"
@@ -2802,6 +2849,9 @@
   },
   "activeAccount": {
     "message": "Aktivní účet"
+  },
+  "availableAccounts": {
+    "message": "Dostupné účty"
   },
   "accountLimitReached": {
     "message": "Byl dosažen limit účtu. Pro přidání dalšího účtu se odhlaste."

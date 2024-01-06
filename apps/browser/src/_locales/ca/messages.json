@@ -326,6 +326,9 @@
   "password": {
     "message": "Contrasenya"
   },
+  "totp": {
+    "message": "Secret de l'autenticador"
+  },
   "passphrase": {
     "message": "Frase de pas"
   },
@@ -511,6 +514,18 @@
   },
   "autofillError": {
     "message": "No es pot omplir automàticament l'element seleccionat en aquesta pàgina. Com a alternativa, copieu i enganxeu la informació."
+  },
+  "totpCaptureError": {
+    "message": "No es pot escanejar el codi QR des de la pàgina web actual"
+  },
+  "totpCaptureSuccess": {
+    "message": "S'ha afegit la clau de l'autenticador"
+  },
+  "totpCapture": {
+    "message": "Escaneja el codi QR de l'autenticador des de la pàgina web actual"
+  },
+  "copyTOTP": {
+    "message": "Copia la clau de l'autenticador (TOTP)"
   },
   "loggedOut": {
     "message": "Sessió tancada"
@@ -2497,6 +2512,38 @@
     "message": "Redueix/Amplia",
     "description": "Toggling an expand/collapse state."
   },
+  "filelessImport": {
+    "message": "Voleu importar les vostres dades a Bitwarden?",
+    "description": "Default notification title for triggering a fileless import."
+  },
+  "lpFilelessImport": {
+    "message": "Protegiu les vostres dades de LastPass i importeu-les a Bitwarden?",
+    "description": "LastPass specific notification title for triggering a fileless import."
+  },
+  "lpCancelFilelessImport": {
+    "message": "Guarda com a fitxer sense xifrar",
+    "description": "LastPass specific notification button text for cancelling a fileless import."
+  },
+  "startFilelessImport": {
+    "message": "Importa a Bitwarden",
+    "description": "Notification button text for starting a fileless import."
+  },
+  "importing": {
+    "message": "S'està important...",
+    "description": "Notification message for when an import is in progress."
+  },
+  "dataSuccessfullyImported": {
+    "message": "Les dades s'han importat correctament!",
+    "description": "Notification message for when an import has completed successfully."
+  },
+  "dataImportFailed": {
+    "message": "S'ha produït un error en importar. Consulteu la consola per obtenir més informació.",
+    "description": "Notification message for when an import has failed."
+  },
+  "importNetworkError": {
+    "message": "S'ha trobat un error de xarxa durant la importació.",
+    "description": "Notification message for when an import has failed due to a network error."
+  },
   "aliasDomain": {
     "message": "Alies de domini"
   },
@@ -2802,6 +2849,9 @@
   },
   "activeAccount": {
     "message": "Activa el compte"
+  },
+  "availableAccounts": {
+    "message": "Comptes disponibles"
   },
   "accountLimitReached": {
     "message": "S'ha arribat al límit del compte. Tanqueu la sessió d'un compte per afegir-ne un altre."

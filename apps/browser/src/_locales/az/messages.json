@@ -326,6 +326,9 @@
   "password": {
     "message": "Parol"
   },
+  "totp": {
+    "message": "Kimlik doğrulayıcı sirri"
+  },
   "passphrase": {
     "message": "Parol ifadəsi"
   },
@@ -511,6 +514,18 @@
   },
   "autofillError": {
     "message": "Bu səhifədə seçilmiş element avto-doldurulmur. Əvəzində məlumatları kopyalayıb yapışdırın."
+  },
+  "totpCaptureError": {
+    "message": "Hazırkı veb səhifədən QR kodu skan edilə bilmir"
+  },
+  "totpCaptureSuccess": {
+    "message": "Kimlik doğrulayıcı açarı əlavə edildi"
+  },
+  "totpCapture": {
+    "message": "Hazırkı veb sahifədən kimlik doğrulayıcı QR kodunu skan et"
+  },
+  "copyTOTP": {
+    "message": "Kimlik doğrulayıcı açarını kopyala (TOTP)"
   },
   "loggedOut": {
     "message": "Çıxış edildi"
@@ -2497,6 +2512,38 @@
     "message": "Yığcamlaşdırmanı aç/bağla",
     "description": "Toggling an expand/collapse state."
   },
+  "filelessImport": {
+    "message": "Datanız Bitwarden-ə köçürülsün?",
+    "description": "Default notification title for triggering a fileless import."
+  },
+  "lpFilelessImport": {
+    "message": "LastPass datanızı qoruyub Bitwarden-ə köçürürsünüz?",
+    "description": "LastPass specific notification title for triggering a fileless import."
+  },
+  "lpCancelFilelessImport": {
+    "message": "Şifrələnməmiş fayl olaraq saxla",
+    "description": "LastPass specific notification button text for cancelling a fileless import."
+  },
+  "startFilelessImport": {
+    "message": "Bitwarden-ə köçür",
+    "description": "Notification button text for starting a fileless import."
+  },
+  "importing": {
+    "message": "Daxilə köçürülür...",
+    "description": "Notification message for when an import is in progress."
+  },
+  "dataSuccessfullyImported": {
+    "message": "Data uğurla daxilə köçürüldü!",
+    "description": "Notification message for when an import has completed successfully."
+  },
+  "dataImportFailed": {
+    "message": "Daxilə köçürmə xətası. Detallar üçün konsolu yoxlayın.",
+    "description": "Notification message for when an import has failed."
+  },
+  "importNetworkError": {
+    "message": "Daxilə köçürmə zamanı şəbəkə xətası baş verdi.",
+    "description": "Notification message for when an import has failed due to a network error."
+  },
   "aliasDomain": {
     "message": "Domen ləqəbi"
   },
@@ -2802,6 +2849,9 @@
   },
   "activeAccount": {
     "message": "Aktiv hesab"
+  },
+  "availableAccounts": {
+    "message": "Mövcud hesablar"
   },
   "accountLimitReached": {
     "message": "Hesab limiti keçildi. Başqa bir hesab əlavə etmək üçün bir hesabdan çıxış edin."

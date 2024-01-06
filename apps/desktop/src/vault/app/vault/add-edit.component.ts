@@ -65,6 +65,7 @@ export class AddEditComponent extends BaseAddEditComponent implements OnChanges,
       organizationService,
       sendApiService,
       dialogService,
+      window,
       datePipe,
     );
   }

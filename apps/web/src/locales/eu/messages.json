@@ -2958,7 +2958,7 @@
     }
   },
   "autofilledItemId": {
-    "message": "$ID$ elementua auto-betea.",
+    "message": "$ID$ elementua automatikoki bete da.",
     "placeholders": {
       "id": {
         "content": "$1",
@@ -3548,12 +3548,12 @@
       }
     }
   },
-  "subscriptionFamiliesPlan": {
-    "message": "Ezin dituzu $COUNT$ erabiltzaile baino gehiago gonbidatu zure plana aldatu gabe. Mesedez, jarri bezeroaren arretarekin haremanetan.",
+  "subscriptionUpgrade": {
+    "message": "You cannot invite more than $COUNT$ members without upgrading your plan.",
     "placeholders": {
       "count": {
         "content": "$1",
-        "example": "6"
+        "example": "2"
       }
     }
   },
@@ -5093,7 +5093,7 @@
     "message": "Erakundeko politika batek edo gehiagok kutxa gotorra esportatzea galarazten dute."
   },
   "activateAutofill": {
-    "message": "Activate auto-fill"
+    "message": "Gaitu betetze automatikoa"
   },
   "activateAutofillPolicyDesc": {
     "message": "Activate the auto-fill on page load setting on the browser extension for all existing and new members."
@@ -5102,7 +5102,7 @@
     "message": "Compromised or untrusted websites can exploit auto-fill on page load."
   },
   "learnMoreAboutAutofill": {
-    "message": "Learn more about auto-fill"
+    "message": "Automatikoki betetzeari buruzko informazio gehiago"
   },
   "selectType": {
     "message": "Aukeratu SSO mota"
@@ -6668,7 +6668,7 @@
     }
   },
   "teamsStarterPlanInvLimitReachedManageBilling": {
-    "message": "Teams Starter plans may have up to $SEATCOUNT$ members. Contact Customer Support to upgrade your plan and invite more members.",
+    "message": "Teams Starter plans may have up to $SEATCOUNT$ members. Upgrade to your plan to invite more members.",
     "placeholders": {
       "seatcount": {
         "content": "$1",

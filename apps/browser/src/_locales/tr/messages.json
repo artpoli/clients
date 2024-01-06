@@ -326,6 +326,9 @@
   "password": {
     "message": "Parola"
   },
+  "totp": {
+    "message": "Authenticator secret"
+  },
   "passphrase": {
     "message": "Uzun söz"
   },
@@ -511,6 +514,18 @@
   },
   "autofillError": {
     "message": "Seçilen hesap bu sayfada otomatik olarak doldurulamadı. Lütfen bilgileri elle kopyalayıp yapıştırın."
+  },
+  "totpCaptureError": {
+    "message": "Mevcut web sayfasından QR kodu taranamıyor"
+  },
+  "totpCaptureSuccess": {
+    "message": "Kimlik doğrulama anahtarı eklendi"
+  },
+  "totpCapture": {
+    "message": "Mevcut web sayfasından kimlik doğrulayıcı QR kodunu tarayın"
+  },
+  "copyTOTP": {
+    "message": "Kimlik Doğrulayıcı anahtarını kopyala (TOTP)"
   },
   "loggedOut": {
     "message": "Çıkış yapıldı"
@@ -2497,6 +2512,38 @@
     "message": "Daraltmayı aç/kapat",
     "description": "Toggling an expand/collapse state."
   },
+  "filelessImport": {
+    "message": "Verileriniz Bitwarden'a aktarılsın mı?",
+    "description": "Default notification title for triggering a fileless import."
+  },
+  "lpFilelessImport": {
+    "message": "LastPass verileriniz korunsun ve Bitwarden'a aktarılsın mı?",
+    "description": "LastPass specific notification title for triggering a fileless import."
+  },
+  "lpCancelFilelessImport": {
+    "message": "Şifrelenmemiş dosya olarak kaydet",
+    "description": "LastPass specific notification button text for cancelling a fileless import."
+  },
+  "startFilelessImport": {
+    "message": "Bitwarden'a aktar",
+    "description": "Notification button text for starting a fileless import."
+  },
+  "importing": {
+    "message": "İçe aktarılıyor...",
+    "description": "Notification message for when an import is in progress."
+  },
+  "dataSuccessfullyImported": {
+    "message": "Veriler başarıyla içe aktarıldı!",
+    "description": "Notification message for when an import has completed successfully."
+  },
+  "dataImportFailed": {
+    "message": "İçe aktarma hatası. Ayrıntılar için konsolu kontrol edin.",
+    "description": "Notification message for when an import has failed."
+  },
+  "importNetworkError": {
+    "message": "İçe aktarma sırasında ağ hatasıyla karşılaşıldı.",
+    "description": "Notification message for when an import has failed due to a network error."
+  },
   "aliasDomain": {
     "message": "Alias alan adı"
   },
@@ -2802,6 +2849,9 @@
   },
   "activeAccount": {
     "message": "Aktif hesap"
+  },
+  "availableAccounts": {
+    "message": "Mevcut hesaplar"
   },
   "accountLimitReached": {
     "message": "Hesap sınırına ulaştınız. Yeni hesap eklemek için hesaplardan birinden çıkış yapın."

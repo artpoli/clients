@@ -268,6 +268,8 @@ export class Main {
       this.platformUtilsService,
       this.logService,
       this.stateService,
+      this.accountService,
+      this.stateProvider,
     );
 
     this.appIdService = new AppIdService(this.storageService);
@@ -478,7 +480,6 @@ export class Main {
       this.folderApiService,
       this.organizationService,
       this.sendApiService,
-      this.configService,
       async (expired: boolean) => await this.logout(),
     );
 

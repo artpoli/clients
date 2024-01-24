@@ -1,6 +1,5 @@
 import { Observable } from "rxjs";
 
-import { EncryptedOrganizationKeyData } from "../../admin-console/models/data/encrypted-organization-key.data";
 import { OrganizationData } from "../../admin-console/models/data/organization.data";
 import { PolicyData } from "../../admin-console/models/data/policy.data";
 import { ProviderData } from "../../admin-console/models/data/provider.data";
@@ -18,6 +17,7 @@ import { UsernameGeneratorOptions } from "../../tools/generator/username";
 import { SendData } from "../../tools/send/models/data/send.data";
 import { SendView } from "../../tools/send/models/view/send.view";
 import { UserId } from "../../types/guid";
+import { UserKey, MasterKey, DeviceKey } from "../../types/key";
 import { UriMatchType } from "../../vault/enums";
 import { CipherData } from "../../vault/models/data/cipher.data";
 import { CollectionData } from "../../vault/models/data/collection.data";
@@ -35,12 +35,7 @@ import {
 } from "../models/domain/account";
 import { EncString } from "../models/domain/enc-string";
 import { StorageOptions } from "../models/domain/storage-options";
-import {
-  DeviceKey,
-  MasterKey,
-  SymmetricCryptoKey,
-  UserKey,
-} from "../models/domain/symmetric-crypto-key";
+import { SymmetricCryptoKey } from "../models/domain/symmetric-crypto-key";
 
 export abstract class StateService<T extends Account = Account> {
   accounts$: Observable<{ [userId: string]: T }>;
@@ -181,17 +176,22 @@ export abstract class StateService<T extends Account = Account> {
    * @deprecated For migration purposes only, use setUserKeyBiometric instead
    */
   setCryptoMasterKeyBiometric: (value: BiometricKey, options?: StorageOptions) => Promise<void>;
+  /**
+   * Gets a flag for if the biometrics process has been cancelled.
+   * Process reload occurs when biometrics is cancelled, so we store to disk to prevent
+   * it from reprompting and creating a loop.
+   */
+  getBiometricPromptCancelled: (options?: StorageOptions) => Promise<boolean>;
+  /**
+   * Sets a flag for if the biometrics process has been cancelled.
+   * Process reload occurs when biometrics is cancelled, so we store to disk to prevent
+   * it from reprompting and creating a loop.
+   */
+  setBiometricPromptCancelled: (value: boolean, options?: StorageOptions) => Promise<void>;
   getDecryptedCiphers: (options?: StorageOptions) => Promise<CipherView[]>;
   setDecryptedCiphers: (value: CipherView[], options?: StorageOptions) => Promise<void>;
   getDecryptedCollections: (options?: StorageOptions) => Promise<CollectionView[]>;
   setDecryptedCollections: (value: CollectionView[], options?: StorageOptions) => Promise<void>;
-  getDecryptedOrganizationKeys: (
-    options?: StorageOptions,
-  ) => Promise<Map<string, SymmetricCryptoKey>>;
-  setDecryptedOrganizationKeys: (
-    value: Map<string, SymmetricCryptoKey>,
-    options?: StorageOptions,
-  ) => Promise<void>;
   getDecryptedPasswordGenerationHistory: (
     options?: StorageOptions,
   ) => Promise<GeneratedPasswordHistory[]>;
@@ -334,13 +334,6 @@ export abstract class StateService<T extends Account = Account> {
    */
   setEncryptedFolders: (
     value: { [id: string]: FolderData },
-    options?: StorageOptions,
-  ) => Promise<void>;
-  getEncryptedOrganizationKeys: (
-    options?: StorageOptions,
-  ) => Promise<{ [orgId: string]: EncryptedOrganizationKeyData }>;
-  setEncryptedOrganizationKeys: (
-    value: { [orgId: string]: EncryptedOrganizationKeyData },
     options?: StorageOptions,
   ) => Promise<void>;
   getEncryptedPasswordGenerationHistory: (

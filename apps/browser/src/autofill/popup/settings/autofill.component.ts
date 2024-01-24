@@ -1,15 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 
 import { SettingsService } from "@bitwarden/common/abstractions/settings.service";
-import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { ConfigServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { UriMatchType } from "@bitwarden/common/vault/enums";
+import { DialogService } from "@bitwarden/components";
 
 import { BrowserApi } from "../../../platform/browser/browser-api";
-import { flagEnabled } from "../../../platform/flags";
+import { enableAccountSwitching } from "../../../platform/flags";
 import { AutofillService } from "../../services/abstractions/autofill.service";
 import { AutofillOverlayVisibility } from "../../utils/autofill-overlay.enum";
 
@@ -18,7 +18,8 @@ import { AutofillOverlayVisibility } from "../../utils/autofill-overlay.enum";
   templateUrl: "autofill.component.html",
 })
 export class AutofillComponent implements OnInit {
-  protected isAutoFillOverlayFlagEnabled = false;
+  protected canOverrideBrowserAutofillSetting = false;
+  protected defaultBrowserAutofillDisabled = false;
   protected autoFillOverlayVisibility: number;
   protected autoFillOverlayVisibilityOptions: any[];
   protected disablePasswordManagerLink: string;
@@ -37,6 +38,7 @@ export class AutofillComponent implements OnInit {
     private configService: ConfigServiceAbstraction,
     private settingsService: SettingsService,
     private autofillService: AutofillService,
+    private dialogService: DialogService,
   ) {
     this.autoFillOverlayVisibilityOptions = [
       {
@@ -65,14 +67,19 @@ export class AutofillComponent implements OnInit {
       { name: i18nService.t("never"), value: UriMatchType.Never },
     ];
 
-    this.accountSwitcherEnabled = flagEnabled("accountSwitching");
+    this.accountSwitcherEnabled = enableAccountSwitching();
     this.disablePasswordManagerLink = this.getDisablePasswordManagerLink();
   }
 
   async ngOnInit() {
-    this.isAutoFillOverlayFlagEnabled = await this.configService.getFeatureFlag<boolean>(
-      FeatureFlag.AutofillOverlay,
-    );
+    this.canOverrideBrowserAutofillSetting =
+      this.platformUtilsService.isChrome() ||
+      this.platformUtilsService.isEdge() ||
+      this.platformUtilsService.isOpera() ||
+      this.platformUtilsService.isVivaldi();
+
+    this.defaultBrowserAutofillDisabled = await this.browserAutofillSettingCurrentlyOverridden();
+
     this.autoFillOverlayVisibility =
       (await this.settingsService.getAutoFillOverlayVisibility()) || AutofillOverlayVisibility.Off;
 
@@ -92,6 +99,7 @@ export class AutofillComponent implements OnInit {
       await this.settingsService.getAutoFillOverlayVisibility();
     await this.settingsService.setAutoFillOverlayVisibility(this.autoFillOverlayVisibility);
     await this.handleUpdatingAutofillOverlayContentScripts(previousAutoFillOverlayVisibility);
+    await this.requestPrivacyPermission();
   }
 
   async updateAutoFillOnPageLoad() {
@@ -169,5 +177,74 @@ export class AutofillComponent implements OnInit {
     }
 
     await this.autofillService.reloadAutofillScripts();
+  }
+
+  async requestPrivacyPermission() {
+    if (
+      this.autoFillOverlayVisibility === AutofillOverlayVisibility.Off ||
+      !this.canOverrideBrowserAutofillSetting ||
+      (await this.browserAutofillSettingCurrentlyOverridden())
+    ) {
+      return;
+    }
+
+    const permissionGranted = await this.privacyPermissionGranted();
+    const contentKey = permissionGranted
+      ? "overrideDefaultBrowserAutofillDescription"
+      : "overrideDefaultBrowserAutofillPrivacyRequiredDescription";
+    await this.dialogService.openSimpleDialog({
+      title: { key: "overrideDefaultBrowserAutofillTitle" },
+      content: { key: contentKey },
+      acceptButtonText: { key: "makeDefault" },
+      acceptAction: async () => await this.handleOverrideDialogAccept(),
+      cancelButtonText: { key: "ignore" },
+      type: "info",
+    });
+  }
+
+  async updateDefaultBrowserAutofillDisabled() {
+    const privacyPermissionGranted = await this.privacyPermissionGranted();
+    if (!this.defaultBrowserAutofillDisabled && !privacyPermissionGranted) {
+      return;
+    }
+
+    if (
+      !privacyPermissionGranted &&
+      !(await BrowserApi.requestPermission({ permissions: ["privacy"] }))
+    ) {
+      await this.dialogService.openSimpleDialog({
+        title: { key: "privacyPermissionAdditionNotGrantedTitle" },
+        content: { key: "privacyPermissionAdditionNotGrantedDescription" },
+        acceptButtonText: { key: "ok" },
+        cancelButtonText: null,
+        type: "warning",
+      });
+      this.defaultBrowserAutofillDisabled = false;
+
+      return;
+    }
+
+    BrowserApi.updateDefaultBrowserAutofillSettings(!this.defaultBrowserAutofillDisabled);
+  }
+
+  private handleOverrideDialogAccept = async () => {
+    this.defaultBrowserAutofillDisabled = true;
+    await this.updateDefaultBrowserAutofillDisabled();
+  };
+
+  async browserAutofillSettingCurrentlyOverridden() {
+    if (!this.canOverrideBrowserAutofillSetting) {
+      return false;
+    }
+
+    if (!(await this.privacyPermissionGranted())) {
+      return false;
+    }
+
+    return await BrowserApi.browserAutofillSettingsOverridden();
+  }
+
+  async privacyPermissionGranted(): Promise<boolean> {
+    return await BrowserApi.permissionsGranted(["privacy"]);
   }
 }

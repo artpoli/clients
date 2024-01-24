@@ -2,8 +2,6 @@ import { EventCollectionService } from "@bitwarden/common/abstractions/event/eve
 import { SettingsService } from "@bitwarden/common/abstractions/settings.service";
 import { UserVerificationService } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
 import { EventType } from "@bitwarden/common/enums";
-import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
-import { ConfigServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { TotpService } from "@bitwarden/common/vault/abstractions/totp.service";
@@ -48,7 +46,6 @@ export default class AutofillService implements AutofillServiceInterface {
     private logService: LogService,
     private settingsService: SettingsService,
     private userVerificationService: UserVerificationService,
-    private configService: ConfigServiceAbstraction,
   ) {}
 
   /**
@@ -92,21 +89,11 @@ export default class AutofillService implements AutofillServiceInterface {
     frameId = 0,
     triggeringOnPageLoad = true,
   ): Promise<void> {
-    const autofillV2 = await this.configService.getFeatureFlag<boolean>(FeatureFlag.AutofillV2);
-    const autofillOverlay = await this.configService.getFeatureFlag<boolean>(
-      FeatureFlag.AutofillOverlay,
-    );
-    let mainAutofillScript = "autofill.js";
-
     const isUsingAutofillOverlay =
-      autofillOverlay &&
       (await this.settingsService.getAutoFillOverlayVisibility()) !== AutofillOverlayVisibility.Off;
-
-    if (autofillV2) {
-      mainAutofillScript = isUsingAutofillOverlay
-        ? "bootstrap-autofill-overlay.js"
-        : "bootstrap-autofill.js";
-    }
+    const mainAutofillScript = isUsingAutofillOverlay
+      ? "bootstrap-autofill-overlay.js"
+      : "bootstrap-autofill.js";
 
     const injectedScripts = [mainAutofillScript];
 
@@ -142,7 +129,7 @@ export default class AutofillService implements AutofillServiceInterface {
     const passwordFields = AutofillService.loadPasswordFields(pageDetails, true, true, false, true);
 
     // TODO: this logic prevents multi-step account creation forms (that just start with email)
-    // from being passed on to the notification bar content script - even if autofill.js found the form and email field.
+    // from being passed on to the notification bar content script - even if autofill-init.js found the form and email field.
     // ex: https://signup.live.com/
     if (passwordFields.length === 0) {
       return formData;
@@ -332,10 +319,7 @@ export default class AutofillService implements AutofillServiceInterface {
       return null;
     }
 
-    if (
-      (await this.isPasswordRepromptRequired(cipher, tab)) &&
-      !this.isDebouncingPasswordRepromptPopout()
-    ) {
+    if (await this.isPasswordRepromptRequired(cipher, tab)) {
       if (fromCommand) {
         this.cipherService.updateLastUsedIndexForUrl(tab.url);
       }
@@ -368,10 +352,12 @@ export default class AutofillService implements AutofillServiceInterface {
     const userHasMasterPasswordAndKeyHash =
       await this.userVerificationService.hasMasterPasswordAndMasterKeyHash();
     if (cipher.reprompt === CipherRepromptType.Password && userHasMasterPasswordAndKeyHash) {
-      await this.openVaultItemPasswordRepromptPopout(tab, {
-        cipherId: cipher.id,
-        action: "autofill",
-      });
+      if (!this.isDebouncingPasswordRepromptPopout()) {
+        await this.openVaultItemPasswordRepromptPopout(tab, {
+          cipherId: cipher.id,
+          action: "autofill",
+        });
+      }
 
       return true;
     }
@@ -477,6 +463,11 @@ export default class AutofillService implements AutofillServiceInterface {
         }
 
         if (!field.viewable && field.tagName !== "span") {
+          return;
+        }
+
+        // Check if the input is an untyped/mistyped search input
+        if (AutofillService.isSearchField(field)) {
           return;
         }
 
@@ -732,11 +723,7 @@ export default class AutofillService implements AutofillServiceInterface {
     const fillFields: { [id: string]: AutofillField } = {};
 
     pageDetails.fields.forEach((f) => {
-      if (AutofillService.forCustomFieldsOnly(f)) {
-        return;
-      }
-
-      if (this.isExcludedType(f.type, AutoFillConstants.ExcludedAutofillTypes)) {
+      if (AutofillService.isExcludedFieldType(f, AutoFillConstants.ExcludedAutofillTypes)) {
         return;
       }
 
@@ -1114,11 +1101,7 @@ export default class AutofillService implements AutofillServiceInterface {
     const fillFields: { [id: string]: AutofillField } = {};
 
     pageDetails.fields.forEach((f) => {
-      if (AutofillService.forCustomFieldsOnly(f)) {
-        return;
-      }
-
-      if (this.isExcludedType(f.type, AutoFillConstants.ExcludedAutofillTypes)) {
+      if (AutofillService.isExcludedFieldType(f, AutoFillConstants.ExcludedAutofillTypes)) {
         return;
       }
 
@@ -1343,8 +1326,32 @@ export default class AutofillService implements AutofillServiceInterface {
    * @returns {boolean}
    * @private
    */
-  private isExcludedType(type: string, excludedTypes: string[]) {
+  private static isExcludedType(type: string, excludedTypes: string[]) {
     return excludedTypes.indexOf(type) > -1;
+  }
+
+  private static isSearchField(field: AutofillField) {
+    const matchFieldAttributeValues = [field.type, field.htmlName, field.htmlID, field.placeholder];
+    const matchPattern = new RegExp(AutoFillConstants.SearchFieldNames.join("|"), "gi");
+
+    return Boolean(matchFieldAttributeValues.join(" ").match(matchPattern));
+  }
+
+  static isExcludedFieldType(field: AutofillField, excludedTypes: string[]) {
+    if (AutofillService.forCustomFieldsOnly(field)) {
+      return true;
+    }
+
+    if (this.isExcludedType(field.type, excludedTypes)) {
+      return true;
+    }
+
+    // Check if the input is an untyped/mistyped search input
+    if (this.isSearchField(field)) {
+      return true;
+    }
+
+    return false;
   }
 
   /**
@@ -1457,6 +1464,44 @@ export default class AutofillService implements AutofillServiceInterface {
     }
   }
 
+  static valueIsLikePassword(value: string) {
+    if (value == null) {
+      return false;
+    }
+    // Removes all whitespace, _ and - characters
+    const cleanedValue = value.toLowerCase().replace(/[\s_-]/g, "");
+
+    if (cleanedValue.indexOf("password") < 0) {
+      return false;
+    }
+
+    if (AutoFillConstants.PasswordFieldExcludeList.some((i) => cleanedValue.indexOf(i) > -1)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  static fieldHasDisqualifyingAttributeValue(field: AutofillField) {
+    const checkedAttributeValues = [field.htmlID, field.htmlName, field.placeholder];
+    let valueIsOnExclusionList = false;
+
+    for (let i = 0; i < checkedAttributeValues.length; i++) {
+      const checkedAttributeValue = checkedAttributeValues[i];
+      const cleanedValue = checkedAttributeValue?.toLowerCase().replace(/[\s_-]/g, "");
+
+      valueIsOnExclusionList = Boolean(
+        cleanedValue && AutoFillConstants.FieldIgnoreList.some((i) => cleanedValue.indexOf(i) > -1),
+      );
+
+      if (valueIsOnExclusionList) {
+        break;
+      }
+    }
+
+    return valueIsOnExclusionList;
+  }
+
   /**
    * Accepts a pageDetails object with a list of fields and returns a list of
    * fields that are likely to be password fields.
@@ -1475,45 +1520,39 @@ export default class AutofillService implements AutofillServiceInterface {
     fillNewPassword: boolean,
   ) {
     const arr: AutofillField[] = [];
+
     pageDetails.fields.forEach((f) => {
-      if (AutofillService.forCustomFieldsOnly(f)) {
+      if (AutofillService.isExcludedFieldType(f, AutoFillConstants.ExcludedAutofillLoginTypes)) {
+        return;
+      }
+
+      // If any attribute values match disqualifying values, the entire field should not be used
+      if (AutofillService.fieldHasDisqualifyingAttributeValue(f)) {
         return;
       }
 
       const isPassword = f.type === "password";
-      const valueIsLikePassword = (value: string) => {
-        if (value == null) {
-          return false;
-        }
-        // Removes all whitespace, _ and - characters
-        // eslint-disable-next-line
-        const cleanedValue = value.toLowerCase().replace(/[\s_\-]/g, "");
 
-        if (cleanedValue.indexOf("password") < 0) {
-          return false;
-        }
-
-        if (AutoFillConstants.PasswordFieldIgnoreList.some((i) => cleanedValue.indexOf(i) > -1)) {
-          return false;
-        }
-
-        return true;
-      };
       const isLikePassword = () => {
         if (f.type !== "text") {
           return false;
         }
-        if (valueIsLikePassword(f.htmlID)) {
+
+        if (AutofillService.valueIsLikePassword(f.htmlID)) {
           return true;
         }
-        if (valueIsLikePassword(f.htmlName)) {
+
+        if (AutofillService.valueIsLikePassword(f.htmlName)) {
           return true;
         }
-        if (valueIsLikePassword(f.placeholder)) {
+
+        if (AutofillService.valueIsLikePassword(f.placeholder)) {
           return true;
         }
+
         return false;
       };
+
       if (
         !f.disabled &&
         (canBeReadOnly || !f.readonly) &&
@@ -1525,6 +1564,7 @@ export default class AutofillService implements AutofillServiceInterface {
         arr.push(f);
       }
     });
+
     return arr;
   }
 
@@ -1601,7 +1641,10 @@ export default class AutofillService implements AutofillServiceInterface {
         continue;
       }
 
+      const fieldIsDisqualified = AutofillService.fieldHasDisqualifyingAttributeValue(f);
+
       if (
+        !fieldIsDisqualified &&
         !f.disabled &&
         (canBeReadOnly || !f.readonly) &&
         (withoutForm || f.form === passwordField.form) &&

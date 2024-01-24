@@ -2,9 +2,7 @@ import { mock, mockReset } from "jest-mock-extended";
 
 import { UserVerificationService } from "@bitwarden/common/auth/services/user-verification/user-verification.service";
 import { EventType } from "@bitwarden/common/enums";
-import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
-import { ConfigService } from "@bitwarden/common/platform/services/config/config.service";
 import { EventCollectionService } from "@bitwarden/common/services/event/event-collection.service";
 import { SettingsService } from "@bitwarden/common/services/settings.service";
 import {
@@ -57,7 +55,6 @@ describe("AutofillService", () => {
   const logService = mock<LogService>();
   const settingsService = mock<SettingsService>();
   const userVerificationService = mock<UserVerificationService>();
-  const configService = mock<ConfigService>();
 
   beforeEach(() => {
     autofillService = new AutofillService(
@@ -68,7 +65,6 @@ describe("AutofillService", () => {
       logService,
       settingsService,
       userVerificationService,
-      configService,
     );
   });
 
@@ -144,8 +140,7 @@ describe("AutofillService", () => {
   });
 
   describe("injectAutofillScripts", () => {
-    const autofillV1Script = "autofill.js";
-    const autofillV2BootstrapScript = "bootstrap-autofill.js";
+    const autofillBootstrapScript = "bootstrap-autofill.js";
     const autofillOverlayBootstrapScript = "bootstrap-autofill-overlay.js";
     const defaultAutofillScripts = ["autofiller.js", "notificationBar.js", "contextMenuHandler.js"];
     const defaultExecuteScriptOptions = { runAt: "document_start" };
@@ -161,45 +156,16 @@ describe("AutofillService", () => {
     it("accepts an extension message sender and injects the autofill scripts into the tab of the sender", async () => {
       await autofillService.injectAutofillScripts(sender.tab, sender.frameId, true);
 
-      [autofillV1Script, ...defaultAutofillScripts].forEach((scriptName) => {
+      [autofillOverlayBootstrapScript, ...defaultAutofillScripts].forEach((scriptName) => {
         expect(BrowserApi.executeScriptInTab).toHaveBeenCalledWith(tabMock.id, {
           file: `content/${scriptName}`,
           frameId: sender.frameId,
           ...defaultExecuteScriptOptions,
         });
       });
-      expect(BrowserApi.executeScriptInTab).not.toHaveBeenCalledWith(tabMock.id, {
-        file: `content/${autofillV2BootstrapScript}`,
-        frameId: sender.frameId,
-        ...defaultExecuteScriptOptions,
-      });
     });
 
-    it("will inject the bootstrap-autofill script if the enableAutofillV2 flag is set", async () => {
-      jest
-        .spyOn(configService, "getFeatureFlag")
-        .mockImplementation((flag) => Promise.resolve(flag === FeatureFlag.AutofillV2));
-
-      await autofillService.injectAutofillScripts(sender.tab, sender.frameId);
-
-      expect(BrowserApi.executeScriptInTab).toHaveBeenCalledWith(tabMock.id, {
-        file: `content/${autofillV2BootstrapScript}`,
-        frameId: sender.frameId,
-        ...defaultExecuteScriptOptions,
-      });
-      expect(BrowserApi.executeScriptInTab).not.toHaveBeenCalledWith(tabMock.id, {
-        file: `content/${autofillV1Script}`,
-        frameId: sender.frameId,
-        ...defaultExecuteScriptOptions,
-      });
-    });
-
-    it("will inject the bootstrap-autofill-overlay script if the enableAutofillOverlay flag is set and the user has the autofill overlay enabled", async () => {
-      jest
-        .spyOn(configService, "getFeatureFlag")
-        .mockImplementation((flag) =>
-          Promise.resolve(flag === FeatureFlag.AutofillOverlay || flag === FeatureFlag.AutofillV2),
-        );
+    it("will inject the bootstrap-autofill-overlay script if the user has the autofill overlay enabled", async () => {
       jest
         .spyOn(autofillService["settingsService"], "getAutoFillOverlayVisibility")
         .mockResolvedValue(AutofillOverlayVisibility.OnFieldFocus);
@@ -212,23 +178,13 @@ describe("AutofillService", () => {
         ...defaultExecuteScriptOptions,
       });
       expect(BrowserApi.executeScriptInTab).not.toHaveBeenCalledWith(tabMock.id, {
-        file: `content/${autofillV1Script}`,
-        frameId: sender.frameId,
-        ...defaultExecuteScriptOptions,
-      });
-      expect(BrowserApi.executeScriptInTab).not.toHaveBeenCalledWith(tabMock.id, {
-        file: `content/${autofillV2BootstrapScript}`,
+        file: `content/${autofillBootstrapScript}`,
         frameId: sender.frameId,
         ...defaultExecuteScriptOptions,
       });
     });
 
-    it("will inject the bootstrap-autofill script if the enableAutofillOverlay flag is set but the user does not have the autofill overlay enabled", async () => {
-      jest
-        .spyOn(configService, "getFeatureFlag")
-        .mockImplementation((flag) =>
-          Promise.resolve(flag === FeatureFlag.AutofillOverlay || flag === FeatureFlag.AutofillV2),
-        );
+    it("will inject the bootstrap-autofill script if the user does not have the autofill overlay enabled", async () => {
       jest
         .spyOn(autofillService["settingsService"], "getAutoFillOverlayVisibility")
         .mockResolvedValue(AutofillOverlayVisibility.Off);
@@ -236,12 +192,12 @@ describe("AutofillService", () => {
       await autofillService.injectAutofillScripts(sender.tab, sender.frameId);
 
       expect(BrowserApi.executeScriptInTab).toHaveBeenCalledWith(tabMock.id, {
-        file: `content/${autofillV2BootstrapScript}`,
+        file: `content/${autofillBootstrapScript}`,
         frameId: sender.frameId,
         ...defaultExecuteScriptOptions,
       });
       expect(BrowserApi.executeScriptInTab).not.toHaveBeenCalledWith(tabMock.id, {
-        file: `content/${autofillV1Script}`,
+        file: `content/${autofillOverlayBootstrapScript}`,
         frameId: sender.frameId,
         ...defaultExecuteScriptOptions,
       });
@@ -906,6 +862,28 @@ describe("AutofillService", () => {
           cipherId: cipher.id,
           action: "autofill",
         });
+        expect(autofillService.doAutoFill).not.toHaveBeenCalled();
+        expect(result).toBeNull();
+      });
+
+      it("skips autofill and does not launch the password reprompt window if the password reprompt is currently debouncing", async () => {
+        cipher.reprompt = CipherRepromptType.Password;
+        jest.spyOn(autofillService, "doAutoFill");
+        jest.spyOn(cipherService, "getNextCipherForUrl").mockResolvedValueOnce(cipher);
+        jest
+          .spyOn(userVerificationService, "hasMasterPasswordAndMasterKeyHash")
+          .mockResolvedValueOnce(true);
+        jest
+          .spyOn(autofillService as any, "openVaultItemPasswordRepromptPopout")
+          .mockImplementation();
+        jest
+          .spyOn(autofillService as any, "isDebouncingPasswordRepromptPopout")
+          .mockReturnValueOnce(true);
+
+        const result = await autofillService.doAutoFillOnTab(pageDetails, tab, true);
+
+        expect(cipherService.getNextCipherForUrl).toHaveBeenCalledWith(tab.url);
+        expect(autofillService["openVaultItemPasswordRepromptPopout"]).not.toHaveBeenCalled();
         expect(autofillService.doAutoFill).not.toHaveBeenCalled();
         expect(result).toBeNull();
       });
@@ -2260,8 +2238,7 @@ describe("AutofillService", () => {
           tagName: "span",
         });
         pageDetails.fields = [spanField];
-        jest.spyOn(AutofillService, "forCustomFieldsOnly");
-        jest.spyOn(autofillService as any, "isExcludedType");
+        jest.spyOn(AutofillService, "isExcludedFieldType");
 
         const value = autofillService["generateCardFillScript"](
           fillScript,
@@ -2270,8 +2247,7 @@ describe("AutofillService", () => {
           options,
         );
 
-        expect(AutofillService.forCustomFieldsOnly).toHaveBeenCalledWith(spanField);
-        expect(autofillService["isExcludedType"]).not.toHaveBeenCalled();
+        expect(AutofillService["isExcludedFieldType"]).toHaveBeenCalled();
         expect(value).toStrictEqual(unmodifiedFillScriptValues);
       });
 
@@ -2285,8 +2261,7 @@ describe("AutofillService", () => {
             type: excludedType,
           });
           pageDetails.fields = [invalidField];
-          jest.spyOn(AutofillService, "forCustomFieldsOnly");
-          jest.spyOn(autofillService as any, "isExcludedType");
+          jest.spyOn(AutofillService, "isExcludedFieldType");
 
           const value = autofillService["generateCardFillScript"](
             fillScript,
@@ -2295,9 +2270,8 @@ describe("AutofillService", () => {
             options,
           );
 
-          expect(AutofillService.forCustomFieldsOnly).toHaveBeenCalledWith(invalidField);
-          expect(autofillService["isExcludedType"]).toHaveBeenCalledWith(
-            invalidField.type,
+          expect(AutofillService["isExcludedFieldType"]).toHaveBeenCalledWith(
+            invalidField,
             AutoFillConstants.ExcludedAutofillTypes,
           );
           expect(value).toStrictEqual(unmodifiedFillScriptValues);
@@ -2315,7 +2289,7 @@ describe("AutofillService", () => {
         });
         pageDetails.fields = [notViewableField];
         jest.spyOn(AutofillService, "forCustomFieldsOnly");
-        jest.spyOn(autofillService as any, "isExcludedType");
+        jest.spyOn(AutofillService, "isExcludedFieldType");
 
         const value = autofillService["generateCardFillScript"](
           fillScript,
@@ -2325,7 +2299,7 @@ describe("AutofillService", () => {
         );
 
         expect(AutofillService.forCustomFieldsOnly).toHaveBeenCalledWith(notViewableField);
-        expect(autofillService["isExcludedType"]).toHaveBeenCalled();
+        expect(AutofillService["isExcludedFieldType"]).toHaveBeenCalled();
         expect(value).toStrictEqual(unmodifiedFillScriptValues);
       });
     });
@@ -2410,7 +2384,7 @@ describe("AutofillService", () => {
         options.cipher.card.code = "testCode";
         options.cipher.card.brand = "testBrand";
         jest.spyOn(AutofillService, "forCustomFieldsOnly");
-        jest.spyOn(autofillService as any, "isExcludedType");
+        jest.spyOn(AutofillService, "isExcludedFieldType");
         jest.spyOn(AutofillService as any, "isFieldMatch");
         jest.spyOn(autofillService as any, "makeScriptAction");
         jest.spyOn(AutofillService, "hasValue");
@@ -2428,7 +2402,7 @@ describe("AutofillService", () => {
         );
 
         expect(AutofillService.forCustomFieldsOnly).toHaveBeenCalledTimes(6);
-        expect(autofillService["isExcludedType"]).toHaveBeenCalledTimes(6);
+        expect(AutofillService["isExcludedFieldType"]).toHaveBeenCalledTimes(6);
         expect(AutofillService["isFieldMatch"]).toHaveBeenCalled();
         expect(autofillService["makeScriptAction"]).toHaveBeenCalledTimes(4);
         expect(AutofillService["hasValue"]).toHaveBeenCalledTimes(6);
@@ -2877,7 +2851,7 @@ describe("AutofillService", () => {
       beforeEach(() => {
         pageDetails.fields = [];
         jest.spyOn(AutofillService, "forCustomFieldsOnly");
-        jest.spyOn(autofillService as any, "isExcludedType");
+        jest.spyOn(AutofillService, "isExcludedFieldType");
         jest.spyOn(AutofillService as any, "isFieldMatch");
         jest.spyOn(autofillService as any, "makeScriptAction");
         jest.spyOn(autofillService as any, "makeScriptActionWithValue");
@@ -2895,7 +2869,7 @@ describe("AutofillService", () => {
         );
 
         expect(AutofillService.forCustomFieldsOnly).toHaveBeenCalledWith(customField);
-        expect(autofillService["isExcludedType"]).not.toHaveBeenCalled();
+        expect(AutofillService["isExcludedFieldType"]).toHaveBeenCalled();
         expect(AutofillService["isFieldMatch"]).not.toHaveBeenCalled();
         expect(value.script).toStrictEqual([]);
       });
@@ -2912,8 +2886,8 @@ describe("AutofillService", () => {
         );
 
         expect(AutofillService.forCustomFieldsOnly).toHaveBeenCalledWith(excludedField);
-        expect(autofillService["isExcludedType"]).toHaveBeenCalledWith(
-          excludedField.type,
+        expect(AutofillService["isExcludedFieldType"]).toHaveBeenCalledWith(
+          excludedField,
           AutoFillConstants.ExcludedAutofillTypes,
         );
         expect(AutofillService["isFieldMatch"]).not.toHaveBeenCalled();
@@ -2932,7 +2906,7 @@ describe("AutofillService", () => {
         );
 
         expect(AutofillService.forCustomFieldsOnly).toHaveBeenCalledWith(viewableField);
-        expect(autofillService["isExcludedType"]).toHaveBeenCalled();
+        expect(AutofillService["isExcludedFieldType"]).toHaveBeenCalled();
         expect(AutofillService["isFieldMatch"]).not.toHaveBeenCalled();
         expect(value.script).toStrictEqual([]);
       });
@@ -3314,7 +3288,7 @@ describe("AutofillService", () => {
 
   describe("isExcludedType", () => {
     it("returns true if the passed type is within the excluded type list", () => {
-      const value = autofillService["isExcludedType"](
+      const value = AutofillService["isExcludedType"](
         "hidden",
         AutoFillConstants.ExcludedAutofillTypes,
       );
@@ -3323,10 +3297,38 @@ describe("AutofillService", () => {
     });
 
     it("returns true if the passed type is within the excluded type list", () => {
-      const value = autofillService["isExcludedType"](
+      const value = AutofillService["isExcludedType"](
         "text",
         AutoFillConstants.ExcludedAutofillTypes,
       );
+
+      expect(value).toBe(false);
+    });
+  });
+
+  describe("isSearchField", () => {
+    it("returns true if the passed field type is 'search'", () => {
+      const typedSearchField = createAutofillFieldMock({ type: "search" });
+      const value = AutofillService["isSearchField"](typedSearchField);
+
+      expect(value).toBe(true);
+    });
+
+    it("returns true if the passed field type is missing and another checked attribute value contains a reference to search", () => {
+      const untypedSearchField = createAutofillFieldMock({
+        htmlID: "aSearchInput",
+        placeholder: null,
+        type: null,
+        value: null,
+      });
+      const value = AutofillService["isSearchField"](untypedSearchField);
+
+      expect(value).toBe(true);
+    });
+
+    it("returns false if the passed field is not a search field", () => {
+      const typedSearchField = createAutofillFieldMock();
+      const value = AutofillService["isSearchField"](typedSearchField);
 
       expect(value).toBe(false);
     });
@@ -3644,6 +3646,15 @@ describe("AutofillService", () => {
         expect(result).toStrictEqual([passwordField]);
       });
 
+      it("returns the an empty array if the field's htmlID contains the words `password` and `captcha`", () => {
+        passwordField.htmlID = "inputPasswordCaptcha";
+        pageDetails.fields = [passwordField];
+
+        const result = AutofillService.loadPasswordFields(pageDetails, false, false, false, false);
+
+        expect(result).toStrictEqual([]);
+      });
+
       it("returns the field in an array if the field's htmlName contains the word `password`", () => {
         passwordField.htmlName = "password";
         pageDetails.fields = [passwordField];
@@ -3653,6 +3664,15 @@ describe("AutofillService", () => {
         expect(result).toStrictEqual([passwordField]);
       });
 
+      it("returns the an empty array if the field's htmlName contains the words `password` and `captcha`", () => {
+        passwordField.htmlName = "inputPasswordCaptcha";
+        pageDetails.fields = [passwordField];
+
+        const result = AutofillService.loadPasswordFields(pageDetails, false, false, false, false);
+
+        expect(result).toStrictEqual([]);
+      });
+
       it("returns the field in an array if the field's placeholder contains the word `password`", () => {
         passwordField.placeholder = "password";
         pageDetails.fields = [passwordField];
@@ -3660,6 +3680,26 @@ describe("AutofillService", () => {
         const result = AutofillService.loadPasswordFields(pageDetails, false, false, false, false);
 
         expect(result).toStrictEqual([passwordField]);
+      });
+
+      it("returns the an empty array if the field's placeholder contains the words `password` and `captcha`", () => {
+        passwordField.placeholder = "inputPasswordCaptcha";
+        pageDetails.fields = [passwordField];
+
+        const result = AutofillService.loadPasswordFields(pageDetails, false, false, false, false);
+
+        expect(result).toStrictEqual([]);
+      });
+
+      it("returns the an empty array if any of the field's checked attributed contain the words `captcha` while any other attribute contains the word `password` and no excluded terms", () => {
+        passwordField.htmlID = "inputPasswordCaptcha";
+        passwordField.htmlName = "captcha";
+        passwordField.placeholder = "Enter password";
+        pageDetails.fields = [passwordField];
+
+        const result = AutofillService.loadPasswordFields(pageDetails, false, false, false, false);
+
+        expect(result).toStrictEqual([]);
       });
     });
 

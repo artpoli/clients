@@ -42,22 +42,33 @@ export class AutoFillConstants {
     "verificationCode",
   ];
 
-  static readonly PasswordFieldIgnoreList: string[] = [
+  static readonly SearchFieldNames: string[] = ["search", "query", "find", "go"];
+
+  static readonly FieldIgnoreList: string[] = ["captcha", "findanything", "forgot"];
+
+  static readonly PasswordFieldExcludeList: string[] = [
+    ...AutoFillConstants.FieldIgnoreList,
     "onetimepassword",
-    "captcha",
-    "findanything",
-    "forgot",
   ];
 
-  static readonly ExcludedAutofillTypes: string[] = [
-    "radio",
-    "checkbox",
+  static readonly ExcludedAutofillLoginTypes: string[] = [
     "hidden",
     "file",
     "button",
     "image",
     "reset",
     "search",
+  ];
+
+  static readonly ExcludedAutofillTypes: string[] = [
+    "radio",
+    "checkbox",
+    ...AutoFillConstants.ExcludedAutofillLoginTypes,
+  ];
+
+  static readonly ExcludedOverlayTypes: string[] = [
+    "textarea",
+    ...AutoFillConstants.ExcludedAutofillTypes,
   ];
 }
 

@@ -87,7 +87,6 @@
           [canDeleteCollection]="canDeleteCollection(item.collection)"
           [canEditCollection]="canEditCollection(item.collection)"
           [checked]="selection.isSelected(item)"
-          [flexibleCollectionsEnabled]="flexibleCollectionsEnabled"
           (checkedToggled)="selection.toggle(item)"
           (onEvent)="event($event)"
         ></tr>
@@ -103,6 +102,7 @@
           [showGroups]="showGroups"
           [showPremiumFeatures]="showPremiumFeatures"
           [useEvents]="useEvents"
+          [viewingOrgVault]="viewingOrgVault"
           [cloneable]="canClone(item)"
           [organizations]="allOrganizations"
           [collections]="allCollections"

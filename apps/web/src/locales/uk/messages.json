@@ -656,9 +656,6 @@
   "passkeySuccessfullyCreated": {
     "message": "Ключ доступу успішно створено!"
   },
-  "customName": {
-    "message": "Власна назва"
-  },
   "customPasskeyNameInfo": {
     "message": "Назвіть свій ключ доступу для полегшення розпізнавання."
   },
@@ -5179,6 +5176,12 @@
   "spValidateCertificates": {
     "message": "Перевірка сертифікатів"
   },
+  "spUniqueEntityId": {
+    "message": "Set a unique SP entity ID"
+  },
+  "spUniqueEntityIdDesc": {
+    "message": "Generate an identifier that is unique to your organization"
+  },
   "idpEntityId": {
     "message": "ID об'єкта"
   },
@@ -7389,12 +7392,6 @@
   "skipToContent": {
     "message": "Перейти до вмісту"
   },
-  "customBillingStart": {
-    "message": "Власний рахунок не відображений. Відвідайте "
-  },
-  "customBillingEnd": {
-    "message": " для отримання останнього рахунку."
-  },
   "managePermissionRequired": {
     "message": "Принаймні один учасник або група повинні мати можливість керувати дозволами."
   },
@@ -7450,5 +7447,19 @@
   "commonImportFormats": {
     "message": "Поширені формати",
     "description": "Label indicating the most common import formats"
+  },
+  "maintainYourSubscription": {
+    "message": "To maintain your subscription for $ORG$, ",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'",
+    "placeholders": {
+      "org": {
+        "content": "$1",
+        "example": "Example Inc."
+      }
+    }
+  },
+  "addAPaymentMethod": {
+    "message": "add a payment method",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'"
   }
 }

@@ -160,12 +160,12 @@ export default class BrowserPlatformUtilsService implements PlatformUtilsService
     }
 
     // Opera has "sidebar_panel" as a ViewType but doesn't currently work
-    if (this.isFirefox() && chrome.extension.getViews({ type: "sidebar" }).length > 0) {
+    if (this.isFirefox() && BrowserApi.getExtensionViews({ type: "sidebar" }).length > 0) {
       return true;
     }
 
     // Opera sidebar has type of "tab" (will stick around for a while after closing sidebar)
-    const tabOpen = chrome.extension.getViews({ type: "tab" }).length > 0;
+    const tabOpen = BrowserApi.getExtensionViews({ type: "tab" }).length > 0;
     return tabOpen;
   }
 
@@ -174,6 +174,8 @@ export default class BrowserPlatformUtilsService implements PlatformUtilsService
   }
 
   launchUri(uri: string, options?: any): void {
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     BrowserApi.createNewTab(uri, options && options.extensionPage === true);
   }
 
@@ -228,6 +230,8 @@ export default class BrowserPlatformUtilsService implements PlatformUtilsService
     const clearMs: number = options && options.clearMs ? options.clearMs : null;
 
     if (this.isSafari()) {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       SafariApp.sendMessageToApp("copyToClipboard", text).then(() => {
         if (!clearing && this.clipboardWriteCallback != null) {
           this.clipboardWriteCallback(text, clearMs);

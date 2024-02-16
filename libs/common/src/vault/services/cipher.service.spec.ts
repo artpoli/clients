@@ -1,10 +1,11 @@
-import { mock, mockReset } from "jest-mock-extended";
+import { mock } from "jest-mock-extended";
 import { of } from "rxjs";
 
 import { makeStaticByteArray } from "../../../spec/utils";
 import { ApiService } from "../../abstractions/api.service";
 import { SearchService } from "../../abstractions/search.service";
 import { SettingsService } from "../../abstractions/settings.service";
+import { AutofillSettingsService } from "../../autofill/services/autofill-settings.service";
 import { ConfigServiceAbstraction } from "../../platform/abstractions/config/config.service.abstraction";
 import { CryptoService } from "../../platform/abstractions/crypto.service";
 import { EncryptService } from "../../platform/abstractions/encrypt.service";
@@ -25,10 +26,14 @@ import { CipherCreateRequest } from "../models/request/cipher-create.request";
 import { CipherPartialRequest } from "../models/request/cipher-partial.request";
 import { CipherRequest } from "../models/request/cipher.request";
 import { CipherView } from "../models/view/cipher.view";
+import { LoginUriView } from "../models/view/login-uri.view";
 
 import { CipherService } from "./cipher.service";
 
 const ENCRYPTED_TEXT = "This data has been encrypted";
+function encryptText(clearText: string | Uint8Array) {
+  return Promise.resolve(new EncString(`${clearText} has been encrypted`));
+}
 const ENCRYPTED_BYTES = mock<EncArrayBuffer>();
 
 const cipherData: CipherData = {
@@ -48,7 +53,7 @@ const cipherData: CipherData = {
   key: "EncKey",
   reprompt: CipherRepromptType.None,
   login: {
-    uris: [{ uri: "EncryptedString", match: UriMatchType.Domain }],
+    uris: [{ uri: "EncryptedString", uriChecksum: "EncryptedString", match: UriMatchType.Domain }],
     username: "EncryptedString",
     password: "EncryptedString",
     passwordRevisionDate: "2022-01-31T12:00:00.000Z",
@@ -93,6 +98,7 @@ const cipherData: CipherData = {
 describe("Cipher Service", () => {
   const cryptoService = mock<CryptoService>();
   const stateService = mock<StateService>();
+  const autofillSettingsService = mock<AutofillSettingsService>();
   const settingsService = mock<SettingsService>();
   const apiService = mock<ApiService>();
   const cipherFileUploadService = mock<CipherFileUploadService>();
@@ -105,16 +111,6 @@ describe("Cipher Service", () => {
   let cipherObj: Cipher;
 
   beforeEach(() => {
-    mockReset(apiService);
-    mockReset(cryptoService);
-    mockReset(stateService);
-    mockReset(settingsService);
-    mockReset(cipherFileUploadService);
-    mockReset(i18nService);
-    mockReset(searchService);
-    mockReset(encryptService);
-    mockReset(configService);
-
     encryptService.encryptToBytes.mockReturnValue(Promise.resolve(ENCRYPTED_BYTES));
     encryptService.encrypt.mockReturnValue(Promise.resolve(new EncString(ENCRYPTED_TEXT)));
 
@@ -127,6 +123,7 @@ describe("Cipher Service", () => {
       i18nService,
       searchService,
       stateService,
+      autofillSettingsService,
       encryptService,
       cipherFileUploadService,
       configService,
@@ -134,6 +131,11 @@ describe("Cipher Service", () => {
 
     cipherObj = new Cipher(cipherData);
   });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   describe("saveAttachmentRawWithServer()", () => {
     it("should upload encrypted file contents with save attachments", async () => {
       const fileName = "filename";
@@ -161,6 +163,8 @@ describe("Cipher Service", () => {
       const spy = jest
         .spyOn(apiService, "postCipherAdmin")
         .mockImplementation(() => Promise.resolve<any>(cipherObj));
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       cipherService.createWithServer(cipherObj, true);
       const expectedObj = new CipherCreateRequest(cipherObj);
 
@@ -172,6 +176,8 @@ describe("Cipher Service", () => {
       const spy = jest
         .spyOn(apiService, "postCipher")
         .mockImplementation(() => Promise.resolve<any>(cipherObj));
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       cipherService.createWithServer(cipherObj, true);
       const expectedObj = new CipherRequest(cipherObj);
 
@@ -184,6 +190,8 @@ describe("Cipher Service", () => {
       const spy = jest
         .spyOn(apiService, "postCipherCreate")
         .mockImplementation(() => Promise.resolve<any>(cipherObj));
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       cipherService.createWithServer(cipherObj);
       const expectedObj = new CipherCreateRequest(cipherObj);
 
@@ -195,6 +203,8 @@ describe("Cipher Service", () => {
       const spy = jest
         .spyOn(apiService, "postCipher")
         .mockImplementation(() => Promise.resolve<any>(cipherObj));
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       cipherService.createWithServer(cipherObj);
       const expectedObj = new CipherRequest(cipherObj);
 
@@ -208,6 +218,8 @@ describe("Cipher Service", () => {
       const spy = jest
         .spyOn(apiService, "putCipherAdmin")
         .mockImplementation(() => Promise.resolve<any>(cipherObj));
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       cipherService.updateWithServer(cipherObj, true, true);
       const expectedObj = new CipherRequest(cipherObj);
 
@@ -220,6 +232,8 @@ describe("Cipher Service", () => {
       const spy = jest
         .spyOn(apiService, "putCipher")
         .mockImplementation(() => Promise.resolve<any>(cipherObj));
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       cipherService.updateWithServer(cipherObj);
       const expectedObj = new CipherRequest(cipherObj);
 
@@ -232,6 +246,8 @@ describe("Cipher Service", () => {
       const spy = jest
         .spyOn(apiService, "putPartialCipher")
         .mockImplementation(() => Promise.resolve<any>(cipherObj));
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       cipherService.updateWithServer(cipherObj);
       const expectedObj = new CipherPartialRequest(cipherObj);
 
@@ -252,7 +268,28 @@ describe("Cipher Service", () => {
       cryptoService.makeCipherKey.mockReturnValue(
         Promise.resolve(new SymmetricCryptoKey(makeStaticByteArray(64)) as CipherKey),
       );
-      cryptoService.encrypt.mockReturnValue(Promise.resolve(new EncString(ENCRYPTED_TEXT)));
+      cryptoService.encrypt.mockImplementation(encryptText);
+
+      jest.spyOn(cipherService as any, "getAutofillOnPageLoadDefault").mockResolvedValue(true);
+    });
+
+    describe("login encryption", () => {
+      it("should add a uri hash to login uris", async () => {
+        encryptService.hash.mockImplementation((value) => Promise.resolve(`${value} hash`));
+        cipherView.login.uris = [
+          { uri: "uri", match: UriMatchType.RegularExpression } as LoginUriView,
+        ];
+
+        const domain = await cipherService.encrypt(cipherView);
+
+        expect(domain.login.uris).toEqual([
+          {
+            uri: new EncString("uri has been encrypted"),
+            uriChecksum: new EncString("uri hash has been encrypted"),
+            match: UriMatchType.RegularExpression,
+          },
+        ]);
+      });
     });
 
     describe("cipher.key", () => {

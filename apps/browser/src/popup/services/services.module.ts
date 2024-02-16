@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, LOCALE_ID, NgModule } from "@angular/core";
+import { APP_INITIALIZER, LOCALE_ID, NgModule, NgZone } from "@angular/core";
 
 import { UnauthGuard as BaseUnauthGuardService } from "@bitwarden/angular/auth/guards";
 import { ThemingService } from "@bitwarden/angular/platform/services/theming/theming.service";
@@ -10,6 +10,7 @@ import {
   OBSERVABLE_MEMORY_STORAGE,
 } from "@bitwarden/angular/services/injection-tokens";
 import { JslibServicesModule } from "@bitwarden/angular/services/jslib-services.module";
+import { LoginStrategyServiceAbstraction } from "@bitwarden/auth/common";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { AuditService } from "@bitwarden/common/abstractions/audit.service";
 import { EventCollectionService } from "@bitwarden/common/abstractions/event/event-collection.service";
@@ -39,6 +40,10 @@ import { TwoFactorService } from "@bitwarden/common/auth/abstractions/two-factor
 import { UserVerificationService } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
 import { AuthService } from "@bitwarden/common/auth/services/auth.service";
 import { LoginService } from "@bitwarden/common/auth/services/login.service";
+import {
+  AutofillSettingsService,
+  AutofillSettingsServiceAbstraction,
+} from "@bitwarden/common/autofill/services/autofill-settings.service";
 import { AppIdService } from "@bitwarden/common/platform/abstractions/app-id.service";
 import { ConfigApiServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config-api.service.abstraction";
 import { CryptoFunctionService } from "@bitwarden/common/platform/abstractions/crypto-function.service";
@@ -67,7 +72,8 @@ import { GlobalState } from "@bitwarden/common/platform/models/domain/global-sta
 import { ConfigService } from "@bitwarden/common/platform/services/config/config.service";
 import { ConsoleLogService } from "@bitwarden/common/platform/services/console-log.service";
 import { ContainerService } from "@bitwarden/common/platform/services/container.service";
-import { DerivedStateProvider } from "@bitwarden/common/platform/state";
+import { MigrationRunner } from "@bitwarden/common/platform/services/migration-runner";
+import { DerivedStateProvider, StateProvider } from "@bitwarden/common/platform/state";
 import { SearchService } from "@bitwarden/common/services/search.service";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/password";
 import { UsernameGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/username";
@@ -83,15 +89,15 @@ import { CollectionService } from "@bitwarden/common/vault/abstractions/collecti
 import { CipherFileUploadService } from "@bitwarden/common/vault/abstractions/file-upload/cipher-file-upload.service";
 import { FolderApiServiceAbstraction } from "@bitwarden/common/vault/abstractions/folder/folder-api.service.abstraction";
 import {
-  FolderService,
+  FolderService as FolderServiceAbstraction,
   InternalFolderService,
 } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
 import { TotpService } from "@bitwarden/common/vault/abstractions/totp.service";
 import { FolderApiService } from "@bitwarden/common/vault/services/folder/folder-api.service";
 import { DialogService } from "@bitwarden/components";
-import { VaultExportServiceAbstraction } from "@bitwarden/exporter/vault-export";
 import { ImportServiceAbstraction } from "@bitwarden/importer/core";
+import { VaultExportServiceAbstraction } from "@bitwarden/vault-export-core";
 
 import { BrowserOrganizationService } from "../../admin-console/services/browser-organization.service";
 import { BrowserPolicyService } from "../../admin-console/services/browser-policy.service";
@@ -115,7 +121,6 @@ import { ForegroundMemoryStorageService } from "../../platform/storage/foregroun
 import { BrowserSendService } from "../../services/browser-send.service";
 import { BrowserSettingsService } from "../../services/browser-settings.service";
 import { FilePopoutUtilsService } from "../../tools/popup/services/file-popout-utils.service";
-import { BrowserFolderService } from "../../vault/services/browser-folder.service";
 import { VaultFilterService } from "../../vault/services/vault-filter.service";
 
 import { DebounceNavigationService } from "./debounce-navigation.service";
@@ -131,6 +136,8 @@ const mainBackground: MainBackground = needsBackgroundInit
 
 function createLocalBgService() {
   const localBgService = new MainBackground(isPrivateMode);
+  // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   localBgService.bootstrap();
   return localBgService;
 }
@@ -180,6 +187,10 @@ function getBgService<T>(service: keyof MainBackground) {
       deps: [],
     },
     {
+      provide: LoginStrategyServiceAbstraction,
+      useFactory: getBgService<LoginStrategyServiceAbstraction>("loginStrategyService"),
+    },
+    {
       provide: SearchServiceAbstraction,
       useFactory: (logService: ConsoleLogService, i18nService: I18nServiceAbstraction) => {
         return new PopupSearchService(
@@ -207,20 +218,8 @@ function getBgService<T>(service: keyof MainBackground) {
       useFactory: getBgService<FileUploadService>("fileUploadService"),
     },
     {
-      provide: FolderService,
-      useFactory: (
-        cryptoService: CryptoService,
-        i18nService: I18nServiceAbstraction,
-        cipherService: CipherService,
-        stateService: StateServiceAbstraction,
-      ) => {
-        return new BrowserFolderService(cryptoService, i18nService, cipherService, stateService);
-      },
-      deps: [CryptoService, I18nServiceAbstraction, CipherService, StateServiceAbstraction],
-    },
-    {
       provide: InternalFolderService,
-      useExisting: FolderService,
+      useExisting: FolderServiceAbstraction,
     },
     {
       provide: FolderApiServiceAbstraction,
@@ -421,17 +420,17 @@ function getBgService<T>(service: keyof MainBackground) {
     },
     {
       provide: OrganizationService,
-      useFactory: (stateService: StateServiceAbstraction) => {
-        return new BrowserOrganizationService(stateService);
+      useFactory: (stateService: StateServiceAbstraction, stateProvider: StateProvider) => {
+        return new BrowserOrganizationService(stateService, stateProvider);
       },
-      deps: [StateServiceAbstraction],
+      deps: [StateServiceAbstraction, StateProvider],
     },
     {
       provide: VaultFilterService,
       useFactory: (
         stateService: StateServiceAbstraction,
         organizationService: OrganizationService,
-        folderService: FolderService,
+        folderService: FolderServiceAbstraction,
         policyService: PolicyService,
         accountService: AccountServiceAbstraction,
       ) => {
@@ -448,7 +447,7 @@ function getBgService<T>(service: keyof MainBackground) {
       deps: [
         StateServiceAbstraction,
         OrganizationService,
-        FolderService,
+        FolderServiceAbstraction,
         PolicyService,
         AccountServiceAbstraction,
       ],
@@ -483,6 +482,8 @@ function getBgService<T>(service: keyof MainBackground) {
         memoryStorageService: AbstractMemoryStorageService,
         logService: LogServiceAbstraction,
         accountService: AccountServiceAbstraction,
+        environmentService: EnvironmentService,
+        migrationRunner: MigrationRunner,
       ) => {
         return new BrowserStateService(
           storageService,
@@ -491,6 +492,8 @@ function getBgService<T>(service: keyof MainBackground) {
           logService,
           new StateFactory(GlobalState, Account),
           accountService,
+          environmentService,
+          migrationRunner,
         );
       },
       deps: [
@@ -499,6 +502,8 @@ function getBgService<T>(service: keyof MainBackground) {
         MEMORY_STORAGE,
         LogServiceAbstraction,
         AccountServiceAbstraction,
+        EnvironmentService,
+        MigrationRunner,
       ],
     },
     {
@@ -557,7 +562,12 @@ function getBgService<T>(service: keyof MainBackground) {
     {
       provide: DerivedStateProvider,
       useClass: ForegroundDerivedStateProvider,
-      deps: [OBSERVABLE_MEMORY_STORAGE],
+      deps: [OBSERVABLE_MEMORY_STORAGE, NgZone],
+    },
+    {
+      provide: AutofillSettingsServiceAbstraction,
+      useClass: AutofillSettingsService,
+      deps: [StateProvider, PolicyService],
     },
   ],
 })

@@ -8,8 +8,13 @@ import {
 import { Account } from "../../../models/account";
 import { BrowserStateService } from "../../services/browser-state.service";
 
+import {
+  environmentServiceFactory,
+  EnvironmentServiceInitOptions,
+} from "./environment-service.factory";
 import { CachedServices, factory, FactoryOptions } from "./factory-options";
 import { logServiceFactory, LogServiceInitOptions } from "./log-service.factory";
+import { migrationRunnerFactory, MigrationRunnerInitOptions } from "./migration-runner.factory";
 import {
   diskStorageServiceFactory,
   secureStorageServiceFactory,
@@ -31,7 +36,9 @@ export type StateServiceInitOptions = StateServiceFactoryOptions &
   SecureStorageServiceInitOptions &
   MemoryStorageServiceInitOptions &
   LogServiceInitOptions &
-  AccountServiceInitOptions;
+  AccountServiceInitOptions &
+  EnvironmentServiceInitOptions &
+  MigrationRunnerInitOptions;
 
 export async function stateServiceFactory(
   cache: { stateService?: BrowserStateService } & CachedServices,
@@ -42,16 +49,19 @@ export async function stateServiceFactory(
     "stateService",
     opts,
     async () =>
-      await new BrowserStateService(
+      new BrowserStateService(
         await diskStorageServiceFactory(cache, opts),
         await secureStorageServiceFactory(cache, opts),
         await memoryStorageServiceFactory(cache, opts),
         await logServiceFactory(cache, opts),
         opts.stateServiceOptions.stateFactory,
         await accountServiceFactory(cache, opts),
+        await environmentServiceFactory(cache, opts),
+        await migrationRunnerFactory(cache, opts),
         opts.stateServiceOptions.useAccountCache,
       ),
   );
-  service.init();
+  // TODO: If we run migration through a chrome installed/updated event we can turn off running migrations
+  await service.init();
   return service;
 }

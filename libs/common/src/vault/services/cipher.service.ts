@@ -4,7 +4,9 @@ import { SemVer } from "semver";
 import { ApiService } from "../../abstractions/api.service";
 import { SearchService } from "../../abstractions/search.service";
 import { SettingsService } from "../../abstractions/settings.service";
+import { AutofillSettingsServiceAbstraction } from "../../autofill/services/autofill-settings.service";
 import { ErrorResponse } from "../../models/response/error.response";
+import { ListResponse } from "../../models/response/list.response";
 import { View } from "../../models/view/view";
 import { ConfigServiceAbstraction } from "../../platform/abstractions/config/config.service.abstraction";
 import { CryptoService } from "../../platform/abstractions/crypto.service";
@@ -50,7 +52,7 @@ import { CipherView } from "../models/view/cipher.view";
 import { FieldView } from "../models/view/field.view";
 import { PasswordHistoryView } from "../models/view/password-history.view";
 
-const CIPHER_KEY_ENC_MIN_SERVER_VER = new SemVer("2023.9.1");
+const CIPHER_KEY_ENC_MIN_SERVER_VER = new SemVer("2024.2.0");
 
 export class CipherService implements CipherServiceAbstraction {
   private sortedCiphersCache: SortedCiphersCache = new SortedCiphersCache(
@@ -64,6 +66,7 @@ export class CipherService implements CipherServiceAbstraction {
     private i18nService: I18nService,
     private searchService: SearchService,
     private stateService: StateService,
+    private autofillSettingsService: AutofillSettingsServiceAbstraction,
     private encryptService: EncryptService,
     private cipherFileUploadService: CipherFileUploadService,
     private configService: ConfigServiceAbstraction,
@@ -387,6 +390,24 @@ export class CipherService implements CipherServiceAbstraction {
 
   async getAllFromApiForOrganization(organizationId: string): Promise<CipherView[]> {
     const response = await this.apiService.getCiphersOrganization(organizationId);
+    return await this.decryptOrganizationCiphersResponse(response, organizationId);
+  }
+
+  async getManyFromApiForOrganization(organizationId: string): Promise<CipherView[]> {
+    const response = await this.apiService.send(
+      "GET",
+      "/ciphers/organization-details/assigned?organizationId=" + organizationId,
+      null,
+      true,
+      true,
+    );
+    return this.decryptOrganizationCiphersResponse(response, organizationId);
+  }
+
+  private async decryptOrganizationCiphersResponse(
+    response: ListResponse<CipherResponse>,
+    organizationId: string,
+  ): Promise<CipherView[]> {
     if (response?.data == null || response.data.length < 1) {
       return [];
     }
@@ -1127,6 +1148,7 @@ export class CipherService implements CipherServiceAbstraction {
 
         if (model.login.uris != null) {
           cipher.login.uris = [];
+          model.login.uris = model.login.uris.filter((u) => u.uri != null);
           for (let i = 0; i < model.login.uris.length; i++) {
             const loginUri = new LoginUri();
             loginUri.match = model.login.uris[i].match;
@@ -1138,6 +1160,8 @@ export class CipherService implements CipherServiceAbstraction {
               },
               key,
             );
+            const uriHash = await this.encryptService.hash(model.login.uris[i].uri, "sha256");
+            loginUri.uriChecksum = await this.cryptoService.encrypt(uriHash, key);
             cipher.login.uris.push(loginUri);
           }
         }
@@ -1228,6 +1252,10 @@ export class CipherService implements CipherServiceAbstraction {
     }
   }
 
+  private async getAutofillOnPageLoadDefault() {
+    return await firstValueFrom(this.autofillSettingsService.autofillOnPageLoadDefault$);
+  }
+
   private async getCipherForUrl(
     url: string,
     lastUsed: boolean,
@@ -1243,7 +1271,8 @@ export class CipherService implements CipherServiceAbstraction {
       }
 
       if (autofillOnPageLoad) {
-        const autofillOnPageLoadDefault = await this.stateService.getAutoFillOnPageLoadDefault();
+        const autofillOnPageLoadDefault = await this.getAutofillOnPageLoadDefault();
+
         ciphers = ciphers.filter(
           (cipher) =>
             cipher.login.autofillOnPageLoad ||

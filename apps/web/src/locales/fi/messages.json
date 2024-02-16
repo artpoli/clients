@@ -600,7 +600,7 @@
     "message": "Ei"
   },
   "loginOrCreateNewAccount": {
-    "message": "Käytä salattua holviasi kirjautumalla tilillesi tai luomalla uusi."
+    "message": "Käytä salattua holviasi kirjautumalla sisään tai tai luo uusi tili."
   },
   "loginWithDevice": {
     "message": "Laitteella kirjautuminen"
@@ -637,9 +637,6 @@
   },
   "learnMoreAboutPasswordless": {
     "message": "Lue lisää salasanattomasta kirjautumisesta"
-  },
-  "passkeyEnterMasterPassword": {
-    "message": "Muokkaa suojausavainkirjautumisen asetuksia syöttämällä pääsalasanasi."
   },
   "creatingPasskeyLoading": {
     "message": "Suojausavainta luodaan..."
@@ -2531,6 +2528,15 @@
       }
     }
   },
+  "trialSecretsManagerThankYou": {
+    "message": "Kiitos kun hankit Bitwarden Salaisuushallinnan $PLAN$-tilaukseen!",
+    "placeholders": {
+      "plan": {
+        "content": "$1",
+        "example": "Teams"
+      }
+    }
+  },
   "trialPaidInfoMessage": {
     "message": "$PLAN$-tilauksesi 7 päivän kokeilujakso muutetaan 7 päivän kuluttua maksulliseksi tilaukseksi.",
     "placeholders": {
@@ -2815,6 +2821,9 @@
   },
   "incorrectCode": {
     "message": "Virheellinen koodi"
+  },
+  "incorrectPin": {
+    "message": "Virheellinen PIN-koodi"
   },
   "exportedVault": {
     "message": "Holvi vietiin"
@@ -3468,7 +3477,7 @@
     "message": "Aseta tilaukseesi sisältyvä jäsenpaikkojen määrä. Määrän täytyttyä et voi kutsua uusia jäseniä."
   },
   "limitSmSubscriptionDesc": {
-    "message": "Aseta Salaisuushallinnan tilaukseen sisältyvä jäsenpaikkojen määrä. Määrän täytyttyä et voi kutsua uusia jäseniä."
+    "message": "Aseta Salaisuushallinta-tilaukseesi sisältyvä jäsenpaikkojen määrä. Määrän täytyttyä et voi kutsua uusia jäseniä."
   },
   "maxSeatLimit": {
     "message": "Käyttäjäpaikkojen enimmäismäärä (valinnainen)",
@@ -5177,10 +5186,10 @@
     "message": "Vahvista varmenteet"
   },
   "spUniqueEntityId": {
-    "message": "Set a unique SP entity ID"
+    "message": "Aseta yksilöllinen SP entity ID"
   },
   "spUniqueEntityIdDesc": {
-    "message": "Generate an identifier that is unique to your organization"
+    "message": "Luo yksilöllinen tunniste organisaatiollesi."
   },
   "idpEntityId": {
     "message": "Entity ID"
@@ -5906,6 +5915,15 @@
       }
     }
   },
+  "launchDuoAndFollowStepsToFinishLoggingIn": {
+    "message": "Avaa DUO ja viimeistele kirjautuminen seuraamalla ohjeita."
+  },
+  "duoRequiredByOrgForAccount": {
+    "message": "Tilisi vaatii kaksivaiheisen DUO-kirjautumisen."
+  },
+  "launchDuo": {
+    "message": "Avaa DUO"
+  },
   "turnOn": {
     "message": "Ota käyttöön"
   },
@@ -6604,6 +6622,39 @@
       }
     }
   },
+  "verificationRequiredForActionSetPinToContinue": {
+    "message": "Toiminto vaatii vahvistuksen. Jatka asettamalla PIN-koodi."
+  },
+  "setPin": {
+    "message": "Aseta PIN-koodi"
+  },
+  "verifyWithBiometrics": {
+    "message": "Vahvista biometrialla"
+  },
+  "awaitingConfirmation": {
+    "message": "Odottaa vahvistusta"
+  },
+  "couldNotCompleteBiometrics": {
+    "message": "Biometrinen todennus ei onnistunut."
+  },
+  "needADifferentMethod": {
+    "message": "Tarvitsetko eri menetelmän?"
+  },
+  "useMasterPassword": {
+    "message": "Käytä pääsalasanaa"
+  },
+  "usePin": {
+    "message": "Käytä PIN-koodia"
+  },
+  "useBiometrics": {
+    "message": "Käytä biometriaa"
+  },
+  "enterVerificationCodeSentToEmail": {
+    "message": "Syötä sähköpostiosoitteeseesi lähetetty vahvistuskoodi."
+  },
+  "resendCode": {
+    "message": "Lähetä koodi uudelleen"
+  },
   "membersColumnHeader": {
     "message": "Jäsen/ryhmä"
   },
@@ -6814,9 +6865,6 @@
   "secretsManager": {
     "message": "Salaisuushallinta"
   },
-  "secretsManagerBeta": {
-    "message": "Salaisuushallinta Beta"
-  },
   "secretsManagerAccessDescription": {
     "message": "Aktivoi käyttäjälle pääsy Salaisuushallintaan."
   },
@@ -6919,12 +6967,6 @@
   },
   "selectionIsRequired": {
     "message": "Valinta vaaditaan."
-  },
-  "secretsManagerSubscriptionDesc": {
-    "message": "Ota Salaisuushallinta käyttöön organisaatiossasi veloituksetta sen Beta-vaiheen aikana. Käyttäjäkohtaiset käyttöoikeudet voidaan myöntää jäsenhallinan kautta."
-  },
-  "secretsManagerEnable": {
-    "message": "Käytä Salaisuushallinnan Beta-versiota"
   },
   "saPeopleWarningTitle": {
     "message": "Käyttöoikeustunnisteet ovat edelleen käytettävissä"
@@ -7086,6 +7128,10 @@
       }
     }
   },
+  "verificationRequired": {
+    "message": "Vahvistus vaaditaan",
+    "description": "Default title for the user verification dialog."
+  },
   "recoverAccount": {
     "message": "Palauta tili"
   },
@@ -7187,6 +7233,15 @@
   },
   "startYour7DayFreeTrialOfBitwardenFor": {
     "message": "Aloita seitsemän päivän ilmainen Bitwarden-kokeilu organisaatiolle $ORG$",
+    "placeholders": {
+      "org": {
+        "content": "$1",
+        "example": "Organization name"
+      }
+    }
+  },
+  "startYour7DayFreeTrialOfBitwardenSecretsManagerFor": {
+    "message": "Aloita seitsemän päivän ilmainen Bitwarden Salaisuushallinnan kokeilu organisaatiolle $ORG$",
     "placeholders": {
       "org": {
         "content": "$1",
@@ -7325,8 +7380,8 @@
   "allowAdminAccessToAllCollectionItemsDesc": {
     "message": "Omistajat ja ylläpitäjät voivat hallita kaikkia kokoelmia ja kohteita."
   },
-  "collectionManagementUpdated": {
-    "message": "Kokoelmien hallinnan määritykset tallennettiin"
+  "updatedCollectionManagement": {
+    "message": "Muokkasi kokoelman hallinta-asetusta $ID$."
   },
   "passwordManagerPlanPrice": {
     "message": "Salasanahallinnan tilauksen hinta"
@@ -7355,27 +7410,11 @@
   "loggedInExclamation": {
     "message": "Kirjautuminen onnistui"
   },
-  "smBetaEndedDesc": {
-    "message": "Salaisuushallinnan beta päättyi $BETA_ENDING_DATE$. Sinulla on $DAYS$ päivää aikaa lisätä Salaisuushallinta maksulliseen tilaukseesi säilyttääksesi Salaisuushallinnassa olevien tietojesi käyttöoikeuden. Lisää Salaisuushallinta tilaukseesi olemalla yhteydessä asiakaspalveluun.",
-    "placeholders": {
-      "beta_ending_date": {
-        "content": "$1",
-        "example": "August 1, 2023"
-      },
-      "days": {
-        "content": "$2",
-        "example": "11"
-      }
-    }
-  },
-  "betaEnding": {
-    "message": "Beta on päättynyt"
-  },
   "beta": {
     "message": "Beta"
   },
   "assignCollectionAccess": {
-    "message": "Määritä kokoelmien käyttöoikeus"
+    "message": "Määritä kokoelmien käyttöoikeudet"
   },
   "editedCollections": {
     "message": "Muokatut kokoelmat"
@@ -7391,12 +7430,6 @@
   },
   "skipToContent": {
     "message": "Siirry sisältöön"
-  },
-  "customBillingStart": {
-    "message": "Mukautettua laskutusta ei ole huomioitu. Löydät viimeisimmän laskutuksen "
-  },
-  "customBillingEnd": {
-    "message": " -sivulta."
   },
   "managePermissionRequired": {
     "message": "Ainakin yhdellä jäsenellä tai ryhmällä on oltava hallintaoikeus."
@@ -7453,5 +7486,76 @@
   "commonImportFormats": {
     "message": "Yleiset muodot",
     "description": "Label indicating the most common import formats"
+  },
+  "maintainYourSubscription": {
+    "message": "Ylläpitääksesi organisaation $ORG$ tilausta, ",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'",
+    "placeholders": {
+      "org": {
+        "content": "$1",
+        "example": "Example Inc."
+      }
+    }
+  },
+  "addAPaymentMethod": {
+    "message": "lisää maksutapa",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'"
+  },
+  "collectionEnhancementsDesc": {
+    "message": "Paranna joustavuutta lisäämällä uusia asetuksia ja käyttöoikeuksia. Korvaa \"Valvoja\"-rooli \"Voi hallita\" -käyttöoikeudella ja aktivoi ominaisuuksia, joilla käyttäjät voivat luoda kokoelmia ja rajoittaa kokoelmien hallintaoikeuksia.",
+    "description": "This describes new features and improvements for user roles and collections"
+  },
+  "collectionEnhancementsLearnMore": {
+    "message": "Lisätietoja kokoelmien hallinnasta"
+  },
+  "organizationInformation": {
+    "message": "Organisaation tiedot"
+  },
+  "confirmationDetails": {
+    "message": "Vahvistuksen tiedot"
+  },
+  "smFreeTrialThankYou": {
+    "message": "Kiitos kun hankit Bitwarden Salaisuushallinnan!"
+  },
+  "smFreeTrialConfirmationEmail": {
+    "message": "Sähköpostivahvistus lähetettiin osoitteeseen "
+  },
+  "confirmCollectionEnhancementsDialogTitle": {
+    "message": "Toimintoa ei ole mahdollista kumota"
+  },
+  "confirmCollectionEnhancementsDialogContent": {
+    "message": "Ominaisuuden käyttöönotto korvaa \"Valvoja\"-roolin \"Voi hallita\" -käyttöoikeudella. Muutos kestää hetken ja ennen sen valmistumista organisaatioon ei tule tehdä mitään muutoksia. Haluatko varmasti jatkaa?"
+  },
+  "sorryToSeeYouGo": {
+    "message": "Harmillista, että päätit lopettaa tilauksesi! Auta meitä parantamaan Bitwardenia kertomalla miksi.",
+    "description": "A message shown to users as part of an offboarding survey asking them to provide more information on their subscription cancelation."
+  },
+  "selectCancellationReason": {
+    "message": "Valitse syy tilauksesi lopetukseen",
+    "description": "Used as a form field label for a select input on the offboarding survey."
+  },
+  "anyOtherFeedback": {
+    "message": "Haluaisitko antaa meille muuta palautetta?",
+    "description": "Used as a form field label for a textarea input on the offboarding survey."
+  },
+  "missingFeatures": {
+    "message": "Ominaisuuksia puuttuu",
+    "description": "An option for the offboarding survey shown when a user cancels their subscription."
+  },
+  "movingToAnotherTool": {
+    "message": "Vaihdan eri työkaluun",
+    "description": "An option for the offboarding survey shown when a user cancels their subscription."
+  },
+  "tooDifficultToUse": {
+    "message": "Liian vaikea käyttää",
+    "description": "An option for the offboarding survey shown when a user cancels their subscription."
+  },
+  "notUsingEnough": {
+    "message": "Käyttötarve on liian pieni",
+    "description": "An option for the offboarding survey shown when a user cancels their subscription."
+  },
+  "tooExpensive": {
+    "message": "Liian kallis",
+    "description": "An option for the offboarding survey shown when a user cancels their subscription."
   }
 }

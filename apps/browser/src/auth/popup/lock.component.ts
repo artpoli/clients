@@ -24,7 +24,7 @@ import { DialogService } from "@bitwarden/components";
 
 import { BiometricErrors, BiometricErrorTypes } from "../../models/biometricErrors";
 import { BrowserRouterService } from "../../platform/popup/services/browser-router.service";
-import { fido2PopoutSessionData$ } from "../../vault/fido2/browser-fido2-user-interface.service";
+import { fido2PopoutSessionData$ } from "../../vault/popup/utils/fido2-popout-session-data";
 
 @Component({
   selector: "app-lock",
@@ -87,8 +87,12 @@ export class LockComponent extends BaseLockComponent {
     super.onSuccessfulSubmit = async () => {
       const previousUrl = this.routerService.getPreviousUrl();
       if (previousUrl) {
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.router.navigateByUrl(previousUrl);
       } else {
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.router.navigate([this.successRoute]);
       }
     };

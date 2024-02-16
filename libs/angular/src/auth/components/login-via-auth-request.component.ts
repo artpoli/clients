@@ -2,6 +2,10 @@ import { Directive, OnDestroy, OnInit } from "@angular/core";
 import { IsActiveMatchOptions, Router } from "@angular/router";
 import { Subject, takeUntil } from "rxjs";
 
+import {
+  AuthRequestLoginCredentials,
+  LoginStrategyServiceAbstraction,
+} from "@bitwarden/auth/common";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { AnonymousHubService } from "@bitwarden/common/auth/abstractions/anonymous-hub.service";
 import { AuthRequestCryptoServiceAbstraction } from "@bitwarden/common/auth/abstractions/auth-request-crypto.service.abstraction";
@@ -13,7 +17,6 @@ import { AuthenticationStatus } from "@bitwarden/common/auth/enums/authenticatio
 import { AdminAuthRequestStorable } from "@bitwarden/common/auth/models/domain/admin-auth-req-storable";
 import { AuthResult } from "@bitwarden/common/auth/models/domain/auth-result";
 import { ForceSetPasswordReason } from "@bitwarden/common/auth/models/domain/force-set-password-reason";
-import { AuthRequestLoginCredentials } from "@bitwarden/common/auth/models/domain/login-credentials";
 import { CreateAuthRequest } from "@bitwarden/common/auth/models/request/create-auth.request";
 import { AuthRequestResponse } from "@bitwarden/common/auth/models/response/auth-request.response";
 import { HttpStatusCode } from "@bitwarden/common/enums/http-status-code.enum";
@@ -84,6 +87,7 @@ export class LoginViaAuthRequestComponent
     private loginService: LoginService,
     private deviceTrustCryptoService: DeviceTrustCryptoServiceAbstraction,
     private authReqCryptoService: AuthRequestCryptoServiceAbstraction,
+    private loginStrategyService: LoginStrategyServiceAbstraction,
   ) {
     super(environmentService, i18nService, platformUtilsService);
 
@@ -95,11 +99,13 @@ export class LoginViaAuthRequestComponent
     }
 
     //gets signalR push notification
-    this.authService
+    this.loginStrategyService
       .getPushNotificationObs$()
       .pipe(takeUntil(this.destroy$))
       .subscribe((id) => {
         // Only fires on approval currently
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.verifyAndHandleApprovedAuthReq(id);
       });
   }
@@ -126,6 +132,8 @@ export class LoginViaAuthRequestComponent
 
       if (!this.email) {
         this.platformUtilsService.showToast("error", null, this.i18nService.t("userEmailMissing"));
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.router.navigate(["/login-initiated"]);
         return;
       }
@@ -147,6 +155,8 @@ export class LoginViaAuthRequestComponent
 
       if (!this.email) {
         this.platformUtilsService.showToast("error", null, this.i18nService.t("userEmailMissing"));
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.router.navigate(["/login"]);
         return;
       }
@@ -212,6 +222,8 @@ export class LoginViaAuthRequestComponent
     await this.stateService.setAdminAuthRequest(null);
 
     // start new auth request
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.startAuthRequestLogin();
   }
 
@@ -335,6 +347,8 @@ export class LoginViaAuthRequestComponent
           errorRoute = "/login-initiated";
         }
 
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.router.navigate([errorRoute]);
         this.validationService.showError(error);
         return;
@@ -428,21 +442,29 @@ export class LoginViaAuthRequestComponent
     const credentials = await this.buildAuthRequestLoginCredentials(requestId, authReqResponse);
 
     // Note: keys are set by AuthRequestLoginStrategy success handling
-    return await this.authService.logIn(credentials);
+    return await this.loginStrategyService.logIn(credentials);
   }
 
   // Routing logic
   private async handlePostLoginNavigation(loginResponse: AuthResult) {
     if (loginResponse.requiresTwoFactor) {
       if (this.onSuccessfulLoginTwoFactorNavigate != null) {
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.onSuccessfulLoginTwoFactorNavigate();
       } else {
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.router.navigate([this.twoFactorRoute]);
       }
     } else if (loginResponse.forcePasswordReset != ForceSetPasswordReason.None) {
       if (this.onSuccessfulLoginForceResetNavigate != null) {
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.onSuccessfulLoginForceResetNavigate();
       } else {
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.router.navigate([this.forcePasswordResetRoute]);
       }
     } else {
@@ -464,12 +486,18 @@ export class LoginViaAuthRequestComponent
     }
 
     if (this.onSuccessfulLogin != null) {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.onSuccessfulLogin();
     }
 
     if (this.onSuccessfulLoginNavigate != null) {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.onSuccessfulLoginNavigate();
     } else {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.router.navigate([this.successRoute]);
     }
   }

@@ -47,6 +47,8 @@ export class VaultTimeoutService implements VaultTimeoutServiceAbstraction {
   }
 
   startCheck() {
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.checkVaultTimeout();
     setInterval(() => this.checkVaultTimeout(), 10 * 1000); // check every 10 seconds
   }
@@ -82,6 +84,7 @@ export class VaultTimeoutService implements VaultTimeoutServiceAbstraction {
     if (userId == null || userId === (await this.stateService.getUserId())) {
       this.searchService.clearIndex();
       await this.folderService.clearCache();
+      await this.collectionService.clearActiveUserCache();
     }
 
     await this.stateService.setEverBeenUnlocked(true, { userId: userId });
@@ -94,7 +97,6 @@ export class VaultTimeoutService implements VaultTimeoutServiceAbstraction {
     await this.cryptoService.clearKeyPair(true, userId);
 
     await this.cipherService.clearCache(userId);
-    await this.collectionService.clearCache(userId);
 
     this.messagingService.send("locked", { userId: userId });
 

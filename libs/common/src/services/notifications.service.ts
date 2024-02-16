@@ -43,6 +43,8 @@ export class NotificationsService implements NotificationsServiceAbstraction {
         return;
       }
 
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.init();
     });
   }
@@ -84,6 +86,8 @@ export class NotificationsService implements NotificationsServiceAbstraction {
     });
     this.signalrConnection.onclose(() => {
       this.connected = false;
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.reconnect(true);
     });
     this.inited = true;
@@ -163,6 +167,12 @@ export class NotificationsService implements NotificationsServiceAbstraction {
           await this.syncService.fullSync(false);
         }
         break;
+      case NotificationType.SyncOrganizations:
+        if (isAuthenticated) {
+          // An organization update may not have bumped the user's account revision date, so force a sync
+          await this.syncService.fullSync(true);
+        }
+        break;
       case NotificationType.SyncOrgKeys:
         if (isAuthenticated) {
           await this.syncService.fullSync(true);
@@ -172,6 +182,8 @@ export class NotificationsService implements NotificationsServiceAbstraction {
         break;
       case NotificationType.LogOut:
         if (isAuthenticated) {
+          // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this.logoutCallback(true);
         }
         break;

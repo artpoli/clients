@@ -19,6 +19,7 @@ import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.servic
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
+import { BiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
 import { PasswordStrengthServiceAbstraction } from "@bitwarden/common/tools/password-strength";
 import { DialogService } from "@bitwarden/components";
 
@@ -58,6 +59,7 @@ export class LockComponent extends BaseLockComponent {
     deviceTrustCryptoService: DeviceTrustCryptoServiceAbstraction,
     userVerificationService: UserVerificationService,
     pinCryptoService: PinCryptoServiceAbstraction,
+    private biometricStateService: BiometricStateService,
   ) {
     super(
       router,
@@ -89,6 +91,8 @@ export class LockComponent extends BaseLockComponent {
 
     await this.displayBiometricUpdateWarning();
 
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.delayedAskForBiometric(500);
     this.route.queryParams.pipe(switchMap((params) => this.delayedAskForBiometric(500, params)));
 
@@ -142,6 +146,8 @@ export class LockComponent extends BaseLockComponent {
 
     this.biometricAsked = true;
     if (await ipc.platform.isWindowVisible()) {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.unlockBiometric();
     }
   }
@@ -171,12 +177,23 @@ export class LockComponent extends BaseLockComponent {
         type: "warning",
       });
 
-      await this.stateService.setBiometricRequirePasswordOnStart(response);
+      await this.biometricStateService.setRequirePasswordOnStart(response);
       if (response) {
         await this.stateService.setDisableAutoBiometricsPrompt(true);
       }
       this.supportsBiometric = await this.canUseBiometric();
       await this.stateService.setDismissedBiometricRequirePasswordOnStart();
+    }
+  }
+
+  get biometricText() {
+    switch (this.platformUtilsService.getDevice()) {
+      case DeviceType.MacOsDesktop:
+        return "unlockWithTouchId";
+      case DeviceType.WindowsDesktop:
+        return "unlockWithWindowsHello";
+      default:
+        throw new Error("Unsupported platform");
     }
   }
 }

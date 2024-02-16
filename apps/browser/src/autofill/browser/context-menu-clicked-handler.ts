@@ -33,6 +33,7 @@ import {
   openAddEditVaultItemPopout,
   openVaultItemPasswordRepromptPopout,
 } from "../../vault/popup/utils/vault-popout-window";
+import { LockedVaultPendingNotificationsData } from "../background/abstractions/notification.background";
 import { autofillServiceFactory } from "../background/service_factories/autofill-service.factory";
 import { copyToClipboard, GeneratePasswordToClipboardCommand } from "../clipboard";
 import { AutofillTabCommand } from "../commands/autofill-tab-command";
@@ -50,7 +51,6 @@ import {
   GENERATE_PASSWORD_ID,
   NOOP_COMMAND_SUFFIX,
 } from "../constants";
-import LockedVaultPendingNotificationsItem from "../notification/models/locked-vault-pending-notifications-item";
 import { AutofillCipherTypeId } from "../types";
 
 export type CopyToClipboardOptions = { text: string; tab: chrome.tabs.Tab };
@@ -138,7 +138,7 @@ export class ContextMenuClickedHandler {
   }
 
   static async messageListener(
-    message: { command: string; data: LockedVaultPendingNotificationsItem },
+    message: { command: string; data: LockedVaultPendingNotificationsData },
     sender: chrome.runtime.MessageSender,
     cachedServices: CachedServices,
   ) {
@@ -151,7 +151,7 @@ export class ContextMenuClickedHandler {
 
     const contextMenuClickedHandler = await ContextMenuClickedHandler.mv3Create(cachedServices);
     await contextMenuClickedHandler.run(
-      message.data.commandToRetry.msg.data,
+      message.data.commandToRetry.message.contextMenuOnClickData,
       message.data.commandToRetry.sender.tab,
     );
   }
@@ -179,9 +179,9 @@ export class ContextMenuClickedHandler {
     }
 
     if ((await this.authService.getAuthStatus()) < AuthenticationStatus.Unlocked) {
-      const retryMessage: LockedVaultPendingNotificationsItem = {
+      const retryMessage: LockedVaultPendingNotificationsData = {
         commandToRetry: {
-          msg: { command: NOOP_COMMAND_SUFFIX, data: info },
+          message: { command: NOOP_COMMAND_SUFFIX, contextMenuOnClickData: info },
           sender: { tab: tab },
         },
         target: "contextmenus.background",
@@ -232,6 +232,8 @@ export class ContextMenuClickedHandler {
       return;
     }
 
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.stateService.setLastActive(new Date().getTime());
     switch (info.parentMenuItemId) {
       case AUTOFILL_ID:
@@ -277,6 +279,8 @@ export class ContextMenuClickedHandler {
           });
         } else {
           this.copyToClipboard({ text: cipher.login.password, tab: tab });
+          // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this.eventCollectionService.collect(EventType.Cipher_ClientCopiedPassword, cipher.id);
         }
 

@@ -1,9 +1,10 @@
 import {
   ENCRYPTED_HISTORY,
-  ENCRYPTED_USERNAME_SETTINGS,
+  EFF_USERNAME_SETTINGS,
+  CATCHALL_SETTINGS,
+  SUBADDRESS_SETTINGS,
   PASSPHRASE_SETTINGS,
   PASSWORD_SETTINGS,
-  PLAINTEXT_USERNAME_SETTINGS,
 } from "./key-definitions";
 
 describe("Key definitions", () => {
@@ -23,18 +24,26 @@ describe("Key definitions", () => {
     });
   });
 
-  describe("ENCRYPTED_USERNAME_SETTINGS", () => {
+  describe("EFF_USERNAME_SETTINGS", () => {
     it("should pass through deserialization", () => {
       const value = {};
-      const result = ENCRYPTED_USERNAME_SETTINGS.deserializer(value);
+      const result = EFF_USERNAME_SETTINGS.deserializer(value);
       expect(result).toBe(value);
     });
   });
 
-  describe("PLAINTEXT_USERNAME_SETTINGS", () => {
+  describe("CATCHALL_SETTINGS", () => {
     it("should pass through deserialization", () => {
       const value = {};
-      const result = PLAINTEXT_USERNAME_SETTINGS.deserializer(value);
+      const result = CATCHALL_SETTINGS.deserializer(value);
+      expect(result).toBe(value);
+    });
+  });
+
+  describe("SUBADDRESS_SETTINGS", () => {
+    it("should pass through deserialization", () => {
+      const value = {};
+      const result = SUBADDRESS_SETTINGS.deserializer(value);
       expect(result).toBe(value);
     });
   });

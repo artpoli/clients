@@ -1,6 +1,6 @@
 import { DatePipe } from "@angular/common";
 import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
-import { Observable, Subject, takeUntil, concatMap } from "rxjs";
+import { concatMap, Observable, Subject, takeUntil } from "rxjs";
 
 import { AuditService } from "@bitwarden/common/abstractions/audit.service";
 import { EventCollectionService } from "@bitwarden/common/abstractions/event/event-collection.service";
@@ -12,6 +12,8 @@ import { PolicyService } from "@bitwarden/common/admin-console/abstractions/poli
 import { OrganizationUserStatusType, PolicyType } from "@bitwarden/common/admin-console/enums";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
 import { EventType } from "@bitwarden/common/enums";
+import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
+import { ConfigServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
@@ -22,7 +24,7 @@ import { SendApiService } from "@bitwarden/common/tools/send/services/send-api.s
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { CollectionService } from "@bitwarden/common/vault/abstractions/collection.service";
 import { FolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
-import { SecureNoteType, UriMatchType, CipherType } from "@bitwarden/common/vault/enums";
+import { CipherType, SecureNoteType, UriMatchType } from "@bitwarden/common/vault/enums";
 import { CipherRepromptType } from "@bitwarden/common/vault/enums/cipher-reprompt-type";
 import { Cipher } from "@bitwarden/common/vault/models/domain/cipher";
 import { CardView } from "@bitwarden/common/vault/models/view/card.view";
@@ -87,6 +89,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
   private personalOwnershipPolicyAppliesToActiveUser: boolean;
   private previousCipherId: string;
 
+  protected flexibleCollectionsV1Enabled = false;
+
   get fido2CredentialCreationDateValue(): string {
     const dateCreated = this.i18nService.t("dateCreated");
     const creationDate = this.datePipe.transform(
@@ -114,6 +118,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
     protected dialogService: DialogService,
     protected win: Window,
     protected datePipe: DatePipe,
+    protected configService: ConfigServiceAbstraction,
   ) {
     this.typeOptions = [
       { name: i18nService.t("typeLogin"), value: CipherType.Login },
@@ -174,6 +179,10 @@ export class AddEditComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    this.flexibleCollectionsV1Enabled = await this.configService.getFeatureFlag(
+      FeatureFlag.FlexibleCollectionsV1,
+      false,
+    );
     this.writeableCollections = await this.loadCollections();
     this.canUseReprompt = await this.passwordRepromptService.enabled();
 
@@ -292,6 +301,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
     this.folders$ = this.folderService.folderViews$;
 
     if (this.editMode && this.previousCipherId !== this.cipherId) {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.eventCollectionService.collect(EventType.Cipher_ClientViewed, this.cipherId);
     }
     this.previousCipherId = this.cipherId;
@@ -508,8 +519,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   resetMaskState() {
     // toggle masks off for maskable login properties with no value on init/load
-    this.showTotpSeed = !this.cipher.login?.totp;
-    this.showPassword = !this.cipher.login?.password;
+    this.showTotpSeed = !this.cipher?.login?.totp;
+    this.showPassword = !this.cipher?.login?.password;
   }
 
   togglePassword() {
@@ -518,6 +529,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
     if (this.editMode && this.showPassword) {
       document.getElementById("loginPassword")?.focus();
 
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.eventCollectionService.collect(
         EventType.Cipher_ClientToggledPasswordVisible,
         this.cipherId,
@@ -531,6 +544,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
     if (this.editMode && this.showTotpSeed) {
       document.getElementById("loginTotp")?.focus();
 
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.eventCollectionService.collect(
         EventType.Cipher_ClientToggledTOTPSeedVisible,
         this.cipherId,
@@ -541,6 +556,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
   async toggleCardNumber() {
     this.showCardNumber = !this.showCardNumber;
     if (this.showCardNumber) {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.eventCollectionService.collect(
         EventType.Cipher_ClientToggledCardNumberVisible,
         this.cipherId,
@@ -552,6 +569,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
     this.showCardCode = !this.showCardCode;
     document.getElementById("cardCode").focus();
     if (this.editMode && this.showCardCode) {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.eventCollectionService.collect(
         EventType.Cipher_ClientToggledCardCodeVisible,
         this.cipherId,
@@ -640,7 +659,13 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   protected saveCipher(cipher: Cipher) {
     const isNotClone = this.editMode && !this.cloneMode;
-    const orgAdmin = this.organization?.isAdmin;
+    let orgAdmin = this.organization?.isAdmin;
+
+    if (this.flexibleCollectionsV1Enabled) {
+      // Flexible Collections V1 restricts admins, check the organization setting via canEditAllCiphers
+      orgAdmin = this.organization?.canEditAllCiphers(true);
+    }
+
     return this.cipher.id == null
       ? this.cipherService.createWithServer(cipher, orgAdmin)
       : this.cipherService.updateWithServer(cipher, orgAdmin, isNotClone);
@@ -695,10 +720,16 @@ export class AddEditComponent implements OnInit, OnDestroy {
     );
 
     if (typeI18nKey === "password") {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.eventCollectionService.collect(EventType.Cipher_ClientCopiedPassword, this.cipherId);
     } else if (typeI18nKey === "securityCode") {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.eventCollectionService.collect(EventType.Cipher_ClientCopiedCardCode, this.cipherId);
     } else if (aType === "H_Field") {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.eventCollectionService.collect(EventType.Cipher_ClientCopiedHiddenField, this.cipherId);
     }
 

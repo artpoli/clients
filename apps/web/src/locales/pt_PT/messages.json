@@ -638,9 +638,6 @@
   "learnMoreAboutPasswordless": {
     "message": "Saiba mais sobre a ausência de palavra-passe"
   },
-  "passkeyEnterMasterPassword": {
-    "message": "Introduza a sua palavra-passe mestra para modificar as definições de início de sessão com chave de acesso."
-  },
   "creatingPasskeyLoading": {
     "message": "A criar chave de acesso..."
   },
@@ -2531,6 +2528,15 @@
       }
     }
   },
+  "trialSecretsManagerThankYou": {
+    "message": "Obrigado por se inscrever no Gestor de Segredos Bitwarden para o plano $PLAN$!",
+    "placeholders": {
+      "plan": {
+        "content": "$1",
+        "example": "Teams"
+      }
+    }
+  },
   "trialPaidInfoMessage": {
     "message": "O seu teste gratuito de 7 dias de $PLAN$ será convertido numa subscrição paga após 7 dias.",
     "placeholders": {
@@ -2815,6 +2821,9 @@
   },
   "incorrectCode": {
     "message": "Código incorreto"
+  },
+  "incorrectPin": {
+    "message": "PIN incorreto"
   },
   "exportedVault": {
     "message": "Cofre exportado"
@@ -3468,7 +3477,7 @@
     "message": "Defina um limite de lugares para a sua subscrição. Quando este limite for atingido, não será possível convidar novos membros."
   },
   "limitSmSubscriptionDesc": {
-    "message": "Defina um limite de lugares para o seu Gestor de Segredos. Quando este limite for atingido, não será possível convidar novos membros."
+    "message": "Defina um limite de lugares para a sua subscrição do Gestor dos Segredos. Quando este limite for atingido, não será possível convidar novos membros."
   },
   "maxSeatLimit": {
     "message": "Limite de lugares (opcional)",
@@ -5177,10 +5186,10 @@
     "message": "Validar certificados"
   },
   "spUniqueEntityId": {
-    "message": "Set a unique SP entity ID"
+    "message": "Configurar um ID de entidade SP único"
   },
   "spUniqueEntityIdDesc": {
-    "message": "Generate an identifier that is unique to your organization"
+    "message": "Gerar um identificador que seja exclusivo da sua organização"
   },
   "idpEntityId": {
     "message": "ID da entidade"
@@ -5906,6 +5915,15 @@
       }
     }
   },
+  "launchDuoAndFollowStepsToFinishLoggingIn": {
+    "message": "Inicie o DUO e siga os passos para concluir o início de sessão."
+  },
+  "duoRequiredByOrgForAccount": {
+    "message": "A verificação em dois passos DUO é necessária para a sua conta."
+  },
+  "launchDuo": {
+    "message": "Iniciar o DUO"
+  },
   "turnOn": {
     "message": "Ligar"
   },
@@ -6604,6 +6622,39 @@
       }
     }
   },
+  "verificationRequiredForActionSetPinToContinue": {
+    "message": "É necessária uma verificação para esta ação. Defina um PIN para continuar."
+  },
+  "setPin": {
+    "message": "Definir PIN"
+  },
+  "verifyWithBiometrics": {
+    "message": "Verificar com biometria"
+  },
+  "awaitingConfirmation": {
+    "message": "A aguardar confirmação"
+  },
+  "couldNotCompleteBiometrics": {
+    "message": "Não foi possível concluir a biometria."
+  },
+  "needADifferentMethod": {
+    "message": "Precisa de um método diferente?"
+  },
+  "useMasterPassword": {
+    "message": "Utilizar a palavra-passe mestra"
+  },
+  "usePin": {
+    "message": "Utilizar PIN"
+  },
+  "useBiometrics": {
+    "message": "Utilizar biometria"
+  },
+  "enterVerificationCodeSentToEmail": {
+    "message": "Introduza o código de verificação que foi enviado para o seu e-mail."
+  },
+  "resendCode": {
+    "message": "Reenviar código"
+  },
   "membersColumnHeader": {
     "message": "Membro/Grupo"
   },
@@ -6814,9 +6865,6 @@
   "secretsManager": {
     "message": "Gestor de Segredos"
   },
-  "secretsManagerBeta": {
-    "message": "Gestor de Segredos Beta"
-  },
   "secretsManagerAccessDescription": {
     "message": "Ativar o acesso do utilizador ao Gestor de Segredos."
   },
@@ -6919,12 +6967,6 @@
   },
   "selectionIsRequired": {
     "message": "É necessária uma seleção."
-  },
-  "secretsManagerSubscriptionDesc": {
-    "message": "Ativar o acesso da organização ao Gestor de Segredos sem custos durante o programa Beta. Os utilizadores podem ter acesso ao Beta em Membros."
-  },
-  "secretsManagerEnable": {
-    "message": "Ativar o Gestor de Segredos Beta"
   },
   "saPeopleWarningTitle": {
     "message": "Tokens de acesso ainda disponíveis"
@@ -7086,6 +7128,10 @@
       }
     }
   },
+  "verificationRequired": {
+    "message": "Verificação necessária",
+    "description": "Default title for the user verification dialog."
+  },
   "recoverAccount": {
     "message": "Recuperar conta"
   },
@@ -7187,6 +7233,15 @@
   },
   "startYour7DayFreeTrialOfBitwardenFor": {
     "message": "Comece o seu período de teste gratuito de 7 dias do Bitwarden para $ORG$",
+    "placeholders": {
+      "org": {
+        "content": "$1",
+        "example": "Organization name"
+      }
+    }
+  },
+  "startYour7DayFreeTrialOfBitwardenSecretsManagerFor": {
+    "message": "Inicie a sua avaliação gratuita de 7 dias do Gestor de Segredos Bitwarden para $ORG$",
     "placeholders": {
       "org": {
         "content": "$1",
@@ -7325,8 +7380,8 @@
   "allowAdminAccessToAllCollectionItemsDesc": {
     "message": "Os proprietários e administradores podem gerir todas as coleções e itens"
   },
-  "collectionManagementUpdated": {
-    "message": "Comportamento de gestão de coleções guardado"
+  "updatedCollectionManagement": {
+    "message": "Definição de gestão de coleções atualizada"
   },
   "passwordManagerPlanPrice": {
     "message": "Preço do plano do Gestor de Palavras-passe"
@@ -7355,22 +7410,6 @@
   "loggedInExclamation": {
     "message": "Sessão iniciada!"
   },
-  "smBetaEndedDesc": {
-    "message": "O Gestor de Segredos Beta terminou a $BETA_ENDING_DATE$. Restam-lhe $DAYS$ dias para adicionar o Gestor de Segredos à sua subscrição paga e manter o acesso aos dados do Gestor de Segredos. Contacte o Serviço de Apoio ao Cliente para adicionar o Gestor de Segredos à sua subscrição.",
-    "placeholders": {
-      "beta_ending_date": {
-        "content": "$1",
-        "example": "August 1, 2023"
-      },
-      "days": {
-        "content": "$2",
-        "example": "11"
-      }
-    }
-  },
-  "betaEnding": {
-    "message": "Fim da versão Beta"
-  },
   "beta": {
     "message": "Beta"
   },
@@ -7391,12 +7430,6 @@
   },
   "skipToContent": {
     "message": "Avançar para o conteúdo"
-  },
-  "customBillingStart": {
-    "message": "A faturação personalizada não é refletida. Visite a "
-  },
-  "customBillingEnd": {
-    "message": " página para a faturação mais recente."
   },
   "managePermissionRequired": {
     "message": "Pelo menos um membro ou grupo tem de ter permissão para gerir."
@@ -7453,5 +7486,76 @@
   "commonImportFormats": {
     "message": "Formatos comuns",
     "description": "Label indicating the most common import formats"
+  },
+  "maintainYourSubscription": {
+    "message": "Para manter a sua subscrição para a $ORG$, ",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'",
+    "placeholders": {
+      "org": {
+        "content": "$1",
+        "example": "Example Inc."
+      }
+    }
+  },
+  "addAPaymentMethod": {
+    "message": "adicione um método de pagamento",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'"
+  },
+  "collectionEnhancementsDesc": {
+    "message": "Adicione novas definições e permissões para maior flexibilidade. Substitua a função de Gestor pela permissão \"pode gerir\" e introduza opções que permitam aos utilizadores criar coleções, bem como restringir o acesso administrativo às coleções.",
+    "description": "This describes new features and improvements for user roles and collections"
+  },
+  "collectionEnhancementsLearnMore": {
+    "message": "Saiba mais sobre a gestão de coleções"
+  },
+  "organizationInformation": {
+    "message": "Informações sobre a organização"
+  },
+  "confirmationDetails": {
+    "message": "Detalhes da confirmação"
+  },
+  "smFreeTrialThankYou": {
+    "message": "Obrigado por se inscrever no Gestor de Segredos Bitwarden!"
+  },
+  "smFreeTrialConfirmationEmail": {
+    "message": "Enviámos um e-mail de confirmação para o seu e-mail:"
+  },
+  "confirmCollectionEnhancementsDialogTitle": {
+    "message": "Esta ação é irreversível"
+  },
+  "confirmCollectionEnhancementsDialogContent": {
+    "message": "Ao ativar esta funcionalidade, o papel de gestor será descontinuado e substituído por uma permissão \"Pode gerir\". Isto demorará alguns momentos. Não efetue quaisquer alterações na organização até que esteja concluído. Tem a certeza de que pretende continuar?"
+  },
+  "sorryToSeeYouGo": {
+    "message": "Lamentamos vê-lo partir! Ajude a melhorar o Bitwarden partilhando o motivo do seu cancelamento.",
+    "description": "A message shown to users as part of an offboarding survey asking them to provide more information on their subscription cancelation."
+  },
+  "selectCancellationReason": {
+    "message": "Selecione um motivo para o cancelamento",
+    "description": "Used as a form field label for a select input on the offboarding survey."
+  },
+  "anyOtherFeedback": {
+    "message": "Há mais algum feedback que gostaria de partilhar?",
+    "description": "Used as a form field label for a textarea input on the offboarding survey."
+  },
+  "missingFeatures": {
+    "message": "Funcionalidades em falta",
+    "description": "An option for the offboarding survey shown when a user cancels their subscription."
+  },
+  "movingToAnotherTool": {
+    "message": "Estou a mudar-me para outra ferramenta",
+    "description": "An option for the offboarding survey shown when a user cancels their subscription."
+  },
+  "tooDifficultToUse": {
+    "message": "Demasiado difícil de utilizar",
+    "description": "An option for the offboarding survey shown when a user cancels their subscription."
+  },
+  "notUsingEnough": {
+    "message": "Não utilizar o suficiente",
+    "description": "An option for the offboarding survey shown when a user cancels their subscription."
+  },
+  "tooExpensive": {
+    "message": "Demasiado caro",
+    "description": "An option for the offboarding survey shown when a user cancels their subscription."
   }
 }

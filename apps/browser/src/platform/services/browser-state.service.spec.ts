@@ -1,6 +1,7 @@
 import { mock, MockProxy } from "jest-mock-extended";
 
 import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
+import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import {
   AbstractMemoryStorageService,
@@ -9,6 +10,7 @@ import {
 import { StateFactory } from "@bitwarden/common/platform/factories/state-factory";
 import { GlobalState } from "@bitwarden/common/platform/models/domain/global-state";
 import { State } from "@bitwarden/common/platform/models/domain/state";
+import { MigrationRunner } from "@bitwarden/common/platform/services/migration-runner";
 import { SendType } from "@bitwarden/common/tools/send/enums/send-type";
 import { SendView } from "@bitwarden/common/tools/send/models/view/send.view";
 
@@ -29,6 +31,8 @@ describe("Browser State Service", () => {
   let stateFactory: MockProxy<StateFactory<GlobalState, Account>>;
   let useAccountCache: boolean;
   let accountService: MockProxy<AccountService>;
+  let environmentService: MockProxy<EnvironmentService>;
+  let migrationRunner: MockProxy<MigrationRunner>;
 
   let state: State<GlobalState, Account>;
   const userId = "userId";
@@ -41,6 +45,8 @@ describe("Browser State Service", () => {
     logService = mock();
     stateFactory = mock();
     accountService = mock();
+    environmentService = mock();
+    migrationRunner = mock();
     // turn off account cache for tests
     useAccountCache = false;
 
@@ -66,6 +72,8 @@ describe("Browser State Service", () => {
         logService,
         stateFactory,
         accountService,
+        environmentService,
+        migrationRunner,
         useAccountCache,
       );
     });

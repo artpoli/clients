@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Subject } from "rxjs";
+import { Subject, firstValueFrom } from "rxjs";
 import { debounceTime, takeUntil } from "rxjs/operators";
 
 import { SearchService } from "@bitwarden/common/abstractions/search.service";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
+import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
 import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
@@ -65,6 +66,7 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
     private syncService: SyncService,
     private searchService: SearchService,
     private stateService: StateService,
+    private autofillSettingsService: AutofillSettingsServiceAbstraction,
     private passwordRepromptService: PasswordRepromptService,
     private organizationService: OrganizationService,
     private vaultFilterService: VaultFilterService,
@@ -75,11 +77,15 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
     this.inSidebar = BrowserPopupUtils.inSidebar(window);
 
     this.broadcasterService.subscribe(BroadcasterSubscriptionId, (message: any) => {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.ngZone.run(async () => {
         switch (message.command) {
           case "syncCompleted":
             if (this.isLoading) {
               window.setTimeout(() => {
+                // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+                // eslint-disable-next-line @typescript-eslint/no-floating-promises
                 this.load();
               }, 500);
             }
@@ -118,9 +124,9 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
       .subscribe(() => this.searchVault());
 
     // activate autofill on page load if policy is set
-    if (await this.stateService.getActivateAutoFillOnPageLoadFromPolicy()) {
-      await this.stateService.setEnableAutoFillOnPageLoad(true);
-      await this.stateService.setActivateAutoFillOnPageLoadFromPolicy(false);
+    if (await this.getActivateAutofillOnPageLoadFromPolicy()) {
+      await this.autofillSettingsService.setAutofillOnPageLoad(true);
+      await this.autofillSettingsService.setActivateAutofillOnPageLoadFromPolicy(false);
       this.platformUtilsService.showToast(
         "info",
         null,
@@ -142,6 +148,8 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
   }
 
   addCipher() {
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.router.navigate(["/add-cipher"], {
       queryParams: {
         name: this.hostname,
@@ -152,6 +160,8 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
   }
 
   viewCipher(cipher: CipherView) {
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.router.navigate(["/view-cipher"], { queryParams: { cipherId: cipher.id } });
   }
 
@@ -210,6 +220,8 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.router.navigate(["/tabs/vault"], { queryParams: { searchText: this.searchText } });
   }
 
@@ -233,6 +245,8 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
 
     this.hostname = Utils.getHostname(this.url);
     this.pageDetails = [];
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     BrowserApi.tabSendMessage(this.tab, {
       command: "collectPageDetails",
       tab: this.tab,
@@ -284,20 +298,30 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
   }
 
   async goToSettings() {
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.router.navigate(["autofill"]);
   }
 
+  private async getActivateAutofillOnPageLoadFromPolicy(): Promise<boolean> {
+    return await firstValueFrom(this.autofillSettingsService.activateAutofillOnPageLoadFromPolicy$);
+  }
+
   async dismissCallout() {
-    await this.stateService.setDismissedAutofillCallout(true);
+    await this.autofillSettingsService.setAutofillOnPageLoadCalloutIsDismissed(true);
     this.showHowToAutofill = false;
   }
 
   private async setCallout() {
+    const inlineMenuVisibilityIsOff =
+      (await firstValueFrom(this.autofillSettingsService.inlineMenuVisibility$)) ===
+      AutofillOverlayVisibility.Off;
+
     this.showHowToAutofill =
       this.loginCiphers.length > 0 &&
-      (await this.stateService.getAutoFillOverlayVisibility()) === AutofillOverlayVisibility.Off &&
-      !(await this.stateService.getEnableAutoFillOnPageLoad()) &&
-      !(await this.stateService.getDismissedAutofillCallout());
+      inlineMenuVisibilityIsOff &&
+      !(await firstValueFrom(this.autofillSettingsService.autofillOnPageLoad$)) &&
+      !(await firstValueFrom(this.autofillSettingsService.autofillOnPageLoadCalloutIsDismissed$));
 
     if (this.showHowToAutofill) {
       const autofillCommand = await this.platformUtilsService.getAutofillKeyboardShortcut();

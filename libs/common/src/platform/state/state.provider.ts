@@ -17,6 +17,30 @@ import { ActiveUserStateProvider, SingleUserStateProvider } from "./user-state.p
  * and {@link GlobalStateProvider}.
  */
 export abstract class StateProvider {
+  /** @see{@link ActiveUserState.activeUserId$} */
+  activeUserId$: Observable<UserId | undefined>;
+  /**
+   * Gets a state observable for a given key and userId.
+   *
+   * @remarks If userId is falsy the observable returned will point to the currently active user _and not update if the active user changes_.
+   * This is different to how `getActive` works and more similar to `getUser` for whatever user happens to be active at the time of the call.
+   *
+   * @param keyDefinition - The key definition for the state you want to get.
+   * @param userId - The userId for which you want the state for. If not provided, the state for the currently active user will be returned.
+   */
+  getUserState$: <T>(keyDefinition: KeyDefinition<T>, userId?: UserId) => Observable<T>;
+  /**
+   * Sets the state for a given key and userId.
+   *
+   * @param keyDefinition - The key definition for the state you want to set.
+   * @param value - The value to set the state to.
+   * @param userId - The userId for which you want to set the state for. If not provided, the state for the currently active user will be set.
+   */
+  setUserState: <T>(
+    keyDefinition: KeyDefinition<T>,
+    value: T,
+    userId?: UserId,
+  ) => Promise<[UserId, T]>;
   /** @see{@link ActiveUserStateProvider.get} */
   getActive: <T>(keyDefinition: KeyDefinition<T>) => ActiveUserState<T>;
   /** @see{@link SingleUserStateProvider.get} */
@@ -25,7 +49,7 @@ export abstract class StateProvider {
   getGlobal: <T>(keyDefinition: KeyDefinition<T>) => GlobalState<T>;
   getDerived: <TFrom, TTo, TDeps extends DerivedStateDependencies>(
     parentState$: Observable<TFrom>,
-    deriveDefinition: DeriveDefinition<unknown, TTo, TDeps>,
+    deriveDefinition: DeriveDefinition<TFrom, TTo, TDeps>,
     dependencies: TDeps,
   ) => DerivedState<TTo>;
 }

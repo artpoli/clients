@@ -48,22 +48,24 @@ export class FakeAccountService implements AccountService {
   }
 
   async addAccount(userId: UserId, accountData: AccountInfo): Promise<void> {
-    this.mock.addAccount(userId, accountData);
+    const current = this.accountsSubject["_buffer"][0] ?? {};
+    this.accountsSubject.next({ ...current, [userId]: accountData });
+    await this.mock.addAccount(userId, accountData);
   }
 
   async setAccountName(userId: UserId, name: string): Promise<void> {
-    this.mock.setAccountName(userId, name);
+    await this.mock.setAccountName(userId, name);
   }
 
   async setAccountEmail(userId: UserId, email: string): Promise<void> {
-    this.mock.setAccountEmail(userId, email);
+    await this.mock.setAccountEmail(userId, email);
   }
 
   async setAccountStatus(userId: UserId, status: AuthenticationStatus): Promise<void> {
-    this.mock.setAccountStatus(userId, status);
+    await this.mock.setAccountStatus(userId, status);
   }
 
   async switchAccount(userId: UserId): Promise<void> {
-    this.mock.switchAccount(userId);
+    await this.mock.switchAccount(userId);
   }
 }

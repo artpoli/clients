@@ -11,6 +11,7 @@ import { PolicyApiServiceAbstraction } from "@bitwarden/common/admin-console/abs
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { MasterPasswordPolicyOptions } from "@bitwarden/common/admin-console/models/domain/master-password-policy-options";
 import { OrganizationAutoEnrollStatusResponse } from "@bitwarden/common/admin-console/models/response/organization-auto-enroll-status.response";
+import { SsoLoginServiceAbstraction } from "@bitwarden/common/auth/abstractions/sso-login.service.abstraction";
 import { ForceSetPasswordReason } from "@bitwarden/common/auth/models/domain/force-set-password-reason";
 import { SetPasswordRequest } from "@bitwarden/common/auth/models/request/set-password.request";
 import { KeysRequest } from "@bitwarden/common/models/request/keys.request";
@@ -63,6 +64,7 @@ export class SetPasswordComponent extends BaseChangePasswordComponent {
     stateService: StateService,
     private organizationApiService: OrganizationApiServiceAbstraction,
     private organizationUserService: OrganizationUserService,
+    private ssoLoginService: SsoLoginServiceAbstraction,
     dialogService: DialogService,
   ) {
     super(
@@ -78,6 +80,8 @@ export class SetPasswordComponent extends BaseChangePasswordComponent {
   }
 
   async ngOnInit() {
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     super.ngOnInit();
 
     await this.syncService.fullSync(true);
@@ -94,7 +98,7 @@ export class SetPasswordComponent extends BaseChangePasswordComponent {
           } else {
             // Try to get orgSsoId from state as fallback
             // Note: this is primarily for the TDE user w/out MP obtains admin MP reset permission scenario.
-            return this.stateService.getUserSsoOrganizationIdentifier();
+            return this.ssoLoginService.getActiveUserOrganizationSsoIdentifier();
           }
         }),
         filter((orgSsoId) => orgSsoId != null),
@@ -197,8 +201,12 @@ export class SetPasswordComponent extends BaseChangePasswordComponent {
       await this.formPromise;
 
       if (this.onSuccessfulChangePassword != null) {
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.onSuccessfulChangePassword();
       } else {
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.router.navigate([this.successRoute]);
       }
     } catch {

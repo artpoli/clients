@@ -1,16 +1,14 @@
 import { mock } from "jest-mock-extended";
-import { firstValueFrom, of } from "rxjs";
 
-import { ConfigServiceAbstraction } from "../../../platform/abstractions/config/config.service.abstraction";
+import { LoginStrategyServiceAbstraction, WebAuthnLoginCredentials } from "@bitwarden/auth/common";
+
 import { LogService } from "../../../platform/abstractions/log.service";
 import { Utils } from "../../../platform/misc/utils";
 import { SymmetricCryptoKey } from "../../../platform/models/domain/symmetric-crypto-key";
 import { PrfKey } from "../../../types/key";
-import { AuthService } from "../../abstractions/auth.service";
 import { WebAuthnLoginApiServiceAbstraction } from "../../abstractions/webauthn/webauthn-login-api.service.abstraction";
 import { WebAuthnLoginPrfCryptoServiceAbstraction } from "../../abstractions/webauthn/webauthn-login-prf-crypto.service.abstraction";
 import { AuthResult } from "../../models/domain/auth-result";
-import { WebAuthnLoginCredentials } from "../../models/domain/login-credentials";
 import { WebAuthnLoginCredentialAssertionOptionsView } from "../../models/view/webauthn-login/webauthn-login-credential-assertion-options.view";
 import { WebAuthnLoginCredentialAssertionView } from "../../models/view/webauthn-login/webauthn-login-credential-assertion.view";
 
@@ -22,8 +20,7 @@ describe("WebAuthnLoginService", () => {
   let webAuthnLoginService: WebAuthnLoginService;
 
   const webAuthnLoginApiService = mock<WebAuthnLoginApiServiceAbstraction>();
-  const authService = mock<AuthService>();
-  const configService = mock<ConfigServiceAbstraction>();
+  const loginStrategyService = mock<LoginStrategyServiceAbstraction>();
   const webAuthnLoginPrfCryptoService = mock<WebAuthnLoginPrfCryptoServiceAbstraction>();
   const navigatorCredentials = mock<CredentialsContainer>();
   const logService = mock<LogService>();
@@ -71,12 +68,10 @@ describe("WebAuthnLoginService", () => {
     });
   });
 
-  function createWebAuthnLoginService(config: { featureEnabled: boolean }): WebAuthnLoginService {
-    configService.getFeatureFlag$.mockReturnValue(of(config.featureEnabled));
+  function createWebAuthnLoginService(): WebAuthnLoginService {
     return new WebAuthnLoginService(
       webAuthnLoginApiService,
-      authService,
-      configService,
+      loginStrategyService,
       webAuthnLoginPrfCryptoService,
       window,
       logService,
@@ -84,34 +79,14 @@ describe("WebAuthnLoginService", () => {
   }
 
   it("instantiates", () => {
-    webAuthnLoginService = createWebAuthnLoginService({ featureEnabled: true });
+    webAuthnLoginService = createWebAuthnLoginService();
     expect(webAuthnLoginService).not.toBeFalsy();
-  });
-
-  describe("enabled$", () => {
-    it("should emit true when feature flag for PasswordlessLogin is enabled", async () => {
-      // Arrange
-      const webAuthnLoginService = createWebAuthnLoginService({ featureEnabled: true });
-
-      // Act & Assert
-      const result = await firstValueFrom(webAuthnLoginService.enabled$);
-      expect(result).toBe(true);
-    });
-
-    it("should emit false when feature flag for PasswordlessLogin is disabled", async () => {
-      // Arrange
-      const webAuthnLoginService = createWebAuthnLoginService({ featureEnabled: false });
-
-      // Act & Assert
-      const result = await firstValueFrom(webAuthnLoginService.enabled$);
-      expect(result).toBe(false);
-    });
   });
 
   describe("getCredentialAssertionOptions()", () => {
     it("webAuthnLoginService returns WebAuthnLoginCredentialAssertionOptionsView when getCredentialAssertionOptions is called with the feature enabled", async () => {
       // Arrange
-      const webAuthnLoginService = createWebAuthnLoginService({ featureEnabled: true });
+      const webAuthnLoginService = createWebAuthnLoginService();
 
       const challenge = "6CG3jqMCVASJVXySMi9KWw";
       const token = "BWWebAuthnLoginAssertionOptions_CfDJ_2KBN892w";
@@ -154,7 +129,7 @@ describe("WebAuthnLoginService", () => {
   describe("assertCredential(...)", () => {
     it("should assert the credential and return WebAuthnLoginAssertionView on success", async () => {
       // Arrange
-      const webAuthnLoginService = createWebAuthnLoginService({ featureEnabled: true });
+      const webAuthnLoginService = createWebAuthnLoginService();
       const credentialAssertionOptions = buildCredentialAssertionOptions();
 
       // Mock webAuthnUtils functions
@@ -222,7 +197,7 @@ describe("WebAuthnLoginService", () => {
 
     it("should return undefined on non-PublicKeyCredential browser response", async () => {
       // Arrange
-      const webAuthnLoginService = createWebAuthnLoginService({ featureEnabled: true });
+      const webAuthnLoginService = createWebAuthnLoginService();
       const credentialAssertionOptions = buildCredentialAssertionOptions();
 
       // Mock the navigatorCredentials.get to return null
@@ -237,7 +212,7 @@ describe("WebAuthnLoginService", () => {
 
     it("should log an error and return undefined when navigatorCredentials.get throws an error", async () => {
       // Arrange
-      const webAuthnLoginService = createWebAuthnLoginService({ featureEnabled: true });
+      const webAuthnLoginService = createWebAuthnLoginService();
       const credentialAssertionOptions = buildCredentialAssertionOptions();
 
       // Mock navigatorCredentials.get to throw an error
@@ -269,11 +244,11 @@ describe("WebAuthnLoginService", () => {
 
     it("should accept an assertion with a signed challenge and use it to try and login", async () => {
       // Arrange
-      const webAuthnLoginService = createWebAuthnLoginService({ featureEnabled: true });
+      const webAuthnLoginService = createWebAuthnLoginService();
       const assertion = buildWebAuthnLoginCredentialAssertionView();
       const mockAuthResult: AuthResult = new AuthResult();
 
-      jest.spyOn(authService, "logIn").mockResolvedValue(mockAuthResult);
+      jest.spyOn(loginStrategyService, "logIn").mockResolvedValue(mockAuthResult);
 
       // Act
       const result = await webAuthnLoginService.logIn(assertion);
@@ -281,7 +256,7 @@ describe("WebAuthnLoginService", () => {
       // Assert
       expect(result).toEqual(mockAuthResult);
 
-      const callArguments = authService.logIn.mock.calls[0];
+      const callArguments = loginStrategyService.logIn.mock.calls[0];
       expect(callArguments[0]).toBeInstanceOf(WebAuthnLoginCredentials);
     });
   });

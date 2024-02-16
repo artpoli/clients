@@ -1,6 +1,9 @@
+import { firstValueFrom } from "rxjs";
+
 import { EventCollectionService } from "@bitwarden/common/abstractions/event/event-collection.service";
 import { SettingsService } from "@bitwarden/common/abstractions/settings.service";
 import { UserVerificationService } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
+import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
 import { EventType } from "@bitwarden/common/enums";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
@@ -17,7 +20,7 @@ import { AutofillPort } from "../enums/autofill-port.enums";
 import AutofillField from "../models/autofill-field";
 import AutofillPageDetails from "../models/autofill-page-details";
 import AutofillScript from "../models/autofill-script";
-import { AutofillOverlayVisibility } from "../utils/autofill-overlay.enum";
+import { InlineMenuVisibilitySetting } from "../utils/autofill-overlay.enum";
 
 import {
   AutoFillOptions,
@@ -41,6 +44,7 @@ export default class AutofillService implements AutofillServiceInterface {
   constructor(
     private cipherService: CipherService,
     private stateService: BrowserStateService,
+    private autofillSettingsService: AutofillSettingsServiceAbstraction,
     private totpService: TotpService,
     private eventCollectionService: EventCollectionService,
     private logService: LogService,
@@ -57,6 +61,8 @@ export default class AutofillService implements AutofillServiceInterface {
   async loadAutofillScriptsOnInstall() {
     BrowserApi.addListener(chrome.runtime.onConnect, this.handleInjectedScriptPortConnection);
 
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.injectAutofillScriptsInAllTabs();
   }
 
@@ -72,6 +78,8 @@ export default class AutofillService implements AutofillServiceInterface {
       this.autofillScriptPortsSet.delete(port);
     });
 
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.injectAutofillScriptsInAllTabs();
   }
 
@@ -89,19 +97,19 @@ export default class AutofillService implements AutofillServiceInterface {
     frameId = 0,
     triggeringOnPageLoad = true,
   ): Promise<void> {
-    const isUsingAutofillOverlay =
-      (await this.settingsService.getAutoFillOverlayVisibility()) !== AutofillOverlayVisibility.Off;
-    const mainAutofillScript = isUsingAutofillOverlay
+    const mainAutofillScript = (await this.getOverlayVisibility())
       ? "bootstrap-autofill-overlay.js"
       : "bootstrap-autofill.js";
 
     const injectedScripts = [mainAutofillScript];
 
-    if (triggeringOnPageLoad) {
+    const autoFillOnPageLoadIsEnabled = await this.getAutofillOnPageLoad();
+
+    if (triggeringOnPageLoad && autoFillOnPageLoadIsEnabled) {
       injectedScripts.push("autofiller.js");
     } else {
       await BrowserApi.executeScriptInTab(tab.id, {
-        file: "content/bootstrap-content-message-handler.js",
+        file: "content/content-message-handler.js",
         runAt: "document_start",
       });
     }
@@ -187,6 +195,27 @@ export default class AutofillService implements AutofillServiceInterface {
   }
 
   /**
+   * Gets the overlay's visibility setting from the autofill settings service.
+   */
+  async getOverlayVisibility(): Promise<InlineMenuVisibilitySetting> {
+    return await firstValueFrom(this.autofillSettingsService.inlineMenuVisibility$);
+  }
+
+  /**
+   * Gets the setting for automatically copying TOTP upon autofill from the autofill settings service.
+   */
+  async getShouldAutoCopyTotp(): Promise<boolean> {
+    return await firstValueFrom(this.autofillSettingsService.autoCopyTotp$);
+  }
+
+  /**
+   * Gets the autofill on page load setting from the autofill settings service.
+   */
+  async getAutofillOnPageLoad(): Promise<boolean> {
+    return await firstValueFrom(this.autofillSettingsService.autofillOnPageLoad$);
+  }
+
+  /**
    * Autofill a given tab with a given login item
    * @param {AutoFillOptions} options Instructions about the autofill operation, including tab and login item
    * @returns {Promise<string | null>} The TOTP code of the successfully autofilled login, if any
@@ -243,9 +272,13 @@ export default class AutofillService implements AutofillServiceInterface {
 
         didAutofill = true;
         if (!options.skipLastUsed) {
+          // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this.cipherService.updateLastUsedDate(options.cipher.id);
         }
 
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         BrowserApi.tabSendMessage(
           tab,
           {
@@ -267,16 +300,17 @@ export default class AutofillService implements AutofillServiceInterface {
           return;
         }
 
-        totp = await this.stateService.getDisableAutoTotpCopy().then((disabled) => {
-          if (!disabled) {
-            return this.totpService.getCode(options.cipher.login.totp);
-          }
-          return null;
-        });
+        const shouldAutoCopyTotp = await this.getShouldAutoCopyTotp();
+
+        totp = shouldAutoCopyTotp
+          ? await this.totpService.getCode(options.cipher.login.totp)
+          : null;
       }),
     );
 
     if (didAutofill) {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.eventCollectionService.collect(EventType.Cipher_ClientAutofilled, options.cipher.id);
       if (totp !== null) {
         return totp;
@@ -2000,6 +2034,8 @@ export default class AutofillService implements AutofillServiceInterface {
     for (let index = 0; index < tabs.length; index++) {
       const tab = tabs[index];
       if (tab.url?.startsWith("http")) {
+        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.injectAutofillScripts(tab, 0, false);
       }
     }

@@ -1,34 +1,26 @@
-import { Observable } from "rxjs";
+import { LoginStrategyServiceAbstraction, WebAuthnLoginCredentials } from "@bitwarden/auth/common";
 
-import { FeatureFlag } from "../../../enums/feature-flag.enum";
-import { ConfigServiceAbstraction } from "../../../platform/abstractions/config/config.service.abstraction";
 import { LogService } from "../../../platform/abstractions/log.service";
 import { PrfKey } from "../../../types/key";
-import { AuthService } from "../../abstractions/auth.service";
 import { WebAuthnLoginApiServiceAbstraction } from "../../abstractions/webauthn/webauthn-login-api.service.abstraction";
 import { WebAuthnLoginPrfCryptoServiceAbstraction } from "../../abstractions/webauthn/webauthn-login-prf-crypto.service.abstraction";
 import { WebAuthnLoginServiceAbstraction } from "../../abstractions/webauthn/webauthn-login.service.abstraction";
 import { AuthResult } from "../../models/domain/auth-result";
-import { WebAuthnLoginCredentials } from "../../models/domain/login-credentials";
 import { WebAuthnLoginCredentialAssertionOptionsView } from "../../models/view/webauthn-login/webauthn-login-credential-assertion-options.view";
 import { WebAuthnLoginCredentialAssertionView } from "../../models/view/webauthn-login/webauthn-login-credential-assertion.view";
 
 import { WebAuthnLoginAssertionResponseRequest } from "./request/webauthn-login-assertion-response.request";
 
 export class WebAuthnLoginService implements WebAuthnLoginServiceAbstraction {
-  readonly enabled$: Observable<boolean>;
-
   private navigatorCredentials: CredentialsContainer;
 
   constructor(
     private webAuthnLoginApiService: WebAuthnLoginApiServiceAbstraction,
-    private authService: AuthService,
-    private configService: ConfigServiceAbstraction,
+    private loginStrategyService: LoginStrategyServiceAbstraction,
     private webAuthnLoginPrfCryptoService: WebAuthnLoginPrfCryptoServiceAbstraction,
     private window: Window,
     private logService?: LogService,
   ) {
-    this.enabled$ = this.configService.getFeatureFlag$(FeatureFlag.PasswordlessLogin, false);
     this.navigatorCredentials = this.window.navigator.credentials;
   }
 
@@ -86,7 +78,7 @@ export class WebAuthnLoginService implements WebAuthnLoginServiceAbstraction {
       assertion.deviceResponse,
       assertion.prfKey,
     );
-    const result = await this.authService.logIn(credential);
+    const result = await this.loginStrategyService.logIn(credential);
     return result;
   }
 }

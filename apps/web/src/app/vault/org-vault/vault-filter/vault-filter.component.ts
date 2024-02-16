@@ -11,8 +11,8 @@ import { VaultFilterComponent as BaseVaultFilterComponent } from "../../individu
 import { VaultFilterService } from "../../individual-vault/vault-filter/services/abstractions/vault-filter.service";
 import {
   VaultFilterList,
-  VaultFilterType,
   VaultFilterSection,
+  VaultFilterType,
 } from "../../individual-vault/vault-filter/shared/models/vault-filter-section.type";
 import { CollectionFilter } from "../../individual-vault/vault-filter/shared/models/vault-filter.type";
 
@@ -70,6 +70,8 @@ export class VaultFilterComponent extends BaseVaultFilterComponent implements On
 
   protected async addCollectionFilter(): Promise<VaultFilterSection> {
     // Ensure the Collections filter is never collapsed for the org vault
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.removeCollapsibleCollection();
 
     const collectionFilterSection: VaultFilterSection = {

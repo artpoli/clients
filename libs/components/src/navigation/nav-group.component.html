@@ -3,12 +3,14 @@
   [text]="text"
   [icon]="icon"
   [route]="route"
+  [relativeTo]="relativeTo"
   [variant]="variant"
   (mainContentClicked)="toggle()"
   [treeDepth]="treeDepth"
   (mainContentClicked)="mainContentClicked.emit()"
   [ariaLabel]="ariaLabel"
   [exactMatch]="exactMatch"
+  [hideActiveStyles]="parentHideActiveStyles"
 >
   <ng-template #button>
     <button

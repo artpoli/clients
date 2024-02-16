@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { UntypedFormBuilder } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { map, switchMap } from "rxjs";
 
 import { EventCollectionService } from "@bitwarden/common/abstractions/event/event-collection.service";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
@@ -13,7 +12,7 @@ import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.servic
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { DialogService } from "@bitwarden/components";
-import { VaultExportServiceAbstraction } from "@bitwarden/exporter/vault-export";
+import { VaultExportServiceAbstraction } from "@bitwarden/vault-export-core";
 
 import { ExportComponent } from "../../../../tools/vault-export/export.component";
 
@@ -62,20 +61,15 @@ export class OrganizationVaultExportComponent extends ExportComponent {
       this.organizationId = params.organizationId;
     });
 
-    this.flexibleCollectionsEnabled$ = this.route.parent.parent.params.pipe(
-      switchMap((params) => this.organizationService.get$(params.organizationId)),
-      map((organization) => organization.flexibleCollections),
-    );
-
     await super.ngOnInit();
   }
 
   getExportData() {
-    if (this.isFileEncryptedExport) {
-      return this.exportService.getPasswordProtectedExport(this.filePassword, this.organizationId);
-    } else {
-      return this.exportService.getOrganizationExport(this.organizationId, this.format);
-    }
+    return this.exportService.getOrganizationExport(
+      this.organizationId,
+      this.format,
+      this.filePassword,
+    );
   }
 
   getFileName() {

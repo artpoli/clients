@@ -1,5 +1,5 @@
 import { NotificationsService } from "@bitwarden/common/abstractions/notifications.service";
-import { SettingsService } from "@bitwarden/common/abstractions/settings.service";
+import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
 import { ConfigServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
@@ -13,7 +13,7 @@ import {
   openSsoAuthResultPopout,
   openTwoFactorAuthPopout,
 } from "../auth/popup/utils/auth-popout-window";
-import LockedVaultPendingNotificationsItem from "../autofill/notification/models/locked-vault-pending-notifications-item";
+import { LockedVaultPendingNotificationsData } from "../autofill/background/abstractions/notification.background";
 import { AutofillService } from "../autofill/services/abstractions/autofill.service";
 import { AutofillOverlayVisibility } from "../autofill/utils/autofill-overlay.enum";
 import { BrowserApi } from "../platform/browser/browser-api";
@@ -29,7 +29,7 @@ export default class RuntimeBackground {
   private autofillTimeout: any;
   private pageDetailsToAutoFill: any[] = [];
   private onInstalledReason: string = null;
-  private lockedVaultPendingNotifications: LockedVaultPendingNotificationsItem[] = [];
+  private lockedVaultPendingNotifications: LockedVaultPendingNotificationsData[] = [];
   private abortManager = new AbortManager();
 
   constructor(
@@ -39,13 +39,13 @@ export default class RuntimeBackground {
     private i18nService: I18nService,
     private notificationsService: NotificationsService,
     private stateService: BrowserStateService,
+    private autofillSettingsService: AutofillSettingsServiceAbstraction,
     private systemService: SystemService,
     private environmentService: BrowserEnvironmentService,
     private messagingService: MessagingService,
     private logService: LogService,
     private configService: ConfigServiceAbstraction,
     private fido2Service: Fido2Service,
-    private settingsService: SettingsService,
   ) {
     // onInstalled listener must be wired up before anything else, so we do it in the ctor
     chrome.runtime.onInstalled.addListener((details: any) => {
@@ -78,6 +78,8 @@ export default class RuntimeBackground {
         return true;
       }
 
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.processMessage(msg, sender);
       return false;
     };
@@ -92,7 +94,7 @@ export default class RuntimeBackground {
     switch (msg.command) {
       case "loggedIn":
       case "unlocked": {
-        let item: LockedVaultPendingNotificationsItem;
+        let item: LockedVaultPendingNotificationsData;
 
         if (this.lockedVaultPendingNotifications?.length > 0) {
           item = this.lockedVaultPendingNotifications.pop();
@@ -127,6 +129,8 @@ export default class RuntimeBackground {
             await this.main.refreshBadge();
             await this.main.refreshMenu();
           }, 2000);
+          // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this.main.avatarUpdateService.loadColorFromState();
           this.configService.triggerServerConfigFetch();
         }
@@ -154,6 +158,8 @@ export default class RuntimeBackground {
         switch (msg.sender) {
           case "autofiller":
           case "autofill_cmd": {
+            // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+            // eslint-disable-next-line @typescript-eslint/no-floating-promises
             this.stateService.setLastActive(new Date().getTime());
             const totpCode = await this.autofillService.doAutoFillActiveTab(
               [
@@ -323,12 +329,16 @@ export default class RuntimeBackground {
 
   private async checkOnInstalled() {
     setTimeout(async () => {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.autofillService.loadAutofillScriptsOnInstall();
 
       if (this.onInstalledReason != null) {
         if (this.onInstalledReason === "install") {
+          // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           BrowserApi.createNewTab("https://bitwarden.com/browser-start/");
-          await this.settingsService.setAutoFillOverlayVisibility(
+          await this.autofillSettingsService.setInlineMenuVisibility(
             AutofillOverlayVisibility.OnFieldFocus,
           );
 

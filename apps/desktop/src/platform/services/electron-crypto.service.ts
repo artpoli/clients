@@ -3,6 +3,7 @@ import { CryptoFunctionService } from "@bitwarden/common/platform/abstractions/c
 import { EncryptService } from "@bitwarden/common/platform/abstractions/encrypt.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
+import { BiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
 import { KeySuffixOptions } from "@bitwarden/common/platform/enums";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { EncString } from "@bitwarden/common/platform/models/domain/enc-string";
@@ -24,6 +25,7 @@ export class ElectronCryptoService extends CryptoService {
     protected override stateService: ElectronStateService,
     accountService: AccountService,
     stateProvider: StateProvider,
+    private biometricStateService: BiometricStateService,
   ) {
     super(
       cryptoFunctionService,
@@ -47,11 +49,14 @@ export class ElectronCryptoService extends CryptoService {
 
   override async clearStoredUserKey(keySuffix: KeySuffixOptions, userId?: UserId): Promise<void> {
     if (keySuffix === KeySuffixOptions.Biometric) {
-      this.stateService.setUserKeyBiometric(null, { userId: userId });
-      this.clearDeprecatedKeys(KeySuffixOptions.Biometric, userId);
+      await this.stateService.setUserKeyBiometric(null, { userId: userId });
+      await this.biometricStateService.removeEncryptedClientKeyHalf(userId);
+      await this.clearDeprecatedKeys(KeySuffixOptions.Biometric, userId);
       return;
     }
-    super.clearStoredUserKey(keySuffix, userId);
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    await super.clearStoredUserKey(keySuffix, userId);
   }
 
   protected override async storeAdditionalKeys(key: UserKey, userId?: UserId) {
@@ -80,10 +85,8 @@ export class ElectronCryptoService extends CryptoService {
   }
 
   protected async storeBiometricKey(key: UserKey, userId?: UserId): Promise<void> {
-    let clientEncKeyHalf: CsprngString = null;
-    if (await this.stateService.getBiometricRequirePasswordOnStart({ userId })) {
-      clientEncKeyHalf = await this.getBiometricEncryptionClientKeyHalf(userId);
-    }
+    // May resolve to null, in which case no client key have is required
+    const clientEncKeyHalf = await this.getBiometricEncryptionClientKeyHalf(key, userId);
     await this.stateService.setUserKeyBiometric(
       { key: key.keyB64, clientEncKeyHalf },
       { userId: userId },
@@ -99,28 +102,33 @@ export class ElectronCryptoService extends CryptoService {
   }
 
   protected override async clearAllStoredUserKeys(userId?: UserId): Promise<void> {
-    await this.stateService.setUserKeyBiometric(null, { userId: userId });
-    super.clearAllStoredUserKeys(userId);
+    await this.clearStoredUserKey(KeySuffixOptions.Biometric, userId);
+    await super.clearAllStoredUserKeys(userId);
   }
 
-  private async getBiometricEncryptionClientKeyHalf(userId?: UserId): Promise<CsprngString | null> {
-    try {
-      let biometricKey = await this.stateService
-        .getBiometricEncryptionClientKeyHalf({ userId })
-        .then((result) => result?.decrypt(null /* user encrypted */))
-        .then((result) => result as CsprngString);
-      const userKey = await this.getUserKeyWithLegacySupport();
-      if (biometricKey == null && userKey != null) {
-        const keyBytes = await this.cryptoFunctionService.randomBytes(32);
-        biometricKey = Utils.fromBufferToUtf8(keyBytes) as CsprngString;
-        const encKey = await this.encryptService.encrypt(biometricKey, userKey);
-        await this.stateService.setBiometricEncryptionClientKeyHalf(encKey);
-      }
-
-      return biometricKey;
-    } catch {
+  private async getBiometricEncryptionClientKeyHalf(
+    userKey: UserKey,
+    userId: UserId,
+  ): Promise<CsprngString | null> {
+    const requireClientKeyHalf = await this.biometricStateService.getRequirePasswordOnStart(userId);
+    if (!requireClientKeyHalf) {
       return null;
     }
+
+    // Retrieve existing key half if it exists
+    let biometricKey = await this.biometricStateService
+      .getEncryptedClientKeyHalf(userId)
+      .then((result) => result?.decrypt(null /* user encrypted */, userKey))
+      .then((result) => result as CsprngString);
+    if (biometricKey == null && userKey != null) {
+      // Set a key half if it doesn't exist
+      const keyBytes = await this.cryptoFunctionService.randomBytes(32);
+      biometricKey = Utils.fromBufferToUtf8(keyBytes) as CsprngString;
+      const encKey = await this.encryptService.encrypt(biometricKey, userKey);
+      await this.biometricStateService.setEncryptedClientKeyHalf(encKey, userId);
+    }
+
+    return biometricKey;
   }
 
   // --LEGACY METHODS--
@@ -133,6 +141,8 @@ export class ElectronCryptoService extends CryptoService {
       await this.stateService.setCryptoMasterKeyBiometric(null, { userId: userId });
     }
 
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     super.clearDeprecatedKeys(keySuffix, userId);
   }
 

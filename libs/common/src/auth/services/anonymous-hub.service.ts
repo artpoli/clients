@@ -6,6 +6,7 @@ import {
 } from "@microsoft/signalr";
 import { MessagePackHubProtocol } from "@microsoft/signalr-protocol-msgpack";
 
+import { LoginStrategyServiceAbstraction } from "../../../../auth/src/common/abstractions/login-strategy.service";
 import {
   AuthRequestPushNotification,
   NotificationResponse,
@@ -13,7 +14,6 @@ import {
 import { EnvironmentService } from "../../platform/abstractions/environment.service";
 import { LogService } from "../../platform/abstractions/log.service";
 import { AnonymousHubService as AnonymousHubServiceAbstraction } from "../abstractions/anonymous-hub.service";
-import { AuthService } from "../abstractions/auth.service";
 
 export class AnonymousHubService implements AnonymousHubServiceAbstraction {
   private anonHubConnection: HubConnection;
@@ -21,7 +21,7 @@ export class AnonymousHubService implements AnonymousHubServiceAbstraction {
 
   constructor(
     private environmentService: EnvironmentService,
-    private authService: AuthService,
+    private loginStrategyService: LoginStrategyServiceAbstraction,
     private logService: LogService,
   ) {}
 
@@ -39,18 +39,22 @@ export class AnonymousHubService implements AnonymousHubServiceAbstraction {
     this.anonHubConnection.start().catch((error) => this.logService.error(error));
 
     this.anonHubConnection.on("AuthRequestResponseRecieved", (data: any) => {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.ProcessNotification(new NotificationResponse(data));
     });
   }
 
   stopHubConnection() {
     if (this.anonHubConnection) {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.anonHubConnection.stop();
     }
   }
 
   private async ProcessNotification(notification: NotificationResponse) {
-    await this.authService.authResponsePushNotification(
+    await this.loginStrategyService.authResponsePushNotification(
       notification.payload as AuthRequestPushNotification,
     );
   }

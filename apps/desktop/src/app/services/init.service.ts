@@ -43,11 +43,13 @@ export class InitService {
   init() {
     return async () => {
       this.nativeMessagingService.init();
-      await this.stateService.init();
+      await this.stateService.init({ runMigrations: false }); // Desktop will run them in main process
       await this.environmentService.setUrlsFromStorage();
       // Workaround to ignore stateService.activeAccount until URLs are set
       // TODO: Remove this when implementing ticket PM-2637
       this.environmentService.initialized = true;
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.syncService.fullSync(true);
       await this.vaultTimeoutService.init(true);
       const locale = await this.stateService.getLocale();

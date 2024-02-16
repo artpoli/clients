@@ -8,8 +8,17 @@ import { ProfileProviderResponse } from "../../admin-console/models/response/pro
 import { AccountService } from "../../auth/abstractions/account.service";
 import { KdfConfig } from "../../auth/models/domain/kdf-config";
 import { Utils } from "../../platform/misc/utils";
-import { OrganizationId, UserId } from "../../types/guid";
-import { UserKey, MasterKey, OrgKey, ProviderKey, PinKey, CipherKey } from "../../types/key";
+import { OrganizationId, ProviderId, UserId } from "../../types/guid";
+import {
+  OrgKey,
+  UserKey,
+  MasterKey,
+  ProviderKey,
+  PinKey,
+  CipherKey,
+  UserPrivateKey,
+  UserPublicKey,
+} from "../../types/key";
 import { CryptoFunctionService } from "../abstractions/crypto-function.service";
 import { CryptoService as CryptoServiceAbstraction } from "../abstractions/crypto.service";
 import { EncryptService } from "../abstractions/encrypt.service";
@@ -29,7 +38,7 @@ import {
 import { sequentialize } from "../misc/sequentialize";
 import { EFFLongWordList } from "../misc/wordlist";
 import { EncArrayBuffer } from "../models/domain/enc-array-buffer";
-import { EncString } from "../models/domain/enc-string";
+import { EncString, EncryptedString } from "../models/domain/enc-string";
 import { SymmetricCryptoKey } from "../models/domain/symmetric-crypto-key";
 import { ActiveUserState, DerivedState, StateProvider } from "../state";
 
@@ -37,7 +46,13 @@ import {
   USER_ENCRYPTED_ORGANIZATION_KEYS,
   USER_ORGANIZATION_KEYS,
 } from "./key-state/org-keys.state";
-import { USER_EVER_HAD_USER_KEY } from "./key-state/user-key.state";
+import { USER_ENCRYPTED_PROVIDER_KEYS, USER_PROVIDER_KEYS } from "./key-state/provider-keys.state";
+import {
+  USER_ENCRYPTED_PRIVATE_KEY,
+  USER_EVER_HAD_USER_KEY,
+  USER_PRIVATE_KEY,
+  USER_PUBLIC_KEY,
+} from "./key-state/user-key.state";
 
 export class CryptoService implements CryptoServiceAbstraction {
   private readonly activeUserEverHadUserKey: ActiveUserState<boolean>;
@@ -45,10 +60,19 @@ export class CryptoService implements CryptoServiceAbstraction {
     Record<OrganizationId, EncryptedOrganizationKeyData>
   >;
   private readonly activeUserOrgKeysState: DerivedState<Record<OrganizationId, OrgKey>>;
+  private readonly activeUserEncryptedProviderKeysState: ActiveUserState<
+    Record<ProviderId, EncryptedString>
+  >;
+  private readonly activeUserProviderKeysState: DerivedState<Record<ProviderId, ProviderKey>>;
+  private readonly activeUserEncryptedPrivateKeyState: ActiveUserState<EncryptedString>;
+  private readonly activeUserPrivateKeyState: DerivedState<UserPrivateKey>;
+  private readonly activeUserPublicKeyState: DerivedState<UserPublicKey>;
 
   readonly activeUserOrgKeys$: Observable<Record<OrganizationId, OrgKey>>;
-
-  readonly everHadUserKey$;
+  readonly activeUserProviderKeys$: Observable<Record<ProviderId, ProviderKey>>;
+  readonly activeUserPrivateKey$: Observable<UserPrivateKey>;
+  readonly activeUserPublicKey$: Observable<UserPublicKey>;
+  readonly everHadUserKey$: Observable<boolean>;
 
   constructor(
     protected cryptoFunctionService: CryptoFunctionService,
@@ -59,7 +83,31 @@ export class CryptoService implements CryptoServiceAbstraction {
     protected accountService: AccountService,
     protected stateProvider: StateProvider,
   ) {
+    // User Key
     this.activeUserEverHadUserKey = stateProvider.getActive(USER_EVER_HAD_USER_KEY);
+    this.everHadUserKey$ = this.activeUserEverHadUserKey.state$.pipe(map((x) => x ?? false));
+
+    // User Asymmetric Key Pair
+    this.activeUserEncryptedPrivateKeyState = stateProvider.getActive(USER_ENCRYPTED_PRIVATE_KEY);
+    this.activeUserPrivateKeyState = stateProvider.getDerived(
+      this.activeUserEncryptedPrivateKeyState.combinedState$,
+      USER_PRIVATE_KEY,
+      {
+        encryptService: this.encryptService,
+        cryptoService: this,
+      },
+    );
+    this.activeUserPrivateKey$ = this.activeUserPrivateKeyState.state$; // may be null
+    this.activeUserPublicKeyState = stateProvider.getDerived(
+      this.activeUserPrivateKey$,
+      USER_PUBLIC_KEY,
+      {
+        cryptoFunctionService: this.cryptoFunctionService,
+      },
+    );
+    this.activeUserPublicKey$ = this.activeUserPublicKeyState.state$; // may be null
+
+    // Organization keys
     this.activeUserEncryptedOrgKeysState = stateProvider.getActive(
       USER_ENCRYPTED_ORGANIZATION_KEYS,
     );
@@ -68,9 +116,18 @@ export class CryptoService implements CryptoServiceAbstraction {
       USER_ORGANIZATION_KEYS,
       { cryptoService: this },
     );
-
-    this.everHadUserKey$ = this.activeUserEverHadUserKey.state$.pipe(map((x) => x ?? false));
     this.activeUserOrgKeys$ = this.activeUserOrgKeysState.state$; // null handled by `derive` function
+
+    // Provider keys
+    this.activeUserEncryptedProviderKeysState = stateProvider.getActive(
+      USER_ENCRYPTED_PROVIDER_KEYS,
+    );
+    this.activeUserProviderKeysState = stateProvider.getDerived(
+      this.activeUserEncryptedProviderKeysState.state$,
+      USER_PROVIDER_KEYS,
+      { encryptService: this.encryptService, cryptoService: this },
+    );
+    this.activeUserProviderKeys$ = this.activeUserProviderKeysState.state$; // null handled by `derive` function
   }
 
   async setUserKey(key: UserKey, userId?: UserId): Promise<void> {
@@ -166,11 +223,19 @@ export class CryptoService implements CryptoServiceAbstraction {
 
   async clearStoredUserKey(keySuffix: KeySuffixOptions, userId?: UserId): Promise<void> {
     if (keySuffix === KeySuffixOptions.Auto) {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.stateService.setUserKeyAutoUnlock(null, { userId: userId });
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.clearDeprecatedKeys(KeySuffixOptions.Auto, userId);
     }
     if (keySuffix === KeySuffixOptions.Pin) {
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.stateService.setPinKeyEncryptedUserKeyEphemeral(null, { userId: userId });
+      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.clearDeprecatedKeys(KeySuffixOptions.Pin, userId);
     }
   }
@@ -336,6 +401,8 @@ export class CryptoService implements CryptoServiceAbstraction {
     orgs: ProfileOrganizationResponse[] = [],
     providerOrgs: ProfileProviderOrganizationResponse[] = [],
   ): Promise<void> {
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.activeUserEncryptedOrgKeysState.update((_) => {
       const encOrgKeyData: { [orgId: string]: EncryptedOrganizationKeyData } = {};
 
@@ -396,82 +463,51 @@ export class CryptoService implements CryptoServiceAbstraction {
   }
 
   async setProviderKeys(providers: ProfileProviderResponse[]): Promise<void> {
-    const providerKeys: any = {};
-    providers.forEach((provider) => {
-      providerKeys[provider.id] = provider.key;
-    });
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.activeUserEncryptedProviderKeysState.update((_) => {
+      const encProviderKeys: { [providerId: ProviderId]: EncryptedString } = {};
 
-    await this.stateService.setDecryptedProviderKeys(null);
-    return await this.stateService.setEncryptedProviderKeys(providerKeys);
+      providers.forEach((provider) => {
+        encProviderKeys[provider.id as ProviderId] = provider.key as EncryptedString;
+      });
+
+      return encProviderKeys;
+    });
   }
 
-  async getProviderKey(providerId: string): Promise<ProviderKey> {
+  async getProviderKey(providerId: ProviderId): Promise<ProviderKey> {
     if (providerId == null) {
       return null;
     }
 
-    const providerKeys = await this.getProviderKeys();
-    if (providerKeys == null || !providerKeys.has(providerId)) {
-      return null;
-    }
-
-    return providerKeys.get(providerId);
+    return (await firstValueFrom(this.activeUserProviderKeys$))[providerId] ?? null;
   }
 
   @sequentialize(() => "getProviderKeys")
-  async getProviderKeys(): Promise<Map<string, ProviderKey>> {
-    const providerKeys: Map<string, ProviderKey> = new Map<string, ProviderKey>();
-    const decryptedProviderKeys = await this.stateService.getDecryptedProviderKeys();
-    if (decryptedProviderKeys != null && decryptedProviderKeys.size > 0) {
-      return decryptedProviderKeys as Map<string, ProviderKey>;
-    }
-
-    const encProviderKeys = await this.stateService.getEncryptedProviderKeys();
-    if (encProviderKeys == null) {
-      return null;
-    }
-
-    let setKey = false;
-
-    for (const orgId in encProviderKeys) {
-      // eslint-disable-next-line
-      if (!encProviderKeys.hasOwnProperty(orgId)) {
-        continue;
-      }
-
-      const decValue = await this.rsaDecrypt(encProviderKeys[orgId]);
-      providerKeys.set(orgId, new SymmetricCryptoKey(decValue) as ProviderKey);
-      setKey = true;
-    }
-
-    if (setKey) {
-      await this.stateService.setDecryptedProviderKeys(providerKeys);
-    }
-
-    return providerKeys;
+  async getProviderKeys(): Promise<Record<ProviderId, ProviderKey>> {
+    return await firstValueFrom(this.activeUserProviderKeys$);
   }
 
   async clearProviderKeys(memoryOnly?: boolean, userId?: UserId): Promise<void> {
-    await this.stateService.setDecryptedProviderKeys(null, { userId: userId });
-    if (!memoryOnly) {
-      await this.stateService.setEncryptedProviderKeys(null, { userId: userId });
+    const activeUserId = (await firstValueFrom(this.accountService.activeAccount$))?.id;
+    const userIdIsActive = userId == null || userId === activeUserId;
+    if (memoryOnly && userIdIsActive) {
+      // provider keys are only cached for active users
+      await this.activeUserProviderKeysState.forceValue({});
+    } else {
+      if (userId == null && activeUserId == null) {
+        // nothing to do
+        return;
+      }
+      await this.stateProvider
+        .getUser(userId ?? activeUserId, USER_ENCRYPTED_PROVIDER_KEYS)
+        .update(() => null);
     }
   }
 
   async getPublicKey(): Promise<Uint8Array> {
-    const inMemoryPublicKey = await this.stateService.getPublicKey();
-    if (inMemoryPublicKey != null) {
-      return inMemoryPublicKey;
-    }
-
-    const privateKey = await this.getPrivateKey();
-    if (privateKey == null) {
-      return null;
-    }
-
-    const publicKey = await this.cryptoFunctionService.rsaExtractPublicKey(privateKey);
-    await this.stateService.setPublicKey(publicKey);
-    return publicKey;
+    return await firstValueFrom(this.activeUserPublicKey$);
   }
 
   async makeOrgKey<T extends OrgKey | ProviderKey>(): Promise<[EncString, T]> {
@@ -481,32 +517,16 @@ export class CryptoService implements CryptoServiceAbstraction {
     return [encShareKey, new SymmetricCryptoKey(shareKey) as T];
   }
 
-  async setPrivateKey(encPrivateKey: string): Promise<void> {
+  async setPrivateKey(encPrivateKey: EncryptedString): Promise<void> {
     if (encPrivateKey == null) {
       return;
     }
 
-    await this.stateService.setDecryptedPrivateKey(null);
-    await this.stateService.setEncryptedPrivateKey(encPrivateKey);
+    await this.activeUserEncryptedPrivateKeyState.update(() => encPrivateKey);
   }
 
   async getPrivateKey(): Promise<Uint8Array> {
-    const decryptedPrivateKey = await this.stateService.getDecryptedPrivateKey();
-    if (decryptedPrivateKey != null) {
-      return decryptedPrivateKey;
-    }
-
-    const encPrivateKey = await this.stateService.getEncryptedPrivateKey();
-    if (encPrivateKey == null) {
-      return null;
-    }
-
-    const privateKey = await this.encryptService.decryptToBytes(
-      new EncString(encPrivateKey),
-      await this.getUserKeyWithLegacySupport(),
-    );
-    await this.stateService.setDecryptedPrivateKey(privateKey);
-    return privateKey;
+    return await firstValueFrom(this.activeUserPrivateKey$);
   }
 
   async getFingerprint(fingerprintMaterial: string, publicKey?: Uint8Array): Promise<string[]> {
@@ -537,14 +557,23 @@ export class CryptoService implements CryptoServiceAbstraction {
   }
 
   async clearKeyPair(memoryOnly?: boolean, userId?: UserId): Promise<void[]> {
-    const keysToClear: Promise<void>[] = [
-      this.stateService.setDecryptedPrivateKey(null, { userId: userId }),
-      this.stateService.setPublicKey(null, { userId: userId }),
-    ];
-    if (!memoryOnly) {
-      keysToClear.push(this.stateService.setEncryptedPrivateKey(null, { userId: userId }));
+    const activeUserId = (await firstValueFrom(this.accountService.activeAccount$))?.id;
+    const userIdIsActive = userId == null || userId === activeUserId;
+    if (memoryOnly && userIdIsActive) {
+      // key pair is only cached for active users
+      await this.activeUserPrivateKeyState.forceValue(null);
+      await this.activeUserPublicKeyState.forceValue(null);
+      return;
+    } else {
+      if (userId == null && activeUserId == null) {
+        // nothing to do
+        return;
+      }
+      // below updates decrypted private key and public keys if this is the active user as well since those are derived from the encrypted private key
+      await this.stateProvider
+        .getUser(userId ?? activeUserId, USER_ENCRYPTED_PRIVATE_KEY)
+        .update(() => null);
     }
-    return Promise.all(keysToClear);
   }
 
   async makePinKey(pin: string, salt: string, kdf: KdfType, kdfConfig: KdfConfig): Promise<PinKey> {
@@ -619,6 +648,7 @@ export class CryptoService implements CryptoServiceAbstraction {
     await this.clearProviderKeys(false, userId);
     await this.clearKeyPair(false, userId);
     await this.clearPinKeys(userId);
+    await this.stateProvider.setUserState(USER_EVER_HAD_USER_KEY, null, userId);
   }
 
   async rsaEncrypt(data: Uint8Array, publicKey?: Uint8Array): Promise<EncString> {
@@ -728,16 +758,23 @@ export class CryptoService implements CryptoServiceAbstraction {
     }
 
     try {
-      const encPrivateKey = await this.stateService.getEncryptedPrivateKey();
+      const [userId, encPrivateKey] = await firstValueFrom(
+        this.activeUserEncryptedPrivateKeyState.combinedState$,
+      );
       if (encPrivateKey == null) {
         return false;
       }
 
-      const privateKey = await this.encryptService.decryptToBytes(
-        new EncString(encPrivateKey),
-        key,
-      );
-      await this.cryptoFunctionService.rsaExtractPublicKey(privateKey);
+      // Can decrypt private key
+      const privateKey = await USER_PRIVATE_KEY.derive([userId, encPrivateKey], {
+        encryptService: this.encryptService,
+        cryptoService: this,
+      });
+
+      // Can successfully derive public key
+      await USER_PUBLIC_KEY.derive(privateKey, {
+        cryptoFunctionService: this.cryptoFunctionService,
+      });
     } catch (e) {
       return false;
     }
@@ -758,7 +795,7 @@ export class CryptoService implements CryptoServiceAbstraction {
     const userKey = new SymmetricCryptoKey(rawKey) as UserKey;
     const [publicKey, privateKey] = await this.makeKeyPair(userKey);
     await this.setUserKey(userKey);
-    await this.stateService.setEncryptedPrivateKey(privateKey.encryptedString);
+    await this.activeUserEncryptedPrivateKeyState.update(() => privateKey.encryptedString);
 
     return {
       userKey,

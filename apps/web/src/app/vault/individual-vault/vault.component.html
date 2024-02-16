@@ -1,4 +1,6 @@
 <div class="container page-content">
+  <app-vault-onboarding [ciphers]="ciphers" (onAddCipher)="addCipher()"> </app-vault-onboarding>
+
   <div class="row">
     <div class="col-3">
       <div class="groupings">
@@ -99,7 +101,7 @@
             class="btn btn-block btn-outline-secondary"
             target="_blank"
             href="https://browser-update.org/update-browser.html"
-            rel="noopener"
+            rel="noreferrer"
           >
             {{ "updateBrowser" | i18n }}
           </a>

@@ -6,7 +6,6 @@ import {
   PlatformUtilsService,
 } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 
-import { isMacAppStore } from "../../utils";
 import { ClipboardWriteMessage } from "../types/clipboard";
 
 export class ElectronPlatformUtilsService implements PlatformUtilsService {
@@ -53,7 +52,7 @@ export class ElectronPlatformUtilsService implements PlatformUtilsService {
   }
 
   isMacAppStore(): boolean {
-    return isMacAppStore();
+    return ipc.platform.isMacAppStore;
   }
 
   isViewOpen(): Promise<boolean> {
@@ -61,6 +60,8 @@ export class ElectronPlatformUtilsService implements PlatformUtilsService {
   }
 
   launchUri(uri: string, options?: any): void {
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     ipc.platform.launchUri(uri);
   }
 
@@ -108,6 +109,8 @@ export class ElectronPlatformUtilsService implements PlatformUtilsService {
     const clearing = options?.clearing === true;
     const clearMs = options?.clearMs ?? null;
 
+    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     ipc.platform.clipboard.write({
       text: text,
       password: (options?.allowHistory ?? false) === false, // default to false

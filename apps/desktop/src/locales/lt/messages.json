@@ -1393,7 +1393,7 @@
     "message": "Neteisingas PIN kodas."
   },
   "tooManyInvalidPinEntryAttemptsLoggingOut": {
-    "message": "Too many invalid PIN entry attempts. Logging out."
+    "message": "Per daug netinkamų PIN kodo įvedimo bandymų. Atsijungiama."
   },
   "unlockWithWindowsHello": {
     "message": "Atrakinti naudojant Windows Hello"
@@ -1546,6 +1546,10 @@
   "orgRequiresYouToSetPassword": {
     "message": "Jūsų organizacija reikalauja nustatyti pagrindinį slaptažodį.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "verificationRequired": {
+    "message": "Reikalingas patvirtinimas",
+    "description": "Default title for the user verification dialog."
   },
   "currentMasterPass": {
     "message": "Dabartinis pagrindinis slaptažodis"
@@ -1871,6 +1875,42 @@
   },
   "updateWeakMasterPasswordWarning": {
     "message": "Jūsų pagrindinis slaptažodis neatitinka vieno ar kelių organizacijos slaptažodžiui keliamų reikalavimų. Norėdami prisijungti prie saugyklos, jūs turite atnaujinti savo pagrindinį slaptažodį. Jeigu nuspręsite tęsti, jūs būsite atjungti nuo dabartinės sesijos ir jums reikės vėl prisijungti. Visos aktyvios sesijos kituose įrenginiuose gali išlikti aktyvios iki vienos valandos."
+  },
+  "tryAgain": {
+    "message": "Bandyti dar kartą"
+  },
+  "verificationRequiredForActionSetPinToContinue": {
+    "message": "Šiam veiksmui reikalingas patikrinimas. Norėdamas (-a) tęsti, nustatykite PIN."
+  },
+  "setPin": {
+    "message": "Nustatyti PIN"
+  },
+  "verifyWithBiometrics": {
+    "message": "Patvirtinti naudojant biometrinius duomenis"
+  },
+  "awaitingConfirmation": {
+    "message": "Laukiama patvirtinimo"
+  },
+  "couldNotCompleteBiometrics": {
+    "message": "Nepavyko atlikti biometrinių duomenų."
+  },
+  "needADifferentMethod": {
+    "message": "Reikia kito metodo?"
+  },
+  "useMasterPassword": {
+    "message": "Naudoti pagrindinį slaptažodį"
+  },
+  "usePin": {
+    "message": "Naudoti PIN"
+  },
+  "useBiometrics": {
+    "message": "Naudoti biometrinius duomenis"
+  },
+  "enterVerificationCodeSentToEmail": {
+    "message": "Įveskite patvirtinimo kodą, kuris buvo išsiųstas į jūsų el. paštą."
+  },
+  "resendCode": {
+    "message": "Siųsti kodą dar kartą"
   },
   "hours": {
     "message": "Valandų"
@@ -2565,6 +2605,15 @@
   "incorrectUsernameOrPassword": {
     "message": "Neteisingas naudotojo vardas arba slaptažodis"
   },
+  "incorrectPassword": {
+    "message": "Neteisingas slaptažodis"
+  },
+  "incorrectCode": {
+    "message": "Neteisingas kodas"
+  },
+  "incorrectPin": {
+    "message": "Neteisingas PIN"
+  },
   "multifactorAuthenticationFailed": {
     "message": "Kelių veiksnių autentifikacija nepavyko"
   },
@@ -2621,7 +2670,7 @@
     "message": "Įkiškite su LastPass paskyra susietą YubiKey į kompiuterio USB jungtį, tada palieskite jo mygtuką."
   },
   "commonImportFormats": {
-    "message": "Common formats",
+    "message": "Dažni formatai",
     "description": "Label indicating the most common import formats"
   }
 }

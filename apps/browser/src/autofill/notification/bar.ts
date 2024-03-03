@@ -1,13 +1,24 @@
-import type { Jsonify } from "type-fest";
-
 import { ConsoleLogService } from "@bitwarden/common/platform/services/console-log.service";
 import type { FolderView } from "@bitwarden/common/vault/models/view/folder.view";
 
 import { FilelessImportPort, FilelessImportType } from "../../tools/enums/fileless-import.enums";
+import {
+  AdjustNotificationBarMessageData,
+  SaveOrUpdateCipherResult,
+} from "../background/abstractions/notification.background";
+
+import {
+  NotificationBarWindowMessageHandlers,
+  NotificationBarWindowMessage,
+} from "./abstractions/notification-bar";
 
 require("./bar.scss");
 
 const logService = new ConsoleLogService(false);
+let windowMessageOrigin: string;
+const notificationBarWindowMessageHandlers: NotificationBarWindowMessageHandlers = {
+  saveCipherAttemptCompleted: ({ message }) => handleSaveCipherAttemptCompletedMessage(message),
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   // delay 50ms so that we get proper body dimensions
@@ -15,6 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function load() {
+  setupWindowMessageListener();
+
   const theme = getQueryVariable("theme");
   document.documentElement.classList.add("theme_" + theme);
 
@@ -155,11 +168,7 @@ function handleTypeAdd() {
     e.preventDefault();
 
     // If Remove Individual Vault policy applies, "Add" opens the edit tab
-    sendPlatformMessage({
-      command: "bgAddSave",
-      folder: getSelectedFolder(),
-      edit: removeIndividualVault(),
-    });
+    sendSaveCipherMessage(removeIndividualVault(), getSelectedFolder());
   });
 
   if (removeIndividualVault()) {
@@ -171,11 +180,7 @@ function handleTypeAdd() {
   editButton.addEventListener("click", (e) => {
     e.preventDefault();
 
-    sendPlatformMessage({
-      command: "bgAddSave",
-      folder: getSelectedFolder(),
-      edit: true,
-    });
+    sendSaveCipherMessage(true, getSelectedFolder());
   });
 
   const neverButton = document.getElementById("never-save");
@@ -195,21 +200,47 @@ function handleTypeChange() {
   changeButton.addEventListener("click", (e) => {
     e.preventDefault();
 
-    sendPlatformMessage({
-      command: "bgChangeSave",
-      edit: false,
-    });
+    sendSaveCipherMessage(false);
   });
 
   const editButton = document.getElementById("change-edit");
   editButton.addEventListener("click", (e) => {
     e.preventDefault();
 
-    sendPlatformMessage({
-      command: "bgChangeSave",
-      edit: true,
-    });
+    sendSaveCipherMessage(true);
   });
+}
+
+function sendSaveCipherMessage(edit: boolean, folder?: string) {
+  sendPlatformMessage({
+    command: "bgSaveCipher",
+    folder,
+    edit,
+  });
+}
+
+function handleSaveCipherAttemptCompletedMessage(message: SaveOrUpdateCipherResult) {
+  const addSaveButtonContainers = document.querySelectorAll(".add-change-cipher-buttons");
+  const notificationBarOuterWrapper = document.getElementById("notification-bar-outer-wrapper");
+  if (message?.error) {
+    addSaveButtonContainers.forEach((element) => {
+      element.textContent = chrome.i18n.getMessage("saveCipherAttemptFailed");
+      element.classList.add("error-message");
+      notificationBarOuterWrapper.classList.add("error-event");
+    });
+
+    logService.error(`Error encountered when saving credentials: ${message.error}`);
+    return;
+  }
+  const messageName =
+    getQueryVariable("type") === "add" ? "saveCipherAttemptSuccess" : "updateCipherAttemptSuccess";
+
+  addSaveButtonContainers.forEach((element) => {
+    element.textContent = chrome.i18n.getMessage(messageName);
+    element.classList.add("success-message");
+    notificationBarOuterWrapper.classList.add("success-event");
+  });
+  setTimeout(() => sendPlatformMessage({ command: "bgCloseNotificationBar" }), 1250);
 }
 
 function handleTypeUnlock() {
@@ -255,17 +286,19 @@ function handleTypeFilelessImport() {
 
     port.disconnect();
 
+    const filelessImportButtons = document.getElementById("fileless-import-buttons");
+    const notificationBarOuterWrapper = document.getElementById("notification-bar-outer-wrapper");
+
     if (msg.command === "filelessImportCompleted") {
-      document.getElementById("fileless-import-buttons").textContent = chrome.i18n.getMessage(
-        "dataSuccessfullyImported",
-      );
-      document.getElementById("fileless-import-buttons").classList.add("success-message");
+      filelessImportButtons.textContent = chrome.i18n.getMessage("dataSuccessfullyImported");
+      filelessImportButtons.classList.add("success-message");
+      notificationBarOuterWrapper.classList.add("success-event");
       return;
     }
 
-    document.getElementById("fileless-import-buttons").textContent =
-      chrome.i18n.getMessage("dataImportFailed");
-    document.getElementById("fileless-import-buttons").classList.add("error-message");
+    filelessImportButtons.textContent = chrome.i18n.getMessage("dataImportFailed");
+    filelessImportButtons.classList.add("error-message");
+    notificationBarOuterWrapper.classList.add("error-event");
     logService.error(`Error Encountered During Import: ${msg.importErrorMessage}`);
   };
   port.onMessage.addListener(handlePortMessage);
@@ -281,33 +314,34 @@ function setContent(template: HTMLTemplateElement) {
   content.appendChild(newElement);
 }
 
-function sendPlatformMessage(msg: Record<string, unknown>) {
-  // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  chrome.runtime.sendMessage(msg);
+function sendPlatformMessage(
+  msg: Record<string, unknown>,
+  responseCallback?: (response: any) => void,
+) {
+  chrome.runtime.sendMessage(msg, (response) => {
+    if (responseCallback) {
+      responseCallback(response);
+    }
+  });
 }
 
 function loadFolderSelector() {
-  const responseFoldersCommand = "notificationBarGetFoldersList";
-
-  chrome.runtime.onMessage.addListener((msg) => {
-    if (msg.command !== responseFoldersCommand || msg.data == null) {
+  const populateFolderData = (folderData: FolderView[]) => {
+    const select = document.getElementById("select-folder");
+    if (!folderData?.length) {
+      select.appendChild(new Option(chrome.i18n.getMessage("noFoldersFound"), null, true));
+      select.setAttribute("disabled", "true");
       return;
     }
 
-    const folders = msg.data.folders as Jsonify<FolderView[]>;
-    const select = document.getElementById("select-folder");
     select.appendChild(new Option(chrome.i18n.getMessage("selectFolder"), null, true));
-    folders.forEach((folder) => {
+    folderData.forEach((folder: FolderView) => {
       // Select "No Folder" (id=null) folder by default
       select.appendChild(new Option(folder.name, folder.id || "", false));
     });
-  });
+  };
 
-  sendPlatformMessage({
-    command: "bgGetDataForTab",
-    responseCommand: responseFoldersCommand,
-  });
+  sendPlatformMessage({ command: "bgGetFolderData" }, populateFolderData);
 }
 
 function getSelectedFolder(): string {
@@ -319,10 +353,33 @@ function removeIndividualVault(): boolean {
 }
 
 function adjustHeight() {
+  const data: AdjustNotificationBarMessageData = {
+    height: document.querySelector("body").scrollHeight,
+  };
   sendPlatformMessage({
     command: "bgAdjustNotificationBar",
-    data: {
-      height: document.querySelector("body").scrollHeight,
-    },
+    data,
   });
+}
+
+function setupWindowMessageListener() {
+  globalThis.addEventListener("message", handleWindowMessage);
+}
+
+function handleWindowMessage(event: MessageEvent) {
+  if (!windowMessageOrigin) {
+    windowMessageOrigin = event.origin;
+  }
+
+  if (event.origin !== windowMessageOrigin) {
+    return;
+  }
+
+  const message = event.data as NotificationBarWindowMessage;
+  const handler = notificationBarWindowMessageHandlers[message.command];
+  if (!handler) {
+    return;
+  }
+
+  handler({ message });
 }

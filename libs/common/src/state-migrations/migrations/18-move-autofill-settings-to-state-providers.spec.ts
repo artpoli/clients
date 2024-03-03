@@ -1,10 +1,15 @@
 import { any, MockProxy } from "jest-mock-extended";
 
-import { AutofillOverlayVisibility } from "../../../../../apps/browser/src/autofill/utils/autofill-overlay.enum";
 import { StateDefinitionLike, MigrationHelper } from "../migration-helper";
 import { mockMigrationHelper } from "../migration-helper.spec";
 
 import { AutofillSettingsKeyMigrator } from "./18-move-autofill-settings-to-state-providers";
+
+const AutofillOverlayVisibility = {
+  Off: 0,
+  OnButtonClick: 1,
+  OnFieldFocus: 2,
+} as const;
 
 function exampleJSON() {
   return {
@@ -68,7 +73,7 @@ const autofillSettingsStateDefinition: {
   },
 };
 
-describe("ProviderKeysMigrator", () => {
+describe("AutofillSettingsKeyMigrator", () => {
   let helper: MockProxy<MigrationHelper>;
   let sut: AutofillSettingsKeyMigrator;
 
@@ -142,7 +147,7 @@ describe("ProviderKeysMigrator", () => {
 
   describe("rollback", () => {
     beforeEach(() => {
-      helper = mockMigrationHelper(rollbackJSON(), 16);
+      helper = mockMigrationHelper(rollbackJSON(), 18);
       sut = new AutofillSettingsKeyMigrator(17, 18);
     });
 

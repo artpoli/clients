@@ -306,7 +306,7 @@ export class BrowserApi {
   ) {
     event.addListener(callback);
 
-    if (BrowserApi.isSafariApi && !BrowserApi.isBackgroundPage(window)) {
+    if (BrowserApi.isSafariApi && !BrowserApi.isBackgroundPage(self)) {
       BrowserApi.trackedChromeEventListeners.push([event, callback]);
       BrowserApi.setupUnloadListeners();
     }
@@ -323,7 +323,7 @@ export class BrowserApi {
   ) {
     event.removeListener(callback);
 
-    if (BrowserApi.isSafariApi && !BrowserApi.isBackgroundPage(window)) {
+    if (BrowserApi.isSafariApi && !BrowserApi.isBackgroundPage(self)) {
       const index = BrowserApi.trackedChromeEventListeners.findIndex(([_event, eventListener]) => {
         return eventListener == callback;
       });
@@ -381,12 +381,20 @@ export class BrowserApi {
     return chrome.i18n.getUILanguage();
   }
 
-  static reloadExtension(win: Window) {
-    if (win != null) {
-      return (win.location as any).reload(true);
-    } else {
-      return chrome.runtime.reload();
+  /**
+   * Handles reloading the extension, either by calling the window location
+   * to reload or by calling the extension's runtime to reload.
+   *
+   * @param globalContext - The global context to use for the reload.
+   */
+  static reloadExtension(globalContext: (Window & typeof globalThis) | null) {
+    // The passed globalContext might be a ServiceWorkerGlobalScope, as a result
+    // we need to check if the location object exists before calling reload on it.
+    if (typeof globalContext?.location?.reload === "function") {
+      return (globalContext as any).location.reload(true);
     }
+
+    return chrome.runtime.reload();
   }
 
   /**
@@ -396,8 +404,12 @@ export class BrowserApi {
    * @param exemptCurrentHref - Whether to exempt the current window location from the reload.
    */
   static reloadOpenWindows(exemptCurrentHref = false) {
-    const currentHref = window?.location.href;
     const views = BrowserApi.getExtensionViews();
+    if (!views.length) {
+      return;
+    }
+
+    const currentHref = window.location.href;
     views
       .filter((w) => w.location.href != null && !w.location.href.includes("background.html"))
       .filter((w) => !exemptCurrentHref || w.location.href !== currentHref)

@@ -10,7 +10,12 @@ import AutofillField from "../models/autofill-field";
 import AutofillOverlayButtonIframe from "../overlay/iframe-content/autofill-overlay-button-iframe";
 import AutofillOverlayListIframe from "../overlay/iframe-content/autofill-overlay-list-iframe";
 import { ElementWithOpId, FillableFormFieldElement, FormFieldElement } from "../types";
-import { generateRandomCustomElementName, sendExtensionMessage, setElementStyles } from "../utils";
+import {
+  elementIsFillableFormField,
+  generateRandomCustomElementName,
+  sendExtensionMessage,
+  setElementStyles,
+} from "../utils";
 import {
   AutofillOverlayElement,
   RedirectFocusDirection,
@@ -42,12 +47,12 @@ class AutofillOverlayContentService implements AutofillOverlayContentServiceInte
   private overlayListElement: HTMLElement;
   private mostRecentlyFocusedField: ElementWithOpId<FormFieldElement>;
   private focusedFieldData: FocusedFieldData;
-  private userInteractionEventTimeout: NodeJS.Timeout;
+  private userInteractionEventTimeout: number | NodeJS.Timeout;
   private overlayElementsMutationObserver: MutationObserver;
   private bodyElementMutationObserver: MutationObserver;
   private documentElementMutationObserver: MutationObserver;
   private mutationObserverIterations = 0;
-  private mutationObserverIterationsResetTimeout: NodeJS.Timeout;
+  private mutationObserverIterationsResetTimeout: number | NodeJS.Timeout;
   private autofillFieldKeywordsMap: WeakMap<AutofillField, string> = new WeakMap();
   private eventHandlersMemo: { [key: string]: EventListener } = {};
   private readonly customElementDefaultStyles: Partial<CSSStyleDeclaration> = {
@@ -408,7 +413,7 @@ class AutofillOverlayContentService implements AutofillOverlayContentServiceInte
    * @param formFieldElement - The form field element that triggered the input event.
    */
   private triggerFormFieldInput(formFieldElement: ElementWithOpId<FormFieldElement>) {
-    if (formFieldElement instanceof HTMLSpanElement) {
+    if (!elementIsFillableFormField(formFieldElement)) {
       return;
     }
 
@@ -846,7 +851,10 @@ class AutofillOverlayContentService implements AutofillOverlayContentServiceInte
 
     this.toggleOverlayHidden(true);
     this.clearUserInteractionEventTimeout();
-    this.userInteractionEventTimeout = setTimeout(this.triggerOverlayRepositionUpdates, 750);
+    this.userInteractionEventTimeout = setTimeout(
+      this.triggerOverlayRepositionUpdates,
+      750,
+    ) as unknown as number;
   };
 
   /**

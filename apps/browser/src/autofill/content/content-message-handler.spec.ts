@@ -1,6 +1,6 @@
 import { mock } from "jest-mock-extended";
 
-import { postWindowMessage, sendExtensionRuntimeMessage } from "../jest/testing-utils";
+import { postWindowMessage, sendExtensionRuntimeMessage } from "../spec/testing-utils";
 
 describe("ContentMessageHandler", () => {
   const sendMessageSpy = jest.spyOn(chrome.runtime, "sendMessage");
@@ -23,6 +23,17 @@ describe("ContentMessageHandler", () => {
   afterEach(() => {
     jest.resetModules();
     jest.clearAllMocks();
+  });
+
+  describe("handled web vault extension response", () => {
+    it("sends a message 'hasBWInstalled'", () => {
+      const mockPostMessage = jest.fn();
+      window.postMessage = mockPostMessage;
+
+      postWindowMessage({ command: "checkIfBWExtensionInstalled" });
+
+      expect(mockPostMessage).toHaveBeenCalled();
+    });
   });
 
   describe("handled window messages", () => {

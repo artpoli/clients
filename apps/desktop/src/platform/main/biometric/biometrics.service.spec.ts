@@ -7,7 +7,6 @@ import { BiometricStateService } from "@bitwarden/common/platform/biometrics/bio
 import { UserId } from "@bitwarden/common/types/guid";
 
 import { WindowMain } from "../../../main/window.main";
-import { ElectronStateService } from "../../services/electron-state.service.abstraction";
 
 import BiometricDarwinMain from "./biometric.darwin.main";
 import BiometricWindowsMain from "./biometric.windows.main";
@@ -24,7 +23,6 @@ jest.mock("@bitwarden/desktop-native", () => {
 describe("biometrics tests", function () {
   const i18nService = mock<I18nService>();
   const windowMain = mock<WindowMain>();
-  const stateService = mock<ElectronStateService>();
   const logService = mock<LogService>();
   const messagingService = mock<MessagingService>();
   const biometricStateService = mock<BiometricStateService>();
@@ -34,7 +32,6 @@ describe("biometrics tests", function () {
     const sut = new BiometricsService(
       i18nService,
       windowMain,
-      stateService,
       logService,
       messagingService,
       process.platform,
@@ -59,7 +56,6 @@ describe("biometrics tests", function () {
       const sut = new BiometricsService(
         i18nService,
         windowMain,
-        stateService,
         logService,
         messagingService,
         "win32",
@@ -75,7 +71,6 @@ describe("biometrics tests", function () {
       const sut = new BiometricsService(
         i18nService,
         windowMain,
-        stateService,
         logService,
         messagingService,
         "darwin",
@@ -96,7 +91,6 @@ describe("biometrics tests", function () {
       sut = new BiometricsService(
         i18nService,
         windowMain,
-        stateService,
         logService,
         messagingService,
         process.platform,

@@ -38,6 +38,7 @@ import { MessagingService } from "@bitwarden/common/platform/abstractions/messag
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { SystemService } from "@bitwarden/common/platform/abstractions/system.service";
+import { BiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/password";
 import { UserId } from "@bitwarden/common/types/guid";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
@@ -147,6 +148,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private userVerificationService: UserVerificationService,
     private configService: ConfigServiceAbstraction,
     private dialogService: DialogService,
+    private biometricStateService: BiometricStateService,
   ) {}
 
   ngOnInit() {
@@ -442,6 +444,9 @@ export class AppComponent implements OnInit, OnDestroy {
           case "redrawMenu":
             await this.updateAppMenu();
             break;
+          case "deepLink":
+            this.processDeepLink(message.urlString);
+            break;
         }
       });
     });
@@ -576,6 +581,7 @@ export class AppComponent implements OnInit, OnDestroy {
       await this.vaultTimeoutSettingsService.clear(userBeingLoggedOut);
       await this.policyService.clear(userBeingLoggedOut);
       await this.keyConnectorService.clear();
+      await this.biometricStateService.logout(userBeingLoggedOut as UserId);
 
       preLogoutActiveUserId = this.activeUserId;
       await this.stateService.clean({ userId: userBeingLoggedOut });
@@ -740,5 +746,31 @@ export class AppComponent implements OnInit, OnDestroy {
   // Check if an account's clean up is in progress
   private isAccountCleanUpInProgress(userId: string): boolean {
     return this.accountCleanUpInProgress[userId] === true;
+  }
+
+  // Process the sso callback links
+  private processDeepLink(urlString: string) {
+    const url = new URL(urlString);
+    const code = url.searchParams.get("code");
+    const receivedState = url.searchParams.get("state");
+    let message = "";
+
+    if (code === null) {
+      return;
+    }
+
+    if (urlString.indexOf("bitwarden://duo-callback") === 0) {
+      message = "duoCallback";
+    } else if (receivedState === null) {
+      return;
+    }
+
+    if (urlString.indexOf("bitwarden://import-callback-lp") === 0) {
+      message = "importCallbackLastPass";
+    } else if (urlString.indexOf("bitwarden://sso-callback") === 0) {
+      message = "ssoCallback";
+    }
+
+    this.messagingService.send(message, { code: code, state: receivedState });
   }
 }

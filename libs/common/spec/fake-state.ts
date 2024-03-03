@@ -7,6 +7,7 @@ import {
   ActiveUserState,
   KeyDefinition,
   DeriveDefinition,
+  UserKeyDefinition,
 } from "../src/platform/state";
 // eslint-disable-next-line import/no-restricted-paths -- using unexposed options for clean typing in test class
 import { StateUpdateOptions } from "../src/platform/state/state-update-options";
@@ -40,10 +41,10 @@ export class FakeGlobalState<T> implements GlobalState<T> {
     this.stateSubject.next(initialValue ?? null);
   }
 
-  update: <TCombine>(
+  async update<TCombine>(
     configureState: (state: T, dependency: TCombine) => T,
     options?: StateUpdateOptions<T, TCombine>,
-  ) => Promise<T> = jest.fn(async (configureState, options) => {
+  ): Promise<T> {
     options = populateOptionsWithDefault(options);
     if (this.stateSubject["_buffer"].length == 0) {
       // throw a more helpful not initialized error
@@ -63,9 +64,8 @@ export class FakeGlobalState<T> implements GlobalState<T> {
     this.stateSubject.next(newState);
     this.nextMock(newState);
     return newState;
-  });
-
-  updateMock = this.update as jest.MockedFunction<typeof this.update>;
+  }
+  /** Tracks update values resolved by `FakeState.update` */
   nextMock = jest.fn<void, [T]>();
 
   get state$() {
@@ -126,10 +126,9 @@ export class FakeSingleUserState<T> implements SingleUserState<T> {
     return newState;
   }
 
-  updateMock = this.update as jest.MockedFunction<typeof this.update>;
-
+  /** Tracks update values resolved by `FakeState.update` */
   nextMock = jest.fn<void, [T]>();
-  private _keyDefinition: KeyDefinition<T> | null = null;
+  private _keyDefinition: UserKeyDefinition<T> | null = null;
   get keyDefinition() {
     if (this._keyDefinition == null) {
       throw new Error(
@@ -138,7 +137,7 @@ export class FakeSingleUserState<T> implements SingleUserState<T> {
     }
     return this._keyDefinition;
   }
-  set keyDefinition(value: KeyDefinition<T>) {
+  set keyDefinition(value: UserKeyDefinition<T>) {
     this._keyDefinition = value;
   }
 }
@@ -188,11 +187,10 @@ export class FakeActiveUserState<T> implements ActiveUserState<T> {
     return [this.userId, newState];
   }
 
-  updateMock = this.update as jest.MockedFunction<typeof this.update>;
-
+  /** Tracks update values resolved by `FakeState.update` */
   nextMock = jest.fn<void, [[UserId, T]]>();
 
-  private _keyDefinition: KeyDefinition<T> | null = null;
+  private _keyDefinition: UserKeyDefinition<T> | null = null;
   get keyDefinition() {
     if (this._keyDefinition == null) {
       throw new Error(
@@ -201,7 +199,7 @@ export class FakeActiveUserState<T> implements ActiveUserState<T> {
     }
     return this._keyDefinition;
   }
-  set keyDefinition(value: KeyDefinition<T>) {
+  set keyDefinition(value: UserKeyDefinition<T>) {
     this._keyDefinition = value;
   }
 }

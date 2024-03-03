@@ -10,12 +10,14 @@ import { VaultTimeoutSettingsService } from "@bitwarden/common/abstractions/vaul
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { PolicyType } from "@bitwarden/common/admin-console/enums";
 import { UserVerificationService as UserVerificationServiceAbstraction } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
+import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
 import { DeviceType } from "@bitwarden/common/enums";
 import { VaultTimeoutAction } from "@bitwarden/common/enums/vault-timeout-action.enum";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
+import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { BiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
 import { ThemeType, KeySuffixOptions } from "@bitwarden/common/platform/enums";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
@@ -23,7 +25,6 @@ import { DialogService } from "@bitwarden/components";
 
 import { SetPinComponent } from "../../auth/components/set-pin.component";
 import { flagEnabled } from "../../platform/flags";
-import { ElectronStateService } from "../../platform/services/electron-state.service.abstraction";
 
 @Component({
   selector: "app-settings",
@@ -81,7 +82,7 @@ export class SettingsComponent implements OnInit {
     requirePasswordOnStart: false,
     approveLoginRequests: false,
     // Account Preferences
-    clearClipboard: [null as number | null],
+    clearClipboard: [null],
     minimizeOnCopyToClipboard: false,
     enableFavicons: false,
     // App Settings
@@ -110,7 +111,8 @@ export class SettingsComponent implements OnInit {
     private i18nService: I18nService,
     private platformUtilsService: PlatformUtilsService,
     private vaultTimeoutSettingsService: VaultTimeoutSettingsService,
-    private stateService: ElectronStateService,
+    private stateService: StateService,
+    private autofillSettingsService: AutofillSettingsServiceAbstraction,
     private messagingService: MessagingService,
     private cryptoService: CryptoService,
     private modalService: ModalService,
@@ -242,12 +244,12 @@ export class SettingsComponent implements OnInit {
       ),
       pin: this.userHasPinSet,
       biometric: await this.vaultTimeoutSettingsService.isBiometricLockSet(),
-      autoPromptBiometrics: !(await this.stateService.getDisableAutoBiometricsPrompt()),
+      autoPromptBiometrics: await firstValueFrom(this.biometricStateService.promptAutomatically$),
       requirePasswordOnStart: await firstValueFrom(
         this.biometricStateService.requirePasswordOnStart$,
       ),
       approveLoginRequests: (await this.stateService.getApproveLoginRequests()) ?? false,
-      clearClipboard: await this.stateService.getClearClipboard(),
+      clearClipboard: await firstValueFrom(this.autofillSettingsService.clearClipboardDelay$),
       minimizeOnCopyToClipboard: await this.stateService.getMinimizeOnCopyToClipboard(),
       enableFavicons: !(await this.stateService.getDisableFavicon()),
       enableTray: await this.stateService.getEnableTray(),
@@ -443,19 +445,19 @@ export class SettingsComponent implements OnInit {
     try {
       if (!enabled || !this.supportsBiometric) {
         this.form.controls.biometric.setValue(false, { emitEvent: false });
-        await this.stateService.setBiometricUnlock(null);
+        await this.biometricStateService.setBiometricUnlockEnabled(false);
         await this.cryptoService.refreshAdditionalKeys();
         return;
       }
 
-      await this.stateService.setBiometricUnlock(true);
+      await this.biometricStateService.setBiometricUnlockEnabled(true);
       if (this.isWindows) {
         // Recommended settings for Windows Hello
         this.form.controls.requirePasswordOnStart.setValue(true);
         this.form.controls.autoPromptBiometrics.setValue(false);
-        await this.stateService.setDisableAutoBiometricsPrompt(true);
+        await this.biometricStateService.setPromptAutomatically(false);
         await this.biometricStateService.setRequirePasswordOnStart(true);
-        await this.stateService.setDismissedBiometricRequirePasswordOnStart();
+        await this.biometricStateService.setDismissedRequirePasswordOnStartCallout();
       }
       await this.cryptoService.refreshAdditionalKeys();
 
@@ -463,7 +465,7 @@ export class SettingsComponent implements OnInit {
       const biometricSet = await this.cryptoService.hasUserKeyStored(KeySuffixOptions.Biometric);
       this.form.controls.biometric.setValue(biometricSet, { emitEvent: false });
       if (!biometricSet) {
-        await this.stateService.setBiometricUnlock(null);
+        await this.biometricStateService.setBiometricUnlockEnabled(false);
       }
     } finally {
       this.messagingService.send("redrawMenu");
@@ -475,10 +477,9 @@ export class SettingsComponent implements OnInit {
       // require password on start must be disabled if auto prompt biometrics is enabled
       this.form.controls.requirePasswordOnStart.setValue(false);
       await this.updateRequirePasswordOnStart();
-
-      await this.stateService.setDisableAutoBiometricsPrompt(null);
+      await this.biometricStateService.setPromptAutomatically(true);
     } else {
-      await this.stateService.setDisableAutoBiometricsPrompt(true);
+      await this.biometricStateService.setPromptAutomatically(false);
     }
   }
 
@@ -492,7 +493,7 @@ export class SettingsComponent implements OnInit {
     } else {
       await this.biometricStateService.setRequirePasswordOnStart(false);
     }
-    await this.stateService.setDismissedBiometricRequirePasswordOnStart();
+    await this.biometricStateService.setDismissedRequirePasswordOnStartCallout();
     await this.cryptoService.refreshAdditionalKeys();
   }
 
@@ -564,7 +565,7 @@ export class SettingsComponent implements OnInit {
   }
 
   async saveClearClipboard() {
-    await this.stateService.setClearClipboard(this.form.value.clearClipboard);
+    await this.autofillSettingsService.setClearClipboardDelay(this.form.value.clearClipboard);
   }
 
   async saveAlwaysShowDock() {

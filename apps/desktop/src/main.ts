@@ -3,6 +3,7 @@ import * as path from "path";
 import { app } from "electron";
 
 import { AccountServiceImplementation } from "@bitwarden/common/auth/services/account.service";
+import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { DefaultBiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
 import { StateFactory } from "@bitwarden/common/platform/factories/state-factory";
 import { GlobalState } from "@bitwarden/common/platform/models/domain/global-state";
@@ -31,6 +32,7 @@ import { Account } from "./models/account";
 import { BiometricsService, BiometricsServiceAbstraction } from "./platform/main/biometric/index";
 import { ClipboardMain } from "./platform/main/clipboard.main";
 import { DesktopCredentialStorageListener } from "./platform/main/desktop-credential-storage-listener";
+import { MainCryptoFunctionService } from "./platform/main/main-crypto-function.service";
 import { ElectronLogMainService } from "./platform/services/electron-log.main.service";
 import { ElectronStateService } from "./platform/services/electron-state.service";
 import { ElectronStorageService } from "./platform/services/electron-storage.service";
@@ -44,8 +46,9 @@ export class Main {
   memoryStorageService: MemoryStorageService;
   memoryStorageForStateProviders: MemoryStorageServiceForStateProviders;
   messagingService: ElectronMainMessagingService;
-  stateService: ElectronStateService;
+  stateService: StateService;
   environmentService: EnvironmentService;
+  mainCryptoFunctionService: MainCryptoFunctionService;
   desktopCredentialStorageListener: DesktopCredentialStorageListener;
   migrationRunner: MigrationRunner;
 
@@ -146,8 +149,11 @@ export class Main {
       false, // Do not use disk caching because this will get out of sync with the renderer service
     );
 
+    const biometricStateService = new DefaultBiometricStateService(stateProvider);
+
     this.windowMain = new WindowMain(
       this.stateService,
+      biometricStateService,
       this.logService,
       this.storageService,
       (arg) => this.processDeepLink(arg),
@@ -169,12 +175,9 @@ export class Main {
       this.updaterMain,
     );
 
-    const biometricStateService = new DefaultBiometricStateService(stateProvider);
-
     this.biometricsService = new BiometricsService(
       this.i18nService,
       this.windowMain,
-      this.stateService,
       this.logService,
       this.messagingService,
       process.platform,
@@ -196,6 +199,9 @@ export class Main {
 
     this.clipboardMain = new ClipboardMain();
     this.clipboardMain.init();
+
+    this.mainCryptoFunctionService = new MainCryptoFunctionService();
+    this.mainCryptoFunctionService.init();
   }
 
   bootstrap() {
@@ -271,28 +277,7 @@ export class Main {
     argv
       .filter((s) => s.indexOf("bitwarden://") === 0)
       .forEach((s) => {
-        const url = new URL(s);
-        const code = url.searchParams.get("code");
-        const receivedState = url.searchParams.get("state");
-        let message = "";
-
-        if (code === null) {
-          return;
-        }
-
-        if (s.indexOf("bitwarden://duo-callback") === 0) {
-          message = "duoCallback";
-        } else if (receivedState === null) {
-          return;
-        }
-
-        if (s.indexOf("bitwarden://import-callback-lp") === 0) {
-          message = "importCallbackLastPass";
-        } else if (s.indexOf("bitwarden://sso-callback") === 0) {
-          message = "ssoCallback";
-        }
-
-        this.messagingService.send(message, { code: code, state: receivedState });
+        this.messagingService.send("deepLink", { urlString: s });
       });
   }
 }

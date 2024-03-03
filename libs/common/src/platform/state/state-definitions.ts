@@ -19,9 +19,8 @@ import { StateDefinition } from "./state-definition";
 
 export const ACCOUNT_MEMORY = new StateDefinition("account", "memory");
 
-export const BILLING_BANNERS_DISK = new StateDefinition("billingBanners", "disk");
-
 export const CRYPTO_DISK = new StateDefinition("crypto", "disk");
+export const CRYPTO_MEMORY = new StateDefinition("crypto", "memory");
 
 export const SSO_DISK = new StateDefinition("ssoLogin", "disk");
 
@@ -39,8 +38,9 @@ export const BIOMETRIC_SETTINGS_DISK = new StateDefinition("biometricSettings", 
 // Admin Console
 export const ORGANIZATIONS_DISK = new StateDefinition("organizations", "disk");
 export const POLICIES_DISK = new StateDefinition("policies", "disk");
-export const POLICIES_MEMORY = new StateDefinition("policies", "memory");
 export const PROVIDERS_DISK = new StateDefinition("providers", "disk");
+
+export const BILLING_DISK = new StateDefinition("billing", "disk");
 
 export const FOLDER_DISK = new StateDefinition("folder", "disk", { web: "memory" });
 
@@ -53,7 +53,25 @@ export const VAULT_SETTINGS_DISK = new StateDefinition("vaultSettings", "disk", 
 export const COLLECTION_DATA = new StateDefinition("collection", "disk", {
   web: "memory",
 });
+
+export const BADGE_SETTINGS_DISK = new StateDefinition("badgeSettings", "disk");
+
 export const AUTOFILL_SETTINGS_DISK = new StateDefinition("autofillSettings", "disk");
 export const AUTOFILL_SETTINGS_DISK_LOCAL = new StateDefinition("autofillSettingsLocal", "disk", {
+  web: "disk-local",
+});
+
+export const VAULT_FILTER_DISK = new StateDefinition("vaultFilter", "disk", {
+  web: "disk-local",
+});
+
+export const CLEAR_EVENT_DISK = new StateDefinition("clearEvent", "disk");
+
+export const NEW_WEB_LAYOUT_BANNER_DISK = new StateDefinition("newWebLayoutBanner", "disk", {
+  web: "disk-local",
+});
+
+// Secrets Manager
+export const SM_ONBOARDING_DISK = new StateDefinition("smOnboarding", "disk", {
   web: "disk-local",
 });

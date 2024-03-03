@@ -11,8 +11,8 @@ import { FakeStorageService } from "../../../../spec/fake-storage.service";
 import { AccountInfo, AccountService } from "../../../auth/abstractions/account.service";
 import { AuthenticationStatus } from "../../../auth/enums/authentication-status";
 import { UserId } from "../../../types/guid";
-import { KeyDefinition, userKeyBuilder } from "../key-definition";
 import { StateDefinition } from "../state-definition";
+import { UserKeyDefinition } from "../user-key-definition";
 
 import { DefaultActiveUserState } from "./default-active-user-state";
 
@@ -32,10 +32,11 @@ class TestState {
 }
 
 const testStateDefinition = new StateDefinition("fake", "disk");
-const cleanupDelayMs = 10;
-const testKeyDefinition = new KeyDefinition<TestState>(testStateDefinition, "fake", {
+const cleanupDelayMs = 15;
+const testKeyDefinition = new UserKeyDefinition<TestState>(testStateDefinition, "fake", {
   deserializer: TestState.fromJSON,
   cleanupDelayMs,
+  clearOn: [],
 });
 
 describe("DefaultActiveUserState", () => {
@@ -592,7 +593,7 @@ describe("DefaultActiveUserState", () => {
 
     beforeEach(async () => {
       await changeActiveUser("1");
-      userKey = userKeyBuilder(userId, testKeyDefinition);
+      userKey = testKeyDefinition.buildKey(userId);
     });
 
     function assertClean() {

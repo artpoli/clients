@@ -578,6 +578,9 @@
   "access": {
     "message": "Accés"
   },
+  "accessLevel": {
+    "message": "Nivell d'accés"
+  },
   "loggedOut": {
     "message": "Sessió tancada"
   },
@@ -3931,7 +3934,7 @@
     "message": "Una caixa forta bloquejada requereix que torne a introduir la contrasenya principal per accedir-ne de nou."
   },
   "vaultTimeoutActionLogOutDesc": {
-    "message": "Una caixa forta desconnectada requereix que torneu a autentificar-vos per accedir-hi de nou."
+    "message": "Una caixa forta desconnectada requereix que torneu a autentificar-vos per accedir-ne de nou."
   },
   "lock": {
     "message": "Bloqueja",
@@ -7060,12 +7063,6 @@
   "enforceOnLoginDesc": {
     "message": "Exigeix que els membres existents canvien les seues contrasenyes"
   },
-  "usDomain": {
-    "message": "bitwarden.com"
-  },
-  "euDomain": {
-    "message": "bitwarden.eu"
-  },
   "smProjectDeleteAccessRestricted": {
     "message": "No teniu permisos per suprimir aquest projecte",
     "description": "The individual description shown to the user when the user doesn't have access to delete a project."
@@ -7602,5 +7599,11 @@
   },
   "providerPortal": {
     "message": "Portal del proveïdor"
+  },
+  "restrictedGroupAccess": {
+    "message": "No podeu afegir-vos als grups."
+  },
+  "restrictedCollectionAccess": {
+    "message": "No podeu afegir-vos a les col·leccions."
   }
 }

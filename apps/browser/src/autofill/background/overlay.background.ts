@@ -1,14 +1,17 @@
 import { firstValueFrom } from "rxjs";
 
-import { SettingsService } from "@bitwarden/common/abstractions/settings.service";
 import { AuthService } from "@bitwarden/common/auth/abstractions/auth.service";
 import { AuthenticationStatus } from "@bitwarden/common/auth/enums/authentication-status";
+import { SHOW_AUTOFILL_BUTTON } from "@bitwarden/common/autofill/constants";
 import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
+import { DomainSettingsService } from "@bitwarden/common/autofill/services/domain-settings.service";
+import { InlineMenuVisibilitySetting } from "@bitwarden/common/autofill/types";
 import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
+import { ThemeStateService } from "@bitwarden/common/platform/theming/theme-state.service";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { CipherType } from "@bitwarden/common/vault/enums";
 import { buildCipherIcon } from "@bitwarden/common/vault/icon/build-cipher-icon";
@@ -22,13 +25,8 @@ import {
   openViewVaultItemPopout,
   openAddEditVaultItemPopout,
 } from "../../vault/popup/utils/vault-popout-window";
-import { SHOW_AUTOFILL_BUTTON } from "../constants";
 import { AutofillService, PageDetail } from "../services/abstractions/autofill.service";
-import {
-  InlineMenuVisibilitySetting,
-  AutofillOverlayElement,
-  AutofillOverlayPort,
-} from "../utils/autofill-overlay.enum";
+import { AutofillOverlayElement, AutofillOverlayPort } from "../utils/autofill-overlay.enum";
 
 import { LockedVaultPendingNotificationsData } from "./abstractions/notification.background";
 import {
@@ -49,13 +47,16 @@ class OverlayBackground implements OverlayBackgroundInterface {
   private readonly openViewVaultItemPopout = openViewVaultItemPopout;
   private readonly openAddEditVaultItemPopout = openAddEditVaultItemPopout;
   private overlayLoginCiphers: Map<string, CipherView> = new Map();
-  private pageDetailsForTab: Record<number, PageDetail[]> = {};
+  private pageDetailsForTab: Record<
+    chrome.runtime.MessageSender["tab"]["id"],
+    Map<chrome.runtime.MessageSender["frameId"], PageDetail>
+  > = {};
   private userAuthStatus: AuthenticationStatus = AuthenticationStatus.LoggedOut;
   private overlayButtonPort: chrome.runtime.Port;
   private overlayListPort: chrome.runtime.Port;
   private focusedFieldData: FocusedFieldData;
   private overlayPageTranslations: Record<string, string>;
-  private readonly iconsServerUrl: string;
+  private iconsServerUrl: string;
   private readonly extensionMessageHandlers: OverlayBackgroundExtensionMessageHandlers = {
     openAutofillOverlay: () => this.openOverlay(false),
     autofillOverlayElementClosed: ({ message }) => this.overlayElementClosed(message),
@@ -94,14 +95,13 @@ class OverlayBackground implements OverlayBackgroundInterface {
     private autofillService: AutofillService,
     private authService: AuthService,
     private environmentService: EnvironmentService,
-    private settingsService: SettingsService,
+    private domainSettingsService: DomainSettingsService,
     private stateService: StateService,
     private autofillSettingsService: AutofillSettingsServiceAbstraction,
     private i18nService: I18nService,
     private platformUtilsService: PlatformUtilsService,
-  ) {
-    this.iconsServerUrl = this.environmentService.getIconsUrl();
-  }
+    private themeStateService: ThemeStateService,
+  ) {}
 
   /**
    * Removes cached page details for a tab
@@ -110,6 +110,11 @@ class OverlayBackground implements OverlayBackgroundInterface {
    * @param tabId - Used to reference the page details of a specific tab
    */
   removePageDetails(tabId: number) {
+    if (!this.pageDetailsForTab[tabId]) {
+      return;
+    }
+
+    this.pageDetailsForTab[tabId].clear();
     delete this.pageDetailsForTab[tabId];
   }
 
@@ -119,6 +124,8 @@ class OverlayBackground implements OverlayBackgroundInterface {
    */
   async init() {
     this.setupExtensionMessageListeners();
+    const env = await firstValueFrom(this.environmentService.environment$);
+    this.iconsServerUrl = env.getIconsUrl();
     await this.getOverlayVisibility();
     await this.getAuthStatus();
   }
@@ -146,7 +153,7 @@ class OverlayBackground implements OverlayBackgroundInterface {
       this.overlayLoginCiphers.set(`overlay-cipher-${cipherIndex}`, ciphersViews[cipherIndex]);
     }
 
-    const ciphers = this.getOverlayCipherData();
+    const ciphers = await this.getOverlayCipherData();
     this.overlayListPort?.postMessage({ command: "updateOverlayListCiphers", ciphers });
     await BrowserApi.tabSendMessageData(currentTab, "updateIsOverlayCiphersPopulated", {
       isOverlayCiphersPopulated: Boolean(ciphers.length),
@@ -157,8 +164,8 @@ class OverlayBackground implements OverlayBackgroundInterface {
    * Strips out unnecessary data from the ciphers and returns an array of
    * objects that contain the cipher data needed for the overlay list.
    */
-  private getOverlayCipherData(): OverlayCipherData[] {
-    const isFaviconDisabled = this.settingsService.getDisableFavicon();
+  private async getOverlayCipherData(): Promise<OverlayCipherData[]> {
+    const showFavicons = await firstValueFrom(this.domainSettingsService.showFavicons$);
     const overlayCiphersArray = Array.from(this.overlayLoginCiphers);
     const overlayCipherData = [];
     let loginCipherIcon: WebsiteIconData;
@@ -166,7 +173,7 @@ class OverlayBackground implements OverlayBackgroundInterface {
     for (let cipherIndex = 0; cipherIndex < overlayCiphersArray.length; cipherIndex++) {
       const [overlayCipherId, cipher] = overlayCiphersArray[cipherIndex];
       if (!loginCipherIcon && cipher.type === CipherType.Login) {
-        loginCipherIcon = buildCipherIcon(this.iconsServerUrl, cipher, isFaviconDisabled);
+        loginCipherIcon = buildCipherIcon(this.iconsServerUrl, cipher, showFavicons);
       }
 
       overlayCipherData.push({
@@ -178,7 +185,7 @@ class OverlayBackground implements OverlayBackgroundInterface {
         icon:
           cipher.type === CipherType.Login
             ? loginCipherIcon
-            : buildCipherIcon(this.iconsServerUrl, cipher, isFaviconDisabled),
+            : buildCipherIcon(this.iconsServerUrl, cipher, showFavicons),
         login: cipher.type === CipherType.Login ? { username: cipher.login.username } : null,
         card: cipher.type === CipherType.Card ? cipher.card.subTitle : null,
       });
@@ -204,12 +211,13 @@ class OverlayBackground implements OverlayBackgroundInterface {
       details: message.details,
     };
 
-    if (this.pageDetailsForTab[sender.tab.id]?.length) {
-      this.pageDetailsForTab[sender.tab.id].push(pageDetails);
+    const pageDetailsMap = this.pageDetailsForTab[sender.tab.id];
+    if (!pageDetailsMap) {
+      this.pageDetailsForTab[sender.tab.id] = new Map([[sender.frameId, pageDetails]]);
       return;
     }
 
-    this.pageDetailsForTab[sender.tab.id] = [pageDetails];
+    pageDetailsMap.set(sender.frameId, pageDetails);
   }
 
   /**
@@ -223,7 +231,8 @@ class OverlayBackground implements OverlayBackgroundInterface {
     { overlayCipherId }: OverlayPortMessage,
     { sender }: chrome.runtime.Port,
   ) {
-    if (!overlayCipherId) {
+    const pageDetails = this.pageDetailsForTab[sender.tab.id];
+    if (!overlayCipherId || !pageDetails?.size) {
       return;
     }
 
@@ -235,13 +244,13 @@ class OverlayBackground implements OverlayBackgroundInterface {
     const totpCode = await this.autofillService.doAutoFill({
       tab: sender.tab,
       cipher: cipher,
-      pageDetails: this.pageDetailsForTab[sender.tab.id],
+      pageDetails: Array.from(pageDetails.values()),
       fillNewPassword: true,
       allowTotpAutofill: true,
     });
 
     if (totpCode) {
-      this.platformUtilsService.copyToClipboard(totpCode, { window });
+      this.platformUtilsService.copyToClipboard(totpCode);
     }
 
     this.overlayLoginCiphers = new Map([[overlayCipherId, cipher], ...this.overlayLoginCiphers]);
@@ -698,9 +707,9 @@ class OverlayBackground implements OverlayBackgroundInterface {
       command: `initAutofillOverlay${isOverlayListPort ? "List" : "Button"}`,
       authStatus: await this.getAuthStatus(),
       styleSheetUrl: chrome.runtime.getURL(`overlay/${isOverlayListPort ? "list" : "button"}.css`),
-      theme: await this.stateService.getTheme(),
+      theme: await firstValueFrom(this.themeStateService.selectedTheme$),
       translations: this.getTranslations(),
-      ciphers: isOverlayListPort ? this.getOverlayCipherData() : null,
+      ciphers: isOverlayListPort ? await this.getOverlayCipherData() : null,
     });
     this.updateOverlayPosition({
       overlayElement: isOverlayListPort

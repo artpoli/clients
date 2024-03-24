@@ -1,7 +1,7 @@
 import { Directive, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Subject } from "rxjs";
+import { Subject, firstValueFrom } from "rxjs";
 import { take, takeUntil } from "rxjs/operators";
 
 import { LoginStrategyServiceAbstraction, PasswordLoginCredentials } from "@bitwarden/auth/common";
@@ -84,10 +84,6 @@ export class LoginComponent extends CaptchaProtectedComponent implements OnInit,
     super(environmentService, i18nService, platformUtilsService);
   }
 
-  get selfHostedDomain() {
-    return this.environmentService.hasBaseUrl() ? this.environmentService.getWebVaultUrl() : null;
-  }
-
   async ngOnInit() {
     this.route?.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       if (!params) {
@@ -149,6 +145,7 @@ export class LoginComponent extends CaptchaProtectedComponent implements OnInit,
         this.captchaToken,
         null,
       );
+
       this.formPromise = this.loginStrategyService.logIn(credentials);
       const response = await this.formPromise;
       this.setFormValues();
@@ -244,7 +241,8 @@ export class LoginComponent extends CaptchaProtectedComponent implements OnInit,
     await this.ssoLoginService.setCodeVerifier(ssoCodeVerifier);
 
     // Build URI
-    const webUrl = this.environmentService.getWebVaultUrl();
+    const env = await firstValueFrom(this.environmentService.environment$);
+    const webUrl = env.getWebVaultUrl();
 
     // Launch browser
     this.platformUtilsService.launchUri(
@@ -302,6 +300,9 @@ export class LoginComponent extends CaptchaProtectedComponent implements OnInit,
   async saveEmailSettings() {
     this.setFormValues();
     await this.loginService.saveEmailSettings();
+
+    // Save off email for SSO
+    await this.ssoLoginService.setSsoEmail(this.formGroup.value.email);
   }
 
   // Legacy accounts used the master key to encrypt data. Migration is required

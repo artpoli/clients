@@ -3,9 +3,9 @@ import { parse } from "tldts";
 
 import { AuthService } from "../../../auth/abstractions/auth.service";
 import { AuthenticationStatus } from "../../../auth/enums/authentication-status";
+import { DomainSettingsService } from "../../../autofill/services/domain-settings.service";
 import { ConfigServiceAbstraction } from "../../../platform/abstractions/config/config.service.abstraction";
 import { LogService } from "../../../platform/abstractions/log.service";
-import { StateService } from "../../../platform/abstractions/state.service";
 import { Utils } from "../../../platform/misc/utils";
 import {
   Fido2AuthenticatorError,
@@ -42,8 +42,8 @@ export class Fido2ClientService implements Fido2ClientServiceAbstraction {
     private authenticator: Fido2AuthenticatorService,
     private configService: ConfigServiceAbstraction,
     private authService: AuthService,
-    private stateService: StateService,
     private vaultSettingsService: VaultSettingsService,
+    private domainSettingsService: DomainSettingsService,
     private logService?: LogService,
   ) {}
 
@@ -52,7 +52,8 @@ export class Fido2ClientService implements Fido2ClientServiceAbstraction {
     const isUserLoggedIn =
       (await this.authService.getAuthStatus()) !== AuthenticationStatus.LoggedOut;
 
-    const neverDomains = await this.stateService.getNeverDomains();
+    const neverDomains = await firstValueFrom(this.domainSettingsService.neverDomains$);
+
     const isExcludedDomain = neverDomains != null && hostname in neverDomains;
 
     const serverConfig = await firstValueFrom(this.configService.serverConfig$);

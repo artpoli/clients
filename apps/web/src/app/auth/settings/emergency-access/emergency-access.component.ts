@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
+import { lastValueFrom, Observable, firstValueFrom } from "rxjs";
 
 import { UserNamePipe } from "@bitwarden/angular/pipes/user-name.pipe";
-import { ModalService } from "@bitwarden/angular/services/modal.service";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
+import { OrganizationManagementPreferencesService } from "@bitwarden/common/admin-console/abstractions/organization-management-preferences/organization-management-preferences.service";
+import { BillingAccountProfileStateService } from "@bitwarden/common/billing/abstractions/account/billing-account-profile-state.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
@@ -18,9 +20,18 @@ import {
   GrantorEmergencyAccess,
 } from "../../emergency-access/models/emergency-access";
 
-import { EmergencyAccessConfirmComponent } from "./confirm/emergency-access-confirm.component";
-import { EmergencyAccessAddEditComponent } from "./emergency-access-add-edit.component";
-import { EmergencyAccessTakeoverComponent } from "./takeover/emergency-access-takeover.component";
+import {
+  EmergencyAccessConfirmComponent,
+  EmergencyAccessConfirmDialogResult,
+} from "./confirm/emergency-access-confirm.component";
+import {
+  EmergencyAccessAddEditComponent,
+  EmergencyAccessAddEditDialogResult,
+} from "./emergency-access-add-edit.component";
+import {
+  EmergencyAccessTakeoverComponent,
+  EmergencyAccessTakeoverResultType,
+} from "./takeover/emergency-access-takeover.component";
 
 @Component({
   selector: "emergency-access",
@@ -35,7 +46,7 @@ export class EmergencyAccessComponent implements OnInit {
   confirmModalRef: ViewContainerRef;
 
   loaded = false;
-  canAccessPremium: boolean;
+  canAccessPremium$: Observable<boolean>;
   trustedContacts: GranteeEmergencyAccess[];
   grantedContacts: GrantorEmergencyAccess[];
   emergencyAccessType = EmergencyAccessType;
@@ -46,7 +57,6 @@ export class EmergencyAccessComponent implements OnInit {
   constructor(
     private emergencyAccessService: EmergencyAccessService,
     private i18nService: I18nService,
-    private modalService: ModalService,
     private platformUtilsService: PlatformUtilsService,
     private messagingService: MessagingService,
     private userNamePipe: UserNamePipe,
@@ -54,10 +64,13 @@ export class EmergencyAccessComponent implements OnInit {
     private stateService: StateService,
     private organizationService: OrganizationService,
     protected dialogService: DialogService,
-  ) {}
+    billingAccountProfileStateService: BillingAccountProfileStateService,
+    protected organizationManagementPreferencesService: OrganizationManagementPreferencesService,
+  ) {
+    this.canAccessPremium$ = billingAccountProfileStateService.hasPremiumFromAnySource$;
+  }
 
   async ngOnInit() {
-    this.canAccessPremium = await this.stateService.getCanAccessPremium();
     const orgs = await this.organizationService.getAll();
     this.isOrganizationOwner = orgs.some((o) => o.isOwner);
     // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
@@ -72,43 +85,35 @@ export class EmergencyAccessComponent implements OnInit {
   }
 
   async premiumRequired() {
-    if (!this.canAccessPremium) {
+    const canAccessPremium = await firstValueFrom(this.canAccessPremium$);
+
+    if (!canAccessPremium) {
       this.messagingService.send("premiumRequired");
       return;
     }
   }
 
-  async edit(details: GranteeEmergencyAccess) {
-    const [modal] = await this.modalService.openViewRef(
-      EmergencyAccessAddEditComponent,
-      this.addEditModalRef,
-      (comp) => {
-        comp.name = this.userNamePipe.transform(details);
-        comp.emergencyAccessId = details?.id;
-        comp.readOnly = !this.canAccessPremium;
-        // eslint-disable-next-line rxjs-angular/prefer-takeuntil
-        comp.onSaved.subscribe(() => {
-          modal.close();
-          // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          this.load();
-        });
-        // eslint-disable-next-line rxjs-angular/prefer-takeuntil
-        comp.onDeleted.subscribe(() => {
-          modal.close();
-          // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          this.remove(details);
-        });
+  edit = async (details: GranteeEmergencyAccess) => {
+    const canAccessPremium = await firstValueFrom(this.canAccessPremium$);
+    const dialogRef = EmergencyAccessAddEditComponent.open(this.dialogService, {
+      data: {
+        name: this.userNamePipe.transform(details),
+        emergencyAccessId: details?.id,
+        readOnly: !canAccessPremium,
       },
-    );
-  }
+    });
 
-  invite() {
-    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.edit(null);
-  }
+    const result = await lastValueFrom(dialogRef.closed);
+    if (result === EmergencyAccessAddEditDialogResult.Saved) {
+      await this.load();
+    } else if (result === EmergencyAccessAddEditDialogResult.Deleted) {
+      await this.remove(details);
+    }
+  };
+
+  invite = async () => {
+    await this.edit(null);
+  };
 
   async reinvite(contact: GranteeEmergencyAccess) {
     if (this.actionPromise != null) {
@@ -133,31 +138,27 @@ export class EmergencyAccessComponent implements OnInit {
       return;
     }
 
-    const autoConfirm = await this.stateService.getAutoConfirmFingerPrints();
+    const autoConfirm = await firstValueFrom(
+      this.organizationManagementPreferencesService.autoConfirmFingerPrints.state$,
+    );
     if (autoConfirm == null || !autoConfirm) {
-      const [modal] = await this.modalService.openViewRef(
-        EmergencyAccessConfirmComponent,
-        this.confirmModalRef,
-        (comp) => {
-          comp.name = this.userNamePipe.transform(contact);
-          comp.emergencyAccessId = contact.id;
-          comp.userId = contact?.granteeId;
-          // eslint-disable-next-line rxjs-angular/prefer-takeuntil, rxjs/no-async-subscribe
-          comp.onConfirmed.subscribe(async () => {
-            modal.close();
-
-            comp.formPromise = this.emergencyAccessService.confirm(contact.id, contact.granteeId);
-            await comp.formPromise;
-
-            updateUser();
-            this.platformUtilsService.showToast(
-              "success",
-              null,
-              this.i18nService.t("hasBeenConfirmed", this.userNamePipe.transform(contact)),
-            );
-          });
+      const dialogRef = EmergencyAccessConfirmComponent.open(this.dialogService, {
+        data: {
+          name: this.userNamePipe.transform(contact),
+          emergencyAccessId: contact.id,
+          userId: contact?.granteeId,
         },
-      );
+      });
+      const result = await lastValueFrom(dialogRef.closed);
+      if (result === EmergencyAccessConfirmDialogResult.Confirmed) {
+        await this.emergencyAccessService.confirm(contact.id, contact.granteeId);
+        updateUser();
+        this.platformUtilsService.showToast(
+          "success",
+          null,
+          this.i18nService.t("hasBeenConfirmed", this.userNamePipe.transform(contact)),
+        );
+      }
       return;
     }
 
@@ -267,27 +268,23 @@ export class EmergencyAccessComponent implements OnInit {
     );
   }
 
-  async takeover(details: GrantorEmergencyAccess) {
-    const [modal] = await this.modalService.openViewRef(
-      EmergencyAccessTakeoverComponent,
-      this.takeoverModalRef,
-      (comp) => {
-        comp.name = this.userNamePipe.transform(details);
-        comp.email = details.email;
-        comp.emergencyAccessId = details != null ? details.id : null;
-
-        // eslint-disable-next-line rxjs-angular/prefer-takeuntil
-        comp.onDone.subscribe(() => {
-          modal.close();
-          this.platformUtilsService.showToast(
-            "success",
-            null,
-            this.i18nService.t("passwordResetFor", this.userNamePipe.transform(details)),
-          );
-        });
+  takeover = async (details: GrantorEmergencyAccess) => {
+    const dialogRef = EmergencyAccessTakeoverComponent.open(this.dialogService, {
+      data: {
+        name: this.userNamePipe.transform(details),
+        email: details.email,
+        emergencyAccessId: details.id ?? null,
       },
-    );
-  }
+    });
+    const result = await lastValueFrom(dialogRef.closed);
+    if (result === EmergencyAccessTakeoverResultType.Done) {
+      this.platformUtilsService.showToast(
+        "success",
+        null,
+        this.i18nService.t("passwordResetFor", this.userNamePipe.transform(details)),
+      );
+    }
+  };
 
   private removeGrantee(details: GranteeEmergencyAccess) {
     const index = this.trustedContacts.indexOf(details);

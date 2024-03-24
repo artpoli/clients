@@ -3,8 +3,8 @@ import { of } from "rxjs";
 
 import { AuthService } from "../../../auth/abstractions/auth.service";
 import { AuthenticationStatus } from "../../../auth/enums/authentication-status";
+import { DomainSettingsService } from "../../../autofill/services/domain-settings.service";
 import { ConfigServiceAbstraction } from "../../../platform/abstractions/config/config.service.abstraction";
-import { StateService } from "../../../platform/abstractions/state.service";
 import { Utils } from "../../../platform/misc/utils";
 import {
   Fido2AuthenticatorError,
@@ -32,8 +32,8 @@ describe("FidoAuthenticatorService", () => {
   let authenticator!: MockProxy<Fido2AuthenticatorService>;
   let configService!: MockProxy<ConfigServiceAbstraction>;
   let authService!: MockProxy<AuthService>;
-  let stateService!: MockProxy<StateService>;
   let vaultSettingsService: MockProxy<VaultSettingsService>;
+  let domainSettingsService: MockProxy<DomainSettingsService>;
   let client!: Fido2ClientService;
   let tab!: chrome.tabs.Tab;
 
@@ -41,18 +41,19 @@ describe("FidoAuthenticatorService", () => {
     authenticator = mock<Fido2AuthenticatorService>();
     configService = mock<ConfigServiceAbstraction>();
     authService = mock<AuthService>();
-    stateService = mock<StateService>();
     vaultSettingsService = mock<VaultSettingsService>();
+    domainSettingsService = mock<DomainSettingsService>();
 
     client = new Fido2ClientService(
       authenticator,
       configService,
       authService,
-      stateService,
       vaultSettingsService,
+      domainSettingsService,
     );
     configService.serverConfig$ = of({ environment: { vault: VaultUrl } } as any);
     vaultSettingsService.enablePasskeys$ = of(true);
+    domainSettingsService.neverDomains$ = of({});
     authService.getAuthStatus.mockResolvedValue(AuthenticationStatus.Unlocked);
     tab = { id: 123, windowId: 456 } as chrome.tabs.Tab;
   });
@@ -130,7 +131,7 @@ describe("FidoAuthenticatorService", () => {
           origin: "https://bitwarden.com",
           rp: { id: "bitwarden.com", name: "Bitwarden" },
         });
-        stateService.getNeverDomains.mockResolvedValue({ "bitwarden.com": null });
+        domainSettingsService.neverDomains$ = of({ "bitwarden.com": null });
 
         const result = async () => await client.createCredential(params, tab);
 
@@ -376,7 +377,8 @@ describe("FidoAuthenticatorService", () => {
         const params = createParams({
           origin: "https://bitwarden.com",
         });
-        stateService.getNeverDomains.mockResolvedValue({ "bitwarden.com": null });
+
+        domainSettingsService.neverDomains$ = of({ "bitwarden.com": null });
 
         const result = async () => await client.assertCredential(params, tab);
 

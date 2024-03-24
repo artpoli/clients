@@ -578,6 +578,9 @@
   "access": {
     "message": "Hozzáférés"
   },
+  "accessLevel": {
+    "message": "Hozzáférési szint"
+  },
   "loggedOut": {
     "message": "Megtörtént a kijelentkezés."
   },
@@ -7060,12 +7063,6 @@
   "enforceOnLoginDesc": {
     "message": "A meglévő tagoknak meg kell változtatniuk jelszavaikat."
   },
-  "usDomain": {
-    "message": "bitwarden.com"
-  },
-  "euDomain": {
-    "message": "bitwarden.eu"
-  },
   "smProjectDeleteAccessRestricted": {
     "message": "Nincs jogosulltság ezen projekt törléséhez.",
     "description": "The individual description shown to the user when the user doesn't have access to delete a project."
@@ -7602,5 +7599,11 @@
   },
   "providerPortal": {
     "message": "Szolgáltató portál"
+  },
+  "restrictedGroupAccess": {
+    "message": "Nem adhadjuk magunkat a csoporthoz."
+  },
+  "restrictedCollectionAccess": {
+    "message": "Nem adhadjuk magunkat a gyűjteményhez."
   }
 }

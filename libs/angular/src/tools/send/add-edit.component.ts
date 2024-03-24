@@ -1,10 +1,11 @@
 import { DatePipe } from "@angular/common";
 import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { Subject, takeUntil } from "rxjs";
+import { Subject, firstValueFrom, takeUntil, map, BehaviorSubject, concatMap } from "rxjs";
 
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { PolicyType } from "@bitwarden/common/admin-console/enums";
+import { BillingAccountProfileStateService } from "@bitwarden/common/billing/abstractions/account/billing-account-profile-state.service";
 import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
@@ -116,12 +117,12 @@ export class AddEditComponent implements OnInit, OnDestroy {
     protected sendApiService: SendApiService,
     protected dialogService: DialogService,
     protected formBuilder: FormBuilder,
+    protected billingAccountProfileStateService: BillingAccountProfileStateService,
   ) {
     this.typeOptions = [
       { name: i18nService.t("sendTypeFile"), value: SendType.File, premium: true },
       { name: i18nService.t("sendTypeText"), value: SendType.Text, premium: false },
     ];
-    this.sendLinkBaseUrl = this.environmentService.getSendUrl();
   }
 
   get link(): string {
@@ -151,8 +152,11 @@ export class AddEditComponent implements OnInit, OnDestroy {
       });
 
     this.policyService
-      .policyAppliesToActiveUser$(PolicyType.SendOptions, (p) => p.data.disableHideEmail)
-      .pipe(takeUntil(this.destroy$))
+      .getAll$(PolicyType.SendOptions)
+      .pipe(
+        map((policies) => policies?.some((p) => p.data.disableHideEmail)),
+        takeUntil(this.destroy$),
+      )
       .subscribe((policyAppliesToActiveUser) => {
         if (
           (this.disableHideEmail = policyAppliesToActiveUser) &&
@@ -164,7 +168,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.formGroup.controls.type.valueChanges.subscribe((val) => {
+    this.formGroup.controls.type.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((val) => {
       this.type = val;
       this.typeChanged();
     });
@@ -185,6 +189,15 @@ export class AddEditComponent implements OnInit, OnDestroy {
         }
       });
 
+    const env = await firstValueFrom(this.environmentService.environment$);
+    this.sendLinkBaseUrl = env.getSendUrl();
+
+    this.billingAccountProfileStateService.hasPremiumFromAnySource$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((hasPremiumFromAnySource) => {
+        this.canAccessPremium = hasPremiumFromAnySource;
+      });
+
     await this.load();
   }
 
@@ -202,33 +215,50 @@ export class AddEditComponent implements OnInit, OnDestroy {
   }
 
   async load() {
-    this.canAccessPremium = await this.stateService.getCanAccessPremium();
     this.emailVerified = await this.stateService.getEmailVerified();
 
     this.type = !this.canAccessPremium || !this.emailVerified ? SendType.Text : SendType.File;
     if (this.send == null) {
-      if (this.editMode) {
-        const send = this.loadSend();
-        this.send = await send.decrypt();
-        this.type = this.send.type;
-        this.updateFormValues();
-      } else {
-        this.send = new SendView();
-        this.send.type = this.type;
-        this.send.file = new SendFileView();
-        this.send.text = new SendTextView();
-        this.send.deletionDate = new Date();
-        this.send.deletionDate.setDate(this.send.deletionDate.getDate() + 7);
-        this.formGroup.controls.type.patchValue(this.send.type);
+      const send = new BehaviorSubject<SendView>(this.send);
+      send.subscribe({
+        next: (decryptedSend: SendView | undefined) => {
+          if (!(decryptedSend instanceof SendView)) {
+            return;
+          }
 
-        this.formGroup.patchValue({
-          selectedDeletionDatePreset: DatePreset.SevenDays,
-          selectedExpirationDatePreset: DatePreset.Never,
-        });
+          this.send = decryptedSend;
+          decryptedSend.type = decryptedSend.type ?? this.type;
+          this.type = this.send.type;
+          this.updateFormValues();
+          this.hasPassword = this.send.password != null && this.send.password.trim() !== "";
+        },
+        error: (error: unknown) => {
+          const errorMessage = (error as Error).message ?? "An unknown error occurred";
+          this.logService.error("Failed to decrypt send: " + errorMessage);
+        },
+      });
+
+      if (this.editMode) {
+        this.sendService
+          .get$(this.sendId)
+          .pipe(
+            //Promise.reject will complete the BehaviourSubject, if desktop starts relying only on BehaviourSubject, this should be changed.
+            concatMap((s) =>
+              s instanceof Send ? s.decrypt() : Promise.reject(new Error("Failed to load send.")),
+            ),
+            takeUntil(this.destroy$),
+          )
+          .subscribe(send);
+      } else {
+        const sendView = new SendView();
+        sendView.type = this.type;
+        sendView.file = new SendFileView();
+        sendView.text = new SendTextView();
+        sendView.deletionDate = new Date();
+        sendView.deletionDate.setDate(sendView.deletionDate.getDate() + 7);
+        send.next(sendView);
       }
     }
-
-    this.hasPassword = this.send.password != null && this.send.password.trim() !== "";
   }
 
   async submit(): Promise<boolean> {
@@ -373,8 +403,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
     this.showOptions = !this.showOptions;
   }
 
-  protected loadSend(): Send {
-    return this.sendService.get(this.sendId);
+  protected loadSend(): Promise<Send> {
+    return firstValueFrom(this.sendService.get$(this.sendId));
   }
 
   protected async encryptSend(file: File): Promise<[Send, EncArrayBuffer]> {

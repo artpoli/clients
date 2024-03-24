@@ -327,7 +327,7 @@
     "message": "Passwort"
   },
   "totp": {
-    "message": "Authenticator secret"
+    "message": "Authentifikator-Geheimnis"
   },
   "passphrase": {
     "message": "Passphrase"
@@ -522,16 +522,16 @@
     "message": "Die Felder dieser Seite konnten nicht automatisch ausgefüllt werden. Bitte Nutzernamen und/oder Passwort manuell kopieren."
   },
   "totpCaptureError": {
-    "message": "Unable to scan QR code from the current webpage"
+    "message": "QR-Code kann nicht von der aktuellen Webseite gescannt werden"
   },
   "totpCaptureSuccess": {
-    "message": "Authenticator key added"
+    "message": "Authentifizierungsschlüssel hinzugefügt"
   },
   "totpCapture": {
-    "message": "Scan authenticator QR code from current webpage"
+    "message": "Den Authentifizierungs-QR-Code von der aktuellen Webseite scannen"
   },
   "copyTOTP": {
-    "message": "Copy Authenticator key (TOTP)"
+    "message": "Authentifizierungsschlüssel kopieren (TOTP)"
   },
   "loggedOut": {
     "message": "Ausgeloggt"
@@ -2386,12 +2386,6 @@
     "message": "EU",
     "description": "European Union"
   },
-  "usDomain": {
-    "message": "bitwarden.com"
-  },
-  "euDomain": {
-    "message": "bitwarden.eu"
-  },
   "accessDenied": {
     "message": "Zugriff verweigert. Du hast keine Berechtigung, diese Seite anzuzeigen."
   },
@@ -2709,7 +2703,7 @@
     "message": "Starte DUO und folge den Schritten, um die Anmeldung zu abzuschließen."
   },
   "duoRequiredForAccount": {
-    "message": "Duo two-step login is required for your account."
+    "message": "Für dein Konto ist die Duo Zwei-Faktor-Authentifizierung erforderlich."
   },
   "popoutTheExtensionToCompleteLogin": {
     "message": "Popout the extension to complete login."

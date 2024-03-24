@@ -19,10 +19,14 @@ on:
         description: "Branch or Tag name to deploy (examples: 'main', 'feature/sm', 'web-v2023.12.0')"
         type: string
         default: main
+      force-delete-destination:
+        description: "Delete remote files that are not found locally"
+        type: boolean
+        default: false
       debug:
         description: "Debug mode"
         type: boolean
-        default: false
+        default: true
 
   workflow_call:
     inputs:
@@ -34,10 +38,14 @@ on:
         description: "Branch or Tag name to deploy (examples: 'main', 'feature/sm', 'web-v2023.12.0')"
         type: string
         default: main
+      force-delete-destination:
+        description: "Delete remote files that are not found locally"
+        type: boolean
+        default: false
       debug:
         description: "Debug mode"
         type: boolean
-        default: false
+        default: true
 
 permissions:
   deployments: write
@@ -54,6 +62,7 @@ jobs:
       azure-login-creds: ${{ steps.config.outputs.azure-login-creds }}
       retrieve-secrets-keyvault: ${{ steps.config.outputs.retrieve-secrets-keyvault }}
       sync-utility: ${{ steps.config.outputs.sync-utility }}
+      sync-delete-destination-files: ${{ steps.config.outputs.sync-delete-destination-files }}
     steps:
       - name: Configure
         id: config
@@ -61,6 +70,7 @@ jobs:
           ENV_NAME_LOWER=$(echo "${{ inputs.environment }}" | awk '{print tolower($0)}')
           echo "configuring the Web deploy for ${{ inputs.environment }}"
           echo "environment=${{ inputs.environment }}" >> $GITHUB_OUTPUT
+
           case ${{ inputs.environment }} in
             "USQA")
               echo "azure-login-creds=AZURE_KV_US_QA_SERVICE_PRINCIPAL" >> $GITHUB_OUTPUT
@@ -259,7 +269,8 @@ jobs:
           az storage blob sync \
             --source "./build" \
             --container '$web' \
-            --connection-string "${{ steps.retrieve-secrets-az-sync.outputs.sa-bitwarden-web-vault-dev-key-temp }}"
+            --connection-string "${{ steps.retrieve-secrets-az-sync.outputs.sa-bitwarden-web-vault-dev-key-temp }}" \
+            --delete-destination=${{ inputs.force-delete-destination }}
 
       - name: Sync to Azure Storage Account using azcopy
         if: ${{ needs.setup.outputs.sync-utility == 'azcopy' }}
@@ -271,7 +282,7 @@ jobs:
           AZCOPY_TENANT_ID: ${{ steps.retrieve-secrets-azcopy.outputs.sp-bitwarden-web-vault-tenant }}
         run: |
           azcopy sync ./build 'https://${{ steps.retrieve-secrets-azcopy.outputs.sa-bitwarden-web-vault-name }}.blob.core.windows.net/$web/' \
-            --delete-destination=true
+            --delete-destination=${{ inputs.force-delete-destination }} --compare-hash="MD5"
 
       - name: Debug sync logs
         if: ${{ inputs.debug }}
@@ -283,7 +294,7 @@ jobs:
 
       - name: Update deployment status to Success
         if: success()
-        uses: chrnorm/deployment-status@2afb7d27101260f4a764219439564d954d10b5b0 # v2.0.1
+        uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806 # v2.0.3
         with:
           token: '${{ secrets.GITHUB_TOKEN }}'
           environment-url: ${{ env._ENVIRONMENT_URL }}
@@ -292,7 +303,7 @@ jobs:
 
       - name: Update deployment status to Failure
         if: failure()
-        uses: chrnorm/deployment-status@2afb7d27101260f4a764219439564d954d10b5b0 # v2.0.1
+        uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806 # v2.0.3
         with:
           token: '${{ secrets.GITHUB_TOKEN }}'
           environment-url: ${{ env._ENVIRONMENT_URL }}

@@ -1,26 +1,5 @@
-import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
-import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
-import { StateFactory } from "@bitwarden/common/platform/factories/state-factory";
-import { Utils } from "@bitwarden/common/platform/misc/utils";
-import { GlobalState } from "@bitwarden/common/platform/models/domain/global-state";
-import { CipherType } from "@bitwarden/common/vault/enums";
-import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
+import { firstValueFrom } from "rxjs";
 
-import { Account } from "../../models/account";
-import { CachedServices } from "../../platform/background/service-factories/factory-options";
-import {
-  i18nServiceFactory,
-  I18nServiceInitOptions,
-} from "../../platform/background/service-factories/i18n-service.factory";
-import {
-  logServiceFactory,
-  LogServiceInitOptions,
-} from "../../platform/background/service-factories/log-service.factory";
-import {
-  stateServiceFactory,
-  StateServiceInitOptions,
-} from "../../platform/background/service-factories/state-service.factory";
-import { BrowserStateService } from "../../platform/services/abstractions/browser-state.service";
 import {
   AUTOFILL_CARD_ID,
   AUTOFILL_ID,
@@ -36,7 +15,34 @@ import {
   NOOP_COMMAND_SUFFIX,
   ROOT_ID,
   SEPARATOR_ID,
-} from "../constants";
+} from "@bitwarden/common/autofill/constants";
+import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
+import { BillingAccountProfileStateService } from "@bitwarden/common/billing/abstractions/account/billing-account-profile-state.service";
+import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
+import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { StateFactory } from "@bitwarden/common/platform/factories/state-factory";
+import { Utils } from "@bitwarden/common/platform/misc/utils";
+import { GlobalState } from "@bitwarden/common/platform/models/domain/global-state";
+import { CipherType } from "@bitwarden/common/vault/enums";
+import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
+
+import { autofillSettingsServiceFactory } from "../../autofill/background/service_factories/autofill-settings-service.factory";
+import { Account } from "../../models/account";
+import { billingAccountProfileStateServiceFactory } from "../../platform/background/service-factories/billing-account-profile-state-service.factory";
+import { CachedServices } from "../../platform/background/service-factories/factory-options";
+import {
+  i18nServiceFactory,
+  I18nServiceInitOptions,
+} from "../../platform/background/service-factories/i18n-service.factory";
+import {
+  logServiceFactory,
+  LogServiceInitOptions,
+} from "../../platform/background/service-factories/log-service.factory";
+import {
+  stateServiceFactory,
+  StateServiceInitOptions,
+} from "../../platform/background/service-factories/state-service.factory";
+import { BrowserStateService } from "../../platform/services/abstractions/browser-state.service";
 
 import { InitContextMenuItems } from "./abstractions/main-context-menu-handler";
 
@@ -156,8 +162,10 @@ export class MainContextMenuHandler {
 
   constructor(
     private stateService: BrowserStateService,
+    private autofillSettingsService: AutofillSettingsServiceAbstraction,
     private i18nService: I18nService,
     private logService: LogService,
+    private billingAccountProfileStateService: BillingAccountProfileStateService,
   ) {}
 
   static async mv3Create(cachedServices: CachedServices) {
@@ -179,12 +187,19 @@ export class MainContextMenuHandler {
         stateServiceOptions: {
           stateFactory: stateFactory,
         },
+        platformUtilsServiceOptions: {
+          clipboardWriteCallback: () => Promise.resolve(),
+          biometricCallback: () => Promise.resolve(false),
+          win: self,
+        },
       };
 
     return new MainContextMenuHandler(
       await stateServiceFactory(cachedServices, serviceOptions),
+      await autofillSettingsServiceFactory(cachedServices, serviceOptions),
       await i18nServiceFactory(cachedServices, serviceOptions),
       await logServiceFactory(cachedServices, serviceOptions),
+      await billingAccountProfileStateServiceFactory(cachedServices, serviceOptions),
     );
   }
 
@@ -193,8 +208,8 @@ export class MainContextMenuHandler {
    * @returns a boolean showing whether or not items were created
    */
   async init(): Promise<boolean> {
-    const menuDisabled = await this.stateService.getDisableContextMenuItem();
-    if (menuDisabled) {
+    const menuEnabled = await firstValueFrom(this.autofillSettingsService.enableContextMenu$);
+    if (!menuEnabled) {
       await MainContextMenuHandler.removeAll();
       return false;
     }
@@ -206,7 +221,10 @@ export class MainContextMenuHandler {
 
     try {
       for (const options of this.initContextMenuItems) {
-        if (options.checkPremiumAccess && !(await this.stateService.getCanAccessPremium())) {
+        if (
+          options.checkPremiumAccess &&
+          !(await firstValueFrom(this.billingAccountProfileStateService.hasPremiumFromAnySource$))
+        ) {
           continue;
         }
 
@@ -301,7 +319,9 @@ export class MainContextMenuHandler {
         await createChildItem(COPY_USERNAME_ID);
       }
 
-      const canAccessPremium = await this.stateService.getCanAccessPremium();
+      const canAccessPremium = await firstValueFrom(
+        this.billingAccountProfileStateService.hasPremiumFromAnySource$,
+      );
       if (canAccessPremium && (!cipher || !Utils.isNullOrEmpty(cipher.login?.totp))) {
         await createChildItem(COPY_VERIFICATION_CODE_ID);
       }

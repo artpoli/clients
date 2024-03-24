@@ -578,6 +578,9 @@
   "access": {
     "message": "Erişim"
   },
+  "accessLevel": {
+    "message": "Erişim seviyesi"
+  },
   "loggedOut": {
     "message": "Çıkış yapıldı"
   },
@@ -7060,12 +7063,6 @@
   "enforceOnLoginDesc": {
     "message": "Mevcut üyelerin parolalarını değiştirmelerini zorunlu tut"
   },
-  "usDomain": {
-    "message": "bitwarden.com"
-  },
-  "euDomain": {
-    "message": "bitwarden.eu"
-  },
   "smProjectDeleteAccessRestricted": {
     "message": "Bu projeyi silme izniniz yok",
     "description": "The individual description shown to the user when the user doesn't have access to delete a project."
@@ -7602,5 +7599,11 @@
   },
   "providerPortal": {
     "message": "Sağlayıcı Portalı"
+  },
+  "restrictedGroupAccess": {
+    "message": "Kendinizi gruplara ekleyemezsiniz."
+  },
+  "restrictedCollectionAccess": {
+    "message": "Kendinizi koleksiyonlara ekleyemezsiniz."
   }
 }

@@ -203,6 +203,7 @@ export class LoginCommand {
             ssoCodeVerifier,
             this.ssoRedirectUri,
             orgIdentifier,
+            undefined, // email to look up 2FA token not required as CLI can't remember 2FA token
             twoFactor,
           ),
         );
@@ -273,8 +274,8 @@ export class LoginCommand {
           selectedProvider.type === TwoFactorProviderType.Email
         ) {
           const emailReq = new TwoFactorEmailRequest();
-          emailReq.email = this.loginStrategyService.email;
-          emailReq.masterPasswordHash = this.loginStrategyService.masterPasswordHash;
+          emailReq.email = await this.loginStrategyService.getEmail();
+          emailReq.masterPasswordHash = await this.loginStrategyService.getMasterPasswordHash();
           await this.apiService.postTwoFactorEmail(emailReq);
         }
 
@@ -689,6 +690,8 @@ export class LoginCommand {
     codeChallenge: string,
     state: string,
   ): Promise<{ ssoCode: string; orgIdentifier: string }> {
+    const env = await firstValueFrom(this.environmentService.environment$);
+
     return new Promise((resolve, reject) => {
       const callbackServer = http.createServer((req, res) => {
         const urlString = "http://localhost" + req.url;
@@ -723,7 +726,7 @@ export class LoginCommand {
         }
       });
       let foundPort = false;
-      const webUrl = this.environmentService.getWebVaultUrl();
+      const webUrl = env.getWebVaultUrl();
       for (let port = 8065; port <= 8070; port++) {
         try {
           this.ssoRedirectUri = "http://localhost:" + port;

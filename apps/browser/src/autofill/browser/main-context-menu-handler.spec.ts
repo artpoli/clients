@@ -1,5 +1,9 @@
 import { mock, MockProxy } from "jest-mock-extended";
+import { of } from "rxjs";
 
+import { NOOP_COMMAND_SUFFIX } from "@bitwarden/common/autofill/constants";
+import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
+import { BillingAccountProfileStateService } from "@bitwarden/common/billing/abstractions/account/billing-account-profile-state.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { CipherType } from "@bitwarden/common/vault/enums";
@@ -7,14 +11,15 @@ import { Cipher } from "@bitwarden/common/vault/models/domain/cipher";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 
 import { BrowserStateService } from "../../platform/services/abstractions/browser-state.service";
-import { NOOP_COMMAND_SUFFIX } from "../constants";
 
 import { MainContextMenuHandler } from "./main-context-menu-handler";
 
 describe("context-menu", () => {
   let stateService: MockProxy<BrowserStateService>;
+  let autofillSettingsService: MockProxy<AutofillSettingsServiceAbstraction>;
   let i18nService: MockProxy<I18nService>;
   let logService: MockProxy<LogService>;
+  let billingAccountProfileStateService: MockProxy<BillingAccountProfileStateService>;
 
   let removeAllSpy: jest.SpyInstance<void, [callback?: () => void]>;
   let createSpy: jest.SpyInstance<
@@ -26,8 +31,10 @@ describe("context-menu", () => {
 
   beforeEach(() => {
     stateService = mock();
+    autofillSettingsService = mock();
     i18nService = mock();
     logService = mock();
+    billingAccountProfileStateService = mock();
 
     removeAllSpy = jest
       .spyOn(chrome.contextMenus, "removeAll")
@@ -41,14 +48,21 @@ describe("context-menu", () => {
     });
 
     i18nService.t.mockImplementation((key) => key);
-    sut = new MainContextMenuHandler(stateService, i18nService, logService);
+    sut = new MainContextMenuHandler(
+      stateService,
+      autofillSettingsService,
+      i18nService,
+      logService,
+      billingAccountProfileStateService,
+    );
+    autofillSettingsService.enableContextMenu$ = of(true);
   });
 
   afterEach(() => jest.resetAllMocks());
 
   describe("init", () => {
     it("has menu disabled", async () => {
-      stateService.getDisableContextMenuItem.mockResolvedValue(true);
+      autofillSettingsService.enableContextMenu$ = of(false);
 
       const createdMenu = await sut.init();
       expect(createdMenu).toBeFalsy();
@@ -56,9 +70,7 @@ describe("context-menu", () => {
     });
 
     it("has menu enabled, but does not have premium", async () => {
-      stateService.getDisableContextMenuItem.mockResolvedValue(false);
-
-      stateService.getCanAccessPremium.mockResolvedValue(false);
+      billingAccountProfileStateService.hasPremiumFromAnySource$ = of(false);
 
       const createdMenu = await sut.init();
       expect(createdMenu).toBeTruthy();
@@ -66,9 +78,7 @@ describe("context-menu", () => {
     });
 
     it("has menu enabled and has premium", async () => {
-      stateService.getDisableContextMenuItem.mockResolvedValue(false);
-
-      stateService.getCanAccessPremium.mockResolvedValue(true);
+      billingAccountProfileStateService.hasPremiumFromAnySource$ = of(true);
 
       const createdMenu = await sut.init();
       expect(createdMenu).toBeTruthy();
@@ -122,7 +132,7 @@ describe("context-menu", () => {
     });
 
     it("create entry for each cipher piece", async () => {
-      stateService.getCanAccessPremium.mockResolvedValue(true);
+      billingAccountProfileStateService.hasPremiumFromAnySource$ = of(true);
 
       await sut.loadOptions("TEST_TITLE", "1", createCipher());
 
@@ -131,7 +141,7 @@ describe("context-menu", () => {
     });
 
     it("creates a login/unlock item for each context menu action option when user is not authenticated", async () => {
-      stateService.getCanAccessPremium.mockResolvedValue(true);
+      billingAccountProfileStateService.hasPremiumFromAnySource$ = of(true);
 
       await sut.loadOptions("TEST_TITLE", "NOOP");
 

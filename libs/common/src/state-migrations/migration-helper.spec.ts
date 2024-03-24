@@ -178,12 +178,9 @@ export function mockMigrationHelper(
   return mockHelper;
 }
 
-// TODO: Use const generic for TUsers in TypeScript 5.0 so consumers don't have to `as const` themselves
 export type InitialDataHint<TUsers extends readonly string[]> = {
   /**
    * A string array of the users id who are authenticated
-   *
-   * NOTE: It's recommended to as const this string array so you get type help defining the users data
    */
   authenticatedAccounts?: TUsers;
   /**
@@ -282,11 +279,14 @@ function expectInjectedData(
  * @param initalData The data to start with
  * @returns State after your migration has ran.
  */
-// TODO: Use const generic for TUsers in TypeScript 5.0 so consumers don't have to `as const` themselves
 export async function runMigrator<
   TMigrator extends Migrator<number, number>,
-  TUsers extends readonly string[] = string[],
->(migrator: TMigrator, initalData?: InitialDataHint<TUsers>): Promise<Record<string, unknown>> {
+  const TUsers extends readonly string[],
+>(
+  migrator: TMigrator,
+  initalData?: InitialDataHint<TUsers>,
+  direction: "migrate" | "rollback" = "migrate",
+): Promise<Record<string, unknown>> {
   // Inject fake data at every level of the object
   const allInjectedData = injectData(initalData, []);
 
@@ -294,7 +294,11 @@ export async function runMigrator<
   const helper = new MigrationHelper(migrator.fromVersion, fakeStorageService, mock());
 
   // Run their migrations
-  await migrator.migrate(helper);
+  if (direction === "rollback") {
+    await migrator.rollback(helper);
+  } else {
+    await migrator.migrate(helper);
+  }
   const [data, leftoverInjectedData] = expectInjectedData(
     fakeStorageService.internalStore,
     allInjectedData,

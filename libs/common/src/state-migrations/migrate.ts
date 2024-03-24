@@ -20,10 +20,30 @@ import { CollapsedGroupingsMigrator } from "./migrations/22-move-collapsed-group
 import { MoveBiometricPromptsToStateProviders } from "./migrations/23-move-biometric-prompts-to-state-providers";
 import { SmOnboardingTasksMigrator } from "./migrations/24-move-sm-onboarding-key-to-state-providers";
 import { ClearClipboardDelayMigrator } from "./migrations/25-move-clear-clipboard-to-autofill-settings-state-provider";
-import { BadgeSettingsMigrator } from "./migrations/26-move-badge-settings-to-state-providers";
-import { MoveBiometricUnlockToStateProviders } from "./migrations/27-move-biometric-unlock-to-state-providers";
-import { FixPremiumMigrator } from "./migrations/3-fix-premium";
+import { RevertLastSyncMigrator } from "./migrations/26-revert-move-last-sync-to-state-provider";
+import { BadgeSettingsMigrator } from "./migrations/27-move-badge-settings-to-state-providers";
+import { MoveBiometricUnlockToStateProviders } from "./migrations/28-move-biometric-unlock-to-state-providers";
+import { UserNotificationSettingsKeyMigrator } from "./migrations/29-move-user-notification-settings-to-state-provider";
+import { PolicyMigrator } from "./migrations/30-move-policy-state-to-state-provider";
+import { EnableContextMenuMigrator } from "./migrations/31-move-enable-context-menu-to-autofill-settings-state-provider";
+import { PreferredLanguageMigrator } from "./migrations/32-move-preferred-language";
+import { AppIdMigrator } from "./migrations/33-move-app-id-to-state-providers";
+import { DomainSettingsMigrator } from "./migrations/34-move-domain-settings-to-state-providers";
+import { MoveThemeToStateProviderMigrator } from "./migrations/35-move-theme-to-state-providers";
+import { VaultSettingsKeyMigrator } from "./migrations/36-move-show-card-and-identity-to-state-provider";
+import { AvatarColorMigrator } from "./migrations/37-move-avatar-color-to-state-providers";
+import { TokenServiceStateProviderMigrator } from "./migrations/38-migrate-token-svc-to-state-provider";
+import { MoveBillingAccountProfileMigrator } from "./migrations/39-move-billing-account-profile-to-state-providers";
 import { RemoveEverBeenUnlockedMigrator } from "./migrations/4-remove-ever-been-unlocked";
+import { OrganizationMigrator } from "./migrations/40-move-organization-state-to-state-provider";
+import { EventCollectionMigrator } from "./migrations/41-move-event-collection-to-state-provider";
+import { EnableFaviconMigrator } from "./migrations/42-move-enable-favicon-to-domain-settings-state-provider";
+import { AutoConfirmFingerPrintsMigrator } from "./migrations/43-move-auto-confirm-finger-prints-to-state-provider";
+import { UserDecryptionOptionsMigrator } from "./migrations/44-move-user-decryption-options-to-state-provider";
+import { MergeEnvironmentState } from "./migrations/45-merge-environment-state";
+import { DeleteBiometricPromptCancelledData } from "./migrations/46-delete-orphaned-biometric-prompt-data";
+import { MoveDesktopSettingsMigrator } from "./migrations/47-move-desktop-settings";
+import { MoveDdgToStateProviderMigrator } from "./migrations/48-move-ddg-to-state-provider";
 import { AddKeyTypeToOrgKeysMigrator } from "./migrations/5-add-key-type-to-org-keys";
 import { RemoveLegacyEtmKeyMigrator } from "./migrations/6-remove-legacy-etm-key";
 import { MoveBiometricAutoPromptToAccount } from "./migrations/7-move-biometric-auto-prompt-to-account";
@@ -31,14 +51,14 @@ import { MoveStateVersionMigrator } from "./migrations/8-move-state-version";
 import { MoveBrowserSettingsToGlobal } from "./migrations/9-move-browser-settings-to-global";
 import { MinVersionMigrator } from "./migrations/min-version";
 
-export const MIN_VERSION = 2;
-export const CURRENT_VERSION = 27;
+export const MIN_VERSION = 3;
+export const CURRENT_VERSION = 48;
+
 export type MinVersion = typeof MIN_VERSION;
 
 export function createMigrationBuilder() {
   return MigrationBuilder.create()
     .with(MinVersionMigrator)
-    .with(FixPremiumMigrator, 2, 3)
     .with(RemoveEverBeenUnlockedMigrator, 3, 4)
     .with(AddKeyTypeToOrgKeysMigrator, 4, 5)
     .with(RemoveLegacyEtmKeyMigrator, 5, 6)
@@ -61,8 +81,29 @@ export function createMigrationBuilder() {
     .with(MoveBiometricPromptsToStateProviders, 22, 23)
     .with(SmOnboardingTasksMigrator, 23, 24)
     .with(ClearClipboardDelayMigrator, 24, 25)
-    .with(BadgeSettingsMigrator, 25, 26)
-    .with(MoveBiometricUnlockToStateProviders, 26, CURRENT_VERSION);
+    .with(RevertLastSyncMigrator, 25, 26)
+    .with(BadgeSettingsMigrator, 26, 27)
+    .with(MoveBiometricUnlockToStateProviders, 27, 28)
+    .with(UserNotificationSettingsKeyMigrator, 28, 29)
+    .with(PolicyMigrator, 29, 30)
+    .with(EnableContextMenuMigrator, 30, 31)
+    .with(PreferredLanguageMigrator, 31, 32)
+    .with(AppIdMigrator, 32, 33)
+    .with(DomainSettingsMigrator, 33, 34)
+    .with(MoveThemeToStateProviderMigrator, 34, 35)
+    .with(VaultSettingsKeyMigrator, 35, 36)
+    .with(AvatarColorMigrator, 36, 37)
+    .with(TokenServiceStateProviderMigrator, 37, 38)
+    .with(MoveBillingAccountProfileMigrator, 38, 39)
+    .with(OrganizationMigrator, 39, 40)
+    .with(EventCollectionMigrator, 40, 41)
+    .with(EnableFaviconMigrator, 41, 42)
+    .with(AutoConfirmFingerPrintsMigrator, 42, 43)
+    .with(UserDecryptionOptionsMigrator, 43, 44)
+    .with(MergeEnvironmentState, 44, 45)
+    .with(DeleteBiometricPromptCancelledData, 45, 46)
+    .with(MoveDesktopSettingsMigrator, 46, 47)
+    .with(MoveDdgToStateProviderMigrator, 47, CURRENT_VERSION);
 }
 
 export async function currentVersion(
@@ -95,8 +136,12 @@ export async function waitForMigrations(
   const isReady = async () => {
     const version = await currentVersion(storageService, logService);
     // The saved version is what we consider the latest
-    // migrations should be complete
-    return version === CURRENT_VERSION;
+    // migrations should be complete, the state version
+    // shouldn't become larger than `CURRENT_VERSION` in
+    // any normal usage of the application but it is common
+    // enough in dev scenarios where we want to consider that
+    // ready as well and return true in that scenario.
+    return version >= CURRENT_VERSION;
   };
 
   const wait = async (time: number) => {

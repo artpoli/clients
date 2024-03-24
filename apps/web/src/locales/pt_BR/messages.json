@@ -578,6 +578,9 @@
   "access": {
     "message": "Acesso"
   },
+  "accessLevel": {
+    "message": "Access level"
+  },
   "loggedOut": {
     "message": "Sessão encerrada"
   },
@@ -7060,12 +7063,6 @@
   "enforceOnLoginDesc": {
     "message": "Require existing members to change their passwords"
   },
-  "usDomain": {
-    "message": "bitwarden.com"
-  },
-  "euDomain": {
-    "message": "bitwarden.eu"
-  },
   "smProjectDeleteAccessRestricted": {
     "message": "Você não tem permissão para excluir este projeto",
     "description": "The individual description shown to the user when the user doesn't have access to delete a project."
@@ -7602,5 +7599,11 @@
   },
   "providerPortal": {
     "message": "Provider Portal"
+  },
+  "restrictedGroupAccess": {
+    "message": "Você não pode se adicionar aos grupos."
+  },
+  "restrictedCollectionAccess": {
+    "message": "Você não pode se adicionar às coleções."
   }
 }

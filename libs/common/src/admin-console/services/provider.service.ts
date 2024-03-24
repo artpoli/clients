@@ -1,5 +1,7 @@
-import { StateService } from "../../platform/abstractions/state.service";
-import { KeyDefinition, PROVIDERS_DISK } from "../../platform/state";
+import { Observable, map, firstValueFrom, of, switchMap, take } from "rxjs";
+
+import { KeyDefinition, PROVIDERS_DISK, StateProvider } from "../../platform/state";
+import { UserId } from "../../types/guid";
 import { ProviderService as ProviderServiceAbstraction } from "../abstractions/provider.service";
 import { ProviderData } from "../models/data/provider.data";
 import { Provider } from "../models/domain/provider";
@@ -8,32 +10,42 @@ export const PROVIDERS = KeyDefinition.record<ProviderData>(PROVIDERS_DISK, "pro
   deserializer: (obj: ProviderData) => obj,
 });
 
+function mapToSingleProvider(providerId: string) {
+  return map<Provider[], Provider>((providers) => providers?.find((p) => p.id === providerId));
+}
+
 export class ProviderService implements ProviderServiceAbstraction {
-  constructor(private stateService: StateService) {}
+  constructor(private stateProvider: StateProvider) {}
+
+  private providers$(userId?: UserId): Observable<Provider[] | undefined> {
+    // FIXME: Can be replaced with `getUserStateOrDefault$` if we weren't trying to pick this.
+    return (
+      userId != null
+        ? this.stateProvider.getUser(userId, PROVIDERS).state$
+        : this.stateProvider.activeUserId$.pipe(
+            take(1),
+            switchMap((userId) =>
+              userId != null ? this.stateProvider.getUser(userId, PROVIDERS).state$ : of(null),
+            ),
+          )
+    ).pipe(this.mapProviderRecordToArray());
+  }
+
+  private mapProviderRecordToArray() {
+    return map<Record<string, ProviderData>, Provider[]>((providers) =>
+      Object.values(providers ?? {})?.map((o) => new Provider(o)),
+    );
+  }
 
   async get(id: string): Promise<Provider> {
-    const providers = await this.stateService.getProviders();
-    // eslint-disable-next-line
-    if (providers == null || !providers.hasOwnProperty(id)) {
-      return null;
-    }
-
-    return new Provider(providers[id]);
+    return await firstValueFrom(this.providers$().pipe(mapToSingleProvider(id)));
   }
 
   async getAll(): Promise<Provider[]> {
-    const providers = await this.stateService.getProviders();
-    const response: Provider[] = [];
-    for (const id in providers) {
-      // eslint-disable-next-line
-      if (providers.hasOwnProperty(id)) {
-        response.push(new Provider(providers[id]));
-      }
-    }
-    return response;
+    return await firstValueFrom(this.providers$());
   }
 
-  async save(providers: { [id: string]: ProviderData }) {
-    await this.stateService.setProviders(providers);
+  async save(providers: { [id: string]: ProviderData }, userId?: UserId) {
+    await this.stateProvider.setUserState(PROVIDERS, providers, userId);
   }
 }

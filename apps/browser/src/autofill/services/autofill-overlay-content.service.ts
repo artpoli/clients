@@ -3,9 +3,9 @@ import "lit/polyfill-support.js";
 import { FocusableElement, tabbable } from "tabbable";
 
 import { AuthenticationStatus } from "@bitwarden/common/auth/enums/authentication-status";
+import { EVENTS, AutofillOverlayVisibility } from "@bitwarden/common/autofill/constants";
 
 import { FocusedFieldData } from "../background/abstractions/overlay.background";
-import { EVENTS } from "../constants";
 import AutofillField from "../models/autofill-field";
 import AutofillOverlayButtonIframe from "../overlay/iframe-content/autofill-overlay-button-iframe";
 import AutofillOverlayListIframe from "../overlay/iframe-content/autofill-overlay-list-iframe";
@@ -16,11 +16,7 @@ import {
   sendExtensionMessage,
   setElementStyles,
 } from "../utils";
-import {
-  AutofillOverlayElement,
-  RedirectFocusDirection,
-  AutofillOverlayVisibility,
-} from "../utils/autofill-overlay.enum";
+import { AutofillOverlayElement, RedirectFocusDirection } from "../utils/autofill-overlay.enum";
 
 import {
   AutofillOverlayContentService as AutofillOverlayContentServiceInterface,
@@ -34,6 +30,10 @@ class AutofillOverlayContentService implements AutofillOverlayContentServiceInte
   isOverlayCiphersPopulated = false;
   pageDetailsUpdateRequired = false;
   autofillOverlayVisibility: number;
+  private isFirefoxBrowser =
+    globalThis.navigator.userAgent.indexOf(" Firefox/") !== -1 ||
+    globalThis.navigator.userAgent.indexOf(" Gecko/") !== -1;
+  private readonly generateRandomCustomElementName = generateRandomCustomElementName;
   private readonly findTabs = tabbable;
   private readonly sendExtensionMessage = sendExtensionMessage;
   private formFieldElements: Set<ElementWithOpId<FormFieldElement>> = new Set([]);
@@ -597,6 +597,7 @@ class AutofillOverlayContentService implements AutofillOverlayContentServiceInte
   private updateOverlayButtonPosition() {
     if (!this.overlayButtonElement) {
       this.createAutofillOverlayButton();
+      this.updateCustomElementDefaultStyles(this.overlayButtonElement);
     }
 
     if (!this.isOverlayButtonVisible) {
@@ -617,6 +618,7 @@ class AutofillOverlayContentService implements AutofillOverlayContentServiceInte
   private updateOverlayListPosition() {
     if (!this.overlayListElement) {
       this.createAutofillOverlayList();
+      this.updateCustomElementDefaultStyles(this.overlayListElement);
     }
 
     if (!this.isOverlayListVisible) {
@@ -650,12 +652,10 @@ class AutofillOverlayContentService implements AutofillOverlayContentServiceInte
    */
   private toggleOverlayHidden(isHidden: boolean) {
     const displayValue = isHidden ? "none" : "block";
-    // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.sendExtensionMessage("updateAutofillOverlayHidden", { display: displayValue });
+    void this.sendExtensionMessage("updateAutofillOverlayHidden", { display: displayValue });
 
-    this.isOverlayButtonVisible = !isHidden;
-    this.isOverlayListVisible = !isHidden;
+    this.isOverlayButtonVisible = !!this.overlayButtonElement && !isHidden;
+    this.isOverlayListVisible = !!this.overlayListElement && !isHidden;
   }
 
   /**
@@ -771,11 +771,24 @@ class AutofillOverlayContentService implements AutofillOverlayContentServiceInte
       return;
     }
 
-    const customElementName = generateRandomCustomElementName();
-    globalThis.customElements?.define(customElementName, AutofillOverlayButtonIframe);
-    this.overlayButtonElement = globalThis.document.createElement(customElementName);
+    if (this.isFirefoxBrowser) {
+      this.overlayButtonElement = globalThis.document.createElement("div");
+      new AutofillOverlayButtonIframe(this.overlayButtonElement);
 
-    this.updateCustomElementDefaultStyles(this.overlayButtonElement);
+      return;
+    }
+
+    const customElementName = this.generateRandomCustomElementName();
+    globalThis.customElements?.define(
+      customElementName,
+      class extends HTMLElement {
+        constructor() {
+          super();
+          new AutofillOverlayButtonIframe(this);
+        }
+      },
+    );
+    this.overlayButtonElement = globalThis.document.createElement(customElementName);
   }
 
   /**
@@ -787,11 +800,24 @@ class AutofillOverlayContentService implements AutofillOverlayContentServiceInte
       return;
     }
 
-    const customElementName = generateRandomCustomElementName();
-    globalThis.customElements?.define(customElementName, AutofillOverlayListIframe);
-    this.overlayListElement = globalThis.document.createElement(customElementName);
+    if (this.isFirefoxBrowser) {
+      this.overlayListElement = globalThis.document.createElement("div");
+      new AutofillOverlayListIframe(this.overlayListElement);
 
-    this.updateCustomElementDefaultStyles(this.overlayListElement);
+      return;
+    }
+
+    const customElementName = this.generateRandomCustomElementName();
+    globalThis.customElements?.define(
+      customElementName,
+      class extends HTMLElement {
+        constructor() {
+          super();
+          new AutofillOverlayListIframe(this);
+        }
+      },
+    );
+    this.overlayListElement = globalThis.document.createElement(customElementName);
   }
 
   /**

@@ -1,3 +1,4 @@
+import { UserId } from "../../types/guid";
 import { EncryptedString } from "../models/domain/enc-string";
 import { KeyDefinition, BIOMETRIC_SETTINGS_DISK } from "../state";
 
@@ -56,7 +57,7 @@ export const DISMISSED_REQUIRE_PASSWORD_ON_START_CALLOUT = new KeyDefinition<boo
  * Stores whether the user has elected to cancel the biometric prompt. This is stored on disk due to process-reload
  * wiping memory state. We don't want to prompt the user again if they've elected to cancel.
  */
-export const PROMPT_CANCELLED = new KeyDefinition<boolean>(
+export const PROMPT_CANCELLED = KeyDefinition.record<boolean, UserId>(
   BIOMETRIC_SETTINGS_DISK,
   "promptCancelled",
   {
@@ -70,6 +71,17 @@ export const PROMPT_CANCELLED = new KeyDefinition<boolean>(
 export const PROMPT_AUTOMATICALLY = new KeyDefinition<boolean>(
   BIOMETRIC_SETTINGS_DISK,
   "promptAutomatically",
+  {
+    deserializer: (obj) => obj,
+  },
+);
+
+/**
+ * Stores whether or not IPC handshake has been validated this session.
+ */
+export const FINGERPRINT_VALIDATED = new KeyDefinition<boolean>(
+  BIOMETRIC_SETTINGS_DISK,
+  "fingerprintValidated",
   {
     deserializer: (obj) => obj,
   },

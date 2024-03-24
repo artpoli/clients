@@ -2,7 +2,6 @@ import { Injectable, NgZone } from "@angular/core";
 import { OidcClient } from "oidc-client-ts";
 import { Subject, firstValueFrom } from "rxjs";
 
-import { TokenService } from "@bitwarden/common/auth/abstractions/token.service";
 import { ClientType } from "@bitwarden/common/enums";
 import { AppIdService } from "@bitwarden/common/platform/abstractions/app-id.service";
 import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
@@ -32,7 +31,6 @@ export class LastPassDirectImportService {
   ssoImportCallback$ = this._ssoImportCallback$.asObservable();
 
   constructor(
-    private tokenService: TokenService,
     private cryptoFunctionService: CryptoFunctionService,
     private environmentService: EnvironmentService,
     private appIdService: AppIdService,
@@ -44,7 +42,7 @@ export class LastPassDirectImportService {
     private dialogService: DialogService,
     private i18nService: I18nService,
   ) {
-    this.vault = new Vault(this.cryptoFunctionService, this.tokenService);
+    this.vault = new Vault(this.cryptoFunctionService);
 
     /** TODO: remove this in favor of dedicated service */
     this.broadcasterService.subscribe("LastPassDirectImportService", (message: any) => {
@@ -123,7 +121,7 @@ export class LastPassDirectImportService {
     this.oidcClient = new OidcClient({
       authority: this.vault.userType.openIDConnectAuthorityBase,
       client_id: this.vault.userType.openIDConnectClientId,
-      redirect_uri: this.getOidcRedirectUrl(),
+      redirect_uri: await this.getOidcRedirectUrl(),
       response_type: "code",
       scope: this.vault.userType.oidcScope,
       response_mode: "query",
@@ -153,12 +151,13 @@ export class LastPassDirectImportService {
     return redirectUri + "&" + params;
   }
 
-  private getOidcRedirectUrl() {
+  private async getOidcRedirectUrl() {
     const clientType = this.platformUtilsService.getClientType();
     if (clientType === ClientType.Desktop) {
       return "bitwarden://import-callback-lp";
     }
-    const webUrl = this.environmentService.getWebVaultUrl();
+    const env = await firstValueFrom(this.environmentService.environment$);
+    const webUrl = env.getWebVaultUrl();
     return webUrl + "/sso-connector.html?lp=1";
   }
 

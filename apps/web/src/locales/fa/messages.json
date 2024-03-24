@@ -578,6 +578,9 @@
   "access": {
     "message": "دسترسی"
   },
+  "accessLevel": {
+    "message": "Access level"
+  },
   "loggedOut": {
     "message": "خارج شد"
   },
@@ -7060,12 +7063,6 @@
   "enforceOnLoginDesc": {
     "message": "از اعضای موجود بخواهید کلمه‌های عبور خود را تغییر دهند"
   },
-  "usDomain": {
-    "message": "bitwarden.com"
-  },
-  "euDomain": {
-    "message": "bitwarden.eu"
-  },
   "smProjectDeleteAccessRestricted": {
     "message": "شما مجوز حذف این پروژه را ندارید",
     "description": "The individual description shown to the user when the user doesn't have access to delete a project."
@@ -7602,5 +7599,11 @@
   },
   "providerPortal": {
     "message": "Provider Portal"
+  },
+  "restrictedGroupAccess": {
+    "message": "You cannot add yourself to groups."
+  },
+  "restrictedCollectionAccess": {
+    "message": "You cannot add yourself to collections."
   }
 }

@@ -1,17 +1,13 @@
 import { mock } from "jest-mock-extended";
 
 import { AuthenticationStatus } from "@bitwarden/common/auth/enums/authentication-status";
+import { EVENTS, AutofillOverlayVisibility } from "@bitwarden/common/autofill/constants";
 
-import { EVENTS } from "../constants";
 import AutofillField from "../models/autofill-field";
 import { createAutofillFieldMock } from "../spec/autofill-mocks";
 import { flushPromises } from "../spec/testing-utils";
 import { ElementWithOpId, FormFieldElement } from "../types";
-import {
-  AutofillOverlayElement,
-  AutofillOverlayVisibility,
-  RedirectFocusDirection,
-} from "../utils/autofill-overlay.enum";
+import { AutofillOverlayElement, RedirectFocusDirection } from "../utils/autofill-overlay.enum";
 
 import { AutoFillConstants } from "./autofill-constants";
 import AutofillOverlayContentService from "./autofill-overlay-content.service";
@@ -881,6 +877,44 @@ describe("AutofillOverlayContentService", () => {
         sender: "autofillOverlayContentService",
       });
     });
+
+    it("builds the overlay elements as custom web components if the user's browser is not Firefox", () => {
+      let namesIndex = 0;
+      const customNames = ["op-autofill-overlay-button", "op-autofill-overlay-list"];
+
+      jest
+        .spyOn(autofillOverlayContentService as any, "generateRandomCustomElementName")
+        .mockImplementation(() => {
+          if (namesIndex > 1) {
+            return "";
+          }
+          const customName = customNames[namesIndex];
+          namesIndex++;
+
+          return customName;
+        });
+      autofillOverlayContentService["isFirefoxBrowser"] = false;
+
+      autofillOverlayContentService.openAutofillOverlay();
+
+      expect(autofillOverlayContentService["overlayButtonElement"]).toBeInstanceOf(HTMLElement);
+      expect(autofillOverlayContentService["overlayButtonElement"].tagName).toEqual(
+        customNames[0].toUpperCase(),
+      );
+      expect(autofillOverlayContentService["overlayListElement"]).toBeInstanceOf(HTMLElement);
+      expect(autofillOverlayContentService["overlayListElement"].tagName).toEqual(
+        customNames[1].toUpperCase(),
+      );
+    });
+
+    it("builds the overlay elements as `div` elements if the user's browser is Firefox", () => {
+      autofillOverlayContentService["isFirefoxBrowser"] = true;
+
+      autofillOverlayContentService.openAutofillOverlay();
+
+      expect(autofillOverlayContentService["overlayButtonElement"]).toBeInstanceOf(HTMLDivElement);
+      expect(autofillOverlayContentService["overlayListElement"]).toBeInstanceOf(HTMLDivElement);
+    });
   });
 
   describe("focusMostRecentOverlayField", () => {
@@ -1218,7 +1252,10 @@ describe("AutofillOverlayContentService", () => {
         autofillOverlayContentService as any,
         "removeAutofillOverlay",
       );
+
       autofillOverlayContentService["mostRecentlyFocusedField"] = undefined;
+      autofillOverlayContentService["overlayButtonElement"] = document.createElement("div");
+      autofillOverlayContentService["overlayListElement"] = document.createElement("div");
 
       globalThis.dispatchEvent(new Event(EVENTS.SCROLL));
       jest.advanceTimersByTime(800);
@@ -1226,8 +1263,8 @@ describe("AutofillOverlayContentService", () => {
       expect(sendExtensionMessageSpy).toHaveBeenCalledWith("updateAutofillOverlayHidden", {
         display: "block",
       });
-      expect(autofillOverlayContentService["isOverlayButtonVisible"]).toEqual(true);
-      expect(autofillOverlayContentService["isOverlayListVisible"]).toEqual(true);
+      expect(autofillOverlayContentService["isOverlayButtonVisible"]).toEqual(false);
+      expect(autofillOverlayContentService["isOverlayListVisible"]).toEqual(false);
       expect(removeAutofillOverlaySpy).toHaveBeenCalled();
     });
 
@@ -1283,6 +1320,32 @@ describe("AutofillOverlayContentService", () => {
       await flushPromises();
 
       expect(removeAutofillOverlaySpy).toHaveBeenCalled();
+    });
+
+    it("defaults overlay elements to a visibility of `false` if the element is not rendered on the page", async () => {
+      jest.useFakeTimers();
+      jest
+        .spyOn(autofillOverlayContentService as any, "updateMostRecentlyFocusedField")
+        .mockImplementation(() => {
+          autofillOverlayContentService["focusedFieldData"] = {
+            focusedFieldRects: {
+              top: 100,
+            },
+            focusedFieldStyles: {},
+          };
+        });
+      jest
+        .spyOn(autofillOverlayContentService as any, "updateOverlayElementsPosition")
+        .mockImplementation();
+      autofillOverlayContentService["overlayButtonElement"] = document.createElement("div");
+      autofillOverlayContentService["overlayListElement"] = undefined;
+
+      globalThis.dispatchEvent(new Event(EVENTS.SCROLL));
+      jest.advanceTimersByTime(800);
+      await flushPromises();
+
+      expect(autofillOverlayContentService["isOverlayButtonVisible"]).toEqual(true);
+      expect(autofillOverlayContentService["isOverlayListVisible"]).toEqual(false);
     });
   });
 

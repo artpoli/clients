@@ -1,8 +1,15 @@
+import { Observable } from "rxjs";
+
 import { VaultTimeoutAction } from "../../enums/vault-timeout-action.enum";
 import { UserId } from "../../types/guid";
 import { DecodedAccessToken } from "../services/token.service";
 
 export abstract class TokenService {
+  /**
+   * Returns an observable that emits a boolean indicating whether the user has an access token.
+   * @param userId The user id to check for an access token.
+   */
+  abstract hasAccessToken$(userId: UserId): Observable<boolean>;
   /**
    * Sets the access token, refresh token, API Key Client ID, and API Key Client Secret in memory or disk
    * based on the given vaultTimeoutAction and vaultTimeout and the derived access token user id.
@@ -10,17 +17,18 @@ export abstract class TokenService {
    * Note 2: this method also enforces always setting the access token and the refresh token together as
    * we can retrieve the user id required to set the refresh token from the access token for efficiency.
    * @param accessToken The access token to set.
-   * @param refreshToken The refresh token to set.
-   * @param clientIdClientSecret The API Key Client ID and Client Secret to set.
    * @param vaultTimeoutAction The action to take when the vault times out.
    * @param vaultTimeout The timeout for the vault.
+   * @param refreshToken The optional refresh token to set. Note: this is undefined when using the CLI Login Via API Key flow
+   * @param clientIdClientSecret The API Key Client ID and Client Secret to set.
+   *
    * @returns A promise that resolves when the tokens have been set.
    */
   setTokens: (
     accessToken: string,
-    refreshToken: string,
     vaultTimeoutAction: VaultTimeoutAction,
     vaultTimeout: number | null,
+    refreshToken?: string,
     clientIdClientSecret?: [string, string],
   ) => Promise<void>;
 

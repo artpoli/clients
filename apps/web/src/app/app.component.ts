@@ -16,7 +16,7 @@ import { AuthService } from "@bitwarden/common/auth/abstractions/auth.service";
 import { KeyConnectorService } from "@bitwarden/common/auth/abstractions/key-connector.service";
 import { PaymentMethodWarningsServiceAbstraction as PaymentMethodWarningService } from "@bitwarden/common/billing/abstractions/payment-method-warnings-service.abstraction";
 import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
-import { ConfigServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
+import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
@@ -83,7 +83,7 @@ export class AppComponent implements OnDestroy, OnInit {
     private policyService: InternalPolicyService,
     protected policyListService: PolicyListService,
     private keyConnectorService: KeyConnectorService,
-    private configService: ConfigServiceAbstraction,
+    private configService: ConfigService,
     private dialogService: DialogService,
     private biometricStateService: BiometricStateService,
     private stateEventRunnerService: StateEventRunnerService,
@@ -158,7 +158,7 @@ export class AppComponent implements OnDestroy, OnInit {
             break;
           case "syncCompleted":
             if (message.successfully) {
-              this.configService.triggerServerConfigFetch();
+              await this.configService.ensureConfigFetched();
             }
             break;
           case "upgradeOrganization": {
@@ -274,16 +274,14 @@ export class AppComponent implements OnDestroy, OnInit {
       this.cipherService.clear(userId),
       this.folderService.clear(userId),
       this.collectionService.clear(userId),
-      this.policyService.clear(userId),
       this.passwordGenerationService.clear(),
-      this.keyConnectorService.clear(),
       this.biometricStateService.logout(userId as UserId),
       this.paymentMethodWarningService.clear(),
     ]);
 
     await this.stateEventRunnerService.handleEvent("logout", userId as UserId);
 
-    this.searchService.clearIndex();
+    await this.searchService.clearIndex();
     this.authService.logOut(async () => {
       if (expired) {
         this.platformUtilsService.showToast(

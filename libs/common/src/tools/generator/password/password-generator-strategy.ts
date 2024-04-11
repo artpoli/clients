@@ -1,18 +1,22 @@
+import { BehaviorSubject, map, pipe } from "rxjs";
+
 import { GeneratorStrategy } from "..";
 import { PolicyType } from "../../../admin-console/enums";
-// FIXME: use index.ts imports once policy abstractions and models
-// implement ADR-0002
-import { Policy } from "../../../admin-console/models/domain/policy";
 import { StateProvider } from "../../../platform/state";
 import { UserId } from "../../../types/guid";
+import { PasswordGenerationServiceAbstraction } from "../abstractions/password-generation.service.abstraction";
 import { PASSWORD_SETTINGS } from "../key-definitions";
+import { reduceCollection } from "../reduce-collection.operator";
 
-import { PasswordGenerationOptions } from "./password-generation-options";
-import { PasswordGenerationServiceAbstraction } from "./password-generation.service.abstraction";
+import {
+  DefaultPasswordGenerationOptions,
+  PasswordGenerationOptions,
+} from "./password-generation-options";
 import { PasswordGeneratorOptionsEvaluator } from "./password-generator-options-evaluator";
 import {
   DisabledPasswordGeneratorPolicy,
   PasswordGeneratorPolicy,
+  leastPrivilege,
 } from "./password-generator-policy";
 
 const ONE_MINUTE = 60 * 1000;
@@ -34,6 +38,11 @@ export class PasswordGeneratorStrategy
     return this.stateProvider.getUser(id, PASSWORD_SETTINGS);
   }
 
+  /** Gets the default options. */
+  defaults$(_: UserId) {
+    return new BehaviorSubject({ ...DefaultPasswordGenerationOptions }).asObservable();
+  }
+
   /** {@link GeneratorStrategy.policy} */
   get policy() {
     return PolicyType.PasswordGenerator;
@@ -43,26 +52,12 @@ export class PasswordGeneratorStrategy
     return ONE_MINUTE;
   }
 
-  /** {@link GeneratorStrategy.evaluator} */
-  evaluator(policy: Policy): PasswordGeneratorOptionsEvaluator {
-    if (!policy) {
-      return new PasswordGeneratorOptionsEvaluator(DisabledPasswordGeneratorPolicy);
-    }
-
-    if (policy.type !== this.policy) {
-      const details = `Expected: ${this.policy}. Received: ${policy.type}`;
-      throw Error("Mismatched policy type. " + details);
-    }
-
-    return new PasswordGeneratorOptionsEvaluator({
-      minLength: policy.data.minLength,
-      useUppercase: policy.data.useUpper,
-      useLowercase: policy.data.useLower,
-      useNumbers: policy.data.useNumbers,
-      numberCount: policy.data.minNumbers,
-      useSpecial: policy.data.useSpecial,
-      specialCount: policy.data.minSpecial,
-    });
+  /** {@link GeneratorStrategy.toEvaluator} */
+  toEvaluator() {
+    return pipe(
+      reduceCollection(leastPrivilege, DisabledPasswordGeneratorPolicy),
+      map((policy) => new PasswordGeneratorOptionsEvaluator(policy)),
+    );
   }
 
   /** {@link GeneratorStrategy.generate} */

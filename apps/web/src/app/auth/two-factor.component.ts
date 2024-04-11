@@ -6,16 +6,18 @@ import { WINDOW } from "@bitwarden/angular/services/injection-tokens";
 import { ModalService } from "@bitwarden/angular/services/modal.service";
 import {
   LoginStrategyServiceAbstraction,
+  LoginEmailServiceAbstraction,
   UserDecryptionOptionsServiceAbstraction,
 } from "@bitwarden/auth/common";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { LoginService } from "@bitwarden/common/auth/abstractions/login.service";
+import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
+import { InternalMasterPasswordServiceAbstraction } from "@bitwarden/common/auth/abstractions/master-password.service.abstraction";
 import { SsoLoginServiceAbstraction } from "@bitwarden/common/auth/abstractions/sso-login.service.abstraction";
 import { TwoFactorService } from "@bitwarden/common/auth/abstractions/two-factor.service";
 import { TwoFactorProviderType } from "@bitwarden/common/auth/enums/two-factor-provider-type";
 import { AuthResult } from "@bitwarden/common/auth/models/domain/auth-result";
 import { AppIdService } from "@bitwarden/common/platform/abstractions/app-id.service";
-import { ConfigServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
+import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
@@ -46,10 +48,12 @@ export class TwoFactorComponent extends BaseTwoFactorComponent implements OnDest
     logService: LogService,
     twoFactorService: TwoFactorService,
     appIdService: AppIdService,
-    loginService: LoginService,
+    loginEmailService: LoginEmailServiceAbstraction,
     userDecryptionOptionsService: UserDecryptionOptionsServiceAbstraction,
     ssoLoginService: SsoLoginServiceAbstraction,
-    configService: ConfigServiceAbstraction,
+    configService: ConfigService,
+    masterPasswordService: InternalMasterPasswordServiceAbstraction,
+    accountService: AccountService,
     @Inject(WINDOW) protected win: Window,
   ) {
     super(
@@ -65,10 +69,12 @@ export class TwoFactorComponent extends BaseTwoFactorComponent implements OnDest
       logService,
       twoFactorService,
       appIdService,
-      loginService,
+      loginEmailService,
       userDecryptionOptionsService,
       ssoLoginService,
       configService,
+      masterPasswordService,
+      accountService,
     );
     this.onSuccessfulLoginNavigate = this.goAfterLogIn;
   }
@@ -103,7 +109,7 @@ export class TwoFactorComponent extends BaseTwoFactorComponent implements OnDest
   }
 
   goAfterLogIn = async () => {
-    this.loginService.clearValues();
+    this.loginEmailService.clearValues();
     // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.router.navigate([this.successRoute], {

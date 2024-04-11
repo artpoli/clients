@@ -2,8 +2,8 @@
  * include structuredClone in test environment.
  * @jest-environment ../../../../shared/test.environment.ts
  */
-
 import { mock } from "jest-mock-extended";
+import { of, firstValueFrom } from "rxjs";
 
 import { PolicyType } from "../../../admin-console/enums";
 // FIXME: use index.ts imports once policy abstractions and models
@@ -11,27 +11,22 @@ import { PolicyType } from "../../../admin-console/enums";
 import { Policy } from "../../../admin-console/models/domain/policy";
 import { StateProvider } from "../../../platform/state";
 import { UserId } from "../../../types/guid";
+import { PasswordGenerationServiceAbstraction } from "../abstractions/password-generation.service.abstraction";
 import { PASSPHRASE_SETTINGS } from "../key-definitions";
-import { PasswordGenerationServiceAbstraction } from "../password/password-generation.service.abstraction";
 
 import { DisabledPassphraseGeneratorPolicy } from "./passphrase-generator-policy";
 
-import { PassphraseGeneratorOptionsEvaluator, PassphraseGeneratorStrategy } from ".";
+import {
+  DefaultPassphraseGenerationOptions,
+  PassphraseGeneratorOptionsEvaluator,
+  PassphraseGeneratorStrategy,
+} from ".";
 
 const SomeUser = "some user" as UserId;
 
 describe("Password generation strategy", () => {
-  describe("evaluator()", () => {
-    it("should throw if the policy type is incorrect", () => {
-      const strategy = new PassphraseGeneratorStrategy(null, null);
-      const policy = mock<Policy>({
-        type: PolicyType.DisableSend,
-      });
-
-      expect(() => strategy.evaluator(policy)).toThrow(new RegExp("Mismatched policy type\\. .+"));
-    });
-
-    it("should map to the policy evaluator", () => {
+  describe("toEvaluator()", () => {
+    it("should map to the policy evaluator", async () => {
       const strategy = new PassphraseGeneratorStrategy(null, null);
       const policy = mock<Policy>({
         type: PolicyType.PasswordGenerator,
@@ -42,7 +37,8 @@ describe("Password generation strategy", () => {
         },
       });
 
-      const evaluator = strategy.evaluator(policy);
+      const evaluator$ = of([policy]).pipe(strategy.toEvaluator());
+      const evaluator = await firstValueFrom(evaluator$);
 
       expect(evaluator).toBeInstanceOf(PassphraseGeneratorOptionsEvaluator);
       expect(evaluator.policy).toMatchObject({
@@ -52,13 +48,18 @@ describe("Password generation strategy", () => {
       });
     });
 
-    it("should map `null` to a default policy evaluator", () => {
-      const strategy = new PassphraseGeneratorStrategy(null, null);
-      const evaluator = strategy.evaluator(null);
+    it.each([[[]], [null], [undefined]])(
+      "should map `%p` to a disabled password policy evaluator",
+      async (policies) => {
+        const strategy = new PassphraseGeneratorStrategy(null, null);
 
-      expect(evaluator).toBeInstanceOf(PassphraseGeneratorOptionsEvaluator);
-      expect(evaluator.policy).toMatchObject(DisabledPassphraseGeneratorPolicy);
-    });
+        const evaluator$ = of(policies).pipe(strategy.toEvaluator());
+        const evaluator = await firstValueFrom(evaluator$);
+
+        expect(evaluator).toBeInstanceOf(PassphraseGeneratorOptionsEvaluator);
+        expect(evaluator.policy).toMatchObject(DisabledPassphraseGeneratorPolicy);
+      },
+    );
   });
 
   describe("durableState", () => {
@@ -70,6 +71,16 @@ describe("Password generation strategy", () => {
       strategy.durableState(SomeUser);
 
       expect(provider.getUser).toHaveBeenCalledWith(SomeUser, PASSPHRASE_SETTINGS);
+    });
+  });
+
+  describe("defaults$", () => {
+    it("should return the default subaddress options", async () => {
+      const strategy = new PassphraseGeneratorStrategy(null, null);
+
+      const result = await firstValueFrom(strategy.defaults$(SomeUser));
+
+      expect(result).toEqual(DefaultPassphraseGenerationOptions);
     });
   });
 

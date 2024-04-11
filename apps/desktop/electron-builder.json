@@ -203,7 +203,7 @@
       "si",
       "sk",
       "sl",
-      "sr",
+      "sr-cyrl",
       "sv",
       "te",
       "th",
@@ -228,6 +228,7 @@
     "artifactName": "${productName}-${version}-${arch}.${ext}"
   },
   "snap": {
+    "summary": "After installation enable required `password-manager-service` by running `sudo snap connect bitwarden:password-manager-service`.",
     "autoStart": true,
     "base": "core22",
     "confinement": "strict",

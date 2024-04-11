@@ -2685,7 +2685,22 @@
     "message": "将与您的 LastPass 账户关联的 YubiKey 插入计算机的 USB 端口，然后触摸其按钮。"
   },
   "commonImportFormats": {
-    "message": "通用格式",
+    "message": "常规格式",
     "description": "Label indicating the most common import formats"
+  },
+  "troubleshooting": {
+    "message": "故障排除"
+  },
+  "disableHardwareAccelerationRestart": {
+    "message": "禁用硬件加速并重启"
+  },
+  "enableHardwareAccelerationRestart": {
+    "message": "启用硬件加速并重启"
+  },
+  "removePasskey": {
+    "message": "移除通行密钥"
+  },
+  "passkeyRemoved": {
+    "message": "通行密钥已移除"
   }
 }

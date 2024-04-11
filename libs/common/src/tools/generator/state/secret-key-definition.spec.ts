@@ -1,11 +1,35 @@
-import { GENERATOR_DISK } from "../../../platform/state";
+import { GENERATOR_DISK, UserKeyDefinitionOptions } from "../../../platform/state";
 
 import { SecretClassifier } from "./secret-classifier";
 import { SecretKeyDefinition } from "./secret-key-definition";
 
 describe("SecretKeyDefinition", () => {
   const classifier = SecretClassifier.allSecret<{ foo: boolean }>();
-  const options = { deserializer: (v: any) => v };
+  const options: UserKeyDefinitionOptions<any> = { deserializer: (v: any) => v, clearOn: [] };
+
+  it("toEncryptedStateKey returns a key", () => {
+    const expectedOptions: UserKeyDefinitionOptions<any> = {
+      deserializer: (v: any) => v,
+      cleanupDelayMs: 100,
+      clearOn: ["logout", "lock"],
+    };
+    const definition = SecretKeyDefinition.value(
+      GENERATOR_DISK,
+      "key",
+      classifier,
+      expectedOptions,
+    );
+    const expectedDeserializerResult = {} as any;
+
+    const result = definition.toEncryptedStateKey();
+    const deserializerResult = result.deserializer(expectedDeserializerResult);
+
+    expect(result.stateDefinition).toEqual(GENERATOR_DISK);
+    expect(result.key).toBe("key");
+    expect(result.cleanupDelayMs).toBe(expectedOptions.cleanupDelayMs);
+    expect(result.clearOn).toEqual(expectedOptions.clearOn);
+    expect(deserializerResult).toBe(expectedDeserializerResult);
+  });
 
   describe("value", () => {
     it("returns an initialized SecretKeyDefinition", () => {

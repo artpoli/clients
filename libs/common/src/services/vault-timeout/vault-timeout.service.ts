@@ -3,7 +3,9 @@ import { firstValueFrom, timeout } from "rxjs";
 import { SearchService } from "../../abstractions/search.service";
 import { VaultTimeoutSettingsService } from "../../abstractions/vault-timeout/vault-timeout-settings.service";
 import { VaultTimeoutService as VaultTimeoutServiceAbstraction } from "../../abstractions/vault-timeout/vault-timeout.service";
+import { AccountService } from "../../auth/abstractions/account.service";
 import { AuthService } from "../../auth/abstractions/auth.service";
+import { InternalMasterPasswordServiceAbstraction } from "../../auth/abstractions/master-password.service.abstraction";
 import { AuthenticationStatus } from "../../auth/enums/authentication-status";
 import { ClientType } from "../../enums";
 import { VaultTimeoutAction } from "../../enums/vault-timeout-action.enum";
@@ -21,6 +23,8 @@ export class VaultTimeoutService implements VaultTimeoutServiceAbstraction {
   private inited = false;
 
   constructor(
+    private accountService: AccountService,
+    private masterPasswordService: InternalMasterPasswordServiceAbstraction,
     private cipherService: CipherService,
     private folderService: FolderService,
     private collectionService: CollectionService,
@@ -84,22 +88,19 @@ export class VaultTimeoutService implements VaultTimeoutServiceAbstraction {
       await this.logOut(userId);
     }
 
-    const currentUserId = await this.stateService.getUserId();
+    const currentUserId = (await firstValueFrom(this.accountService.activeAccount$)).id;
 
     if (userId == null || userId === currentUserId) {
-      this.searchService.clearIndex();
+      await this.searchService.clearIndex();
       await this.folderService.clearCache();
       await this.collectionService.clearActiveUserCache();
     }
 
+    await this.masterPasswordService.clearMasterKey((userId ?? currentUserId) as UserId);
+
     await this.stateService.setEverBeenUnlocked(true, { userId: userId });
     await this.stateService.setUserKeyAutoUnlock(null, { userId: userId });
     await this.stateService.setCryptoMasterKeyAuto(null, { userId: userId });
-
-    await this.cryptoService.clearUserKey(false, userId);
-    await this.cryptoService.clearMasterKey(userId);
-    await this.cryptoService.clearOrgKeys(true, userId);
-    await this.cryptoService.clearKeyPair(true, userId);
 
     await this.cipherService.clearCache(userId);
 

@@ -12,18 +12,23 @@ import {
   UserDecryptionOptionsServiceAbstraction,
 } from "@bitwarden/auth/common";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
+import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
+import { InternalMasterPasswordServiceAbstraction } from "@bitwarden/common/auth/abstractions/master-password.service.abstraction";
 import { SsoLoginServiceAbstraction } from "@bitwarden/common/auth/abstractions/sso-login.service.abstraction";
 import { TwoFactorProviderType } from "@bitwarden/common/auth/enums/two-factor-provider-type";
 import { AuthResult } from "@bitwarden/common/auth/models/domain/auth-result";
 import { ForceSetPasswordReason } from "@bitwarden/common/auth/models/domain/force-set-password-reason";
-import { ConfigServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
+import { FakeMasterPasswordService } from "@bitwarden/common/auth/services/master-password/fake-master-password.service";
+import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { CryptoFunctionService } from "@bitwarden/common/platform/abstractions/crypto-function.service";
 import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
+import { FakeAccountService, mockAccountServiceWith } from "@bitwarden/common/spec";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/password";
+import { UserId } from "@bitwarden/common/types/guid";
 
 import { SsoComponent } from "./sso.component";
 // test component that extends the SsoComponent
@@ -48,6 +53,7 @@ describe("SsoComponent", () => {
   let component: TestSsoComponent;
   let _component: SsoComponentProtected;
   let fixture: ComponentFixture<TestSsoComponent>;
+  const userId = "userId" as UserId;
 
   // Mock Services
   let mockLoginStrategyService: MockProxy<LoginStrategyServiceAbstraction>;
@@ -66,7 +72,9 @@ describe("SsoComponent", () => {
   let mockPasswordGenerationService: MockProxy<PasswordGenerationServiceAbstraction>;
   let mockLogService: MockProxy<LogService>;
   let mockUserDecryptionOptionsService: MockProxy<UserDecryptionOptionsServiceAbstraction>;
-  let mockConfigService: MockProxy<ConfigServiceAbstraction>;
+  let mockConfigService: MockProxy<ConfigService>;
+  let mockMasterPasswordService: FakeMasterPasswordService;
+  let mockAccountService: FakeAccountService;
 
   // Mock authService.logIn params
   let code: string;
@@ -107,16 +115,18 @@ describe("SsoComponent", () => {
       queryParams: mockQueryParams,
     } as any as ActivatedRoute;
 
-    mockSsoLoginService = mock<SsoLoginServiceAbstraction>();
-    mockStateService = mock<StateService>();
-    mockPlatformUtilsService = mock<PlatformUtilsService>();
-    mockApiService = mock<ApiService>();
-    mockCryptoFunctionService = mock<CryptoFunctionService>();
-    mockEnvironmentService = mock<EnvironmentService>();
-    mockPasswordGenerationService = mock<PasswordGenerationServiceAbstraction>();
-    mockLogService = mock<LogService>();
-    mockUserDecryptionOptionsService = mock<UserDecryptionOptionsServiceAbstraction>();
-    mockConfigService = mock<ConfigServiceAbstraction>();
+    mockSsoLoginService = mock();
+    mockStateService = mock();
+    mockPlatformUtilsService = mock();
+    mockApiService = mock();
+    mockCryptoFunctionService = mock();
+    mockEnvironmentService = mock();
+    mockPasswordGenerationService = mock();
+    mockLogService = mock();
+    mockUserDecryptionOptionsService = mock();
+    mockConfigService = mock();
+    mockAccountService = mockAccountServiceWith(userId);
+    mockMasterPasswordService = new FakeMasterPasswordService();
 
     // Mock loginStrategyService.logIn params
     code = "code";
@@ -198,7 +208,9 @@ describe("SsoComponent", () => {
           useValue: mockUserDecryptionOptionsService,
         },
         { provide: LogService, useValue: mockLogService },
-        { provide: ConfigServiceAbstraction, useValue: mockConfigService },
+        { provide: ConfigService, useValue: mockConfigService },
+        { provide: InternalMasterPasswordServiceAbstraction, useValue: mockMasterPasswordService },
+        { provide: AccountService, useValue: mockAccountService },
       ],
     });
 
@@ -365,8 +377,9 @@ describe("SsoComponent", () => {
           await _component.logIn(code, codeVerifier, orgIdFromState);
           expect(mockLoginStrategyService.logIn).toHaveBeenCalledTimes(1);
 
-          expect(mockStateService.setForceSetPasswordReason).toHaveBeenCalledWith(
+          expect(mockMasterPasswordService.mock.setForceSetPasswordReason).toHaveBeenCalledWith(
             ForceSetPasswordReason.TdeUserWithoutPasswordHasPasswordResetPermission,
+            userId,
           );
 
           expect(mockOnSuccessfulLoginTdeNavigate).not.toHaveBeenCalled();

@@ -1,6 +1,7 @@
-import { KeyDefinitionOptions } from "../../../platform/state";
+import { UserKeyDefinitionOptions, UserKeyDefinition } from "../../../platform/state";
 // eslint-disable-next-line -- `StateDefinition` used as an argument
 import { StateDefinition } from "../../../platform/state/state-definition";
+import { ClassifiedFormat } from "./classified-format";
 import { SecretClassifier } from "./secret-classifier";
 
 /** Encryption and storage settings for data stored by a `SecretState`.
@@ -10,13 +11,29 @@ export class SecretKeyDefinition<Outer, Id, Inner extends object, Disclosed, Sec
     readonly stateDefinition: StateDefinition,
     readonly key: string,
     readonly classifier: SecretClassifier<Inner, Disclosed, Secret>,
-    readonly options: KeyDefinitionOptions<Inner>,
+    readonly options: UserKeyDefinitionOptions<Inner>,
     // type erasure is necessary here because typescript doesn't support
     // higher kinded types that generalize over collections. The invariants
     // needed to make this typesafe are maintained by the static factories.
     readonly deconstruct: (value: any) => [Id, any][],
     readonly reconstruct: ([inners, ids]: (readonly [Id, any])[]) => Outer,
   ) {}
+
+  /** Converts the secret key to the `KeyDefinition` used for secret storage. */
+  toEncryptedStateKey() {
+    const secretKey = new UserKeyDefinition<ClassifiedFormat<Id, Disclosed>[]>(
+      this.stateDefinition,
+      this.key,
+      {
+        cleanupDelayMs: this.options.cleanupDelayMs,
+        deserializer: (jsonValue) => jsonValue as ClassifiedFormat<Id, Disclosed>[],
+        // Clear encrypted state on logout
+        clearOn: this.options.clearOn,
+      },
+    );
+
+    return secretKey;
+  }
 
   /**
    * Define a secret state for a single value
@@ -30,7 +47,7 @@ export class SecretKeyDefinition<Outer, Id, Inner extends object, Disclosed, Sec
     stateDefinition: StateDefinition,
     key: string,
     classifier: SecretClassifier<Value, Disclosed, Secret>,
-    options: KeyDefinitionOptions<Value>,
+    options: UserKeyDefinitionOptions<Value>,
   ) {
     return new SecretKeyDefinition<Value, void, Value, Disclosed, Secret>(
       stateDefinition,
@@ -54,7 +71,7 @@ export class SecretKeyDefinition<Outer, Id, Inner extends object, Disclosed, Sec
     stateDefinition: StateDefinition,
     key: string,
     classifier: SecretClassifier<Item, Disclosed, Secret>,
-    options: KeyDefinitionOptions<Item>,
+    options: UserKeyDefinitionOptions<Item>,
   ) {
     return new SecretKeyDefinition<Item[], number, Item, Disclosed, Secret>(
       stateDefinition,
@@ -78,7 +95,7 @@ export class SecretKeyDefinition<Outer, Id, Inner extends object, Disclosed, Sec
     stateDefinition: StateDefinition,
     key: string,
     classifier: SecretClassifier<Item, Disclosed, Secret>,
-    options: KeyDefinitionOptions<Item>,
+    options: UserKeyDefinitionOptions<Item>,
   ) {
     return new SecretKeyDefinition<Record<Id, Item>, Id, Item, Disclosed, Secret>(
       stateDefinition,

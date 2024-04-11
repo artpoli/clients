@@ -21,6 +21,9 @@ export abstract class GeneratorService<Options, Policy> {
    */
   evaluator$: (userId: UserId) => Observable<PolicyEvaluator<Policy, Options>>;
 
+  /** Gets the default options. */
+  defaults$: (userId: UserId) => Observable<Options>;
+
   /** Enforces the policy on the given options
    * @param userId: Identifies the user making the request
    * @param options the options to enforce the policy on

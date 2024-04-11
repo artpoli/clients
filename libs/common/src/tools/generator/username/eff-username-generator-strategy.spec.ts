@@ -1,4 +1,5 @@
 import { mock } from "jest-mock-extended";
+import { of, firstValueFrom } from "rxjs";
 
 import { PolicyType } from "../../../admin-console/enums";
 // FIXME: use index.ts imports once policy abstractions and models
@@ -9,42 +10,31 @@ import { UserId } from "../../../types/guid";
 import { DefaultPolicyEvaluator } from "../default-policy-evaluator";
 import { EFF_USERNAME_SETTINGS } from "../key-definitions";
 
+import { DefaultEffUsernameOptions } from "./eff-username-generator-options";
+
 import { EffUsernameGeneratorStrategy, UsernameGenerationServiceAbstraction } from ".";
 
 const SomeUser = "some user" as UserId;
+const SomePolicy = mock<Policy>({
+  type: PolicyType.PasswordGenerator,
+  data: {
+    minLength: 10,
+  },
+});
 
 describe("EFF long word list generation strategy", () => {
-  describe("evaluator()", () => {
-    it("should throw if the policy type is incorrect", () => {
-      const strategy = new EffUsernameGeneratorStrategy(null, null);
-      const policy = mock<Policy>({
-        type: PolicyType.DisableSend,
-      });
+  describe("toEvaluator()", () => {
+    it.each([[[]], [null], [undefined], [[SomePolicy]], [[SomePolicy, SomePolicy]]])(
+      "should map any input (= %p) to the default policy evaluator",
+      async (policies) => {
+        const strategy = new EffUsernameGeneratorStrategy(null, null);
 
-      expect(() => strategy.evaluator(policy)).toThrow(new RegExp("Mismatched policy type\\. .+"));
-    });
+        const evaluator$ = of(policies).pipe(strategy.toEvaluator());
+        const evaluator = await firstValueFrom(evaluator$);
 
-    it("should map to the policy evaluator", () => {
-      const strategy = new EffUsernameGeneratorStrategy(null, null);
-      const policy = mock<Policy>({
-        type: PolicyType.PasswordGenerator,
-        data: {
-          minLength: 10,
-        },
-      });
-
-      const evaluator = strategy.evaluator(policy);
-
-      expect(evaluator).toBeInstanceOf(DefaultPolicyEvaluator);
-      expect(evaluator.policy).toMatchObject({});
-    });
-
-    it("should map `null` to a default policy evaluator", () => {
-      const strategy = new EffUsernameGeneratorStrategy(null, null);
-      const evaluator = strategy.evaluator(null);
-
-      expect(evaluator).toBeInstanceOf(DefaultPolicyEvaluator);
-    });
+        expect(evaluator).toBeInstanceOf(DefaultPolicyEvaluator);
+      },
+    );
   });
 
   describe("durableState", () => {
@@ -56,6 +46,16 @@ describe("EFF long word list generation strategy", () => {
       strategy.durableState(SomeUser);
 
       expect(provider.getUser).toHaveBeenCalledWith(SomeUser, EFF_USERNAME_SETTINGS);
+    });
+  });
+
+  describe("defaults$", () => {
+    it("should return the default subaddress options", async () => {
+      const strategy = new EffUsernameGeneratorStrategy(null, null);
+
+      const result = await firstValueFrom(strategy.defaults$(SomeUser));
+
+      expect(result).toEqual(DefaultEffUsernameOptions);
     });
   });
 
@@ -84,6 +84,7 @@ describe("EFF long word list generation strategy", () => {
       const options = {
         wordCapitalize: false,
         wordIncludeNumber: false,
+        website: null as string,
       };
 
       await strategy.generate(options);

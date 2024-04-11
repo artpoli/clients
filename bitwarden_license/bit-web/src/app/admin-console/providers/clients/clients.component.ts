@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { firstValueFrom } from "rxjs";
-import { first } from "rxjs/operators";
+import { ActivatedRoute, Router } from "@angular/router";
+import { BehaviorSubject, Subject, firstValueFrom, from } from "rxjs";
+import { first, switchMap, takeUntil } from "rxjs/operators";
 
 import { ModalService } from "@bitwarden/angular/services/modal.service";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
@@ -13,6 +13,8 @@ import { ProviderUserType } from "@bitwarden/common/admin-console/enums";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
 import { ProviderOrganizationOrganizationDetailsResponse } from "@bitwarden/common/admin-console/models/response/provider/provider-organization.response";
 import { PlanType } from "@bitwarden/common/billing/enums";
+import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
+import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
@@ -27,6 +29,7 @@ const DisallowedPlanTypes = [
   PlanType.Free,
   PlanType.FamiliesAnnually2019,
   PlanType.FamiliesAnnually,
+  PlanType.TeamsStarter2023,
   PlanType.TeamsStarter,
 ];
 
@@ -36,7 +39,6 @@ const DisallowedPlanTypes = [
 // eslint-disable-next-line rxjs-angular/prefer-takeuntil
 export class ClientsComponent implements OnInit {
   providerId: string;
-  searchText: string;
   addableOrganizations: Organization[];
   loading = true;
   manageOrganizations = false;
@@ -50,8 +52,25 @@ export class ClientsComponent implements OnInit {
   protected actionPromise: Promise<unknown>;
   private pagedClientsCount = 0;
 
+  protected enableConsolidatedBilling$ = this.configService.getFeatureFlag$(
+    FeatureFlag.EnableConsolidatedBilling,
+    false,
+  );
+  private destroy$ = new Subject<void>();
+  private _searchText$ = new BehaviorSubject<string>("");
+  private isSearching: boolean = false;
+
+  get searchText() {
+    return this._searchText$.value;
+  }
+
+  set searchText(value: string) {
+    this._searchText$.next(value);
+  }
+
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private providerService: ProviderService,
     private apiService: ApiService,
     private searchService: SearchService,
@@ -64,20 +83,43 @@ export class ClientsComponent implements OnInit {
     private organizationService: OrganizationService,
     private organizationApiService: OrganizationApiServiceAbstraction,
     private dialogService: DialogService,
+    private configService: ConfigService,
   ) {}
 
   async ngOnInit() {
-    // eslint-disable-next-line rxjs-angular/prefer-takeuntil, rxjs/no-async-subscribe
-    this.route.parent.params.subscribe(async (params) => {
-      this.providerId = params.providerId;
+    const enableConsolidatedBilling = await firstValueFrom(this.enableConsolidatedBilling$);
 
-      await this.load();
+    if (enableConsolidatedBilling) {
+      await this.router.navigate(["../manage-client-organizations"], { relativeTo: this.route });
+    } else {
+      this.route.parent.params
+        .pipe(
+          switchMap((params) => {
+            this.providerId = params.providerId;
+            return from(this.load());
+          }),
+          takeUntil(this.destroy$),
+        )
+        .subscribe();
 
-      /* eslint-disable-next-line rxjs-angular/prefer-takeuntil, rxjs/no-async-subscribe, rxjs/no-nested-subscribe */
-      this.route.queryParams.pipe(first()).subscribe(async (qParams) => {
+      this.route.queryParams.pipe(first(), takeUntil(this.destroy$)).subscribe((qParams) => {
         this.searchText = qParams.search;
       });
-    });
+
+      this._searchText$
+        .pipe(
+          switchMap((searchText) => from(this.searchService.isSearchable(searchText))),
+          takeUntil(this.destroy$),
+        )
+        .subscribe((isSearchable) => {
+          this.isSearching = isSearchable;
+        });
+    }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   async load() {
@@ -100,20 +142,14 @@ export class ClientsComponent implements OnInit {
   }
 
   isPaging() {
-    const searching = this.isSearching();
+    const searching = this.isSearching;
     if (searching && this.didScroll) {
-      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.resetPaging();
     }
     return !searching && this.clients && this.clients.length > this.pageSize;
   }
 
-  isSearching() {
-    return this.searchService.isSearchable(this.searchText);
-  }
-
-  async resetPaging() {
+  resetPaging() {
     this.pagedClients = [];
     this.loadMore();
   }

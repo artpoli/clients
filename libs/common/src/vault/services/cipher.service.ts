@@ -9,7 +9,7 @@ import { UriMatchStrategySetting } from "../../models/domain/domain-service";
 import { ErrorResponse } from "../../models/response/error.response";
 import { ListResponse } from "../../models/response/list.response";
 import { View } from "../../models/view/view";
-import { ConfigServiceAbstraction } from "../../platform/abstractions/config/config.service.abstraction";
+import { ConfigService } from "../../platform/abstractions/config/config.service";
 import { CryptoService } from "../../platform/abstractions/crypto.service";
 import { EncryptService } from "../../platform/abstractions/encrypt.service";
 import { I18nService } from "../../platform/abstractions/i18n.service";
@@ -72,7 +72,7 @@ export class CipherService implements CipherServiceAbstraction {
     private autofillSettingsService: AutofillSettingsServiceAbstraction,
     private encryptService: EncryptService,
     private cipherFileUploadService: CipherFileUploadService,
-    private configService: ConfigServiceAbstraction,
+    private configService: ConfigService,
   ) {}
 
   async getDecryptedCipherCache(): Promise<CipherView[]> {
@@ -89,9 +89,9 @@ export class CipherService implements CipherServiceAbstraction {
     }
     if (this.searchService != null) {
       if (value == null) {
-        this.searchService.clearIndex();
+        await this.searchService.clearIndex();
       } else {
-        this.searchService.indexCiphers(value);
+        await this.searchService.indexCiphers(value);
       }
     }
   }
@@ -333,9 +333,10 @@ export class CipherService implements CipherServiceAbstraction {
   private async reindexCiphers() {
     const userId = await this.stateService.getUserId();
     const reindexRequired =
-      this.searchService != null && (this.searchService.indexedEntityId ?? userId) !== userId;
+      this.searchService != null &&
+      ((await firstValueFrom(this.searchService.indexedEntityId$)) ?? userId) !== userId;
     if (reindexRequired) {
-      this.searchService.indexCiphers(await this.getDecryptedCipherCache(), userId);
+      await this.searchService.indexCiphers(await this.getDecryptedCipherCache(), userId);
     }
   }
 
@@ -1387,7 +1388,6 @@ export class CipherService implements CipherServiceAbstraction {
         cipher.attachments = attachments;
       }),
     ]);
-
     return cipher;
   }
 

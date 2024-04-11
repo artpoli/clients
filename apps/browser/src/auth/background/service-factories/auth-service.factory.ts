@@ -23,13 +23,18 @@ import {
   stateServiceFactory,
 } from "../../../platform/background/service-factories/state-service.factory";
 
+import { AccountServiceInitOptions, accountServiceFactory } from "./account-service.factory";
+import { TokenServiceInitOptions, tokenServiceFactory } from "./token-service.factory";
+
 type AuthServiceFactoryOptions = FactoryOptions;
 
 export type AuthServiceInitOptions = AuthServiceFactoryOptions &
+  AccountServiceInitOptions &
   MessagingServiceInitOptions &
   CryptoServiceInitOptions &
   ApiServiceInitOptions &
-  StateServiceInitOptions;
+  StateServiceInitOptions &
+  TokenServiceInitOptions;
 
 export function authServiceFactory(
   cache: { authService?: AbstractAuthService } & CachedServices,
@@ -41,10 +46,12 @@ export function authServiceFactory(
     opts,
     async () =>
       new AuthService(
+        await accountServiceFactory(cache, opts),
         await messagingServiceFactory(cache, opts),
         await cryptoServiceFactory(cache, opts),
         await apiServiceFactory(cache, opts),
         await stateServiceFactory(cache, opts),
+        await tokenServiceFactory(cache, opts),
       ),
   );
 }

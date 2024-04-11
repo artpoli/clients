@@ -1,4 +1,5 @@
 import { mock, MockProxy } from "jest-mock-extended";
+import { firstValueFrom } from "rxjs";
 
 import { TokenService } from "@bitwarden/common/auth/abstractions/token.service";
 import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
@@ -12,16 +13,11 @@ import { GlobalState } from "@bitwarden/common/platform/models/domain/global-sta
 import { State } from "@bitwarden/common/platform/models/domain/state";
 import { MigrationRunner } from "@bitwarden/common/platform/services/migration-runner";
 import { mockAccountServiceWith } from "@bitwarden/common/spec";
-import { SendType } from "@bitwarden/common/tools/send/enums/send-type";
-import { SendView } from "@bitwarden/common/tools/send/models/view/send.view";
 import { UserId } from "@bitwarden/common/types/guid";
 
 import { Account } from "../../models/account";
-import { BrowserComponentState } from "../../models/browserComponentState";
-import { BrowserGroupingsComponentState } from "../../models/browserGroupingsComponentState";
-import { BrowserSendComponentState } from "../../models/browserSendComponentState";
 
-import { BrowserStateService } from "./browser-state.service";
+import { DefaultBrowserStateService } from "./default-browser-state.service";
 
 // disable session syncing to just test class
 jest.mock("../decorators/session-sync-observable/");
@@ -40,7 +36,7 @@ describe("Browser State Service", () => {
   const userId = "userId" as UserId;
   const accountService = mockAccountServiceWith(userId);
 
-  let sut: BrowserStateService;
+  let sut: DefaultBrowserStateService;
 
   beforeEach(() => {
     secureStorageService = mock();
@@ -72,7 +68,7 @@ describe("Browser State Service", () => {
       const stateGetter = (key: string) => Promise.resolve(state);
       memoryStorageService.get.mockImplementation(stateGetter);
 
-      sut = new BrowserStateService(
+      sut = new DefaultBrowserStateService(
         diskStorageService,
         secureStorageService,
         memoryStorageService,
@@ -86,53 +82,17 @@ describe("Browser State Service", () => {
       );
     });
 
-    describe("getBrowserGroupingComponentState", () => {
-      it("should return a BrowserGroupingsComponentState", async () => {
-        state.accounts[userId].groupings = new BrowserGroupingsComponentState();
+    describe("add Account", () => {
+      it("should add account", async () => {
+        const newUserId = "newUserId" as UserId;
+        const newAcct = new Account({
+          profile: { userId: newUserId },
+        });
 
-        const actual = await sut.getBrowserGroupingComponentState();
-        expect(actual).toBeInstanceOf(BrowserGroupingsComponentState);
-      });
-    });
+        await sut.addAccount(newAcct);
 
-    describe("getBrowserVaultItemsComponentState", () => {
-      it("should return a BrowserComponentState", async () => {
-        const componentState = new BrowserComponentState();
-        componentState.scrollY = 0;
-        componentState.searchText = "test";
-        state.accounts[userId].ciphers = componentState;
-
-        const actual = await sut.getBrowserVaultItemsComponentState();
-        expect(actual).toStrictEqual(componentState);
-      });
-    });
-
-    describe("getBrowserSendComponentState", () => {
-      it("should return a BrowserSendComponentState", async () => {
-        const sendState = new BrowserSendComponentState();
-        sendState.sends = [new SendView(), new SendView()];
-        sendState.typeCounts = new Map<SendType, number>([
-          [SendType.File, 3],
-          [SendType.Text, 5],
-        ]);
-        state.accounts[userId].send = sendState;
-        (global as any)["watch"] = state;
-
-        const actual = await sut.getBrowserSendComponentState();
-        expect(actual).toBeInstanceOf(BrowserSendComponentState);
-        expect(actual).toMatchObject(sendState);
-      });
-    });
-
-    describe("getBrowserSendTypeComponentState", () => {
-      it("should return a BrowserComponentState", async () => {
-        const componentState = new BrowserComponentState();
-        componentState.scrollY = 0;
-        componentState.searchText = "test";
-        state.accounts[userId].sendType = componentState;
-
-        const actual = await sut.getBrowserSendTypeComponentState();
-        expect(actual).toStrictEqual(componentState);
+        const accts = await firstValueFrom(sut.accounts$);
+        expect(accts[newUserId]).toBeDefined();
       });
     });
   });

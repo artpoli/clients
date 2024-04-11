@@ -1,7 +1,6 @@
 import { Jsonify } from "type-fest";
 
 import { AdminAuthRequestStorable } from "../../../auth/models/domain/admin-auth-req-storable";
-import { ForceSetPasswordReason } from "../../../auth/models/domain/force-set-password-reason";
 import { UriMatchStrategySetting } from "../../../models/domain/domain-service";
 import { GeneratorOptions } from "../../../tools/generator/generator-options";
 import {
@@ -9,16 +8,12 @@ import {
   PasswordGeneratorOptions,
 } from "../../../tools/generator/password";
 import { UsernameGeneratorOptions } from "../../../tools/generator/username/username-generation-options";
-import { SendData } from "../../../tools/send/models/data/send.data";
-import { SendView } from "../../../tools/send/models/view/send.view";
 import { DeepJsonify } from "../../../types/deep-jsonify";
-import { MasterKey } from "../../../types/key";
 import { CipherData } from "../../../vault/models/data/cipher.data";
 import { CipherView } from "../../../vault/models/view/cipher.view";
 import { AddEditCipherInfo } from "../../../vault/types/add-edit-cipher-info";
 import { KdfType } from "../../enums";
 import { Utils } from "../../misc/utils";
-import { ServerConfigData } from "../../models/data/server-config.data";
 
 import { EncryptedString, EncString } from "./enc-string";
 import { SymmetricCryptoKey } from "./symmetric-crypto-key";
@@ -66,20 +61,12 @@ export class DataEncryptionPair<TEncrypted, TDecrypted> {
   decrypted?: TDecrypted[];
 }
 
-// This is a temporary structure to handle migrated `DataEncryptionPair` to
-//  avoid needing a data migration at this stage. It should be replaced with
-//  proper data migrations when `DataEncryptionPair` is deprecated.
-export class TemporaryDataEncryption<TEncrypted> {
-  encrypted?: { [id: string]: TEncrypted };
-}
-
 export class AccountData {
   ciphers?: DataEncryptionPair<CipherData, CipherView> = new DataEncryptionPair<
     CipherData,
     CipherView
   >();
   localData?: any;
-  sends?: DataEncryptionPair<SendData, SendView> = new DataEncryptionPair<SendData, SendView>();
   passwordGenerationHistory?: EncryptionPair<
     GeneratedPasswordHistory[],
     GeneratedPasswordHistory[]
@@ -101,13 +88,8 @@ export class AccountData {
 }
 
 export class AccountKeys {
-  masterKey?: MasterKey;
-  masterKeyEncryptedUserKey?: string;
-  deviceKey?: ReturnType<SymmetricCryptoKey["toJSON"]>;
   publicKey?: Uint8Array;
 
-  /** @deprecated July 2023, left for migration purposes*/
-  cryptoMasterKey?: SymmetricCryptoKey;
   /** @deprecated July 2023, left for migration purposes*/
   cryptoMasterKeyAuto?: string;
   /** @deprecated July 2023, left for migration purposes*/
@@ -132,9 +114,6 @@ export class AccountKeys {
       return null;
     }
     return Object.assign(new AccountKeys(), obj, {
-      masterKey: SymmetricCryptoKey.fromJSON(obj?.masterKey),
-      deviceKey: obj?.deviceKey,
-      cryptoMasterKey: SymmetricCryptoKey.fromJSON(obj?.cryptoMasterKey),
       cryptoSymmetricKey: EncryptionPair.fromJSON(
         obj?.cryptoSymmetricKey,
         SymmetricCryptoKey.fromJSON,
@@ -159,16 +138,12 @@ export class AccountKeys {
 }
 
 export class AccountProfile {
-  convertAccountToKeyConnector?: boolean;
   name?: string;
   email?: string;
   emailVerified?: boolean;
   everBeenUnlocked?: boolean;
-  forceSetPasswordReason?: ForceSetPasswordReason;
   lastSync?: string;
   userId?: string;
-  usesKeyConnector?: boolean;
-  keyHash?: string;
   kdfIterations?: number;
   kdfMemory?: number;
   kdfParallelism?: number;
@@ -185,8 +160,6 @@ export class AccountProfile {
 
 export class AccountSettings {
   defaultUriMatch?: UriMatchStrategySetting;
-  disableGa?: boolean;
-  enableBiometric?: boolean;
   minimizeOnCopyToClipboard?: boolean;
   passwordGenerationOptions?: PasswordGeneratorOptions;
   usernameGenerationOptions?: UsernameGeneratorOptions;
@@ -196,10 +169,7 @@ export class AccountSettings {
   protectedPin?: string;
   vaultTimeout?: number;
   vaultTimeoutAction?: string = "lock";
-  serverConfig?: ServerConfigData;
   approveLoginRequests?: boolean;
-  avatarColor?: string;
-  trustDeviceChoiceForDecryption?: boolean;
 
   /** @deprecated July 2023, left for migration purposes*/
   pinProtected?: EncryptionPair<string, EncString> = new EncryptionPair<string, EncString>();
@@ -214,7 +184,6 @@ export class AccountSettings {
         obj?.pinProtected,
         EncString.fromJSON,
       ),
-      serverConfig: ServerConfigData.fromJSON(obj?.serverConfig),
     });
   }
 }

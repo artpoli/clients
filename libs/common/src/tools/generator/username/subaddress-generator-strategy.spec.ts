@@ -1,4 +1,5 @@
 import { mock } from "jest-mock-extended";
+import { of, firstValueFrom } from "rxjs";
 
 import { PolicyType } from "../../../admin-console/enums";
 // FIXME: use index.ts imports once policy abstractions and models
@@ -9,42 +10,34 @@ import { UserId } from "../../../types/guid";
 import { DefaultPolicyEvaluator } from "../default-policy-evaluator";
 import { SUBADDRESS_SETTINGS } from "../key-definitions";
 
+import {
+  DefaultSubaddressOptions,
+  SubaddressGenerationOptions,
+} from "./subaddress-generator-options";
+
 import { SubaddressGeneratorStrategy, UsernameGenerationServiceAbstraction } from ".";
 
 const SomeUser = "some user" as UserId;
+const SomePolicy = mock<Policy>({
+  type: PolicyType.PasswordGenerator,
+  data: {
+    minLength: 10,
+  },
+});
 
 describe("Email subaddress list generation strategy", () => {
-  describe("evaluator()", () => {
-    it("should throw if the policy type is incorrect", () => {
-      const strategy = new SubaddressGeneratorStrategy(null, null);
-      const policy = mock<Policy>({
-        type: PolicyType.DisableSend,
-      });
+  describe("toEvaluator()", () => {
+    it.each([[[]], [null], [undefined], [[SomePolicy]], [[SomePolicy, SomePolicy]]])(
+      "should map any input (= %p) to the default policy evaluator",
+      async (policies) => {
+        const strategy = new SubaddressGeneratorStrategy(null, null);
 
-      expect(() => strategy.evaluator(policy)).toThrow(new RegExp("Mismatched policy type\\. .+"));
-    });
+        const evaluator$ = of(policies).pipe(strategy.toEvaluator());
+        const evaluator = await firstValueFrom(evaluator$);
 
-    it("should map to the policy evaluator", () => {
-      const strategy = new SubaddressGeneratorStrategy(null, null);
-      const policy = mock<Policy>({
-        type: PolicyType.PasswordGenerator,
-        data: {
-          minLength: 10,
-        },
-      });
-
-      const evaluator = strategy.evaluator(policy);
-
-      expect(evaluator).toBeInstanceOf(DefaultPolicyEvaluator);
-      expect(evaluator.policy).toMatchObject({});
-    });
-
-    it("should map `null` to a default policy evaluator", () => {
-      const strategy = new SubaddressGeneratorStrategy(null, null);
-      const evaluator = strategy.evaluator(null);
-
-      expect(evaluator).toBeInstanceOf(DefaultPolicyEvaluator);
-    });
+        expect(evaluator).toBeInstanceOf(DefaultPolicyEvaluator);
+      },
+    );
   });
 
   describe("durableState", () => {
@@ -56,6 +49,16 @@ describe("Email subaddress list generation strategy", () => {
       strategy.durableState(SomeUser);
 
       expect(provider.getUser).toHaveBeenCalledWith(SomeUser, SUBADDRESS_SETTINGS);
+    });
+  });
+
+  describe("defaults$", () => {
+    it("should return the default subaddress options", async () => {
+      const strategy = new SubaddressGeneratorStrategy(null, null);
+
+      const result = await firstValueFrom(strategy.defaults$(SomeUser));
+
+      expect(result).toEqual(DefaultSubaddressOptions);
     });
   });
 
@@ -82,16 +85,14 @@ describe("Email subaddress list generation strategy", () => {
       const legacy = mock<UsernameGenerationServiceAbstraction>();
       const strategy = new SubaddressGeneratorStrategy(legacy, null);
       const options = {
-        type: "website-name" as const,
-        email: "someone@example.com",
-      };
+        subaddressType: "website-name",
+        subaddressEmail: "someone@example.com",
+        website: "foo.com",
+      } as SubaddressGenerationOptions;
 
       await strategy.generate(options);
 
-      expect(legacy.generateSubaddress).toHaveBeenCalledWith({
-        subaddressType: "website-name" as const,
-        subaddressEmail: "someone@example.com",
-      });
+      expect(legacy.generateSubaddress).toHaveBeenCalledWith(options);
     });
   });
 });

@@ -2687,5 +2687,20 @@
   "commonImportFormats": {
     "message": "Често използвани формати",
     "description": "Label indicating the most common import formats"
+  },
+  "troubleshooting": {
+    "message": "Отстраняване на проблеми"
+  },
+  "disableHardwareAccelerationRestart": {
+    "message": "Изключете хардуерното ускорение и рестартирайте"
+  },
+  "enableHardwareAccelerationRestart": {
+    "message": "Включете хардуерното ускорение и рестартирайте"
+  },
+  "removePasskey": {
+    "message": "Премахване на секретния ключ"
+  },
+  "passkeyRemoved": {
+    "message": "Секретният ключ е премахнат"
   }
 }

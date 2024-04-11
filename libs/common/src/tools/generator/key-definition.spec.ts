@@ -1,5 +1,4 @@
 import {
-  ENCRYPTED_HISTORY,
   EFF_USERNAME_SETTINGS,
   CATCHALL_SETTINGS,
   SUBADDRESS_SETTINGS,
@@ -11,9 +10,18 @@ import {
   FASTMAIL_FORWARDER,
   DUCK_DUCK_GO_FORWARDER,
   ADDY_IO_FORWARDER,
+  GENERATOR_SETTINGS,
 } from "./key-definitions";
 
 describe("Key definitions", () => {
+  describe("GENERATOR_SETTINGS", () => {
+    it("should pass through deserialization", () => {
+      const value = {};
+      const result = GENERATOR_SETTINGS.deserializer(value);
+      expect(result).toBe(value);
+    });
+  });
+
   describe("PASSWORD_SETTINGS", () => {
     it("should pass through deserialization", () => {
       const value = {};
@@ -32,7 +40,7 @@ describe("Key definitions", () => {
 
   describe("EFF_USERNAME_SETTINGS", () => {
     it("should pass through deserialization", () => {
-      const value = {};
+      const value = { website: null as string };
       const result = EFF_USERNAME_SETTINGS.deserializer(value);
       expect(result).toBe(value);
     });
@@ -40,7 +48,7 @@ describe("Key definitions", () => {
 
   describe("CATCHALL_SETTINGS", () => {
     it("should pass through deserialization", () => {
-      const value = {};
+      const value = { website: null as string };
       const result = CATCHALL_SETTINGS.deserializer(value);
       expect(result).toBe(value);
     });
@@ -48,7 +56,7 @@ describe("Key definitions", () => {
 
   describe("SUBADDRESS_SETTINGS", () => {
     it("should pass through deserialization", () => {
-      const value = {};
+      const value = { website: null as string };
       const result = SUBADDRESS_SETTINGS.deserializer(value);
       expect(result).toBe(value);
     });
@@ -98,14 +106,6 @@ describe("Key definitions", () => {
     it("should pass through deserialization", () => {
       const value: any = {};
       const result = SIMPLE_LOGIN_FORWARDER.deserializer(value);
-      expect(result).toBe(value);
-    });
-  });
-
-  describe("ENCRYPTED_HISTORY", () => {
-    it("should pass through deserialization", () => {
-      const value = {};
-      const result = ENCRYPTED_HISTORY.deserializer(value as any);
       expect(result).toBe(value);
     });
   });

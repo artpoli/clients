@@ -15,14 +15,17 @@ import {
   getOrganizationById,
   OrganizationService,
 } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
+import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
+import { PolicyType } from "@bitwarden/common/admin-console/enums";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
 import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
-import { ConfigServiceAbstraction as ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
+import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { BannerModule, IconModule, LayoutComponent, NavigationModule } from "@bitwarden/components";
 
 import { PaymentMethodWarningsModule } from "../../../billing/shared";
 import { OrgSwitcherComponent } from "../../../layouts/org-switcher/org-switcher.component";
+import { ToggleWidthComponent } from "../../../layouts/toggle-width.component";
 import { AdminConsoleLogo } from "../../icons/admin-console-logo";
 
 @Component({
@@ -39,6 +42,7 @@ import { AdminConsoleLogo } from "../../icons/admin-console-logo";
     OrgSwitcherComponent,
     BannerModule,
     PaymentMethodWarningsModule,
+    ToggleWidthComponent,
   ],
 })
 export class OrganizationLayoutComponent implements OnInit, OnDestroy {
@@ -48,6 +52,7 @@ export class OrganizationLayoutComponent implements OnInit, OnDestroy {
 
   organization$: Observable<Organization>;
   showPaymentAndHistory$: Observable<boolean>;
+  hideNewOrgButton$: Observable<boolean>;
 
   private _destroy = new Subject<void>();
 
@@ -61,6 +66,7 @@ export class OrganizationLayoutComponent implements OnInit, OnDestroy {
     private organizationService: OrganizationService,
     private platformUtilsService: PlatformUtilsService,
     private configService: ConfigService,
+    private policyService: PolicyService,
   ) {}
 
   async ngOnInit() {
@@ -85,6 +91,8 @@ export class OrganizationLayoutComponent implements OnInit, OnDestroy {
           org?.canEditPaymentMethods,
       ),
     );
+
+    this.hideNewOrgButton$ = this.policyService.policyAppliesToActiveUser$(PolicyType.SingleOrg);
   }
 
   ngOnDestroy() {

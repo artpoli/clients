@@ -74,6 +74,13 @@ const nativeMessaging = {
   onMessage: (callback: (message: LegacyMessageWrapper | Message) => void) => {
     ipcRenderer.on("nativeMessaging", (_event, message) => callback(message));
   },
+
+  manifests: {
+    generate: (create: boolean): Promise<Error | null> =>
+      ipcRenderer.invoke("nativeMessaging.manifests", { create }),
+    generateDuckDuckGo: (create: boolean): Promise<Error | null> =>
+      ipcRenderer.invoke("nativeMessaging.ddgManifests", { create }),
+  },
 };
 
 const crypto = {
@@ -117,12 +124,21 @@ export default {
 
   sendMessage: (message: { command: string } & any) =>
     ipcRenderer.send("messagingService", message),
-  onMessage: (callback: (message: { command: string } & any) => void) => {
-    ipcRenderer.on("messagingService", (_event, message: any) => {
-      if (message.command) {
-        callback(message);
-      }
-    });
+  onMessage: {
+    addListener: (callback: (message: { command: string } & any) => void) => {
+      ipcRenderer.addListener("messagingService", (_event, message: any) => {
+        if (message.command) {
+          callback(message);
+        }
+      });
+    },
+    removeListener: (callback: (message: { command: string } & any) => void) => {
+      ipcRenderer.removeListener("messagingService", (_event, message: any) => {
+        if (message.command) {
+          callback(message);
+        }
+      });
+    },
   },
 
   launchUri: (uri: string) => ipcRenderer.invoke("launchUri", uri),

@@ -1,20 +1,14 @@
-import { BehaviorSubject, Observable, map } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { Jsonify, JsonValue } from "type-fest";
 
 import { AccountService } from "../../auth/abstractions/account.service";
 import { TokenService } from "../../auth/abstractions/token.service";
-import { AuthenticationStatus } from "../../auth/enums/authentication-status";
-import { AdminAuthRequestStorable } from "../../auth/models/domain/admin-auth-req-storable";
 import { KdfConfig } from "../../auth/models/domain/kdf-config";
 import { BiometricKey } from "../../auth/types/biometric-key";
 import { GeneratorOptions } from "../../tools/generator/generator-options";
 import { GeneratedPasswordHistory, PasswordGeneratorOptions } from "../../tools/generator/password";
 import { UsernameGeneratorOptions } from "../../tools/generator/username";
 import { UserId } from "../../types/guid";
-import { CipherData } from "../../vault/models/data/cipher.data";
-import { LocalData } from "../../vault/models/data/local.data";
-import { CipherView } from "../../vault/models/view/cipher.view";
-import { AddEditCipherInfo } from "../../vault/types/add-edit-cipher-info";
 import { EnvironmentService } from "../abstractions/environment.service";
 import { LogService } from "../abstractions/log.service";
 import {
@@ -68,12 +62,8 @@ export class StateService<
   protected activeAccountSubject = new BehaviorSubject<string | null>(null);
   activeAccount$ = this.activeAccountSubject.asObservable();
 
-  activeAccountUnlocked$: Observable<boolean>;
-
   private hasBeenInited = false;
   protected isRecoveredSession = false;
-
-  protected accountDiskCache = new BehaviorSubject<Record<string, TAccount>>({});
 
   // default account serializer, must be overridden by child class
   protected accountDeserializer = Account.fromJSON as (json: Jsonify<TAccount>) => TAccount;
@@ -88,14 +78,7 @@ export class StateService<
     protected environmentService: EnvironmentService,
     protected tokenService: TokenService,
     private migrationRunner: MigrationRunner,
-    protected useAccountCache: boolean = true,
-  ) {
-    this.activeAccountUnlocked$ = this.accountService.activeAccount$.pipe(
-      map((a) => {
-        return a?.status === AuthenticationStatus.Unlocked;
-      }),
-    );
-  }
+  ) {}
 
   async init(initOptions: InitOptions = {}): Promise<void> {
     // Deconstruct and apply defaults
@@ -129,14 +112,19 @@ export class StateService<
       return;
     }
 
+    // Get all likely authenticated accounts
+    const authenticatedAccounts = (
+      (await this.storageService.get<string[]>(keys.authenticatedAccounts)) ?? []
+    ).filter((account) => account != null);
+
     await this.updateState(async (state) => {
-      state.authenticatedAccounts =
-        (await this.storageService.get<string[]>(keys.authenticatedAccounts)) ?? [];
-      for (const i in state.authenticatedAccounts) {
-        if (i != null) {
-          state = await this.syncAccountFromDisk(state.authenticatedAccounts[i]);
-        }
+      for (const i in authenticatedAccounts) {
+        state = await this.syncAccountFromDisk(authenticatedAccounts[i]);
       }
+
+      // After all individual accounts have been added
+      state.authenticatedAccounts = authenticatedAccounts;
+
       const storedActiveUser = await this.storageService.get<string>(keys.activeUserId);
       if (storedActiveUser != null) {
         state.activeUserId = storedActiveUser;
@@ -151,7 +139,6 @@ export class StateService<
         await this.accountService.addAccount(state.activeUserId as UserId, {
           name: activeDiskAccount.profile.name,
           email: activeDiskAccount.profile.email,
-          status: AuthenticationStatus.LoggedOut,
         });
       }
       await this.accountService.switchAccount(state.activeUserId as UserId);
@@ -177,16 +164,7 @@ export class StateService<
 
     // TODO: Temporary update to avoid routing all account status changes through account service for now.
     // The determination of state should be handled by the various services that control those values.
-    const token = await this.tokenService.getAccessToken(userId as UserId);
-    const autoKey = await this.getUserKeyAutoUnlock({ userId: userId });
-    const accountStatus =
-      token == null
-        ? AuthenticationStatus.LoggedOut
-        : autoKey == null
-          ? AuthenticationStatus.Locked
-          : AuthenticationStatus.Unlocked;
     await this.accountService.addAccount(userId as UserId, {
-      status: accountStatus,
       name: diskAccount.profile.name,
       email: diskAccount.profile.email,
     });
@@ -206,7 +184,6 @@ export class StateService<
     await this.setLastActive(new Date().getTime(), { userId: account.profile.userId });
     // TODO: Temporary update to avoid routing all account status changes through account service for now.
     await this.accountService.addAccount(account.profile.userId as UserId, {
-      status: AuthenticationStatus.Locked,
       name: account.profile.name,
       email: account.profile.email,
     });
@@ -240,34 +217,6 @@ export class StateService<
     await this.removeAccountFromMemory(options?.userId);
     await this.pushAccounts();
     return currentUser as UserId;
-  }
-
-  async getAddEditCipherInfo(options?: StorageOptions): Promise<AddEditCipherInfo> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultInMemoryOptions()),
-    );
-    // ensure prototype on cipher
-    const raw = account?.data?.addEditCipherInfo;
-    return raw == null
-      ? null
-      : {
-          cipher:
-            raw?.cipher.toJSON != null
-              ? raw.cipher
-              : CipherView.fromJSON(raw?.cipher as Jsonify<CipherView>),
-          collectionIds: raw?.collectionIds,
-        };
-  }
-
-  async setAddEditCipherInfo(value: AddEditCipherInfo, options?: StorageOptions): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultInMemoryOptions()),
-    );
-    account.data.addEditCipherInfo = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultInMemoryOptions()),
-    );
   }
 
   /**
@@ -486,24 +435,6 @@ export class StateService<
     await this.saveSecureStorageKey(partialKeys.biometricKey, value, options);
   }
 
-  @withPrototypeForArrayMembers(CipherView, CipherView.fromJSON)
-  async getDecryptedCiphers(options?: StorageOptions): Promise<CipherView[]> {
-    return (
-      await this.getAccount(this.reconcileOptions(options, await this.defaultInMemoryOptions()))
-    )?.data?.ciphers?.decrypted;
-  }
-
-  async setDecryptedCiphers(value: CipherView[], options?: StorageOptions): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultInMemoryOptions()),
-    );
-    account.data.ciphers.decrypted = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultInMemoryOptions()),
-    );
-  }
-
   @withPrototypeForArrayMembers(GeneratedPasswordHistory)
   async getDecryptedPasswordGenerationHistory(
     options?: StorageOptions,
@@ -566,37 +497,6 @@ export class StateService<
     value == null
       ? await this.secureStorageService.remove(DDG_SHARED_KEY, options)
       : await this.secureStorageService.save(DDG_SHARED_KEY, value, options);
-  }
-
-  async getAdminAuthRequest(options?: StorageOptions): Promise<AdminAuthRequestStorable | null> {
-    options = this.reconcileOptions(options, await this.defaultOnDiskLocalOptions());
-
-    if (options?.userId == null) {
-      return null;
-    }
-
-    const account = await this.getAccount(options);
-
-    return account?.adminAuthRequest
-      ? AdminAuthRequestStorable.fromJSON(account.adminAuthRequest)
-      : null;
-  }
-
-  async setAdminAuthRequest(
-    adminAuthRequest: AdminAuthRequestStorable,
-    options?: StorageOptions,
-  ): Promise<void> {
-    options = this.reconcileOptions(options, await this.defaultOnDiskLocalOptions());
-
-    if (options?.userId == null) {
-      return;
-    }
-
-    const account = await this.getAccount(options);
-
-    account.adminAuthRequest = adminAuthRequest?.toJSON();
-
-    await this.saveAccount(account, options);
   }
 
   async getEmail(options?: StorageOptions): Promise<string> {
@@ -673,24 +573,17 @@ export class StateService<
     );
   }
 
-  @withPrototypeForObjectValues(CipherData)
-  async getEncryptedCiphers(options?: StorageOptions): Promise<{ [id: string]: CipherData }> {
-    return (
-      await this.getAccount(this.reconcileOptions(options, await this.defaultOnDiskMemoryOptions()))
-    )?.data?.ciphers?.encrypted;
-  }
-
-  async setEncryptedCiphers(
-    value: { [id: string]: CipherData },
+  async setEnableDuckDuckGoBrowserIntegration(
+    value: boolean,
     options?: StorageOptions,
   ): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultOnDiskMemoryOptions()),
+    const globals = await this.getGlobals(
+      this.reconcileOptions(options, await this.defaultOnDiskOptions()),
     );
-    account.data.ciphers.encrypted = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultOnDiskMemoryOptions()),
+    globals.enableDuckDuckGoBrowserIntegration = value;
+    await this.saveGlobals(
+      globals,
+      this.reconcileOptions(options, await this.defaultOnDiskOptions()),
     );
   }
 
@@ -740,24 +633,6 @@ export class StateService<
     await this.saveAccount(
       account,
       this.reconcileOptions(options, await this.defaultOnDiskOptions()),
-    );
-  }
-
-  async getEverBeenUnlocked(options?: StorageOptions): Promise<boolean> {
-    return (
-      (await this.getAccount(this.reconcileOptions(options, await this.defaultInMemoryOptions())))
-        ?.profile?.everBeenUnlocked ?? false
-    );
-  }
-
-  async setEverBeenUnlocked(value: boolean, options?: StorageOptions): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultInMemoryOptions()),
-    );
-    account.profile.everBeenUnlocked = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultInMemoryOptions()),
     );
   }
 
@@ -854,26 +729,6 @@ export class StateService<
     await this.saveAccount(
       account,
       this.reconcileOptions(options, await this.defaultOnDiskMemoryOptions()),
-    );
-  }
-
-  async getLocalData(options?: StorageOptions): Promise<{ [cipherId: string]: LocalData }> {
-    return (
-      await this.getAccount(this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()))
-    )?.data?.localData;
-  }
-
-  async setLocalData(
-    value: { [cipherId: string]: LocalData },
-    options?: StorageOptions,
-  ): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
-    );
-    account.data.localData = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
     );
   }
 
@@ -986,23 +841,6 @@ export class StateService<
     );
   }
 
-  async getSecurityStamp(options?: StorageOptions): Promise<string> {
-    return (
-      await this.getAccount(this.reconcileOptions(options, await this.defaultInMemoryOptions()))
-    )?.tokens?.securityStamp;
-  }
-
-  async setSecurityStamp(value: string, options?: StorageOptions): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultInMemoryOptions()),
-    );
-    account.tokens.securityStamp = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultInMemoryOptions()),
-    );
-  }
-
   async getUserId(options?: StorageOptions): Promise<string> {
     return (
       await this.getAccount(this.reconcileOptions(options, await this.defaultOnDiskOptions()))
@@ -1046,24 +884,6 @@ export class StateService<
       this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
     );
     account.settings.vaultTimeoutAction = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
-    );
-  }
-
-  async getApproveLoginRequests(options?: StorageOptions): Promise<boolean> {
-    const approveLoginRequests = (
-      await this.getAccount(this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()))
-    )?.settings?.approveLoginRequests;
-    return approveLoginRequests;
-  }
-
-  async setApproveLoginRequests(value: boolean, options?: StorageOptions): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
-    );
-    account.settings.approveLoginRequests = value;
     await this.saveAccount(
       account,
       this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
@@ -1155,13 +975,6 @@ export class StateService<
       return null;
     }
 
-    if (this.useAccountCache) {
-      const cachedAccount = this.accountDiskCache.value[options.userId];
-      if (cachedAccount != null) {
-        return cachedAccount;
-      }
-    }
-
     const account = options?.useSecureStorage
       ? (await this.secureStorageService.get<TAccount>(options.userId, options)) ??
         (await this.storageService.get<TAccount>(
@@ -1169,8 +982,6 @@ export class StateService<
           this.reconcileOptions(options, { htmlStorageLocation: HtmlStorageLocation.Local }),
         ))
       : await this.storageService.get<TAccount>(options.userId, options);
-
-    this.setDiskCache(options.userId, account);
     return account;
   }
 
@@ -1200,8 +1011,6 @@ export class StateService<
       : this.storageService;
 
     await storageLocation.save(`${options.userId}`, account, options);
-
-    this.deleteDiskCache(options.userId);
   }
 
   protected async saveAccountToMemory(account: TAccount): Promise<void> {
@@ -1401,20 +1210,14 @@ export class StateService<
     await this.updateState(async (state) => {
       userId = userId ?? state.activeUserId;
       delete state.accounts[userId];
-
-      this.deleteDiskCache(userId);
-
       return state;
     });
-    // TODO: Invert this logic, we should remove accounts based on logged out emit
-    await this.accountService.setAccountStatus(userId as UserId, AuthenticationStatus.LoggedOut);
   }
 
   // settings persist even on reset, and are not affected by this method
   protected resetAccount(account: TAccount) {
     const persistentAccountInformation = {
       settings: account.settings,
-      adminAuthRequest: account.adminAuthRequest,
     };
     return Object.assign(this.createAccount(), persistentAccountInformation);
   }
@@ -1520,20 +1323,6 @@ export class StateService<
       return await this.setState(updatedState);
     });
   }
-
-  private setDiskCache(key: string, value: TAccount, options?: StorageOptions) {
-    if (this.useAccountCache) {
-      this.accountDiskCache.value[key] = value;
-      this.accountDiskCache.next(this.accountDiskCache.value);
-    }
-  }
-
-  protected deleteDiskCache(key: string) {
-    if (this.useAccountCache) {
-      delete this.accountDiskCache.value[key];
-      this.accountDiskCache.next(this.accountDiskCache.value);
-    }
-  }
 }
 
 function withPrototypeForArrayMembers<T>(
@@ -1577,53 +1366,6 @@ function withPrototypeForArrayMembers<T>(
                     Object.create(memberConstructor.prototype, Object.getOwnPropertyDescriptors(r)),
                   );
             });
-          }
-        });
-      },
-    };
-  };
-}
-
-function withPrototypeForObjectValues<T>(
-  valuesConstructor: new (...args: any[]) => T,
-  valuesConverter: (input: any) => T = (i) => i,
-): (
-  target: any,
-  propertyKey: string | symbol,
-  descriptor: PropertyDescriptor,
-) => { value: (...args: any[]) => Promise<{ [key: string]: T }> } {
-  return (target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) => {
-    const originalMethod = descriptor.value;
-
-    return {
-      value: function (...args: any[]) {
-        const originalResult: Promise<{ [key: string]: T }> = originalMethod.apply(this, args);
-
-        if (!Utils.isPromise(originalResult)) {
-          throw new Error(
-            `Error applying prototype to stored value -- result is not a promise for method ${String(
-              propertyKey,
-            )}`,
-          );
-        }
-
-        return originalResult.then((result) => {
-          if (result == null) {
-            return null;
-          } else {
-            for (const [key, val] of Object.entries(result)) {
-              result[key] =
-                val == null || val.constructor.name === valuesConstructor.prototype.constructor.name
-                  ? valuesConverter(val)
-                  : valuesConverter(
-                      Object.create(
-                        valuesConstructor.prototype,
-                        Object.getOwnPropertyDescriptors(val),
-                      ),
-                    );
-            }
-
-            return result as { [key: string]: T };
           }
         });
       },

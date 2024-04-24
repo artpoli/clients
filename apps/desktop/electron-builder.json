@@ -24,7 +24,7 @@
     "**/node_modules/argon2/package.json",
     "**/node_modules/argon2/lib/binding/napi-v3/argon2.node"
   ],
-  "electronVersion": "28.2.8",
+  "electronVersion": "28.3.1",
   "generateUpdatesFilesForAllChannels": true,
   "publish": {
     "provider": "generic",
@@ -228,7 +228,8 @@
     "artifactName": "${productName}-${version}-${arch}.${ext}"
   },
   "snap": {
-    "summary": "After installation enable required `password-manager-service` by running `sudo snap connect bitwarden:password-manager-service`.",
+    "summary": "Bitwarden is a secure and free password manager for all of your devices.",
+    "description": "**Installation**\nBitwarden requires access to the `password-manager-service`. Please enable it through permissions or by running `sudo snap connect bitwarden:password-manager-service` after installation. See https://btwrdn.com/install-snap for details.",
     "autoStart": true,
     "base": "core22",
     "confinement": "strict",

@@ -3,12 +3,12 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden - Bezplatný správca hesiel",
+    "message": "Bitwarden Password Manager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "bitwarden je bezpečný a bezplatný správca hesiel pre všetky vaše zariadenia.",
-    "description": "Extension description"
+    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
     "message": "Prihláste sa, alebo vytvorte nový účet pre prístup k vášmu bezpečnému trezoru."
@@ -171,6 +171,12 @@
   },
   "changeMasterPassword": {
     "message": "Zmeniť hlavné heslo"
+  },
+  "continueToWebApp": {
+    "message": "Pokračovať vo webovej aplikácii?"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "Hlavné heslo si môžete zmeniť vo webovej aplikácii Bitwarden."
   },
   "fingerprintPhrase": {
     "message": "Fráza odtlačku",
@@ -556,12 +562,6 @@
   },
   "addedFolder": {
     "message": "Pridaný priečinok"
-  },
-  "changeMasterPass": {
-    "message": "Zmeniť hlavné heslo"
-  },
-  "changeMasterPasswordConfirmation": {
-    "message": "Teraz si môžete zmeniť svoje hlavné heslo vo webovom trezore bitwarden.com. Chcete navštíviť túto stránku teraz?"
   },
   "twoStepLoginConfirmation": {
     "message": "Dvojstupňové prihlasovanie robí váš účet bezpečnejším vďaka vyžadovaniu bezpečnostného kódu z overovacej aplikácie vždy, keď sa prihlásite. Dvojstupňové prihlasovanie môžete povoliť vo webovom trezore bitwarden.com. Chcete navštíviť túto stránku teraz?"
@@ -1754,7 +1754,7 @@
     }
   },
   "send": {
-    "message": "Odoslať",
+    "message": "Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -3000,10 +3000,36 @@
     "message": "Chyba pri ukladaní prihlasovacích údajov. Viac informácii nájdete v konzole.",
     "description": "Notification message for when saving credentials has failed."
   },
+  "success": {
+    "message": "Úspech"
+  },
   "removePasskey": {
     "message": "Odstrániť prístupový kľúč"
   },
   "passkeyRemoved": {
     "message": "Prístupový kľúč bol odstránený"
+  },
+  "unassignedItemsBannerNotice": {
+    "message": "Upozornenie: Nepriradené položky organizácie už nie sú viditeľné v zobrazení Všetky trezory a sú prístupné iba cez Správcovskú konzolu."
+  },
+  "unassignedItemsBannerSelfHostNotice": {
+    "message": "Upozornenie: 16. mája 2024 nepriradené položky organizácie už nebudú viditeľné v zobrazení Všetky trezory a budú prístupné iba cez Správcovskú konzolu."
+  },
+  "unassignedItemsBannerCTAPartOne": {
+    "message": "Priradiť tieto položky do zbierky zo",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "unassignedItemsBannerCTAPartTwo": {
+    "message": ", aby boli viditeľné.",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "adminConsole": {
+    "message": "Správcovská konzola"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Chyba pri priraďovaní cieľovej kolekcie."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Chyba pri priraďovaní cieľového priečinka."
   }
 }

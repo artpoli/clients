@@ -45,6 +45,9 @@ export const LOGIN_EMAIL_DISK = new StateDefinition("loginEmail", "disk", {
   web: "disk-local",
 });
 export const LOGIN_STRATEGY_MEMORY = new StateDefinition("loginStrategy", "memory");
+export const AUTH_REQUEST_DISK_LOCAL = new StateDefinition("authRequestLocal", "disk", {
+  web: "disk-local",
+});
 export const SSO_DISK = new StateDefinition("ssoLogin", "disk");
 export const TOKEN_DISK = new StateDefinition("token", "disk");
 export const TOKEN_DISK_LOCAL = new StateDefinition("tokenDiskLocal", "disk", {
@@ -113,7 +116,9 @@ export const EVENT_COLLECTION_DISK = new StateDefinition("eventCollection", "dis
 export const SEND_DISK = new StateDefinition("encryptedSend", "disk", {
   web: "memory",
 });
-export const SEND_MEMORY = new StateDefinition("decryptedSend", "memory");
+export const SEND_MEMORY = new StateDefinition("decryptedSend", "memory", {
+  browser: "memory-large-object",
+});
 
 // Vault
 
@@ -130,5 +135,16 @@ export const VAULT_ONBOARDING = new StateDefinition("vaultOnboarding", "disk", {
 export const VAULT_SETTINGS_DISK = new StateDefinition("vaultSettings", "disk", {
   web: "disk-local",
 });
-export const VAULT_BROWSER_MEMORY = new StateDefinition("vaultBrowser", "memory");
-export const VAULT_SEARCH_MEMORY = new StateDefinition("vaultSearch", "memory");
+export const VAULT_BROWSER_MEMORY = new StateDefinition("vaultBrowser", "memory", {
+  browser: "memory-large-object",
+});
+export const VAULT_SEARCH_MEMORY = new StateDefinition("vaultSearch", "memory", {
+  browser: "memory-large-object",
+});
+export const CIPHERS_DISK = new StateDefinition("ciphers", "disk", { web: "memory" });
+export const CIPHERS_DISK_LOCAL = new StateDefinition("ciphersLocal", "disk", {
+  web: "disk-local",
+});
+export const CIPHERS_MEMORY = new StateDefinition("ciphersMemory", "memory", {
+  browser: "memory-large-object",
+});

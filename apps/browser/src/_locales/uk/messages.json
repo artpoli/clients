@@ -3,12 +3,12 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden",
+    "message": "Bitwarden Password Manager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "Bitwarden - це захищений і безкоштовний менеджер паролів для всіх ваших пристроїв.",
-    "description": "Extension description"
+    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
     "message": "Для доступу до сховища увійдіть в обліковий запис, або створіть новий."
@@ -171,6 +171,12 @@
   },
   "changeMasterPassword": {
     "message": "Змінити головний пароль"
+  },
+  "continueToWebApp": {
+    "message": "Продовжити у вебпрограмі?"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "Ви можете змінити головний пароль у вебпрограмі Bitwarden."
   },
   "fingerprintPhrase": {
     "message": "Фраза відбитка",
@@ -556,12 +562,6 @@
   },
   "addedFolder": {
     "message": "Теку додано"
-  },
-  "changeMasterPass": {
-    "message": "Змінити головний пароль"
-  },
-  "changeMasterPasswordConfirmation": {
-    "message": "Ви можете змінити головний пароль в сховищі на bitwarden.com. Хочете перейти на вебсайт зараз?"
   },
   "twoStepLoginConfirmation": {
     "message": "Двоетапна перевірка дає змогу надійніше захистити ваш обліковий запис, вимагаючи підтвердження входу з використанням іншого пристрою, наприклад, за допомогою ключа безпеки, програми автентифікації, SMS, телефонного виклику, або е-пошти. Ви можете налаштувати двоетапну перевірку в сховищі на bitwarden.com. Хочете перейти на вебсайт зараз?"
@@ -3000,10 +3000,36 @@
     "message": "Помилка збереження облікових даних. Перегляньте подробиці в консолі.",
     "description": "Notification message for when saving credentials has failed."
   },
+  "success": {
+    "message": "Успішно"
+  },
   "removePasskey": {
     "message": "Вилучити ключ доступу"
   },
   "passkeyRemoved": {
     "message": "Ключ доступу вилучено"
+  },
+  "unassignedItemsBannerNotice": {
+    "message": "Примітка: непризначені елементи організації більше не видимі у поданні \"Усі сховища\" і доступні лише в консолі адміністратора."
+  },
+  "unassignedItemsBannerSelfHostNotice": {
+    "message": "Примітка: 16 травня 2024 року непризначені елементи організації більше не будуть видимі у поданні \"Усі сховища\" і будуть доступні лише через консоль адміністратора."
+  },
+  "unassignedItemsBannerCTAPartOne": {
+    "message": "Призначте ці елементи збірці в",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "unassignedItemsBannerCTAPartTwo": {
+    "message": "щоб зробити їх видимими.",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "adminConsole": {
+    "message": "консолі адміністратора,"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Помилка призначення цільової збірки."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Помилка призначення цільової теки."
   }
 }

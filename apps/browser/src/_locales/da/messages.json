@@ -3,12 +3,12 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden - Gratis adgangskodemanager",
+    "message": "Bitwarden Password Manager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "En sikker og gratis adgangskodemanager til alle dine enheder.",
-    "description": "Extension description"
+    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
     "message": "Log ind eller opret en ny konto for at få adgang til din sikre boks."
@@ -171,6 +171,12 @@
   },
   "changeMasterPassword": {
     "message": "Skift hovedadgangskode"
+  },
+  "continueToWebApp": {
+    "message": "Fortsæt til web-app?"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "Hovedadgangskoden kan ændres via Bitwarden web-appen."
   },
   "fingerprintPhrase": {
     "message": "Fingeraftrykssætning",
@@ -556,12 +562,6 @@
   },
   "addedFolder": {
     "message": "Mappe tilføjet"
-  },
-  "changeMasterPass": {
-    "message": "Skift hovedadgangskode"
-  },
-  "changeMasterPasswordConfirmation": {
-    "message": "Du kan ændre din hovedadgangskode i bitwarden.com web-boksen. Vil du besøge hjemmesiden nu?"
   },
   "twoStepLoginConfirmation": {
     "message": "To-trins login gør din konto mere sikker ved at kræve, at du verificerer dit login med en anden enhed, såsom en sikkerhedsnøgle, autentificeringsapp, SMS, telefonopkald eller e-mail. To-trins login kan aktiveres i bitwarden.com web-boksen. Vil du besøge hjemmesiden nu?"
@@ -3000,10 +3000,36 @@
     "message": "Fejl under import. Tjek konsollen for detaljer.",
     "description": "Notification message for when saving credentials has failed."
   },
+  "success": {
+    "message": "Gennemført"
+  },
   "removePasskey": {
     "message": "Fjern adgangsnøgle"
   },
   "passkeyRemoved": {
     "message": "Adgangsnøgle fjernet"
+  },
+  "unassignedItemsBannerNotice": {
+    "message": "Bemærk: Utildelte organisationsemner er ikke længere synlige i Alle Bokse-visningen, men er kun tilgængelige via Admin-konsol."
+  },
+  "unassignedItemsBannerSelfHostNotice": {
+    "message": "Bemærk: Pr. 16. maj 2024 er utildelte organisationsemner er ikke længere synlige i Alle Bokse-visningen, men er kun tilgængelige via Admin-konsol."
+  },
+  "unassignedItemsBannerCTAPartOne": {
+    "message": "Tildel disse emner til en samling via",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "unassignedItemsBannerCTAPartTwo": {
+    "message": "for at gøre dem synlige.",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "adminConsole": {
+    "message": "Admin-konsol"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Fejl ved tildeling af målsamling."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Fejl ved tildeling af målmappe."
   }
 }

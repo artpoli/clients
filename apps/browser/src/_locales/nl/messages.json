@@ -3,12 +3,12 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden - Gratis wachtwoordbeheer",
+    "message": "Bitwarden Password Manager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "Een veilige en gratis oplossing voor wachtwoordbeheer voor al je apparaten.",
-    "description": "Extension description"
+    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
     "message": "Log in of maak een nieuw account aan om toegang te krijgen tot je beveiligde kluis."
@@ -171,6 +171,12 @@
   },
   "changeMasterPassword": {
     "message": "Hoofdwachtwoord wijzigen"
+  },
+  "continueToWebApp": {
+    "message": "Doorgaan naar web-app?"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "Je kunt je hoofdwachtwoord wijzigen in de Bitwarden-webapp."
   },
   "fingerprintPhrase": {
     "message": "Vingerafdrukzin",
@@ -525,7 +531,7 @@
     "message": "Kan de QR-code van de huidige webpagina niet scannen"
   },
   "totpCaptureSuccess": {
-    "message": "Authenticatie-sleutel toegevoegd"
+    "message": "Authenticatiesleutel toegevoegd"
   },
   "totpCapture": {
     "message": "Scan de authenticatie-QR-code van de huidige webpagina"
@@ -556,12 +562,6 @@
   },
   "addedFolder": {
     "message": "Map is toegevoegd"
-  },
-  "changeMasterPass": {
-    "message": "Hoofdwachtwoord wijzigen"
-  },
-  "changeMasterPasswordConfirmation": {
-    "message": "Je kunt je hoofdwachtwoord wijzigen in de kluis op bitwarden.com. Wil je de website nu bezoeken?"
   },
   "twoStepLoginConfirmation": {
     "message": "Tweestapsaanmelding beschermt je account door je inlogpoging te bevestigen met een ander apparaat zoals een beveiligingscode, authenticatie-app, SMS, spraakoproep of e-mail. Je kunt Tweestapsaanmelding inschakelen in de webkluis op bitwarden.com. Wil je de website nu bezoeken?"
@@ -1673,10 +1673,10 @@
     "message": "Browserintegratie is niet ingeschakeld in de Bitwarden-desktopapplicatie. Schakel deze optie in de instellingen binnen de desktop-applicatie in."
   },
   "startDesktopTitle": {
-    "message": "Bitwarden-desktopapplicatie opstarten"
+    "message": "Bitwarden desktopapplicatie opstarten"
   },
   "startDesktopDesc": {
-    "message": "Je moet de Bitwarden-desktopapplicatie starten om deze functie te gebruiken."
+    "message": "Je moet de Bitwarden desktopapplicatie starten om deze functie te gebruiken."
   },
   "errorEnableBiometricTitle": {
     "message": "Kon biometrie niet inschakelen"
@@ -3000,10 +3000,36 @@
     "message": "Error saving credentials. Check console for details.",
     "description": "Notification message for when saving credentials has failed."
   },
+  "success": {
+    "message": "Succes"
+  },
   "removePasskey": {
     "message": "Passkey verwijderen"
   },
   "passkeyRemoved": {
     "message": "Passkey verwijderd"
+  },
+  "unassignedItemsBannerNotice": {
+    "message": "Notice: Unassigned organization items are no longer visible in the All Vaults view and only accessible via the Admin Console."
+  },
+  "unassignedItemsBannerSelfHostNotice": {
+    "message": "Notice: On May 16, 2024, unassigned organization items will no longer be visible in the All Vaults view and will only be accessible via the Admin Console."
+  },
+  "unassignedItemsBannerCTAPartOne": {
+    "message": "Assign these items to a collection from the",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "unassignedItemsBannerCTAPartTwo": {
+    "message": "to make them visible.",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "adminConsole": {
+    "message": "Admin Console"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Fout bij toewijzen doelverzameling."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Fout bij toewijzen doelmap."
   }
 }

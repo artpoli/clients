@@ -3,12 +3,12 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden - бесплатный менеджер паролей",
+    "message": "Bitwarden Password Manager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "Защищенный и бесплатный менеджер паролей для всех ваших устройств.",
-    "description": "Extension description"
+    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
     "message": "Войдите или создайте новый аккаунт для доступа к вашему защищенному хранилищу."
@@ -171,6 +171,12 @@
   },
   "changeMasterPassword": {
     "message": "Изменить мастер-пароль"
+  },
+  "continueToWebApp": {
+    "message": "Перейти к веб-приложению?"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "Изменить мастер-пароль можно в веб-приложении Bitwarden."
   },
   "fingerprintPhrase": {
     "message": "Фраза отпечатка",
@@ -557,12 +563,6 @@
   "addedFolder": {
     "message": "Папка добавлена"
   },
-  "changeMasterPass": {
-    "message": "Изменить мастер-пароль"
-  },
-  "changeMasterPasswordConfirmation": {
-    "message": "Вы можете изменить свой мастер-пароль на bitwarden.com. Перейти на сайт сейчас?"
-  },
   "twoStepLoginConfirmation": {
     "message": "Двухэтапная аутентификация делает аккаунт более защищенным, поскольку требуется подтверждение входа при помощи другого устройства, например, ключа безопасности, приложения-аутентификатора, SMS, телефонного звонка или электронной почты. Двухэтапная аутентификация включается на bitwarden.com. Перейти на сайт сейчас?"
   },
@@ -688,10 +688,10 @@
     "message": "Запрос на обновление пароля логина при обнаружении изменений на сайте. Применяется ко всем авторизованным аккаунтам."
   },
   "enableUsePasskeys": {
-    "message": "Запрос на сохранение и использование ключей доступа"
+    "message": "Запрос на сохранение и использование passkey"
   },
   "usePasskeysDesc": {
-    "message": "Запрос на сохранение новых ключей или в авторизация с ключами, хранящимися в вашем хранилище. Применяется ко всем авторизованным аккаунтам."
+    "message": "Запрос на сохранение новых passkey или в авторизация с passkey, хранящимися в вашем хранилище. Применяется ко всем авторизованным аккаунтам."
   },
   "notificationChangeDesc": {
     "message": "Обновить этот пароль в Bitwarden?"
@@ -2786,25 +2786,25 @@
     "message": "Подтвердите пароль к файлу"
   },
   "typePasskey": {
-    "message": "Ключ доступа"
+    "message": "Passkey"
   },
   "passkeyNotCopied": {
-    "message": "Ключ доступа не будет скопирован"
+    "message": "Passkey не будет скопирован"
   },
   "passkeyNotCopiedAlert": {
-    "message": "Ключ доступа не будет скопирован в клонированный элемент. Продолжить клонирование этого элемента?"
+    "message": "Passkey не будет скопирован в клонированный элемент. Продолжить клонирование этого элемента?"
   },
   "passkeyFeatureIsNotImplementedForAccountsWithoutMasterPassword": {
     "message": "Необходима верификация со стороны инициирующего сайта. Для аккаунтов без мастер-пароля эта возможность пока не реализована."
   },
   "logInWithPasskey": {
-    "message": "Войти с ключом доступа?"
+    "message": "Войти с passkey?"
   },
   "passkeyAlreadyExists": {
-    "message": "Для данного приложения уже существует ключ доступа."
+    "message": "Для данного приложения уже существует passkey."
   },
   "noPasskeysFoundForThisApplication": {
-    "message": "Для данного приложения ключей доступа не найдено."
+    "message": "Для данного приложения не найден passkey."
   },
   "noMatchingPasskeyLogin": {
     "message": "У вас нет подходящего логина для этого сайта."
@@ -2813,28 +2813,28 @@
     "message": "Подтвердить"
   },
   "savePasskey": {
-    "message": "Сохранить ключ доступа"
+    "message": "Сохранить passkey"
   },
   "savePasskeyNewLogin": {
-    "message": "Сохранить ключ доступа как новый логин"
+    "message": "Сохранить passkey как новый логин"
   },
   "choosePasskey": {
-    "message": "Выберите логин, для которого будет сохранен данный ключ доступа"
+    "message": "Выберите логин, для которого будет сохранен данный passkey"
   },
   "passkeyItem": {
-    "message": "Ключ доступа элемента"
+    "message": "Элемент passkey"
   },
   "overwritePasskey": {
-    "message": "Перезаписать ключ доступа?"
+    "message": "Перезаписать passkey?"
   },
   "overwritePasskeyAlert": {
-    "message": "Этот элемент уже содержит ключ доступа. Вы уверены, что хотите перезаписать текущий ключ?"
+    "message": "Этот элемент уже содержит passkey. Вы уверены, что хотите перезаписать текущий passkey?"
   },
   "featureNotSupported": {
     "message": "Функция пока не поддерживается"
   },
   "yourPasskeyIsLocked": {
-    "message": "Для использования ключа доступа необходима аутентификация. Для продолжения работы подтвердите свою личность."
+    "message": "Для использования passkey необходима аутентификация. Для продолжения работы подтвердите свою личность."
   },
   "multifactorAuthenticationCancelled": {
     "message": "Многофакторная аутентификация отменена"
@@ -3000,10 +3000,36 @@
     "message": "Ошибка сохранения учетных данных. Проверьте консоль для получения подробной информации.",
     "description": "Notification message for when saving credentials has failed."
   },
+  "success": {
+    "message": "Успешно"
+  },
   "removePasskey": {
     "message": "Удалить passkey"
   },
   "passkeyRemoved": {
     "message": "Passkey удален"
+  },
+  "unassignedItemsBannerNotice": {
+    "message": "Уведомление: Неприсвоенные элементы организации больше не видны в представлении \"Все хранилища\" и доступны только через консоль администратора."
+  },
+  "unassignedItemsBannerSelfHostNotice": {
+    "message": "Уведомление: с 16 мая 2024 года не назначенные элементы организации больше не будут видны в представлении \"Все хранилища\" и будут доступны только через консоль администратора."
+  },
+  "unassignedItemsBannerCTAPartOne": {
+    "message": "Назначьте эти элементы в коллекцию из",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "unassignedItemsBannerCTAPartTwo": {
+    "message": "чтобы сделать их видимыми.",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "adminConsole": {
+    "message": "консоли администратора"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Ошибка при назначении целевой коллекции."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Ошибка при назначении целевой папки."
   }
 }

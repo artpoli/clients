@@ -167,7 +167,7 @@
     "message": "移除"
   },
   "unassigned": {
-    "message": "未分派"
+    "message": "未分配"
   },
   "noneFolder": {
     "message": "无文件夹",
@@ -579,7 +579,7 @@
     "message": "访问权限"
   },
   "accessLevel": {
-    "message": "访问级别"
+    "message": "访问权限等级"
   },
   "loggedOut": {
     "message": "已注销"
@@ -630,7 +630,7 @@
     "message": "通行密钥无效。请重试。"
   },
   "twoFactorForPasskeysNotSupportedOnClientUpdateToLogIn": {
-    "message": "不支持通行密钥 2FA。请更新 App 以登录。"
+    "message": "不支持通行密钥 2FA。请更新 App 再登录。"
   },
   "loginWithPasskeyInfo": {
     "message": "使用已生成的通行密钥，无需密码即可自动登录。生物识别（例如面部识别或指纹）或其他 FIDO2 安全方法将用于验证您的身份。"
@@ -675,7 +675,7 @@
     "message": "设置加密"
   },
   "usedForEncryption": {
-    "message": "用于加密"
+    "message": "已用于加密"
   },
   "loginWithPasskeyEnabled": {
     "message": "已启用通行密钥登录"
@@ -989,7 +989,7 @@
     "message": "选择一个您想将这些项目移至的组织。移动到组织会将这些项目的所有权转让给该组织。移动后，您将不再是这些项目的直接所有者。"
   },
   "collectionsDesc": {
-    "message": "编辑与此项目共享的集合。只有具有这些集合访问权限的组织用户才能看到此项目。"
+    "message": "编辑与其共享此项目的集合。只有具有这些集合访问权限的组织用户才能看到此项目。"
   },
   "deleteSelectedItemsDesc": {
     "message": "$COUNT$ 个项目将被发送到回收站。",
@@ -1498,7 +1498,7 @@
     "message": "排除"
   },
   "include": {
-    "message": "包括"
+    "message": "包含"
   },
   "customize": {
     "message": "自定义"
@@ -2661,7 +2661,7 @@
     "message": "外部 ID 是一个 Bitwarden 目录连接器和 API 使用的未经加密的参考。"
   },
   "nestCollectionUnder": {
-    "message": "嵌套集合在"
+    "message": "嵌套于集合下"
   },
   "accessControl": {
     "message": "访问控制"
@@ -4646,7 +4646,7 @@
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Learn more about Bitwarden Send or sign up to **try it today.**'"
   },
   "sendAccessCreatorIdentifier": {
-    "message": "Bitwarden 成员 $USER_IDENTIFIER$ 与您分享了以下内容",
+    "message": "Bitwarden 成员 $USER_IDENTIFIER$ 与您共享了以下内容",
     "placeholders": {
       "user_identifier": {
         "content": "$1",
@@ -4955,6 +4955,9 @@
   },
   "addExistingOrganization": {
     "message": "添加现有组织"
+  },
+  "addNewOrganization": {
+    "message": "添加新组织"
   },
   "myProvider": {
     "message": "我的提供商"
@@ -5582,7 +5585,7 @@
     "message": "必填"
   },
   "charactersCurrentAndMaximum": {
-    "message": "$CURRENT$ / 最多字符数 $MAX$",
+    "message": "$CURRENT$ / 最多 $MAX$ 个字符",
     "placeholders": {
       "current": {
         "content": "$1",
@@ -7393,7 +7396,7 @@
     "message": "管理组织的集合行为"
   },
   "limitCollectionCreationDeletionDesc": {
-    "message": "对所有者和管理员限制集合的创建和删除"
+    "message": "限制为仅所有者和管理员可以创建和删除集合"
   },
   "allowAdminAccessToAllCollectionItemsDesc": {
     "message": "所有者和管理员可以管理所有集合和项目"
@@ -7478,7 +7481,7 @@
     "message": "安装浏览器扩展"
   },
   "installBrowserExtensionDetails": {
-    "message": "使用扩展快速保存登录信息和自动填充表单，而无需打开网页 App。"
+    "message": "使用扩展快速保存登录信息以及自动填充表单，而无需打开网页 App。"
   },
   "projectAccessUpdated": {
     "message": "工程访问权限已更新"
@@ -7498,6 +7501,9 @@
   "collectionAccessRestricted": {
     "message": "集合访问权限受限"
   },
+  "readOnlyCollectionAccess": {
+    "message": "您没有管理此集合的权限。"
+  },
   "grantCollectionAccess": {
     "message": "授予群组或成员对此集合的访问权限。"
   },
@@ -7515,7 +7521,7 @@
     "description": "Label indicating the most common import formats"
   },
   "maintainYourSubscription": {
-    "message": "要维护 $ORG$ 的订阅，",
+    "message": "要保留 $ORG$ 的订阅，",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'",
     "placeholders": {
       "org": {
@@ -7592,13 +7598,19 @@
     "message": "欢迎使用全新改进的网页 App。了解更多有关变更的信息。"
   },
   "releaseBlog": {
-    "message": "阅读发布博客"
+    "message": "阅读发行博客"
   },
   "adminConsole": {
     "message": "管理控制台"
   },
   "providerPortal": {
     "message": "提供商门户"
+  },
+  "success": {
+    "message": "Success"
+  },
+  "viewCollection": {
+    "message": "查看集合"
   },
   "restrictedGroupAccess": {
     "message": "您不能将自己添加到群组。"
@@ -7616,7 +7628,7 @@
     "message": "分配到这些集合"
   },
   "bulkCollectionAssignmentDialogDescription": {
-    "message": "选择要共享项目的集合。当一个项目在某个集合中更新后，它将反映在所有集合中。只有能够访问这些集合的组织成员才能看到此项目。"
+    "message": "选择与其共享项目的集合。当一个项目在某个集合中更新后，它将反映到所有集合中。只有具有这些集合访问权限的组织成员才能看到这些项目。"
   },
   "selectCollectionsToAssign": {
     "message": "选择要分配的集合"
@@ -7642,5 +7654,400 @@
   },
   "items": {
     "message": "项目"
+  },
+  "assignedSeats": {
+    "message": "已分配的席位"
+  },
+  "assigned": {
+    "message": "已分配"
+  },
+  "used": {
+    "message": "已用"
+  },
+  "remaining": {
+    "message": "余额："
+  },
+  "unlinkOrganization": {
+    "message": "脱离组织"
+  },
+  "manageSeats": {
+    "message": "管理席位"
+  },
+  "manageSeatsDescription": {
+    "message": "席位的调整将反映在下一个计费周期中。"
+  },
+  "unassignedSeatsDescription": {
+    "message": "未分配的订阅席位"
+  },
+  "purchaseSeatDescription": {
+    "message": "已购买附加席位"
+  },
+  "assignedSeatCannotUpdate": {
+    "message": "无法更新已分配的席位。请联系您的组织所有者获取协助。"
+  },
+  "subscriptionUpdateFailed": {
+    "message": "订阅更新失败"
+  },
+  "trial": {
+    "message": "试用",
+    "description": "A subscription status label."
+  },
+  "pastDue": {
+    "message": "逾期未支付",
+    "description": "A subscription status label"
+  },
+  "subscriptionExpired": {
+    "message": "订阅已过期",
+    "description": "The date header used when a subscription is past due."
+  },
+  "pastDueWarningForChargeAutomatically": {
+    "message": "从您的订阅到期之日起，您有 $DAYS$ 天的宽限期来保留您的订阅。请在 $SUSPENSION_DATE$ 之前处理逾期未支付的账单。",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "11"
+      },
+      "suspension_date": {
+        "content": "$2",
+        "example": "01/10/2024"
+      }
+    },
+    "description": "A warning shown to the user when their subscription is past due and they are charged automatically."
+  },
+  "pastDueWarningForSendInvoice": {
+    "message": "从第一笔未支付的账单到期之日起，您有 $DAYS$ 天的宽限期来保留您的订阅。请在 $SUSPENSION_DATE$ 之前处理逾期未支付的账单。",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "11"
+      },
+      "suspension_date": {
+        "content": "$2",
+        "example": "01/10/2024"
+      }
+    },
+    "description": "A warning shown to the user when their subscription is past due and they pay via invoice."
+  },
+  "unpaidInvoice": {
+    "message": "未支付的账单",
+    "description": "The header of a warning box shown to a user whose subscription is unpaid."
+  },
+  "toReactivateYourSubscription": {
+    "message": "要重新激活您的订阅，请先处理逾期未支付的账单。",
+    "description": "The body of a warning box shown to a user whose subscription is unpaid."
+  },
+  "cancellationDate": {
+    "message": "取消日期",
+    "description": "The date header used when a subscription is cancelled."
+  },
+  "machineAccountsCannotCreate": {
+    "message": "无法在已停用的组织中创建机器账户。请联系您的组织所有者获取协助。"
+  },
+  "machineAccount": {
+    "message": "机器账户",
+    "description": "A machine user which can be used to automate processes and access secrets in the system."
+  },
+  "machineAccounts": {
+    "message": "机器账户",
+    "description": "The title for the section that deals with machine accounts."
+  },
+  "newMachineAccount": {
+    "message": "新增机器账户",
+    "description": "Title for creating a new machine account."
+  },
+  "machineAccountsNoItemsMessage": {
+    "message": "创建一个新的机器账户以开始使用自动机密访问。",
+    "description": "Message to encourage the user to start creating machine accounts."
+  },
+  "machineAccountsNoItemsTitle": {
+    "message": "暂无要显示的内容",
+    "description": "Title to indicate that there are no machine accounts to display."
+  },
+  "deleteMachineAccounts": {
+    "message": "删除机器账户",
+    "description": "Title for the action to delete one or multiple machine accounts."
+  },
+  "deleteMachineAccount": {
+    "message": "删除机器账户",
+    "description": "Title for the action to delete a single machine account."
+  },
+  "viewMachineAccount": {
+    "message": "查看机器账户",
+    "description": "Action to view the details of a machine account."
+  },
+  "deleteMachineAccountDialogMessage": {
+    "message": "删除机器账户 $MACHINE_ACCOUNT$ 是永久性操作，无法撤销！",
+    "placeholders": {
+      "machine_account": {
+        "content": "$1",
+        "example": "Machine account name"
+      }
+    }
+  },
+  "deleteMachineAccountsDialogMessage": {
+    "message": "删除机器账户是永久性操作，无法撤销！"
+  },
+  "deleteMachineAccountsConfirmMessage": {
+    "message": "删除 $COUNT$ 个机器账户",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "deleteMachineAccountToast": {
+    "message": "机器账户已删除"
+  },
+  "deleteMachineAccountsToast": {
+    "message": "机器账户已删除"
+  },
+  "searchMachineAccounts": {
+    "message": "搜索机器账户",
+    "description": "Placeholder text for searching machine accounts."
+  },
+  "editMachineAccount": {
+    "message": "编辑机器账户",
+    "description": "Title for editing a machine account."
+  },
+  "machineAccountName": {
+    "message": "机器账户名称",
+    "description": "Label for the name of a machine account"
+  },
+  "machineAccountCreated": {
+    "message": "机器账户已创建",
+    "description": "Notifies that a new machine account has been created"
+  },
+  "machineAccountUpdated": {
+    "message": "机器账户已更新",
+    "description": "Notifies that a machine account has been updated"
+  },
+  "projectMachineAccountsDescription": {
+    "message": "授予机器账户对此工程的访问权限。"
+  },
+  "projectMachineAccountsSelectHint": {
+    "message": "输入或选择机器账户"
+  },
+  "projectEmptyMachineAccountAccessPolicies": {
+    "message": "添加机器账户以授予访问权限"
+  },
+  "machineAccountPeopleDescription": {
+    "message": "授予群组或人员对此机器账户的访问权限。"
+  },
+  "machineAccountProjectsDescription": {
+    "message": "分配工程到此机器账户。 "
+  },
+  "createMachineAccount": {
+    "message": "创建机器账户"
+  },
+  "maPeopleWarningMessage": {
+    "message": "从机器账户中移除人员并不会移除他们已创建的访问令牌。基于安全方面的最佳做法，建议吊销从机器账户中被移除的人员创建的访问令牌。"
+  },
+  "smAccessRemovalWarningMaTitle": {
+    "message": "移除此机器账户的访问权限"
+  },
+  "smAccessRemovalWarningMaMessage": {
+    "message": "此操作将移除您对此机器账户的访问权限。"
+  },
+  "machineAccountsIncluded": {
+    "message": "包含 $COUNT$ 个机器账户",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "additionalMachineAccountCost": {
+    "message": "附加机器账户 $COST$ 每月",
+    "placeholders": {
+      "cost": {
+        "content": "$1",
+        "example": "$0.50"
+      }
+    }
+  },
+  "additionalMachineAccounts": {
+    "message": "附加机器账户"
+  },
+  "includedMachineAccounts": {
+    "message": "您的计划包含 $COUNT$ 个机器账户。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "50"
+      }
+    }
+  },
+  "addAdditionalMachineAccounts": {
+    "message": "您也可以以 $COST$ 每月购买附加机器账户。",
+    "placeholders": {
+      "cost": {
+        "content": "$1",
+        "example": "$0.50"
+      }
+    }
+  },
+  "limitMachineAccounts": {
+    "message": "限制机器账户（可选）"
+  },
+  "limitMachineAccountsDesc": {
+    "message": "为您的机器账户设置一个限制。达到此限制后，您将无法创建新的机器账户。"
+  },
+  "machineAccountLimit": {
+    "message": "机器账户限制（可选）"
+  },
+  "maxMachineAccountCost": {
+    "message": "最大潜在的机器账户费用"
+  },
+  "machineAccountAccessUpdated": {
+    "message": "机器账户访问权限已更新"
+  },
+  "restrictedGroupAccessDesc": {
+    "message": "您不能将自己添加到群组。"
+  },
+  "unassignedItemsBannerSelfHost": {
+    "message": "注意：从 2024 年 5 月 2 日起，未分配的组织项目在您所有设备的「所有密码库」视图中将不再可见，只能通过管理控制台访问。通过管理控制台将这些项目分配给集合以使其可见。"
+  },
+  "unassignedItemsBannerNotice": {
+    "message": "注意：未分配的组织项目在您所有设备的「所有密码库」视图中不再可见，现在只能通过管理控制台访问。"
+  },
+  "unassignedItemsBannerSelfHostNotice": {
+    "message": "注意：从 2024 年 5 月 2 日起，未分配的组织项目在您所有设备的「所有密码库」视图中将不再可见，只能通过管理控制台访问。"
+  },
+  "unassignedItemsBannerCTAPartOne": {
+    "message": "Assign these items to a collection from the",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "unassignedItemsBannerCTAPartTwo": {
+    "message": "以使其可见。",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "deleteProvider": {
+    "message": "删除提供商"
+  },
+  "deleteProviderConfirmation": {
+    "message": "删除提供商是永久性操作，无法撤销！输入您的主密码以确认删除提供商及所有关联的数据。"
+  },
+  "deleteProviderName": {
+    "message": "无法删除 $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "John Smith"
+      }
+    }
+  },
+  "deleteProviderWarningDesc": {
+    "message": "删除 $ID$ 之前，您必须取消链接所有的客户端。",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "John Smith"
+      }
+    }
+  },
+  "providerDeleted": {
+    "message": "提供商已删除"
+  },
+  "providerDeletedDesc": {
+    "message": "提供商和所有关联数据已被删除。"
+  },
+  "deleteProviderRecoverConfirmDesc": {
+    "message": "您已请求删除此提供商。请使用下面的按钮确认。"
+  },
+  "deleteProviderWarning": {
+    "message": "删除您的提供商是永久性操作，无法撤销！"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "分配目标集合时出错。"
+  },
+  "errorAssigningTargetFolder": {
+    "message": "分配目标文件夹时出错。"
+  },
+  "integrationsAndSdks": {
+    "message": "集成和 SDK",
+    "description": "The title for the section that deals with integrations and SDKs."
+  },
+  "integrations": {
+    "message": "集成"
+  },
+  "integrationsDesc": {
+    "message": "通过 Bitwarden 机密管理器将机密自动同步到第三方服务。"
+  },
+  "sdks": {
+    "message": "SDK"
+  },
+  "sdksDesc": {
+    "message": "使用以下编程语言的 Bitwarden 机密管理器 SDK 来构建您自己的应用程序。"
+  },
+  "setUpGithubActions": {
+    "message": "设置 Github Actions"
+  },
+  "setUpGitlabCICD": {
+    "message": "设置 GitLab CI/CD"
+  },
+  "setUpAnsible": {
+    "message": "设置 Ansible"
+  },
+  "cSharpSDKRepo": {
+    "message": "查看 C# 存储库"
+  },
+  "cPlusPlusSDKRepo": {
+    "message": "查看 C++ 存储库"
+  },
+  "jsWebAssemblySDKRepo": {
+    "message": "查看 JS WebAssembly 存储库"
+  },
+  "javaSDKRepo": {
+    "message": "查看 Java 存储库"
+  },
+  "pythonSDKRepo": {
+    "message": "查看 Python 存储库"
+  },
+  "phpSDKRepo": {
+    "message": "查看 php 存储库"
+  },
+  "rubySDKRepo": {
+    "message": "查看 Ruby 存储库"
+  },
+  "goSDKRepo": {
+    "message": "查看 Go 存储库"
+  },
+  "createNewClientToManageAsProvider": {
+    "message": "创建一个新的客户组织作为提供商来管理。附加席位将反映在下一个计费周期中。"
+  },
+  "selectAPlan": {
+    "message": "选择套餐"
+  },
+  "thirtyFivePercentDiscount": {
+    "message": "35% 折扣"
+  },
+  "monthPerMember": {
+    "message": "month per member"
+  },
+  "seats": {
+    "message": "席位"
+  },
+  "addOrganization": {
+    "message": "添加组织"
+  },
+  "createdNewClient": {
+    "message": "Successfully created new client"
+  },
+  "noAccess": {
+    "message": "暂无权限"
+  },
+  "collectionAdminConsoleManaged": {
+    "message": "此集合只能从管理控制台访问"
+  },
+  "organizationOptionsMenu": {
+    "message": "切换组织菜单"
+  },
+  "vaultItemSelect": {
+    "message": "选择密码库项目"
+  },
+  "collectionItemSelect": {
+    "message": "选择集合项目"
   }
 }

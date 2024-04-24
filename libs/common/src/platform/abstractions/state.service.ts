@@ -1,16 +1,11 @@
 import { Observable } from "rxjs";
 
-import { AdminAuthRequestStorable } from "../../auth/models/domain/admin-auth-req-storable";
 import { KdfConfig } from "../../auth/models/domain/kdf-config";
 import { BiometricKey } from "../../auth/types/biometric-key";
 import { GeneratorOptions } from "../../tools/generator/generator-options";
 import { GeneratedPasswordHistory, PasswordGeneratorOptions } from "../../tools/generator/password";
 import { UsernameGeneratorOptions } from "../../tools/generator/username";
 import { UserId } from "../../types/guid";
-import { CipherData } from "../../vault/models/data/cipher.data";
-import { LocalData } from "../../vault/models/data/local.data";
-import { CipherView } from "../../vault/models/view/cipher.view";
-import { AddEditCipherInfo } from "../../vault/types/add-edit-cipher-info";
 import { KdfType } from "../enums";
 import { Account } from "../models/domain/account";
 import { EncString } from "../models/domain/enc-string";
@@ -33,18 +28,12 @@ export type InitOptions = {
 export abstract class StateService<T extends Account = Account> {
   accounts$: Observable<{ [userId: string]: T }>;
   activeAccount$: Observable<string>;
-  /**
-   * @deprecated use accountService.activeAccount$ instead
-   */
-  activeAccountUnlocked$: Observable<boolean>;
 
   addAccount: (account: T) => Promise<void>;
   setActiveUser: (userId: string) => Promise<void>;
   clean: (options?: StorageOptions) => Promise<UserId>;
   init: (initOptions?: InitOptions) => Promise<void>;
 
-  getAddEditCipherInfo: (options?: StorageOptions) => Promise<AddEditCipherInfo>;
-  setAddEditCipherInfo: (value: AddEditCipherInfo, options?: StorageOptions) => Promise<void>;
   /**
    * Gets the user's auto key
    */
@@ -86,6 +75,13 @@ export abstract class StateService<T extends Account = Account> {
    */
   setPinKeyEncryptedUserKeyEphemeral: (value: EncString, options?: StorageOptions) => Promise<void>;
   /**
+   * @deprecated For backwards compatible purposes only, use DesktopAutofillSettingsService
+   */
+  setEnableDuckDuckGoBrowserIntegration: (
+    value: boolean,
+    options?: StorageOptions,
+  ) => Promise<void>;
+  /**
    * @deprecated For migration purposes only, use getUserKeyMasterKey instead
    */
   getEncryptedCryptoSymmetricKey: (options?: StorageOptions) => Promise<string>;
@@ -109,8 +105,6 @@ export abstract class StateService<T extends Account = Account> {
    * @deprecated For migration purposes only, use setUserKeyBiometric instead
    */
   setCryptoMasterKeyBiometric: (value: BiometricKey, options?: StorageOptions) => Promise<void>;
-  getDecryptedCiphers: (options?: StorageOptions) => Promise<CipherView[]>;
-  setDecryptedCiphers: (value: CipherView[], options?: StorageOptions) => Promise<void>;
   getDecryptedPasswordGenerationHistory: (
     options?: StorageOptions,
   ) => Promise<GeneratedPasswordHistory[]>;
@@ -128,11 +122,6 @@ export abstract class StateService<T extends Account = Account> {
   setDecryptedPinProtected: (value: EncString, options?: StorageOptions) => Promise<void>;
   getDuckDuckGoSharedKey: (options?: StorageOptions) => Promise<string>;
   setDuckDuckGoSharedKey: (value: string, options?: StorageOptions) => Promise<void>;
-  getAdminAuthRequest: (options?: StorageOptions) => Promise<AdminAuthRequestStorable | null>;
-  setAdminAuthRequest: (
-    adminAuthRequest: AdminAuthRequestStorable,
-    options?: StorageOptions,
-  ) => Promise<void>;
   getEmail: (options?: StorageOptions) => Promise<string>;
   setEmail: (value: string, options?: StorageOptions) => Promise<void>;
   getEmailVerified: (options?: StorageOptions) => Promise<boolean>;
@@ -142,11 +131,6 @@ export abstract class StateService<T extends Account = Account> {
   getEnableBrowserIntegrationFingerprint: (options?: StorageOptions) => Promise<boolean>;
   setEnableBrowserIntegrationFingerprint: (
     value: boolean,
-    options?: StorageOptions,
-  ) => Promise<void>;
-  getEncryptedCiphers: (options?: StorageOptions) => Promise<{ [id: string]: CipherData }>;
-  setEncryptedCiphers: (
-    value: { [id: string]: CipherData },
     options?: StorageOptions,
   ) => Promise<void>;
   getEncryptedPasswordGenerationHistory: (
@@ -164,8 +148,6 @@ export abstract class StateService<T extends Account = Account> {
    * @deprecated For migration purposes only, use setEncryptedUserKeyPin instead
    */
   setEncryptedPinProtected: (value: string, options?: StorageOptions) => Promise<void>;
-  getEverBeenUnlocked: (options?: StorageOptions) => Promise<boolean>;
-  setEverBeenUnlocked: (value: boolean, options?: StorageOptions) => Promise<void>;
   getIsAuthenticated: (options?: StorageOptions) => Promise<boolean>;
   getKdfConfig: (options?: StorageOptions) => Promise<KdfConfig>;
   setKdfConfig: (kdfConfig: KdfConfig, options?: StorageOptions) => Promise<void>;
@@ -175,11 +157,6 @@ export abstract class StateService<T extends Account = Account> {
   setLastActive: (value: number, options?: StorageOptions) => Promise<void>;
   getLastSync: (options?: StorageOptions) => Promise<string>;
   setLastSync: (value: string, options?: StorageOptions) => Promise<void>;
-  getLocalData: (options?: StorageOptions) => Promise<{ [cipherId: string]: LocalData }>;
-  setLocalData: (
-    value: { [cipherId: string]: LocalData },
-    options?: StorageOptions,
-  ) => Promise<void>;
   getMinimizeOnCopyToClipboard: (options?: StorageOptions) => Promise<boolean>;
   setMinimizeOnCopyToClipboard: (value: boolean, options?: StorageOptions) => Promise<void>;
   getOrganizationInvitation: (options?: StorageOptions) => Promise<any>;
@@ -204,14 +181,10 @@ export abstract class StateService<T extends Account = Account> {
    * Sets the user's Pin, encrypted by the user key
    */
   setProtectedPin: (value: string, options?: StorageOptions) => Promise<void>;
-  getSecurityStamp: (options?: StorageOptions) => Promise<string>;
-  setSecurityStamp: (value: string, options?: StorageOptions) => Promise<void>;
   getUserId: (options?: StorageOptions) => Promise<string>;
   getVaultTimeout: (options?: StorageOptions) => Promise<number>;
   setVaultTimeout: (value: number, options?: StorageOptions) => Promise<void>;
   getVaultTimeoutAction: (options?: StorageOptions) => Promise<string>;
   setVaultTimeoutAction: (value: string, options?: StorageOptions) => Promise<void>;
-  getApproveLoginRequests: (options?: StorageOptions) => Promise<boolean>;
-  setApproveLoginRequests: (value: boolean, options?: StorageOptions) => Promise<void>;
   nextUpActiveUser: () => Promise<UserId>;
 }

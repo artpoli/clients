@@ -404,7 +404,7 @@
     "message": "Panjang"
   },
   "passwordMinLength": {
-    "message": "Minimum password length"
+    "message": "Panjang kata sandi minimum"
   },
   "uppercase": {
     "message": "Huruf Kapital (A-Z)"
@@ -545,7 +545,7 @@
     "message": "Diperlukan pengetikan ulang kata sandi utama."
   },
   "masterPasswordMinlength": {
-    "message": "Master password must be at least $VALUE$ characters long.",
+    "message": "Kata sandi utama minimal harus $VALUE$ karakter.",
     "description": "The Master Password must be at least a specific number of characters long.",
     "placeholders": {
       "value": {
@@ -561,7 +561,7 @@
     "message": "Akun baru Anda telah dibuat! Sekarang Anda bisa masuk."
   },
   "youSuccessfullyLoggedIn": {
-    "message": "You successfully logged in"
+    "message": "Anda berhasil masuk"
   },
   "youMayCloseThisWindow": {
     "message": "You may close this window"
@@ -800,8 +800,11 @@
   "changeMasterPass": {
     "message": "Ubah Kata Sandi Utama"
   },
-  "changeMasterPasswordConfirmation": {
-    "message": "Anda dapat mengubah kata sandi utama Anda di brankas web bitwarden.com. Anda ingin mengunjungi situs web sekarang?"
+  "continueToWebApp": {
+    "message": "Lanjutkan ke aplikasi web?"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "Anda bisa mengganti kata sandi utama Anda di aplikasi web Bitwarden."
   },
   "fingerprintPhrase": {
     "message": "Frase Fingerprint",
@@ -1628,6 +1631,12 @@
   },
   "browserIntegrationUnsupportedTitle": {
     "message": "Integrasi browser tidak didukung"
+  },
+  "browserIntegrationErrorTitle": {
+    "message": "Error enabling browser integration"
+  },
+  "browserIntegrationErrorDesc": {
+    "message": "An error has occurred while enabling browser integration."
   },
   "browserIntegrationMasOnlyDesc": {
     "message": "Sayangnya integrasi browser hanya didukung di versi Mac App Store untuk saat ini."
@@ -2688,6 +2697,9 @@
     "message": "Common formats",
     "description": "Label indicating the most common import formats"
   },
+  "success": {
+    "message": "Success"
+  },
   "troubleshooting": {
     "message": "Troubleshooting"
   },
@@ -2702,5 +2714,11 @@
   },
   "passkeyRemoved": {
     "message": "Passkey removed"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Error assigning target collection."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Error assigning target folder."
   }
 }

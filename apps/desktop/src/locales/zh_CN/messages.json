@@ -800,8 +800,11 @@
   "changeMasterPass": {
     "message": "修改主密码"
   },
-  "changeMasterPasswordConfirmation": {
-    "message": "您可以在 bitwarden.com 网页密码库修改您的主密码。现在要访问吗？"
+  "continueToWebApp": {
+    "message": "前往网页 App 吗？"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "您可以在 Bitwarden 网页应用上更改您的主密码。"
   },
   "fingerprintPhrase": {
     "message": "指纹短语",
@@ -1629,6 +1632,12 @@
   "browserIntegrationUnsupportedTitle": {
     "message": "不支持浏览器集成"
   },
+  "browserIntegrationErrorTitle": {
+    "message": "启用浏览器集成时出错"
+  },
+  "browserIntegrationErrorDesc": {
+    "message": "启用浏览器集成时出错。"
+  },
   "browserIntegrationMasOnlyDesc": {
     "message": "很遗憾，目前仅 Mac App Store 版本支持浏览器集成。"
   },
@@ -1907,7 +1916,7 @@
     "message": "无法完成生物识别。"
   },
   "needADifferentMethod": {
-    "message": "Need a different method?"
+    "message": "使用其他方式？"
   },
   "useMasterPassword": {
     "message": "使用主密码"
@@ -2688,6 +2697,9 @@
     "message": "常规格式",
     "description": "Label indicating the most common import formats"
   },
+  "success": {
+    "message": "Success"
+  },
   "troubleshooting": {
     "message": "故障排除"
   },
@@ -2702,5 +2714,11 @@
   },
   "passkeyRemoved": {
     "message": "通行密钥已移除"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "分配目标集合时出错。"
+  },
+  "errorAssigningTargetFolder": {
+    "message": "分配目标文件夹时出错。"
   }
 }

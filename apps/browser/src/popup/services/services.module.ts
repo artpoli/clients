@@ -1,7 +1,6 @@
 import { APP_INITIALIZER, NgModule, NgZone } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
+import { Subject, merge } from "rxjs";
 
 import { UnauthGuard as BaseUnauthGuardService } from "@bitwarden/angular/auth/guards";
 import { AngularThemingService } from "@bitwarden/angular/platform/services/theming/angular-theming.service";
@@ -13,6 +12,7 @@ import {
   OBSERVABLE_MEMORY_STORAGE,
   SYSTEM_THEME_OBSERVABLE,
   SafeInjectionToken,
+  INTRAPROCESS_MESSAGING_SUBJECT,
 } from "@bitwarden/angular/services/injection-tokens";
 import { JslibServicesModule } from "@bitwarden/angular/services/jslib-services.module";
 import {
@@ -56,7 +56,6 @@ import { EnvironmentService } from "@bitwarden/common/platform/abstractions/envi
 import { FileDownloadService } from "@bitwarden/common/platform/abstractions/file-download/file-download.service";
 import { I18nService as I18nServiceAbstraction } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
-import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService as BaseStateServiceAbstraction } from "@bitwarden/common/platform/abstractions/state.service";
 import {
@@ -65,10 +64,14 @@ import {
   ObservableStorageService,
 } from "@bitwarden/common/platform/abstractions/storage.service";
 import { StateFactory } from "@bitwarden/common/platform/factories/state-factory";
+import { Message, MessageListener, MessageSender } from "@bitwarden/common/platform/messaging";
+// eslint-disable-next-line no-restricted-imports -- Used for dependency injection
+import { SubjectMessageSender } from "@bitwarden/common/platform/messaging/internal";
 import { GlobalState } from "@bitwarden/common/platform/models/domain/global-state";
 import { ConsoleLogService } from "@bitwarden/common/platform/services/console-log.service";
 import { ContainerService } from "@bitwarden/common/platform/services/container.service";
 import { MigrationRunner } from "@bitwarden/common/platform/services/migration-runner";
+import { StorageServiceProvider } from "@bitwarden/common/platform/services/storage-service.provider";
 import { WebCryptoFunctionService } from "@bitwarden/common/platform/services/web-crypto-function.service";
 import {
   DerivedStateProvider,
@@ -83,7 +86,7 @@ import { FolderService as FolderServiceAbstraction } from "@bitwarden/common/vau
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
 import { TotpService as TotpServiceAbstraction } from "@bitwarden/common/vault/abstractions/totp.service";
 import { TotpService } from "@bitwarden/common/vault/services/totp.service";
-import { DialogService } from "@bitwarden/components";
+import { DialogService, ToastService } from "@bitwarden/components";
 
 import { UnauthGuardService } from "../../auth/popup/services";
 import { AutofillService as AutofillServiceAbstraction } from "../../autofill/services/abstractions/autofill.service";
@@ -91,18 +94,24 @@ import AutofillService from "../../autofill/services/autofill.service";
 import MainBackground from "../../background/main.background";
 import { Account } from "../../models/account";
 import { BrowserApi } from "../../platform/browser/browser-api";
+import { runInsideAngular } from "../../platform/browser/run-inside-angular.operator";
+/* eslint-disable no-restricted-imports */
+import { ChromeMessageSender } from "../../platform/messaging/chrome-message.sender";
+/* eslint-enable no-restricted-imports */
 import BrowserPopupUtils from "../../platform/popup/browser-popup-utils";
 import { BrowserFileDownloadService } from "../../platform/popup/services/browser-file-download.service";
 import { BrowserStateService as StateServiceAbstraction } from "../../platform/services/abstractions/browser-state.service";
+import { ScriptInjectorService } from "../../platform/services/abstractions/script-injector.service";
 import { BrowserEnvironmentService } from "../../platform/services/browser-environment.service";
 import BrowserLocalStorageService from "../../platform/services/browser-local-storage.service";
-import BrowserMessagingPrivateModePopupService from "../../platform/services/browser-messaging-private-mode-popup.service";
-import BrowserMessagingService from "../../platform/services/browser-messaging.service";
+import { BrowserScriptInjectorService } from "../../platform/services/browser-script-injector.service";
 import { DefaultBrowserStateService } from "../../platform/services/default-browser-state.service";
 import I18nService from "../../platform/services/i18n.service";
 import { ForegroundPlatformUtilsService } from "../../platform/services/platform-utils/foreground-platform-utils.service";
 import { ForegroundDerivedStateProvider } from "../../platform/state/foreground-derived-state.provider";
+import { BrowserStorageServiceProvider } from "../../platform/storage/browser-storage-service.provider";
 import { ForegroundMemoryStorageService } from "../../platform/storage/foreground-memory-storage.service";
+import { fromChromeRuntimeMessaging } from "../../platform/utils/from-chrome-runtime-messaging";
 import { BrowserSendStateService } from "../../tools/popup/services/browser-send-state.service";
 import { FilePopoutUtilsService } from "../../tools/popup/services/file-popout-utils.service";
 import { VaultBrowserStateService } from "../../vault/services/vault-browser-state.service";
@@ -113,6 +122,10 @@ import { InitService } from "./init.service";
 import { PopupCloseWarningService } from "./popup-close-warning.service";
 import { PopupSearchService } from "./popup-search.service";
 
+const OBSERVABLE_LARGE_OBJECT_MEMORY_STORAGE = new SafeInjectionToken<
+  AbstractStorageService & ObservableStorageService
+>("OBSERVABLE_LARGE_OBJECT_MEMORY_STORAGE");
+
 const needsBackgroundInit = BrowserPopupUtils.backgroundInitializationRequired();
 const isPrivateMode = BrowserPopupUtils.inPrivateMode();
 const mainBackground: MainBackground = needsBackgroundInit
@@ -120,7 +133,7 @@ const mainBackground: MainBackground = needsBackgroundInit
   : BrowserApi.getBackgroundPage().bitwardenMain;
 
 function createLocalBgService() {
-  const localBgService = new MainBackground(isPrivateMode);
+  const localBgService = new MainBackground(isPrivateMode, true);
   // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
   localBgService.bootstrap();
@@ -154,15 +167,6 @@ const safeProviders: SafeProvider[] = [
     provide: BaseUnauthGuardService,
     useClass: UnauthGuardService,
     deps: [AuthServiceAbstraction, Router],
-  }),
-  safeProvider({
-    provide: MessagingService,
-    useFactory: () => {
-      return needsBackgroundInit && BrowserApi.isManifestVersion(2)
-        ? new BrowserMessagingPrivateModePopupService()
-        : new BrowserMessagingService();
-    },
-    deps: [],
   }),
   safeProvider({
     provide: TwoFactorService,
@@ -257,15 +261,9 @@ const safeProviders: SafeProvider[] = [
   }),
   safeProvider({
     provide: PlatformUtilsService,
-    useExisting: ForegroundPlatformUtilsService,
-  }),
-  safeProvider({
-    provide: ForegroundPlatformUtilsService,
-    useClass: ForegroundPlatformUtilsService,
-    useFactory: (sanitizer: DomSanitizer, toastrService: ToastrService) => {
+    useFactory: (toastService: ToastService) => {
       return new ForegroundPlatformUtilsService(
-        sanitizer,
-        toastrService,
+        toastService,
         (clipboardValue: string, clearMs: number) => {
           void BrowserApi.sendMessage("clearClipboard", { clipboardValue, clearMs });
         },
@@ -282,7 +280,7 @@ const safeProviders: SafeProvider[] = [
         window,
       );
     },
-    deps: [DomSanitizer, ToastrService],
+    deps: [ToastService],
   }),
   safeProvider({
     provide: PasswordGenerationServiceAbstraction,
@@ -319,7 +317,14 @@ const safeProviders: SafeProvider[] = [
       DomainSettingsService,
       UserVerificationService,
       BillingAccountProfileStateService,
+      ScriptInjectorService,
+      AccountServiceAbstraction,
     ],
+  }),
+  safeProvider({
+    provide: ScriptInjectorService,
+    useClass: BrowserScriptInjectorService,
+    deps: [],
   }),
   safeProvider({
     provide: KeyConnectorService,
@@ -380,6 +385,21 @@ const safeProviders: SafeProvider[] = [
       )();
     },
     deps: [],
+  }),
+  safeProvider({
+    provide: OBSERVABLE_LARGE_OBJECT_MEMORY_STORAGE,
+    useFactory: (
+      regularMemoryStorageService: AbstractMemoryStorageService & ObservableStorageService,
+    ) => {
+      if (BrowserApi.isManifestVersion(2)) {
+        return regularMemoryStorageService;
+      }
+
+      return getBgService<AbstractStorageService & ObservableStorageService>(
+        "largeObjectMemoryStorageForStateProviders",
+      )();
+    },
+    deps: [OBSERVABLE_MEMORY_STORAGE],
   }),
   safeProvider({
     provide: OBSERVABLE_DISK_STORAGE,
@@ -467,7 +487,7 @@ const safeProviders: SafeProvider[] = [
   safeProvider({
     provide: DerivedStateProvider,
     useClass: ForegroundDerivedStateProvider,
-    deps: [OBSERVABLE_MEMORY_STORAGE, NgZone],
+    deps: [StorageServiceProvider, NgZone],
   }),
   safeProvider({
     provide: AutofillSettingsServiceAbstraction,
@@ -483,6 +503,74 @@ const safeProviders: SafeProvider[] = [
     provide: BrowserSendStateService,
     useClass: BrowserSendStateService,
     deps: [StateProvider],
+  }),
+  safeProvider({
+    provide: MessageListener,
+    useFactory: (subject: Subject<Message<object>>, ngZone: NgZone) =>
+      new MessageListener(
+        merge(
+          subject.asObservable(), // For messages in the same context
+          fromChromeRuntimeMessaging().pipe(runInsideAngular(ngZone)), // For messages in the same context
+        ),
+      ),
+    deps: [INTRAPROCESS_MESSAGING_SUBJECT, NgZone],
+  }),
+  safeProvider({
+    provide: MessageSender,
+    useFactory: (subject: Subject<Message<object>>, logService: LogService) =>
+      MessageSender.combine(
+        new SubjectMessageSender(subject), // For sending messages in the same context
+        new ChromeMessageSender(logService), // For sending messages to different contexts
+      ),
+    deps: [INTRAPROCESS_MESSAGING_SUBJECT, LogService],
+  }),
+  safeProvider({
+    provide: INTRAPROCESS_MESSAGING_SUBJECT,
+    useFactory: () => {
+      if (BrowserPopupUtils.backgroundInitializationRequired()) {
+        // There is no persistent main background which means we have one in memory,
+        // we need the same instance that our in memory background is utilizing.
+        return getBgService("intraprocessMessagingSubject")();
+      } else {
+        return new Subject<Message<object>>();
+      }
+    },
+    deps: [],
+  }),
+  safeProvider({
+    provide: MessageSender,
+    useFactory: (subject: Subject<Message<object>>, logService: LogService) =>
+      MessageSender.combine(
+        new SubjectMessageSender(subject), // For sending messages in the same context
+        new ChromeMessageSender(logService), // For sending messages to different contexts
+      ),
+    deps: [INTRAPROCESS_MESSAGING_SUBJECT, LogService],
+  }),
+  safeProvider({
+    provide: INTRAPROCESS_MESSAGING_SUBJECT,
+    useFactory: () => {
+      if (needsBackgroundInit) {
+        // We will have created a popup within this context, in that case
+        // we want to make sure we have the same subject as that context so we
+        // can message with it.
+        return getBgService("intraprocessMessagingSubject")();
+      } else {
+        // There isn't a locally created background so we will communicate with
+        // the true background through chrome apis, in that case, we can just create
+        // one for ourself.
+        return new Subject<Message<object>>();
+      }
+    },
+    deps: [],
+  }),
+  safeProvider({
+    provide: StorageServiceProvider,
+    useClass: BrowserStorageServiceProvider,
+    deps: [
+      OBSERVABLE_DISK_STORAGE,
+      OBSERVABLE_MEMORY_STORAGE,
+      OBSERVABLE_LARGE_OBJECT_MEMORY_STORAGE,
+    ],
   }),
 ];
 

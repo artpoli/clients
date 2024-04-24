@@ -1,6 +1,8 @@
 import { mock } from "jest-mock-extended";
 import { of } from "rxjs";
 
+import { FakeAccountService, mockAccountServiceWith } from "../../../spec/fake-account-service";
+import { FakeStateProvider } from "../../../spec/fake-state-provider";
 import { makeStaticByteArray } from "../../../spec/utils";
 import { ApiService } from "../../abstractions/api.service";
 import { SearchService } from "../../abstractions/search.service";
@@ -12,10 +14,12 @@ import { CryptoService } from "../../platform/abstractions/crypto.service";
 import { EncryptService } from "../../platform/abstractions/encrypt.service";
 import { I18nService } from "../../platform/abstractions/i18n.service";
 import { StateService } from "../../platform/abstractions/state.service";
+import { Utils } from "../../platform/misc/utils";
 import { EncArrayBuffer } from "../../platform/models/domain/enc-array-buffer";
 import { EncString } from "../../platform/models/domain/enc-string";
 import { SymmetricCryptoKey } from "../../platform/models/domain/symmetric-crypto-key";
 import { ContainerService } from "../../platform/services/container.service";
+import { UserId } from "../../types/guid";
 import { CipherKey, OrgKey } from "../../types/key";
 import { CipherFileUploadService } from "../abstractions/file-upload/cipher-file-upload.service";
 import { FieldType } from "../enums";
@@ -97,6 +101,8 @@ const cipherData: CipherData = {
     },
   ],
 };
+const mockUserId = Utils.newGuid() as UserId;
+let accountService: FakeAccountService;
 
 describe("Cipher Service", () => {
   const cryptoService = mock<CryptoService>();
@@ -109,6 +115,8 @@ describe("Cipher Service", () => {
   const searchService = mock<SearchService>();
   const encryptService = mock<EncryptService>();
   const configService = mock<ConfigService>();
+  accountService = mockAccountServiceWith(mockUserId);
+  const stateProvider = new FakeStateProvider(accountService);
 
   let cipherService: CipherService;
   let cipherObj: Cipher;
@@ -130,6 +138,7 @@ describe("Cipher Service", () => {
       encryptService,
       cipherFileUploadService,
       configService,
+      stateProvider,
     );
 
     cipherObj = new Cipher(cipherData);
@@ -165,23 +174,20 @@ describe("Cipher Service", () => {
     it("should call apiService.postCipherAdmin when orgAdmin param is true and the cipher orgId != null", async () => {
       const spy = jest
         .spyOn(apiService, "postCipherAdmin")
-        .mockImplementation(() => Promise.resolve<any>(cipherObj));
-      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      cipherService.createWithServer(cipherObj, true);
+        .mockImplementation(() => Promise.resolve<any>(cipherObj.toCipherData()));
+      await cipherService.createWithServer(cipherObj, true);
       const expectedObj = new CipherCreateRequest(cipherObj);
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith(expectedObj);
     });
+
     it("should call apiService.postCipher when orgAdmin param is true and the cipher orgId is null", async () => {
       cipherObj.organizationId = null;
       const spy = jest
         .spyOn(apiService, "postCipher")
-        .mockImplementation(() => Promise.resolve<any>(cipherObj));
-      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      cipherService.createWithServer(cipherObj, true);
+        .mockImplementation(() => Promise.resolve<any>(cipherObj.toCipherData()));
+      await cipherService.createWithServer(cipherObj, true);
       const expectedObj = new CipherRequest(cipherObj);
 
       expect(spy).toHaveBeenCalled();
@@ -192,10 +198,8 @@ describe("Cipher Service", () => {
       cipherObj.collectionIds = ["123"];
       const spy = jest
         .spyOn(apiService, "postCipherCreate")
-        .mockImplementation(() => Promise.resolve<any>(cipherObj));
-      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      cipherService.createWithServer(cipherObj);
+        .mockImplementation(() => Promise.resolve<any>(cipherObj.toCipherData()));
+      await cipherService.createWithServer(cipherObj);
       const expectedObj = new CipherCreateRequest(cipherObj);
 
       expect(spy).toHaveBeenCalled();
@@ -205,10 +209,8 @@ describe("Cipher Service", () => {
     it("should call apiService.postCipher when orgAdmin and collectionIds logic is false", async () => {
       const spy = jest
         .spyOn(apiService, "postCipher")
-        .mockImplementation(() => Promise.resolve<any>(cipherObj));
-      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      cipherService.createWithServer(cipherObj);
+        .mockImplementation(() => Promise.resolve<any>(cipherObj.toCipherData()));
+      await cipherService.createWithServer(cipherObj);
       const expectedObj = new CipherRequest(cipherObj);
 
       expect(spy).toHaveBeenCalled();
@@ -220,10 +222,8 @@ describe("Cipher Service", () => {
     it("should call apiService.putCipherAdmin when orgAdmin and isNotClone params are true", async () => {
       const spy = jest
         .spyOn(apiService, "putCipherAdmin")
-        .mockImplementation(() => Promise.resolve<any>(cipherObj));
-      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      cipherService.updateWithServer(cipherObj, true, true);
+        .mockImplementation(() => Promise.resolve<any>(cipherObj.toCipherData()));
+      await cipherService.updateWithServer(cipherObj, true, true);
       const expectedObj = new CipherRequest(cipherObj);
 
       expect(spy).toHaveBeenCalled();
@@ -234,10 +234,8 @@ describe("Cipher Service", () => {
       cipherObj.edit = true;
       const spy = jest
         .spyOn(apiService, "putCipher")
-        .mockImplementation(() => Promise.resolve<any>(cipherObj));
-      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      cipherService.updateWithServer(cipherObj);
+        .mockImplementation(() => Promise.resolve<any>(cipherObj.toCipherData()));
+      await cipherService.updateWithServer(cipherObj);
       const expectedObj = new CipherRequest(cipherObj);
 
       expect(spy).toHaveBeenCalled();
@@ -248,10 +246,8 @@ describe("Cipher Service", () => {
       cipherObj.edit = false;
       const spy = jest
         .spyOn(apiService, "putPartialCipher")
-        .mockImplementation(() => Promise.resolve<any>(cipherObj));
-      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      cipherService.updateWithServer(cipherObj);
+        .mockImplementation(() => Promise.resolve<any>(cipherObj.toCipherData()));
+      await cipherService.updateWithServer(cipherObj);
       const expectedObj = new CipherPartialRequest(cipherObj);
 
       expect(spy).toHaveBeenCalled();

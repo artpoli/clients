@@ -3,12 +3,12 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden – Bezplatný správce hesel",
+    "message": "Bitwarden Password Manager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "Bezpečný a bezplatný správce hesel pro všechna Vaše zařízení.",
-    "description": "Extension description"
+    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
     "message": "Pro přístup do Vašeho bezpečného trezoru se přihlaste nebo si vytvořte nový účet."
@@ -171,6 +171,12 @@
   },
   "changeMasterPassword": {
     "message": "Změnit hlavní heslo"
+  },
+  "continueToWebApp": {
+    "message": "Pokračovat do webové aplikace?"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "Hlavní heslo můžete změnit ve webové aplikaci Bitwardenu."
   },
   "fingerprintPhrase": {
     "message": "Fráze otisku prstu",
@@ -556,12 +562,6 @@
   },
   "addedFolder": {
     "message": "Složka byla přidána"
-  },
-  "changeMasterPass": {
-    "message": "Změnit hlavní heslo"
-  },
-  "changeMasterPasswordConfirmation": {
-    "message": "Hlavní heslo si můžete změnit na webové stránce bitwarden.com. Chcete tuto stránku nyní otevřít?"
   },
   "twoStepLoginConfirmation": {
     "message": "Dvoufázové přihlášení činí Váš účet mnohem bezpečnějším díky nutnosti po každém úspěšném přihlášení zadat ověřovací kód získaný z bezpečnostního klíče, aplikace, SMS, telefonního hovoru nebo e-mailu. Dvoufázové přihlášení lze aktivovat na webové stránce bitwarden.com. Chcete tuto stránku nyní otevřít?"
@@ -3000,10 +3000,36 @@
     "message": "Chyba při ukládání přihlašovacích údajů. Podrobnosti naleznete v konzoli.",
     "description": "Notification message for when saving credentials has failed."
   },
+  "success": {
+    "message": "Úspěch"
+  },
   "removePasskey": {
     "message": "Odebrat přístupový klíč"
   },
   "passkeyRemoved": {
     "message": "Přístupový klíč byl odebrán"
+  },
+  "unassignedItemsBannerNotice": {
+    "message": "Upozornění: Nepřiřazené položky organizace již nejsou viditelné ve vašem zobrazení všech trezorů a jsou nyní přístupné pouze v konzoli správce."
+  },
+  "unassignedItemsBannerSelfHostNotice": {
+    "message": "Upozornění: 16. květba 2024 již nebudou nepřiřazené položky organizace viditelné ve vašem zobrazení všech trezorů a budou přístupné pouze v konzoli správce."
+  },
+  "unassignedItemsBannerCTAPartOne": {
+    "message": "Přiřadit tyto položky ke kolekci z",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "unassignedItemsBannerCTAPartTwo": {
+    "message": "aby byly viditelné.",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "adminConsole": {
+    "message": "Konzole správce"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Chyba při přiřazování cílové kolekce."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Chyba při přiřazování cílové složky."
   }
 }

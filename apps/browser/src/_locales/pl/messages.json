@@ -3,12 +3,12 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden - darmowy menedżer haseł",
+    "message": "Menedżer Haseł Bitwarden",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "Bezpieczny i darmowy menedżer haseł dla wszystkich Twoich urządzeń.",
-    "description": "Extension description"
+    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
     "message": "Zaloguj się lub utwórz nowe konto, aby uzyskać dostęp do Twojego bezpiecznego sejfu."
@@ -171,6 +171,12 @@
   },
   "changeMasterPassword": {
     "message": "Zmień hasło główne"
+  },
+  "continueToWebApp": {
+    "message": "Kontynuować do aplikacji internetowej?"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "Możesz zmienić swoje hasło główne w aplikacji internetowej Bitwarden."
   },
   "fingerprintPhrase": {
     "message": "Unikalny identyfikator konta",
@@ -556,12 +562,6 @@
   },
   "addedFolder": {
     "message": "Folder został dodany"
-  },
-  "changeMasterPass": {
-    "message": "Zmień hasło główne"
-  },
-  "changeMasterPasswordConfirmation": {
-    "message": "Hasło główne możesz zmienić na stronie sejfu bitwarden.com. Czy chcesz przejść do tej strony?"
   },
   "twoStepLoginConfirmation": {
     "message": "Logowanie dwustopniowe sprawia, że konto jest bardziej bezpieczne poprzez wymuszenie potwierdzenia logowania z innego urządzenia, takiego jak z klucza bezpieczeństwa, aplikacji uwierzytelniającej, wiadomości SMS, telefonu lub adresu e-mail. Logowanie dwustopniowe możesz włączyć w sejfie internetowym bitwarden.com. Czy chcesz przejść do tej strony?"
@@ -2709,7 +2709,7 @@
     "message": "Otwórz rozszerzenie w nowym oknie, aby dokończyć logowanie."
   },
   "popoutExtension": {
-    "message": "Popout extension"
+    "message": "Otwórz rozszerzenie w nowym oknie"
   },
   "launchDuo": {
     "message": "Uruchom DUO"
@@ -2822,7 +2822,7 @@
     "message": "Wybierz dane logowania do których przypisać passkey"
   },
   "passkeyItem": {
-    "message": "Passkey Item"
+    "message": "Element Passkey"
   },
   "overwritePasskey": {
     "message": "Zastąpić passkey?"
@@ -3000,10 +3000,36 @@
     "message": "Błąd podczas zapisywania danych logowania. Sprawdź konsolę, aby uzyskać szczegóły.",
     "description": "Notification message for when saving credentials has failed."
   },
+  "success": {
+    "message": "Sukces"
+  },
   "removePasskey": {
     "message": "Usuń passkey"
   },
   "passkeyRemoved": {
     "message": "Passkey został usunięty"
+  },
+  "unassignedItemsBannerNotice": {
+    "message": "Uwaga: Nieprzypisane elementy organizacji nie są już widoczne w widoku Wszystkie sejfy i są teraz dostępne tylko przez Konsolę Administracyjną."
+  },
+  "unassignedItemsBannerSelfHostNotice": {
+    "message": "Uwaga: 16 maja 2024 r. nieprzypisana elementy w organizacji nie będą już widoczne w widoku Wszystkie sejfy i będą dostępne tylko przez Konsolę Administracyjną."
+  },
+  "unassignedItemsBannerCTAPartOne": {
+    "message": "Przypisz te elementy do kolekcji z",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "unassignedItemsBannerCTAPartTwo": {
+    "message": ", aby były widoczne.",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "adminConsole": {
+    "message": "Konsola Administracyjna"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Wystąpił błąd podczas przypisywania kolekcji."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Wystąpił błąd podczas przypisywania folderu."
   }
 }

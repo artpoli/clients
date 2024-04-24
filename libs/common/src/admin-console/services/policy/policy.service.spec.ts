@@ -32,7 +32,8 @@ describe("PolicyService", () => {
     organizationService = mock<OrganizationService>();
 
     activeUserState = stateProvider.activeUser.getFake(POLICIES);
-    organizationService.organizations$ = of([
+
+    const organizations$ = of([
       // User
       organization("org1", true, true, OrganizationUserStatusType.Confirmed, false),
       // Owner
@@ -50,7 +51,13 @@ describe("PolicyService", () => {
       organization("org4", true, true, OrganizationUserStatusType.Confirmed, false),
       // Another User
       organization("org5", true, true, OrganizationUserStatusType.Confirmed, false),
+      // Can manage policies
+      organization("org6", true, true, OrganizationUserStatusType.Confirmed, true),
     ]);
+
+    organizationService.organizations$ = organizations$;
+
+    organizationService.getAll$.mockReturnValue(organizations$);
 
     policyService = new PolicyService(stateProvider, organizationService);
   });
@@ -252,6 +259,22 @@ describe("PolicyService", () => {
       );
 
       expect(result).toBeNull();
+    });
+
+    it.each([
+      ["owners", "org2"],
+      ["administrators", "org6"],
+    ])("returns the password generator policy for %s", async (_, organization) => {
+      activeUserState.nextState(
+        arrayToRecord([
+          policyData("policy1", "org1", PolicyType.ActivateAutofill, false),
+          policyData("policy2", organization, PolicyType.PasswordGenerator, true),
+        ]),
+      );
+
+      const result = await firstValueFrom(policyService.get$(PolicyType.PasswordGenerator));
+
+      expect(result).toBeTruthy();
     });
 
     it("does not return policies for organizations that do not use policies", async () => {

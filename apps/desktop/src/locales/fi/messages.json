@@ -800,8 +800,11 @@
   "changeMasterPass": {
     "message": "Vaihda pääsalasana"
   },
-  "changeMasterPasswordConfirmation": {
-    "message": "Voit vaihtaa pääsalasanasi bitwarden.com-verkkoholvissa. Haluatko käydä sivustolla nyt?"
+  "continueToWebApp": {
+    "message": "Avataanko verkkosovellus?"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "Voit vaihtaa pääsalasanasi Bitwardenin verkkosovelluksessa."
   },
   "fingerprintPhrase": {
     "message": "Tunnistelauseke",
@@ -1628,6 +1631,12 @@
   },
   "browserIntegrationUnsupportedTitle": {
     "message": "Selainintegraatiota ei tueta"
+  },
+  "browserIntegrationErrorTitle": {
+    "message": "Virhe otettaessa selainintegrointia käyttöön"
+  },
+  "browserIntegrationErrorDesc": {
+    "message": "Otettaessa selainintegraatiota käyttöön tapahtui virhe."
   },
   "browserIntegrationMasOnlyDesc": {
     "message": "Valitettavasti selainintegraatiota tuetaan toistaiseksi vain Mac App Store -versiossa."
@@ -2688,8 +2697,11 @@
     "message": "Yleiset muodot",
     "description": "Label indicating the most common import formats"
   },
+  "success": {
+    "message": "Onnistui"
+  },
   "troubleshooting": {
-    "message": "Vianselvitys"
+    "message": "Vianetsintä"
   },
   "disableHardwareAccelerationRestart": {
     "message": "Poista laitteistokiihdytys käytöstä ja käynnistä sovellus uudelleen"
@@ -2702,5 +2714,11 @@
   },
   "passkeyRemoved": {
     "message": "Suojausavain poistettiin"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Virhe määritettäessä kohdekokoelmaa."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Virhe määritettäessä kohdekansiota."
   }
 }

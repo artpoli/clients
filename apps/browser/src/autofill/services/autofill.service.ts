@@ -1,7 +1,9 @@
 import { firstValueFrom } from "rxjs";
 
 import { EventCollectionService } from "@bitwarden/common/abstractions/event/event-collection.service";
+import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
 import { UserVerificationService } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
+import { AutofillOverlayVisibility } from "@bitwarden/common/autofill/constants";
 import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
 import { DomainSettingsService } from "@bitwarden/common/autofill/services/domain-settings.service";
 import { InlineMenuVisibilitySetting } from "@bitwarden/common/autofill/types";
@@ -20,6 +22,7 @@ import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 import { FieldView } from "@bitwarden/common/vault/models/view/field.view";
 
 import { BrowserApi } from "../../platform/browser/browser-api";
+import { ScriptInjectorService } from "../../platform/services/abstractions/script-injector.service";
 import { openVaultItemPasswordRepromptPopout } from "../../vault/popup/utils/vault-popout-window";
 import { AutofillPort } from "../enums/autofill-port.enums";
 import AutofillField from "../models/autofill-field";
@@ -55,6 +58,8 @@ export default class AutofillService implements AutofillServiceInterface {
     private domainSettingsService: DomainSettingsService,
     private userVerificationService: UserVerificationService,
     private billingAccountProfileStateService: BillingAccountProfileStateService,
+    private scriptInjectorService: ScriptInjectorService,
+    private accountService: AccountService,
   ) {}
 
   /**
@@ -102,30 +107,46 @@ export default class AutofillService implements AutofillServiceInterface {
     frameId = 0,
     triggeringOnPageLoad = true,
   ): Promise<void> {
-    const mainAutofillScript = (await this.getOverlayVisibility())
+    // Autofill settings loaded from state can await the active account state indefinitely if
+    // not guarded by an active account check (e.g. the user is logged in)
+    const activeAccount = await firstValueFrom(this.accountService.activeAccount$);
+
+    // These settings are not available until the user logs in
+    let overlayVisibility: InlineMenuVisibilitySetting = AutofillOverlayVisibility.Off;
+    let autoFillOnPageLoadIsEnabled = false;
+
+    if (activeAccount) {
+      overlayVisibility = await this.getOverlayVisibility();
+    }
+    const mainAutofillScript = overlayVisibility
       ? "bootstrap-autofill-overlay.js"
       : "bootstrap-autofill.js";
 
     const injectedScripts = [mainAutofillScript];
 
-    const autoFillOnPageLoadIsEnabled = await this.getAutofillOnPageLoad();
+    if (activeAccount) {
+      autoFillOnPageLoadIsEnabled = await this.getAutofillOnPageLoad();
+    }
 
     if (triggeringOnPageLoad && autoFillOnPageLoadIsEnabled) {
       injectedScripts.push("autofiller.js");
     } else {
-      await BrowserApi.executeScriptInTab(tab.id, {
-        file: "content/content-message-handler.js",
-        runAt: "document_start",
+      await this.scriptInjectorService.inject({
+        tabId: tab.id,
+        injectDetails: { file: "content/content-message-handler.js", runAt: "document_start" },
       });
     }
 
     injectedScripts.push("notificationBar.js", "contextMenuHandler.js");
 
     for (const injectedScript of injectedScripts) {
-      await BrowserApi.executeScriptInTab(tab.id, {
-        file: `content/${injectedScript}`,
-        frameId,
-        runAt: "document_start",
+      await this.scriptInjectorService.inject({
+        tabId: tab.id,
+        injectDetails: {
+          file: `content/${injectedScript}`,
+          runAt: "document_start",
+          frame: frameId,
+        },
       });
     }
   }

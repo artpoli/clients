@@ -3,12 +3,12 @@
     "message": "Битуорден (Bitwarden)"
   },
   "extName": {
-    "message": "Bitwarden",
+    "message": "Bitwarden Password Manager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "Безопасно и безплатно управление за всичките ви устройства.",
-    "description": "Extension description"
+    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
     "message": "Впишете се или създайте нов абонамент, за да достъпите защитен трезор."
@@ -171,6 +171,12 @@
   },
   "changeMasterPassword": {
     "message": "Промяна на главната парола"
+  },
+  "continueToWebApp": {
+    "message": "Продължаване към уеб приложението?"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "Може да промените главната си парола в уеб приложението на Битуорден."
   },
   "fingerprintPhrase": {
     "message": "Уникална фраза",
@@ -556,12 +562,6 @@
   },
   "addedFolder": {
     "message": "Добавена папка"
-  },
-  "changeMasterPass": {
-    "message": "Промяна на главната парола"
-  },
-  "changeMasterPasswordConfirmation": {
-    "message": "Главната парола на трезор може да се промени чрез сайта bitwarden.com. Искате ли да го посетите?"
   },
   "twoStepLoginConfirmation": {
     "message": "Двустепенното вписване защитава регистрацията ви, като ви кара да потвърдите влизането си чрез устройство-ключ, приложение за удостоверение, мобилно съобщение, телефонно обаждане или електронна поща. Двустепенното вписване може да се включи чрез сайта bitwarden.com. Искате ли да го посетите?"
@@ -3000,10 +3000,36 @@
     "message": "Грешка при запазването на идентификационните данни. Вижте конзолата за подробности.",
     "description": "Notification message for when saving credentials has failed."
   },
+  "success": {
+    "message": "Успех"
+  },
   "removePasskey": {
     "message": "Премахване на секретния ключ"
   },
   "passkeyRemoved": {
     "message": "Секретният ключ е премахнат"
+  },
+  "unassignedItemsBannerNotice": {
+    "message": "Известие: неразпределените елементи в организацията вече няма да се виждат в изгледа с всички трезори, а са достъпни само през Административната конзола."
+  },
+  "unassignedItemsBannerSelfHostNotice": {
+    "message": "Известие: след 16 май 2024, неразпределените елементи в организацията вече няма да се виждат в изгледа с всички трезори, а ще бъдат достъпни само през Административната конзола."
+  },
+  "unassignedItemsBannerCTAPartOne": {
+    "message": "Добавете тези елементи към колекция в",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "unassignedItemsBannerCTAPartTwo": {
+    "message": "за да ги направите видими.",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "adminConsole": {
+    "message": "Административна конзола"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Грешка при задаването на целева колекция."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Грешка при задаването на целева папка."
   }
 }

@@ -51,7 +51,7 @@ export class PolicyService implements InternalPolicyServiceAbstraction {
       map((policies) => policies.filter((p) => p.type === policyType)),
     );
 
-    return combineLatest([filteredPolicies$, this.organizationService.organizations$]).pipe(
+    return combineLatest([filteredPolicies$, this.organizationService.getAll$(userId)]).pipe(
       map(([policies, organizations]) => this.enforcedPolicyFilter(policies, organizations)),
     );
   }
@@ -232,6 +232,9 @@ export class PolicyService implements InternalPolicyServiceAbstraction {
       case PolicyType.MaximumVaultTimeout:
         // Max Vault Timeout applies to everyone except owners
         return organization.isOwner;
+      case PolicyType.PasswordGenerator:
+        // password generation policy applies to everyone
+        return false;
       default:
         return organization.canManagePolicies;
     }

@@ -7,8 +7,6 @@ import { OrganizationSponsorshipRedeemRequest } from "../admin-console/models/re
 import { OrganizationConnectionRequest } from "../admin-console/models/request/organization-connection.request";
 import { ProviderAddOrganizationRequest } from "../admin-console/models/request/provider/provider-add-organization.request";
 import { ProviderOrganizationCreateRequest } from "../admin-console/models/request/provider/provider-organization-create.request";
-import { ProviderSetupRequest } from "../admin-console/models/request/provider/provider-setup.request";
-import { ProviderUpdateRequest } from "../admin-console/models/request/provider/provider-update.request";
 import { ProviderUserAcceptRequest } from "../admin-console/models/request/provider/provider-user-accept.request";
 import { ProviderUserBulkConfirmRequest } from "../admin-console/models/request/provider/provider-user-bulk-confirm.request";
 import { ProviderUserBulkRequest } from "../admin-console/models/request/provider/provider-user-bulk.request";
@@ -32,7 +30,6 @@ import {
   ProviderUserResponse,
   ProviderUserUserDetailsResponse,
 } from "../admin-console/models/response/provider/provider-user.response";
-import { ProviderResponse } from "../admin-console/models/response/provider/provider.response";
 import { SelectionReadOnlyResponse } from "../admin-console/models/response/selection-read-only.response";
 import { TokenService } from "../auth/abstractions/token.service";
 import { CreateAuthRequest } from "../auth/models/request/create-auth.request";
@@ -121,6 +118,7 @@ import { EnvironmentService } from "../platform/abstractions/environment.service
 import { PlatformUtilsService } from "../platform/abstractions/platform-utils.service";
 import { StateService } from "../platform/abstractions/state.service";
 import { Utils } from "../platform/misc/utils";
+import { UserId } from "../types/guid";
 import { AttachmentRequest } from "../vault/models/request/attachment.request";
 import { CipherBulkDeleteRequest } from "../vault/models/request/cipher-bulk-delete.request";
 import { CipherBulkMoveRequest } from "../vault/models/request/cipher-bulk-move.request";
@@ -565,8 +563,12 @@ export class ApiService implements ApiServiceAbstraction {
     return this.send("PUT", "/ciphers/share", request, true, false);
   }
 
-  putCipherCollections(id: string, request: CipherCollectionsRequest): Promise<any> {
-    return this.send("PUT", "/ciphers/" + id + "/collections", request, true, false);
+  async putCipherCollections(
+    id: string,
+    request: CipherCollectionsRequest,
+  ): Promise<CipherResponse> {
+    const response = await this.send("PUT", "/ciphers/" + id + "/collections", request, true, true);
+    return new CipherResponse(response);
   }
 
   putCipherCollectionsAdmin(id: string, request: CipherCollectionsRequest): Promise<any> {
@@ -862,16 +864,6 @@ export class ApiService implements ApiServiceAbstraction {
     return r;
   }
 
-  async putGroupUsers(organizationId: string, id: string, request: string[]): Promise<any> {
-    await this.send(
-      "PUT",
-      "/organizations/" + organizationId + "/groups/" + id + "/users",
-      request,
-      true,
-      false,
-    );
-  }
-
   deleteGroupUser(organizationId: string, id: string, organizationUserId: string): Promise<any> {
     return this.send(
       "DELETE",
@@ -1157,23 +1149,6 @@ export class ApiService implements ApiServiceAbstraction {
     return this.send("DELETE", "/organizations/connections/" + id, null, true, false);
   }
 
-  // Provider APIs
-
-  async postProviderSetup(id: string, request: ProviderSetupRequest) {
-    const r = await this.send("POST", "/providers/" + id + "/setup", request, true, true);
-    return new ProviderResponse(r);
-  }
-
-  async getProvider(id: string) {
-    const r = await this.send("GET", "/providers/" + id, null, true, true);
-    return new ProviderResponse(r);
-  }
-
-  async putProvider(id: string, request: ProviderUpdateRequest) {
-    const r = await this.send("PUT", "/providers/" + id, request, true, true);
-    return new ProviderResponse(r);
-  }
-
   // Provider User APIs
 
   async getProviderUsers(
@@ -1449,8 +1424,8 @@ export class ApiService implements ApiServiceAbstraction {
     return new ListResponse(r, EventResponse);
   }
 
-  async postEventsCollect(request: EventRequest[]): Promise<any> {
-    const authHeader = await this.getActiveBearerToken();
+  async postEventsCollect(request: EventRequest[], userId?: UserId): Promise<any> {
+    const authHeader = await this.tokenService.getAccessToken(userId);
     const headers = new Headers({
       "Device-Type": this.deviceType,
       Authorization: "Bearer " + authHeader,

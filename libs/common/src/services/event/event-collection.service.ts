@@ -3,7 +3,7 @@ import { firstValueFrom, map, from, zip } from "rxjs";
 import { EventCollectionService as EventCollectionServiceAbstraction } from "../../abstractions/event/event-collection.service";
 import { EventUploadService } from "../../abstractions/event/event-upload.service";
 import { OrganizationService } from "../../admin-console/abstractions/organization/organization.service.abstraction";
-import { AccountService } from "../../auth/abstractions/account.service";
+import { AuthService } from "../../auth/abstractions/auth.service";
 import { AuthenticationStatus } from "../../auth/enums/authentication-status";
 import { EventType } from "../../enums";
 import { EventData } from "../../models/data/event.data";
@@ -18,7 +18,7 @@ export class EventCollectionService implements EventCollectionServiceAbstraction
     private stateProvider: StateProvider,
     private organizationService: OrganizationService,
     private eventUploadService: EventUploadService,
-    private accountService: AccountService,
+    private authService: AuthService,
   ) {}
 
   /** Adds an event to the active user's event collection
@@ -36,7 +36,7 @@ export class EventCollectionService implements EventCollectionServiceAbstraction
     const userId = await firstValueFrom(this.stateProvider.activeUserId$);
     const eventStore = this.stateProvider.getUser(userId, EVENT_COLLECTION);
 
-    if (!(await this.shouldUpdate(cipherId, organizationId))) {
+    if (!(await this.shouldUpdate(cipherId, organizationId, eventType))) {
       return;
     }
 
@@ -64,6 +64,7 @@ export class EventCollectionService implements EventCollectionServiceAbstraction
   private async shouldUpdate(
     cipherId: string = null,
     organizationId: string = null,
+    eventType: EventType = null,
   ): Promise<boolean> {
     const orgIds$ = this.organizationService.organizations$.pipe(
       map((orgs) => orgs?.filter((o) => o.useEvents)?.map((x) => x.id) ?? []),
@@ -71,18 +72,23 @@ export class EventCollectionService implements EventCollectionServiceAbstraction
 
     const cipher$ = from(this.cipherService.get(cipherId));
 
-    const [accountInfo, orgIds, cipher] = await firstValueFrom(
-      zip(this.accountService.activeAccount$, orgIds$, cipher$),
+    const [authStatus, orgIds, cipher] = await firstValueFrom(
+      zip(this.authService.activeAccountStatus$, orgIds$, cipher$),
     );
 
     // The user must be authorized
-    if (accountInfo.status != AuthenticationStatus.Unlocked) {
+    if (authStatus != AuthenticationStatus.Unlocked) {
       return false;
     }
 
     // User must have organizations assigned to them
     if (orgIds == null || orgIds.length == 0) {
       return false;
+    }
+
+    // Individual vault export doesn't need cipher id or organization id.
+    if (eventType == EventType.User_ClientExportedVault) {
+      return true;
     }
 
     // If the cipher is null there must be an organization id provided

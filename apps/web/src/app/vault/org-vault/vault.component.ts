@@ -75,6 +75,7 @@ import {
   BulkDeleteDialogResult,
   openBulkDeleteDialog,
 } from "../individual-vault/bulk-action-dialogs/bulk-delete-dialog/bulk-delete-dialog.component";
+import { CollectionsDialogResult } from "../individual-vault/collections.component";
 import { RoutedVaultFilterBridgeService } from "../individual-vault/vault-filter/services/routed-vault-filter-bridge.service";
 import { RoutedVaultFilterService } from "../individual-vault/vault-filter/services/routed-vault-filter.service";
 import { createFilterFunction } from "../individual-vault/vault-filter/shared/models/filter-function";
@@ -95,7 +96,7 @@ import {
   BulkCollectionsDialogComponent,
   BulkCollectionsDialogResult,
 } from "./bulk-collections-dialog";
-import { CollectionsComponent } from "./collections.component";
+import { openOrgVaultCollectionsDialog } from "./collections.component";
 import { VaultFilterComponent } from "./vault-filter/vault-filter.component";
 
 const BroadcasterSubscriptionId = "OrgVaultComponent";
@@ -711,21 +712,37 @@ export class VaultComponent implements OnInit, OnDestroy {
     } else {
       collections = await firstValueFrom(this.allCollectionsWithoutUnassigned$);
     }
-    const [modal] = await this.modalService.openViewRef(
-      CollectionsComponent,
-      this.collectionsModalRef,
-      (comp) => {
-        comp.flexibleCollectionsV1Enabled = this.flexibleCollectionsV1Enabled;
-        comp.collectionIds = cipher.collectionIds;
-        comp.collections = collections;
-        comp.organization = this.organization;
-        comp.cipherId = cipher.id;
-        comp.onSavedCollections.pipe(takeUntil(this.destroy$)).subscribe(() => {
-          modal.close();
-          this.refresh();
-        });
+    const dialog = openOrgVaultCollectionsDialog(this.dialogService, {
+      data: {
+        collectionIds: cipher.collectionIds,
+        collections: collections.filter((c) => !c.readOnly && c.id != Unassigned),
+        organization: this.organization,
+        cipherId: cipher.id,
       },
-    );
+    });
+    /**
+     
+     const [modal] = await this.modalService.openViewRef(
+     CollectionsComponent,
+     this.collectionsModalRef,
+     (comp) => {
+     comp.flexibleCollectionsV1Enabled = this.flexibleCollectionsV1Enabled;
+     comp.collectionIds = cipher.collectionIds;
+     comp.collections = collections;
+     comp.organization = this.organization;
+     comp.cipherId = cipher.id;
+     comp.onSavedCollections.pipe(takeUntil(this.destroy$)).subscribe(() => {
+     modal.close();
+     this.refresh();
+     });
+     },
+     );
+     
+     */
+
+    if ((await lastValueFrom(dialog.closed)) == CollectionsDialogResult.Saved) {
+      await this.refresh();
+    }
   }
 
   async addCipher() {
@@ -941,11 +958,9 @@ export class VaultComponent implements OnInit, OnDestroy {
         this.i18nService.t("deletedCollectionId", collection.name),
       );
 
-      // Navigate away if we deleted the colletion we were viewing
+      // Navigate away if we deleted the collection we were viewing
       if (this.selectedCollection?.node.id === collection.id) {
-        // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        this.router.navigate([], {
+        void this.router.navigate([], {
           queryParams: { collectionId: this.selectedCollection.parent?.node.id ?? null },
           queryParamsHandling: "merge",
           replaceUrl: true,
@@ -1078,6 +1093,18 @@ export class VaultComponent implements OnInit, OnDestroy {
       result.action === CollectionDialogAction.Deleted
     ) {
       this.refresh();
+
+      // If we deleted the selected collection, navigate up/away
+      if (
+        result.action === CollectionDialogAction.Deleted &&
+        this.selectedCollection?.node.id === c?.id
+      ) {
+        void this.router.navigate([], {
+          queryParams: { collectionId: this.selectedCollection.parent?.node.id ?? null },
+          queryParamsHandling: "merge",
+          replaceUrl: true,
+        });
+      }
     }
   }
 

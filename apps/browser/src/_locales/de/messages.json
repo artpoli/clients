@@ -3,12 +3,12 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden - Kostenloser Passwortmanager",
+    "message": "Bitwarden Passwortmanager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "Ein sicherer und kostenloser Passwortmanager für all deine Geräte.",
-    "description": "Extension description"
+    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
     "message": "Melde dich an oder erstelle ein neues Konto, um auf deinen Tresor zuzugreifen."
@@ -171,6 +171,12 @@
   },
   "changeMasterPassword": {
     "message": "Master-Passwort ändern"
+  },
+  "continueToWebApp": {
+    "message": "Weiter zur Web-App?"
+  },
+  "changeMasterPasswordOnWebConfirmation": {
+    "message": "Du kannst dein Master-Passwort in der Bitwarden Web-App ändern."
   },
   "fingerprintPhrase": {
     "message": "Fingerabdruck-Phrase",
@@ -556,12 +562,6 @@
   },
   "addedFolder": {
     "message": "Ordner hinzugefügt"
-  },
-  "changeMasterPass": {
-    "message": "Master-Passwort ändern"
-  },
-  "changeMasterPasswordConfirmation": {
-    "message": "Du kannst dein Master-Passwort im Bitwarden.com Web-Tresor ändern. Möchtest du die Seite jetzt öffnen?"
   },
   "twoStepLoginConfirmation": {
     "message": "Mit der Zwei-Faktor-Authentifizierung wird dein Konto zusätzlich abgesichert, da jede Anmeldung mit einem anderen Gerät wie einem Sicherheitsschlüssel, einer Authentifizierungs-App, einer SMS, einem Anruf oder einer E-Mail verifiziert werden muss. Die Zwei-Faktor-Authentifizierung kann im bitwarden.com Web-Tresor aktiviert werden. Möchtest du die Website jetzt öffnen?"
@@ -2706,7 +2706,7 @@
     "message": "Für dein Konto ist die Duo Zwei-Faktor-Authentifizierung erforderlich."
   },
   "popoutTheExtensionToCompleteLogin": {
-    "message": "Popout the extension to complete login."
+    "message": "Koppel die Erweiterung ab, um die Anmeldung abzuschließen."
   },
   "popoutExtension": {
     "message": "Popout-Erweiterung"
@@ -3000,10 +3000,36 @@
     "message": "Fehler beim Speichern der Zugangsdaten. Details in der Konsole.",
     "description": "Notification message for when saving credentials has failed."
   },
+  "success": {
+    "message": "Erfolg"
+  },
   "removePasskey": {
-    "message": "Passkey löschen"
+    "message": "Passkey entfernen"
   },
   "passkeyRemoved": {
-    "message": "Passkey gelöscht"
+    "message": "Passkey entfernt"
+  },
+  "unassignedItemsBannerNotice": {
+    "message": "Hinweis: Nicht zugeordnete Organisationseinträge sind nicht mehr in der Ansicht aller Tresore sichtbar und nur über die Administrator-Konsole zugänglich."
+  },
+  "unassignedItemsBannerSelfHostNotice": {
+    "message": "Hinweis: Ab dem 16. Mai 2024 sind nicht zugewiesene Organisationselemente nicht mehr in der Ansicht aller Tresore sichtbar und nur über die Administrator-Konsole zugänglich."
+  },
+  "unassignedItemsBannerCTAPartOne": {
+    "message": "Weise diese Einträge einer Sammlung aus der",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "unassignedItemsBannerCTAPartTwo": {
+    "message": "zu, um sie sichtbar zu machen.",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "adminConsole": {
+    "message": "Administrator-Konsole"
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Fehler beim Zuweisen der Ziel-Sammlung."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Fehler beim Zuweisen des Ziel-Ordners."
   }
 }

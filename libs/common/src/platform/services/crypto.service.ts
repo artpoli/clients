@@ -7,7 +7,6 @@ import { ProfileProviderOrganizationResponse } from "../../admin-console/models/
 import { ProfileProviderResponse } from "../../admin-console/models/response/profile-provider.response";
 import { AccountService } from "../../auth/abstractions/account.service";
 import { InternalMasterPasswordServiceAbstraction } from "../../auth/abstractions/master-password.service.abstraction";
-import { AuthenticationStatus } from "../../auth/enums/authentication-status";
 import { KdfConfig } from "../../auth/models/domain/kdf-config";
 import { Utils } from "../../platform/misc/utils";
 import { CsprngArray } from "../../types/csprng";
@@ -152,8 +151,6 @@ export class CryptoService implements CryptoServiceAbstraction {
     [userId, key] = await this.stateProvider.setUserState(USER_KEY, key, userId);
     await this.stateProvider.setUserState(USER_EVER_HAD_USER_KEY, true, userId);
 
-    await this.accountService.setAccountStatus(userId, AuthenticationStatus.Unlocked);
-
     await this.storeAdditionalKeys(key, userId);
   }
 
@@ -167,19 +164,8 @@ export class CryptoService implements CryptoServiceAbstraction {
   }
 
   async getUserKey(userId?: UserId): Promise<UserKey> {
-    let userKey = await firstValueFrom(this.stateProvider.getUserState$(USER_KEY, userId));
-    if (userKey) {
-      return userKey;
-    }
-
-    // If the user has set their vault timeout to 'Never', we can load the user key from storage
-    if (await this.hasUserKeyStored(KeySuffixOptions.Auto, userId)) {
-      userKey = await this.getKeyFromStorage(KeySuffixOptions.Auto, userId);
-      if (userKey) {
-        await this.setUserKey(userKey, userId);
-        return userKey;
-      }
-    }
+    const userKey = await firstValueFrom(this.stateProvider.getUserState$(USER_KEY, userId));
+    return userKey;
   }
 
   async isLegacyUser(masterKey?: MasterKey, userId?: UserId): Promise<boolean> {
@@ -220,10 +206,7 @@ export class CryptoService implements CryptoServiceAbstraction {
     if (userId == null) {
       return false;
     }
-    return (
-      (await this.hasUserKeyInMemory(userId)) ||
-      (await this.hasUserKeyStored(KeySuffixOptions.Auto, userId))
-    );
+    return await this.hasUserKeyInMemory(userId);
   }
 
   async hasUserKeyInMemory(userId?: UserId): Promise<boolean> {
@@ -256,14 +239,13 @@ export class CryptoService implements CryptoServiceAbstraction {
    * Clears the user key. Clears all stored versions of the user keys as well, such as the biometrics key
    * @param userId The desired user
    */
-  async clearUserKey(userId: UserId): Promise<void> {
+  private async clearUserKey(userId: UserId): Promise<void> {
     if (userId == null) {
       // nothing to do
       return;
     }
     // Set userId to ensure we have one for the account status update
     await this.stateProvider.setUserState(USER_KEY, null, userId);
-    await this.accountService.setMaxAccountStatus(userId, AuthenticationStatus.Locked);
     await this.clearAllStoredUserKeys(userId);
   }
 

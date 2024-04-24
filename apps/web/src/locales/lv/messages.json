@@ -3360,7 +3360,7 @@
     "message": "Ja konts pastāv, tika nosūtīts e-pasta ziņojums ar turpmākām norādēm."
   },
   "deleteRecoverConfirmDesc": {
-    "message": "Tika pieprasīts izdzēst Bitwarden kontu. Jānospiež zemāk esošā poga, lai apstiprinātu."
+    "message": "Tika pieprasīts izdzēst Bitwarden kontu. Jāizmanto zemāk esošā poga, lai apstiprinātu."
   },
   "myOrganization": {
     "message": "Mana apvienība"
@@ -3396,7 +3396,7 @@
     "message": "Apvienība izdzēsta"
   },
   "organizationDeletedDesc": {
-    "message": "Apvienība un visi ar to saistītie dati ir izdzēsti."
+    "message": "Apvienība un visi ar to saistītie dati tika izdzēsti."
   },
   "organizationUpdated": {
     "message": "Apvienība atjaunināta"
@@ -4927,7 +4927,7 @@
     "message": "Uziacināt jaunu nodrošinātāja lietotāju, zemāk esošajā laukā ievadot tā Bitwarden konta e-pasta adresi. Ja tam vēl nav Bitwarden konta, tiks vaicāts izveidot jaunu."
   },
   "joinProvider": {
-    "message": "Pievienot nodrošinātāju"
+    "message": "Pievienoties nodrošinātāju"
   },
   "joinProviderDesc": {
     "message": "Tu esi uzaicināts pievienoties augstāk norādītajam nodrošinātājam. Lai to pieņemtu, jāpiesakās vai jāizveido jauns Bitwarden konts."
@@ -4945,7 +4945,7 @@
     "message": "Nodrošinātājs"
   },
   "newClientOrganization": {
-    "message": "Jauna sniedzēja apvienība"
+    "message": "Jauna pasūtītāja apvienība"
   },
   "newClientOrganizationDesc": {
     "message": "Izveidot jaunu pasūtītāja apvienību, kas būs piesaistīta šim kontam kā nodrošinātājam. Tas sniegs iespēju piekļūt šai apvienībai un to pārvaldīt."
@@ -4955,6 +4955,9 @@
   },
   "addExistingOrganization": {
     "message": "Pievienot esošo apvienību"
+  },
+  "addNewOrganization": {
+    "message": "Pievienot jaunu apvienību"
   },
   "myProvider": {
     "message": "Mans nodrošinātājs"
@@ -5658,7 +5661,7 @@
     "message": "Rēķinu vēsture"
   },
   "backToReports": {
-    "message": "Atgriezties pie atskaitēm"
+    "message": "Atgriezties pie pārskatiem"
   },
   "organizationPicker": {
     "message": "Apvienību atlasītājs"
@@ -7498,6 +7501,9 @@
   "collectionAccessRestricted": {
     "message": "Piekļuve krājumam ir ierobežota"
   },
+  "readOnlyCollectionAccess": {
+    "message": "Nav piekļuves pārvaldīt šo krājumu."
+  },
   "grantCollectionAccess": {
     "message": "Piešķirt kopām vai dalībniekiem piekļuvi šim krājumam."
   },
@@ -7600,6 +7606,12 @@
   "providerPortal": {
     "message": "Nodrošinātāju portāls"
   },
+  "success": {
+    "message": "Izdevās"
+  },
+  "viewCollection": {
+    "message": "Skatīt krājumu"
+  },
   "restrictedGroupAccess": {
     "message": "Tu nevari sevi pievienot kopām."
   },
@@ -7642,5 +7654,400 @@
   },
   "items": {
     "message": "Vienumi"
+  },
+  "assignedSeats": {
+    "message": "Piešķirtās vietas"
+  },
+  "assigned": {
+    "message": "Piešķirts"
+  },
+  "used": {
+    "message": "Izmantots"
+  },
+  "remaining": {
+    "message": "Atlicis"
+  },
+  "unlinkOrganization": {
+    "message": "Atsaistīt apvienību"
+  },
+  "manageSeats": {
+    "message": "PĀRVALDĪT VIETAS"
+  },
+  "manageSeatsDescription": {
+    "message": "Vietu izmaiņas tiks atspoguļotas nākamajā norēķinu posmā."
+  },
+  "unassignedSeatsDescription": {
+    "message": "Noņemtas piešķirtās abonementa vietas"
+  },
+  "purchaseSeatDescription": {
+    "message": "Iegādātas papildu vietas"
+  },
+  "assignedSeatCannotUpdate": {
+    "message": "Piešķirtās vietas nevar atjaunināt. Lūgums vērsties pēc palīdzības pie sava apvienības īpašnieka."
+  },
+  "subscriptionUpdateFailed": {
+    "message": "Abonementa atjaunināšana neizdevās"
+  },
+  "trial": {
+    "message": "Izmēģinājums",
+    "description": "A subscription status label."
+  },
+  "pastDue": {
+    "message": "Nokavēts",
+    "description": "A subscription status label"
+  },
+  "subscriptionExpired": {
+    "message": "Abonements ir beidzies",
+    "description": "The date header used when a subscription is past due."
+  },
+  "pastDueWarningForChargeAutomatically": {
+    "message": "Tev ir $DAYS$ dienu papildu laiks no abonementa beigu datuma, lai paturētu savu abonementu. Lūgums apmaksāt nokavētos rēķinus līdz $SUSPENSION_DATE$.",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "11"
+      },
+      "suspension_date": {
+        "content": "$2",
+        "example": "01/10/2024"
+      }
+    },
+    "description": "A warning shown to the user when their subscription is past due and they are charged automatically."
+  },
+  "pastDueWarningForSendInvoice": {
+    "message": "Tev ir $DAYS$ dienu papildu laiks no pirmā neapmaksātā rēķina datuma, lai paturētu savu abonementu. Lūgums apmaksāt nokavētos rēķinus līdz $SUSPENSION_DATE$.",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "11"
+      },
+      "suspension_date": {
+        "content": "$2",
+        "example": "01/10/2024"
+      }
+    },
+    "description": "A warning shown to the user when their subscription is past due and they pay via invoice."
+  },
+  "unpaidInvoice": {
+    "message": "Neapmaksāts rēķins",
+    "description": "The header of a warning box shown to a user whose subscription is unpaid."
+  },
+  "toReactivateYourSubscription": {
+    "message": "Lai atjaunotu savu abonementu, lūgums apmaksāt nokavētos rēķinus.",
+    "description": "The body of a warning box shown to a user whose subscription is unpaid."
+  },
+  "cancellationDate": {
+    "message": "Atcelšanas datums",
+    "description": "The date header used when a subscription is cancelled."
+  },
+  "machineAccountsCannotCreate": {
+    "message": "Mašīnu kontus nav iespējams izveidot apturētās apvienībās. Lūgums vērsties pie savas apvienības īpašnieka pēc palīdzības."
+  },
+  "machineAccount": {
+    "message": "Mašīnas konts",
+    "description": "A machine user which can be used to automate processes and access secrets in the system."
+  },
+  "machineAccounts": {
+    "message": "Mašīnu konti",
+    "description": "The title for the section that deals with machine accounts."
+  },
+  "newMachineAccount": {
+    "message": "Jauns mašīnas konts",
+    "description": "Title for creating a new machine account."
+  },
+  "machineAccountsNoItemsMessage": {
+    "message": "Jāizveido jauns mašīnas konts, lai sāktu automatizēt piekļuvi noslēpumiem.",
+    "description": "Message to encourage the user to start creating machine accounts."
+  },
+  "machineAccountsNoItemsTitle": {
+    "message": "Vēl nav nekā, ko parādīt",
+    "description": "Title to indicate that there are no machine accounts to display."
+  },
+  "deleteMachineAccounts": {
+    "message": "Izdzēst mašīnu kontus",
+    "description": "Title for the action to delete one or multiple machine accounts."
+  },
+  "deleteMachineAccount": {
+    "message": "Izdzēst mašīnas kontu",
+    "description": "Title for the action to delete a single machine account."
+  },
+  "viewMachineAccount": {
+    "message": "Skatīt mašīnas kontu",
+    "description": "Action to view the details of a machine account."
+  },
+  "deleteMachineAccountDialogMessage": {
+    "message": "Mašīnas konta $MACHINE_ACCOUNT$ izdzēšana ir paliekoša un neatgriezeniska.",
+    "placeholders": {
+      "machine_account": {
+        "content": "$1",
+        "example": "Machine account name"
+      }
+    }
+  },
+  "deleteMachineAccountsDialogMessage": {
+    "message": "Mašīnu kontu izdzēšana ir paliekoša un neatgriezeniska."
+  },
+  "deleteMachineAccountsConfirmMessage": {
+    "message": "Izdzēst $COUNT$ mašīnu kontu(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "deleteMachineAccountToast": {
+    "message": "Mašīnas konts ir izdzēsts"
+  },
+  "deleteMachineAccountsToast": {
+    "message": "Mašīnu konti ir izdzēsti"
+  },
+  "searchMachineAccounts": {
+    "message": "Meklēt mašīnu kontus",
+    "description": "Placeholder text for searching machine accounts."
+  },
+  "editMachineAccount": {
+    "message": "Labot mašīnas kontu",
+    "description": "Title for editing a machine account."
+  },
+  "machineAccountName": {
+    "message": "Mašīnas konta nosaukums",
+    "description": "Label for the name of a machine account"
+  },
+  "machineAccountCreated": {
+    "message": "Mašīnas konts ir izveidots",
+    "description": "Notifies that a new machine account has been created"
+  },
+  "machineAccountUpdated": {
+    "message": "Mašīnas konts ir atjaunināts",
+    "description": "Notifies that a machine account has been updated"
+  },
+  "projectMachineAccountsDescription": {
+    "message": "Piešķirt mašīnau kontiem piekļuvi šim projektam."
+  },
+  "projectMachineAccountsSelectHint": {
+    "message": "Ievadīt vai atlasīt mašīnu kontus"
+  },
+  "projectEmptyMachineAccountAccessPolicies": {
+    "message": "Jāpievieno mašīnu konti, lai piešķirtu piekļuvi"
+  },
+  "machineAccountPeopleDescription": {
+    "message": "Piešķirt kopām vai cilvēkiem piekļuvi šim mašīnas kontam."
+  },
+  "machineAccountProjectsDescription": {
+    "message": "Piešķirt projektus šim mašīnas kontam. "
+  },
+  "createMachineAccount": {
+    "message": "Izveidot mašīnas kontu"
+  },
+  "maPeopleWarningMessage": {
+    "message": "Cilvēku noņemšana no mašīnas konta nenoņem to izveidotās piekļuves pilnvaras. Labākajai drošības pieejai ir ieteicams atsaukt piekļuves pilnvaras, kuras ir izveidojuši cilvēki, kuri ir noņemti no mašīnas konta."
+  },
+  "smAccessRemovalWarningMaTitle": {
+    "message": "Noņemt piekļuvi šim mašīnas kontam"
+  },
+  "smAccessRemovalWarningMaMessage": {
+    "message": "Šī darbība noņems piekļuvi mašīnas kontam."
+  },
+  "machineAccountsIncluded": {
+    "message": "Iekļauti $COUNT$ mašīnu konti",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "additionalMachineAccountCost": {
+    "message": "$COST$ mēnesī par papildu mašīnu kontiem",
+    "placeholders": {
+      "cost": {
+        "content": "$1",
+        "example": "$0.50"
+      }
+    }
+  },
+  "additionalMachineAccounts": {
+    "message": "Papildu mašīnu konti"
+  },
+  "includedMachineAccounts": {
+    "message": "Plānā ir iekļauti $COUNT$ mašīnu konti.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "50"
+      }
+    }
+  },
+  "addAdditionalMachineAccounts": {
+    "message": "Papildu mašīnu kontus var pievienot par $COST$ mēnesī.",
+    "placeholders": {
+      "cost": {
+        "content": "$1",
+        "example": "$0.50"
+      }
+    }
+  },
+  "limitMachineAccounts": {
+    "message": "Ierobežot mašīnu kontus (izvēles)"
+  },
+  "limitMachineAccountsDesc": {
+    "message": "Uzstāda mašīnu kontu skaita ierobežojumu. Tiklīdz tas ir sasniegts, nebūs iespējams izveidot jaunus mašīnu kontus."
+  },
+  "machineAccountLimit": {
+    "message": "Mašīnu kontu skaita ierobežojums (izvēles)"
+  },
+  "maxMachineAccountCost": {
+    "message": "Lielākās iespējamās mašīnas konta izmaksas"
+  },
+  "machineAccountAccessUpdated": {
+    "message": "Mašīnas konta piekļuve ir atjaunināta"
+  },
+  "restrictedGroupAccessDesc": {
+    "message": "Sevi nevar pievienot kopai."
+  },
+  "unassignedItemsBannerSelfHost": {
+    "message": "Jāņem vērā: no 2024. gada 2. maija nepiešķirti apvienības vienumi vairs nebūs redzami skatā \"Visas glabātavas\" dažādās ierīcēs un būs sasniedzami tikai no pārvaldības konsoles, kur šie vienumi jāpiešķir krājumam, lai padarītu tos redzamus."
+  },
+  "unassignedItemsBannerNotice": {
+    "message": "Jāņem vērā: nepiešķirti apvienības vienumi vairs nav redzami skatā \"Visas glabātavas\" dažādās ierīcēs un tagad ir pieejami tikai pārvaldības konsolē."
+  },
+  "unassignedItemsBannerSelfHostNotice": {
+    "message": "Jāņem vērā: no 2024. gada 16. maija nepiešķirti apvienības vienumi vairs nebūs redzami skatā \"Visas glabātavas\" dažādās ierīcēs un būs pieejami tikai pārvaldības konsolē."
+  },
+  "unassignedItemsBannerCTAPartOne": {
+    "message": "Piešķirt šos vienumus krājumam",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "unassignedItemsBannerCTAPartTwo": {
+    "message": ", lai padarītu tos redzamus.",
+    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
+  },
+  "deleteProvider": {
+    "message": "Izdzēst nodrošinātāju"
+  },
+  "deleteProviderConfirmation": {
+    "message": "Nodrošinātāja izdzēšana ir paliekoša un neatgriezeniska. Jāievada sava galvenā parole, lai apliecinātu nodrošinātāja un visu saistīto datu izdzēšanu."
+  },
+  "deleteProviderName": {
+    "message": "Nevar izdzēst $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "John Smith"
+      }
+    }
+  },
+  "deleteProviderWarningDesc": {
+    "message": "Ir jāatsaista visi klienti, pirms var izdzēst $ID$",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "John Smith"
+      }
+    }
+  },
+  "providerDeleted": {
+    "message": "Nodrošinātājs izdzēsts"
+  },
+  "providerDeletedDesc": {
+    "message": "Nodrošinātājs un visi ar to saistītie dati tika izdzēsti."
+  },
+  "deleteProviderRecoverConfirmDesc": {
+    "message": "Tika pieprasīts izdzēst šo nodrošinātāju. Jāizmanto zemāk esošā poga, lai apstiprinātu."
+  },
+  "deleteProviderWarning": {
+    "message": "Nodrošinātāja izdzēšana ir paliekoša. To nevar atsaukt."
+  },
+  "errorAssigningTargetCollection": {
+    "message": "Kļūda mērķa krājuma piešķiršanā."
+  },
+  "errorAssigningTargetFolder": {
+    "message": "Kļūda mērķa mapes piešķiršanā."
+  },
+  "integrationsAndSdks": {
+    "message": "Integrācijas un izstrādātāju rīkkopas",
+    "description": "The title for the section that deals with integrations and SDKs."
+  },
+  "integrations": {
+    "message": "Integrācijas"
+  },
+  "integrationsDesc": {
+    "message": "Automātiski sinhronizēt noslēpumus no Bitwarden Noslēpumu pārvaldnieka uz trešās puses pakalpojumu."
+  },
+  "sdks": {
+    "message": "Izstrādātāju rīkkopas"
+  },
+  "sdksDesc": {
+    "message": "Bitwarden Noslēpumu pārvaldnieka izstrādātāju rīkkopa ir izmantojama ar zemāk esošajām programmēšanas valodām, lai veidotu pats savas lietotnes."
+  },
+  "setUpGithubActions": {
+    "message": "Iestatīt GitHub darbības"
+  },
+  "setUpGitlabCICD": {
+    "message": "Iestatīt GitLab CI/CD"
+  },
+  "setUpAnsible": {
+    "message": "Iestatīt Ansible"
+  },
+  "cSharpSDKRepo": {
+    "message": "Skatīt C# glabātavu"
+  },
+  "cPlusPlusSDKRepo": {
+    "message": "Skatīt C++ glabātavu"
+  },
+  "jsWebAssemblySDKRepo": {
+    "message": "Skatīt JS WebAssembly glabātavu"
+  },
+  "javaSDKRepo": {
+    "message": "Skatīt Java glabātavu"
+  },
+  "pythonSDKRepo": {
+    "message": "Skatīt Python glabātavu"
+  },
+  "phpSDKRepo": {
+    "message": "Skatīt PHP glabātavu"
+  },
+  "rubySDKRepo": {
+    "message": "Skatīt Ruby glabātavu"
+  },
+  "goSDKRepo": {
+    "message": "Skatīt Go glabātavu"
+  },
+  "createNewClientToManageAsProvider": {
+    "message": "Izveidot jaunu klienta apvienību, ko pārvaldīt kā nodrošinātājam. Papildu vietas tiks atspoguļotas nākamajā norēķinu posmā."
+  },
+  "selectAPlan": {
+    "message": "Atlasīt plānu"
+  },
+  "thirtyFivePercentDiscount": {
+    "message": "35% atlaide"
+  },
+  "monthPerMember": {
+    "message": "mēnesī par dalībnieku"
+  },
+  "seats": {
+    "message": "Vietas"
+  },
+  "addOrganization": {
+    "message": "Pievienot apvienību"
+  },
+  "createdNewClient": {
+    "message": "Veiksmīgi izveidots jauns klients"
+  },
+  "noAccess": {
+    "message": "Nav piekļuves"
+  },
+  "collectionAdminConsoleManaged": {
+    "message": "Šis krājums ir pieejams tikai pārvaldības konsolē"
+  },
+  "organizationOptionsMenu": {
+    "message": "Pārslēgt apvienību izvēlni"
+  },
+  "vaultItemSelect": {
+    "message": "Atlasīt glabātavas vienumu"
+  },
+  "collectionItemSelect": {
+    "message": "Atlasīt krājuma vienumu"
   }
 }

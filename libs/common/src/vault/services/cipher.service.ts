@@ -1135,7 +1135,9 @@ export class CipherService implements CipherServiceAbstraction {
   }
 
   async setAddEditCipherInfo(value: AddEditCipherInfo) {
-    await this.addEditCipherInfoState.update(() => value);
+    await this.addEditCipherInfoState.update(() => value, {
+      shouldUpdate: (current) => !(current == null && value == null),
+    });
   }
 
   // Helpers

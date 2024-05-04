@@ -7,6 +7,7 @@ import { KeysRequest } from "../../models/request/keys.request";
 import { CryptoService } from "../../platform/abstractions/crypto.service";
 import { KeyGenerationService } from "../../platform/abstractions/key-generation.service";
 import { LogService } from "../../platform/abstractions/log.service";
+import { KdfType } from "../../platform/enums/kdf-type.enum";
 import { Utils } from "../../platform/misc/utils";
 import { SymmetricCryptoKey } from "../../platform/models/domain/symmetric-crypto-key";
 import {
@@ -15,12 +16,13 @@ import {
   StateProvider,
   UserKeyDefinition,
 } from "../../platform/state";
+import { UserId } from "../../types/guid";
 import { MasterKey } from "../../types/key";
 import { AccountService } from "../abstractions/account.service";
 import { KeyConnectorService as KeyConnectorServiceAbstraction } from "../abstractions/key-connector.service";
 import { InternalMasterPasswordServiceAbstraction } from "../abstractions/master-password.service.abstraction";
 import { TokenService } from "../abstractions/token.service";
-import { KdfConfig } from "../models/domain/kdf-config";
+import { Argon2KdfConfig, KdfConfig, PBKDF2KdfConfig } from "../models/domain/kdf-config";
 import { KeyConnectorUserKeyRequest } from "../models/request/key-connector-user-key.request";
 import { SetKeyConnectorKeyRequest } from "../models/request/set-key-connector-key.request";
 import { IdentityTokenResponse } from "../models/response/identity-token.response";
@@ -99,12 +101,11 @@ export class KeyConnectorService implements KeyConnectorServiceAbstraction {
   }
 
   // TODO: UserKey should be renamed to MasterKey and typed accordingly
-  async setMasterKeyFromUrl(url: string) {
+  async setMasterKeyFromUrl(url: string, userId: UserId) {
     try {
       const masterKeyResponse = await this.apiService.getMasterKeyFromKeyConnector(url);
       const keyArr = Utils.fromB64ToArray(masterKeyResponse.key);
       const masterKey = new SymmetricCryptoKey(keyArr) as MasterKey;
-      const userId = (await firstValueFrom(this.accountService.activeAccount$))?.id;
       await this.masterPasswordService.setMasterKey(masterKey, userId);
     } catch (e) {
       this.handleKeyConnectorError(e);
@@ -122,7 +123,11 @@ export class KeyConnectorService implements KeyConnectorServiceAbstraction {
     );
   }
 
-  async convertNewSsoUserToKeyConnector(tokenResponse: IdentityTokenResponse, orgId: string) {
+  async convertNewSsoUserToKeyConnector(
+    tokenResponse: IdentityTokenResponse,
+    orgId: string,
+    userId: UserId,
+  ) {
     // TODO: Remove after tokenResponse.keyConnectorUrl is deprecated in 2023.10 release (https://bitwarden.atlassian.net/browse/PM-3537)
     const {
       kdf,
@@ -133,23 +138,24 @@ export class KeyConnectorService implements KeyConnectorServiceAbstraction {
       userDecryptionOptions,
     } = tokenResponse;
     const password = await this.keyGenerationService.createKey(512);
-    const kdfConfig = new KdfConfig(kdfIterations, kdfMemory, kdfParallelism);
+    const kdfConfig: KdfConfig =
+      kdf === KdfType.PBKDF2_SHA256
+        ? new PBKDF2KdfConfig(kdfIterations)
+        : new Argon2KdfConfig(kdfIterations, kdfMemory, kdfParallelism);
 
     const masterKey = await this.cryptoService.makeMasterKey(
       password.keyB64,
       await this.tokenService.getEmail(),
-      kdf,
       kdfConfig,
     );
     const keyConnectorRequest = new KeyConnectorUserKeyRequest(masterKey.encKeyB64);
-    const userId = (await firstValueFrom(this.accountService.activeAccount$))?.id;
     await this.masterPasswordService.setMasterKey(masterKey, userId);
 
     const userKey = await this.cryptoService.makeUserKey(masterKey);
-    await this.cryptoService.setUserKey(userKey[0]);
-    await this.cryptoService.setMasterKeyEncryptedUserKey(userKey[1].encryptedString);
+    await this.cryptoService.setUserKey(userKey[0], userId);
+    await this.cryptoService.setMasterKeyEncryptedUserKey(userKey[1].encryptedString, userId);
 
-    const [pubKey, privKey] = await this.cryptoService.makeKeyPair();
+    const [pubKey, privKey] = await this.cryptoService.makeKeyPair(userKey[0]);
 
     try {
       const keyConnectorUrl =
@@ -162,7 +168,6 @@ export class KeyConnectorService implements KeyConnectorServiceAbstraction {
     const keys = new KeysRequest(pubKey, privKey.encryptedString);
     const setPasswordRequest = new SetKeyConnectorKeyRequest(
       userKey[1].encryptedString,
-      kdf,
       kdfConfig,
       orgId,
       keys,

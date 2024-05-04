@@ -16,9 +16,11 @@ export class ObservableTracker<T> {
   /**
    * Awaits the next emission from the observable, or throws if the timeout is exceeded
    * @param msTimeout The maximum time to wait for another emission before throwing
+   * @returns The next emission from the observable
+   * @throws If the timeout is exceeded
    */
-  async expectEmission(msTimeout = 50) {
-    await firstValueFrom(
+  async expectEmission(msTimeout = 50): Promise<T> {
+    return await firstValueFrom(
       this.observable.pipe(
         timeout({
           first: msTimeout,
@@ -28,7 +30,7 @@ export class ObservableTracker<T> {
     );
   }
 
-  /** Awaits until the the total number of emissions observed by this tracker equals or exceeds {@link count}
+  /** Awaits until the total number of emissions observed by this tracker equals or exceeds {@link count}
    * @param count The number of emissions to wait for
    */
   async pauseUntilReceived(count: number, msTimeout = 50): Promise<T[]> {

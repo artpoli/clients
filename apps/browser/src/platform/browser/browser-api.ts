@@ -204,10 +204,6 @@ export class BrowserApi {
     chrome.tabs.sendMessage<TabMessage, T>(tabId, message, options, responseCallback);
   }
 
-  static async getPrivateModeWindows(): Promise<browser.windows.Window[]> {
-    return (await browser.windows.getAll()).filter((win) => win.incognito);
-  }
-
   static async onWindowCreated(callback: (win: chrome.windows.Window) => any) {
     // FIXME: Make sure that is does not cause a memory leak in Safari or use BrowserApi.AddListener
     // and test that it doesn't break.
@@ -236,10 +232,6 @@ export class BrowserApi {
    */
   static isBackgroundPage(window: Window & typeof globalThis): boolean {
     return typeof window !== "undefined" && window === BrowserApi.getBackgroundPage();
-  }
-
-  static getApplicationVersion(): string {
-    return chrome.runtime.getManifest().version;
   }
 
   /**
@@ -564,34 +556,6 @@ export class BrowserApi {
     chrome.privacy.services.autofillAddressEnabled.set({ value });
     chrome.privacy.services.autofillCreditCardEnabled.set({ value });
     chrome.privacy.services.passwordSavingEnabled.set({ value });
-  }
-
-  /**
-   * Opens the offscreen document with the given reasons and justification.
-   *
-   * @param reasons - List of reasons for opening the offscreen document.
-   * @see https://developer.chrome.com/docs/extensions/reference/api/offscreen#type-Reason
-   * @param justification - Custom written justification for opening the offscreen document.
-   */
-  static async createOffscreenDocument(reasons: chrome.offscreen.Reason[], justification: string) {
-    await chrome.offscreen.createDocument({
-      url: "offscreen-document/index.html",
-      reasons,
-      justification,
-    });
-  }
-
-  /**
-   * Closes the offscreen document.
-   *
-   * @param callback - Optional callback to execute after the offscreen document is closed.
-   */
-  static closeOffscreenDocument(callback?: () => void) {
-    chrome.offscreen.closeDocument(() => {
-      if (callback) {
-        callback();
-      }
-    });
   }
 
   /**

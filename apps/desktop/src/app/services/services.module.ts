@@ -15,15 +15,18 @@ import {
   SafeInjectionToken,
   STATE_FACTORY,
   INTRAPROCESS_MESSAGING_SUBJECT,
+  CLIENT_TYPE,
 } from "@bitwarden/angular/services/injection-tokens";
 import { JslibServicesModule } from "@bitwarden/angular/services/jslib-services.module";
 import { VaultTimeoutSettingsService } from "@bitwarden/common/abstractions/vault-timeout/vault-timeout-settings.service";
 import { PolicyService as PolicyServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { AccountService as AccountServiceAbstraction } from "@bitwarden/common/auth/abstractions/account.service";
 import { AuthService as AuthServiceAbstraction } from "@bitwarden/common/auth/abstractions/auth.service";
+import { KdfConfigService as KdfConfigServiceAbstraction } from "@bitwarden/common/auth/abstractions/kdf-config.service";
 import { InternalMasterPasswordServiceAbstraction } from "@bitwarden/common/auth/abstractions/master-password.service.abstraction";
 import { TokenService } from "@bitwarden/common/auth/abstractions/token.service";
 import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
+import { ClientType } from "@bitwarden/common/enums";
 import { CryptoFunctionService as CryptoFunctionServiceAbstraction } from "@bitwarden/common/platform/abstractions/crypto-function.service";
 import { CryptoService as CryptoServiceAbstraction } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { EncryptService } from "@bitwarden/common/platform/abstractions/encrypt.service";
@@ -56,7 +59,6 @@ import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/ge
 import { CipherService as CipherServiceAbstraction } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { DialogService } from "@bitwarden/components";
 
-import { LoginGuard } from "../../auth/guards/login.guard";
 import { DesktopAutofillSettingsService } from "../../autofill/services/desktop-autofill-settings.service";
 import { Account } from "../../models/account";
 import { DesktopSettingsService } from "../../platform/services/desktop-settings.service";
@@ -99,7 +101,6 @@ const safeProviders: SafeProvider[] = [
   safeProvider(InitService),
   safeProvider(NativeMessagingService),
   safeProvider(SearchBarService),
-  safeProvider(LoginGuard),
   safeProvider(DialogService),
   safeProvider({
     provide: APP_INITIALIZER as SafeInjectionToken<() => void>,
@@ -189,6 +190,7 @@ const safeProviders: SafeProvider[] = [
       AutofillSettingsServiceAbstraction,
       VaultTimeoutSettingsService,
       BiometricStateService,
+      AccountServiceAbstraction,
     ],
   }),
   safeProvider({
@@ -219,7 +221,7 @@ const safeProviders: SafeProvider[] = [
   safeProvider({
     provide: EncryptedMessageHandlerService,
     deps: [
-      StateServiceAbstraction,
+      AccountServiceAbstraction,
       AuthServiceAbstraction,
       CipherServiceAbstraction,
       PolicyServiceAbstraction,
@@ -258,6 +260,7 @@ const safeProviders: SafeProvider[] = [
       AccountServiceAbstraction,
       StateProvider,
       BiometricStateService,
+      KdfConfigServiceAbstraction,
     ],
   }),
   safeProvider({
@@ -272,6 +275,10 @@ const safeProviders: SafeProvider[] = [
     provide: NativeMessagingManifestService,
     useClass: NativeMessagingManifestService,
     deps: [],
+  }),
+  safeProvider({
+    provide: CLIENT_TYPE,
+    useValue: ClientType.Desktop,
   }),
 ];
 

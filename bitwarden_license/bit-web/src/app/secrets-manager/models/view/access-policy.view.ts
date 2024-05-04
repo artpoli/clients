@@ -58,3 +58,16 @@ export class ServiceAccountPeopleAccessPoliciesView {
   userAccessPolicies: UserServiceAccountAccessPolicyView[];
   groupAccessPolicies: GroupServiceAccountAccessPolicyView[];
 }
+
+export class ServiceAccountProjectPolicyPermissionDetailsView {
+  accessPolicy: ServiceAccountProjectAccessPolicyView;
+  hasPermission: boolean;
+}
+
+export class ServiceAccountGrantedPoliciesView {
+  grantedProjectPolicies: ServiceAccountProjectPolicyPermissionDetailsView[];
+}
+
+export class ProjectServiceAccountsAccessPoliciesView {
+  serviceAccountAccessPolicies: ServiceAccountProjectAccessPolicyView[];
+}

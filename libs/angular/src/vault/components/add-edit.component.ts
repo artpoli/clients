@@ -182,10 +182,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.flexibleCollectionsV1Enabled = await this.configService.getFeatureFlag(
       FeatureFlag.FlexibleCollectionsV1,
-      false,
     );
-    this.writeableCollections = await this.loadCollections();
-    this.canUseReprompt = await this.passwordRepromptService.enabled();
 
     this.policyService
       .policyAppliesToActiveUser$(PolicyType.PersonalOwnership)
@@ -197,6 +194,9 @@ export class AddEditComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe();
+
+    this.writeableCollections = await this.loadCollections();
+    this.canUseReprompt = await this.passwordRepromptService.enabled();
   }
 
   ngOnDestroy() {
@@ -287,6 +287,16 @@ export class AddEditComponent implements OnInit, OnDestroy {
             (c as any).checked = true;
           }
         });
+      }
+    }
+    // Only Admins can clone a cipher to different owner
+    if (this.cloneMode && this.cipher.organizationId != null) {
+      const cipherOrg = (await firstValueFrom(this.organizationService.memberOrganizations$)).find(
+        (o) => o.id === this.cipher.organizationId,
+      );
+
+      if (cipherOrg != null && !cipherOrg.isAdmin && !cipherOrg.permissions.editAnyCollection) {
+        this.ownershipOptions = [{ name: cipherOrg.name, value: cipherOrg.id }];
       }
     }
 

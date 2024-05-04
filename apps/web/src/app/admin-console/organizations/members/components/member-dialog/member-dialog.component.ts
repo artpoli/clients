@@ -218,7 +218,6 @@ export class MemberDialogComponent implements OnDestroy {
       groups: groups$,
       flexibleCollectionsV1Enabled: this.configService.getFeatureFlag$(
         FeatureFlag.FlexibleCollectionsV1,
-        false,
       ),
     })
       .pipe(takeUntil(this.destroy$))
@@ -620,7 +619,7 @@ export class MemberDialogComponent implements OnDestroy {
 }
 
 function mapCollectionToAccessItemView(
-  collection: CollectionView,
+  collection: CollectionAdminView,
   organization: Organization,
   flexibleCollectionsV1Enabled: boolean,
   accessSelection?: CollectionAccessSelectionView,
@@ -632,7 +631,8 @@ function mapCollectionToAccessItemView(
     labelName: collection.name,
     listName: collection.name,
     readonly:
-      group !== undefined || !collection.canEdit(organization, flexibleCollectionsV1Enabled),
+      group !== undefined ||
+      !collection.canEditUserAccess(organization, flexibleCollectionsV1Enabled),
     readonlyPermission: accessSelection ? convertToPermission(accessSelection) : undefined,
     viaGroupName: group?.name,
   };

@@ -5,6 +5,10 @@ import {
   ServiceAccountPeopleAccessPoliciesView,
   UserServiceAccountAccessPolicyView,
   GroupServiceAccountAccessPolicyView,
+  ServiceAccountGrantedPoliciesView,
+  ServiceAccountProjectPolicyPermissionDetailsView,
+  ServiceAccountProjectAccessPolicyView,
+  ProjectServiceAccountsAccessPoliciesView,
 } from "../../../../models/view/access-policy.view";
 
 import { ApItemEnum } from "./enums/ap-item.enum";
@@ -74,5 +78,48 @@ export function convertToServiceAccountPeopleAccessPoliciesView(
       policyView.write = ApPermissionEnumUtil.toWrite(filtered.permission);
       return policyView;
     });
+  return view;
+}
+
+export function convertToServiceAccountGrantedPoliciesView(
+  serviceAccountId: string,
+  selectedPolicyValues: ApItemValueType[],
+): ServiceAccountGrantedPoliciesView {
+  const view = new ServiceAccountGrantedPoliciesView();
+
+  view.grantedProjectPolicies = selectedPolicyValues
+    .filter((x) => x.type == ApItemEnum.Project)
+    .map((filtered) => {
+      const detailView = new ServiceAccountProjectPolicyPermissionDetailsView();
+      const policyView = new ServiceAccountProjectAccessPolicyView();
+      policyView.serviceAccountId = serviceAccountId;
+      policyView.grantedProjectId = filtered.id;
+      policyView.read = ApPermissionEnumUtil.toRead(filtered.permission);
+      policyView.write = ApPermissionEnumUtil.toWrite(filtered.permission);
+
+      detailView.accessPolicy = policyView;
+      return detailView;
+    });
+
+  return view;
+}
+
+export function convertToProjectServiceAccountsAccessPoliciesView(
+  projectId: string,
+  selectedPolicyValues: ApItemValueType[],
+): ProjectServiceAccountsAccessPoliciesView {
+  const view = new ProjectServiceAccountsAccessPoliciesView();
+
+  view.serviceAccountAccessPolicies = selectedPolicyValues
+    .filter((x) => x.type == ApItemEnum.ServiceAccount)
+    .map((filtered) => {
+      const policyView = new ServiceAccountProjectAccessPolicyView();
+      policyView.serviceAccountId = filtered.id;
+      policyView.grantedProjectId = projectId;
+      policyView.read = ApPermissionEnumUtil.toRead(filtered.permission);
+      policyView.write = ApPermissionEnumUtil.toWrite(filtered.permission);
+      return policyView;
+    });
+
   return view;
 }

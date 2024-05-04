@@ -3,6 +3,8 @@ import { SelectItemView } from "@bitwarden/components";
 
 import {
   ProjectPeopleAccessPoliciesView,
+  ServiceAccountGrantedPoliciesView,
+  ProjectServiceAccountsAccessPoliciesView,
   ServiceAccountPeopleAccessPoliciesView,
 } from "../../../../models/view/access-policy.view";
 import { PotentialGranteeView } from "../../../../models/view/potential-grantee.view";
@@ -13,6 +15,12 @@ import { ApPermissionEnum, ApPermissionEnumUtil } from "./enums/ap-permission.en
 export type ApItemViewType = SelectItemView & {
   accessPolicyId?: string;
   permission?: ApPermissionEnum;
+  /**
+   * Flag that this item cannot be modified.
+   * This will disable the permission editor and will keep
+   * the item always selected.
+   */
+  readOnly: boolean;
 } & (
     | {
         type: ApItemEnum.User;
@@ -47,6 +55,7 @@ export function convertToAccessPolicyItemViews(
       permission: ApPermissionEnumUtil.toApPermissionEnum(policy.read, policy.write),
       userId: policy.userId,
       currentUser: policy.currentUser,
+      readOnly: false,
     });
   });
 
@@ -60,9 +69,56 @@ export function convertToAccessPolicyItemViews(
       listName: policy.groupName,
       permission: ApPermissionEnumUtil.toApPermissionEnum(policy.read, policy.write),
       currentUserInGroup: policy.currentUserInGroup,
+      readOnly: false,
     });
   });
 
+  return accessPolicies;
+}
+
+export function convertGrantedPoliciesToAccessPolicyItemViews(
+  value: ServiceAccountGrantedPoliciesView,
+): ApItemViewType[] {
+  const accessPolicies: ApItemViewType[] = [];
+
+  value.grantedProjectPolicies.forEach((detailView) => {
+    accessPolicies.push({
+      type: ApItemEnum.Project,
+      icon: ApItemEnumUtil.itemIcon(ApItemEnum.Project),
+      id: detailView.accessPolicy.grantedProjectId,
+      accessPolicyId: detailView.accessPolicy.id,
+      labelName: detailView.accessPolicy.grantedProjectName,
+      listName: detailView.accessPolicy.grantedProjectName,
+      permission: ApPermissionEnumUtil.toApPermissionEnum(
+        detailView.accessPolicy.read,
+        detailView.accessPolicy.write,
+      ),
+      readOnly: !detailView.hasPermission,
+    });
+  });
+  return accessPolicies;
+}
+
+export function convertProjectServiceAccountsViewToApItemViews(
+  value: ProjectServiceAccountsAccessPoliciesView,
+): ApItemViewType[] {
+  const accessPolicies: ApItemViewType[] = [];
+
+  value.serviceAccountAccessPolicies.forEach((accessPolicyView) => {
+    accessPolicies.push({
+      type: ApItemEnum.ServiceAccount,
+      icon: ApItemEnumUtil.itemIcon(ApItemEnum.ServiceAccount),
+      id: accessPolicyView.serviceAccountId,
+      accessPolicyId: accessPolicyView.id,
+      labelName: accessPolicyView.serviceAccountName,
+      listName: accessPolicyView.serviceAccountName,
+      permission: ApPermissionEnumUtil.toApPermissionEnum(
+        accessPolicyView.read,
+        accessPolicyView.write,
+      ),
+      readOnly: false,
+    });
+  });
   return accessPolicies;
 }
 
@@ -108,6 +164,7 @@ export function convertPotentialGranteesToApItemViewType(
       listName: listName,
       currentUserInGroup: granteeView.currentUserInGroup,
       currentUser: granteeView.currentUser,
+      readOnly: false,
     };
   });
 }

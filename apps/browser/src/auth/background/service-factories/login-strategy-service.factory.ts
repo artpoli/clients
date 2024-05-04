@@ -65,9 +65,10 @@ import {
   AuthRequestServiceInitOptions,
 } from "./auth-request-service.factory";
 import {
-  deviceTrustCryptoServiceFactory,
-  DeviceTrustCryptoServiceInitOptions,
-} from "./device-trust-crypto-service.factory";
+  deviceTrustServiceFactory,
+  DeviceTrustServiceInitOptions,
+} from "./device-trust-service.factory";
+import { kdfConfigServiceFactory, KdfConfigServiceInitOptions } from "./kdf-config-service.factory";
 import {
   keyConnectorServiceFactory,
   KeyConnectorServiceInitOptions,
@@ -102,11 +103,12 @@ export type LoginStrategyServiceInitOptions = LoginStrategyServiceFactoryOptions
   EncryptServiceInitOptions &
   PolicyServiceInitOptions &
   PasswordStrengthServiceInitOptions &
-  DeviceTrustCryptoServiceInitOptions &
+  DeviceTrustServiceInitOptions &
   AuthRequestServiceInitOptions &
   UserDecryptionOptionsServiceInitOptions &
   GlobalStateProviderInitOptions &
-  BillingAccountProfileStateServiceInitOptions;
+  BillingAccountProfileStateServiceInitOptions &
+  KdfConfigServiceInitOptions;
 
 export function loginStrategyServiceFactory(
   cache: { loginStrategyService?: LoginStrategyServiceAbstraction } & CachedServices,
@@ -135,11 +137,12 @@ export function loginStrategyServiceFactory(
         await encryptServiceFactory(cache, opts),
         await passwordStrengthServiceFactory(cache, opts),
         await policyServiceFactory(cache, opts),
-        await deviceTrustCryptoServiceFactory(cache, opts),
+        await deviceTrustServiceFactory(cache, opts),
         await authRequestServiceFactory(cache, opts),
         await internalUserDecryptionOptionServiceFactory(cache, opts),
         await globalStateProviderFactory(cache, opts),
         await billingAccountProfileStateServiceFactory(cache, opts),
+        await kdfConfigServiceFactory(cache, opts),
       ),
   );
 }

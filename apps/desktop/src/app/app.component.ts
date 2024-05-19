@@ -38,9 +38,11 @@ import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/pl
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { SystemService } from "@bitwarden/common/platform/abstractions/system.service";
 import { BiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
+import { clearCaches } from "@bitwarden/common/platform/misc/sequentialize";
 import { StateEventRunnerService } from "@bitwarden/common/platform/state";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/password";
 import { UserId } from "@bitwarden/common/types/guid";
+import { VaultTimeout, VaultTimeoutStringType } from "@bitwarden/common/types/vault-timeout.type";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { CollectionService } from "@bitwarden/common/vault/abstractions/collection.service";
 import { InternalFolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
@@ -63,12 +65,6 @@ import { PasswordGeneratorHistoryComponent } from "./tools/password-generator-hi
 const BroadcasterSubscriptionId = "AppComponent";
 const IdleTimeout = 60000 * 10; // 10 minutes
 const SyncInterval = 6 * 60 * 60 * 1000; // 6 hours
-
-const systemTimeoutOptions = {
-  onLock: -2,
-  onSuspend: -3,
-  onIdle: -4,
-};
 
 @Component({
   selector: "app-root",
@@ -401,6 +397,8 @@ export class AppComponent implements OnInit, OnDestroy {
             this.router.navigate(["/remove-password"]);
             break;
           case "switchAccount": {
+            // Clear sequentialized caches
+            clearCaches();
             if (message.userId != null) {
               await this.stateService.clearDecryptedData(message.userId);
               await this.accountService.switchAccount(message.userId);
@@ -430,13 +428,13 @@ export class AppComponent implements OnInit, OnDestroy {
             break;
           }
           case "systemSuspended":
-            await this.checkForSystemTimeout(systemTimeoutOptions.onSuspend);
+            await this.checkForSystemTimeout(VaultTimeoutStringType.OnSleep);
             break;
           case "systemLocked":
-            await this.checkForSystemTimeout(systemTimeoutOptions.onLock);
+            await this.checkForSystemTimeout(VaultTimeoutStringType.OnLocked);
             break;
           case "systemIdle":
-            await this.checkForSystemTimeout(systemTimeoutOptions.onIdle);
+            await this.checkForSystemTimeout(VaultTimeoutStringType.OnIdle);
             break;
           case "openLoginApproval":
             if (message.notificationId != null) {
@@ -721,7 +719,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  private async checkForSystemTimeout(timeout: number): Promise<void> {
+  private async checkForSystemTimeout(timeout: VaultTimeout): Promise<void> {
     const accounts = await firstValueFrom(this.accountService.accounts$);
     for (const userId in accounts) {
       if (userId == null) {
@@ -738,9 +736,13 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  private async getVaultTimeoutOptions(userId: string): Promise<[number, string]> {
-    const timeout = await this.stateService.getVaultTimeout({ userId: userId });
-    const action = await this.stateService.getVaultTimeoutAction({ userId: userId });
+  private async getVaultTimeoutOptions(userId: string): Promise<[VaultTimeout, string]> {
+    const timeout = await firstValueFrom(
+      this.vaultTimeoutSettingsService.getVaultTimeoutByUserId$(userId),
+    );
+    const action = await firstValueFrom(
+      this.vaultTimeoutSettingsService.getVaultTimeoutActionByUserId$(userId),
+    );
     return [timeout, action];
   }
 

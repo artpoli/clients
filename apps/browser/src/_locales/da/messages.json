@@ -3,11 +3,11 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden Password Manager",
+    "message": "Bitwarden Adgangskodehåndtering",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "message": "Hjemme, på arbejde eller på farten sikrer Bitwarden nemt alle adgangskoder, adgangskort og sensitive oplysninger",
     "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
@@ -374,11 +374,20 @@
   "other": {
     "message": "Andre"
   },
+  "unlockMethods": {
+    "message": "Oplåsningsmuligheder"
+  },
   "unlockMethodNeededToChangeTimeoutActionDesc": {
     "message": "Opsæt en oplåsningsmetode til at ændre bokstimeouthandlingen."
   },
   "unlockMethodNeeded": {
     "message": "Opsæt en oplåsningsmetode i Indstillinger"
+  },
+  "sessionTimeoutHeader": {
+    "message": "Sessionstimeout"
+  },
+  "otherOptions": {
+    "message": "Andre innstillinger"
   },
   "rateExtension": {
     "message": "Bedøm udvidelsen"
@@ -2168,6 +2177,108 @@
   "forwardedEmailDesc": {
     "message": "Generér et e-mail alias med en ekstern viderestillingstjeneste."
   },
+  "forwarderError": {
+    "message": "$SERVICENAME$-fejl: $ERRORMESSAGE$",
+    "description": "Reports an error returned by a forwarding service to the user.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      },
+      "errormessage": {
+        "content": "$2",
+        "example": "Invalid characters in domain name."
+      }
+    }
+  },
+  "forwarderGeneratedBy": {
+    "message": "Genereret af Bitwarden.",
+    "description": "Displayed with the address on the forwarding service's configuration screen."
+  },
+  "forwarderGeneratedByWithWebsite": {
+    "message": "Websted: $WEBSITE$. Genereret af Bitwarden.",
+    "description": "Displayed with the address on the forwarding service's configuration screen.",
+    "placeholders": {
+      "WEBSITE": {
+        "content": "$1",
+        "example": "www.example.com"
+      }
+    }
+  },
+  "forwaderInvalidToken": {
+    "message": "Ugyldigt $SERVICENAME$ API-token",
+    "description": "Displayed when the user's API token is empty or rejected by the forwarding service.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      }
+    }
+  },
+  "forwaderInvalidTokenWithMessage": {
+    "message": "Ugyldigt $SERVICENAME$ API-token: $ERRORMESSAGE$",
+    "description": "Displayed when the user's API token is rejected by the forwarding service with an error message.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      },
+      "errormessage": {
+        "content": "$2",
+        "example": "Please verify your email address to continue."
+      }
+    }
+  },
+  "forwarderNoAccountId": {
+    "message": "Kan ikke få $SERVICENAME$ maskeret e-mailkonto-ID.",
+    "description": "Displayed when the forwarding service fails to return an account ID.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      }
+    }
+  },
+  "forwarderNoDomain": {
+    "message": "Ugyldigt $SERVICENAME$-domæne.",
+    "description": "Displayed when the domain is empty or domain authorization failed at the forwarding service.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      }
+    }
+  },
+  "forwarderNoUrl": {
+    "message": "Ugyldig $SERVICENAME$-URL.",
+    "description": "Displayed when the url of the forwarding service wasn't supplied.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      }
+    }
+  },
+  "forwarderUnknownError": {
+    "message": "Ukendt $SERVICENAME$-fejl opstod.",
+    "description": "Displayed when the forwarding service failed due to an unknown error.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      }
+    }
+  },
+  "forwarderUnknownForwarder": {
+    "message": "Ukendt videresender: '$SERVICENAME$'.",
+    "description": "Displayed when the forwarding service is not supported.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "JustTrust.us"
+      }
+    }
+  },
   "hostname": {
     "message": "Værtsnavn",
     "description": "Part of a URL."
@@ -2390,7 +2501,7 @@
     "message": "Generelt"
   },
   "display": {
-    "message": "Display"
+    "message": "Skærm"
   },
   "accountSuccessfullyCreated": {
     "message": "Konto oprettet!"
@@ -3023,10 +3134,22 @@
   "adminConsole": {
     "message": "Admin-konsol"
   },
+  "accountSecurity": {
+    "message": "Kontosikkerhed"
+  },
+  "notifications": {
+    "message": "Notifikationer"
+  },
+  "appearance": {
+    "message": "Udseende"
+  },
   "errorAssigningTargetCollection": {
     "message": "Fejl ved tildeling af målsamling."
   },
   "errorAssigningTargetFolder": {
     "message": "Fejl ved tildeling af målmappe."
+  },
+  "new": {
+    "message": "New"
   }
 }

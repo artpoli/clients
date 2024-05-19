@@ -1810,7 +1810,7 @@
     "message": "Suojaamattomia verkkosivustoja löytyi"
   },
   "unsecuredWebsitesFoundReportDesc": {
-    "message": "We found $COUNT$ items in your $VAULT$ with unsecured URIs. You should change their URI scheme to https:// if the website allows it.",
+    "message": "Löysimme holv(e)istasi $COUNT$ kohdetta suojaamattomilla URI-osoitteilla. Nämä tulisi muuttaa suojattuun \"https://\" -muotoon, jos sivustot sen mahdollistavat.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -1835,7 +1835,7 @@
     "message": "Löytyi kirjautumistietoja, joille ei ole määritetty kaksivaiheista kirjautumista"
   },
   "inactive2faFoundReportDesc": {
-    "message": "We found $COUNT$ website(s) in your $VAULT$ that may not be configured with two-step login (according to 2fa.directory). To further protect these accounts, you should set up two-step login.",
+    "message": "Löysimme holv(e)istasi $COUNT$ sivustoa, joita ei ehkä ole määritetty käyttämään kaksivaiheista tunnistautumista (2fa.directory-sivuston mukaan). Nämä tilit tulisi suojata paremmin määrittämällä niille kaksivaiheinen tunnistautuminen.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -1863,7 +1863,7 @@
     "message": "Paljastuneita salasanoja löytyi"
   },
   "exposedPasswordsFoundReportDesc": {
-    "message": "We found $COUNT$ items in your $VAULT$ that have passwords that were exposed in known data breaches. You should change them to use a new password.",
+    "message": "Löysimme holv(e)istasi $COUNT$ kohdetta, joiden salasanat ovat paljastuneet tunnetuissa tietovuodoissa. Nämä salasanat tulisi vaihtaa.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -1900,7 +1900,7 @@
     "message": "Heikkoja salasanoja löytyi"
   },
   "weakPasswordsFoundReportDesc": {
-    "message": "We found $COUNT$ items in your $VAULT$ with passwords that are not strong. You should update them to use stronger passwords.",
+    "message": "Löysimme holv(e)istasi $COUNT$ kohdetta, joiden salasanat eivät ole vahvoja. Nämä tulisi korvata vahvemmilla salasanoilla.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -1925,7 +1925,7 @@
     "message": "Toistuvia salasanoja löytyi"
   },
   "reusedPasswordsFoundReportDesc": {
-    "message": "We found $COUNT$ passwords that are being reused in your $VAULT$. You should change them to a unique value.",
+    "message": "Löysimme holv(e)istasi $COUNT$ toistuvasti käytettyä salasanaa. Ne tulisi korvata yksilöllisillä salasanoilla.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -2787,6 +2787,12 @@
   },
   "all": {
     "message": "Kaikki"
+  },
+  "addAccess": {
+    "message": "Lisää käyttöoikeus"
+  },
+  "addAccessFilter": {
+    "message": "Lisää käyttöoikeussuodatin"
   },
   "refresh": {
     "message": "Päivitä"
@@ -5802,6 +5808,108 @@
   "forwardedEmailDesc": {
     "message": "Luo sähköpostialias ulkoisella ohjauspalvelulla."
   },
+  "forwarderError": {
+    "message": "$SERVICENAME$ -virhe: $ERRORMESSAGE$",
+    "description": "Reports an error returned by a forwarding service to the user.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      },
+      "errormessage": {
+        "content": "$2",
+        "example": "Invalid characters in domain name."
+      }
+    }
+  },
+  "forwarderGeneratedBy": {
+    "message": "Bitwardenin luoma.",
+    "description": "Displayed with the address on the forwarding service's configuration screen."
+  },
+  "forwarderGeneratedByWithWebsite": {
+    "message": "Verkkosivusto: $WEBSITE$. Bitwardenin luoma.",
+    "description": "Displayed with the address on the forwarding service's configuration screen.",
+    "placeholders": {
+      "WEBSITE": {
+        "content": "$1",
+        "example": "www.example.com"
+      }
+    }
+  },
+  "forwaderInvalidToken": {
+    "message": "Virheellinen $SERVICENAME$ -rajapinnan tunniste",
+    "description": "Displayed when the user's API token is empty or rejected by the forwarding service.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      }
+    }
+  },
+  "forwaderInvalidTokenWithMessage": {
+    "message": "Virheellinen $SERVICENAME$ -rajapinnan tunniste: $ERRORMESSAGE$",
+    "description": "Displayed when the user's API token is rejected by the forwarding service with an error message.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      },
+      "errormessage": {
+        "content": "$2",
+        "example": "Please verify your email address to continue."
+      }
+    }
+  },
+  "forwarderNoAccountId": {
+    "message": "$SERVICENAME$ -palvelun peittämän sähköpostitilin tunnistetta ei saatu.",
+    "description": "Displayed when the forwarding service fails to return an account ID.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      }
+    }
+  },
+  "forwarderNoDomain": {
+    "message": "Virheellinen $SERVICENAME$ -verkkotunnus.",
+    "description": "Displayed when the domain is empty or domain authorization failed at the forwarding service.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      }
+    }
+  },
+  "forwarderNoUrl": {
+    "message": "Virheellinen $SERVICENAME$ -URL.",
+    "description": "Displayed when the url of the forwarding service wasn't supplied.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      }
+    }
+  },
+  "forwarderUnknownError": {
+    "message": "Tapahtui tuntematon $SERVICENAME$ -virhe.",
+    "description": "Displayed when the forwarding service failed due to an unknown error.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      }
+    }
+  },
+  "forwarderUnknownForwarder": {
+    "message": "Tuntematon ohjaaja: $SERVICENAME$.",
+    "description": "Displayed when the forwarding service is not supported.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "JustTrust.us"
+      }
+    }
+  },
   "hostname": {
     "message": "Isäntä",
     "description": "Part of a URL."
@@ -6480,7 +6588,7 @@
   "editGroupCollectionsDesc": {
     "message": "Myönnä käyttöoikeudet kokoelmiin lisäämällä heidät tähän ryhmään."
   },
-  "editGroupCollectionsRestrictionsDesc": {
+  "restrictedCollectionAssignmentDesc": {
     "message": "You can only assign collections you manage."
   },
   "accessAllCollectionsDesc": {
@@ -6714,8 +6822,8 @@
   "selectGroups": {
     "message": "Valitse ryhmät"
   },
-  "userPermissionOverrideHelper": {
-    "message": "Jäsenkohtaisesti määritetyt käyttöoikeudet korvaavat kyseisen jäsenen ryhmän määrittämät oikeudet"
+  "userPermissionOverrideHelperDesc": {
+    "message": "Permissions set for a member will replace permissions set by that member's group."
   },
   "noMembersOrGroupsAdded": {
     "message": "Jäseniä tai ryhmiä ei ole lisätty."
@@ -6906,8 +7014,8 @@
   "updateLowKdfIterationsDesc": {
     "message": "Päivitä salausasetuksesi uusien suojaussuositusten mukaisiksi ja vahvista tilisi suojausta."
   },
-  "changeKdfLoggedOutWarning": {
-    "message": "Jos jatkat, kirjataan kaikki aktiiviset istunnot ulos, jonka jälkeen sinun on kirjauduttava sisään uudelleen ja suoritettava kaksivaiheisen todennuksen määritys. Tietojesi säilyvyyden varmistamiseksi suosittelemme, että viet holvisi sisällön ennen kuin muutat salausasetuksiasi."
+  "kdfSettingsChangeLogoutWarning": {
+    "message": "Jos jatkat, kaikki aktiiviset istunnot kirjataan ulos. Sinun on kirjauduttava sisään uudelleen ja suoritettava kaksivaiheisen todennuksen määritys. Tietojesi säilyvyyden varmistamiseksi suosittelemme, että viet holvisi sisällön, ennen kuin muutat salausasetuksiasi."
   },
   "secretsManager": {
     "message": "Salaisuushallinta"
@@ -7527,6 +7635,12 @@
   "readOnlyCollectionAccess": {
     "message": "Oikeutesi eivät riitä kokoelman hallintaan."
   },
+  "grantAddAccessCollectionWarningTitle": {
+    "message": "Puuttuvat \"Voi hallita\" -käyttöoikeudet"
+  },
+  "grantAddAccessCollectionWarning": {
+    "message": "Myönnä ”Voi hallita” -oikeudet, jotka mahdollistavat kokoelman täydellisen hallinnan, mukaanlukien sen poistamisen."
+  },
   "grantCollectionAccess": {
     "message": "Myönnä ryhmille tai henkilöille kokoelman käyttöoikeus."
   },
@@ -7632,14 +7746,11 @@
   "success": {
     "message": "Onnistui"
   },
-  "viewCollection": {
-    "message": "Näytä kokoelma"
-  },
   "restrictedGroupAccess": {
     "message": "Et voi lisätä itseäsi ryhmiin."
   },
-  "restrictedCollectionAccess": {
-    "message": "Et voi lisätä itseäsi kokoelmiin."
+  "cannotAddYourselfToCollections": {
+    "message": "You cannot add yourself to collections."
   },
   "assign": {
     "message": "Määritä"
@@ -7961,8 +8072,8 @@
       }
     }
   },
-  "deleteProviderWarningDesc": {
-    "message": "Kaikki liitetyt asiakkaat on poistettava ennen toimittajan $ID$ poistoa.",
+  "deleteProviderWarningDescription": {
+    "message": "Kaikki pääteliitokset on poistettava ennen toimittajan $ID$ poistoa.",
     "placeholders": {
       "id": {
         "content": "$1",
@@ -8074,6 +8185,48 @@
     "message": "Valitse kokoelman kohde"
   },
   "manageBillingFromProviderPortalMessage": {
-    "message": "Manage billing from the Provider Portal"
+    "message": "Hallitse laskutusta Toimittajaportaaliista"
+  },
+  "viewInfo": {
+    "message": "Tarkastele tietoja"
+  },
+  "viewAccess": {
+    "message": "Tarkastele oikeuksia"
+  },
+  "noCollectionsSelected": {
+    "message": "Et ole valinnut yhtään kokoelmaa."
+  },
+  "updateName": {
+    "message": "Päivitä nimi"
+  },
+  "updatedOrganizationName": {
+    "message": "Päivitetty organisaation nimi"
+  },
+  "providerPlan": {
+    "message": "Hallittu palvelutoimittaja"
+  },
+  "orgSeats": {
+    "message": "Organisaation käyttäjäpaikat"
+  },
+  "providerDiscount": {
+    "message": "$AMOUNT$ % alennus",
+    "placeholders": {
+      "amount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "secureYourInfrastructure": {
+    "message": "Secure your infrastructure"
+  },
+  "protectYourFamilyOrBusiness": {
+    "message": "Protect your family or business"
+  },
+  "upgradeOrganizationCloseSecurityGaps": {
+    "message": "Close security gaps with monitoring reports"
+  },
+  "upgradeOrganizationCloseSecurityGapsDesc": {
+    "message": "Stay ahead of security vulnerabilities by upgrading to a paid plan for enhanced monitoring."
   }
 }

@@ -183,7 +183,7 @@ export class GroupAddEditComponent implements OnInit, OnDestroy {
     shareReplay({ refCount: true, bufferSize: 1 }),
   );
 
-  allowAdminAccessToAllCollectionItems$ = combineLatest([
+  protected allowAdminAccessToAllCollectionItems$ = combineLatest([
     this.organization$,
     this.flexibleCollectionsV1Enabled$,
   ]).pipe(
@@ -196,7 +196,16 @@ export class GroupAddEditComponent implements OnInit, OnDestroy {
     }),
   );
 
-  restrictGroupAccess$ = combineLatest([
+  protected canEditAnyCollection$ = combineLatest([
+    this.organization$,
+    this.flexibleCollectionsV1Enabled$,
+  ]).pipe(
+    map(([org, flexibleCollectionsV1Enabled]) =>
+      org.canEditAnyCollection(flexibleCollectionsV1Enabled),
+    ),
+  );
+
+  protected cannotAddSelfToGroup$ = combineLatest([
     this.allowAdminAccessToAllCollectionItems$,
     this.groupDetails$,
   ]).pipe(map(([allowAdminAccess, groupDetails]) => !allowAdminAccess && groupDetails != null));
@@ -229,7 +238,7 @@ export class GroupAddEditComponent implements OnInit, OnDestroy {
       this.orgCollections$,
       this.orgMembers$,
       this.groupDetails$,
-      this.restrictGroupAccess$,
+      this.cannotAddSelfToGroup$,
       this.accountService.activeAccount$,
       this.organization$,
       this.flexibleCollectionsV1Enabled$,
@@ -273,12 +282,13 @@ export class GroupAddEditComponent implements OnInit, OnDestroy {
 
           // If the current user is not already in the group and cannot add themselves, remove them from the list
           if (restrictGroupAccess) {
-            const organizationUserId = this.members.find((m) => m.userId === activeAccount.id).id;
+            // organizationUserId may be null if accessing via a provider
+            const organizationUserId = this.members.find((m) => m.userId === activeAccount.id)?.id;
             const isAlreadyInGroup = this.groupForm.value.members.some(
               (m) => m.id === organizationUserId,
             );
 
-            if (!isAlreadyInGroup) {
+            if (organizationUserId != null && !isAlreadyInGroup) {
               this.members = this.members.filter((m) => m.id !== organizationUserId);
             }
           }

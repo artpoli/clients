@@ -8,6 +8,7 @@ import { ConfigService } from "@bitwarden/common/platform/abstractions/config/co
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { SystemService } from "@bitwarden/common/platform/abstractions/system.service";
+import { devFlagEnabled } from "@bitwarden/common/platform/misc/flags";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { CipherType } from "@bitwarden/common/vault/enums";
 
@@ -195,8 +196,6 @@ export default class RuntimeBackground {
         }
 
         await this.notificationsService.updateConnection(msg.command === "loggedIn");
-        await this.main.refreshBadge();
-        await this.main.refreshMenu(false);
         this.systemService.cancelProcessReload();
 
         if (item) {
@@ -208,6 +207,13 @@ export default class RuntimeBackground {
             item,
           );
         }
+
+        // @TODO these need to happen last to avoid blocking `tabSendMessageData` above
+        // The underlying cause exists within `cipherService.getAllDecrypted` via
+        // `getAllDecryptedForUrl` and is anticipated to be refactored
+        await this.main.refreshBadge();
+        await this.main.refreshMenu(false);
+
         break;
       }
       case "addToLockedVaultPendingNotifications":
@@ -324,9 +330,10 @@ export default class RuntimeBackground {
 
       if (this.onInstalledReason != null) {
         if (this.onInstalledReason === "install") {
-          // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          BrowserApi.createNewTab("https://bitwarden.com/browser-start/");
+          if (!devFlagEnabled("skipWelcomeOnInstall")) {
+            void BrowserApi.createNewTab("https://bitwarden.com/browser-start/");
+          }
+
           await this.autofillSettingsService.setInlineMenuVisibility(
             AutofillOverlayVisibility.OnFieldFocus,
           );

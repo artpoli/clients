@@ -5,7 +5,8 @@ import { concatMap, firstValueFrom, lastValueFrom, Observable, Subject, takeUnti
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { OrganizationApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/organization/organization-api.service.abstraction";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
-import { OrganizationApiKeyType, ProviderType } from "@bitwarden/common/admin-console/enums";
+import { ProviderService } from "@bitwarden/common/admin-console/abstractions/provider.service";
+import { OrganizationApiKeyType, ProviderStatusType } from "@bitwarden/common/admin-console/enums";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
 import { PlanType } from "@bitwarden/common/billing/enums";
 import { OrganizationSubscriptionResponse } from "@bitwarden/common/billing/models/response/organization-subscription.response";
@@ -49,7 +50,7 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
   locale: string;
   showUpdatedSubscriptionStatusSection$: Observable<boolean>;
   manageBillingFromProviderPortal = ManageBilling;
-  IsProviderManaged = false;
+  isProviderManaged = false;
 
   protected readonly teamsStarter = ProductType.TeamsStarter;
 
@@ -69,6 +70,7 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
     private route: ActivatedRoute,
     private dialogService: DialogService,
     private configService: ConfigService,
+    private providerService: ProviderService,
   ) {}
 
   async ngOnInit() {
@@ -106,16 +108,18 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
     this.loading = true;
     this.locale = await firstValueFrom(this.i18nService.locale$);
     this.userOrg = await this.organizationService.get(this.organizationId);
-    const enableConsolidatedBilling = await firstValueFrom(this.enableConsolidatedBilling$);
-    this.IsProviderManaged =
-      this.userOrg.hasProvider &&
-      this.userOrg.providerType == ProviderType.Msp &&
-      enableConsolidatedBilling
-        ? true
-        : false;
+
     if (this.userOrg.canViewSubscription) {
+      const enableConsolidatedBilling = await firstValueFrom(this.enableConsolidatedBilling$);
+      const provider = await this.providerService.get(this.userOrg.providerId);
+      this.isProviderManaged =
+        enableConsolidatedBilling &&
+        this.userOrg.hasProvider &&
+        provider.providerStatus == ProviderStatusType.Billable;
+
       this.sub = await this.organizationApiService.getSubscription(this.organizationId);
       this.lineItems = this.sub?.subscription?.items;
+
       if (this.lineItems && this.lineItems.length) {
         this.lineItems = this.lineItems
           .map((item) => {

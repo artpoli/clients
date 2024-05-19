@@ -9,13 +9,14 @@ export enum FeatureFlag {
   FlexibleCollectionsV1 = "flexible-collections-v-1", // v-1 is intentional
   VaultOnboarding = "vault-onboarding",
   GeneratorToolsModernization = "generator-tools-modernization",
-  KeyRotationImprovements = "key-rotation-improvements",
   FlexibleCollectionsMigration = "flexible-collections-migration",
   ShowPaymentMethodWarningBanners = "show-payment-method-warning-banners",
   EnableConsolidatedBilling = "enable-consolidated-billing",
   AC1795_UpdatedSubscriptionStatusSection = "AC-1795_updated-subscription-status-section",
   UnassignedItemsBanner = "unassigned-items-banner",
   EnableDeleteProvider = "AC-1218-delete-provider",
+  ExtensionRefresh = "extension-refresh",
+  RestrictProviderAccess = "restrict-provider-access",
 }
 
 export type AllowedFeatureFlagTypes = boolean | number | string;
@@ -35,13 +36,14 @@ export const DefaultFeatureFlagValue = {
   [FeatureFlag.FlexibleCollectionsV1]: FALSE,
   [FeatureFlag.VaultOnboarding]: FALSE,
   [FeatureFlag.GeneratorToolsModernization]: FALSE,
-  [FeatureFlag.KeyRotationImprovements]: FALSE,
   [FeatureFlag.FlexibleCollectionsMigration]: FALSE,
   [FeatureFlag.ShowPaymentMethodWarningBanners]: FALSE,
   [FeatureFlag.EnableConsolidatedBilling]: FALSE,
   [FeatureFlag.AC1795_UpdatedSubscriptionStatusSection]: FALSE,
   [FeatureFlag.UnassignedItemsBanner]: FALSE,
   [FeatureFlag.EnableDeleteProvider]: FALSE,
+  [FeatureFlag.ExtensionRefresh]: FALSE,
+  [FeatureFlag.RestrictProviderAccess]: FALSE,
 } satisfies Record<FeatureFlag, AllowedFeatureFlagTypes>;
 
 export type DefaultFeatureFlagValueType = typeof DefaultFeatureFlagValue;

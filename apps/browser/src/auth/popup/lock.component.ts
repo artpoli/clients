@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { firstValueFrom } from "rxjs";
 
 import { LockComponent as BaseLockComponent } from "@bitwarden/angular/auth/components/lock.component";
-import { PinCryptoServiceAbstraction } from "@bitwarden/auth/common";
+import { PinServiceAbstraction } from "@bitwarden/auth/common";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { VaultTimeoutSettingsService } from "@bitwarden/common/abstractions/vault-timeout/vault-timeout-settings.service";
 import { VaultTimeoutService } from "@bitwarden/common/abstractions/vault-timeout/vault-timeout.service";
@@ -63,7 +63,7 @@ export class LockComponent extends BaseLockComponent {
     dialogService: DialogService,
     deviceTrustService: DeviceTrustServiceAbstraction,
     userVerificationService: UserVerificationService,
-    pinCryptoService: PinCryptoServiceAbstraction,
+    pinService: PinServiceAbstraction,
     private routerService: BrowserRouterService,
     biometricStateService: BiometricStateService,
     accountService: AccountService,
@@ -89,7 +89,7 @@ export class LockComponent extends BaseLockComponent {
       dialogService,
       deviceTrustService,
       userVerificationService,
-      pinCryptoService,
+      pinService,
       biometricStateService,
       accountService,
       authService,
@@ -143,15 +143,17 @@ export class LockComponent extends BaseLockComponent {
     try {
       success = await super.unlockBiometric();
     } catch (e) {
-      const error = BiometricErrors[e as BiometricErrorTypes];
+      const error = BiometricErrors[e?.message as BiometricErrorTypes];
 
       if (error == null) {
         this.logService.error("Unknown error: " + e);
+        return false;
       }
 
       this.biometricError = this.i18nService.t(error.description);
+    } finally {
+      this.pendingBiometric = false;
     }
-    this.pendingBiometric = false;
 
     return success;
   }

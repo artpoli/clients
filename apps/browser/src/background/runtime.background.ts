@@ -4,6 +4,7 @@ import { NotificationsService } from "@bitwarden/common/abstractions/notificatio
 import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
 import { AutofillOverlayVisibility } from "@bitwarden/common/autofill/constants";
 import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
+import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
@@ -19,11 +20,11 @@ import {
   openTwoFactorAuthPopout,
 } from "../auth/popup/utils/auth-popout-window";
 import { LockedVaultPendingNotificationsData } from "../autofill/background/abstractions/notification.background";
+import { Fido2Background } from "../autofill/fido2/background/abstractions/fido2.background";
 import { AutofillService } from "../autofill/services/abstractions/autofill.service";
 import { BrowserApi } from "../platform/browser/browser-api";
 import { BrowserEnvironmentService } from "../platform/services/browser-environment.service";
 import { BrowserPlatformUtilsService } from "../platform/services/platform-utils/browser-platform-utils.service";
-import { Fido2Background } from "../vault/fido2/background/abstractions/fido2.background";
 
 import MainBackground from "./main.background";
 
@@ -65,7 +66,11 @@ export default class RuntimeBackground {
       sender: chrome.runtime.MessageSender,
       sendResponse: (response: any) => void,
     ) => {
-      const messagesWithResponse = ["biometricUnlock"];
+      const messagesWithResponse = [
+        "biometricUnlock",
+        "getUseTreeWalkerApiForPageDetailsCollectionFeatureFlag",
+        "getInlineMenuFieldQualificationFeatureFlag",
+      ];
 
       if (messagesWithResponse.includes(msg.command)) {
         this.processMessageWithSender(msg, sender).then(
@@ -177,6 +182,14 @@ export default class RuntimeBackground {
         const result = await this.main.biometricUnlock();
         return result;
       }
+      case "getUseTreeWalkerApiForPageDetailsCollectionFeatureFlag": {
+        return await this.configService.getFeatureFlag(
+          FeatureFlag.UseTreeWalkerApiForPageDetailsCollection,
+        );
+      }
+      case "getInlineMenuFieldQualificationFeatureFlag": {
+        return await this.configService.getFeatureFlag(FeatureFlag.InlineMenuFieldQualification);
+      }
     }
   }
 
@@ -188,6 +201,7 @@ export default class RuntimeBackground {
 
         if (msg.command === "loggedIn") {
           await this.sendBwInstalledMessageToVault();
+          await this.autofillService.reloadAutofillScripts();
         }
 
         if (this.lockedVaultPendingNotifications?.length > 0) {

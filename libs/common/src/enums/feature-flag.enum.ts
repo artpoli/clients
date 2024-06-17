@@ -7,9 +7,7 @@ export enum FeatureFlag {
   BrowserFilelessImport = "browser-fileless-import",
   ItemShare = "item-share",
   FlexibleCollectionsV1 = "flexible-collections-v-1", // v-1 is intentional
-  VaultOnboarding = "vault-onboarding",
   GeneratorToolsModernization = "generator-tools-modernization",
-  FlexibleCollectionsMigration = "flexible-collections-migration",
   ShowPaymentMethodWarningBanners = "show-payment-method-warning-banners",
   EnableConsolidatedBilling = "enable-consolidated-billing",
   AC1795_UpdatedSubscriptionStatusSection = "AC-1795_updated-subscription-status-section",
@@ -17,6 +15,10 @@ export enum FeatureFlag {
   EnableDeleteProvider = "AC-1218-delete-provider",
   ExtensionRefresh = "extension-refresh",
   RestrictProviderAccess = "restrict-provider-access",
+  UseTreeWalkerApiForPageDetailsCollection = "use-tree-walker-api-for-page-details-collection",
+  BulkDeviceApproval = "bulk-device-approval",
+  EmailVerification = "email-verification",
+  InlineMenuFieldQualification = "inline-menu-field-qualification",
 }
 
 export type AllowedFeatureFlagTypes = boolean | number | string;
@@ -34,9 +36,7 @@ export const DefaultFeatureFlagValue = {
   [FeatureFlag.BrowserFilelessImport]: FALSE,
   [FeatureFlag.ItemShare]: FALSE,
   [FeatureFlag.FlexibleCollectionsV1]: FALSE,
-  [FeatureFlag.VaultOnboarding]: FALSE,
   [FeatureFlag.GeneratorToolsModernization]: FALSE,
-  [FeatureFlag.FlexibleCollectionsMigration]: FALSE,
   [FeatureFlag.ShowPaymentMethodWarningBanners]: FALSE,
   [FeatureFlag.EnableConsolidatedBilling]: FALSE,
   [FeatureFlag.AC1795_UpdatedSubscriptionStatusSection]: FALSE,
@@ -44,6 +44,10 @@ export const DefaultFeatureFlagValue = {
   [FeatureFlag.EnableDeleteProvider]: FALSE,
   [FeatureFlag.ExtensionRefresh]: FALSE,
   [FeatureFlag.RestrictProviderAccess]: FALSE,
+  [FeatureFlag.UseTreeWalkerApiForPageDetailsCollection]: FALSE,
+  [FeatureFlag.BulkDeviceApproval]: FALSE,
+  [FeatureFlag.EmailVerification]: FALSE,
+  [FeatureFlag.InlineMenuFieldQualification]: FALSE,
 } satisfies Record<FeatureFlag, AllowedFeatureFlagTypes>;
 
 export type DefaultFeatureFlagValueType = typeof DefaultFeatureFlagValue;

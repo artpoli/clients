@@ -1,5 +1,6 @@
-import { mockEnc } from "../../../../spec";
+import { makeSymmetricCryptoKey, mockEnc } from "../../../../spec";
 import { CollectionId, OrganizationId } from "../../../types/guid";
+import { OrgKey } from "../../../types/key";
 import { CollectionData } from "../data/collection.data";
 
 import { Collection } from "./collection";
@@ -51,17 +52,18 @@ describe("Collection", () => {
   it("Decrypt", async () => {
     const collection = new Collection();
     collection.id = "id";
-    collection.organizationId = "orgId";
+    collection.organizationId = "orgId" as OrganizationId;
     collection.name = mockEnc("encName");
     collection.externalId = "extId";
     collection.readOnly = false;
     collection.hidePasswords = false;
     collection.manage = true;
 
-    const view = await collection.decrypt();
+    const key = makeSymmetricCryptoKey<OrgKey>();
+
+    const view = await collection.decrypt(key);
 
     expect(view).toEqual({
-      addAccess: false,
       externalId: "extId",
       hidePasswords: false,
       id: "id",

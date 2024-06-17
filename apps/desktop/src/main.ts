@@ -3,22 +3,13 @@ import * as path from "path";
 import { app } from "electron";
 import { Subject, firstValueFrom } from "rxjs";
 
-import { TokenService as TokenServiceAbstraction } from "@bitwarden/common/auth/abstractions/token.service";
 import { AccountServiceImplementation } from "@bitwarden/common/auth/services/account.service";
-import { TokenService } from "@bitwarden/common/auth/services/token.service";
 import { ClientType } from "@bitwarden/common/enums";
-import { EncryptService } from "@bitwarden/common/platform/abstractions/encrypt.service";
-import { KeyGenerationService as KeyGenerationServiceAbstraction } from "@bitwarden/common/platform/abstractions/key-generation.service";
-import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { DefaultBiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
-import { StateFactory } from "@bitwarden/common/platform/factories/state-factory";
 import { Message, MessageSender } from "@bitwarden/common/platform/messaging";
 // eslint-disable-next-line no-restricted-imports -- For dependency creation
 import { SubjectMessageSender } from "@bitwarden/common/platform/messaging/internal";
-import { GlobalState } from "@bitwarden/common/platform/models/domain/global-state";
-import { EncryptServiceImplementation } from "@bitwarden/common/platform/services/cryptography/encrypt.service.implementation";
 import { DefaultEnvironmentService } from "@bitwarden/common/platform/services/default-environment.service";
-import { KeyGenerationService } from "@bitwarden/common/platform/services/key-generation.service";
 import { MemoryStorageService } from "@bitwarden/common/platform/services/memory-storage.service";
 import { MigrationBuilderService } from "@bitwarden/common/platform/services/migration-builder.service";
 import { MigrationRunner } from "@bitwarden/common/platform/services/migration-runner";
@@ -41,18 +32,14 @@ import { PowerMonitorMain } from "./main/power-monitor.main";
 import { TrayMain } from "./main/tray.main";
 import { UpdaterMain } from "./main/updater.main";
 import { WindowMain } from "./main/window.main";
-import { Account } from "./models/account";
 import { BiometricsService, BiometricsServiceAbstraction } from "./platform/main/biometric/index";
 import { ClipboardMain } from "./platform/main/clipboard.main";
 import { DesktopCredentialStorageListener } from "./platform/main/desktop-credential-storage-listener";
 import { MainCryptoFunctionService } from "./platform/main/main-crypto-function.service";
 import { DesktopSettingsService } from "./platform/services/desktop-settings.service";
 import { ElectronLogMainService } from "./platform/services/electron-log.main.service";
-import { ELECTRON_SUPPORTS_SECURE_STORAGE } from "./platform/services/electron-platform-utils.service";
-import { ElectronStateService } from "./platform/services/electron-state.service";
 import { ElectronStorageService } from "./platform/services/electron-storage.service";
 import { I18nMainService } from "./platform/services/i18n.main.service";
-import { IllegalSecureStorageService } from "./platform/services/illegal-secure-storage.service";
 import { ElectronMainMessagingService } from "./services/electron-main-messaging.service";
 import { isMacAppStore } from "./utils";
 
@@ -63,15 +50,11 @@ export class Main {
   memoryStorageService: MemoryStorageService;
   memoryStorageForStateProviders: MemoryStorageServiceForStateProviders;
   messagingService: MessageSender;
-  stateService: StateService;
   environmentService: DefaultEnvironmentService;
-  mainCryptoFunctionService: MainCryptoFunctionService;
   desktopCredentialStorageListener: DesktopCredentialStorageListener;
   desktopSettingsService: DesktopSettingsService;
+  mainCryptoFunctionService: MainCryptoFunctionService;
   migrationRunner: MigrationRunner;
-  tokenService: TokenServiceAbstraction;
-  keyGenerationService: KeyGenerationServiceAbstraction;
-  encryptService: EncryptService;
 
   windowMain: WindowMain;
   messagingMain: MessagingMain;
@@ -130,6 +113,9 @@ export class Main {
 
     this.i18nService = new I18nMainService("en", "./locales/", globalStateProvider);
 
+    this.mainCryptoFunctionService = new MainCryptoFunctionService();
+    this.mainCryptoFunctionService.init();
+
     const accountService = new AccountServiceImplementation(
       MessageSender.EMPTY,
       this.logService,
@@ -160,30 +146,6 @@ export class Main {
 
     this.environmentService = new DefaultEnvironmentService(stateProvider, accountService);
 
-    this.mainCryptoFunctionService = new MainCryptoFunctionService();
-    this.mainCryptoFunctionService.init();
-
-    this.keyGenerationService = new KeyGenerationService(this.mainCryptoFunctionService);
-
-    this.encryptService = new EncryptServiceImplementation(
-      this.mainCryptoFunctionService,
-      this.logService,
-      true, // log mac failures
-    );
-
-    // Note: secure storage service is not available and should not be called in the main background process.
-    const illegalSecureStorageService = new IllegalSecureStorageService();
-
-    this.tokenService = new TokenService(
-      singleUserStateProvider,
-      globalStateProvider,
-      ELECTRON_SUPPORTS_SECURE_STORAGE,
-      illegalSecureStorageService,
-      this.keyGenerationService,
-      this.encryptService,
-      this.logService,
-    );
-
     this.migrationRunner = new MigrationRunner(
       this.storageService,
       this.logService,
@@ -191,27 +153,10 @@ export class Main {
       ClientType.Desktop,
     );
 
-    // TODO: this state service will have access to on disk storage, but not in memory storage.
-    // If we could get this to work using the stateService singleton that the rest of the app uses we could save
-    // ourselves from some hacks, like having to manually update the app menu vs. the menu subscribing to events.
-    this.stateService = new ElectronStateService(
-      this.storageService,
-      null,
-      this.memoryStorageService,
-      this.logService,
-      new StateFactory(GlobalState, Account),
-      accountService, // will not broadcast logouts. This is a hack until we can remove messaging dependency
-      this.environmentService,
-      this.tokenService,
-      this.migrationRunner,
-    );
-
     this.desktopSettingsService = new DesktopSettingsService(stateProvider);
-
     const biometricStateService = new DefaultBiometricStateService(stateProvider);
 
     this.windowMain = new WindowMain(
-      this.stateService,
       biometricStateService,
       this.logService,
       this.storageService,
@@ -219,18 +164,24 @@ export class Main {
       (arg) => this.processDeepLink(arg),
       (win) => this.trayMain.setupWindowListeners(win),
     );
-    this.messagingMain = new MessagingMain(this, this.stateService, this.desktopSettingsService);
+    this.messagingMain = new MessagingMain(this, this.desktopSettingsService);
     this.updaterMain = new UpdaterMain(this.i18nService, this.windowMain);
     this.trayMain = new TrayMain(this.windowMain, this.i18nService, this.desktopSettingsService);
 
-    const messageSubject = new Subject<Message<object>>();
+    const messageSubject = new Subject<Message<Record<string, unknown>>>();
     this.messagingService = MessageSender.combine(
       new SubjectMessageSender(messageSubject), // For local messages
       new ElectronMainMessagingService(this.windowMain),
     );
 
     messageSubject.asObservable().subscribe((message) => {
-      this.messagingMain.onMessage(message);
+      void this.messagingMain.onMessage(message).catch((err) => {
+        this.logService.error(
+          "Error while handling message",
+          message?.command ?? "Unknown command",
+          err,
+        );
+      });
     });
 
     this.powerMonitorMain = new PowerMonitorMain(this.messagingService);
@@ -298,7 +249,7 @@ export class Main {
         await this.updaterMain.init();
 
         const [browserIntegrationEnabled, ddgIntegrationEnabled] = await Promise.all([
-          this.stateService.getEnableBrowserIntegration(),
+          firstValueFrom(this.desktopSettingsService.browserIntegrationEnabled$),
           firstValueFrom(this.desktopAutofillSettingsService.enableDuckDuckGoBrowserIntegration$),
         ]);
 

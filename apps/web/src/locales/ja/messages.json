@@ -581,8 +581,14 @@
   "accessLevel": {
     "message": "アクセスレベル"
   },
+  "accessing": {
+    "message": "アクセス中"
+  },
   "loggedOut": {
     "message": "ログアウトしました"
+  },
+  "loggedOutDesc": {
+    "message": "You have been logged out of your account."
   },
   "loginExpired": {
     "message": "ログインセッションの有効期限が切れています。"
@@ -707,6 +713,12 @@
   "createAccount": {
     "message": "アカウントの作成"
   },
+  "setAStrongPassword": {
+    "message": "強力なパスワードを設定する"
+  },
+  "finishCreatingYourAccountBySettingAPassword": {
+    "message": "パスワードを設定してアカウントの作成を完了してください"
+  },
   "newAroundHere": {
     "message": "初めてですか?"
   },
@@ -715,6 +727,9 @@
   },
   "logIn": {
     "message": "ログイン"
+  },
+  "verifyIdentity": {
+    "message": "本人確認"
   },
   "logInInitiated": {
     "message": "ログイン開始"
@@ -1047,6 +1062,12 @@
   "copyUuid": {
     "message": "UUID をコピー"
   },
+  "errorRefreshingAccessToken": {
+    "message": "Access Token Refresh Error"
+  },
+  "errorRefreshingAccessTokenDesc": {
+    "message": "No refresh token or API keys found. Please try logging out and logging back in."
+  },
   "warning": {
     "message": "注意"
   },
@@ -1340,6 +1361,9 @@
   },
   "accountDeletedDesc": {
     "message": "アカウントが削除され、すべての関連するデータが削除されました。"
+  },
+  "deleteOrganizationWarning": {
+    "message": "組織を恒久的に削除します。元に戻すことはできません。"
   },
   "myAccount": {
     "message": "マイアカウント"
@@ -1710,11 +1734,11 @@
   "twoFactorDuoDesc": {
     "message": "Bitwardenアプリの情報をDuoの管理パネルから入力して下さい。"
   },
-  "twoFactorDuoIntegrationKey": {
-    "message": "連携キー"
+  "twoFactorDuoClientId": {
+    "message": "Client Id"
   },
-  "twoFactorDuoSecretKey": {
-    "message": "秘密鍵"
+  "twoFactorDuoClientSecret": {
+    "message": "Client Secret"
   },
   "twoFactorDuoApiHostname": {
     "message": "API のホスト名"
@@ -2779,12 +2803,6 @@
   "userDesc": {
     "message": "あなたの組織に割り当てられたコレクションへのアクセス権を持つ標準ユーザーです。"
   },
-  "manager": {
-    "message": "マネージャー"
-  },
-  "managerDesc": {
-    "message": "マネージャーは組織内の割り当てられたコレクションへアクセスし管理することができます。"
-  },
   "all": {
     "message": "すべて"
   },
@@ -3241,6 +3259,27 @@
   "device": {
     "message": "デバイス"
   },
+  "creatingAccountOn": {
+    "message": "アカウント作成："
+  },
+  "checkYourEmail": {
+    "message": "メールをご確認ください"
+  },
+  "followTheLinkInTheEmailSentTo": {
+    "message": "アカウントの作成を続けるには"
+  },
+  "andContinueCreatingYourAccount": {
+    "message": "に送られたメールのリンクを開いてください。"
+  },
+  "noEmail": {
+    "message": "メールがありませんか?"
+  },
+  "goBack": {
+    "message": "戻って"
+  },
+  "toEditYourEmailAddress": {
+    "message": "メールアドレスを編集してください。"
+  },
   "view": {
     "message": "表示"
   },
@@ -3387,6 +3426,9 @@
   },
   "deleteRecoverConfirmDesc": {
     "message": "Bitwardenアカウント削除のリクエストがありました。削除する場合はボタンをクリックしてください。"
+  },
+  "deleteRecoverOrgConfirmDesc": {
+    "message": "Bitwarden 組織の削除をリクエストしました。"
   },
   "myOrganization": {
     "message": "組織"
@@ -3565,6 +3607,12 @@
   "subscriptionUserSeatsUnlimitedAutoscale": {
     "message": "サブスクリプションを調整すると、請求の合計が日割りで変更されます。新たに招待されたユーザーがお客様の契約数を超えた場合、お客様は直ちに追加ユーザー分の日割り計算を請求されます。"
   },
+  "smStandaloneTrialSeatCountUpdateMessageFragment1": {
+    "message": "バンドルオファーなしで"
+  },
+  "smStandaloneTrialSeatCountUpdateMessageFragment2": {
+    "message": "シートを追加したい場合はお問い合わせください"
+  },
   "subscriptionUserSeatsLimitedAutoscale": {
     "message": "サブスクリプションを調整すると、請求の合計が日割りで変更されます。新しく招待されたユーザーがお客様の契約数を超えた場合、契約数が$MAX$名に達するまで、追加されたユーザーに対する日割り計算の請求が即座に請求されます。",
     "placeholders": {
@@ -3681,6 +3729,21 @@
   },
   "nothingSelected": {
     "message": "何も選択されていません。"
+  },
+  "receiveMarketingEmails": {
+    "message": "Bitwarden からのお知らせ、アドバイス、アンケート調査等のメールを受信します。"
+  },
+  "unsubscribe": {
+    "message": "配信停止"
+  },
+  "atAnyTime": {
+    "message": "はいつでもできます。"
+  },
+  "byContinuingYouAgreeToThe": {
+    "message": "続行すると以下に同意したものとみなします："
+  },
+  "and": {
+    "message": "と"
   },
   "acceptPolicies": {
     "message": "以下に同意しチェックします:"
@@ -4531,12 +4594,6 @@
   "permission": {
     "message": "権限"
   },
-  "managerPermissions": {
-    "message": "管理者権限"
-  },
-  "adminPermissions": {
-    "message": "管理者権限"
-  },
   "accessEventLogs": {
     "message": "イベントログにアクセス"
   },
@@ -4560,9 +4617,6 @@
   },
   "deleteAnyCollection": {
     "message": "任意のコレクションを削除"
-  },
-  "manageAssignedCollections": {
-    "message": "割り当てられたコレクションの管理"
   },
   "editAssignedCollections": {
     "message": "割り当てられたコレクションを編集"
@@ -5549,6 +5603,39 @@
   },
   "rotateBillingSyncTokenTitle": {
     "message": "請求同期トークンを更新すると、前のトークンは無効になります。"
+  },
+  "selfHostedServer": {
+    "message": "self-hosted"
+  },
+  "customEnvironment": {
+    "message": "Custom environment"
+  },
+  "selfHostedBaseUrlHint": {
+    "message": "Specify the base URL of your on-premises hosted Bitwarden installation. Example: https://bitwarden.company.com"
+  },
+  "selfHostedCustomEnvHeader": {
+    "message": "For advanced configuration, you can specify the base URL of each service independently."
+  },
+  "selfHostedEnvFormInvalid": {
+    "message": "You must add either the base Server URL or at least one custom environment."
+  },
+  "apiUrl": {
+    "message": "API server URL"
+  },
+  "webVaultUrl": {
+    "message": "Web vault server URL"
+  },
+  "identityUrl": {
+    "message": "Identity server URL"
+  },
+  "notificationsUrl": {
+    "message": "Notifications server URL"
+  },
+  "iconsUrl": {
+    "message": "Icons server URL"
+  },
+  "environmentSaved": {
+    "message": "Environment URLs saved"
   },
   "selfHostingTitle": {
     "message": "セルフホスティング"
@@ -6589,13 +6676,7 @@
     "message": "このグループに追加してコレクションへのアクセスを許可します。"
   },
   "restrictedCollectionAssignmentDesc": {
-    "message": "You can only assign collections you manage."
-  },
-  "accessAllCollectionsDesc": {
-    "message": "現在および将来のすべてのコレクションへのアクセスを許可します。"
-  },
-  "accessAllCollectionsHelp": {
-    "message": "チェックされている場合、他のすべてのコレクション権限が置き換えられます。"
+    "message": "自分が管理しているコレクションのみを割り当てることができます。"
   },
   "selectMembers": {
     "message": "メンバーを選択"
@@ -6638,12 +6719,6 @@
   },
   "group": {
     "message": "グループ"
-  },
-  "groupAccessAll": {
-    "message": "このグループはすべてのアイテムにアクセスして変更できます。"
-  },
-  "memberAccessAll": {
-    "message": "このメンバーはすべてのアイテムにアクセスして変更できます。"
   },
   "domainVerification": {
     "message": "ドメイン検証"
@@ -6823,7 +6898,7 @@
     "message": "グループを選択"
   },
   "userPermissionOverrideHelperDesc": {
-    "message": "Permissions set for a member will replace permissions set by that member's group."
+    "message": "メンバーの権限設定は、そのメンバーのグループによって設定された権限に置き換えられます。"
   },
   "noMembersOrGroupsAdded": {
     "message": "メンバーまたはグループが追加されていません"
@@ -7671,13 +7746,6 @@
     "message": "支払い方法を追加してください",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'"
   },
-  "collectionEnhancementsDesc": {
-    "message": "柔軟性を高めるために、新しい設定と権限を追加します。 マネージャーのロールを「管理可能」権限に置き換えます。 そして、ユーザーがコレクションを作成できるようにするオプションを導入し、コレクションへの管理者のアクセスを制限します。",
-    "description": "This describes new features and improvements for user roles and collections"
-  },
-  "collectionEnhancementsLearnMore": {
-    "message": "コレクション管理の詳細はこちら"
-  },
   "organizationInformation": {
     "message": "組織情報"
   },
@@ -7689,12 +7757,6 @@
   },
   "smFreeTrialConfirmationEmail": {
     "message": "あなたのメールアドレスに確認メールを送信しました："
-  },
-  "confirmCollectionEnhancementsDialogTitle": {
-    "message": "この操作は元に戻せません"
-  },
-  "confirmCollectionEnhancementsDialogContent": {
-    "message": "この機能を有効にすると、管理者ロールを非推奨にし、管理可能権限に置き換えます。 しばらく時間がかかります。完了するまで組織設定を変更しないでください。続行してもよろしいですか？"
   },
   "sorryToSeeYouGo": {
     "message": "お別れするのは残念です！キャンセルする理由を共有して、Bitwarden の改善にご協力ください。",
@@ -7750,7 +7812,7 @@
     "message": "あなた自身をグループに追加することはできません。"
   },
   "cannotAddYourselfToCollections": {
-    "message": "You cannot add yourself to collections."
+    "message": "コレクションに自分自身を追加することはできません。"
   },
   "assign": {
     "message": "割り当て"
@@ -8118,11 +8180,17 @@
   "setUpGithubActions": {
     "message": "Github アクションを設定"
   },
+  "setUpKubernetes": {
+    "message": "Kubernetes を設定"
+  },
   "setUpGitlabCICD": {
     "message": "GitLab CI/CD の設定"
   },
   "setUpAnsible": {
     "message": "Ansible を設定"
+  },
+  "rustSDKRepo": {
+    "message": "Rust リポジトリを表示"
   },
   "cSharpSDKRepo": {
     "message": "C# リポジトリを表示"
@@ -8187,6 +8255,40 @@
   "manageBillingFromProviderPortalMessage": {
     "message": "プロバイダーポータルからの請求を管理"
   },
+  "viewItemsIn": {
+    "message": "$NAME$ のアイテムを表示",
+    "description": "Button to view the contents of a folder or collection",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "backTo": {
+    "message": "$NAME$ に戻る",
+    "description": "Navigate back to a previous folder or collection",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "back": {
+    "message": "戻る",
+    "description": "Button text to navigate back"
+  },
+  "removeItem": {
+    "message": "$NAME$ を削除",
+    "description": "Remove a selected option, such as a folder or collection",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "viewInfo": {
     "message": "情報を表示"
   },
@@ -8217,16 +8319,63 @@
       }
     }
   },
+  "lowKDFIterationsBanner": {
+    "message": "KDF 反復回数が少ないです。あなたのアカウントのセキュリティを向上させるために反復回数を増やしてください。"
+  },
+  "changeKDFSettings": {
+    "message": "KDF 設定の変更"
+  },
   "secureYourInfrastructure": {
-    "message": "Secure your infrastructure"
+    "message": "インフラストラクチャの保護"
   },
   "protectYourFamilyOrBusiness": {
-    "message": "Protect your family or business"
+    "message": "家族やビジネスを保護"
   },
   "upgradeOrganizationCloseSecurityGaps": {
-    "message": "Close security gaps with monitoring reports"
+    "message": "モニタリングレポートでセキュリティギャップを解消"
   },
   "upgradeOrganizationCloseSecurityGapsDesc": {
-    "message": "Stay ahead of security vulnerabilities by upgrading to a paid plan for enhanced monitoring."
+    "message": "監視を強化できる有料プランにアップグレードすると、セキュリティ脆弱性に素早く対応できます。"
+  },
+  "approveAllRequests": {
+    "message": "すべての要求を承認する"
+  },
+  "allLoginRequestsApproved": {
+    "message": "すべてのログイン要求を承認しました"
+  },
+  "payPal": {
+    "message": "PayPal"
+  },
+  "bitcoin": {
+    "message": "ビットコイン"
+  },
+  "updatedTaxInformation": {
+    "message": "更新された税情報"
+  },
+  "unverified": {
+    "message": "未認証"
+  },
+  "verified": {
+    "message": "認証済み"
+  },
+  "viewSecret": {
+    "message": "シークレットを表示"
+  },
+  "noClients": {
+    "message": "一覧表示するクライアントがありません"
+  },
+  "providerBillingEmailHint": {
+    "message": "このメールアドレスは、このプロバイダに関連するすべての請求書を受信します",
+    "description": "A hint that shows up on the Provider setup page to inform the admin the billing email will receive the provider's invoices."
+  },
+  "date": {
+    "message": "日付"
+  },
+  "exportClientReport": {
+    "message": "クライアントレポートをエクスポート"
+  },
+  "invoiceNumberHeader": {
+    "message": "請求書番号",
+    "description": "A table header for an invoice's number"
   }
 }

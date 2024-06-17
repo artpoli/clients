@@ -97,16 +97,17 @@ import { DefaultStateProvider } from "@bitwarden/common/platform/state/implement
 import { StateEventRegistrarService } from "@bitwarden/common/platform/state/state-event-registrar.service";
 import { MemoryStorageService as MemoryStorageServiceForStateProviders } from "@bitwarden/common/platform/state/storage/memory-storage.service";
 /* eslint-enable import/no-restricted-paths */
+import { SyncService } from "@bitwarden/common/platform/sync";
+// eslint-disable-next-line no-restricted-imports -- Needed for service construction
+import { DefaultSyncService } from "@bitwarden/common/platform/sync/internal";
 import { AuditService } from "@bitwarden/common/services/audit.service";
 import { EventCollectionService } from "@bitwarden/common/services/event/event-collection.service";
 import { EventUploadService } from "@bitwarden/common/services/event/event-upload.service";
 import { SearchService } from "@bitwarden/common/services/search.service";
 import { VaultTimeoutSettingsService } from "@bitwarden/common/services/vault-timeout/vault-timeout-settings.service";
 import { VaultTimeoutService } from "@bitwarden/common/services/vault-timeout/vault-timeout.service";
-import {
-  PasswordGenerationService,
-  PasswordGenerationServiceAbstraction,
-} from "@bitwarden/common/tools/generator/password";
+import { legacyPasswordGenerationServiceFactory } from "@bitwarden/common/tools/generator";
+import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/password";
 import {
   PasswordStrengthService,
   PasswordStrengthServiceAbstraction,
@@ -122,8 +123,6 @@ import { CollectionService } from "@bitwarden/common/vault/services/collection.s
 import { CipherFileUploadService } from "@bitwarden/common/vault/services/file-upload/cipher-file-upload.service";
 import { FolderApiService } from "@bitwarden/common/vault/services/folder/folder-api.service";
 import { FolderService } from "@bitwarden/common/vault/services/folder/folder.service";
-import { SyncNotifierService } from "@bitwarden/common/vault/services/sync/sync-notifier.service";
-import { SyncService } from "@bitwarden/common/vault/services/sync/sync.service";
 import { TotpService } from "@bitwarden/common/vault/services/totp.service";
 import {
   ImportApiService,
@@ -218,7 +217,6 @@ export class ServiceContainer {
   folderApiService: FolderApiService;
   userVerificationApiService: UserVerificationApiService;
   organizationApiService: OrganizationApiServiceAbstraction;
-  syncNotifierService: SyncNotifierService;
   sendApiService: SendApiService;
   devicesApiService: DevicesApiServiceAbstraction;
   deviceTrustService: DeviceTrustServiceAbstraction;
@@ -256,6 +254,8 @@ export class ServiceContainer {
     } else {
       p = path.join(process.env.HOME, ".config/Bitwarden CLI");
     }
+
+    const logoutCallback = async () => await this.logout();
 
     this.platformUtilsService = new CliPlatformUtilsService(ClientType.Cli, packageJson);
     this.logService = new ConsoleLogService(
@@ -339,6 +339,7 @@ export class ServiceContainer {
       this.keyGenerationService,
       this.encryptService,
       this.logService,
+      logoutCallback,
     );
 
     const migrationRunner = new MigrationRunner(
@@ -423,17 +424,21 @@ export class ServiceContainer {
       VaultTimeoutStringType.Never, // default vault timeout
     );
 
+    const refreshAccessTokenErrorCallback = () => {
+      throw new Error("Refresh Access token error");
+    };
+
     this.apiService = new NodeApiService(
       this.tokenService,
       this.platformUtilsService,
       this.environmentService,
       this.appIdService,
+      refreshAccessTokenErrorCallback,
+      this.logService,
+      logoutCallback,
       this.vaultTimeoutSettingsService,
-      async (expired: boolean) => await this.logout(),
       customUserAgent,
     );
-
-    this.syncNotifierService = new SyncNotifierService();
 
     this.organizationApiService = new OrganizationApiService(this.apiService, this.syncService);
 
@@ -487,7 +492,7 @@ export class ServiceContainer {
       this.logService,
       this.organizationService,
       this.keyGenerationService,
-      async (expired: boolean) => await this.logout(),
+      logoutCallback,
       this.stateProvider,
     );
 
@@ -499,10 +504,12 @@ export class ServiceContainer {
 
     this.passwordStrengthService = new PasswordStrengthService();
 
-    this.passwordGenerationService = new PasswordGenerationService(
+    this.passwordGenerationService = legacyPasswordGenerationServiceFactory(
+      this.encryptService,
       this.cryptoService,
       this.policyService,
-      this.stateService,
+      this.accountService,
+      this.stateProvider,
     );
 
     this.devicesApiService = new DevicesApiServiceImplementation(this.apiService);
@@ -606,7 +613,6 @@ export class ServiceContainer {
       await this.cryptoService.clearStoredUserKey(KeySuffixOptions.Auto);
 
     this.userVerificationService = new UserVerificationService(
-      this.stateService,
       this.cryptoService,
       this.accountService,
       this.masterPasswordService,
@@ -639,7 +645,7 @@ export class ServiceContainer {
 
     this.avatarService = new AvatarService(this.apiService, this.stateProvider);
 
-    this.syncService = new SyncService(
+    this.syncService = new DefaultSyncService(
       this.masterPasswordService,
       this.accountService,
       this.apiService,
@@ -660,7 +666,7 @@ export class ServiceContainer {
       this.sendApiService,
       this.userDecryptionOptionsService,
       this.avatarService,
-      async (expired: boolean) => await this.logout(),
+      logoutCallback,
       this.billingAccountProfileStateService,
       this.tokenService,
       this.authService,
@@ -740,13 +746,13 @@ export class ServiceContainer {
       this.cipherService.clear(userId),
       this.folderService.clear(userId),
       this.collectionService.clear(userId as UserId),
-      this.passwordGenerationService.clear(),
     ]);
 
     await this.stateEventRunnerService.handleEvent("logout", userId);
 
     await this.stateService.clean();
     await this.accountService.clean(userId);
+    await this.accountService.switchAccount(null);
     process.env.BW_SESSION = null;
   }
 

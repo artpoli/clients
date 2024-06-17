@@ -13,10 +13,12 @@ import { SendService } from "@bitwarden/common/tools/send/services/send.service.
 import { UserKey } from "@bitwarden/common/types/key";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { FolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
+import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
 import { CipherWithIdRequest } from "@bitwarden/common/vault/models/request/cipher-with-id.request";
 import { FolderWithIdRequest } from "@bitwarden/common/vault/models/request/folder-with-id.request";
 
 import { OrganizationUserResetPasswordService } from "../../admin-console/organizations/members/services/organization-user-reset-password/organization-user-reset-password.service";
+import { WebauthnLoginAdminService } from "../core";
 import { EmergencyAccessService } from "../emergency-access";
 
 import { UpdateKeyRequest } from "./request/update-key.request";
@@ -38,6 +40,8 @@ export class UserKeyRotationService {
     private stateService: StateService,
     private accountService: AccountService,
     private kdfConfigService: KdfConfigService,
+    private syncService: SyncService,
+    private webauthnLoginAdminService: WebauthnLoginAdminService,
   ) {}
 
   /**
@@ -47,6 +51,12 @@ export class UserKeyRotationService {
   async rotateUserKeyAndEncryptedData(masterPassword: string): Promise<void> {
     if (!masterPassword) {
       throw new Error("Invalid master password");
+    }
+
+    if ((await this.syncService.getLastSync()) === null) {
+      throw new Error(
+        "The local vault is de-synced and the keys cannot be rotated. Please log out and log back in to resolve this issue.",
+      );
     }
 
     // Create master key to validate the master password
@@ -62,6 +72,7 @@ export class UserKeyRotationService {
 
     // Set master key again in case it was lost (could be lost on refresh)
     const userId = (await firstValueFrom(this.accountService.activeAccount$))?.id;
+    const oldUserKey = await firstValueFrom(this.cryptoService.userKey$(userId));
     await this.masterPasswordService.setMasterKey(masterKey, userId);
     const [newUserKey, newEncUserKey] = await this.cryptoService.makeUserKey(masterKey);
 
@@ -86,6 +97,10 @@ export class UserKeyRotationService {
     request.sends = await this.sendService.getRotatedKeys(newUserKey);
     request.emergencyAccessKeys = await this.emergencyAccessService.getRotatedKeys(newUserKey);
     request.resetPasswordKeys = await this.resetPasswordService.getRotatedKeys(newUserKey);
+    request.webauthnKeys = await this.webauthnLoginAdminService.rotateWebAuthnKeys(
+      oldUserKey,
+      newUserKey,
+    );
 
     await this.apiService.postUserKeyUpdate(request);
 

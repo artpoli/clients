@@ -196,9 +196,6 @@ export const routerTransition = trigger("routerTransition", [
   transition("vault-settings => sync", inSlideLeft),
   transition("sync => vault-settings", outSlideRight),
 
-  transition("tabs => options", inSlideLeft),
-  transition("options => tabs", outSlideRight),
-
   // Appearance settings
   transition("tabs => appearance", inSlideLeft),
   transition("appearance => tabs", outSlideRight),
@@ -208,8 +205,8 @@ export const routerTransition = trigger("routerTransition", [
 
   transition("tabs => lock", inSlideDown),
 
-  transition("tabs => help-and-feedback", inSlideLeft),
-  transition("help-and-feedback => tabs", outSlideRight),
+  transition("tabs => about", inSlideLeft),
+  transition("about => tabs", outSlideRight),
 
   transition("tabs => send-type", inSlideLeft),
   transition("send-type => tabs", outSlideRight),

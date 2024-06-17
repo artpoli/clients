@@ -581,8 +581,14 @@
   "accessLevel": {
     "message": "Ниво на достъп"
   },
+  "accessing": {
+    "message": "Accessing"
+  },
   "loggedOut": {
     "message": "Бяхте отписани"
+  },
+  "loggedOutDesc": {
+    "message": "Бяхте отписан(а) от регистрацията си."
   },
   "loginExpired": {
     "message": "Сесията ви изтече."
@@ -707,6 +713,12 @@
   "createAccount": {
     "message": "Създаване на абонамент"
   },
+  "setAStrongPassword": {
+    "message": "Използвайте сложна парола"
+  },
+  "finishCreatingYourAccountBySettingAPassword": {
+    "message": "Завършете регистрацията си като зададете парола"
+  },
   "newAroundHere": {
     "message": "За пръв път ли сте тук?"
   },
@@ -715,6 +727,9 @@
   },
   "logIn": {
     "message": "Вписване"
+  },
+  "verifyIdentity": {
+    "message": "Потвърдете самоличността си"
   },
   "logInInitiated": {
     "message": "Вписването е стартирано"
@@ -1047,6 +1062,12 @@
   "copyUuid": {
     "message": "Copy UUID"
   },
+  "errorRefreshingAccessToken": {
+    "message": "Грешка при опресняването на идентификатора за достъп"
+  },
+  "errorRefreshingAccessTokenDesc": {
+    "message": "Няма намерен идентификатор за опресняване или ключове за ППИ. Опитайте да се отпишете и да се впишете отново."
+  },
   "warning": {
     "message": "Внимание"
   },
@@ -1340,6 +1361,9 @@
   },
   "accountDeletedDesc": {
     "message": "Абонаментът ви е окончателно прекратен и всички данни към него са изтрити."
+  },
+  "deleteOrganizationWarning": {
+    "message": "Изтриването на организацията Ви е окончателно и необратимо."
   },
   "myAccount": {
     "message": "Абонамент"
@@ -1710,11 +1734,11 @@
   "twoFactorDuoDesc": {
     "message": "Въведете информацията за приложението на Битуорден от административния панел на Duo."
   },
-  "twoFactorDuoIntegrationKey": {
-    "message": "Ключ за интеграция"
+  "twoFactorDuoClientId": {
+    "message": "Клиентски идентификатор"
   },
-  "twoFactorDuoSecretKey": {
-    "message": "Таен ключ"
+  "twoFactorDuoClientSecret": {
+    "message": "Клиентска тайна"
   },
   "twoFactorDuoApiHostname": {
     "message": "Адрес на сървъра за API"
@@ -2779,12 +2803,6 @@
   "userDesc": {
     "message": "Редови потребител с достъп до определени колекции в организацията."
   },
-  "manager": {
-    "message": "Мениджър"
-  },
-  "managerDesc": {
-    "message": "Мениджърите достъпват и управляват зададените им колекции в организацията."
-  },
   "all": {
     "message": "Всички"
   },
@@ -3241,6 +3259,27 @@
   "device": {
     "message": "Устройство"
   },
+  "creatingAccountOn": {
+    "message": "Създаване на регистрация в"
+  },
+  "checkYourEmail": {
+    "message": "Проверете е-пощата си"
+  },
+  "followTheLinkInTheEmailSentTo": {
+    "message": "Последвайте връзката в е-писмото изпратено до"
+  },
+  "andContinueCreatingYourAccount": {
+    "message": "и продължете със създаването на регистрацията си."
+  },
+  "noEmail": {
+    "message": "Не сте получили е-писмо?"
+  },
+  "goBack": {
+    "message": "Върнете се назад"
+  },
+  "toEditYourEmailAddress": {
+    "message": ", за да редактирате адреса на е-пощата си."
+  },
   "view": {
     "message": "Изглед"
   },
@@ -3387,6 +3426,9 @@
   },
   "deleteRecoverConfirmDesc": {
     "message": "Заявили сте, че искате да изтриете абонамента си към Битуорден. Натиснете бутона по-долу, за да потвърдите това решение."
+  },
+  "deleteRecoverOrgConfirmDesc": {
+    "message": "Вие поискахте изтриване на Вашата организация в Битуорден."
   },
   "myOrganization": {
     "message": "Моята организация"
@@ -3565,6 +3607,12 @@
   "subscriptionUserSeatsUnlimitedAutoscale": {
     "message": "Промените в абонамента Ви ще предизвикат пропорционални промени в сумата, която плащате. Ако новопоканените потребители превишат ограничението на абонамента Ви, незабавно ще получите съответстващо пропорционално задължение за допълнителните потребители."
   },
+  "smStandaloneTrialSeatCountUpdateMessageFragment1": {
+    "message": "Ако искате да добавите допълнителни"
+  },
+  "smStandaloneTrialSeatCountUpdateMessageFragment2": {
+    "message": "места без да ползвате пакетното предложение, свържете се с нас"
+  },
   "subscriptionUserSeatsLimitedAutoscale": {
     "message": "Промените в абонамента Ви ще предизвикат пропорционални промени в сумата, която плащате. Ако новопоканените потребители превишат ограничението на абонамента Ви, незабавно ще получите съответстващо пропорционално задължение за допълнителните потребители, докато не бъде достигнато ограничението от $MAX$ потребители.",
     "placeholders": {
@@ -3681,6 +3729,21 @@
   },
   "nothingSelected": {
     "message": "Не сте избрали нищо."
+  },
+  "receiveMarketingEmails": {
+    "message": "Получавайте е-писма от Битоурден за новини, съвети и възможности за проучвания."
+  },
+  "unsubscribe": {
+    "message": "Отписване"
+  },
+  "atAnyTime": {
+    "message": "по всяко време."
+  },
+  "byContinuingYouAgreeToThe": {
+    "message": "Ако продължите, Вие се съгласявате с"
+  },
+  "and": {
+    "message": "и"
   },
   "acceptPolicies": {
     "message": "Чрез тази отметка вие се съгласявате със следните:"
@@ -4531,12 +4594,6 @@
   "permission": {
     "message": "Право"
   },
-  "managerPermissions": {
-    "message": "Права на управителя"
-  },
-  "adminPermissions": {
-    "message": "Права на администратора"
-  },
   "accessEventLogs": {
     "message": "Достъп до журналите"
   },
@@ -4560,9 +4617,6 @@
   },
   "deleteAnyCollection": {
     "message": "Изтриване на всякакви колекции"
-  },
-  "manageAssignedCollections": {
-    "message": "Управление на възложените колекции"
   },
   "editAssignedCollections": {
     "message": "Редактиране на възложените колекции"
@@ -5549,6 +5603,39 @@
   },
   "rotateBillingSyncTokenTitle": {
     "message": "Пресъздаването на идентификатора за синхронизиране на плащанията ще направи така, че досегашният вече няма да работи."
+  },
+  "selfHostedServer": {
+    "message": "собствен хостинг"
+  },
+  "customEnvironment": {
+    "message": "Специална среда"
+  },
+  "selfHostedBaseUrlHint": {
+    "message": "Посочете базовия адрес на Вашата собствена инсталация на Битуорден. Пример: https://bitwarden.company.com"
+  },
+  "selfHostedCustomEnvHeader": {
+    "message": "За по-детайлна настройка, може да укажете основния адрес на всяка услуга поотделно."
+  },
+  "selfHostedEnvFormInvalid": {
+    "message": "Трябва да добавите или основния адрес на сървъра, или поне една специална среда."
+  },
+  "apiUrl": {
+    "message": "Адрес на сървъра за ППИ"
+  },
+  "webVaultUrl": {
+    "message": "Адрес на сървъра за трезора по уеб"
+  },
+  "identityUrl": {
+    "message": "Адрес на сървъра за самоличности"
+  },
+  "notificationsUrl": {
+    "message": "Адрес на сървъра за известия"
+  },
+  "iconsUrl": {
+    "message": "Адрес на сървъра за иконки"
+  },
+  "environmentSaved": {
+    "message": "Адресите на средата са запазени"
   },
   "selfHostingTitle": {
     "message": "Self-hosting"
@@ -6589,13 +6676,7 @@
     "message": "Дайте достъп до колекциите, като ги добавите към тази група."
   },
   "restrictedCollectionAssignmentDesc": {
-    "message": "You can only assign collections you manage."
-  },
-  "accessAllCollectionsDesc": {
-    "message": "Дайте достъп до всички текущи и бъдещи колекции."
-  },
-  "accessAllCollectionsHelp": {
-    "message": "Ако е избрано, това ще замени всички останали права свързани с колекцията."
+    "message": "Можете да свързвате само колекции, които имате право да управлявате."
   },
   "selectMembers": {
     "message": "Изберете членове"
@@ -6638,12 +6719,6 @@
   },
   "group": {
     "message": "Група"
-  },
-  "groupAccessAll": {
-    "message": "Тази група има достъп до всички записи и може да ги редактира."
-  },
-  "memberAccessAll": {
-    "message": "Този член има достъп до всички записи и може да ги редактира."
   },
   "domainVerification": {
     "message": "Потвърждаване на домейн"
@@ -6823,7 +6898,7 @@
     "message": "Изберете групи"
   },
   "userPermissionOverrideHelperDesc": {
-    "message": "Permissions set for a member will replace permissions set by that member's group."
+    "message": "Правата дадени на един член ще заменят правата дадени му от неговата група."
   },
   "noMembersOrGroupsAdded": {
     "message": "Няма добавени членове или групи"
@@ -7671,13 +7746,6 @@
     "message": "добавете разплащателен метод",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'"
   },
-  "collectionEnhancementsDesc": {
-    "message": "Можете да добавяте нови настройки и права, за допълнителна персонализация. Заменете ролята на управителя с правото „може да управлява“, или добавете опции, които позволяват на потребителите да създават колекции, както и да ограничават администраторския достъп до колекциите.",
-    "description": "This describes new features and improvements for user roles and collections"
-  },
-  "collectionEnhancementsLearnMore": {
-    "message": "Научете повече за управлението на колекции"
-  },
   "organizationInformation": {
     "message": "Информация за организацията"
   },
@@ -7689,12 +7757,6 @@
   },
   "smFreeTrialConfirmationEmail": {
     "message": "Изпратихме Ви е-писмо за потвърждение до е-пощата Ви, на адрес: "
-  },
-  "confirmCollectionEnhancementsDialogTitle": {
-    "message": "Това действие е необратимо"
-  },
-  "confirmCollectionEnhancementsDialogContent": {
-    "message": "Ако включите тази функционалност, ролята на управителя ще бъде премахната и заменена от правомощието „може да управлява“. Това ще отнаме съвсем малко време. Не правете промени в организацията, докато процесът не завърши. Наистина ли искате да продължите?"
   },
   "sorryToSeeYouGo": {
     "message": "Съжаляваме, че ни напускате! Помогнете ни да подобрим Битуорден, като споделите с нас защо прекратявате абонамента си.",
@@ -7750,7 +7812,7 @@
     "message": "Не може да добавяте себе си към групи."
   },
   "cannotAddYourselfToCollections": {
-    "message": "You cannot add yourself to collections."
+    "message": "Не може да добавяте себе си към колекции."
   },
   "assign": {
     "message": "Свързване"
@@ -8118,11 +8180,17 @@
   "setUpGithubActions": {
     "message": "Настройка на действия в Github"
   },
+  "setUpKubernetes": {
+    "message": "Настройка на Kubernetes"
+  },
   "setUpGitlabCICD": {
     "message": "Настройка на GitLab CI/CD"
   },
   "setUpAnsible": {
     "message": "Настройка на Ansible"
+  },
+  "rustSDKRepo": {
+    "message": "Преглед на хранилището за Rust"
   },
   "cSharpSDKRepo": {
     "message": "Преглед на хранилището за C#"
@@ -8187,6 +8255,40 @@
   "manageBillingFromProviderPortalMessage": {
     "message": "Управление на плащанията от Портала за доставчици"
   },
+  "viewItemsIn": {
+    "message": "Преглед на елементите в $NAME$",
+    "description": "Button to view the contents of a folder or collection",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "backTo": {
+    "message": "Назад към $NAME$",
+    "description": "Navigate back to a previous folder or collection",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "back": {
+    "message": "Назад",
+    "description": "Button text to navigate back"
+  },
+  "removeItem": {
+    "message": "Премахване на $NAME$",
+    "description": "Remove a selected option, such as a folder or collection",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "viewInfo": {
     "message": "Преглед на информацията"
   },
@@ -8217,6 +8319,12 @@
       }
     }
   },
+  "lowKDFIterationsBanner": {
+    "message": "Малък брой повторения за KDF. Увеличете броя повторения, за да подсилите защитата на регистрацията си."
+  },
+  "changeKDFSettings": {
+    "message": "Промяна на настройките за KDF"
+  },
   "secureYourInfrastructure": {
     "message": "Подсигурете инфраструктурата си"
   },
@@ -8224,9 +8332,50 @@
     "message": "Защитете семейството или бизнеса си"
   },
   "upgradeOrganizationCloseSecurityGaps": {
-    "message": "Close security gaps with monitoring reports"
+    "message": "Отстранете пропуските в сигурността с докладите за наблюдение"
   },
   "upgradeOrganizationCloseSecurityGapsDesc": {
-    "message": "Stay ahead of security vulnerabilities by upgrading to a paid plan for enhanced monitoring."
+    "message": "Не допускайте уязвимост в сигурността си като надградите до платен план с подобрено наблюдение."
+  },
+  "approveAllRequests": {
+    "message": "Одобряване на всички заявки"
+  },
+  "allLoginRequestsApproved": {
+    "message": "Всички заявки за вписване са одобрени"
+  },
+  "payPal": {
+    "message": "PayPal"
+  },
+  "bitcoin": {
+    "message": "Биткойн"
+  },
+  "updatedTaxInformation": {
+    "message": "Обновена данъчна информация"
+  },
+  "unverified": {
+    "message": "Непотвърден"
+  },
+  "verified": {
+    "message": "Потвърден"
+  },
+  "viewSecret": {
+    "message": "Преглед на тайната"
+  },
+  "noClients": {
+    "message": "Няма клиенти за показване"
+  },
+  "providerBillingEmailHint": {
+    "message": "На този адрес ще бъдат изпращани всички фактури свързани с този доставчик",
+    "description": "A hint that shows up on the Provider setup page to inform the admin the billing email will receive the provider's invoices."
+  },
+  "date": {
+    "message": "Дата"
+  },
+  "exportClientReport": {
+    "message": "Изнасяне на клиентската справка"
+  },
+  "invoiceNumberHeader": {
+    "message": "Номер на фактура",
+    "description": "A table header for an invoice's number"
   }
 }

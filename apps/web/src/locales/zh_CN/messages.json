@@ -581,8 +581,14 @@
   "accessLevel": {
     "message": "访问权限等级"
   },
+  "accessing": {
+    "message": "访问中"
+  },
   "loggedOut": {
     "message": "已注销"
+  },
+  "loggedOutDesc": {
+    "message": "您已注销您的账户。"
   },
   "loginExpired": {
     "message": "您的登录会话已过期。"
@@ -707,6 +713,12 @@
   "createAccount": {
     "message": "创建账户"
   },
+  "setAStrongPassword": {
+    "message": "设置强密码"
+  },
+  "finishCreatingYourAccountBySettingAPassword": {
+    "message": "通过设置密码完成账户的创建"
+  },
   "newAroundHere": {
     "message": "初来乍到吗？"
   },
@@ -715,6 +727,9 @@
   },
   "logIn": {
     "message": "登录"
+  },
+  "verifyIdentity": {
+    "message": "验证您的身份"
   },
   "logInInitiated": {
     "message": "登录已发起"
@@ -1047,6 +1062,12 @@
   "copyUuid": {
     "message": "复制 UUID"
   },
+  "errorRefreshingAccessToken": {
+    "message": "访问令牌刷新错误"
+  },
+  "errorRefreshingAccessTokenDesc": {
+    "message": "未找到刷新令牌或 API 密钥。请尝试注销然后重新登录。"
+  },
   "warning": {
     "message": "警告"
   },
@@ -1341,6 +1362,9 @@
   "accountDeletedDesc": {
     "message": "您的账户已被关闭，所有相关数据也已被删除。"
   },
+  "deleteOrganizationWarning": {
+    "message": "删除组织是永久性操作，无法撤销！"
+  },
   "myAccount": {
     "message": "我的账户"
   },
@@ -1355,7 +1379,7 @@
     "description": "This will be part of a larger sentence, that will read like this: If you don't have any data to import, you can create a new item instead. (Optional second half: You may need to wait until your administrator confirms your organization membership.)"
   },
   "onboardingImportDataDetailsLink": {
-    "message": "新项目",
+    "message": "新的项目",
     "description": "This will be part of a larger sentence, that will read like this: If you don't have any data to import, you can create a new item instead. (Optional second half: You may need to wait until your administrator confirms your organization membership.)"
   },
   "onboardingImportDataDetailsPartTwoNoOrgs": {
@@ -1710,20 +1734,20 @@
   "twoFactorDuoDesc": {
     "message": "输入 Duo 管理面板提供的 Bitwarden 应用信息。"
   },
-  "twoFactorDuoIntegrationKey": {
-    "message": "集成密钥"
+  "twoFactorDuoClientId": {
+    "message": "Client ID"
   },
-  "twoFactorDuoSecretKey": {
-    "message": "安全密钥"
+  "twoFactorDuoClientSecret": {
+    "message": "Client Secret"
   },
   "twoFactorDuoApiHostname": {
     "message": "API 主机名"
   },
   "twoFactorEmailDesc": {
-    "message": "按照以下步骤设置使用电子邮件两步登录:"
+    "message": "按照以下步骤设置使用电子邮件的两步登录："
   },
   "twoFactorEmailEnterEmail": {
-    "message": "输入您希望接收验证码的电子邮件"
+    "message": "输入您希望接收验证码的电子邮件地址"
   },
   "twoFactorEmailEnterCode": {
     "message": "输入电子邮件中的 6 位数验证码"
@@ -2099,7 +2123,7 @@
     "message": "Bitwarden 家庭版计划。"
   },
   "addons": {
-    "message": "附加项目"
+    "message": "插件"
   },
   "premiumAccess": {
     "message": "高级会员"
@@ -2537,7 +2561,7 @@
     "message": "使用审核日志跟踪用户操作"
   },
   "enforce2faDuo": {
-    "message": "强制启用 Duo 的两步登录"
+    "message": "强制 Duo 2FA"
   },
   "priorityCustomerSupport": {
     "message": "优先客户支持"
@@ -2779,12 +2803,6 @@
   "userDesc": {
     "message": "访问并添加项目到已分配的集合"
   },
-  "manager": {
-    "message": "经理"
-  },
-  "managerDesc": {
-    "message": "在已分配的集合中创建、删除和管理访问权限"
-  },
   "all": {
     "message": "全部"
   },
@@ -2846,7 +2864,7 @@
     "message": "停用了两步登录"
   },
   "recovered2fa": {
-    "message": "从两步登录中恢复了帐户。"
+    "message": "从两步登录中恢复了账户"
   },
   "failedLogin": {
     "message": "登录失败，密码不正确。"
@@ -3241,6 +3259,27 @@
   "device": {
     "message": "设备"
   },
+  "creatingAccountOn": {
+    "message": "创建账户于"
+  },
+  "checkYourEmail": {
+    "message": "检查您的电子邮箱"
+  },
+  "followTheLinkInTheEmailSentTo": {
+    "message": "点击发送到电子邮件中的链接"
+  },
+  "andContinueCreatingYourAccount": {
+    "message": "然后继续创建您的账户。"
+  },
+  "noEmail": {
+    "message": "没收到电子邮件吗？"
+  },
+  "goBack": {
+    "message": "返回"
+  },
+  "toEditYourEmailAddress": {
+    "message": "编辑您的电子邮件地址。"
+  },
   "view": {
     "message": "查看"
   },
@@ -3388,6 +3427,9 @@
   "deleteRecoverConfirmDesc": {
     "message": "您已请求删除您的 Bitwarden 账户。单击下面的按钮以确认。"
   },
+  "deleteRecoverOrgConfirmDesc": {
+    "message": "您已请求删除您的 Bitwarden 组织。"
+  },
   "myOrganization": {
     "message": "我的组织"
   },
@@ -3503,7 +3545,7 @@
     "message": "账户类型"
   },
   "bankAccountTypeCompany": {
-    "message": "公司（商业）"
+    "message": "公司（企业）"
   },
   "bankAccountTypeIndividual": {
     "message": "个体（个人）"
@@ -3564,6 +3606,12 @@
   },
   "subscriptionUserSeatsUnlimitedAutoscale": {
     "message": "调整订阅将导致按比例调整您的计费总金额。如果新邀请的成员超过了您的订阅席位，您将立即收到按比例的额外成员费用。"
+  },
+  "smStandaloneTrialSeatCountUpdateMessageFragment1": {
+    "message": "如果您想要添加额外的"
+  },
+  "smStandaloneTrialSeatCountUpdateMessageFragment2": {
+    "message": "无捆绑优惠的席位，请联系"
   },
   "subscriptionUserSeatsLimitedAutoscale": {
     "message": "调整订阅将导致按比例调整您的计费总金额。如果新邀请的成员超过了您的订阅席位，您将立即收到按比例的额外成员费用，直到达到您的 $MAX$ 席位限制。",
@@ -3681,6 +3729,21 @@
   },
   "nothingSelected": {
     "message": "您尚未选择任何内容。"
+  },
+  "receiveMarketingEmails": {
+    "message": "接收来自 Bitwarden 的电子邮件，以获取公告、建议和调研。"
+  },
+  "unsubscribe": {
+    "message": "取消订阅"
+  },
+  "atAnyTime": {
+    "message": "随时。"
+  },
+  "byContinuingYouAgreeToThe": {
+    "message": "若继续，代表您同意"
+  },
+  "and": {
+    "message": "以及"
   },
   "acceptPolicies": {
     "message": "选中此框表示您同意："
@@ -4531,12 +4594,6 @@
   "permission": {
     "message": "权限"
   },
-  "managerPermissions": {
-    "message": "经理权限"
-  },
-  "adminPermissions": {
-    "message": "管理员权限"
-  },
   "accessEventLogs": {
     "message": "访问事件日志"
   },
@@ -4560,9 +4617,6 @@
   },
   "deleteAnyCollection": {
     "message": "删除任意集合"
-  },
-  "manageAssignedCollections": {
-    "message": "管理已分配的集合"
   },
   "editAssignedCollections": {
     "message": "编辑已分配的集合"
@@ -4977,7 +5031,7 @@
     "message": "创建一个新的客户组织，该组织将作为提供商与你关联。您将可以访问和管理这个组织。"
   },
   "newClient": {
-    "message": "新客户端"
+    "message": "新增客户"
   },
   "addExistingOrganization": {
     "message": "添加现有组织"
@@ -5550,6 +5604,39 @@
   "rotateBillingSyncTokenTitle": {
     "message": "轮换计费同步令牌将使之前的令牌失效。"
   },
+  "selfHostedServer": {
+    "message": "自托管"
+  },
+  "customEnvironment": {
+    "message": "自定义环境"
+  },
+  "selfHostedBaseUrlHint": {
+    "message": "指定您的本地托管 Bitwarden 安装的基础 URL。例如：https://bitwarden.company.com"
+  },
+  "selfHostedCustomEnvHeader": {
+    "message": "对于高级配置，您可以单独指定每个服务的基础 URL。"
+  },
+  "selfHostedEnvFormInvalid": {
+    "message": "您必须添加基础服务器 URL 或至少添加一个自定义环境。"
+  },
+  "apiUrl": {
+    "message": "API 服务器 URL"
+  },
+  "webVaultUrl": {
+    "message": "网页密码库服务器 URL"
+  },
+  "identityUrl": {
+    "message": "身份服务器 URL"
+  },
+  "notificationsUrl": {
+    "message": "通知服务器 URL"
+  },
+  "iconsUrl": {
+    "message": "图标服务器 URL"
+  },
+  "environmentSaved": {
+    "message": "环境 URL 已保存"
+  },
   "selfHostingTitle": {
     "message": "自托管"
   },
@@ -6098,7 +6185,7 @@
     "message": "正登录为"
   },
   "notYou": {
-    "message": "不是你？"
+    "message": "不是您吗？"
   },
   "pickAnAvatarColor": {
     "message": "选择头像颜色"
@@ -6589,13 +6676,7 @@
     "message": "通过将集合添加到此群组来授予对集合的访问权限。"
   },
   "restrictedCollectionAssignmentDesc": {
-    "message": "You can only assign collections you manage."
-  },
-  "accessAllCollectionsDesc": {
-    "message": "授予对所有当前和未来的集合的访问权限。"
-  },
-  "accessAllCollectionsHelp": {
-    "message": "如果选中，这将替换所有其他集合权限。"
+    "message": "您只能分配您管理的集合。"
   },
   "selectMembers": {
     "message": "选择成员"
@@ -6638,12 +6719,6 @@
   },
   "group": {
     "message": "群组"
-  },
-  "groupAccessAll": {
-    "message": "此群组可以访问和修改所有项目。"
-  },
-  "memberAccessAll": {
-    "message": "此成员可以访问和修改所有项目。"
   },
   "domainVerification": {
     "message": "域名验证"
@@ -6823,7 +6898,7 @@
     "message": "选择群组"
   },
   "userPermissionOverrideHelperDesc": {
-    "message": "Permissions set for a member will replace permissions set by that member's group."
+    "message": "为成员设置的权限将替换掉该成员所属群组设置的权限。"
   },
   "noMembersOrGroupsAdded": {
     "message": "未添加任何成员或群组"
@@ -6844,7 +6919,7 @@
     "message": "成员角色"
   },
   "moreFromBitwarden": {
-    "message": "来自 Bitwarden 的更多产品"
+    "message": "更多来自 Bitwarden 的产品"
   },
   "switchProducts": {
     "message": "切换产品"
@@ -7423,7 +7498,7 @@
     "message": "批准后，您将收到通知。"
   },
   "troubleLoggingIn": {
-    "message": "登录遇到问题？"
+    "message": "登录遇到问题吗？"
   },
   "loginApproved": {
     "message": "登录已批准"
@@ -7578,7 +7653,7 @@
     "message": "别名域"
   },
   "alreadyHaveAccount": {
-    "message": "已经有一个账户？"
+    "message": "已经拥有账户了吗？"
   },
   "skipToContent": {
     "message": "跳转到内容"
@@ -7671,13 +7746,6 @@
     "message": "请添加一个付款方式。",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'"
   },
-  "collectionEnhancementsDesc": {
-    "message": "添加新的设置和权限以获得额外的灵活性。将经理角色替换为「可以管理」权限，并引入允许用户创建集合以及限制对集合的管理访问权限的选项。",
-    "description": "This describes new features and improvements for user roles and collections"
-  },
-  "collectionEnhancementsLearnMore": {
-    "message": "了解更多关于集合管理的信息"
-  },
   "organizationInformation": {
     "message": "组织信息"
   },
@@ -7689,12 +7757,6 @@
   },
   "smFreeTrialConfirmationEmail": {
     "message": "我们已经发送了一封确认邮件到 "
-  },
-  "confirmCollectionEnhancementsDialogTitle": {
-    "message": "此操作不可逆"
-  },
-  "confirmCollectionEnhancementsDialogContent": {
-    "message": "开启此功能将弃用经理角色，并将其替换为「可以管理」权限。这需要一些时间。在完成之前，请勿对组织进行任何更改。您确定要继续吗？"
   },
   "sorryToSeeYouGo": {
     "message": "很遗憾看到您离开！请分享您取消的原因，以帮助改进 Bitwarden。",
@@ -7750,7 +7812,7 @@
     "message": "您不能将自己添加到群组。"
   },
   "cannotAddYourselfToCollections": {
-    "message": "You cannot add yourself to collections."
+    "message": "您不能将自己添加到集合。"
   },
   "assign": {
     "message": "分配"
@@ -7796,13 +7858,13 @@
     "message": "已分配"
   },
   "used": {
-    "message": "已用"
+    "message": "已使用"
   },
   "remaining": {
-    "message": "余额："
+    "message": "剩余"
   },
   "unlinkOrganization": {
-    "message": "脱离组织"
+    "message": "取消链接组织"
   },
   "manageSeats": {
     "message": "管理席位"
@@ -8073,7 +8135,7 @@
     }
   },
   "deleteProviderWarningDescription": {
-    "message": "删除 $ID$ 之前，您必须取消链接所有的客户端。",
+    "message": "删除 $ID$ 之前，您必须取消链接所有的客户。",
     "placeholders": {
       "id": {
         "content": "$1",
@@ -8118,11 +8180,17 @@
   "setUpGithubActions": {
     "message": "设置 Github Actions"
   },
+  "setUpKubernetes": {
+    "message": "设置 Kubernetes"
+  },
   "setUpGitlabCICD": {
     "message": "设置 GitLab CI/CD"
   },
   "setUpAnsible": {
     "message": "设置 Ansible"
+  },
+  "rustSDKRepo": {
+    "message": "查看 Rust 存储库"
   },
   "cSharpSDKRepo": {
     "message": "查看 C# 存储库"
@@ -8167,7 +8235,7 @@
     "message": "添加组织"
   },
   "createdNewClient": {
-    "message": "Successfully created new client"
+    "message": "成功创建了新的客户"
   },
   "noAccess": {
     "message": "无访问权限"
@@ -8187,6 +8255,40 @@
   "manageBillingFromProviderPortalMessage": {
     "message": "从提供商门户管理账单"
   },
+  "viewItemsIn": {
+    "message": "查看 $NAME$ 中的项目",
+    "description": "Button to view the contents of a folder or collection",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "backTo": {
+    "message": "返回 $NAME$",
+    "description": "Navigate back to a previous folder or collection",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "back": {
+    "message": "返回",
+    "description": "Button text to navigate back"
+  },
+  "removeItem": {
+    "message": "删除 $NAME$",
+    "description": "Remove a selected option, such as a folder or collection",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "viewInfo": {
     "message": "查看信息"
   },
@@ -8200,7 +8302,7 @@
     "message": "更新名称"
   },
   "updatedOrganizationName": {
-    "message": "已更新的组织名称"
+    "message": "更新了组织名称"
   },
   "providerPlan": {
     "message": "托管服务提供商"
@@ -8217,16 +8319,63 @@
       }
     }
   },
+  "lowKDFIterationsBanner": {
+    "message": "KDF 迭代低。请增加迭代次数以提高您账户的安全性。"
+  },
+  "changeKDFSettings": {
+    "message": "更改 KDF 设置"
+  },
   "secureYourInfrastructure": {
-    "message": "Secure your infrastructure"
+    "message": "保护您的基础设施"
   },
   "protectYourFamilyOrBusiness": {
-    "message": "Protect your family or business"
+    "message": "保护您的家庭或企业"
   },
   "upgradeOrganizationCloseSecurityGaps": {
-    "message": "Close security gaps with monitoring reports"
+    "message": "通过监控报告弥补安全漏洞"
   },
   "upgradeOrganizationCloseSecurityGapsDesc": {
-    "message": "Stay ahead of security vulnerabilities by upgrading to a paid plan for enhanced monitoring."
+    "message": "升级到付费计划以加强监控，从而提前发现安全漏洞。"
+  },
+  "approveAllRequests": {
+    "message": "批准所有请求"
+  },
+  "allLoginRequestsApproved": {
+    "message": "所有登录请求已批准"
+  },
+  "payPal": {
+    "message": "PayPal"
+  },
+  "bitcoin": {
+    "message": "Bitcoin"
+  },
+  "updatedTaxInformation": {
+    "message": "更新了税务信息"
+  },
+  "unverified": {
+    "message": "未验证"
+  },
+  "verified": {
+    "message": "已验证"
+  },
+  "viewSecret": {
+    "message": "查看机密"
+  },
+  "noClients": {
+    "message": "没有可列出的客户"
+  },
+  "providerBillingEmailHint": {
+    "message": "此电子邮件地址将用于接收与此供应商相关的所有账单",
+    "description": "A hint that shows up on the Provider setup page to inform the admin the billing email will receive the provider's invoices."
+  },
+  "date": {
+    "message": "日期"
+  },
+  "exportClientReport": {
+    "message": "导出客户报告"
+  },
+  "invoiceNumberHeader": {
+    "message": "账单编号",
+    "description": "A table header for an invoice's number"
   }
 }

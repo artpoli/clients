@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { lastValueFrom, Observable, Subject } from "rxjs";
 import { first, map, takeUntil } from "rxjs/operators";
@@ -7,8 +8,7 @@ import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
 import { OrganizationSponsorshipRedeemRequest } from "@bitwarden/common/admin-console/models/request/organization/organization-sponsorship-redeem.request";
-import { PlanSponsorshipType, PlanType } from "@bitwarden/common/billing/enums";
-import { ProductType } from "@bitwarden/common/enums";
+import { PlanSponsorshipType, PlanType, ProductTierType } from "@bitwarden/common/billing/enums";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { ValidationService } from "@bitwarden/common/platform/abstractions/validation.service";
@@ -35,7 +35,7 @@ export class FamiliesForEnterpriseSetupComponent implements OnInit, OnDestroy {
     }
 
     value.plan = PlanType.FamiliesAnnually;
-    value.product = ProductType.Families;
+    value.productTier = ProductTierType.Families;
     value.acceptingSponsorship = true;
     // eslint-disable-next-line rxjs-angular/prefer-takeuntil
     value.onSuccess.subscribe(this.onOrganizationCreateSuccess.bind(this));
@@ -43,7 +43,6 @@ export class FamiliesForEnterpriseSetupComponent implements OnInit, OnDestroy {
 
   loading = true;
   badToken = false;
-  formPromise: Promise<any>;
 
   token: string;
   existingFamilyOrganizations: Organization[];
@@ -54,7 +53,9 @@ export class FamiliesForEnterpriseSetupComponent implements OnInit, OnDestroy {
   _selectedFamilyOrganizationId = "";
 
   private _destroy = new Subject<void>();
-
+  formGroup = this.formBuilder.group({
+    selectedFamilyOrganizationId: ["", Validators.required],
+  });
   constructor(
     private router: Router,
     private platformUtilsService: PlatformUtilsService,
@@ -65,6 +66,7 @@ export class FamiliesForEnterpriseSetupComponent implements OnInit, OnDestroy {
     private validationService: ValidationService,
     private organizationService: OrganizationService,
     private dialogService: DialogService,
+    private formBuilder: FormBuilder,
   ) {}
 
   async ngOnInit() {
@@ -93,13 +95,16 @@ export class FamiliesForEnterpriseSetupComponent implements OnInit, OnDestroy {
     });
 
     this.existingFamilyOrganizations$ = this.organizationService.organizations$.pipe(
-      map((orgs) => orgs.filter((o) => o.planProductType === ProductType.Families)),
+      map((orgs) => orgs.filter((o) => o.productTierType === ProductTierType.Families)),
     );
 
     this.existingFamilyOrganizations$.pipe(takeUntil(this._destroy)).subscribe((orgs) => {
       if (orgs.length === 0) {
         this.selectedFamilyOrganizationId = "createNew";
       }
+    });
+    this.formGroup.valueChanges.pipe(takeUntil(this._destroy)).subscribe((val) => {
+      this.selectedFamilyOrganizationId = val.selectedFamilyOrganizationId;
     });
   }
 
@@ -108,11 +113,9 @@ export class FamiliesForEnterpriseSetupComponent implements OnInit, OnDestroy {
     this._destroy.complete();
   }
 
-  async submit() {
-    this.formPromise = this.doSubmit(this._selectedFamilyOrganizationId);
-    await this.formPromise;
-    this.formPromise = null;
-  }
+  submit = async () => {
+    await this.doSubmit(this._selectedFamilyOrganizationId);
+  };
 
   get selectedFamilyOrganizationId() {
     return this._selectedFamilyOrganizationId;

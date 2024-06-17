@@ -1,5 +1,5 @@
 import { mock, MockProxy } from "jest-mock-extended";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, of } from "rxjs";
 
 import { DeviceTrustServiceAbstraction } from "@bitwarden/common/auth/abstractions/device-trust.service.abstraction";
 import { KdfConfigService } from "@bitwarden/common/auth/abstractions/kdf-config.service";
@@ -17,6 +17,7 @@ import { UserId } from "@bitwarden/common/types/guid";
 import { UserKey } from "@bitwarden/common/types/key";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { FolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
+import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
 import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
 import { Cipher } from "@bitwarden/common/vault/models/domain/cipher";
 import { Folder } from "@bitwarden/common/vault/models/domain/folder";
@@ -29,6 +30,7 @@ import {
 } from "../../../../../../libs/common/spec/fake-account-service";
 import { OrganizationUserResetPasswordService } from "../../admin-console/organizations/members/services/organization-user-reset-password/organization-user-reset-password.service";
 import { StateService } from "../../core";
+import { WebauthnLoginAdminService } from "../core";
 import { EmergencyAccessService } from "../emergency-access";
 
 import { UserKeyRotationApiService } from "./user-key-rotation-api.service";
@@ -49,6 +51,8 @@ describe("KeyRotationService", () => {
   let mockStateService: MockProxy<StateService>;
   let mockConfigService: MockProxy<ConfigService>;
   let mockKdfConfigService: MockProxy<KdfConfigService>;
+  let mockSyncService: MockProxy<SyncService>;
+  let mockWebauthnLoginAdminService: MockProxy<WebauthnLoginAdminService>;
 
   const mockUserId = Utils.newGuid() as UserId;
   const mockAccountService: FakeAccountService = mockAccountServiceWith(mockUserId);
@@ -68,6 +72,8 @@ describe("KeyRotationService", () => {
     mockStateService = mock<StateService>();
     mockConfigService = mock<ConfigService>();
     mockKdfConfigService = mock<KdfConfigService>();
+    mockSyncService = mock<SyncService>();
+    mockWebauthnLoginAdminService = mock<WebauthnLoginAdminService>();
 
     keyRotationService = new UserKeyRotationService(
       mockMasterPasswordService,
@@ -83,6 +89,8 @@ describe("KeyRotationService", () => {
       mockStateService,
       mockAccountService,
       mockKdfConfigService,
+      mockSyncService,
+      mockWebauthnLoginAdminService,
     );
   });
 
@@ -111,6 +119,9 @@ describe("KeyRotationService", () => {
 
       // Mock private key
       mockCryptoService.getPrivateKey.mockResolvedValue("MockPrivateKey" as any);
+      mockCryptoService.userKey$.mockReturnValue(
+        of(new SymmetricCryptoKey(new Uint8Array(64)) as UserKey),
+      );
 
       // Mock ciphers
       const mockCiphers = [createMockCipher("1", "Cipher 1"), createMockCipher("2", "Cipher 2")];
@@ -125,6 +136,8 @@ describe("KeyRotationService", () => {
       const mockSends = [createMockSend("1", "Send 1"), createMockSend("2", "Send 2")];
       sends = new BehaviorSubject<Send[]>(mockSends);
       mockSendService.sends$ = sends;
+
+      mockWebauthnLoginAdminService.rotateWebAuthnKeys.mockResolvedValue([]);
 
       // Mock encryption methods
       mockEncryptService.encrypt.mockResolvedValue({

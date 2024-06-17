@@ -7,7 +7,7 @@ import { OrganizationData } from "../../models/data/organization.data";
 import { Organization } from "../../models/domain/organization";
 
 export function canAccessVaultTab(org: Organization): boolean {
-  return org.canViewAssignedCollections || org.canViewAllCollections;
+  return org.canViewAllCollections;
 }
 
 export function canAccessSettingsTab(org: Organization): boolean {
@@ -77,10 +77,7 @@ export function canAccessImportExport(i18nService: I18nService) {
 export function canAccessImport(i18nService: I18nService) {
   return map<Organization[], Organization[]>((orgs) =>
     orgs
-      .filter(
-        (org) =>
-          org.canAccessImportExport || (org.canCreateNewCollections && org.flexibleCollections),
-      )
+      .filter((org) => org.canAccessImportExport || org.canCreateNewCollections)
       .sort(Utils.getSortFunction(i18nService, "name")),
   );
 }
@@ -120,6 +117,9 @@ export abstract class OrganizationService {
   hasOrganizations: () => Promise<boolean>;
   get$: (id: string) => Observable<Organization | undefined>;
   get: (id: string) => Promise<Organization>;
+  /**
+   * @deprecated This method is only used in key connector and will be removed soon as part of https://bitwarden.atlassian.net/browse/AC-2252.
+   */
   getAll: (userId?: string) => Promise<Organization[]>;
 
   /**

@@ -16,6 +16,8 @@ import { concat, Observable, Subject, lastValueFrom, combineLatest, firstValueFr
 import { filter, map, takeUntil } from "rxjs/operators";
 
 import { JslibModule } from "@bitwarden/angular/jslib.module";
+import { safeProvider, SafeProvider } from "@bitwarden/angular/platform/utils/safe-provider";
+import { PinServiceAbstraction } from "@bitwarden/auth/common";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import {
   canAccessImport,
@@ -64,6 +66,27 @@ import {
 } from "./dialog";
 import { ImportLastPassComponent } from "./lastpass";
 
+const safeProviders: SafeProvider[] = [
+  safeProvider({
+    provide: ImportApiServiceAbstraction,
+    useClass: ImportApiService,
+    deps: [ApiService],
+  }),
+  safeProvider({
+    provide: ImportServiceAbstraction,
+    useClass: ImportService,
+    deps: [
+      CipherService,
+      FolderService,
+      ImportApiServiceAbstraction,
+      I18nService,
+      CollectionService,
+      CryptoService,
+      PinServiceAbstraction,
+    ],
+  }),
+];
+
 @Component({
   selector: "tools-import",
   templateUrl: "import.component.html",
@@ -81,25 +104,7 @@ import { ImportLastPassComponent } from "./lastpass";
     ImportLastPassComponent,
     RadioButtonModule,
   ],
-  providers: [
-    {
-      provide: ImportApiServiceAbstraction,
-      useClass: ImportApiService,
-      deps: [ApiService],
-    },
-    {
-      provide: ImportServiceAbstraction,
-      useClass: ImportService,
-      deps: [
-        CipherService,
-        FolderService,
-        ImportApiServiceAbstraction,
-        I18nService,
-        CollectionService,
-        CryptoService,
-      ],
-    },
-  ],
+  providers: safeProviders,
 })
 export class ImportComponent implements OnInit, OnDestroy {
   featuredImportOptions: ImportOption[];
@@ -251,17 +256,14 @@ export class ImportComponent implements OnInit, OnDestroy {
         if (!this._importBlockedByPolicy) {
           this.formGroup.controls.targetSelector.enable();
         }
-        const flexCollectionEnabled =
-          organizations.find((x) => x.id == this.organizationId)?.flexibleCollections ?? false;
+
         if (value) {
           this.collections$ = Utils.asyncToObservable(() =>
             this.collectionService
               .getAllDecrypted()
               .then((decryptedCollections) =>
                 decryptedCollections
-                  .filter(
-                    (c2) => c2.organizationId === value && (!flexCollectionEnabled || c2.manage),
-                  )
+                  .filter((c2) => c2.organizationId === value && c2.manage)
                   .sort(Utils.getSortFunction(this.i18nService, "name")),
               ),
           );

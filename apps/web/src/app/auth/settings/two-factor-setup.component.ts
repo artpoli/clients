@@ -39,8 +39,6 @@ export class TwoFactorSetupComponent implements OnInit, OnDestroy {
   @ViewChild("duoTemplate", { read: ViewContainerRef, static: true }) duoModalRef: ViewContainerRef;
   @ViewChild("emailTemplate", { read: ViewContainerRef, static: true })
   emailModalRef: ViewContainerRef;
-  @ViewChild("webAuthnTemplate", { read: ViewContainerRef, static: true })
-  webAuthnModalRef: ViewContainerRef;
 
   organizationId: string;
   organization: Organization;
@@ -163,9 +161,10 @@ export class TwoFactorSetupComponent implements OnInit, OnDestroy {
         if (!result) {
           return;
         }
-        const duoComp = await this.openModal(this.duoModalRef, TwoFactorDuoComponent);
-        duoComp.auth(result);
-        duoComp.onUpdated.pipe(takeUntil(this.destroy$)).subscribe((enabled: boolean) => {
+        const duoComp: DialogRef<boolean, any> = TwoFactorDuoComponent.open(this.dialogService, {
+          data: result,
+        });
+        duoComp.componentInstance.onChangeStatus.subscribe((enabled: boolean) => {
           this.updateStatus(enabled, TwoFactorProviderType.Duo);
         });
         break;
@@ -192,12 +191,11 @@ export class TwoFactorSetupComponent implements OnInit, OnDestroy {
         if (!result) {
           return;
         }
-        const webAuthnComp = await this.openModal(
-          this.webAuthnModalRef,
-          TwoFactorWebAuthnComponent,
+        const webAuthnComp: DialogRef<boolean, any> = TwoFactorWebAuthnComponent.open(
+          this.dialogService,
+          { data: result },
         );
-        webAuthnComp.auth(result);
-        webAuthnComp.onUpdated.pipe(takeUntil(this.destroy$)).subscribe((enabled: boolean) => {
+        webAuthnComp.componentInstance.onChangeStatus.subscribe((enabled: boolean) => {
           this.updateStatus(enabled, TwoFactorProviderType.WebAuthn);
         });
         break;

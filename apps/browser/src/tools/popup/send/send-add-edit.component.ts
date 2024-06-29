@@ -15,7 +15,7 @@ import { MessagingService } from "@bitwarden/common/platform/abstractions/messag
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { SendApiService } from "@bitwarden/common/tools/send/services/send-api.service.abstraction";
 import { SendService } from "@bitwarden/common/tools/send/services/send.service.abstraction";
-import { DialogService } from "@bitwarden/components";
+import { DialogService, ToastService } from "@bitwarden/components";
 
 import BrowserPopupUtils from "../../../platform/popup/browser-popup-utils";
 import { BrowserStateService } from "../../../platform/services/abstractions/browser-state.service";
@@ -53,6 +53,7 @@ export class SendAddEditComponent extends BaseAddEditComponent {
     private filePopoutUtilsService: FilePopoutUtilsService,
     billingAccountProfileStateService: BillingAccountProfileStateService,
     accountService: AccountService,
+    toastService: ToastService,
   ) {
     super(
       i18nService,
@@ -69,6 +70,7 @@ export class SendAddEditComponent extends BaseAddEditComponent {
       formBuilder,
       billingAccountProfileStateService,
       accountService,
+      toastService,
     );
   }
 
@@ -124,7 +126,8 @@ export class SendAddEditComponent extends BaseAddEditComponent {
 
   cancel() {
     // If true, the window was pop'd out on the add-send page. location.back will not work
-    if ((window as any).previousPopupUrl.startsWith("/add-send")) {
+    const isPopup = (window as any)?.previousPopupUrl?.startsWith("/add-send") ?? false;
+    if (!isPopup) {
       // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.router.navigate(["tabs/send"]);

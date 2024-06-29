@@ -24,7 +24,7 @@ import { LogService } from "@bitwarden/common/platform/abstractions/log.service"
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
-import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/password";
+import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legacy";
 
 import {
   AllValidationErrors,
@@ -46,6 +46,10 @@ export class LoginComponent extends CaptchaProtectedComponent implements OnInit,
   showLoginWithDevice: boolean;
   validatedEmail = false;
   paramEmailSet = false;
+
+  get emailFormControl() {
+    return this.formGroup.controls.email;
+  }
 
   formGroup = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email]],
@@ -277,8 +281,8 @@ export class LoginComponent extends CaptchaProtectedComponent implements OnInit,
 
   async validateEmail() {
     this.formGroup.controls.email.markAsTouched();
-    const emailInvalid = this.formGroup.get("email").invalid;
-    if (!emailInvalid) {
+    const emailValid = this.formGroup.get("email").valid;
+    if (emailValid) {
       this.toggleValidateEmail(true);
       await this.getLoginWithDevice(this.loggedEmail);
     }

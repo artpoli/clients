@@ -526,6 +526,19 @@
   "masterPassHint": {
     "message": "Mesterjelszó emlékeztető (nem kötelező)"
   },
+  "masterPassHintText": {
+    "message": "Ha elfelejtettük a jelszót, a jelszóra vonatkozó tippet elküldhetjük a saját email címre. $CURRENT$/$MAXIMUM$ maximum karakter.",
+    "placeholders": {
+      "current": {
+        "content": "$1",
+        "example": "0"
+      },
+      "maximum": {
+        "content": "$2",
+        "example": "50"
+      }
+    }
+  },
   "settings": {
     "message": "Beállítások"
   },
@@ -560,17 +573,17 @@
       }
     }
   },
-  "masterPassDoesntMatch": {
-    "message": "A mesterjelszó megerősítése nem egyezik."
-  },
-  "newAccountCreated": {
-    "message": "A fiók létrehozásra került. Most már be lehet jelentkezni."
-  },
   "youSuccessfullyLoggedIn": {
     "message": "A bejelentkezés sikeres volt."
   },
   "youMayCloseThisWindow": {
     "message": "Most már bezárható ez az ablak."
+  },
+  "masterPassDoesntMatch": {
+    "message": "A mesterjelszó megerősítése nem egyezik."
+  },
+  "newAccountCreated": {
+    "message": "A fiók létrehozásra került. Most már be lehet jelentkezni."
   },
   "masterPassSent": {
     "message": "Elküldtünk neked egy emailt a mesterjelszó emlékeztetővel."
@@ -653,18 +666,18 @@
   "authenticatorAppTitle": {
     "message": "Hitelesítő alkalmazás"
   },
-  "authenticatorAppDesc": {
-    "message": "Hitelesítő alkalmazás használata (mint például az Authy vagy a Google Authenticator) idő alapú ellenőrzőkód generálásához.",
-    "description": "'Authy' and 'Google Authenticator' are product names and should not be translated."
+  "authenticatorAppDescV2": {
+    "message": "Adjunk meg egy hitelesítő alkalmazás, például a Bitwarden Authenticator által generált kódot.",
+    "description": "'Bitwarden Authenticator' is a product name and should not be translated."
   },
-  "yubiKeyTitle": {
-    "message": "YubiKey OTP egyszeri időalapú jelszó biztonsági kulcs"
+  "yubiKeyTitleV2": {
+    "message": "YubiKey OTP biztonsági kulcs"
   },
   "yubiKeyDesc": {
     "message": "YubiKey használata a fiók eléréséhez. Működik a YubiKey 4, 4 Nano, 4C, és NEO eszközökkel."
   },
-  "duoDesc": {
-    "message": "Ellenőrzés Duo Security segítségével a Duo Mobile alkalmazás, SMS, telefonhívás vagy U2F biztonsági kulcs használatával.",
+  "duoDescV2": {
+    "message": "Adjuk meg a Duo Security által generált kódot.",
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
   "duoOrganizationDesc": {
@@ -680,8 +693,8 @@
   "emailTitle": {
     "message": "Email cím"
   },
-  "emailDesc": {
-    "message": "Az ellenőrző kódok emailben kerülnek elküldésre."
+  "emailDescV2": {
+    "message": "Adjuk meg az email címre elküldött kódot."
   },
   "loginUnavailable": {
     "message": "A bejelentkezés nem érhető el."
@@ -2692,6 +2705,9 @@
   "submenu": {
     "message": "Almenü"
   },
+  "toggleSideNavigation": {
+    "message": "Toggle side navigation"
+  },
   "skipToContent": {
     "message": "Ugrás a tartalomra"
   },
@@ -2826,6 +2842,9 @@
   },
   "confirmFilePassword": {
     "message": "Fájl jelszó megerősítés"
+  },
+  "exportSuccess": {
+    "message": "A széfadatok exportálásra kerültek."
   },
   "multifactorAuthenticationCancelled": {
     "message": "A többtényezős hitelesítés megszakításra került."

@@ -539,6 +539,24 @@
       }
     }
   },
+  "masterPassword": {
+    "message": "Hoofdwachtwoord"
+  },
+  "masterPassImportant": {
+    "message": "Je kunt je hoofdwachtwoord niet herstellen als je het vergeet!"
+  },
+  "confirmMasterPassword": {
+    "message": "Hoofdwachtwoord bevestigen"
+  },
+  "masterPassHintLabel": {
+    "message": "Hoofdwachtwoordhint"
+  },
+  "joinOrganization": {
+    "message": "Lid van organisatie worden"
+  },
+  "finishJoiningThisOrganizationBySettingAMasterPassword": {
+    "message": "Voltooi je lidmaatschap aan deze organisatie door een hoofdwachtwoord in te stellen."
+  },
   "settings": {
     "message": "Instellingen"
   },
@@ -614,6 +632,9 @@
   },
   "verificationCodeRequired": {
     "message": "Verificatiecode vereist."
+  },
+  "webauthnCancelOrTimeout": {
+    "message": "De authenticatie werd geannuleerd of duurde te lang. Probeer het opnieuw."
   },
   "invalidVerificationCode": {
     "message": "Ongeldige verificatiecode"
@@ -776,6 +797,18 @@
   },
   "loginExpired": {
     "message": "Je inlogsessie is verlopen."
+  },
+  "restartRegistration": {
+    "message": "Registratie herstarten"
+  },
+  "expiredLink": {
+    "message": "Verlopen link"
+  },
+  "pleaseRestartRegistrationOrTryLoggingIn": {
+    "message": "Herstart de registratie of probeer in te loggen."
+  },
+  "youMayAlreadyHaveAnAccount": {
+    "message": "Je hebt al een account"
   },
   "logOutConfirmation": {
     "message": "Weet je zeker dat je wilt uitloggen?"
@@ -1678,8 +1711,8 @@
   "masterPasswordPolicyRequirementsNotMet": {
     "message": "Je nieuwe hoofdwachtwoord voldoet niet aan de beleidseisen."
   },
-  "receiveMarketingEmails": {
-    "message": "Ontvang e-mailberichten van Bitwarden voor aankondigingen, advies en onderzoeksmogelijkheden."
+  "receiveMarketingEmailsV2": {
+    "message": "Krijg advies, aankondigingen en onderzoeksmogelijkheden van Bitwarden in je inbox."
   },
   "unsubscribe": {
     "message": "Afmelden"
@@ -1955,6 +1988,9 @@
   "emailVerificationRequired": {
     "message": "E-mailverificatie vereist"
   },
+  "emailVerifiedV2": {
+    "message": "E-mailadres geverifieerd"
+  },
   "emailVerificationRequiredDesc": {
     "message": "Je moet je e-mailadres verifiëren om deze functionaliteit te gebruiken."
   },
@@ -2062,6 +2098,9 @@
   },
   "vaultTimeoutTooLarge": {
     "message": "Je kluis time-out is hoger dan het maximum van jouw organisatie."
+  },
+  "inviteAccepted": {
+    "message": "Uitnodiging geaccepteerd"
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Automatische inschrijving"
@@ -2763,6 +2802,9 @@
       }
     }
   },
+  "duoHealthCheckResultsInNullAuthUrlError": {
+    "message": "Fout bij het verbinden met de Duo-service. Gebruik een andere tweestapsaanmeldingsmethode of neem contact op met Duo voor hulp."
+  },
   "launchDuoAndFollowStepsToFinishLoggingIn": {
     "message": "Start Duo en volg de stappen om in te loggen."
   },
@@ -2784,8 +2826,8 @@
   "invalidFilePassword": {
     "message": "Onjuist bestandswachtwoord, gebruik het wachtwoord dat je hebt ingevoerd bij het aanmaken van het exportbestand."
   },
-  "importDestination": {
-    "message": "Importbestemming"
+  "destination": {
+    "message": "Bestemming"
   },
   "learnAboutImportOptions": {
     "message": "Leer meer over je importopties"
@@ -2980,5 +3022,8 @@
         "example": "Work"
       }
     }
+  },
+  "data": {
+    "message": "Gegevens"
   }
 }

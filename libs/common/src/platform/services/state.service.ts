@@ -4,9 +4,6 @@ import { Jsonify, JsonValue } from "type-fest";
 import { AccountService } from "../../auth/abstractions/account.service";
 import { TokenService } from "../../auth/abstractions/token.service";
 import { BiometricKey } from "../../auth/types/biometric-key";
-import { GeneratorOptions } from "../../tools/generator/generator-options";
-import { GeneratedPasswordHistory, PasswordGeneratorOptions } from "../../tools/generator/password";
-import { UsernameGeneratorOptions } from "../../tools/generator/username";
 import { UserId } from "../../types/guid";
 import { EnvironmentService } from "../abstractions/environment.service";
 import { LogService } from "../abstractions/log.service";
@@ -17,8 +14,7 @@ import {
 import { AbstractStorageService } from "../abstractions/storage.service";
 import { HtmlStorageLocation, StorageLocation } from "../enums";
 import { StateFactory } from "../factories/state-factory";
-import { Utils } from "../misc/utils";
-import { Account, AccountData, AccountSettings } from "../models/domain/account";
+import { Account } from "../models/domain/account";
 import { GlobalState } from "../models/domain/global-state";
 import { State } from "../models/domain/state";
 import { StorageOptions } from "../models/domain/storage-options";
@@ -37,7 +33,6 @@ const partialKeys = {
   userBiometricKey: "_user_biometric",
 
   autoKey: "_masterkey_auto",
-  biometricKey: "_masterkey_biometric",
   masterKey: "_masterkey",
 };
 
@@ -258,77 +253,6 @@ export class StateService<
     await this.saveSecureStorageKey(partialKeys.masterKey, value, options);
   }
 
-  /**
-   * @deprecated Use UserKeyBiometric instead
-   */
-  async getCryptoMasterKeyBiometric(options?: StorageOptions): Promise<string> {
-    options = this.reconcileOptions(
-      this.reconcileOptions(options, { keySuffix: "biometric" }),
-      await this.defaultSecureStorageOptions(),
-    );
-    if (options?.userId == null) {
-      return null;
-    }
-    return await this.secureStorageService.get<string>(
-      `${options.userId}${partialKeys.biometricKey}`,
-      options,
-    );
-  }
-
-  /**
-   * @deprecated Use UserKeyBiometric instead
-   */
-  async hasCryptoMasterKeyBiometric(options?: StorageOptions): Promise<boolean> {
-    options = this.reconcileOptions(
-      this.reconcileOptions(options, { keySuffix: "biometric" }),
-      await this.defaultSecureStorageOptions(),
-    );
-    if (options?.userId == null) {
-      return false;
-    }
-    return await this.secureStorageService.has(
-      `${options.userId}${partialKeys.biometricKey}`,
-      options,
-    );
-  }
-
-  /**
-   * @deprecated Use UserKeyBiometric instead
-   */
-  async setCryptoMasterKeyBiometric(value: BiometricKey, options?: StorageOptions): Promise<void> {
-    options = this.reconcileOptions(
-      this.reconcileOptions(options, { keySuffix: "biometric" }),
-      await this.defaultSecureStorageOptions(),
-    );
-    if (options?.userId == null) {
-      return;
-    }
-    await this.saveSecureStorageKey(partialKeys.biometricKey, value, options);
-  }
-
-  @withPrototypeForArrayMembers(GeneratedPasswordHistory)
-  async getDecryptedPasswordGenerationHistory(
-    options?: StorageOptions,
-  ): Promise<GeneratedPasswordHistory[]> {
-    return (
-      await this.getAccount(this.reconcileOptions(options, await this.defaultInMemoryOptions()))
-    )?.data?.passwordGenerationHistory?.decrypted;
-  }
-
-  async setDecryptedPasswordGenerationHistory(
-    value: GeneratedPasswordHistory[],
-    options?: StorageOptions,
-  ): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultInMemoryOptions()),
-    );
-    account.data.passwordGenerationHistory.decrypted = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultInMemoryOptions()),
-    );
-  }
-
   async getDuckDuckGoSharedKey(options?: StorageOptions): Promise<string> {
     options = this.reconcileOptions(options, await this.defaultSecureStorageOptions());
     if (options?.userId == null) {
@@ -370,29 +294,6 @@ export class StateService<
     )?.keys.cryptoSymmetricKey.encrypted;
   }
 
-  @withPrototypeForArrayMembers(GeneratedPasswordHistory)
-  async getEncryptedPasswordGenerationHistory(
-    options?: StorageOptions,
-  ): Promise<GeneratedPasswordHistory[]> {
-    return (
-      await this.getAccount(this.reconcileOptions(options, await this.defaultOnDiskOptions()))
-    )?.data?.passwordGenerationHistory?.encrypted;
-  }
-
-  async setEncryptedPasswordGenerationHistory(
-    value: GeneratedPasswordHistory[],
-    options?: StorageOptions,
-  ): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultOnDiskOptions()),
-    );
-    account.data.passwordGenerationHistory.encrypted = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultOnDiskOptions()),
-    );
-  }
-
   async getIsAuthenticated(options?: StorageOptions): Promise<boolean> {
     return (
       (await this.tokenService.getAccessToken(options?.userId as UserId)) != null &&
@@ -414,63 +315,6 @@ export class StateService<
     await this.saveAccount(
       account,
       this.reconcileOptions(options, await this.defaultOnDiskMemoryOptions()),
-    );
-  }
-
-  async getPasswordGenerationOptions(options?: StorageOptions): Promise<PasswordGeneratorOptions> {
-    return (
-      await this.getAccount(this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()))
-    )?.settings?.passwordGenerationOptions;
-  }
-
-  async setPasswordGenerationOptions(
-    value: PasswordGeneratorOptions,
-    options?: StorageOptions,
-  ): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
-    );
-    account.settings.passwordGenerationOptions = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
-    );
-  }
-
-  async getUsernameGenerationOptions(options?: StorageOptions): Promise<UsernameGeneratorOptions> {
-    return (
-      await this.getAccount(this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()))
-    )?.settings?.usernameGenerationOptions;
-  }
-
-  async setUsernameGenerationOptions(
-    value: UsernameGeneratorOptions,
-    options?: StorageOptions,
-  ): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
-    );
-    account.settings.usernameGenerationOptions = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
-    );
-  }
-
-  async getGeneratorOptions(options?: StorageOptions): Promise<GeneratorOptions> {
-    return (
-      await this.getAccount(this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()))
-    )?.settings?.generatorOptions;
-  }
-
-  async setGeneratorOptions(value: GeneratorOptions, options?: StorageOptions): Promise<void> {
-    const account = await this.getAccount(
-      this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
-    );
-    account.settings.generatorOptions = value;
-    await this.saveAccount(
-      account,
-      this.reconcileOptions(options, await this.defaultOnDiskLocalOptions()),
     );
   }
 
@@ -570,11 +414,11 @@ export class StateService<
     }
 
     const account = options?.useSecureStorage
-      ? (await this.secureStorageService.get<TAccount>(options.userId, options)) ??
+      ? ((await this.secureStorageService.get<TAccount>(options.userId, options)) ??
         (await this.storageService.get<TAccount>(
           options.userId,
           this.reconcileOptions(options, { htmlStorageLocation: HtmlStorageLocation.Local }),
-        ))
+        )))
       : await this.storageService.get<TAccount>(options.userId, options);
     return account;
   }
@@ -629,19 +473,6 @@ export class StateService<
   // TODO: There is a tech debt item for splitting up these methods - only Web uses multiple storage locations in its storageService.
   // For now these methods exist with some redundancy to facilitate this special web requirement.
   protected async scaffoldNewAccountLocalStorage(account: TAccount): Promise<void> {
-    const storedAccount = await this.getAccount(
-      this.reconcileOptions(
-        { userId: account.profile.userId },
-        await this.defaultOnDiskLocalOptions(),
-      ),
-    );
-    if (storedAccount?.settings != null) {
-      account.settings = storedAccount.settings;
-    } else if (await this.storageService.has(keys.tempAccountSettings)) {
-      account.settings = await this.storageService.get<AccountSettings>(keys.tempAccountSettings);
-      await this.storageService.remove(keys.tempAccountSettings);
-    }
-
     await this.saveAccount(
       account,
       this.reconcileOptions(
@@ -652,15 +483,6 @@ export class StateService<
   }
 
   protected async scaffoldNewAccountMemoryStorage(account: TAccount): Promise<void> {
-    const storedAccount = await this.getAccount(
-      this.reconcileOptions(
-        { userId: account.profile.userId },
-        await this.defaultOnDiskMemoryOptions(),
-      ),
-    );
-    if (storedAccount?.settings != null) {
-      account.settings = storedAccount.settings;
-    }
     await this.storageService.save(
       account.profile.userId,
       account,
@@ -676,12 +498,6 @@ export class StateService<
   }
 
   protected async scaffoldNewAccountSessionStorage(account: TAccount): Promise<void> {
-    const storedAccount = await this.getAccount(
-      this.reconcileOptions({ userId: account.profile.userId }, await this.defaultOnDiskOptions()),
-    );
-    if (storedAccount?.settings != null) {
-      account.settings = storedAccount.settings;
-    }
     await this.storageService.save(
       account.profile.userId,
       account,
@@ -813,7 +629,6 @@ export class StateService<
     await this.setUserKeyAutoUnlock(null, { userId: userId });
     await this.setUserKeyBiometric(null, { userId: userId });
     await this.setCryptoMasterKeyAuto(null, { userId: userId });
-    await this.setCryptoMasterKeyBiometric(null, { userId: userId });
     await this.setCryptoMasterKeyB64(null, { userId: userId });
   }
 
@@ -830,20 +645,8 @@ export class StateService<
 
   // settings persist even on reset, and are not affected by this method
   protected resetAccount(account: TAccount) {
-    const persistentAccountInformation = {
-      settings: account.settings,
-    };
-    return Object.assign(this.createAccount(), persistentAccountInformation);
-  }
-
-  async clearDecryptedData(userId: UserId): Promise<void> {
-    await this.updateState(async (state) => {
-      if (userId != null && state?.accounts[userId]?.data != null) {
-        state.accounts[userId].data = new AccountData();
-      }
-
-      return state;
-    });
+    // All settings have been moved to StateProviders
+    return this.createAccount();
   }
 
   protected createAccount(init: Partial<TAccount> = null): TAccount {
@@ -903,52 +706,4 @@ export class StateService<
       return await this.setState(updatedState);
     });
   }
-}
-
-function withPrototypeForArrayMembers<T>(
-  memberConstructor: new (...args: any[]) => T,
-  memberConverter: (input: any) => T = (i) => i,
-): (
-  target: any,
-  propertyKey: string | symbol,
-  descriptor: PropertyDescriptor,
-) => { value: (...args: any[]) => Promise<T[]> } {
-  return (target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) => {
-    const originalMethod = descriptor.value;
-
-    return {
-      value: function (...args: any[]) {
-        const originalResult: Promise<any[]> = originalMethod.apply(this, args);
-
-        if (!Utils.isPromise(originalResult)) {
-          throw new Error(
-            `Error applying prototype to stored value -- result is not a promise for method ${String(
-              propertyKey,
-            )}`,
-          );
-        }
-
-        return originalResult.then((result) => {
-          if (result == null) {
-            return null;
-          } else if (!(result instanceof Array)) {
-            throw new Error(
-              `Attempted to retrieve non array type from state as an array for method ${String(
-                propertyKey,
-              )}`,
-            );
-          } else {
-            return result.map((r) => {
-              return r == null ||
-                r.constructor.name === memberConstructor.prototype.constructor.name
-                ? r
-                : memberConverter(
-                    Object.create(memberConstructor.prototype, Object.getOwnPropertyDescriptors(r)),
-                  );
-            });
-          }
-        });
-      },
-    };
-  };
 }

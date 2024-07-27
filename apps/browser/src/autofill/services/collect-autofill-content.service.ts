@@ -1,12 +1,7 @@
 import AutofillField from "../models/autofill-field";
 import AutofillForm from "../models/autofill-form";
 import AutofillPageDetails from "../models/autofill-page-details";
-import {
-  ElementWithOpId,
-  FillableFormFieldElement,
-  FormElementWithAttribute,
-  FormFieldElement,
-} from "../types";
+import { ElementWithOpId, FillableFormFieldElement, FormFieldElement } from "../types";
 import {
   elementIsDescriptionDetailsElement,
   elementIsDescriptionTermElement,
@@ -20,7 +15,9 @@ import {
   elementIsTextAreaElement,
   nodeIsFormElement,
   nodeIsInputElement,
-  // sendExtensionMessage,
+  sendExtensionMessage,
+  getAttributeBoolean,
+  getPropertyOrAttribute,
   requestIdleCallbackPolyfill,
   cancelIdleCallbackPolyfill,
 } from "../utils";
@@ -35,8 +32,11 @@ import {
 import { DomElementVisibilityService } from "./abstractions/dom-element-visibility.service";
 
 class CollectAutofillContentService implements CollectAutofillContentServiceInterface {
+  private readonly sendExtensionMessage = sendExtensionMessage;
   private readonly domElementVisibilityService: DomElementVisibilityService;
   private readonly autofillOverlayContentService: AutofillOverlayContentService;
+  private readonly getAttributeBoolean = getAttributeBoolean;
+  private readonly getPropertyOrAttribute = getPropertyOrAttribute;
   private noFieldsFound = false;
   private domRecentlyMutated = true;
   private autofillFormElements: AutofillFormElements = new Map();
@@ -286,7 +286,7 @@ class CollectAutofillContentService implements CollectAutofillContentServiceInte
       autofillField.viewable = await this.domElementVisibilityService.isFormFieldViewable(element);
 
       if (!previouslyViewable && autofillField.viewable) {
-        this.setupInlineMenuListenerOnField(element, autofillField);
+        this.setupInlineMenu(element, autofillField);
       }
     });
   }
@@ -535,26 +535,6 @@ class CollectAutofillContentService implements CollectAutofillContentServiceInte
       this.getPropertyOrAttribute(element, "autocompletetype") ||
       this.getPropertyOrAttribute(element, "autocomplete")
     );
-  }
-
-  /**
-   * Returns a boolean representing the attribute value of an element.
-   * @param {ElementWithOpId<FormFieldElement>} element
-   * @param {string} attributeName
-   * @param {boolean} checkString
-   * @returns {boolean}
-   * @private
-   */
-  private getAttributeBoolean(
-    element: ElementWithOpId<FormFieldElement>,
-    attributeName: string,
-    checkString = false,
-  ): boolean {
-    if (checkString) {
-      return this.getPropertyOrAttribute(element, attributeName) === "true";
-    }
-
-    return Boolean(this.getPropertyOrAttribute(element, attributeName));
   }
 
   /**
@@ -869,21 +849,6 @@ class CollectAutofillContentService implements CollectAutofillContentServiceInte
   }
 
   /**
-   * Get the value of a property or attribute from a FormFieldElement.
-   * @param {HTMLElement} element
-   * @param {string} attributeName
-   * @returns {string | null}
-   * @private
-   */
-  private getPropertyOrAttribute(element: HTMLElement, attributeName: string): string | null {
-    if (attributeName in element) {
-      return (element as FormElementWithAttribute)[attributeName];
-    }
-
-    return element.getAttribute(attributeName);
-  }
-
-  /**
    * Gets the value of the element. If the element is a checkbox, returns a checkmark if the
    * checkbox is checked, or an empty string if it is not checked. If the element is a hidden
    * input, returns the value of the input if it is less than 254 characters, or a truncated
@@ -1073,6 +1038,7 @@ class CollectAutofillContentService implements CollectAutofillContentServiceInte
     this.domRecentlyMutated = true;
     if (this.autofillOverlayContentService) {
       this.autofillOverlayContentService.pageDetailsUpdateRequired = true;
+      void this.sendExtensionMessage("closeAutofillInlineMenu", { forceCloseInlineMenu: true });
     }
     this.noFieldsFound = false;
 
@@ -1411,20 +1377,20 @@ class CollectAutofillContentService implements CollectAutofillContentServiceInte
         continue;
       }
 
+      const cachedAutofillFieldElement = this.autofillFieldElements.get(formFieldElement);
+      if (!cachedAutofillFieldElement) {
+        this.intersectionObserver.unobserve(entry.target);
+        continue;
+      }
+
       const isViewable =
         await this.domElementVisibilityService.isFormFieldViewable(formFieldElement);
       if (!isViewable) {
         continue;
       }
 
-      const cachedAutofillFieldElement = this.autofillFieldElements.get(formFieldElement);
-      if (!cachedAutofillFieldElement) {
-        continue;
-      }
-
       cachedAutofillFieldElement.viewable = true;
-
-      this.setupInlineMenuListenerOnField(formFieldElement, cachedAutofillFieldElement);
+      this.setupInlineMenu(formFieldElement, cachedAutofillFieldElement);
 
       this.intersectionObserver?.unobserve(entry.target);
     }
@@ -1441,7 +1407,7 @@ class CollectAutofillContentService implements CollectAutofillContentServiceInte
     }
 
     this.autofillFieldElements.forEach((autofillField, formFieldElement) => {
-      this.setupInlineMenuListenerOnField(formFieldElement, autofillField, pageDetails);
+      this.setupInlineMenu(formFieldElement, autofillField, pageDetails);
     });
   }
 
@@ -1452,7 +1418,7 @@ class CollectAutofillContentService implements CollectAutofillContentServiceInte
    * @param autofillField - The metadata for the form field
    * @param pageDetails - The page details to use for the inline menu listeners
    */
-  private setupInlineMenuListenerOnField(
+  private setupInlineMenu(
     formFieldElement: ElementWithOpId<FormFieldElement>,
     autofillField: AutofillField,
     pageDetails?: AutofillPageDetails,
@@ -1468,7 +1434,7 @@ class CollectAutofillContentService implements CollectAutofillContentServiceInte
         this.getFormattedAutofillFieldsData(),
       );
 
-    void this.autofillOverlayContentService.setupAutofillOverlayListenerOnField(
+    void this.autofillOverlayContentService.setupInlineMenu(
       formFieldElement,
       autofillField,
       autofillPageDetails,

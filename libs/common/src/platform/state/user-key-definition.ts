@@ -30,9 +30,9 @@ export class UserKeyDefinition<T> {
       throw new Error(`'deserializer' is a required property on key ${this.errorKeyName}`);
     }
 
-    if (options.cleanupDelayMs <= 0) {
+    if (options.cleanupDelayMs < 0) {
       throw new Error(
-        `'cleanupDelayMs' must be greater than 0. Value of ${options.cleanupDelayMs} passed to key ${this.errorKeyName} `,
+        `'cleanupDelayMs' must be greater than or equal to 0. Value of ${options.cleanupDelayMs} passed to key ${this.errorKeyName} `,
       );
     }
 
@@ -51,7 +51,7 @@ export class UserKeyDefinition<T> {
    * Gets the number of milliseconds to wait before cleaning up the state after the last subscriber has unsubscribed.
    */
   get cleanupDelayMs() {
-    return this.options.cleanupDelayMs < 0 ? 0 : this.options.cleanupDelayMs ?? 1000;
+    return this.options.cleanupDelayMs < 0 ? 0 : (this.options.cleanupDelayMs ?? 1000);
   }
 
   /**

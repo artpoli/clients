@@ -539,6 +539,24 @@
       }
     }
   },
+  "masterPassword": {
+    "message": "Головний пароль"
+  },
+  "masterPassImportant": {
+    "message": "Головний пароль неможливо відновити, якщо ви його втратите!"
+  },
+  "confirmMasterPassword": {
+    "message": "Підтвердьте головний пароль"
+  },
+  "masterPassHintLabel": {
+    "message": "Підказка для головного пароля"
+  },
+  "joinOrganization": {
+    "message": "Join organization"
+  },
+  "finishJoiningThisOrganizationBySettingAMasterPassword": {
+    "message": "Finish joining this organization by setting a master password."
+  },
   "settings": {
     "message": "Налаштування"
   },
@@ -614,6 +632,9 @@
   },
   "verificationCodeRequired": {
     "message": "Потрібний код підтвердження."
+  },
+  "webauthnCancelOrTimeout": {
+    "message": "Автентифікацію було скасовано або вона тривала надто довго. Повторіть спробу."
   },
   "invalidVerificationCode": {
     "message": "Недійсний код підтвердження"
@@ -736,7 +757,7 @@
     "message": "URL-адреса сервера API"
   },
   "webVaultUrl": {
-    "message": "URL-адреса сервера веб сховища"
+    "message": "URL-адреса сервера вебсховища"
   },
   "identityUrl": {
     "message": "URL-адреса сервера ідентифікації"
@@ -776,6 +797,18 @@
   },
   "loginExpired": {
     "message": "Тривалість вашого сеансу завершилась."
+  },
+  "restartRegistration": {
+    "message": "Перезапустити реєстрацію"
+  },
+  "expiredLink": {
+    "message": "Протерміноване посилання"
+  },
+  "pleaseRestartRegistrationOrTryLoggingIn": {
+    "message": "Перезапустіть реєстрацію або спробуйте ввійти."
+  },
+  "youMayAlreadyHaveAnAccount": {
+    "message": "Можливо, ви вже зареєстровані"
   },
   "logOutConfirmation": {
     "message": "Ви дійсно хочете вийти?"
@@ -846,7 +879,7 @@
     "description": "A 'fingerprint phrase' is a unique word phrase (similar to a passphrase) that a user can use to authenticate their public key with another user, for the purposes of sharing."
   },
   "goToWebVault": {
-    "message": "Перейти у веб сховище"
+    "message": "Перейти у вебсховище"
   },
   "getMobileApp": {
     "message": "Отримати мобільний додаток"
@@ -1678,8 +1711,8 @@
   "masterPasswordPolicyRequirementsNotMet": {
     "message": "Ваш новий головний пароль не задовольняє вимоги політики."
   },
-  "receiveMarketingEmails": {
-    "message": "Отримуйте електронні листи від Bitwarden з оголошеннями, порадами та інформацією про нові можливості."
+  "receiveMarketingEmailsV2": {
+    "message": "Отримуйте поради, оголошення та можливості дослідження від Bitwarden у своїй поштовій скриньці."
   },
   "unsubscribe": {
     "message": "Відписатися"
@@ -1837,7 +1870,7 @@
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendPasswordDesc": {
-    "message": "За бажанням вимагати пароль в користувачів для доступу до цього відправлення.",
+    "message": "Ви можете встановити пароль для доступу до цього відправлення.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -1955,6 +1988,9 @@
   "emailVerificationRequired": {
     "message": "Необхідно підтвердити е-пошту"
   },
+  "emailVerifiedV2": {
+    "message": "Електронну пошту підтверджено"
+  },
   "emailVerificationRequiredDesc": {
     "message": "Для використання цієї функції необхідно підтвердити електронну пошту."
   },
@@ -2062,6 +2098,9 @@
   },
   "vaultTimeoutTooLarge": {
     "message": "Час очікування сховища перевищує обмеження, встановлені вашою організацією."
+  },
+  "inviteAccepted": {
+    "message": "Invitation accepted"
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Автоматичне подання запиту"
@@ -2763,6 +2802,9 @@
       }
     }
   },
+  "duoHealthCheckResultsInNullAuthUrlError": {
+    "message": "Помилка під'єднання до служби Duo. Скористайтеся іншим способом двоетапної перевірки або зверніться до служби підтримки Duo по допомогу."
+  },
   "launchDuoAndFollowStepsToFinishLoggingIn": {
     "message": "Запустіть Duo і виконайте дії для завершення входу."
   },
@@ -2784,8 +2826,8 @@
   "invalidFilePassword": {
     "message": "Неправильний пароль файлу. Використайте пароль, який ви вводили під час створення експортованого файлу."
   },
-  "importDestination": {
-    "message": "Призначення імпорту"
+  "destination": {
+    "message": "Destination"
   },
   "learnAboutImportOptions": {
     "message": "Дізнайтеся про параметри імпорту"
@@ -2980,5 +3022,8 @@
         "example": "Work"
       }
     }
+  },
+  "data": {
+    "message": "Data"
   }
 }

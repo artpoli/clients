@@ -184,7 +184,7 @@ export class Main {
       });
     });
 
-    this.powerMonitorMain = new PowerMonitorMain(this.messagingService);
+    this.powerMonitorMain = new PowerMonitorMain(this.messagingService, this.logService);
     this.menuMain = new MenuMain(
       this.i18nService,
       this.messagingService,
@@ -291,8 +291,7 @@ export class Main {
         });
       },
       (e: any) => {
-        // eslint-disable-next-line
-        console.error(e);
+        this.logService.error("Error while running migrations:", e);
       },
     );
   }

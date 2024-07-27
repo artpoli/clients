@@ -539,6 +539,24 @@
       }
     }
   },
+  "masterPassword": {
+    "message": "Mesterjelszó"
+  },
+  "masterPassImportant": {
+    "message": "A mesterjelszó nem állítható helyre, ha elfelejtik!"
+  },
+  "confirmMasterPassword": {
+    "message": "Mesterjelszó megerősítése"
+  },
+  "masterPassHintLabel": {
+    "message": "Mesterjelszó emlékeztető"
+  },
+  "joinOrganization": {
+    "message": "Csatlakozás szervezethez"
+  },
+  "finishJoiningThisOrganizationBySettingAMasterPassword": {
+    "message": "Fejezzük be a szervezethez csatlakozást egy mesterjelszó beállításával."
+  },
   "settings": {
     "message": "Beállítások"
   },
@@ -614,6 +632,9 @@
   },
   "verificationCodeRequired": {
     "message": "Az ellenőrző kód kötelező."
+  },
+  "webauthnCancelOrTimeout": {
+    "message": "A hitelesítés megszakításra került vagy túl sokáig tartott. Próbáljuk újra."
   },
   "invalidVerificationCode": {
     "message": "Érvénytelen ellenőrző kód"
@@ -776,6 +797,18 @@
   },
   "loginExpired": {
     "message": "A bejelentkezési munkamenet lejárt."
+  },
+  "restartRegistration": {
+    "message": "Regisztráció újra indítása"
+  },
+  "expiredLink": {
+    "message": "A hivatkozás lejárt."
+  },
+  "pleaseRestartRegistrationOrTryLoggingIn": {
+    "message": "A Bitwarden képes tárolni és kitölteni a kétlépcsős ellenőrző kódokat. Válasszuk a kamera ikont, hogy képernyőképet készítsünk a webhely hitelesítő QR kódjáról vagy másoljuk ki és illesszük be a kulcsot ebbe a mezőbe."
+  },
+  "youMayAlreadyHaveAnAccount": {
+    "message": "Már rendelkezünkk fiókkal."
   },
   "logOutConfirmation": {
     "message": "Biztosan szeretnénk kijelentkezni?"
@@ -1678,8 +1711,8 @@
   "masterPasswordPolicyRequirementsNotMet": {
     "message": "Az új mesterjelszó nem felel meg a szabály követelményeknek."
   },
-  "receiveMarketingEmails": {
-    "message": "Emaileket kaphatunk a Bitwardentől bejelentésekről, tanácsokról és kutatási lehetőségekről."
+  "receiveMarketingEmailsV2": {
+    "message": "Tanácsokat, bejelentéseket és kutatási lehetőségeket kaphatunk a Bitwardentől a postaládába."
   },
   "unsubscribe": {
     "message": "Leiratkozás"
@@ -1955,6 +1988,9 @@
   "emailVerificationRequired": {
     "message": "Email hitelesítés szükséges"
   },
+  "emailVerifiedV2": {
+    "message": "Az email cím ellenőrzésre került."
+  },
   "emailVerificationRequiredDesc": {
     "message": "A funkció használatához ellenőrizni kell az email címet."
   },
@@ -2062,6 +2098,9 @@
   },
   "vaultTimeoutTooLarge": {
     "message": "A széf időkorlátja túllépi a szervezet által beállított korlátozást."
+  },
+  "inviteAccepted": {
+    "message": "A meghívás elfogadásra került."
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Automatikus regisztráció"
@@ -2763,6 +2802,9 @@
       }
     }
   },
+  "duoHealthCheckResultsInNullAuthUrlError": {
+    "message": "Hiba történt a Duo szolgáltatáshoz csatlakozáskor. Használjunk másik kétlépcsős bejelentkezési módot vagy kérjünk segítséget a Duotól."
+  },
   "launchDuoAndFollowStepsToFinishLoggingIn": {
     "message": "Indítsuk el a DUO-t és kövessük a lépéseket a bejelentkezés befejezéséhez."
   },
@@ -2784,8 +2826,8 @@
   "invalidFilePassword": {
     "message": "A fájl jelszó érvénytelen. Használjuk az exportfájl létrehozásakor megadott jelszót."
   },
-  "importDestination": {
-    "message": "Importálás leírás"
+  "destination": {
+    "message": "Cél"
   },
   "learnAboutImportOptions": {
     "message": "Információ az importálási opciókról"
@@ -2980,5 +3022,8 @@
         "example": "Work"
       }
     }
+  },
+  "data": {
+    "message": "Adat"
   }
 }

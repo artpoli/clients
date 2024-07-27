@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "__MSG_extName__",
   "short_name": "__MSG_appName__",
-  "version": "2024.6.3",
+  "version": "2024.7.1",
   "description": "__MSG_extDesc__",
   "default_locale": "en",
   "author": "Bitwarden Inc.",
@@ -59,6 +59,7 @@
     "clipboardRead",
     "clipboardWrite",
     "idle",
+    "alarms",
     "webRequest",
     "webRequestBlocking",
     "webNavigation"
@@ -66,7 +67,12 @@
   "optional_permissions": ["nativeMessaging", "privacy"],
   "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
   "sandbox": {
-    "pages": ["overlay/button.html", "overlay/list.html"],
+    "pages": [
+      "overlay/menu-button.html",
+      "overlay/menu-list.html",
+      "overlay/button.html",
+      "overlay/list.html"
+    ],
     "content_security_policy": "sandbox allow-scripts; script-src 'self'"
   },
   "commands": {
@@ -106,6 +112,9 @@
     "notification/bar.html",
     "images/icon38.png",
     "images/icon38_locked.png",
+    "overlay/menu-button.html",
+    "overlay/menu-list.html",
+    "overlay/menu.html",
     "overlay/button.html",
     "overlay/list.html",
     "popup/fonts/*"

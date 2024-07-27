@@ -10,9 +10,9 @@ import { ItemView } from "./item.view";
 import { LoginUriView } from "./login-uri.view";
 
 export class LoginView extends ItemView {
-  @linkedFieldOption(LinkedId.Username)
+  @linkedFieldOption(LinkedId.Username, { sortPosition: 0 })
   username: string = null;
-  @linkedFieldOption(LinkedId.Password)
+  @linkedFieldOption(LinkedId.Password, { sortPosition: 1 })
   password: string = null;
 
   passwordRevisionDate?: Date = null;
@@ -40,6 +40,11 @@ export class LoginView extends ItemView {
   }
 
   get subTitle(): string {
+    // if there's a passkey available, use that as a fallback
+    if (Utils.isNullOrEmpty(this.username) && this.fido2Credentials?.length > 0) {
+      return this.fido2Credentials[0].userName;
+    }
+
     return this.username;
   }
 

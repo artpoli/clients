@@ -1,4 +1,6 @@
+import { RegisterFinishRequest } from "../models/request/registration/register-finish.request";
 import { RegisterSendVerificationEmailRequest } from "../models/request/registration/register-send-verification-email.request";
+import { RegisterVerificationEmailClickedRequest } from "../models/request/registration/register-verification-email-clicked.request";
 import { Verification } from "../types/verification";
 
 export abstract class AccountApiService {
@@ -24,4 +26,28 @@ export abstract class AccountApiService {
   abstract registerSendVerificationEmail(
     request: RegisterSendVerificationEmailRequest,
   ): Promise<null | string>;
+
+  /**
+   * Raises a server event to identify when users click the email verification link and land
+   * on the registration finish screen.
+   *
+   * @param request - The request object containing the email verification token and the
+   * user's email address (which is required to validate the token)
+   * @returns A promise that resolves when the event is logged on the server succcessfully or a bad
+   * request if the token is invalid for any reason.
+   */
+  abstract registerVerificationEmailClicked(
+    request: RegisterVerificationEmailClickedRequest,
+  ): Promise<void>;
+
+  /**
+   * Completes the registration process.
+   *
+   * @param request - The request object containing the user's email verification token,
+   * the email, hashed MP, newly created user key, and new asymmetric user key pair along
+   * with the KDF information used during the process.
+   * @returns A promise that resolves to a string captcha bypass token when the
+   * registration process is successfully completed.
+   */
+  abstract registerFinish(request: RegisterFinishRequest): Promise<string>;
 }

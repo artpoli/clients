@@ -42,6 +42,12 @@
   "cardholderName": {
     "message": "Właściciel karty"
   },
+  "loginCredentials": {
+    "message": "Dane logowania"
+  },
+  "authenticatorKey": {
+    "message": "Klucz uwierzytelniający"
+  },
   "number": {
     "message": "Numer"
   },
@@ -138,6 +144,15 @@
   "authenticatorKeyTotp": {
     "message": "Klucz uwierzytelniający (TOTP)"
   },
+  "totpHelperTitle": {
+    "message": "Spraw, aby dwuetapowa weryfikacja była bezproblemowa"
+  },
+  "totpHelper": {
+    "message": "Bitwarden może przechowywać i wypełniać kody weryfikacyjne. Skopiuj i wklej klucz do tego pola."
+  },
+  "totpHelperWithCapture": {
+    "message": "Bitwarden może przechowywać i wypełniać kody weryfikacyjne. Wybierz ikonę aparatu, aby zrobić zrzut ekranu z kodem QR lub skopiuj i wklej klucz do tego pola."
+  },
   "folder": {
     "message": "Folder"
   },
@@ -172,6 +187,10 @@
   "noneFolder": {
     "message": "Nieprzypisane",
     "description": "This is the folder for uncategorized items"
+  },
+  "selfOwnershipLabel": {
+    "message": "Ty",
+    "description": "Used as a label to indicate that the user is the owner of an item."
   },
   "addFolder": {
     "message": "Dodaj folder"
@@ -401,6 +420,21 @@
   "item": {
     "message": "Element"
   },
+  "itemDetails": {
+    "message": "Szczegóły elementu"
+  },
+  "itemName": {
+    "message": "Nazwa elementu"
+  },
+  "cannotRemoveViewOnlyCollections": {
+    "message": "Nie można usunąć kolekcji z uprawnieniami tylko do przeglądania: $COLLECTIONS$",
+    "placeholders": {
+      "collections": {
+        "content": "$1",
+        "example": "Work, Personal"
+      }
+    }
+  },
   "ex": {
     "message": "np.",
     "description": "Short abbreviation for 'example'."
@@ -536,6 +570,24 @@
       }
     }
   },
+  "itemsMovedToOrg": {
+    "message": "Elementy przeniesione do $ORGNAME$",
+    "placeholders": {
+      "orgname": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
+  },
+  "itemMovedToOrg": {
+    "message": "Element przeniesiony do $ORGNAME$",
+    "placeholders": {
+      "orgname": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
+  },
   "deleteItem": {
     "message": "Usuń element"
   },
@@ -582,7 +634,7 @@
     "message": "Poziom dostępu"
   },
   "accessing": {
-    "message": "Accessing"
+    "message": "Uzyskiwanie dostępu"
   },
   "loggedOut": {
     "message": "Wylogowano"
@@ -592,6 +644,18 @@
   },
   "loginExpired": {
     "message": "Twoja sesja wygasła."
+  },
+  "restartRegistration": {
+    "message": "Zrestartuj rejestrację"
+  },
+  "expiredLink": {
+    "message": "Link wygasł"
+  },
+  "pleaseRestartRegistrationOrTryLoggingIn": {
+    "message": "Zrestartuj rejestrację lub spróbuj się zalogować."
+  },
+  "youMayAlreadyHaveAnAccount": {
+    "message": "Możesz mieć już konto"
   },
   "logOutConfirmation": {
     "message": "Czy na pewno chcesz się wylogować?"
@@ -835,8 +899,8 @@
   "emailAddress": {
     "message": "Adres e-mail"
   },
-  "yourVaultIsLocked": {
-    "message": "Sejf jest zablokowany. Wpisz hasło główne, aby kontynuować."
+  "yourVaultIsLockedV2": {
+    "message": "Twój sejf jest zablokowany."
   },
   "uuid": {
     "message": "UUID"
@@ -1041,7 +1105,7 @@
     "message": "Czy na pewno chcesz kontynuować?"
   },
   "moveSelectedItemsDesc": {
-    "message": "Wybierz folder do którego chcesz przenieść zaznaczone elementy.",
+    "message": "Wybierz folder, do którego chcesz dodać $COUNT$ wybrane(ych) elementy(ów).",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -1442,8 +1506,8 @@
   "importEncKeyError": {
     "message": "Wystąpił błąd podczas odszyfrowywania pliku. Klucz szyfrowania nie pasuje do klucza użytego podczas eksportowania danych."
   },
-  "importDestination": {
-    "message": "Miejsce docelowe importu"
+  "destination": {
+    "message": "Miejsce docelowe"
   },
   "learnAboutImportOptions": {
     "message": "Dowiedz się o opcjach importu"
@@ -1671,6 +1735,9 @@
   },
   "twoStepAuthenticatorScanCodeV2": {
     "message": "Zeskanuj poniższy kod QR za pomocą aplikacji uwierzytelniającej lub wprowadź klucz."
+  },
+  "twoStepAuthenticatorQRCanvasError": {
+    "message": "Nie można wyczytać kodu QR. Spróbuj ponownie lub użyj poniższego klucza."
   },
   "key": {
     "message": "Klucz"
@@ -2732,12 +2799,6 @@
   "accessControl": {
     "message": "Kontrola dostępu"
   },
-  "groupAccessAllItems": {
-    "message": "Ta grupa może otwierać i modyfikować wszystkie elementy."
-  },
-  "groupAccessSelectedCollections": {
-    "message": "Ta grupa posiada dostęp wyłącznie do wybranych kolekcji."
-  },
   "readOnly": {
     "message": "Tylko do odczytu"
   },
@@ -2783,20 +2844,11 @@
   "userUsingTwoStep": {
     "message": "Ten użytkownik korzysta z logowania dwustopniowego, aby chronić swoje konto."
   },
-  "userAccessAllItems": {
-    "message": "Ten użytkownik może otwierać i modyfikować wszystkie elementy."
-  },
-  "userAccessSelectedCollections": {
-    "message": "Ten użytkownik posiada dostęp wyłącznie do wybranych kolekcji."
-  },
   "search": {
     "message": "Szukaj"
   },
   "invited": {
     "message": "Zaproszony"
-  },
-  "accepted": {
-    "message": "Zaakceptowany"
   },
   "confirmed": {
     "message": "Potwierdzone"
@@ -3383,6 +3435,9 @@
   "emailVerified": {
     "message": "Adres e-mail został zweryfikowany"
   },
+  "emailVerifiedV2": {
+    "message": "E-mail zweryfikowany"
+  },
   "emailVerifiedFailed": {
     "message": "Nie możemy zweryfikować Twojego adresu e-mail. Spróbuj ponownie wysłać wiadomość weryfikacyjną."
   },
@@ -3403,6 +3458,9 @@
   },
   "joinOrganizationDesc": {
     "message": "Zostałeś zaproszony do dołączenia do poniższej organizacji. Aby zaakceptować zaproszenie, musisz zalogować się lub utworzyć nowe konto Bitwarden."
+  },
+  "finishJoiningThisOrganizationBySettingAMasterPassword": {
+    "message": "Zakończ dołączanie do tej organizacji przez ustawienie hasła głównego."
   },
   "inviteAccepted": {
     "message": "Zaproszenie zostało zaakceptowane"
@@ -3689,6 +3747,15 @@
       }
     }
   },
+  "subscriptionSeatMaxReached": {
+    "message": "Nie możesz zaprosić więcej niż $COUNT$ członków bez zwiększenia ilości miejsc w subskrypcji.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "50"
+      }
+    }
+  },
   "seatsToAdd": {
     "message": "Stanowiska do dodania"
   },
@@ -3752,8 +3819,8 @@
   "nothingSelected": {
     "message": "Nie zaznaczyłeś żadnych elementów."
   },
-  "receiveMarketingEmails": {
-    "message": "Otrzymuj e-maile od Bitwarden z ogłoszeniami, poradami i badaniami."
+  "receiveMarketingEmailsV2": {
+    "message": "Uzyskaj poradę, ogłoszenia i możliwości badawcze od Bitwarden w swojej skrzynce odbiorczej."
   },
   "unsubscribe": {
     "message": "Anuluj subskrypcję"
@@ -4319,6 +4386,9 @@
     "message": "Link wysyłki",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "copyLink": {
+    "message": "Kopiuj link"
+  },
   "copySendLink": {
     "message": "Kopiuj link wysyłki",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -4733,6 +4803,75 @@
   "sendVaultCardOr": {
     "message": "lub",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Learn more, see how it works, **or** try it now.'"
+  },
+  "developmentDevOpsAndITTeamsChooseBWSecret": {
+    "message": "Development, DevOps, and IT teams choose Bitwarden Secrets Manager to securely manage and deploy their infrastructure and machine secrets."
+  },
+  "centralizeSecretsManagement": {
+    "message": "Centralizuj zarządzanie sekretami."
+  },
+  "centralizeSecretsManagementDescription": {
+    "message": "Securely store and manage secrets in one location to prevent secret sprawl across your organization."
+  },
+  "preventSecretLeaks": {
+    "message": "Zapobiegaj wyciekom sekretów."
+  },
+  "preventSecretLeaksDescription": {
+    "message": "Chroń sekrety szyfrowaniem end-to-end. Nigdy więcej wpisanych na sztywno sekretów ani udostępniania ich za pośrednictwem plików .env."
+  },
+  "enhanceDeveloperProductivity": {
+    "message": "Zwiększ wydajność programistów."
+  },
+  "enhanceDeveloperProductivityDescription": {
+    "message": "Programowo pobieraj i wdrażaj sekrety w czasie pracy, aby programiści mogli skupić się na tym, co ma największe znaczenie, jak poprawa jakości kodu."
+  },
+  "strengthenBusinessSecurity": {
+    "message": "Wzmocnienie bezpieczeństwa przedsiębiorstwa."
+  },
+  "strengthenBusinessSecurityDescription": {
+    "message": "Zachowaj ścisłą kontrolę nad maszynami i dostępem ludzi do sekretów z integracją SSO, dziennikami wydarzeń i rotacją dostępu."
+  },
+  "tryItNow": {
+    "message": "Wypróbuj teraz"
+  },
+  "sendRequest": {
+    "message": "Wyślij zgłoszenie"
+  },
+  "addANote": {
+    "message": "Dodaj notatkę"
+  },
+  "bitwardenSecretsManager": {
+    "message": "Menedżer sekretów Bitwarden"
+  },
+  "moreProductsFromBitwarden": {
+    "message": "Więcej produktów od Bitwarden"
+  },
+  "requestAccessToSecretsManager": {
+    "message": "Poproś o dostęp do menedżera sekretów"
+  },
+  "youNeedApprovalFromYourAdminToTrySecretsManager": {
+    "message": "Potrzebujesz zgody swojego administratora, aby wypróbować menedżera sekretów."
+  },
+  "smAccessRequestEmailSent": {
+    "message": "E-mail z prośbą o dostęp do menedżera sekretów wiadomości został wysłany do administratorów."
+  },
+  "requestAccessSMDefaultEmailContent": {
+    "message": "Hi,\n\nI am requesting a subscription to Bitwarden Secrets Manager for our team. Your support would mean a great deal!\n\nBitwarden Secrets Manager is an end-to-end encrypted secrets management solution for securely storing, sharing, and deploying machine credentials like API keys, database passwords, and authentication certificates.\n\nSecrets Manager will help us to:\n\n- Improve security\n- Streamline operations\n- Prevent costly secret leaks\n\nTo request a free trial for our team, please reach out to Bitwarden.\n\nThank you for your help!"
+  },
+  "giveMembersAccess": {
+    "message": "Daj użytkownikom dostęp do:"
+  },
+  "viewAndSelectTheMembers": {
+    "message": "zobacz i wybierz członków, którym chcesz dać dostęp do menedżera sekretów."
+  },
+  "openYourOrganizations": {
+    "message": "Otwórz swoją organizację"
+  },
+  "usingTheMenuSelect": {
+    "message": "Używając menu, wybierz"
+  },
+  "toGrantAccessToSelectedMembers": {
+    "message": "aby przyznać dostęp wybranym członkom."
   },
   "sendVaultCardTryItNow": {
     "message": "wypróbuj teraz",
@@ -5488,6 +5627,9 @@
   "verificationCodeRequired": {
     "message": "Kod weryfikacyjny jest wymagany."
   },
+  "webauthnCancelOrTimeout": {
+    "message": "Uwierzytelnianie zostało anulowane lub trwało zbyt długo. Spróbuj ponownie."
+  },
   "invalidVerificationCode": {
     "message": "Kod weryfikacyjny jest nieprawidłowy"
   },
@@ -6178,6 +6320,9 @@
         "example": "4"
       }
     }
+  },
+  "duoHealthCheckResultsInNullAuthUrlError": {
+    "message": "Wystąpił błąd podczas połączenia z usługą Duo. Aby uzyskać pomoc, użyj innej metody dwustopniowego logowania lub skontaktuj się z Duo."
   },
   "launchDuoAndFollowStepsToFinishLoggingIn": {
     "message": "Uruchom DUO i wykonaj kroki, aby zakończyć logowanie."
@@ -7851,8 +7996,11 @@
   "assignToTheseCollections": {
     "message": "Przypisz do tych kolekcji"
   },
-  "bulkCollectionAssignmentDialogDescription": {
-    "message": "Wybierz kolekcje, z którymi elementy będą udostępniane. Gdy element zostanie zaktualizowany w jednej kolekcji, zostanie to odzwierciedlone we wszystkich kolekcjach. Tylko członkowie organizacji z dostępem do tych kolekcji będą mogli zobaczyć te elementy."
+  "bulkCollectionAssignmentDialogDescriptionSingular": {
+    "message": "Tylko członkowie organizacji z dostępem do tych kolekcji będą mogli zobaczyć ten element."
+  },
+  "bulkCollectionAssignmentDialogDescriptionPlural": {
+    "message": "Tylko członkowie organizacji z dostępem do tych kolekcji będą mogli zobaczyć te elementy."
   },
   "selectCollectionsToAssign": {
     "message": "Wybierz kolekcje do przypisania"
@@ -8130,23 +8278,6 @@
   "restrictedGroupAccessDesc": {
     "message": "Nie możesz dodać siebie do grupy."
   },
-  "unassignedItemsBannerSelfHost": {
-    "message": "Uwaga: 2 maja 2024 r. nieprzypisane elementy w organizacji nie będą już widoczne w widoku Wszystkie sejfy na urządzeniach i będą dostępne tylko przez Konsolę Administracyjną. Przypisz te elementy do kolekcji z konsoli administracyjnej, aby były one widoczne."
-  },
-  "unassignedItemsBannerNotice": {
-    "message": "Uwaga: Nieprzypisane elementy organizacji nie są już widoczne w widoku Wszystkie sejfy na urządzeniach i są teraz dostępne tylko przez Konsolę Administracyjną."
-  },
-  "unassignedItemsBannerSelfHostNotice": {
-    "message": "Uwaga: 16 maja 2024 r. nieprzypisana elementy w organizacji nie będą już widoczne w widoku Wszystkie sejfy na urządzeniach i będą dostępne tylko przez Konsolę Administracyjną."
-  },
-  "unassignedItemsBannerCTAPartOne": {
-    "message": "Przypisz te elementy do kolekcji z",
-    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
-  },
-  "unassignedItemsBannerCTAPartTwo": {
-    "message": ", aby były widoczne.",
-    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
-  },
   "deleteProvider": {
     "message": "Usuń dostawcę"
   },
@@ -8414,6 +8545,9 @@
   "memberAccessReportDesc": {
     "message": "Upewnij się, że członkowie mają dostęp do odpowiednich danych uwierzytelniających, a ich konta są bezpieczne. Użyj tego raportu, aby uzyskać dostęp do CSV z dostępem użytkownika i konfiguracją konta."
   },
+  "memberAccessReportPageDesc": {
+    "message": "Dostęp członków organizacji audytowej do wszystkich grup, kolekcji i elementów kolekcji. Eksport CSV zapewnia szczegółowy podział na członków, w tym informacje o uprawnieniach do zbierania i konfiguracjach kont."
+  },
   "higherKDFIterations": {
     "message": "Wyższe wartości iteracji KDF mogą pomóc chronić Twoje hasło główne przed złamaniem przez atakującego."
   },
@@ -8486,8 +8620,78 @@
   "downloadCSV": {
     "message": "Pobierz CSV"
   },
+  "monthlySubscriptionUserSeatsMessage": {
+    "message": "Zmiany w Twojej subskrypcji spowodują doliczenie procentu opłaty do sumy rozliczeniowej w następnym okresie rozliczeniowym. "
+  },
+  "annualSubscriptionUserSeatsMessage": {
+    "message": "Zmiany w Twojej subskrypcji spowodują doliczenie procentu opłaty w miesięcznym cyklu rozliczeniowym. "
+  },
   "billingHistoryDescription": {
     "message": "Pobierz plik CSV, aby uzyskać dane klienta dla każdej daty rozliczeniowej. Proporcjonalne opłaty nie są uwzględnione w CSV i mogą różnić się od powiązanej faktury. Aby uzyskać najdokładniejsze dane rozliczeniowe, zapoznaj się z Twoimi miesięcznymi fakturami.",
     "description": "A paragraph on the Billing History page of the Provider Portal letting users know they can download a CSV report for their invoices that does not include prorations."
+  },
+  "noInvoicesToList": {
+    "message": "Brak faktur do wyświetlenia",
+    "description": "A paragraph on the Billing History page of the Provider Portal letting users know they can download a CSV report for their invoices that does not include prorations."
+  },
+  "providerClientVaultPrivacyNotification": {
+    "message": "Uwaga: później w tym miesiącu poprawiona zostanie prywatność sejfu klienta, a członkowie dostawcy nie będą już mieli bezpośredniego dostępu do elementów sejfu klienta. Na pytania,",
+    "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'."
+  },
+  "contactBitwardenSupport": {
+    "message": "skontaktuj się z pomocą techniczną Bitwarden.",
+    "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'. 'Bitwarden' should not be translated"
+  },
+  "sponsored": {
+    "message": "Sponsorowane"
+  },
+  "licenseAndBillingManagementDesc": {
+    "message": "Po dokonaniu aktualizacji na serwerze w chmurze Bitwarden, prześlij plik licencyjny, aby zastosować najnowsze zmiany."
+  },
+  "addToFolder": {
+    "message": "Dodaj do folderu"
+  },
+  "selectFolder": {
+    "message": "Wybierz folder"
+  },
+  "personalItemTransferWarningSingular": {
+    "message": "1 element zostanie trwale przeniesiony do wybranej organizacji. Nie będziesz już posiadać tego elementu."
+  },
+  "personalItemsTransferWarningPlural": {
+    "message": "$PERSONAL_ITEMS_COUNT$ elementów zostanie trwale przeniesionych do wybranej organizacji. Nie będziesz już posiadać tych elementów.",
+    "placeholders": {
+      "personal_items_count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "personalItemWithOrgTransferWarningSingular": {
+    "message": "1 przedmiot zostanie trwale przeniesiony do $ORG$. Nie będziesz już posiadać tego przedmiotu.",
+    "placeholders": {
+      "org": {
+        "content": "$1",
+        "example": "Organization name"
+      }
+    }
+  },
+  "personalItemsWithOrgTransferWarningPlural": {
+    "message": "$PERSONAL_ITEMS_COUNT$ elementy zostaną trwale przeniesione do $ORG$. Nie będziesz już posiadać tych elementów.",
+    "placeholders": {
+      "personal_items_count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "org": {
+        "content": "$2",
+        "example": "Organization name"
+      }
+    }
+  },
+  "data": {
+    "message": "Dane"
+  },
+  "purchasedSeatsRemoved": {
+    "message": "zakupione miejsca usunięte"
   }
 }

@@ -30,6 +30,7 @@ import {
 import { SelectionReadOnlyResponse } from "../admin-console/models/response/selection-read-only.response";
 import { CreateAuthRequest } from "../auth/models/request/create-auth.request";
 import { DeviceVerificationRequest } from "../auth/models/request/device-verification.request";
+import { DisableTwoFactorAuthenticatorRequest } from "../auth/models/request/disable-two-factor-authenticator.request";
 import { EmailTokenRequest } from "../auth/models/request/email-token.request";
 import { EmailRequest } from "../auth/models/request/email.request";
 import { PasswordTokenRequest } from "../auth/models/request/identity-token/password-token.request";
@@ -53,7 +54,7 @@ import { UpdateTwoFactorDuoRequest } from "../auth/models/request/update-two-fac
 import { UpdateTwoFactorEmailRequest } from "../auth/models/request/update-two-factor-email.request";
 import { UpdateTwoFactorWebAuthnDeleteRequest } from "../auth/models/request/update-two-factor-web-authn-delete.request";
 import { UpdateTwoFactorWebAuthnRequest } from "../auth/models/request/update-two-factor-web-authn.request";
-import { UpdateTwoFactorYubioOtpRequest } from "../auth/models/request/update-two-factor-yubio-otp.request";
+import { UpdateTwoFactorYubikeyOtpRequest } from "../auth/models/request/update-two-factor-yubikey-otp.request";
 import { ApiKeyResponse } from "../auth/models/response/api-key.response";
 import { AuthRequestResponse } from "../auth/models/response/auth-request.response";
 import { DeviceVerificationResponse } from "../auth/models/response/device-verification.response";
@@ -323,6 +324,9 @@ export abstract class ApiService {
   putTwoFactorAuthenticator: (
     request: UpdateTwoFactorAuthenticatorRequest,
   ) => Promise<TwoFactorAuthenticatorResponse>;
+  deleteTwoFactorAuthenticator: (
+    request: DisableTwoFactorAuthenticatorRequest,
+  ) => Promise<TwoFactorProviderResponse>;
   putTwoFactorEmail: (request: UpdateTwoFactorEmailRequest) => Promise<TwoFactorEmailResponse>;
   putTwoFactorDuo: (request: UpdateTwoFactorDuoRequest) => Promise<TwoFactorDuoResponse>;
   putTwoFactorOrganizationDuo: (
@@ -330,7 +334,7 @@ export abstract class ApiService {
     request: UpdateTwoFactorDuoRequest,
   ) => Promise<TwoFactorDuoResponse>;
   putTwoFactorYubiKey: (
-    request: UpdateTwoFactorYubioOtpRequest,
+    request: UpdateTwoFactorYubikeyOtpRequest,
   ) => Promise<TwoFactorYubiKeyResponse>;
   putTwoFactorWebAuthn: (
     request: UpdateTwoFactorWebAuthnRequest,

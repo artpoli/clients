@@ -1,10 +1,11 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
 import { ModalService } from "@bitwarden/angular/services/modal.service";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
+import { CollectionService } from "@bitwarden/common/vault/abstractions/collection.service";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 import { PasswordRepromptService } from "@bitwarden/vault";
@@ -17,7 +18,10 @@ import { UnsecuredWebsitesReportComponent as BaseUnsecuredWebsitesReportComponen
   templateUrl: "../../../tools/reports/pages/unsecured-websites-report.component.html",
 })
 // eslint-disable-next-line rxjs-angular/prefer-takeuntil
-export class UnsecuredWebsitesReportComponent extends BaseUnsecuredWebsitesReportComponent {
+export class UnsecuredWebsitesReportComponent
+  extends BaseUnsecuredWebsitesReportComponent
+  implements OnInit
+{
   constructor(
     cipherService: CipherService,
     modalService: ModalService,
@@ -26,6 +30,7 @@ export class UnsecuredWebsitesReportComponent extends BaseUnsecuredWebsitesRepor
     passwordRepromptService: PasswordRepromptService,
     i18nService: I18nService,
     syncService: SyncService,
+    collectionService: CollectionService,
   ) {
     super(
       cipherService,
@@ -34,6 +39,7 @@ export class UnsecuredWebsitesReportComponent extends BaseUnsecuredWebsitesRepor
       passwordRepromptService,
       i18nService,
       syncService,
+      collectionService,
     );
   }
 

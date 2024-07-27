@@ -42,6 +42,12 @@
   "cardholderName": {
     "message": "Nom du titulaire de la carte"
   },
+  "loginCredentials": {
+    "message": "Identifiants de connexion"
+  },
+  "authenticatorKey": {
+    "message": "Clé d'authentification"
+  },
   "number": {
     "message": "Numéro"
   },
@@ -138,6 +144,15 @@
   "authenticatorKeyTotp": {
     "message": "Clé d'authentification (TOTP)"
   },
+  "totpHelperTitle": {
+    "message": "Rendre la vérification en deux étapes transparente"
+  },
+  "totpHelper": {
+    "message": "Bitwarden peut stocker et remplir des codes de vérification en 2 étapes. Copiez et collez la clé dans ce champ."
+  },
+  "totpHelperWithCapture": {
+    "message": "Bitwarden peut stocker et remplir des codes de vérification en 2 étapes. Sélectionnez l'icône caméra pour prendre une capture d'écran du code QR de l'authentificateur de ce site Web, ou copiez et collez la clé dans ce champ."
+  },
   "folder": {
     "message": "Dossier"
   },
@@ -172,6 +187,10 @@
   "noneFolder": {
     "message": "Aucun dossier",
     "description": "This is the folder for uncategorized items"
+  },
+  "selfOwnershipLabel": {
+    "message": "Vous",
+    "description": "Used as a label to indicate that the user is the owner of an item."
   },
   "addFolder": {
     "message": "Ajouter un dossier"
@@ -401,6 +420,21 @@
   "item": {
     "message": "Élément"
   },
+  "itemDetails": {
+    "message": "Détails de l'élément"
+  },
+  "itemName": {
+    "message": "Nom de l’élément"
+  },
+  "cannotRemoveViewOnlyCollections": {
+    "message": "Vous ne pouvez pas supprimer des collections avec les autorisations d'affichage uniquement : $COLLECTIONS$",
+    "placeholders": {
+      "collections": {
+        "content": "$1",
+        "example": "Work, Personal"
+      }
+    }
+  },
   "ex": {
     "message": "ex.",
     "description": "Short abbreviation for 'example'."
@@ -536,6 +570,24 @@
       }
     }
   },
+  "itemsMovedToOrg": {
+    "message": "Éléments déplacés vers $ORGNAME$",
+    "placeholders": {
+      "orgname": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
+  },
+  "itemMovedToOrg": {
+    "message": "Élément déplacé vers $ORGNAME$",
+    "placeholders": {
+      "orgname": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
+  },
   "deleteItem": {
     "message": "Supprimer l'élément"
   },
@@ -592,6 +644,18 @@
   },
   "loginExpired": {
     "message": "Votre session a expiré."
+  },
+  "restartRegistration": {
+    "message": "Redémarrer l'inscription"
+  },
+  "expiredLink": {
+    "message": "Lien expiré"
+  },
+  "pleaseRestartRegistrationOrTryLoggingIn": {
+    "message": "Veuillez redémarrer votre inscription ou essayez de vous connecter."
+  },
+  "youMayAlreadyHaveAnAccount": {
+    "message": "Vous avez peut-être déjà un compte"
   },
   "logOutConfirmation": {
     "message": "Êtes-vous sûr de vouloir vous déconnecter ?"
@@ -835,8 +899,8 @@
   "emailAddress": {
     "message": "Adresse électronique"
   },
-  "yourVaultIsLocked": {
-    "message": "Votre coffre est verrouillé. Vérifiez votre mot de passe principal pour continuer."
+  "yourVaultIsLockedV2": {
+    "message": "Votre coffre est verrouillé."
   },
   "uuid": {
     "message": "UUID"
@@ -1041,7 +1105,7 @@
     "message": "Êtes-vous sûr(e) de vouloir continuer ?"
   },
   "moveSelectedItemsDesc": {
-    "message": "Choisissez le dossier vers lequel vous souhaitez déplacer les $COUNT$ élément(s) sélectionné(s).",
+    "message": "Choose a folder that you would like to add the $COUNT$ selected item(s) to.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -1442,8 +1506,8 @@
   "importEncKeyError": {
     "message": "Erreur lors du déchiffrement du fichier exporté. Votre clé de chiffrement ne correspond pas à la clé de chiffrement utilisée pour exporter les données."
   },
-  "importDestination": {
-    "message": "Destination de l'import"
+  "destination": {
+    "message": "Destination"
   },
   "learnAboutImportOptions": {
     "message": "En savoir plus sur vos options d'importation"
@@ -1671,6 +1735,9 @@
   },
   "twoStepAuthenticatorScanCodeV2": {
     "message": "Scannez le code QR ci-dessous avec votre application d'authentification ou saisissez la clé."
+  },
+  "twoStepAuthenticatorQRCanvasError": {
+    "message": "Impossible de charger le code QR. Réessayez ou utilisez la clé ci-dessous."
   },
   "key": {
     "message": "Clé"
@@ -2732,12 +2799,6 @@
   "accessControl": {
     "message": "Contrôle d’accès"
   },
-  "groupAccessAllItems": {
-    "message": "Ce groupe peut voir et modifier tous les éléments."
-  },
-  "groupAccessSelectedCollections": {
-    "message": "Ce groupe peut accéder uniquement aux collections sélectionnées."
-  },
   "readOnly": {
     "message": "Lecture seule"
   },
@@ -2783,20 +2844,11 @@
   "userUsingTwoStep": {
     "message": "Cet utilisateur utilise l'authentification à deux facteurs pour protéger son compte."
   },
-  "userAccessAllItems": {
-    "message": "Cet utilisateur peut voir et modifier tous les éléments."
-  },
-  "userAccessSelectedCollections": {
-    "message": "Cet utilisateur peut accéder uniquement aux collections sélectionnées."
-  },
   "search": {
     "message": "Rechercher"
   },
   "invited": {
     "message": "Invité"
-  },
-  "accepted": {
-    "message": "Accepté"
   },
   "confirmed": {
     "message": "Confirmé"
@@ -3383,6 +3435,9 @@
   "emailVerified": {
     "message": "Courriel du compte vérifié"
   },
+  "emailVerifiedV2": {
+    "message": "Courriel vérifié"
+  },
   "emailVerifiedFailed": {
     "message": "Impossible de vérifier votre courriel. Essayez en envoyant un nouveau courriel de vérification."
   },
@@ -3403,6 +3458,9 @@
   },
   "joinOrganizationDesc": {
     "message": "Vous avez été invité à rejoindre l'organisation ci-dessus. Pour accepter l'invitation, vous devez vous connecter ou créer un nouveau compte Bitwarden."
+  },
+  "finishJoiningThisOrganizationBySettingAMasterPassword": {
+    "message": "Terminer de rejoindre cette organisation en définissant un mot de passe principal."
   },
   "inviteAccepted": {
     "message": "Invitation acceptée"
@@ -3689,6 +3747,15 @@
       }
     }
   },
+  "subscriptionSeatMaxReached": {
+    "message": "Vous ne pouvez pas inviter plus de membres $COUNT$ sans augmenter le nombre de licences de votre abonnement.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "50"
+      }
+    }
+  },
   "seatsToAdd": {
     "message": "Sièges à ajouter"
   },
@@ -3752,8 +3819,8 @@
   "nothingSelected": {
     "message": "Vous n'avez rien sélectionné."
   },
-  "receiveMarketingEmails": {
-    "message": "Recevez des courriels de Bitwarden pour des annonces, des conseils et des opportunités de recherche."
+  "receiveMarketingEmailsV2": {
+    "message": "Obtenez des conseils, des annonces et des opportunités de recherche de la part de Bitwarden dans votre boîte de réception."
   },
   "unsubscribe": {
     "message": "Désabonnez-vous"
@@ -4319,6 +4386,9 @@
     "message": "Lien du Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "copyLink": {
+    "message": "Copier le lien"
+  },
   "copySendLink": {
     "message": "Copier le lien du Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -4733,6 +4803,75 @@
   "sendVaultCardOr": {
     "message": "ou",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Learn more, see how it works, **or** try it now.'"
+  },
+  "developmentDevOpsAndITTeamsChooseBWSecret": {
+    "message": "Les équipes de développement, DevOps et IT choisissent Bitwarden Secrets Manager pour gérer et déployer en toute sécurité leurs infrastructures et leurs secrets de machine."
+  },
+  "centralizeSecretsManagement": {
+    "message": "Centraliser la gestion des secrets."
+  },
+  "centralizeSecretsManagementDescription": {
+    "message": "Stockez et gérez les secrets en toute sécurité à un seul endroit pour éviter un étalement secret à travers votre organisation."
+  },
+  "preventSecretLeaks": {
+    "message": "Empêcher les fuites de secrets."
+  },
+  "preventSecretLeaksDescription": {
+    "message": "Protégez les secrets avec le chiffrement de bout en bout. Plus de codage dur des secrets ou de partage via des fichiers .env."
+  },
+  "enhanceDeveloperProductivity": {
+    "message": "Améliorer la productivité des développeurs."
+  },
+  "enhanceDeveloperProductivityDescription": {
+    "message": "Récupération et déploiement programmatiques des secrets lors de l'exécution, afin que les développeurs puissent se concentrer sur ce qui compte le plus, comme l'amélioration de la qualité du code."
+  },
+  "strengthenBusinessSecurity": {
+    "message": "Renforcer la sécurité de votre entreprise."
+  },
+  "strengthenBusinessSecurityDescription": {
+    "message": "Gardez un contrôle rigoureux sur l'accès machine et humain aux secrets grâce aux intégrations SSO, aux journaux d'événements et à la rotation d'accès."
+  },
+  "tryItNow": {
+    "message": "Essayez-le maintenant"
+  },
+  "sendRequest": {
+    "message": "Envoyer la requête"
+  },
+  "addANote": {
+    "message": "Ajouter une note"
+  },
+  "bitwardenSecretsManager": {
+    "message": "Secrets Manager de Bitwarden"
+  },
+  "moreProductsFromBitwarden": {
+    "message": "Plus de produits de Bitwarden"
+  },
+  "requestAccessToSecretsManager": {
+    "message": "Demander l'accès au Secrets Manager"
+  },
+  "youNeedApprovalFromYourAdminToTrySecretsManager": {
+    "message": "Vous avez besoin de l'approbation de votre administrateur pour essayer Secrets Manager."
+  },
+  "smAccessRequestEmailSent": {
+    "message": "Courriel de demande d'accès au Secrets Manager envoyé aux administrateurs."
+  },
+  "requestAccessSMDefaultEmailContent": {
+    "message": "Bonjour, \n\nJe demande un abonnement à Secrets Manager de Bitwarden pour mon équipe. Votre support serait très apprécié!\n\nSecrets Manager de Bitwarden est une solution de gestion de chiffrement bout en bout des secrets pour conserver, partager et déployer des identifiants d'appareils comme des clés d'API, des mots de passe de bases de données et des certificats d'authentification de façon sécuritaire.\n\nSecrets Manager nous aidera à :\n\n- Améliorer notre sécurité\n- Accélérer nos opérations\n- Prévenir les fuites coûteuses de nos secrets\n\nPour demander un essai gratuit pour notre équipe, veuillez contacter Bitwarden.\n\nMerci pour votre aide!"
+  },
+  "giveMembersAccess": {
+    "message": "Donner accès aux membres :"
+  },
+  "viewAndSelectTheMembers": {
+    "message": "voir et sélectionner les membres que vous voulez donner accès à Secrets Manager."
+  },
+  "openYourOrganizations": {
+    "message": "Ouvrir votre organisation"
+  },
+  "usingTheMenuSelect": {
+    "message": "À l'aide du menu, sélectionnez"
+  },
+  "toGrantAccessToSelectedMembers": {
+    "message": "pour donner accès aux membres sélectionnés."
   },
   "sendVaultCardTryItNow": {
     "message": "essayez-le maintenant",
@@ -5488,6 +5627,9 @@
   "verificationCodeRequired": {
     "message": "Le code de vérification est requis."
   },
+  "webauthnCancelOrTimeout": {
+    "message": "L'authentification a été annulée ou a pris trop de temps. Veuillez réessayer."
+  },
   "invalidVerificationCode": {
     "message": "Code de vérification invalide"
   },
@@ -6178,6 +6320,9 @@
         "example": "4"
       }
     }
+  },
+  "duoHealthCheckResultsInNullAuthUrlError": {
+    "message": "Erreur de connexion avec le service Duo. Utilisez une autre méthode de connexion en deux étapes ou contactez Duo pour obtenir de l'aide."
   },
   "launchDuoAndFollowStepsToFinishLoggingIn": {
     "message": "Lancez DUO et suivez les étapes pour terminer la connexion."
@@ -7851,8 +7996,11 @@
   "assignToTheseCollections": {
     "message": "Assigner à ces collections"
   },
-  "bulkCollectionAssignmentDialogDescription": {
-    "message": "Sélectionnez les collections avec lesquelles les éléments seront partagés. Une fois qu'un élément est mis à jour dans une collection, il le sera aussi dans toutes ces collections. Seuls les membres de l'organisation ayant accès à ces collections pourront voir les éléments."
+  "bulkCollectionAssignmentDialogDescriptionSingular": {
+    "message": "Seuls les membres de l'organisation ayant accès à ces collections pourront voir l'élément."
+  },
+  "bulkCollectionAssignmentDialogDescriptionPlural": {
+    "message": "Seuls les membres de l'organisation ayant accès à ces collections pourront voir les éléments."
   },
   "selectCollectionsToAssign": {
     "message": "Sélectionnez les collections à assigner"
@@ -8130,23 +8278,6 @@
   "restrictedGroupAccessDesc": {
     "message": "Vous ne pouvez pas vous ajouter vous-même à un groupe."
   },
-  "unassignedItemsBannerSelfHost": {
-    "message": "Remarque : le 2 mai 2024, les éléments d'organisation non assignés ne seront plus visibles dans votre vue Tous les coffres sur les appareils et seront uniquement accessibles via la Console Admin. Assignez ces éléments à une collection à partir de la Console Admin pour les rendre visibles."
-  },
-  "unassignedItemsBannerNotice": {
-    "message": "Remarque : Les éléments d'organisation non assignés ne sont plus visibles dans la vue Tous les coffres sur les appareils et ne sont maintenant accessibles que via la Console Admin."
-  },
-  "unassignedItemsBannerSelfHostNotice": {
-    "message": "Remarque : À partir du 16 mai 2024, les éléments d'organisation non assignés ne seront plus visibles dans la vue Tous les coffres sur les appareils et ne seront maintenant accessibles que via la Console Admin."
-  },
-  "unassignedItemsBannerCTAPartOne": {
-    "message": "Assigner ces éléments à une collection depuis",
-    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
-  },
-  "unassignedItemsBannerCTAPartTwo": {
-    "message": "pour les rendre visibles.",
-    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
-  },
   "deleteProvider": {
     "message": "Supprimer le fournisseur"
   },
@@ -8414,6 +8545,9 @@
   "memberAccessReportDesc": {
     "message": "S'assurer que les membres ont accès aux bons identifiants et que leurs comptes sont sécurisés. Utilisez ce rapport pour obtenir un CSV d'accès aux membres et des configurations de compte."
   },
+  "memberAccessReportPageDesc": {
+    "message": "Audite les accès des membres de l'organisation au sein des groupes, des collections et des éléments des collections. L'exportation CSV fournit un rapport détaillé par membre comprenant des informations sur les collections autorisées et les configurations de compte."
+  },
   "higherKDFIterations": {
     "message": "Des itérations KDF plus élevées peuvent aider à protéger votre mot de passe principal contre la force brute d'un assaillant."
   },
@@ -8486,8 +8620,78 @@
   "downloadCSV": {
     "message": "Télécharger le fichier CSV"
   },
+  "monthlySubscriptionUserSeatsMessage": {
+    "message": "Les ajustements à votre abonnement entraîneront des frais au prorata de vos totaux facturés lors de votre prochaine période de facturation. "
+  },
+  "annualSubscriptionUserSeatsMessage": {
+    "message": "Les ajustements à votre abonnement entraîneront des frais au prorata d'une période de facturation mensuelle. "
+  },
   "billingHistoryDescription": {
     "message": "Téléchargez un fichier CSV pour obtenir les détails du client pour chaque date de facturation. Les frais au prorata ne sont pas inclus dans le fichier CSV et peuvent varier de la facture liée. Pour obtenir les détails de facturation les plus exacts, reportez-vous à vos factures mensuelles.",
     "description": "A paragraph on the Billing History page of the Provider Portal letting users know they can download a CSV report for their invoices that does not include prorations."
+  },
+  "noInvoicesToList": {
+    "message": "Il n'y a aucune facture à afficher",
+    "description": "A paragraph on the Billing History page of the Provider Portal letting users know they can download a CSV report for their invoices that does not include prorations."
+  },
+  "providerClientVaultPrivacyNotification": {
+    "message": "Remarque : Plus tard ce mois-ci, la confidentialité du coffre du client sera améliorée et les membres du fournisseur n'auront plus un accès direct aux éléments du coffre du client. Pour les questions,",
+    "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'."
+  },
+  "contactBitwardenSupport": {
+    "message": "contactez le support Bitwarden.",
+    "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'. 'Bitwarden' should not be translated"
+  },
+  "sponsored": {
+    "message": "Parrainé"
+  },
+  "licenseAndBillingManagementDesc": {
+    "message": "Après avoir fait des mises à jour sur le serveur cloud de Bitwarden, téléversez votre fichier de licence pour appliquer les modifications les plus récentes."
+  },
+  "addToFolder": {
+    "message": "Ajouter au dossier"
+  },
+  "selectFolder": {
+    "message": "Sélectionner un dossier"
+  },
+  "personalItemTransferWarningSingular": {
+    "message": "1 élément sera transféré définitivement à l'organisation sélectionnée. Vous ne serez plus le propriétaire de cet élément."
+  },
+  "personalItemsTransferWarningPlural": {
+    "message": "Les éléments $PERSONAL_ITEMS_COUNT$ seront transférés de façon permanente à l'organisation sélectionnée. Vous ne serez plus le propriétaire de ces éléments.",
+    "placeholders": {
+      "personal_items_count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "personalItemWithOrgTransferWarningSingular": {
+    "message": "1 élément sera transféré définitivement à $ORG$. Vous ne serez plus le propriétaire de cet élément.",
+    "placeholders": {
+      "org": {
+        "content": "$1",
+        "example": "Organization name"
+      }
+    }
+  },
+  "personalItemsWithOrgTransferWarningPlural": {
+    "message": "$PERSONAL_ITEMS_COUNT$ seront transférés à $ORG$ de façon permanente. Vous ne serez plus propriétaire de ces éléments.",
+    "placeholders": {
+      "personal_items_count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "org": {
+        "content": "$2",
+        "example": "Organization name"
+      }
+    }
+  },
+  "data": {
+    "message": "Données"
+  },
+  "purchasedSeatsRemoved": {
+    "message": "licenses achetées retirées"
   }
 }

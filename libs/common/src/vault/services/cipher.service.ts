@@ -1,6 +1,9 @@
 import { firstValueFrom, map, Observable, skipWhile, switchMap } from "rxjs";
 import { SemVer } from "semver";
 
+import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
+import { BulkEncryptService } from "@bitwarden/common/platform/abstractions/bulk-encrypt.service";
+
 import { ApiService } from "../../abstractions/api.service";
 import { SearchService } from "../../abstractions/search.service";
 import { AutofillSettingsServiceAbstraction } from "../../autofill/services/autofill-settings.service";
@@ -102,6 +105,7 @@ export class CipherService implements CipherServiceAbstraction {
     private stateService: StateService,
     private autofillSettingsService: AutofillSettingsServiceAbstraction,
     private encryptService: EncryptService,
+    private bulkEncryptService: BulkEncryptService,
     private cipherFileUploadService: CipherFileUploadService,
     private configService: ConfigService,
     private stateProvider: StateProvider,
@@ -397,12 +401,19 @@ export class CipherService implements CipherServiceAbstraction {
 
     const decCiphers = (
       await Promise.all(
-        Object.entries(grouped).map(([orgId, groupedCiphers]) =>
-          this.encryptService.decryptItems(
-            groupedCiphers,
-            keys.orgKeys[orgId as OrganizationId] ?? keys.userKey,
-          ),
-        ),
+        Object.entries(grouped).map(async ([orgId, groupedCiphers]) => {
+          if (await this.configService.getFeatureFlag(FeatureFlag.PM4154_BulkEncryptionService)) {
+            return await this.bulkEncryptService.decryptItems(
+              groupedCiphers,
+              keys.orgKeys[orgId as OrganizationId] ?? keys.userKey,
+            );
+          } else {
+            return await this.encryptService.decryptItems(
+              groupedCiphers,
+              keys.orgKeys[orgId as OrganizationId] ?? keys.userKey,
+            );
+          }
+        }),
       )
     )
       .flat()
@@ -515,7 +526,12 @@ export class CipherService implements CipherServiceAbstraction {
 
     const ciphers = response.data.map((cr) => new Cipher(new CipherData(cr)));
     const key = await this.cryptoService.getOrgKey(organizationId);
-    const decCiphers = await this.encryptService.decryptItems(ciphers, key);
+    let decCiphers: CipherView[] = [];
+    if (await this.configService.getFeatureFlag(FeatureFlag.PM4154_BulkEncryptionService)) {
+      decCiphers = await this.bulkEncryptService.decryptItems(ciphers, key);
+    } else {
+      decCiphers = await this.encryptService.decryptItems(ciphers, key);
+    }
 
     decCiphers.sort(this.getLocaleSortingFunction());
     return decCiphers;
@@ -1184,11 +1200,16 @@ export class CipherService implements CipherServiceAbstraction {
     let encryptedCiphers: CipherWithIdRequest[] = [];
 
     const ciphers = await this.getAllDecrypted();
-    if (!ciphers || ciphers.length === 0) {
+    if (!ciphers) {
+      return encryptedCiphers;
+    }
+
+    const userCiphers = ciphers.filter((c) => c.organizationId == null);
+    if (userCiphers.length === 0) {
       return encryptedCiphers;
     }
     encryptedCiphers = await Promise.all(
-      ciphers.map(async (cipher) => {
+      userCiphers.map(async (cipher) => {
         const encryptedCipher = await this.encrypt(cipher, newUserKey, originalUserKey);
         return new CipherWithIdRequest(encryptedCipher);
       }),
@@ -1374,7 +1395,7 @@ export class CipherService implements CipherServiceAbstraction {
 
         if (model.login.uris != null) {
           cipher.login.uris = [];
-          model.login.uris = model.login.uris.filter((u) => u.uri != null);
+          model.login.uris = model.login.uris.filter((u) => u.uri != null && u.uri !== "");
           for (let i = 0; i < model.login.uris.length; i++) {
             const loginUri = new LoginUri();
             loginUri.match = model.login.uris[i].match;

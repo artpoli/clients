@@ -6,6 +6,7 @@
 
 ## Secrets Manager team files ##
 bitwarden_license/bit-web/src/app/secrets-manager @bitwarden/team-secrets-manager-dev
+apps/web/src/app/secrets-manager/ @bitwarden/team-secrets-manager-dev
 
 ## Auth team files ##
 apps/browser/src/auth @bitwarden/team-auth-dev
@@ -18,6 +19,9 @@ apps/web/src/connectors @bitwarden/team-auth-dev
 bitwarden_license/bit-web/src/app/auth @bitwarden/team-auth-dev
 libs/angular/src/auth @bitwarden/team-auth-dev
 libs/common/src/auth @bitwarden/team-auth-dev
+# biometrics
+apps/desktop/src/services/native-messaging.service.ts @bitwarden/team-auth-dev
+app/browser/src/background/nativeMessaging.background.ts @bitwarden/team-auth-dev
 
 ## Tools team files ##
 apps/browser/src/tools @bitwarden/team-tools-dev
@@ -29,6 +33,7 @@ libs/common/src/models/export @bitwarden/team-tools-dev
 libs/common/src/tools @bitwarden/team-tools-dev
 libs/importer @bitwarden/team-tools-dev
 libs/tools @bitwarden/team-tools-dev
+bitwarden_license/bit-web/src/app/tools @bitwarden/team-tools-dev
 
 ## Localization/Crowdin (Tools team)
 apps/browser/src/_locales @bitwarden/team-tools-dev
@@ -91,12 +96,12 @@ libs/common/src/autofill @bitwarden/team-autofill-dev
 # DuckDuckGo integration
 apps/desktop/native-messaging-test-runner @bitwarden/team-autofill-dev
 apps/desktop/src/services/native-message-handler.service.ts @bitwarden/team-autofill-dev
-apps/desktop/src/services/native-messaging.service.ts @bitwarden/team-autofill-dev
 
 ## Component Library ##
-.storybook @bitwarden/team-component-library
-libs/components @bitwarden/team-component-library
-apps/web/src/app/layouts/header
+.storybook @bitwarden/team-design-system
+libs/components @bitwarden/team-design-system
+apps/browser/src/platform/popup/layout @bitwarden/team-design-system 
+apps/web/src/app/layouts @bitwarden/team-design-system 
 
 ## Desktop native module ##
 apps/desktop/desktop_native @bitwarden/team-platform-dev

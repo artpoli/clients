@@ -1,3 +1,4 @@
+import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -19,17 +20,20 @@ import {
   ProviderPaymentMethodComponent,
   ProviderSelectPaymentMethodDialogComponent,
   ProviderSubscriptionComponent,
+  ProviderSubscriptionStatusComponent,
 } from "../../billing/providers";
-import { ProviderSubscriptionStatusComponent } from "../../billing/providers/subscription/provider-subscription-status.component";
 
 import { AddOrganizationComponent } from "./clients/add-organization.component";
 import { ClientsComponent } from "./clients/clients.component";
 import { CreateOrganizationComponent } from "./clients/create-organization.component";
-import { ProviderPermissionsGuard } from "./guards/provider-permissions.guard";
 import { AcceptProviderComponent } from "./manage/accept-provider.component";
 import { BulkConfirmComponent } from "./manage/bulk/bulk-confirm.component";
 import { BulkRemoveComponent } from "./manage/bulk/bulk-remove.component";
+import { AddEditMemberDialogComponent } from "./manage/dialogs/add-edit-member-dialog.component";
+import { BulkConfirmDialogComponent } from "./manage/dialogs/bulk-confirm-dialog.component";
+import { BulkRemoveDialogComponent } from "./manage/dialogs/bulk-remove-dialog.component";
 import { EventsComponent } from "./manage/events.component";
+import { MembersComponent } from "./manage/members.component";
 import { PeopleComponent } from "./manage/people.component";
 import { UserAddEditComponent } from "./manage/user-add-edit.component";
 import { ProvidersLayoutComponent } from "./providers-layout.component";
@@ -52,20 +56,25 @@ import { SetupComponent } from "./setup/setup.component";
     PaymentMethodWarningsModule,
     TaxInfoComponent,
     DangerZoneComponent,
+    ScrollingModule,
   ],
   declarations: [
     AcceptProviderComponent,
     AccountComponent,
     AddOrganizationComponent,
     BulkConfirmComponent,
+    BulkConfirmDialogComponent,
     BulkRemoveComponent,
+    BulkRemoveDialogComponent,
     ClientsComponent,
     CreateOrganizationComponent,
     EventsComponent,
     PeopleComponent,
+    MembersComponent,
     SetupComponent,
     SetupProviderComponent,
     UserAddEditComponent,
+    AddEditMemberDialogComponent,
     CreateClientDialogComponent,
     NoClientsComponent,
     ManageClientsComponent,
@@ -77,6 +86,6 @@ import { SetupComponent } from "./setup/setup.component";
     ProviderPaymentMethodComponent,
     ProviderSubscriptionStatusComponent,
   ],
-  providers: [WebProviderService, ProviderPermissionsGuard],
+  providers: [WebProviderService],
 })
 export class ProvidersModule {}

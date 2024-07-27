@@ -42,6 +42,12 @@
   "cardholderName": {
     "message": "Kártyatulajdonos neve"
   },
+  "loginCredentials": {
+    "message": "Bejelentkezési hitelesítések"
+  },
+  "authenticatorKey": {
+    "message": "Hitelesítő kulcs"
+  },
   "number": {
     "message": "Szám"
   },
@@ -138,6 +144,15 @@
   "authenticatorKeyTotp": {
     "message": "Hitelesítő kulcs (egyszeri idő alapú)"
   },
+  "totpHelperTitle": {
+    "message": "Tegyük zökkenőmentessé a kétlépcsős azonosítást."
+  },
+  "totpHelper": {
+    "message": "A Bitwarden képes tárolni és kitölteni a kétlépcsős ellenőrző kódokat. Másoljuk ki és illesszük be a kulcsot ebbe a mezőbe."
+  },
+  "totpHelperWithCapture": {
+    "message": "A Bitwarden képes tárolni és kitölteni a kétlépcsős ellenőrző kódokat. Válasszuk a kamera ikont, hogy képernyőképet készítsünk a webhely hitelesítő QR kódjáról vagy másoljuk ki és illesszük be a kulcsot ebbe a mezőbe."
+  },
   "folder": {
     "message": "Mappa"
   },
@@ -172,6 +187,10 @@
   "noneFolder": {
     "message": "Nincs mappa",
     "description": "This is the folder for uncategorized items"
+  },
+  "selfOwnershipLabel": {
+    "message": "Saját magam",
+    "description": "Used as a label to indicate that the user is the owner of an item."
   },
   "addFolder": {
     "message": "Mappa hozzáadása"
@@ -401,6 +420,21 @@
   "item": {
     "message": "Elem"
   },
+  "itemDetails": {
+    "message": "Elem részletek"
+  },
+  "itemName": {
+    "message": "Elem neve"
+  },
+  "cannotRemoveViewOnlyCollections": {
+    "message": "Nem távolíthatók el a csak megtekintési engedéllyel bíró gyűjtemények: $COLLECTIONS$",
+    "placeholders": {
+      "collections": {
+        "content": "$1",
+        "example": "Work, Personal"
+      }
+    }
+  },
   "ex": {
     "message": "Példa:",
     "description": "Short abbreviation for 'example'."
@@ -536,6 +570,24 @@
       }
     }
   },
+  "itemsMovedToOrg": {
+    "message": "Az elemek áthelyezésre kerültek: $ORGNAME$",
+    "placeholders": {
+      "orgname": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
+  },
+  "itemMovedToOrg": {
+    "message": "Az elem áthelyezésre került: $ORGNAME$",
+    "placeholders": {
+      "orgname": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
+  },
   "deleteItem": {
     "message": "Elem törlése"
   },
@@ -592,6 +644,18 @@
   },
   "loginExpired": {
     "message": "A bejelentkezési munkamenet lejárt."
+  },
+  "restartRegistration": {
+    "message": "Restart registration"
+  },
+  "expiredLink": {
+    "message": "Expired link"
+  },
+  "pleaseRestartRegistrationOrTryLoggingIn": {
+    "message": "Please restart registration or try logging in."
+  },
+  "youMayAlreadyHaveAnAccount": {
+    "message": "You may already have an account"
   },
   "logOutConfirmation": {
     "message": "Biztosan szeretnénk kijelentkezni?"
@@ -835,8 +899,8 @@
   "emailAddress": {
     "message": "Email cím"
   },
-  "yourVaultIsLocked": {
-    "message": "A széf zárolásra került. A folytatáshoz meg kell adni a mesterjelszót."
+  "yourVaultIsLockedV2": {
+    "message": "A széf zárolva van."
   },
   "uuid": {
     "message": "UUID"
@@ -1041,7 +1105,7 @@
     "message": "Biztos folytatni szeretnénk?"
   },
   "moveSelectedItemsDesc": {
-    "message": "Célmappa kiválasztás $COUNT$ kijelölt elem áthelyezéséhez.",
+    "message": "Choose a folder that you would like to add the $COUNT$ selected item(s) to.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -1442,8 +1506,8 @@
   "importEncKeyError": {
     "message": "Hiba történt az exportált fájl visszafejtése során. A titkosítási kulcs nem egyezik meg az adatok exportálásához használt titkosítási kulccsal."
   },
-  "importDestination": {
-    "message": "Importálás leírás"
+  "destination": {
+    "message": "Cél"
   },
   "learnAboutImportOptions": {
     "message": "Információ az importálási opciókról"
@@ -1671,6 +1735,9 @@
   },
   "twoStepAuthenticatorScanCodeV2": {
     "message": "Olvassuk be az alábbi QR kódot a hitelesítő alkalmazással,vagy írjuk be a kulcsot."
+  },
+  "twoStepAuthenticatorQRCanvasError": {
+    "message": "Nem sikerült betölteni a QR-kódot. Próbáljuk újra vagy használjuk az alábbi kulcsot."
   },
   "key": {
     "message": "Kulcs"
@@ -2732,12 +2799,6 @@
   "accessControl": {
     "message": "Hozzáférés vezérlés"
   },
-  "groupAccessAllItems": {
-    "message": "Ez a csoport minden elemhez hozzáfér és módosíthatja azokat."
-  },
-  "groupAccessSelectedCollections": {
-    "message": "Ez a csoport csak a kiválasztott gyűjteményekhez fér hozzá."
-  },
   "readOnly": {
     "message": "Csak olvasható"
   },
@@ -2783,20 +2844,11 @@
   "userUsingTwoStep": {
     "message": "Ez a felhasználó kétlépcsős bejelentkezést használ fiókja védelmére."
   },
-  "userAccessAllItems": {
-    "message": "Ez a felhasználó minden elemhez hozzáfér és módosítani tudja azokat."
-  },
-  "userAccessSelectedCollections": {
-    "message": "Ez a felhasználó csak a kiválasztott gyűjteményekhez fér hozzá."
-  },
   "search": {
     "message": "Keresés"
   },
   "invited": {
     "message": "Meghívott"
-  },
-  "accepted": {
-    "message": "Elfogadva"
   },
   "confirmed": {
     "message": "Megerősítve"
@@ -3383,6 +3435,9 @@
   "emailVerified": {
     "message": "Az email cím megerősítésre került."
   },
+  "emailVerifiedV2": {
+    "message": "Az email cím ellenőrzésre került."
+  },
   "emailVerifiedFailed": {
     "message": "Nem sikerült az email cím ellenőrzése. Új ellenőrző email küldése."
   },
@@ -3403,6 +3458,9 @@
   },
   "joinOrganizationDesc": {
     "message": "Meghívást érkezett a fenti szervezethez csatlakozáshoz.  A meghívás elfogadásához be kell jelentkezni vagy új Bitwarden fiókot kell létrehozni."
+  },
+  "finishJoiningThisOrganizationBySettingAMasterPassword": {
+    "message": "Fejezzük be a szervezethez csatlakozást egy mesterjelszó beállításával."
   },
   "inviteAccepted": {
     "message": "A meghívás elfogadásra került."
@@ -3689,6 +3747,15 @@
       }
     }
   },
+  "subscriptionSeatMaxReached": {
+    "message": "$COUNT$ tagnál több nem hívható meg az előfizetői helyek növelése nélkül.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "50"
+      }
+    }
+  },
   "seatsToAdd": {
     "message": "Hozzáadandó helyek"
   },
@@ -3752,8 +3819,8 @@
   "nothingSelected": {
     "message": "Nincs kiválasztva semmi."
   },
-  "receiveMarketingEmails": {
-    "message": "Emaileket kaphatunk a Bitwardentől bejelentésekről, tanácsokról és kutatási lehetőségekről."
+  "receiveMarketingEmailsV2": {
+    "message": "Get advice, announcements, and research opportunities from Bitwarden in your inbox."
   },
   "unsubscribe": {
     "message": "Leiratkozás"
@@ -4319,6 +4386,9 @@
     "message": "Send hivatkozás",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "copyLink": {
+    "message": "Copy link"
+  },
   "copySendLink": {
     "message": "Send hivatkozás másolása",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -4733,6 +4803,75 @@
   "sendVaultCardOr": {
     "message": "vagy",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Learn more, see how it works, **or** try it now.'"
+  },
+  "developmentDevOpsAndITTeamsChooseBWSecret": {
+    "message": "Development, DevOps, and IT teams choose Bitwarden Secrets Manager to securely manage and deploy their infrastructure and machine secrets."
+  },
+  "centralizeSecretsManagement": {
+    "message": "Centralize secrets management."
+  },
+  "centralizeSecretsManagementDescription": {
+    "message": "Securely store and manage secrets in one location to prevent secret sprawl across your organization."
+  },
+  "preventSecretLeaks": {
+    "message": "Prevent secret leaks."
+  },
+  "preventSecretLeaksDescription": {
+    "message": "Protect secrets with end-to-end encryption. No more hard coding secrets or sharing through .env files."
+  },
+  "enhanceDeveloperProductivity": {
+    "message": "Enhance developer productivity."
+  },
+  "enhanceDeveloperProductivityDescription": {
+    "message": "Programmatically retrieve and deploy secrets at runtime so developers can focus on what matters most, like improving code quality."
+  },
+  "strengthenBusinessSecurity": {
+    "message": "Strengthen business security."
+  },
+  "strengthenBusinessSecurityDescription": {
+    "message": "Maintain tight control over machine and human access to secrets with SSO integrations, event logs, and access rotation."
+  },
+  "tryItNow": {
+    "message": "Try it now"
+  },
+  "sendRequest": {
+    "message": "Send request"
+  },
+  "addANote": {
+    "message": "Add a note"
+  },
+  "bitwardenSecretsManager": {
+    "message": "Bitwarden Secrets Manager"
+  },
+  "moreProductsFromBitwarden": {
+    "message": "More products from Bitwarden"
+  },
+  "requestAccessToSecretsManager": {
+    "message": "Request access to Secrets Manager"
+  },
+  "youNeedApprovalFromYourAdminToTrySecretsManager": {
+    "message": "You need approval from your administrator to try Secrets Manager."
+  },
+  "smAccessRequestEmailSent": {
+    "message": "Access request for secrets manager email sent to admins."
+  },
+  "requestAccessSMDefaultEmailContent": {
+    "message": "Hi,\n\nI am requesting a subscription to Bitwarden Secrets Manager for our team. Your support would mean a great deal!\n\nBitwarden Secrets Manager is an end-to-end encrypted secrets management solution for securely storing, sharing, and deploying machine credentials like API keys, database passwords, and authentication certificates.\n\nSecrets Manager will help us to:\n\n- Improve security\n- Streamline operations\n- Prevent costly secret leaks\n\nTo request a free trial for our team, please reach out to Bitwarden.\n\nThank you for your help!"
+  },
+  "giveMembersAccess": {
+    "message": "Give members access:"
+  },
+  "viewAndSelectTheMembers": {
+    "message": "view and select the members you want to give access to Secrets Manager."
+  },
+  "openYourOrganizations": {
+    "message": "Open your organization's"
+  },
+  "usingTheMenuSelect": {
+    "message": "Using the menu, select"
+  },
+  "toGrantAccessToSelectedMembers": {
+    "message": "to grant access to selected members."
   },
   "sendVaultCardTryItNow": {
     "message": "próbáljuk ki most",
@@ -5488,6 +5627,9 @@
   "verificationCodeRequired": {
     "message": "Az ellenőrző kód kötelező."
   },
+  "webauthnCancelOrTimeout": {
+    "message": "A hitelesítés megszakításra került vagy túl sokáig tartott. Próbáljuk újra."
+  },
   "invalidVerificationCode": {
     "message": "Érvénytelen ellenőrző kód"
   },
@@ -6178,6 +6320,9 @@
         "example": "4"
       }
     }
+  },
+  "duoHealthCheckResultsInNullAuthUrlError": {
+    "message": "Hiba történt a Duo szolgáltatáshoz csatlakozáskor. Használjunk másik kétlépcsős bejelentkezési módot vagy kérjünk segítséget a Duotól."
   },
   "launchDuoAndFollowStepsToFinishLoggingIn": {
     "message": "Indítsuk el a DUO-t és kövessük a lépéseket a bejelentkezés befejezéséhez."
@@ -7851,8 +7996,11 @@
   "assignToTheseCollections": {
     "message": "Hozzárendelés ezen gyűjteményekhez"
   },
-  "bulkCollectionAssignmentDialogDescription": {
-    "message": "Válasszuk ki azokat a gyűjteményeket, amelyekkel az elemek megosztásra kerülnek. Ha egy elem egy gyűjteményben frissítésre kerül, az az összes gyűjteményben megjelenik. Csak az ezekhez a gyűjteményekhez hozzáféréssel rendelkező szervezeti tagok láthatják az elemeket."
+  "bulkCollectionAssignmentDialogDescriptionSingular": {
+    "message": "Csak az ezekhez a gyűjteményekhez hozzáféréssel rendelkező szervezeti tagok láthatják az elemet."
+  },
+  "bulkCollectionAssignmentDialogDescriptionPlural": {
+    "message": "Csak az ezekhez a gyűjteményekhez hozzáféréssel rendelkező szervezeti tagok láthatják az elemeket."
   },
   "selectCollectionsToAssign": {
     "message": "Hozzárendelendő gyűjtemények kiválasztása"
@@ -8130,23 +8278,6 @@
   "restrictedGroupAccessDesc": {
     "message": "Nem adhadjuk magunkat a csoporthoz."
   },
-  "unassignedItemsBannerSelfHost": {
-    "message": "Notice: On May 2, 2024, unassigned organization items will no longer be visible in your All Vaults view across devices and will only be accessible via the Admin Console. Assign these items to a collection from the Admin Console to make them visible."
-  },
-  "unassignedItemsBannerNotice": {
-    "message": "Megjegyzés: A nem hozzárendelt szervezeti elemek már nem láthatók az Összes széf nézetben a különböző eszközökön és csak az Adminisztrátori konzolon keresztül érhetők el."
-  },
-  "unassignedItemsBannerSelfHostNotice": {
-    "message": "Megjegyzés: 2024. május 16-tól a nem hozzárendelt szervezeti elemek többé nem lesznek láthatók az Összes széf nézetben a különböző eszközökön és csak az Adminisztrátoir konzolon keresztül lesznek elérhetők."
-  },
-  "unassignedItemsBannerCTAPartOne": {
-    "message": "Rendeljük hozzá ezeket az elemeket a gyűjteményhez",
-    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
-  },
-  "unassignedItemsBannerCTAPartTwo": {
-    "message": "a láthatósághoz.",
-    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
-  },
   "deleteProvider": {
     "message": "Delete provider"
   },
@@ -8414,6 +8545,9 @@
   "memberAccessReportDesc": {
     "message": "Győződjünk meg arról, hogy a tagok hozzáférnek a megfelelő hitelesítő adatokhoz és fiókjaik biztonságosak. Ezzel a jelentéssel szerezhetjük be a tagok hozzáférését és a fiókkonfigurációkat tartalmazó CSV fájlt."
   },
+  "memberAccessReportPageDesc": {
+    "message": "A szervezeti tagok hozzáférésének ellenőrzése a csoportok, gyűjtemények és gyűjteményelemek között. A CSV exportálás tagonként részletes lebontást biztosít, beleértve a gyűjtemény engedélyekre és a fiókkonfigurációkra vonatkozó információkat."
+  },
   "higherKDFIterations": {
     "message": "A magasabb szintű KDF iterációk segíthetnek megvédeni mesterjelszót a támadók erőszakossága ellen."
   },
@@ -8486,8 +8620,78 @@
   "downloadCSV": {
     "message": "CSV letöltése"
   },
+  "monthlySubscriptionUserSeatsMessage": {
+    "message": "Az előfizetés módosítása a következő számlázási időszakban arányos költségeket eredményez a számlázási végösszegben."
+  },
+  "annualSubscriptionUserSeatsMessage": {
+    "message": "Az előfizetés módosítása a havi számlázási ciklusban arányos költségeket eredményez."
+  },
   "billingHistoryDescription": {
     "message": "Töltsük le a CSV fájlt, hogy minden számlázási dátumhoz megkapjuk az ügyfél részleteket. Az arányos költségeket a CSV nem tartalmazza és eltérhetnek a hivatkozott számlától. A legpontosabb számlázási részletekért tekintsük meg havi számlákat.",
     "description": "A paragraph on the Billing History page of the Provider Portal letting users know they can download a CSV report for their invoices that does not include prorations."
+  },
+  "noInvoicesToList": {
+    "message": "Nincsenek listázandó számlák.",
+    "description": "A paragraph on the Billing History page of the Provider Portal letting users know they can download a CSV report for their invoices that does not include prorations."
+  },
+  "providerClientVaultPrivacyNotification": {
+    "message": "Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions,",
+    "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'."
+  },
+  "contactBitwardenSupport": {
+    "message": "contact Bitwarden support.",
+    "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'. 'Bitwarden' should not be translated"
+  },
+  "sponsored": {
+    "message": "Szponzorált"
+  },
+  "licenseAndBillingManagementDesc": {
+    "message": "A Bitwarden felhőkiszolgáló frissítése után töltsük fel a licenszfájlt a legutóbbi módosítások alkalmazásához."
+  },
+  "addToFolder": {
+    "message": "Mappához adás"
+  },
+  "selectFolder": {
+    "message": "Mappa kiválasztása"
+  },
+  "personalItemTransferWarningSingular": {
+    "message": "1 elem véglegesen átkerül a kiválasztott szervezethez. A továbbiakban nem leszünk az elem tulajdonosa."
+  },
+  "personalItemsTransferWarningPlural": {
+    "message": "$PERSONAL_ITEMS_COUNT$ véglegesen átkerül a kiválasztott szervezethez. A továbbiakban nem leszünk az elemek tulajdonosa.",
+    "placeholders": {
+      "personal_items_count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "personalItemWithOrgTransferWarningSingular": {
+    "message": "1 véglegesen átkerül $ORG$ szervezeti egységbe. A továbbiakban nem leszünk a tulajdonosa ennek az elemnek.",
+    "placeholders": {
+      "org": {
+        "content": "$1",
+        "example": "Organization name"
+      }
+    }
+  },
+  "personalItemsWithOrgTransferWarningPlural": {
+    "message": "$PERSONAL_ITEMS_COUNT$ véglegesen átkerül $ORG$ szervezeti egységbe. A továbbiakban nem leszünk a tulajdonosa ezeknek az elemeknek.",
+    "placeholders": {
+      "personal_items_count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "org": {
+        "content": "$2",
+        "example": "Organization name"
+      }
+    }
+  },
+  "data": {
+    "message": "Adat"
+  },
+  "purchasedSeatsRemoved": {
+    "message": "megvásárolt hely eltávolításra került."
   }
 }

@@ -50,8 +50,10 @@
       [showBulkTrashOptions]="filter.type === 'trash'"
       [useEvents]="false"
       [showAdminActions]="false"
+      [showBulkAddToCollections]="vaultBulkManagementActionEnabled$ | async"
       (onEvent)="onVaultItemsEvent($event)"
       [flexibleCollectionsV1Enabled]="flexibleCollectionsV1Enabled$ | async"
+      [vaultBulkManagementActionEnabled]="vaultBulkManagementActionEnabled$ | async"
     >
     </app-vault-items>
     <div
@@ -63,7 +65,7 @@
         title="{{ 'loading' | i18n }}"
         aria-hidden="true"
       ></i>
-      <span class="sr-only">{{ "loading" | i18n }}</span>
+      <span class="tw-sr-only">{{ "loading" | i18n }}</span>
     </div>
     <div
       *ngIf="isEmpty && !performingInitialLoad"

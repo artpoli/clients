@@ -127,9 +127,12 @@ export class RegistrationStartComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // The app expects null for name and not empty string.
+    const sanitizedName = this.name.value === "" ? null : this.name.value;
+
     const request: RegisterSendVerificationEmailRequest = new RegisterSendVerificationEmailRequest(
       this.email.value,
-      this.name.value,
+      sanitizedName,
       this.receiveMarketingEmails.value,
     );
 
@@ -138,7 +141,9 @@ export class RegistrationStartComponent implements OnInit, OnDestroy {
     if (typeof result === "string") {
       // we received a token, so the env doesn't support email verification
       // send the user directly to the finish registration page with the token as a query param
-      await this.router.navigate(["/finish-signup"], { queryParams: { token: result } });
+      await this.router.navigate(["/finish-signup"], {
+        queryParams: { token: result, email: this.email.value },
+      });
     }
 
     // Result is null, so email verification is required

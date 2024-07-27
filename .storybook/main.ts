@@ -6,6 +6,10 @@ const config: StorybookConfig = {
   stories: [
     "../libs/auth/src/**/*.mdx",
     "../libs/auth/src/**/*.stories.@(js|jsx|ts|tsx)",
+    "../libs/tools/send/send-ui/src/**/*.mdx",
+    "../libs/tools/send/send-ui/src/**/*.stories.@(js|jsx|ts|tsx)",
+    "../libs/vault/src/**/*.mdx",
+    "../libs/vault/src/**/*.stories.@(js|jsx|ts|tsx)",
     "../libs/components/src/**/*.mdx",
     "../libs/components/src/**/*.stories.@(js|jsx|ts|tsx)",
     "../apps/web/src/**/*.mdx",

@@ -42,6 +42,12 @@
   "cardholderName": {
     "message": "Име власника картице"
   },
+  "loginCredentials": {
+    "message": "Акредитиве за пријављивање"
+  },
+  "authenticatorKey": {
+    "message": "Кључ аутентификатора"
+  },
   "number": {
     "message": "Број"
   },
@@ -138,6 +144,15 @@
   "authenticatorKeyTotp": {
     "message": "Једнократни код"
   },
+  "totpHelperTitle": {
+    "message": "Учините верификацију у 2 корака беспрекорном"
+  },
+  "totpHelper": {
+    "message": "Bitwarden може да чува и попуњава верификационе кодове у 2 корака. Копирајте и налепите кључ у ово поље."
+  },
+  "totpHelperWithCapture": {
+    "message": "Bitwarden може да чува и попуњава верификационе кодове у 2 корака. Изаберите икону камере да бисте направили снимак екрана QR кода за аутентификацију ове веб локације или копирајте и налепите кључ у ово поље."
+  },
   "folder": {
     "message": "Фасцикла"
   },
@@ -172,6 +187,10 @@
   "noneFolder": {
     "message": "Без фасцикле",
     "description": "This is the folder for uncategorized items"
+  },
+  "selfOwnershipLabel": {
+    "message": "Ти",
+    "description": "Used as a label to indicate that the user is the owner of an item."
   },
   "addFolder": {
     "message": "Додај фасциклу"
@@ -401,6 +420,21 @@
   "item": {
     "message": "Ставка"
   },
+  "itemDetails": {
+    "message": "Детаљи ставке"
+  },
+  "itemName": {
+    "message": "Име ставке"
+  },
+  "cannotRemoveViewOnlyCollections": {
+    "message": "Не можете уклонити колекције са дозволама само за приказ: $COLLECTIONS$",
+    "placeholders": {
+      "collections": {
+        "content": "$1",
+        "example": "Work, Personal"
+      }
+    }
+  },
   "ex": {
     "message": "нпр.",
     "description": "Short abbreviation for 'example'."
@@ -536,6 +570,24 @@
       }
     }
   },
+  "itemsMovedToOrg": {
+    "message": "Ставке премештене у $ORGNAME$",
+    "placeholders": {
+      "orgname": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
+  },
+  "itemMovedToOrg": {
+    "message": "Ставка премештена у $ORGNAME$",
+    "placeholders": {
+      "orgname": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
+  },
   "deleteItem": {
     "message": "Обриши ставку"
   },
@@ -592,6 +644,18 @@
   },
   "loginExpired": {
     "message": "Ваша сесија је истекла."
+  },
+  "restartRegistration": {
+    "message": "Поново покрените регистрацију"
+  },
+  "expiredLink": {
+    "message": "Истекла веза"
+  },
+  "pleaseRestartRegistrationOrTryLoggingIn": {
+    "message": "Поново покрените регистрацију или покушајте да се пријавите."
+  },
+  "youMayAlreadyHaveAnAccount": {
+    "message": "Можда већ имате налог"
   },
   "logOutConfirmation": {
     "message": "Заиста желите да се одјавите?"
@@ -835,8 +899,8 @@
   "emailAddress": {
     "message": "Имејл"
   },
-  "yourVaultIsLocked": {
-    "message": "Сеф је блокиран. Унесите главну лозинку за наставак."
+  "yourVaultIsLockedV2": {
+    "message": "Ваш сеф је блокиран"
   },
   "uuid": {
     "message": "UUID"
@@ -1041,7 +1105,7 @@
     "message": "Желите ли заиста да наставите?"
   },
   "moveSelectedItemsDesc": {
-    "message": "Изаберите фасциклу у коју желите да преместите одабране $COUNT$ ставке.",
+    "message": "Choose a folder that you would like to add the $COUNT$ selected item(s) to.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -1442,8 +1506,8 @@
   "importEncKeyError": {
     "message": "Грешка у дешифрирању извозне датотеке. Ваш кључ за шифровање не одговара кључу који се користио за извоз података."
   },
-  "importDestination": {
-    "message": "Смештај увоза"
+  "destination": {
+    "message": "Destination"
   },
   "learnAboutImportOptions": {
     "message": "Сазнајте више о опцијама увоза"
@@ -1671,6 +1735,9 @@
   },
   "twoStepAuthenticatorScanCodeV2": {
     "message": "Скенирајте КР кôд у наставку помоћу апликације за аутентификацију или унесите кључ."
+  },
+  "twoStepAuthenticatorQRCanvasError": {
+    "message": "Учитавање QR кôда није успело. Покушајте поново или користите тастер испод."
   },
   "key": {
     "message": "Кључ"
@@ -2732,12 +2799,6 @@
   "accessControl": {
     "message": "Контрола Приступа"
   },
-  "groupAccessAllItems": {
-    "message": "Ова група може приступити и изменити све ставке."
-  },
-  "groupAccessSelectedCollections": {
-    "message": "Ова група може приступити само одабраним колекцијама."
-  },
   "readOnly": {
     "message": "Само за читање"
   },
@@ -2783,20 +2844,11 @@
   "userUsingTwoStep": {
     "message": "Овај корисник користи пријаву у два корака за заштиту свог налога."
   },
-  "userAccessAllItems": {
-    "message": "Овај корисник може приступити и изменити све ставке."
-  },
-  "userAccessSelectedCollections": {
-    "message": "Овај корисник може приступити само одабраним колекцијама."
-  },
   "search": {
     "message": "Тражи"
   },
   "invited": {
     "message": "Позвано"
-  },
-  "accepted": {
-    "message": "Прихваћено"
   },
   "confirmed": {
     "message": "Потврђено"
@@ -3383,6 +3435,9 @@
   "emailVerified": {
     "message": "Ваш имејл је потврђен."
   },
+  "emailVerifiedV2": {
+    "message": "Имејл верификован"
+  },
   "emailVerifiedFailed": {
     "message": "Није могуће верификовати ваш имејл. Покушајте да пошаљете нову поруку за верификацију."
   },
@@ -3403,6 +3458,9 @@
   },
   "joinOrganizationDesc": {
     "message": "Позвани сте да се придружите наведеној организацији. Да бисте прихватили позивницу, потребно је да се пријавите или направите нови Bitwarden налог."
+  },
+  "finishJoiningThisOrganizationBySettingAMasterPassword": {
+    "message": "Finish joining this organization by setting a master password."
   },
   "inviteAccepted": {
     "message": "Позив прихваћен"
@@ -3689,6 +3747,15 @@
       }
     }
   },
+  "subscriptionSeatMaxReached": {
+    "message": "Не можете позвати више од $COUNT$ чланова без надоградње смештаја претплате.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "50"
+      }
+    }
+  },
   "seatsToAdd": {
     "message": "Места за додавање"
   },
@@ -3752,8 +3819,8 @@
   "nothingSelected": {
     "message": "Нисте ништа изабрали."
   },
-  "receiveMarketingEmails": {
-    "message": "Добијајте е-пошту од Bitwarden-а за најаве, савете и могућности истраживања."
+  "receiveMarketingEmailsV2": {
+    "message": "Get advice, announcements, and research opportunities from Bitwarden in your inbox."
   },
   "unsubscribe": {
     "message": "Одјави се"
@@ -4319,6 +4386,9 @@
     "message": "УРЛ „Send“",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "copyLink": {
+    "message": "Copy link"
+  },
   "copySendLink": {
     "message": "Копирај УРЛ „Send“",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -4733,6 +4803,75 @@
   "sendVaultCardOr": {
     "message": "или",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Learn more, see how it works, **or** try it now.'"
+  },
+  "developmentDevOpsAndITTeamsChooseBWSecret": {
+    "message": "Development, DevOps, and IT teams choose Bitwarden Secrets Manager to securely manage and deploy their infrastructure and machine secrets."
+  },
+  "centralizeSecretsManagement": {
+    "message": "Centralize secrets management."
+  },
+  "centralizeSecretsManagementDescription": {
+    "message": "Securely store and manage secrets in one location to prevent secret sprawl across your organization."
+  },
+  "preventSecretLeaks": {
+    "message": "Prevent secret leaks."
+  },
+  "preventSecretLeaksDescription": {
+    "message": "Protect secrets with end-to-end encryption. No more hard coding secrets or sharing through .env files."
+  },
+  "enhanceDeveloperProductivity": {
+    "message": "Enhance developer productivity."
+  },
+  "enhanceDeveloperProductivityDescription": {
+    "message": "Programmatically retrieve and deploy secrets at runtime so developers can focus on what matters most, like improving code quality."
+  },
+  "strengthenBusinessSecurity": {
+    "message": "Strengthen business security."
+  },
+  "strengthenBusinessSecurityDescription": {
+    "message": "Maintain tight control over machine and human access to secrets with SSO integrations, event logs, and access rotation."
+  },
+  "tryItNow": {
+    "message": "Try it now"
+  },
+  "sendRequest": {
+    "message": "Send request"
+  },
+  "addANote": {
+    "message": "Add a note"
+  },
+  "bitwardenSecretsManager": {
+    "message": "Bitwarden Secrets Manager"
+  },
+  "moreProductsFromBitwarden": {
+    "message": "More products from Bitwarden"
+  },
+  "requestAccessToSecretsManager": {
+    "message": "Request access to Secrets Manager"
+  },
+  "youNeedApprovalFromYourAdminToTrySecretsManager": {
+    "message": "You need approval from your administrator to try Secrets Manager."
+  },
+  "smAccessRequestEmailSent": {
+    "message": "Access request for secrets manager email sent to admins."
+  },
+  "requestAccessSMDefaultEmailContent": {
+    "message": "Hi,\n\nI am requesting a subscription to Bitwarden Secrets Manager for our team. Your support would mean a great deal!\n\nBitwarden Secrets Manager is an end-to-end encrypted secrets management solution for securely storing, sharing, and deploying machine credentials like API keys, database passwords, and authentication certificates.\n\nSecrets Manager will help us to:\n\n- Improve security\n- Streamline operations\n- Prevent costly secret leaks\n\nTo request a free trial for our team, please reach out to Bitwarden.\n\nThank you for your help!"
+  },
+  "giveMembersAccess": {
+    "message": "Give members access:"
+  },
+  "viewAndSelectTheMembers": {
+    "message": "view and select the members you want to give access to Secrets Manager."
+  },
+  "openYourOrganizations": {
+    "message": "Open your organization's"
+  },
+  "usingTheMenuSelect": {
+    "message": "Using the menu, select"
+  },
+  "toGrantAccessToSelectedMembers": {
+    "message": "to grant access to selected members."
   },
   "sendVaultCardTryItNow": {
     "message": "пробај сада",
@@ -5488,6 +5627,9 @@
   "verificationCodeRequired": {
     "message": "Верификациони код је обавезан."
   },
+  "webauthnCancelOrTimeout": {
+    "message": "Аутентификација је отказана или је трајала предуго. Молим вас, покушајте поново."
+  },
   "invalidVerificationCode": {
     "message": "Неисправан верификациони код"
   },
@@ -6178,6 +6320,9 @@
         "example": "4"
       }
     }
+  },
+  "duoHealthCheckResultsInNullAuthUrlError": {
+    "message": "Грешка при повезивању са услугом Duo. Користите други метод пријаве у два корака или контактирајте Duo за помоћ."
   },
   "launchDuoAndFollowStepsToFinishLoggingIn": {
     "message": "Покренути DUO и пратите кораке да бисте завршили пријављивање."
@@ -7851,8 +7996,11 @@
   "assignToTheseCollections": {
     "message": "Додели овим колекцијама"
   },
-  "bulkCollectionAssignmentDialogDescription": {
-    "message": "Изаберите колекције са којима ће се ставке делити. Када се ставка ажурира у једној колекцији, она ће се одразити на све колекције. Само чланови организације са приступом овим колекцијама ће моћи да виде ставке."
+  "bulkCollectionAssignmentDialogDescriptionSingular": {
+    "message": "Only organization members with access to these collections will be able to see the item."
+  },
+  "bulkCollectionAssignmentDialogDescriptionPlural": {
+    "message": "Only organization members with access to these collections will be able to see the items."
   },
   "selectCollectionsToAssign": {
     "message": "Изаберите колекције за доделу"
@@ -8130,23 +8278,6 @@
   "restrictedGroupAccessDesc": {
     "message": "Не можете да се додате у групу."
   },
-  "unassignedItemsBannerSelfHost": {
-    "message": "Обавештење: 2. маја 2024. недодељене ставке организације више неће бити видљиве у вашем приказу Сви сефови на свим уређајима и биће им доступне само преко Админ конзоле. Доделите ове ставке колекцији са Админ конзолом да бисте их учинили видљивим."
-  },
-  "unassignedItemsBannerNotice": {
-    "message": "Напомена: Недодељене ставке организације више нису видљиве у вашем приказу Сви сефови на свим уређајима и сада су доступне само преко Админ конзоле."
-  },
-  "unassignedItemsBannerSelfHostNotice": {
-    "message": "Обавештење: 16. маја 2024. недодељене ставке организације више неће бити видљиве у вашем приказу Сви сефови на свим уређајима и биће им доступне само преко Админ конзоле."
-  },
-  "unassignedItemsBannerCTAPartOne": {
-    "message": "Assign these items to a collection from the",
-    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
-  },
-  "unassignedItemsBannerCTAPartTwo": {
-    "message": "to make them visible.",
-    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
-  },
   "deleteProvider": {
     "message": "Избриши провајдера"
   },
@@ -8414,6 +8545,9 @@
   "memberAccessReportDesc": {
     "message": "Уверите се да чланови имају приступ правим акредитивима и да су њихови налози сигурни. Користите овај извештај да бисте добили ЦСВ приступ чланова и конфигурације налога."
   },
+  "memberAccessReportPageDesc": {
+    "message": "Провера приступа чланова организације кроз групе, колекције и ставке колекције. ЦСВ извоз пружа детаљну анализу по члану, укључујући информације о дозволама за прикупљање и конфигурацијама налога."
+  },
   "higherKDFIterations": {
     "message": "Веће KDF итерације може помоћи у заштити ваше главне лозинке од грубе присиле од стране нападача."
   },
@@ -8486,8 +8620,78 @@
   "downloadCSV": {
     "message": "Преузми ЦСВ"
   },
+  "monthlySubscriptionUserSeatsMessage": {
+    "message": "Прилагођавања ваше претплате ће резултирати пропорционалним трошковима у односу на укупне износе рачуна у вашем следећем обрачунском периоду. "
+  },
+  "annualSubscriptionUserSeatsMessage": {
+    "message": "Прилагођавања ваше претплате ће резултирати пропорционалним трошковима за месечни обрачунски циклус. "
+  },
   "billingHistoryDescription": {
     "message": "Преузмите ЦСВ да бисте добили детаље о клијенту за сваки датум обрачуна. Пропорционални трошкови нису укључени у ЦСВ и могу се разликовати од повезане фактуре. За најтачније податке о обрачуну погледајте своје месечне фактуре.",
     "description": "A paragraph on the Billing History page of the Provider Portal letting users know they can download a CSV report for their invoices that does not include prorations."
+  },
+  "noInvoicesToList": {
+    "message": "Нема фактура за попис",
+    "description": "A paragraph on the Billing History page of the Provider Portal letting users know they can download a CSV report for their invoices that does not include prorations."
+  },
+  "providerClientVaultPrivacyNotification": {
+    "message": "Обавештење: Касније овог месеца, приватност сефа клијента ће бити побољшана и чланови провајдера више неће имати директан приступ ставкама клијентског сефа. За питања,",
+    "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'."
+  },
+  "contactBitwardenSupport": {
+    "message": "контактирајте подршку Bitwarden-а.",
+    "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'. 'Bitwarden' should not be translated"
+  },
+  "sponsored": {
+    "message": "Спонзорисано"
+  },
+  "licenseAndBillingManagementDesc": {
+    "message": "Након ажурирања на Bitwarden клауду серверу, отпремите датотеку лиценце да бисте применили најновије промене."
+  },
+  "addToFolder": {
+    "message": "Додај фасцикли"
+  },
+  "selectFolder": {
+    "message": "Изабери фасциклу"
+  },
+  "personalItemTransferWarningSingular": {
+    "message": "1 ставка биће трајно пребачена у изабрану организацију. Више нећете имати ову ставку."
+  },
+  "personalItemsTransferWarningPlural": {
+    "message": "$PERSONAL_ITEMS_COUNT$ ставке биће трајно пребачени у изабрану организацију. Више нећете имати ове ставке.",
+    "placeholders": {
+      "personal_items_count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "personalItemWithOrgTransferWarningSingular": {
+    "message": "1 ставка биће трајно пребачена у $ORG$. Више нећете имати ову ставку.",
+    "placeholders": {
+      "org": {
+        "content": "$1",
+        "example": "Organization name"
+      }
+    }
+  },
+  "personalItemsWithOrgTransferWarningPlural": {
+    "message": "$PERSONAL_ITEMS_COUNT$ ставке биће трајно пребачени у $ORG$. Више нећете имати ове ставке.",
+    "placeholders": {
+      "personal_items_count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "org": {
+        "content": "$2",
+        "example": "Organization name"
+      }
+    }
+  },
+  "data": {
+    "message": "Подаци"
+  },
+  "purchasedSeatsRemoved": {
+    "message": "купљена места уклоњена"
   }
 }

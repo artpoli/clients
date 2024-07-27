@@ -13,13 +13,16 @@ export const EVENTS = {
   BLUR: "blur",
   CLICK: "click",
   FOCUS: "focus",
+  FOCUSIN: "focusin",
+  FOCUSOUT: "focusout",
   SCROLL: "scroll",
   RESIZE: "resize",
   DOMCONTENTLOADED: "DOMContentLoaded",
   LOAD: "load",
   MESSAGE: "message",
   VISIBILITYCHANGE: "visibilitychange",
-  FOCUSOUT: "focusout",
+  MOUSEENTER: "mouseenter",
+  MOUSELEAVE: "mouseleave",
 } as const;
 
 export const ClearClipboardDelay = {
@@ -51,8 +54,34 @@ export const SEPARATOR_ID = "separator";
 
 export const NOTIFICATION_BAR_LIFESPAN_MS = 150000; // 150 seconds
 
+export const AUTOFILL_OVERLAY_HANDLE_REPOSITION = "autofill-overlay-handle-reposition-event";
+
 export const AutofillOverlayVisibility = {
   Off: 0,
   OnButtonClick: 1,
   OnFieldFocus: 2,
+} as const;
+
+export const BrowserClientVendors = {
+  Chrome: "Chrome",
+  Opera: "Opera",
+  Edge: "Edge",
+  Vivaldi: "Vivaldi",
+  Unknown: "Unknown",
+} as const;
+
+export const BrowserShortcutsUris = {
+  Chrome: "chrome://extensions/shortcuts",
+  Opera: "opera://extensions/shortcuts",
+  Edge: "edge://extensions/shortcuts",
+  Vivaldi: "vivaldi://extensions/shortcuts",
+  Unknown: "https://bitwarden.com/help/keyboard-shortcuts",
+} as const;
+
+export const DisablePasswordManagerUris = {
+  Chrome: "chrome://settings/autofill",
+  Opera: "opera://settings/autofill",
+  Edge: "edge://settings/passwords",
+  Vivaldi: "vivaldi://settings/autofill",
+  Unknown: "https://bitwarden.com/help/disable-browser-autofill/",
 } as const;

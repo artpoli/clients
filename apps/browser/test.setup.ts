@@ -1,4 +1,7 @@
 import "jest-preset-angular/setup-jest";
+import { addCustomMatchers } from "@bitwarden/common/spec";
+
+addCustomMatchers();
 
 // Add chrome storage api
 const QUOTA_BYTES = 10;
@@ -10,6 +13,10 @@ const storage = {
     QUOTA_BYTES,
     getBytesInUse: jest.fn(),
     clear: jest.fn(),
+    onChanged: {
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+    },
   },
   session: {
     set: jest.fn(),
@@ -143,6 +150,18 @@ const webNavigation = {
   },
 };
 
+const alarms = {
+  clear: jest.fn().mockImplementation((_name, callback) => callback(true)),
+  clearAll: jest.fn().mockImplementation((callback) => callback(true)),
+  create: jest.fn().mockImplementation((_name, _createInfo, callback) => callback()),
+  get: jest.fn().mockImplementation((_name, callback) => callback(null)),
+  getAll: jest.fn().mockImplementation((callback) => callback([])),
+  onAlarm: {
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+  },
+};
+
 // set chrome
 global.chrome = {
   i18n,
@@ -158,4 +177,5 @@ global.chrome = {
   offscreen,
   permissions,
   webNavigation,
+  alarms,
 } as any;

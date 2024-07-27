@@ -42,6 +42,12 @@
   "cardholderName": {
     "message": "Kortholdernavn"
   },
+  "loginCredentials": {
+    "message": "Login-legitimationsoplysninger"
+  },
+  "authenticatorKey": {
+    "message": "Godkendelsesnøgle"
+  },
   "number": {
     "message": "Nummer"
   },
@@ -138,6 +144,15 @@
   "authenticatorKeyTotp": {
     "message": "Godkendelsesnøgle (TOTP)"
   },
+  "totpHelperTitle": {
+    "message": "Gør 2-trinsbekræftelse problemfri"
+  },
+  "totpHelper": {
+    "message": "Bitwarden kan gemme og udfylde 2-trinsbekræftelseskoder. Kopiér og indsæt nøglen i dette felt."
+  },
+  "totpHelperWithCapture": {
+    "message": "Bitwarden kan gemme og udfylde 2-trinsbekræftelseskoder. Vælg kameraikonet for at tage et skærmfoto af dette websteds godkendelses-QR-kode, eller kopiér og indsæt nøglen i dette felt."
+  },
   "folder": {
     "message": "Mappe"
   },
@@ -172,6 +187,10 @@
   "noneFolder": {
     "message": "Ingen mappe",
     "description": "This is the folder for uncategorized items"
+  },
+  "selfOwnershipLabel": {
+    "message": "Dig",
+    "description": "Used as a label to indicate that the user is the owner of an item."
   },
   "addFolder": {
     "message": "Tilføj mappe"
@@ -401,6 +420,21 @@
   "item": {
     "message": "Emne"
   },
+  "itemDetails": {
+    "message": "Emnedetaljer"
+  },
+  "itemName": {
+    "message": "Emnenavn"
+  },
+  "cannotRemoveViewOnlyCollections": {
+    "message": "Samlinger med kun tilladelsen Vis kan ikke fjernes: $COLLECTIONS$",
+    "placeholders": {
+      "collections": {
+        "content": "$1",
+        "example": "Work, Personal"
+      }
+    }
+  },
   "ex": {
     "message": "eks.",
     "description": "Short abbreviation for 'example'."
@@ -536,6 +570,24 @@
       }
     }
   },
+  "itemsMovedToOrg": {
+    "message": "Emner flyttet til $ORGNAME$",
+    "placeholders": {
+      "orgname": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
+  },
+  "itemMovedToOrg": {
+    "message": "Emne flyttet til $ORGNAME$",
+    "placeholders": {
+      "orgname": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
+  },
   "deleteItem": {
     "message": "Slet emne"
   },
@@ -592,6 +644,18 @@
   },
   "loginExpired": {
     "message": "Login-session udløbet."
+  },
+  "restartRegistration": {
+    "message": "Genstart registrering"
+  },
+  "expiredLink": {
+    "message": "Udløbet link"
+  },
+  "pleaseRestartRegistrationOrTryLoggingIn": {
+    "message": "Genstart registreringen eller prøv at logge ind."
+  },
+  "youMayAlreadyHaveAnAccount": {
+    "message": "Har allerede oprettet en konto?"
   },
   "logOutConfirmation": {
     "message": "Sikker på, at du vil logge ud?"
@@ -835,8 +899,8 @@
   "emailAddress": {
     "message": "E-mailadresse"
   },
-  "yourVaultIsLocked": {
-    "message": "Din boks er låst. Bekræft din hovedadgangskode for at fortsætte."
+  "yourVaultIsLockedV2": {
+    "message": "Boksen er låst."
   },
   "uuid": {
     "message": "UUID"
@@ -1041,7 +1105,7 @@
     "message": "Sikker på, at du vil fortsætte?"
   },
   "moveSelectedItemsDesc": {
-    "message": "Vælg en mappe, hvortil de(t) $COUNT$ valgte emne(r) ønskes flyttet.",
+    "message": "Choose a folder that you would like to add the $COUNT$ selected item(s) to.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -1442,8 +1506,8 @@
   "importEncKeyError": {
     "message": "Fejl under dekryptering af den eksporterede fil. Krypteringsnøglen matcher ikke den til dataeksporten anvendte krypteringsnøgle."
   },
-  "importDestination": {
-    "message": "Importér destination"
+  "destination": {
+    "message": "Destination"
   },
   "learnAboutImportOptions": {
     "message": "Læs om importmuligheder"
@@ -1671,6 +1735,9 @@
   },
   "twoStepAuthenticatorScanCodeV2": {
     "message": "Skan QR-koden nedenfor med godkendelses-appen eller angiv nøglen."
+  },
+  "twoStepAuthenticatorQRCanvasError": {
+    "message": "Kunne ikke indlæse QR-kode. Forsøg igen eller brug nøglen nedenfor."
   },
   "key": {
     "message": "Nøgle"
@@ -2732,12 +2799,6 @@
   "accessControl": {
     "message": "Adgangskontrol"
   },
-  "groupAccessAllItems": {
-    "message": "Denne gruppe kan få adgang til og ændre alle elementer."
-  },
-  "groupAccessSelectedCollections": {
-    "message": "Denne gruppe kan kun få adgang til de valgte samlinger."
-  },
   "readOnly": {
     "message": "Læsetilladelse"
   },
@@ -2783,20 +2844,11 @@
   "userUsingTwoStep": {
     "message": "Denne bruger benytter totrins-login for at beskytte kontoen."
   },
-  "userAccessAllItems": {
-    "message": "Denne bruger kan få adgang til og ændre alle elementer."
-  },
-  "userAccessSelectedCollections": {
-    "message": "Denne bruger kan kun få adgang til de valgte samlinger."
-  },
   "search": {
     "message": "Søg"
   },
   "invited": {
     "message": "Inviteret"
-  },
-  "accepted": {
-    "message": "Accepteret"
   },
   "confirmed": {
     "message": "Bekræftet"
@@ -3383,6 +3435,9 @@
   "emailVerified": {
     "message": "Kontoe-mail bekræftet"
   },
+  "emailVerifiedV2": {
+    "message": "E-mail bekræftet"
+  },
   "emailVerifiedFailed": {
     "message": "Kan ikke bekræfte din e-mail. Prøv at sende en ny verifikations-email."
   },
@@ -3403,6 +3458,9 @@
   },
   "joinOrganizationDesc": {
     "message": "Du er blevet inviteret til at blive medlem af organisationen anført ovenfor. For at acceptere invitationen skal du logge ind eller oprette en ny Bitwarden-konto."
+  },
+  "finishJoiningThisOrganizationBySettingAMasterPassword": {
+    "message": "Færdiggør tilmeldingen til denne organisation ved at opsætte en hovedadgangskode."
   },
   "inviteAccepted": {
     "message": "Invitation accepteret"
@@ -3689,6 +3747,15 @@
       }
     }
   },
+  "subscriptionSeatMaxReached": {
+    "message": "Der kan ikke inviteres flere end $COUNT$ brugere som medlemmer uden at øge abonnementspladserne.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "50"
+      }
+    }
+  },
   "seatsToAdd": {
     "message": "Pladser at tilføje"
   },
@@ -3752,8 +3819,8 @@
   "nothingSelected": {
     "message": "Du har ikke valgt noget."
   },
-  "receiveMarketingEmails": {
-    "message": "Få e-mails fra Bitwarden om annonceringer, råd og forskningsmuligheder."
+  "receiveMarketingEmailsV2": {
+    "message": "Få råd, bekendtgørelser og forskningsmuligheder fra Bitwarden i indbakken."
   },
   "unsubscribe": {
     "message": "Afmeld"
@@ -4319,6 +4386,9 @@
     "message": "Send-link",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "copyLink": {
+    "message": "Kopiér link"
+  },
   "copySendLink": {
     "message": "Kopiér Send-link",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -4733,6 +4803,75 @@
   "sendVaultCardOr": {
     "message": "eller",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Learn more, see how it works, **or** try it now.'"
+  },
+  "developmentDevOpsAndITTeamsChooseBWSecret": {
+    "message": "Udvikling, DevOps og IT-teams vælger Bitwarden Secrets Manager til sikkert at håndtere og implementere deres infrastruktur og maskinhemmeligheder."
+  },
+  "centralizeSecretsManagement": {
+    "message": "Centralisér hemmelighedshåndtering."
+  },
+  "centralizeSecretsManagementDescription": {
+    "message": "Opbevar og håndtér hemmeligheder sikkert på ét sted for at forhindre hemmeligsudspredning på tværs af organisationen."
+  },
+  "preventSecretLeaks": {
+    "message": "Undgå hemmelighedslækager."
+  },
+  "preventSecretLeaksDescription": {
+    "message": "Beskyt hemmeligheder med ende-til-ende kryptering. Ikke flere fast kodede hemmeligheder eller deling via .env-filer."
+  },
+  "enhanceDeveloperProductivity": {
+    "message": "Forbedr udviklerproduktiviteten."
+  },
+  "enhanceDeveloperProductivityDescription": {
+    "message": "Programmatisk hentning og implementering af hemmeligheder ved kørsel, så udviklere kan fokusere på det, der betyder mest, såsom forbedring af kodekvaliteten."
+  },
+  "strengthenBusinessSecurity": {
+    "message": "Styrk forretningssikkerheden."
+  },
+  "strengthenBusinessSecurityDescription": {
+    "message": "Bevar tæt kontrol over maskine og menneskelig adgang til hemmeligheder med SSO-integrationer, begivenhedslogger og adgangsrotation."
+  },
+  "tryItNow": {
+    "message": "Prøv den nu"
+  },
+  "sendRequest": {
+    "message": "Indsend anmodning"
+  },
+  "addANote": {
+    "message": "Tilføj et notat"
+  },
+  "bitwardenSecretsManager": {
+    "message": "Bitwarden Secrets Manager"
+  },
+  "moreProductsFromBitwarden": {
+    "message": "Flere produkter fra Bitwarden"
+  },
+  "requestAccessToSecretsManager": {
+    "message": "Anmod om adgang til Secrets Manager"
+  },
+  "youNeedApprovalFromYourAdminToTrySecretsManager": {
+    "message": "Man skal have godkendelse fra sin administrator for at afprøve Secrets Manager."
+  },
+  "smAccessRequestEmailSent": {
+    "message": "Adgangsanmodningsmail til Secrets Manager sendt til admins."
+  },
+  "requestAccessSMDefaultEmailContent": {
+    "message": "Hi,\n\nI am requesting a subscription to Bitwarden Secrets Manager for our team. Your support would mean a great deal!\n\nBitwarden Secrets Manager is an end-to-end encrypted secrets management solution for securely storing, sharing, and deploying machine credentials like API keys, database passwords, and authentication certificates.\n\nSecrets Manager will help us to:\n\n- Improve security\n- Streamline operations\n- Prevent costly secret leaks\n\nTo request a free trial for our team, please reach out to Bitwarden.\n\nThank you for your help!"
+  },
+  "giveMembersAccess": {
+    "message": "Giv medlemmer adgang:"
+  },
+  "viewAndSelectTheMembers": {
+    "message": "Vis og vælg de medlemmer, som skal tildeles adgang til Secrets Manager."
+  },
+  "openYourOrganizations": {
+    "message": "Åbn organisationens"
+  },
+  "usingTheMenuSelect": {
+    "message": "Fra menuen, vælg"
+  },
+  "toGrantAccessToSelectedMembers": {
+    "message": "for at tildele adgang til valgte medlemmer."
   },
   "sendVaultCardTryItNow": {
     "message": "prøv det nu",
@@ -5488,6 +5627,9 @@
   "verificationCodeRequired": {
     "message": "Bekræftelseskode kræves."
   },
+  "webauthnCancelOrTimeout": {
+    "message": "Godkendelsen blev afbrudt eller tog for lang tid. Forsøg igen."
+  },
   "invalidVerificationCode": {
     "message": "Ugyldig bekræftelseskode"
   },
@@ -6178,6 +6320,9 @@
         "example": "4"
       }
     }
+  },
+  "duoHealthCheckResultsInNullAuthUrlError": {
+    "message": "Fejl under forbindelsesoprettelsen til Duo-tjenesten. Brug en anden totrins-indlogningsmetode eller kontakt Duo for hjælp."
   },
   "launchDuoAndFollowStepsToFinishLoggingIn": {
     "message": "Start DUO og følg trinene for at fuldføre indlogningen."
@@ -7851,8 +7996,11 @@
   "assignToTheseCollections": {
     "message": "Tildel til samlinger"
   },
-  "bulkCollectionAssignmentDialogDescription": {
-    "message": "Vælg de samlinger som emnerne vil blive delt med. Når et emne er opdateret i en samling, vil det blive afspejlet i alle samlinger. Kun organisationsmedlemmer med adgang til disse samlinger vil kunne se emnerne."
+  "bulkCollectionAssignmentDialogDescriptionSingular": {
+    "message": "Kun organisationsmedlemmer med adgang til disse samlinger vil kunne se emnet."
+  },
+  "bulkCollectionAssignmentDialogDescriptionPlural": {
+    "message": "Kun organisationsmedlemmer med adgang til disse samlinger vil kunne se emnerne."
   },
   "selectCollectionsToAssign": {
     "message": "Vælg samlinger at tildele"
@@ -8130,23 +8278,6 @@
   "restrictedGroupAccessDesc": {
     "message": "Man kan ikke føje sig selv til en gruppe."
   },
-  "unassignedItemsBannerSelfHost": {
-    "message": "Bemærk: Pr. 2. maj 2024 vil utildelte organisationsemner ikke længere være synlige i Alle Bokse-visningen på tværs af enheder og vil kun være tilgængelige via Admin-konsollen. Tildel disse emner til en samling via Admin-konsollen for at gøre dem synlige."
-  },
-  "unassignedItemsBannerNotice": {
-    "message": "Bemærk: Utildelte organisationsemner er ikke længere synlige i Alle Bokse-visningen, men er kun tilgængelige via Admin-konsol."
-  },
-  "unassignedItemsBannerSelfHostNotice": {
-    "message": "Bemærk: Pr. 16. maj 2024 er utildelte organisationsemner er ikke længere synlige i Alle Bokse-visningen, men er kun tilgængelige via Admin-konsol."
-  },
-  "unassignedItemsBannerCTAPartOne": {
-    "message": "Tildel disse emner til en samling via",
-    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
-  },
-  "unassignedItemsBannerCTAPartTwo": {
-    "message": "for at gøre dem synlige.",
-    "description": "This will be part of a larger sentence, which will read like so: Assign these items to a collection from the Admin Console to make them visible."
-  },
   "deleteProvider": {
     "message": "Slet udbyder"
   },
@@ -8414,6 +8545,9 @@
   "memberAccessReportDesc": {
     "message": "Sikr, at medlemmerne har adgang til de rigtige legitimationsoplysninger, og at deres konti er sikre. Brug denne rapport til at få en CSV over medlemsadgang og kontoopsætninger."
   },
+  "memberAccessReportPageDesc": {
+    "message": "Inspicér organisationsmedlemsadgang på tværs af grupper, samlinger og samlingsemner. CSV-eksporten giver en detaljeret opdeling pr. medlem, herunder oplysninger om samlingstilladelser og kontoopsætninger."
+  },
   "higherKDFIterations": {
     "message": "Højere KDF-iterationer kan hjælpe med at beskytte hovedadgangskoden mod brute force-angreb."
   },
@@ -8486,8 +8620,78 @@
   "downloadCSV": {
     "message": "Download CSV"
   },
+  "monthlySubscriptionUserSeatsMessage": {
+    "message": "Justeringer af abonnementet vil resultere i forholdsmæssige gebyrer på faktureringsbeløbet for næste faktureringsperiode. "
+  },
+  "annualSubscriptionUserSeatsMessage": {
+    "message": "Justeringer til abonnementet vil resultere i forholdsmæssige gebyrer på en månedlig faktureringscyklus. "
+  },
   "billingHistoryDescription": {
     "message": "Download en CSV-fil for at få klientoplysninger for hver faktureringsdato. Forholdsmæssige gebyrer er ikke inkluderet i CSV og kan variere ift. den tilknyttede faktura. For de mest nøjagtige faktureringsoplysninger, se de månedlige fakturaer.",
     "description": "A paragraph on the Billing History page of the Provider Portal letting users know they can download a CSV report for their invoices that does not include prorations."
+  },
+  "noInvoicesToList": {
+    "message": "Ingen fakturaer at vise",
+    "description": "A paragraph on the Billing History page of the Provider Portal letting users know they can download a CSV report for their invoices that does not include prorations."
+  },
+  "providerClientVaultPrivacyNotification": {
+    "message": "Bemærk: Senere på måneden forbedres klientboksfortroligheden, og udbydermedlemmer vil ikke længere kunne tilgå klientboksemner direkte. For evt. spørgsmål,",
+    "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'."
+  },
+  "contactBitwardenSupport": {
+    "message": "contact Bitwarden support.",
+    "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'. 'Bitwarden' should not be translated"
+  },
+  "sponsored": {
+    "message": "Sponseret"
+  },
+  "licenseAndBillingManagementDesc": {
+    "message": "Efter at have foretaget opdateringer på Bitwarden cloud-serveren, uploade licensfilen for at anvende de seneste ændringer."
+  },
+  "addToFolder": {
+    "message": "Føj til mappe"
+  },
+  "selectFolder": {
+    "message": "Vælg mappe"
+  },
+  "personalItemTransferWarningSingular": {
+    "message": "1 emne overføres permanent til den valgte organisation. Man vil ikke længere være ejeren af dette emne."
+  },
+  "personalItemsTransferWarningPlural": {
+    "message": "$PERSONAL_ITEMS_COUNT$ emner overføres permanent til den valgte organisation. Man vil ikke længere være ejeren af disse emner.",
+    "placeholders": {
+      "personal_items_count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "personalItemWithOrgTransferWarningSingular": {
+    "message": "1 emne overføres permanent til $ORG$. Man vil ikke længere være ejeren af dette emne.",
+    "placeholders": {
+      "org": {
+        "content": "$1",
+        "example": "Organization name"
+      }
+    }
+  },
+  "personalItemsWithOrgTransferWarningPlural": {
+    "message": "$PERSONAL_ITEMS_COUNT$ emner overføres permanent til $ORG$. Man vil ikke længere være ejeren af disse emner.",
+    "placeholders": {
+      "personal_items_count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "org": {
+        "content": "$2",
+        "example": "Organization name"
+      }
+    }
+  },
+  "data": {
+    "message": "Data"
+  },
+  "purchasedSeatsRemoved": {
+    "message": "købte pladser fjernet"
   }
 }

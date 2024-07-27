@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { AuthGuard } from "@bitwarden/angular/auth/guards";
+import { authGuard } from "@bitwarden/angular/auth/guards";
 import {
   canAccessOrgAdmin,
   canAccessGroupsTab,
@@ -12,29 +12,24 @@ import {
 } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
 
-import { OrganizationPermissionsGuard } from "../../admin-console/organizations/guards/org-permissions.guard";
-import { OrganizationRedirectGuard } from "../../admin-console/organizations/guards/org-redirect.guard";
+import { organizationPermissionsGuard } from "../../admin-console/organizations/guards/org-permissions.guard";
+import { organizationRedirectGuard } from "../../admin-console/organizations/guards/org-redirect.guard";
 import { OrganizationLayoutComponent } from "../../admin-console/organizations/layouts/organization-layout.component";
-import { GroupsComponent } from "../../admin-console/organizations/manage/groups.component";
 import { deepLinkGuard } from "../../auth/guards/deep-link.guard";
 import { VaultModule } from "../../vault/org-vault/vault.module";
+
+import { GroupsComponent } from "./manage/groups.component";
 
 const routes: Routes = [
   {
     path: ":organizationId",
     component: OrganizationLayoutComponent,
-    canActivate: [deepLinkGuard(), AuthGuard, OrganizationPermissionsGuard],
-    data: {
-      organizationPermissions: canAccessOrgAdmin,
-    },
+    canActivate: [deepLinkGuard(), authGuard, organizationPermissionsGuard(canAccessOrgAdmin)],
     children: [
       {
         path: "",
         pathMatch: "full",
-        canActivate: [OrganizationRedirectGuard],
-        data: {
-          autoRedirectCallback: getOrganizationRoute,
-        },
+        canActivate: [organizationRedirectGuard(getOrganizationRoute)],
         children: [], // This is required to make the auto redirect work, },
       },
       {
@@ -53,12 +48,11 @@ const routes: Routes = [
         loadChildren: () => import("./members").then((m) => m.MembersModule),
       },
       {
-        path: "groups",
         component: GroupsComponent,
-        canActivate: [OrganizationPermissionsGuard],
+        path: "groups",
+        canActivate: [organizationPermissionsGuard(canAccessGroupsTab)],
         data: {
           titleId: "groups",
-          organizationPermissions: canAccessGroupsTab,
         },
       },
       {

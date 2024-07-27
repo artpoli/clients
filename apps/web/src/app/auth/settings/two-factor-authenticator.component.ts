@@ -7,9 +7,12 @@ import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
 import { UserVerificationService } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
 import { TwoFactorProviderType } from "@bitwarden/common/auth/enums/two-factor-provider-type";
+import { DisableTwoFactorAuthenticatorRequest } from "@bitwarden/common/auth/models/request/disable-two-factor-authenticator.request";
 import { UpdateTwoFactorAuthenticatorRequest } from "@bitwarden/common/auth/models/request/update-two-factor-authenticator.request";
 import { TwoFactorAuthenticatorResponse } from "@bitwarden/common/auth/models/response/two-factor-authenticator.response";
 import { AuthResponse } from "@bitwarden/common/auth/types/auth-response";
+import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
+import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
@@ -43,9 +46,10 @@ export class TwoFactorAuthenticatorComponent
   @Output() onChangeStatus = new EventEmitter<boolean>();
   type = TwoFactorProviderType.Authenticator;
   key: string;
-  formPromise: Promise<TwoFactorAuthenticatorResponse>;
+  private userVerificationToken: string;
 
   override componentName = "app-two-factor-authenticator";
+  qrScriptError = false;
   private qrScript: HTMLScriptElement;
 
   formGroup = this.formBuilder.group({
@@ -63,6 +67,7 @@ export class TwoFactorAuthenticatorComponent
     logService: LogService,
     private accountService: AccountService,
     dialogService: DialogService,
+    private configService: ConfigService,
   ) {
     super(
       apiService,
@@ -90,7 +95,7 @@ export class TwoFactorAuthenticatorComponent
     this.formGroup.controls.token.markAsTouched();
   }
 
-  auth(authResponse: AuthResponse<TwoFactorAuthenticatorResponse>) {
+  async auth(authResponse: AuthResponse<TwoFactorAuthenticatorResponse>) {
     super.auth(authResponse);
     return this.processResponse(authResponse.response);
   }
@@ -100,55 +105,98 @@ export class TwoFactorAuthenticatorComponent
       return;
     }
     if (this.enabled) {
-      await this.disableAuthentication(this.formPromise);
-      this.onChangeStatus.emit(this.enabled);
-      this.close();
+      await this.disableMethod();
+      this.dialogRef.close(this.enabled);
     } else {
       await this.enable();
-      this.onChangeStatus.emit(this.enabled);
     }
+    this.onChangeStatus.emit(this.enabled);
   };
-
-  private async disableAuthentication(promise: Promise<unknown>) {
-    return super.disable(promise);
-  }
 
   protected async enable() {
     const request = await this.buildRequestModel(UpdateTwoFactorAuthenticatorRequest);
     request.token = this.formGroup.value.token;
     request.key = this.key;
+    request.userVerificationToken = this.userVerificationToken;
 
-    return super.enable(async () => {
-      this.formPromise = this.apiService.putTwoFactorAuthenticator(request);
-      const response = await this.formPromise;
-      await this.processResponse(response);
+    const response = await this.apiService.putTwoFactorAuthenticator(request);
+    await this.processResponse(response);
+    this.onUpdated.emit(true);
+  }
+
+  protected override async disableMethod() {
+    const twoFactorAuthenticatorTokenFeatureFlag = await this.configService.getFeatureFlag(
+      FeatureFlag.AuthenticatorTwoFactorToken,
+    );
+    if (twoFactorAuthenticatorTokenFeatureFlag === false) {
+      return super.disableMethod();
+    }
+
+    const confirmed = await this.dialogService.openSimpleDialog({
+      title: { key: "disable" },
+      content: { key: "twoStepDisableDesc" },
+      type: "warning",
     });
+
+    if (!confirmed) {
+      return;
+    }
+
+    const request = await this.buildRequestModel(DisableTwoFactorAuthenticatorRequest);
+    request.type = this.type;
+    request.key = this.key;
+    request.userVerificationToken = this.userVerificationToken;
+    await this.apiService.deleteTwoFactorAuthenticator(request);
+    this.enabled = false;
+    this.platformUtilsService.showToast("success", null, this.i18nService.t("twoStepDisabled"));
+    this.onUpdated.emit(false);
   }
 
   private async processResponse(response: TwoFactorAuthenticatorResponse) {
     this.formGroup.get("token").setValue(null);
     this.enabled = response.enabled;
     this.key = response.key;
+    this.userVerificationToken = response.userVerificationToken;
+
+    await this.waitForQRiousToLoadOrError().catch((error) => {
+      this.logService.error(error);
+      this.qrScriptError = true;
+    });
+
+    await this.createQRCode();
+  }
+
+  private async waitForQRiousToLoadOrError(): Promise<void> {
+    // Check if QRious is already loaded or if there was an error loading it either way don't wait for it to try and load again
+    if (typeof window.QRious !== "undefined" || this.qrScriptError) {
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve, reject) => {
+      this.qrScript.onload = () => resolve();
+      this.qrScript.onerror = () =>
+        reject(new Error(this.i18nService.t("twoStepAuthenticatorQRCanvasError")));
+    });
+  }
+
+  private async createQRCode() {
+    if (this.qrScriptError) {
+      return;
+    }
     const email = await firstValueFrom(
       this.accountService.activeAccount$.pipe(map((a) => a?.email)),
     );
-    window.setTimeout(() => {
-      new window.QRious({
-        element: document.getElementById("qr"),
-        value:
-          "otpauth://totp/Bitwarden:" +
-          Utils.encodeRFC3986URIComponent(email) +
-          "?secret=" +
-          encodeURIComponent(this.key) +
-          "&issuer=Bitwarden",
-        size: 160,
-      });
-    }, 100);
+    new window.QRious({
+      element: document.getElementById("qr"),
+      value:
+        "otpauth://totp/Bitwarden:" +
+        Utils.encodeRFC3986URIComponent(email) +
+        "?secret=" +
+        encodeURIComponent(this.key) +
+        "&issuer=Bitwarden",
+      size: 160,
+    });
   }
-
-  close = () => {
-    this.dialogRef.close(this.enabled);
-  };
 
   static open(
     dialogService: DialogService,

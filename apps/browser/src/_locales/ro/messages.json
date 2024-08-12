@@ -3,27 +3,27 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden Password Manager",
+    "message": "Bitwarden - Manager Gratuit de Parole",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "message": "Acasă, la serviciu sau în deplasare, Bitwarden vă protejează toate parolele și informațiile sensibile",
     "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
     "message": "Autentificați-vă sau creați un cont nou pentru a accesa seiful dvs. securizat."
   },
   "inviteAccepted": {
-    "message": "Invitation accepted"
+    "message": "Invitație acceptată"
   },
   "createAccount": {
     "message": "Creare cont"
   },
   "setAStrongPassword": {
-    "message": "Set a strong password"
+    "message": "Setați o parolă puternică"
   },
   "finishCreatingYourAccountBySettingAPassword": {
-    "message": "Finish creating your account by setting a password"
+    "message": "Finalizați crearea contului prin setarea unei parole"
   },
   "login": {
     "message": "Conectare"
@@ -53,7 +53,7 @@
     "message": "Un indiciu pentru parola principală vă poate ajuta să v-o reamintiți dacă o uitați."
   },
   "masterPassHintText": {
-    "message": "If you forget your password, the password hint can be sent to your email. $CURRENT$/$MAXIMUM$ character maximum.",
+    "message": "Dacă vă uitați parola, indiciul parolei poate fi trimis la adresa dvs. de e-mail. $CURRENT$/$MAXIMUM$ de caractere maxim.",
     "placeholders": {
       "current": {
         "content": "$1",
@@ -72,10 +72,10 @@
     "message": "Indiciu pentru parola principală (opțional)"
   },
   "joinOrganization": {
-    "message": "Join organization"
+    "message": "Alăturați-vă organizației"
   },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
-    "message": "Finish joining this organization by setting a master password."
+    "message": "Finalizați aderarea la această organizație prin setarea unei parole principale."
   },
   "tab": {
     "message": "Filă"
@@ -116,17 +116,32 @@
   "copySecurityCode": {
     "message": "Copiere cod de securitate"
   },
+  "copyName": {
+    "message": "Copiați numele"
+  },
+  "copyCompany": {
+    "message": "Copiați firma"
+  },
+  "copySSN": {
+    "message": "Copiați numărul de securitate socială"
+  },
+  "copyPassportNumber": {
+    "message": "Copiați numărul pașaportului"
+  },
+  "copyLicenseNumber": {
+    "message": "Copiați numărul de licență"
+  },
   "autoFill": {
     "message": "Auto-completare"
   },
   "autoFillLogin": {
-    "message": "Auto-fill login"
+    "message": "Autocompletare date de autentificare"
   },
   "autoFillCard": {
-    "message": "Auto-fill card"
+    "message": "Autocompletare card"
   },
   "autoFillIdentity": {
-    "message": "Auto-fill identity"
+    "message": "Autocompletare identitate"
   },
   "generatePasswordCopied": {
     "message": "Generare parolă (s-a copiat)"
@@ -138,19 +153,19 @@
     "message": "Nu există potrivire de autentificări"
   },
   "noCards": {
-    "message": "No cards"
+    "message": "Niciun card"
   },
   "noIdentities": {
-    "message": "No identities"
+    "message": "Nicio identitate"
   },
   "addLoginMenu": {
-    "message": "Add login"
+    "message": "Adăugare date de autentificare"
   },
   "addCardMenu": {
-    "message": "Add card"
+    "message": "Adăugare card"
   },
   "addIdentityMenu": {
-    "message": "Add identity"
+    "message": "Adăugare identitate"
   },
   "unlockVaultMenu": {
     "message": "Deblocați-vă seiful"
@@ -198,25 +213,25 @@
     "message": "Schimbare parolă principală"
   },
   "continueToWebApp": {
-    "message": "Continue to web app?"
+    "message": "Continuați către aplicația web?"
   },
   "continueToWebAppDesc": {
-    "message": "Explore more features of your Bitwarden account on the web app."
+    "message": "Explorați mai multe caracteristici ale contului Bitwarden în aplicația web."
   },
   "continueToHelpCenter": {
-    "message": "Continue to Help Center?"
+    "message": "Continuați la Centrul de Ajutor?"
   },
   "continueToHelpCenterDesc": {
-    "message": "Learn more about how to use Bitwarden on the Help Center."
+    "message": "Aflați mai multe despre cum să utilizați Bitwarden în Centrul de Ajutor."
   },
   "continueToBrowserExtensionStore": {
-    "message": "Continue to browser extension store?"
+    "message": "Continuați la magazinul de extensii al browser-ului?"
   },
   "continueToBrowserExtensionStoreDesc": {
-    "message": "Help others find out if Bitwarden is right for them. Visit your browser's extension store and leave a rating now."
+    "message": "Ajutați-i pe alții să afle dacă Bitwarden este potrivit pentru ei. Vizitați magazinul de extensii al browser-ului dvs. și lăsați o evaluare acum."
   },
   "changeMasterPasswordOnWebConfirmation": {
-    "message": "You can change your master password on the Bitwarden web app."
+    "message": "Puteți schimba parola principală în aplicația web Bitwarden."
   },
   "fingerprintPhrase": {
     "message": "Fraza amprentă",
@@ -233,43 +248,43 @@
     "message": "Deconectare"
   },
   "aboutBitwarden": {
-    "message": "About Bitwarden"
+    "message": "Despre Bitwarden"
   },
   "about": {
     "message": "Despre"
   },
   "moreFromBitwarden": {
-    "message": "More from Bitwarden"
+    "message": "Mai multe de la Bitwarden"
   },
   "continueToBitwardenDotCom": {
-    "message": "Continue to bitwarden.com?"
+    "message": "Continuați la bitwarden.com?"
   },
   "bitwardenForBusiness": {
-    "message": "Bitwarden for Business"
+    "message": "Bitwarden pentru Business"
   },
   "bitwardenAuthenticator": {
-    "message": "Bitwarden Authenticator"
+    "message": "Autentificator Bitwarden"
   },
   "continueToAuthenticatorPageDesc": {
-    "message": "Bitwarden Authenticator allows you to store authenticator keys and generate TOTP codes for 2-step verification flows. Learn more on the bitwarden.com website"
+    "message": "Autentificatorul Bitwarden vă permite să stocați chei de autentificare și să generați coduri TOTP pentru fluxurile de verificare în doi pași. Aflați mai multe de pe site-ul bitwarden.com"
   },
   "bitwardenSecretsManager": {
-    "message": "Bitwarden Secrets Manager"
+    "message": "Manager de secrete Bitwarden"
   },
   "continueToSecretsManagerPageDesc": {
-    "message": "Securely store, manage, and share developer secrets with Bitwarden Secrets Manager. Learn more on the bitwarden.com website."
+    "message": "Stocați, gestionați și partajați în siguranță secretele dezvoltatorilor cu Bitwarden Secrets Manager. Aflați mai multe pe site-ul bitwarden.com."
   },
   "passwordlessDotDev": {
     "message": "Passwordless.dev"
   },
   "continueToPasswordlessDotDevPageDesc": {
-    "message": "Create smooth and secure login experiences free from traditional passwords with Passwordless.dev. Learn more on the bitwarden.com website."
+    "message": "Creați experiențe de conectare fluide și sigure, fără parole tradiționale, cu Passwordless.dev. Aflați mai multe pe site-ul bitwarden.com."
   },
   "freeBitwardenFamilies": {
-    "message": "Free Bitwarden Families"
+    "message": "Bitwarden Families gratuit"
   },
   "freeBitwardenFamiliesPageDesc": {
-    "message": "You are eligible for Free Bitwarden Families. Redeem this offer today in the web app."
+    "message": "Sunteți eligibil pentru Bitwarden Families gratuit. Răscumpărați această ofertă astăzi în aplicația web."
   },
   "version": {
     "message": "Versiune"
@@ -288,6 +303,24 @@
   },
   "editFolder": {
     "message": "Editare dosar"
+  },
+  "newFolder": {
+    "message": "New folder"
+  },
+  "folderName": {
+    "message": "Folder name"
+  },
+  "folderHintText": {
+    "message": "Nest a folder by adding the parent folder's name followed by a “/”. Example: Social/Forums"
+  },
+  "noFoldersAdded": {
+    "message": "No folders added"
+  },
+  "createFoldersToOrganize": {
+    "message": "Create folders to organize your vault items"
+  },
+  "deleteFolderPermanently": {
+    "message": "Are you sure you want to permanently delete this folder?"
   },
   "deleteFolder": {
     "message": "Ștergere dosar"
@@ -330,7 +363,7 @@
     "message": "Generează automat parole unice și puternice pentru autentificările dvs."
   },
   "bitWebVaultApp": {
-    "message": "Bitwarden web app"
+    "message": "Aplicația web Bitwarden"
   },
   "importItems": {
     "message": "Import de articole"
@@ -351,7 +384,7 @@
     "message": "Lungime"
   },
   "passwordMinLength": {
-    "message": "Minimum password length"
+    "message": "Lungimea minimă a parolei"
   },
   "uppercase": {
     "message": "Litere mari (A-Z)"
@@ -409,7 +442,7 @@
     "message": "Parolă"
   },
   "totp": {
-    "message": "Authenticator secret"
+    "message": "Cheie de autentificare"
   },
   "passphrase": {
     "message": "Frază de acces"
@@ -418,13 +451,13 @@
     "message": "Favorit"
   },
   "unfavorite": {
-    "message": "Unfavorite"
+    "message": "Elimină din favorite"
   },
   "itemAddedToFavorites": {
-    "message": "Item added to favorites"
+    "message": "Item adăugat în favorite"
   },
   "itemRemovedFromFavorites": {
-    "message": "Item removed from favorites"
+    "message": "Item eliminat din favorite"
   },
   "notes": {
     "message": "Note"
@@ -448,7 +481,7 @@
     "message": "Lansare"
   },
   "launchWebsite": {
-    "message": "Launch website"
+    "message": "Lansați siteul web"
   },
   "website": {
     "message": "Sait web"
@@ -463,19 +496,19 @@
     "message": "Altele"
   },
   "unlockMethods": {
-    "message": "Unlock options"
+    "message": "Deblocați opțiunile"
   },
   "unlockMethodNeededToChangeTimeoutActionDesc": {
     "message": "Configurați metoda de deblocare care să schimbe acțiunea de expirare a seifului."
   },
   "unlockMethodNeeded": {
-    "message": "Set up an unlock method in Settings"
+    "message": "Setați o metodă de deblocare in setări"
   },
   "sessionTimeoutHeader": {
-    "message": "Session timeout"
+    "message": "Expirarea sesiunii"
   },
   "otherOptions": {
-    "message": "Other options"
+    "message": "Alte opțiuni"
   },
   "rateExtension": {
     "message": "Evaluare extensie"
@@ -518,7 +551,7 @@
     "message": "Blocare imediată"
   },
   "lockAll": {
-    "message": "Lock all"
+    "message": "Blochează toate"
   },
   "immediately": {
     "message": "Imediat"
@@ -566,16 +599,16 @@
     "message": "Securitate"
   },
   "confirmMasterPassword": {
-    "message": "Confirm master password"
+    "message": "Confirmați parola principală"
   },
   "masterPassword": {
-    "message": "Master password"
+    "message": "Parola principală"
   },
   "masterPassImportant": {
-    "message": "Your master password cannot be recovered if you forget it!"
+    "message": "Parola principală nu poate fi recuperată dacă este uitată!"
   },
   "masterPassHintLabel": {
-    "message": "Master password hint"
+    "message": "Indiciu pentru parola principală"
   },
   "errorOccurred": {
     "message": "S-a produs o eroare"
@@ -609,10 +642,10 @@
     "message": "Noul dvs. cont a fost creat! Acum vă puteți autentifica."
   },
   "youSuccessfullyLoggedIn": {
-    "message": "You successfully logged in"
+    "message": "V-ați conectat cu succes"
   },
   "youMayCloseThisWindow": {
-    "message": "You may close this window"
+    "message": "Puteți închide această fereastră"
   },
   "masterPassSent": {
     "message": "V-am trimis un e-mail cu indiciul parolei principale."
@@ -621,7 +654,7 @@
     "message": "Este necesar codul de verificare."
   },
   "webauthnCancelOrTimeout": {
-    "message": "The authentication was cancelled or took too long. Please try again."
+    "message": "Autentificarea a fost anulată sau a luat prea mult. Încercați din nou."
   },
   "invalidVerificationCode": {
     "message": "Cod de verificare nevalid"
@@ -640,49 +673,49 @@
     "message": "Nu se pot auto-completa datele de conectare pentru această pagină. În schimb, puteți copia și lipi aceste date."
   },
   "totpCaptureError": {
-    "message": "Unable to scan QR code from the current webpage"
+    "message": "Nu se poate scana codul QR din pagina web curentă"
   },
   "totpCaptureSuccess": {
-    "message": "Authenticator key added"
+    "message": "Cheie autentificare adăugată"
   },
   "totpCapture": {
-    "message": "Scan authenticator QR code from current webpage"
+    "message": "Scanează codul QR pentru autentificator din pagina web curentă"
   },
   "totpHelperTitle": {
-    "message": "Make 2-step verification seamless"
+    "message": "Faceți autentificarea in 2 pași mai ușoară"
   },
   "totpHelper": {
-    "message": "Bitwarden can store and fill 2-step verification codes. Copy and paste the key into this field."
+    "message": "Bitwarden poate stoca și completa coduri de verificare în doi pași. Copiați și lipiți cheia în acest câmp."
   },
   "totpHelperWithCapture": {
-    "message": "Bitwarden can store and fill 2-step verification codes. Select the camera icon to take a screenshot of this website's authenticator QR code, or copy and paste the key into this field."
+    "message": "Bitwarden poate stoca și completa coduri de verificare în doi pași. Selectați pictograma camerei foto pentru a face o captură de ecran a codului QR de autentificare al acestui site, sau copiați și lipiți cheia în acest câmp."
   },
   "copyTOTP": {
-    "message": "Copy Authenticator key (TOTP)"
+    "message": "Copiați cheia de autentificare (TOTP)"
   },
   "loggedOut": {
     "message": "Deconectat"
   },
   "loggedOutDesc": {
-    "message": "You have been logged out of your account."
+    "message": "Ați fost deconectat din contul dvs."
   },
   "loginExpired": {
     "message": "Sesiunea de autentificare a expirat."
   },
   "logIn": {
-    "message": "Log in"
+    "message": "Autentificare"
   },
   "restartRegistration": {
-    "message": "Restart registration"
+    "message": "Reporniți înregistrarea"
   },
   "expiredLink": {
-    "message": "Expired link"
+    "message": "Link expirat"
   },
   "pleaseRestartRegistrationOrTryLoggingIn": {
-    "message": "Please restart registration or try logging in."
+    "message": "Vă rugăm să reporniți înregistrarea sau să încercați să vă conectați."
   },
   "youMayAlreadyHaveAnAccount": {
-    "message": "You may already have an account"
+    "message": "Este posibil să aveți deja un cont"
   },
   "logOutConfirmation": {
     "message": "Sigur doriți să vă deconectați?"
@@ -746,7 +779,7 @@
     "message": "URI nou"
   },
   "addDomain": {
-    "message": "Add domain",
+    "message": "Adăugați un domeniu",
     "description": "'Domain' here refers to an internet domain name (e.g. 'bitwarden.com') and the message in whole described the act of putting a domain value into the context."
   },
   "addedItem": {
@@ -790,7 +823,7 @@
     "message": "Solicitare de adăugare cont"
   },
   "vaultSaveOptionsTitle": {
-    "message": "Save to vault options"
+    "message": "Salvare în opțiuni seif"
   },
   "addLoginNotificationDesc": {
     "message": "Solicitați adăugarea unui element dacă nu se găsește unul în seif."
@@ -871,7 +904,7 @@
   },
   "defaultUriMatchDetection": {
     "message": "Detectare implicită a potrivirii URI",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "defaultUriMatchDetectionDesc": {
     "message": "Alege modul implicit de gestionare a detectării de potrivire URI pentru conectări când se efectuează acțiuni precum auto-completarea."
@@ -1239,8 +1272,8 @@
     "message": "URL-urile mediului au fost salvate"
   },
   "showAutoFillMenuOnFormFields": {
-    "message": "Show auto-fill menu on form fields",
-    "description": "Represents the message for allowing the user to enable the auto-fill overlay"
+    "message": "Show autofill menu on form fields",
+    "description": "Represents the message for allowing the user to enable the autofill overlay"
   },
   "autofillSuggestionsSectionTitle": {
     "message": "Autofill suggestions"
@@ -1269,7 +1302,7 @@
     "description": "Overlay appearance select option for showing the field on focus of the input element"
   },
   "autofillOverlayVisibilityOnButtonClick": {
-    "message": "When auto-fill icon is selected",
+    "message": "When autofill icon is selected",
     "description": "Overlay appearance select option for showing the field on click of the overlay icon"
   },
   "enableAutoFillOnPageLoadSectionTitle": {
@@ -1327,8 +1360,14 @@
   "commandOpenSidebar": {
     "message": "Deschidere seif în bara laterală"
   },
-  "commandAutofillDesc": {
-    "message": "Auto-completare a ultimei autentificări utilizate pe saitul web curent"
+  "commandAutofillLoginDesc": {
+    "message": "Autofill the last used login for the current website"
+  },
+  "commandAutofillCardDesc": {
+    "message": "Autofill the last used card for the current website"
+  },
+  "commandAutofillIdentityDesc": {
+    "message": "Autofill the last used identity for the current website"
   },
   "commandGeneratePasswordDesc": {
     "message": "Generare parolă aleatorie și copiere în clipboard"
@@ -1634,6 +1673,10 @@
     "message": "Domeniu de bază",
     "description": "Domain name. Ex. website.com"
   },
+  "baseDomainOptionRecommended": {
+    "message": "Base domain (recommended)",
+    "description": "Domain name. Ex. website.com"
+  },
   "domainName": {
     "message": "Nume de domeniu",
     "description": "Domain name. Ex. website.com"
@@ -1654,11 +1697,11 @@
   },
   "matchDetection": {
     "message": "Detectare de potrivire",
-    "description": "URI match detection for auto-fill."
+    "description": "URI match detection for autofill."
   },
   "defaultMatchDetection": {
     "message": "Detectare de potrivire implicită",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "toggleOptions": {
     "message": "Comutare opțiuni"
@@ -1777,6 +1820,29 @@
   },
   "passwordGeneratorPolicyInEffect": {
     "message": "Una sau mai multe politici organizaționale vă afectează setările generatorului."
+  },
+  "passwordGenerator": {
+    "message": "Password generator"
+  },
+  "usernameGenerator": {
+    "message": "Username generator"
+  },
+  "useThisPassword": {
+    "message": "Use this password"
+  },
+  "useThisUsername": {
+    "message": "Use this username"
+  },
+  "securePasswordGenerated": {
+    "message": "Secure password generated! Don't forget to also update your password on the website."
+  },
+  "useGeneratorHelpTextPartOne": {
+    "message": "Use the generator",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
+  },
+  "useGeneratorHelpTextPartTwo": {
+    "message": "to create a strong unique password",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
   },
   "vaultTimeoutAction": {
     "message": "Acțiune la expirarea seifului"
@@ -1974,6 +2040,12 @@
   },
   "nativeMessagingWrongUserTitle": {
     "message": "Eroare de cont"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Biometric unlock failed. The biometric secret key failed to unlock the vault. Please try to set up biometrics again."
+  },
+  "nativeMessagingWrongUserKeyTitle": {
+    "message": "Biometric key missmatch"
   },
   "biometricsNotEnabledTitle": {
     "message": "Datele biometrice nu sunt configurate"
@@ -2301,6 +2373,9 @@
   },
   "updateWeakMasterPasswordWarning": {
     "message": "Parola dvs. principală nu respectă una sau mai multe politici ale organizației. Pentru a accesa seiful, parola principală trebuie actualizată acum. În cazul în care continuați, veți fi deconectat din sesiunea curentă și va trebui să vă conectați din nou. Sesiunile active de pe alte dispozitive pot rămâne active timp de până la o oră."
+  },
+  "tdeDisabledMasterPasswordRequired": {
+    "message": "Your organization has disabled trusted device encryption. Please set a master password to access your vault."
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Înscrierea automată"
@@ -2758,14 +2833,17 @@
   "autofillKeyboardShortcutUpdateLabel": {
     "message": "Change shortcut"
   },
+  "autofillKeyboardManagerShortcutsLabel": {
+    "message": "Manage shortcuts"
+  },
   "autofillShortcut": {
     "message": "Scurtătură de tastatură pentru auto-completare"
   },
-  "autofillShortcutNotSet": {
-    "message": "Scurtătura de auto-completare nu este setată. Modificați acest lucru în setările browserului."
+  "autofillLoginShortcutNotSet": {
+    "message": "The autofill login shortcut is not set. Change this in the browser's settings."
   },
-  "autofillShortcutText": {
-    "message": "Scurtătura de auto-completare este: $COMMAND$. Modificați acest lucru în setările browserului.",
+  "autofillLoginShortcutText": {
+    "message": "The autofill login shortcut is $COMMAND$. Manage all shortcuts in the browser's settings.",
     "placeholders": {
       "command": {
         "content": "$1",
@@ -2948,6 +3026,18 @@
       }
     }
   },
+  "singleFieldNeedsAttention": {
+    "message": "1 field needs your attention."
+  },
+  "multipleFieldsNeedAttention": {
+    "message": "$COUNT$ fields need your attention.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "selectPlaceholder": {
     "message": "-- Selectați --"
   },
@@ -3016,11 +3106,11 @@
   },
   "passwordRepromptDisabledAutofillOnPageLoad": {
     "message": "Elementele în care parola principală este solicitată din nou nu pot fi completate automat la încărcarea paginii. Completarea automată la încărcarea paginii este dezactivată.",
-    "description": "Toast message for describing that master password re-prompt cannot be auto-filled on page load."
+    "description": "Toast message for describing that master password re-prompt cannot be autofilled on page load."
   },
   "autofillOnPageLoadSetToDefault": {
     "message": "Completarea automată la încărcarea paginii este setată la valoarea implicită.",
-    "description": "Toast message for informing the user that auto-fill on page load has been set to the default setting."
+    "description": "Toast message for informing the user that autofill on page load has been set to the default setting."
   },
   "turnOffMasterPasswordPromptToEditField": {
     "message": "Dezactivați reintroducerea parolei principale pentru a edita acest câmp",
@@ -3033,15 +3123,15 @@
     "message": "Skip to content"
   },
   "bitwardenOverlayButton": {
-    "message": "Bitwarden auto-fill menu button",
+    "message": "Bitwarden autofill menu button",
     "description": "Page title for the iframe containing the overlay button"
   },
   "toggleBitwardenVaultOverlay": {
-    "message": "Toggle Bitwarden auto-fill menu",
+    "message": "Toggle Bitwarden autofill menu",
     "description": "Screen reader and tool tip label for the overlay button"
   },
   "bitwardenVault": {
-    "message": "Bitwarden auto-fill menu",
+    "message": "Bitwarden autofill menu",
     "description": "Page title in overlay"
   },
   "unlockYourAccountToViewMatchingLogins": {
@@ -3105,7 +3195,7 @@
     "description": "Screen reader text (aria-label) for new identity button within inline menu"
   },
   "bitwardenOverlayMenuAvailable": {
-    "message": "Bitwarden auto-fill menu available. Press the down arrow key to select.",
+    "message": "Bitwarden autofill menu available. Press the down arrow key to select.",
     "description": "Screen reader text for announcing when the overlay opens on the page"
   },
   "turnOn": {
@@ -3531,10 +3621,10 @@
     "message": "Passkey removed"
   },
   "autofillSuggestions": {
-    "message": "Auto-fill suggestions"
+    "message": "Autofill suggestions"
   },
   "autofillSuggestionsTip": {
-    "message": "Save a login item for this site to auto-fill"
+    "message": "Save a login item for this site to autofill"
   },
   "yourVaultIsEmpty": {
     "message": "Your vault is empty"
@@ -3596,8 +3686,8 @@
     }
   },
   "autofillTitle": {
-    "message": "Auto-fill - $ITEMNAME$",
-    "description": "Title for a button that auto-fills a login item.",
+    "message": "Autofill - $ITEMNAME$",
+    "description": "Title for a button that autofills a login item.",
     "placeholders": {
       "itemname": {
         "content": "$1",
@@ -3787,6 +3877,52 @@
   "authenticatorKey": {
     "message": "Authenticator key"
   },
+  "autofillOptions": {
+    "message": "Auto-fill options"
+  },
+  "websiteUri": {
+    "message": "Website (URI)"
+  },
+  "websiteAdded": {
+    "message": "Website added"
+  },
+  "addWebsite": {
+    "message": "Add website"
+  },
+  "deleteWebsite": {
+    "message": "Delete website"
+  },
+  "defaultLabel": {
+    "message": "Default ($VALUE$)",
+    "description": "A label that indicates the default value for a field with the current default value in parentheses.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "Base domain"
+      }
+    }
+  },
+  "showMatchDetection": {
+    "message": "Show match detection $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "hideMatchDetection": {
+    "message": "Hide match detection $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "autoFillOnPageLoad": {
+    "message": "Autofill on page load?"
+  },
   "cardDetails": {
     "message": "Card details"
   },
@@ -3807,6 +3943,18 @@
   },
   "data": {
     "message": "Data"
+  },
+  "passkeys": {
+    "message": "Passkeys",
+    "description": "A section header for a list of passkeys."
+  },
+  "passwords": {
+    "message": "Passwords",
+    "description": "A section header for a list of passwords."
+  },
+  "logInWithPasskeyAriaLabel": {
+    "message": "Log in with passkey",
+    "description": "ARIA label for the inline menu button that logs in with a passkey."
   },
   "assign": {
     "message": "Assign"
@@ -3848,10 +3996,10 @@
     "message": "Use hidden fields for sensitive data like a password"
   },
   "checkBoxHelpText": {
-    "message": "Use checkboxes if you'd like to auto-fill a form's checkbox, like a remember email"
+    "message": "Use checkboxes if you'd like to autofill a form's checkbox, like a remember email"
   },
   "linkedHelpText": {
-    "message": "Use a linked field when you are experiencing auto-fill issues for a specific website."
+    "message": "Use a linked field when you are experiencing autofill issues for a specific website."
   },
   "linkedLabelHelpText": {
     "message": "Enter the the field's html id, name, aria-label, or placeholder."
@@ -4001,5 +4149,26 @@
   },
   "itemLocation": {
     "message": "Item Location"
+  },
+  "fileSends": {
+    "message": "File Sends"
+  },
+  "textSends": {
+    "message": "Text Sends"
+  },
+  "bitwardenNewLook": {
+    "message": "Bitwarden has a new look!"
+  },
+  "bitwardenNewLookDesc": {
+    "message": "It's easier and more intuitive than ever to autofill and search from the Vault tab. Take a look around!"
+  },
+  "accountActions": {
+    "message": "Account actions"
+  },
+  "showNumberOfAutofillSuggestions": {
+    "message": "Show number of login autofill suggestions on extension icon"
+  },
+  "systemDefault": {
+    "message": "System default"
   }
 }

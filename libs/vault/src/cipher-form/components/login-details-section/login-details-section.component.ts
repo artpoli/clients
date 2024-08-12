@@ -24,6 +24,7 @@ import {
 import { CipherFormGenerationService } from "../../abstractions/cipher-form-generation.service";
 import { TotpCaptureService } from "../../abstractions/totp-capture.service";
 import { CipherFormContainer } from "../../cipher-form-container";
+import { AutofillOptionsComponent } from "../autofill-options/autofill-options.component";
 
 @Component({
   selector: "vault-login-details-section",
@@ -41,6 +42,7 @@ import { CipherFormContainer } from "../../cipher-form-container";
     AsyncActionsModule,
     NgIf,
     PopoverModule,
+    AutofillOptionsComponent,
   ],
 })
 export class LoginDetailsSectionComponent implements OnInit {
@@ -49,6 +51,11 @@ export class LoginDetailsSectionComponent implements OnInit {
     password: [""],
     totp: [""],
   });
+
+  /**
+   * Flag indicating whether a new password has been generated for the current form.
+   */
+  newPasswordGenerated: boolean;
 
   /**
    * Whether the TOTP field can be captured from the current tab. Only available in the browser extension.
@@ -144,9 +151,10 @@ export class LoginDetailsSectionComponent implements OnInit {
   }
 
   private async initNewCipher() {
-    this.loginDetailsForm.controls.password.patchValue(
-      await this.generationService.generateInitialPassword(),
-    );
+    this.loginDetailsForm.patchValue({
+      username: this.cipherFormContainer.config.initialValues?.username || "",
+      password: "",
+    });
   }
 
   captureTotp = async () => {
@@ -190,6 +198,7 @@ export class LoginDetailsSectionComponent implements OnInit {
 
     if (newPassword) {
       this.loginDetailsForm.controls.password.patchValue(newPassword);
+      this.newPasswordGenerated = true;
     }
   };
 

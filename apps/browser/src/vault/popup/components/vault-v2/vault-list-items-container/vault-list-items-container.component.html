@@ -20,8 +20,7 @@
     <bit-item *ngFor="let cipher of ciphers">
       <a
         bit-item-content
-        [routerLink]="['/view-cipher']"
-        [queryParams]="{ cipherId: cipher.id, type: cipher.type }"
+        (click)="onViewCipher(cipher)"
         [appA11yTitle]="'viewItemTitle' | i18n: cipher.name"
       >
         <app-vault-icon slot="start" [cipher]="cipher"></app-vault-icon>
@@ -32,6 +31,11 @@
           [tierType]="cipher.organization.productTierType"
           [size]="'small'"
           [appA11yTitle]="orgIconTooltip(cipher)"
+        ></i>
+        <i
+          *ngIf="cipher.hasAttachments"
+          class="bwi bwi-paperclip bwi-sm"
+          [appA11yTitle]="'attachments' | i18n"
         ></i>
         <span slot="secondary">{{ cipher.subTitle }}</span>
       </a>

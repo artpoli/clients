@@ -1,6 +1,6 @@
 <bit-section [formGroup]="additionalOptionsForm">
   <bit-section-header>
-    <h2 bitTypography="h5">{{ "additionalOptions" | i18n }}</h2>
+    <h2 bitTypography="h6">{{ "additionalOptions" | i18n }}</h2>
   </bit-section-header>
 
   <bit-card>
@@ -8,7 +8,10 @@
       <bit-label>{{ "notes" | i18n }}</bit-label>
       <textarea bitInput formControlName="notes"></textarea>
     </bit-form-field>
-    <bit-form-control *ngIf="passwordRepromptEnabled$ | async">
+    <bit-form-control
+      *ngIf="passwordRepromptEnabled$ | async"
+      [disableMargin]="hasCustomFields || isPartialEdit"
+    >
       <input type="checkbox" bitCheckbox formControlName="reprompt" />
       <bit-label>{{ "passwordPrompt" | i18n }}</bit-label>
     </bit-form-control>

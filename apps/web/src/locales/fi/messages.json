@@ -48,6 +48,52 @@
   "authenticatorKey": {
     "message": "Todennusavain"
   },
+  "autofillOptions": {
+    "message": "Automaattitäytön asetukset"
+  },
+  "websiteUri": {
+    "message": "Verkkosivusto (URI)"
+  },
+  "websiteAdded": {
+    "message": "Verkkosivusto lisättiin"
+  },
+  "addWebsite": {
+    "message": "Lisää verkkosivusto"
+  },
+  "deleteWebsite": {
+    "message": "Poista verkkosivusto"
+  },
+  "defaultLabel": {
+    "message": "Oletus ($VALUE$)",
+    "description": "A label that indicates the default value for a field with the current default value in parentheses.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "Base domain"
+      }
+    }
+  },
+  "showMatchDetection": {
+    "message": "Näytä vastaavuuden tunnistus $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "hideMatchDetection": {
+    "message": "Piilota vastaavuuden tunnistus $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "autoFillOnPageLoad": {
+    "message": "Automaattitäytetäänkö sivun avautuessa?"
+  },
   "number": {
     "message": "Numero"
   },
@@ -1054,7 +1100,7 @@
     "message": "Suojausavain"
   },
   "webAuthnDesc": {
-    "message": "Vahvista kirjautuminen WebAuthn-todennuslaitteella."
+    "message": "Vahvista kirjautuminen WebAuthn-suojausavaimella."
   },
   "webAuthnMigrated": {
     "message": "(siirretty FIDO:sta)"
@@ -4099,8 +4145,9 @@
   "minimumNumberOfWords": {
     "message": "Sanojen vähimmäismäärä"
   },
-  "defaultType": {
-    "message": "Oletustyyppi"
+  "overridePasswordTypePolicy": {
+    "message": "Salasanan tyyppi",
+    "description": "Name of the password generator policy that overrides the user's password/passphrase selection."
   },
   "userPreference": {
     "message": "Käyttäjän asetus"
@@ -4387,7 +4434,7 @@
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "copyLink": {
-    "message": "Copy link"
+    "message": "Kopioi linkki"
   },
   "copySendLink": {
     "message": "Kopioi Send-linkki",
@@ -5276,6 +5323,9 @@
   "updateWeakMasterPasswordWarning": {
     "message": "Pääsalasanasi ei täytä yhden tai useamman organisaatiokäytännön vaatimuksia ja holvin käyttämiseksi sinun on vaihdettava se nyt. Tämä uloskirjaa kaikki nykyiset istunnot pakottaen uudelleenkirjautumisen. Muiden laitteiden aktiiviset istunnot saattavat toimia vielä tunnin ajan."
   },
+  "tdeDisabledMasterPasswordRequired": {
+    "message": "Organisaatiosi on päivittänyt salauksen purkuasetukset. Käytä holviasi asettamalla pääsalasana."
+  },
   "maximumVaultTimeout": {
     "message": "Holvin aikakatkaisu"
   },
@@ -5999,6 +6049,26 @@
   },
   "randomWord": {
     "message": "Satunnainen sana"
+  },
+  "usernameGenerator": {
+    "message": "Käyttäjätunnusgeneraattori"
+  },
+  "useThisPassword": {
+    "message": "Käytä tätä salasanaa"
+  },
+  "useThisUsername": {
+    "message": "Käytä tätä käyttäjätunnusta"
+  },
+  "securePasswordGenerated": {
+    "message": "Secure password generated! Don't forget to also update your password on the website."
+  },
+  "useGeneratorHelpTextPartOne": {
+    "message": "Käytä generaattoria",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
+  },
+  "useGeneratorHelpTextPartTwo": {
+    "message": "to create a strong unique password",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
   },
   "service": {
     "message": "Palvelu"
@@ -7628,6 +7698,9 @@
   "requestedDeviceApproval": {
     "message": "Laitehyväksyntää pyydetty."
   },
+  "tdeOffboardingPasswordSet": {
+    "message": "User set a master password during TDE offboarding."
+  },
   "startYour7DayFreeTrialOfBitwardenFor": {
     "message": "Aloita seitsemän päivän ilmainen Bitwarden-kokeilu organisaatiolle $ORG$",
     "placeholders": {
@@ -8024,6 +8097,9 @@
       }
     }
   },
+  "addField": {
+    "message": "Lisää kenttä"
+  },
   "items": {
     "message": "Kohteet"
   },
@@ -8414,6 +8490,51 @@
   "manageBillingFromProviderPortalMessage": {
     "message": "Hallitse laskutusta Toimittajaportaaliista"
   },
+  "startYour7DayFreeTrialOfBitwarden": {
+    "message": "Aloita seitsemän päivän ilmainen Bitwarden-kokeilu"
+  },
+  "startYour7DayFreeTrialOfBitwardenForTeams": {
+    "message": "Start your 7-Day free trial of Bitwarden for Teams"
+  },
+  "startYour7DayFreeTrialOfBitwardenForFamilies": {
+    "message": "Start your 7-Day free trial of Bitwarden for Families"
+  },
+  "startYour7DayFreeTrialOfBitwardenForEnterprise": {
+    "message": "Start your 7-Day free trial of Bitwarden for Enterprise"
+  },
+  "startYour7DayFreeTrialOfBitwardenSecretsManager": {
+    "message": "Aloita seitsemän päivän ilmainen Bitwarden Salaisuushallinnan kokeilu"
+  },
+  "startYour7DayFreeTrialOfBitwardenSecretsManagerForTeams": {
+    "message": "Start your 7-Day free trial of Bitwarden Secrets Manager for Teams"
+  },
+  "startYour7DayFreeTrialOfBitwardenSecretsManagerForFamilies": {
+    "message": "Start your 7-Day free trial of Bitwarden Secrets Manager for Families"
+  },
+  "startYour7DayFreeTrialOfBitwardenSecretsManagerForEnterprise": {
+    "message": "Start your 7-Day free trial of Bitwarden Secrets Manager for Enterprise"
+  },
+  "startYour7DayFreeTrialOfBitwardenPasswordManager": {
+    "message": "Aloita seitsemän päivän ilmainen Bitwarden Salasananhallinan kokeilu"
+  },
+  "startYour7DayFreeTrialOfBitwardenPasswordManagerForTeams": {
+    "message": "Start your 7-Day free trial of Bitwarden Password Manager for Teams"
+  },
+  "startYour7DayFreeTrialOfBitwardenPasswordManagerForFamilies": {
+    "message": "Start your 7-Day free trial of Bitwarden Password Manager for Families"
+  },
+  "startYour7DayFreeTrialOfBitwardenPasswordManagerForEnterprise": {
+    "message": "Start your 7-Day free trial of Bitwarden Password Manager for Enterprise"
+  },
+  "enterTeamsOrgInfo": {
+    "message": "Enter your Teams organization information"
+  },
+  "enterFamiliesOrgInfo": {
+    "message": "Enter your Families organization information"
+  },
+  "enterEnterpriseOrgInfo": {
+    "message": "Enter your Enterprise organization information"
+  },
   "viewItemsIn": {
     "message": "Näytä kohteen $NAME$ kohteet",
     "description": "Button to view the contents of a folder or collection",
@@ -8693,5 +8814,98 @@
   },
   "purchasedSeatsRemoved": {
     "message": "ostetut käyttäpaikat poistettiin"
+  },
+  "fileSends": {
+    "message": "Tiedosto-Sendit"
+  },
+  "textSends": {
+    "message": "Teksti-Sendit"
+  },
+  "includesXMembers": {
+    "message": "$COUNT$ jäsenelle",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "costPerMember": {
+    "message": "$COST$",
+    "placeholders": {
+      "cost": {
+        "content": "$1",
+        "example": "$3"
+      }
+    }
+  },
+  "optionalOnPremHosting": {
+    "message": "Optional on-premises hosting"
+  },
+  "upgradeFreeOrganization": {
+    "message": "Päivitä organisaatiosi $NAME$ ",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Teams"
+      }
+    }
+  },
+  "includeSsoAuthenticationMessage": {
+    "message": "SSO-todennus"
+  },
+  "familiesPlanInvLimitReachedManageBilling": {
+    "message": "Families organizations may have up to $SEATCOUNT$ members. Upgrade to a paid plan to invite more members.",
+    "placeholders": {
+      "seatcount": {
+        "content": "$1",
+        "example": "6"
+      }
+    }
+  },
+  "familiesPlanInvLimitReachedNoManageBilling": {
+    "message": "Families organizations may have up to $SEATCOUNT$ members. Contact your organization owner to upgrade.",
+    "placeholders": {
+      "seatcount": {
+        "content": "$1",
+        "example": "6"
+      }
+    }
+  },
+  "upgradePlan": {
+    "message": "Päivitä tilauksesi kutsuaksesi lisää jäseniä ja saadaksesi käyttöösi Bitwardenin lisäominaisuuksia"
+  },
+  "upgradeDiscount": {
+    "message": "Säästä $AMOUNT$%",
+    "placeholders": {
+      "amount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "upgradeEnterpriseMessage": {
+    "message": "Kehittyneet ominaisuudet suuremmille yrityksille"
+  },
+  "upgradeTeamsMessage": {
+    "message": "Vahvaa suojausta etsiville yrityksille"
+  },
+  "teamsInviteMessage": {
+    "message": "Kutsu rajattomasti jäseniä"
+  },
+  "accessToCreateGroups": {
+    "message": "Oikeus luoda ryhmiä"
+  },
+  "syncGroupsAndUsersFromDirectory": {
+    "message": "Synkronoi ryhmät ja käyttäjät hakemistosta"
+  },
+  "upgradeFamilyMessage": {
+    "message": "Jaa perheen ja ystävien kanssa"
+  },
+  "accessToPremiumFeatures": {
+    "message": "Premium-ominaisuuksien käyttöoikeus"
+  },
+  "additionalStorageGbMessage": {
+    "message": "Gt ylimääräistä tallennustilaa"
   }
 }

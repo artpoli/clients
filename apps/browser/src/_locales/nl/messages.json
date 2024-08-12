@@ -116,6 +116,21 @@
   "copySecurityCode": {
     "message": "Beveiligingscode kopiëren"
   },
+  "copyName": {
+    "message": "Naam kopiëren"
+  },
+  "copyCompany": {
+    "message": "Bedrijf kopiëren"
+  },
+  "copySSN": {
+    "message": "Burgerservicenummer kopiëren"
+  },
+  "copyPassportNumber": {
+    "message": "Paspoortnummer kopiëren"
+  },
+  "copyLicenseNumber": {
+    "message": "Kenteken kopiëren"
+  },
   "autoFill": {
     "message": "Auto-invullen"
   },
@@ -288,6 +303,24 @@
   },
   "editFolder": {
     "message": "Map bewerken"
+  },
+  "newFolder": {
+    "message": "Nieuwe map"
+  },
+  "folderName": {
+    "message": "Mapnaam"
+  },
+  "folderHintText": {
+    "message": "Je kunt een map onderbrengen door het toevoegen van de naam van de bovenliggende map gevolgd door een \"/\". Voorbeeld: Social/Forums"
+  },
+  "noFoldersAdded": {
+    "message": "Geen mappen toegevoegd"
+  },
+  "createFoldersToOrganize": {
+    "message": "Maak mappen om je kluis items te organiseren"
+  },
+  "deleteFolderPermanently": {
+    "message": "Weet je zeker dat je deze map definitief wilt verwijderen?"
   },
   "deleteFolder": {
     "message": "Map verwijderen"
@@ -871,7 +904,7 @@
   },
   "defaultUriMatchDetection": {
     "message": "Standaard URI-overeenkomstdetectie",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "defaultUriMatchDetectionDesc": {
     "message": "Kies de standaardmethode voor detectie van URI-overeenkomsten voor logins bij acties, zoals automatisch invullen."
@@ -1240,7 +1273,7 @@
   },
   "showAutoFillMenuOnFormFields": {
     "message": "Auto-invulmenu op formuliervelden weergeven",
-    "description": "Represents the message for allowing the user to enable the auto-fill overlay"
+    "description": "Represents the message for allowing the user to enable the autofill overlay"
   },
   "autofillSuggestionsSectionTitle": {
     "message": "Suggesties voor automatisch invullen"
@@ -1327,8 +1360,14 @@
   "commandOpenSidebar": {
     "message": "Open kluis in zijbalk"
   },
-  "commandAutofillDesc": {
-    "message": "Vul automatisch de laatst gebruikte login in voor de huidige website"
+  "commandAutofillLoginDesc": {
+    "message": "Automatisch de laatst gebruikte login invullen voor de huidige website"
+  },
+  "commandAutofillCardDesc": {
+    "message": "Automatisch de laatst gebruikte kaart invullen voor de huidige website"
+  },
+  "commandAutofillIdentityDesc": {
+    "message": "Automatisch de laatst gebruikte identiteit invullen voor de huidige website"
   },
   "commandGeneratePasswordDesc": {
     "message": "Genereer en kopieer een nieuw willekeurig wachtwoord naar het klembord."
@@ -1634,6 +1673,10 @@
     "message": "Basisdomein",
     "description": "Domain name. Ex. website.com"
   },
+  "baseDomainOptionRecommended": {
+    "message": "Basisdomein (aanbevolen)",
+    "description": "Domain name. Ex. website.com"
+  },
   "domainName": {
     "message": "Domeinnaam",
     "description": "Domain name. Ex. website.com"
@@ -1654,11 +1697,11 @@
   },
   "matchDetection": {
     "message": "Overeenkomstdetectie",
-    "description": "URI match detection for auto-fill."
+    "description": "URI match detection for autofill."
   },
   "defaultMatchDetection": {
     "message": "Standaard overeenkomstdetectie",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "toggleOptions": {
     "message": "Opties schakelen"
@@ -1777,6 +1820,29 @@
   },
   "passwordGeneratorPolicyInEffect": {
     "message": "Een of meer organisatiebeleidseisen heeft invloed op de instellingen van je generator."
+  },
+  "passwordGenerator": {
+    "message": "Wachtwoordgenerator"
+  },
+  "usernameGenerator": {
+    "message": "Gebruikersnaamgenerator"
+  },
+  "useThisPassword": {
+    "message": "Dit wachtwoord gebruiken"
+  },
+  "useThisUsername": {
+    "message": "Deze gebruikersnaam gebruiken"
+  },
+  "securePasswordGenerated": {
+    "message": "Veilig wachtwoord aangemaakt! Vergeet niet om je wachtwoord ook op de website bij te werken."
+  },
+  "useGeneratorHelpTextPartOne": {
+    "message": "Gebruik de generator",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
+  },
+  "useGeneratorHelpTextPartTwo": {
+    "message": "om een sterk uniek wachtwoord te maken",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
   },
   "vaultTimeoutAction": {
     "message": "Actie bij time-out"
@@ -1974,6 +2040,12 @@
   },
   "nativeMessagingWrongUserTitle": {
     "message": "Accounts komt niet overeen"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Biometrische ontgrendelen mislukt. De biometrische geheime sleutel kon de kluis niet ontgrendelen. Probeer biometrische gegevens opnieuw in te stellen."
+  },
+  "nativeMessagingWrongUserKeyTitle": {
+    "message": "Biometrische sleutel discrepantie"
   },
   "biometricsNotEnabledTitle": {
     "message": "Biometrie niet ingeschakeld"
@@ -2301,6 +2373,9 @@
   },
   "updateWeakMasterPasswordWarning": {
     "message": "Je hoofdwachtwoord voldoet niet aan en of meerdere oganisatiebeleidsonderdelen. Om toegang te krijgen tot de kluis, moet je je hoofdwachtwoord nu bijwerken. Doorgaan zal je huidige sessie uitloggen, waarna je opnieuw moet inloggen. Actieve sessies op andere apparaten blijven mogelijk nog een uur actief."
+  },
+  "tdeDisabledMasterPasswordRequired": {
+    "message": "Je organisatie heeft het versleutelen van vertrouwde apparaten uitgeschakeld. Stel een hoofdwachtwoord in om toegang te krijgen tot je kluis."
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Automatische inschrijving"
@@ -2758,14 +2833,17 @@
   "autofillKeyboardShortcutUpdateLabel": {
     "message": "Snelkoppeling wijzigen"
   },
+  "autofillKeyboardManagerShortcutsLabel": {
+    "message": "Snelkoppelingen beheren"
+  },
   "autofillShortcut": {
     "message": "Snelkoppeling automatisch invullen"
   },
-  "autofillShortcutNotSet": {
-    "message": "De sneltoets voor automatisch invullen is niet ingesteld. Wijzig dit in de instellingen van de browser."
+  "autofillLoginShortcutNotSet": {
+    "message": "De sneltoets voor automatisch invullen is niet ingesteld. Je kunt dit in de instellingen van de browser wijzigen."
   },
-  "autofillShortcutText": {
-    "message": "De sneltoets voor automatisch invullen is: $COMMAND$. Wijzig dit in de instellingen van de browser.",
+  "autofillLoginShortcutText": {
+    "message": "De sneltoets voor automatisch invullen is $COMMAND$. Je kunt alle sneltoetsen in de instellingen van de browser wijzigen.",
     "placeholders": {
       "command": {
         "content": "$1",
@@ -2948,6 +3026,18 @@
       }
     }
   },
+  "singleFieldNeedsAttention": {
+    "message": "1 veld heeft je aandacht nodig."
+  },
+  "multipleFieldsNeedAttention": {
+    "message": "$COUNT$ velden hebben je aandacht nodig.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "selectPlaceholder": {
     "message": "-- Selecteer --"
   },
@@ -3015,12 +3105,12 @@
     "message": "Aliasdomein"
   },
   "passwordRepromptDisabledAutofillOnPageLoad": {
-    "message": "Items with master password re-prompt cannot be auto-filled on page load. Auto-fill on page load turned off.",
-    "description": "Toast message for describing that master password re-prompt cannot be auto-filled on page load."
+    "message": "Items with master password re-prompt cannot be autofilled on page load. Autofill on page load turned off.",
+    "description": "Toast message for describing that master password re-prompt cannot be autofilled on page load."
   },
   "autofillOnPageLoadSetToDefault": {
-    "message": "Auto-fill on page load set to use default setting.",
-    "description": "Toast message for informing the user that auto-fill on page load has been set to the default setting."
+    "message": "Autofill on page load set to use default setting.",
+    "description": "Toast message for informing the user that autofill on page load has been set to the default setting."
   },
   "turnOffMasterPasswordPromptToEditField": {
     "message": "Turn off master password re-prompt to edit this field",
@@ -3597,7 +3687,7 @@
   },
   "autofillTitle": {
     "message": "Automatisch invullen - $ITEMNAME$",
-    "description": "Title for a button that auto-fills a login item.",
+    "description": "Title for a button that autofills a login item.",
     "placeholders": {
       "itemname": {
         "content": "$1",
@@ -3630,7 +3720,7 @@
     "message": "Notifications"
   },
   "appearance": {
-    "message": "Voorkomen"
+    "message": "Uiterlijk"
   },
   "errorAssigningTargetCollection": {
     "message": "Fout bij toewijzen doelverzameling."
@@ -3787,6 +3877,52 @@
   "authenticatorKey": {
     "message": "Authenticatiesleutel"
   },
+  "autofillOptions": {
+    "message": "Instellingen automatisch invullen"
+  },
+  "websiteUri": {
+    "message": "Website (URI)"
+  },
+  "websiteAdded": {
+    "message": "Website toegevoegd"
+  },
+  "addWebsite": {
+    "message": "Website toevoegen"
+  },
+  "deleteWebsite": {
+    "message": "Website verwijderen"
+  },
+  "defaultLabel": {
+    "message": "Standaard ($VALUE$)",
+    "description": "A label that indicates the default value for a field with the current default value in parentheses.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "Base domain"
+      }
+    }
+  },
+  "showMatchDetection": {
+    "message": "Overeenkomstdetectie weergeven $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "hideMatchDetection": {
+    "message": "Overeenkomstdetectie verbergen $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "autoFillOnPageLoad": {
+    "message": "Automatisch invullen bij laden van pagina?"
+  },
   "cardDetails": {
     "message": "Kaartgegevens"
   },
@@ -3807,6 +3943,18 @@
   },
   "data": {
     "message": "Gegevens"
+  },
+  "passkeys": {
+    "message": "Passkeys",
+    "description": "A section header for a list of passkeys."
+  },
+  "passwords": {
+    "message": "Wachtwoorden",
+    "description": "A section header for a list of passwords."
+  },
+  "logInWithPasskeyAriaLabel": {
+    "message": "Inloggen met passkey",
+    "description": "ARIA label for the inline menu button that logs in with a passkey."
   },
   "assign": {
     "message": "Toewijzen"
@@ -4001,5 +4149,26 @@
   },
   "itemLocation": {
     "message": "Itemlocatie"
+  },
+  "fileSends": {
+    "message": "Bestand-Sends"
+  },
+  "textSends": {
+    "message": "Tekst-Sends"
+  },
+  "bitwardenNewLook": {
+    "message": "Bitwarden heeft een nieuw uiterlijk!"
+  },
+  "bitwardenNewLookDesc": {
+    "message": "Automatisch invullen en zoeken is makkelijker en intuïtiever dan ooit vanaf het tabblad Kluis. Kijk rond!"
+  },
+  "accountActions": {
+    "message": "Accountacties"
+  },
+  "showNumberOfAutofillSuggestions": {
+    "message": "Show number of login autofill suggestions on extension icon"
+  },
+  "systemDefault": {
+    "message": "System default"
   }
 }

@@ -116,6 +116,21 @@
   "copySecurityCode": {
     "message": "Копиране на кода за сигурност"
   },
+  "copyName": {
+    "message": "Копиране на името"
+  },
+  "copyCompany": {
+    "message": "Копиране на компанията"
+  },
+  "copySSN": {
+    "message": "Копиране на номера на осигуровката"
+  },
+  "copyPassportNumber": {
+    "message": "Копиране на номера на паспорта"
+  },
+  "copyLicenseNumber": {
+    "message": "Копиране на номера на свидетелството"
+  },
   "autoFill": {
     "message": "Автоматично дописване"
   },
@@ -288,6 +303,24 @@
   },
   "editFolder": {
     "message": "Редактиране на папка"
+  },
+  "newFolder": {
+    "message": "New folder"
+  },
+  "folderName": {
+    "message": "Folder name"
+  },
+  "folderHintText": {
+    "message": "Nest a folder by adding the parent folder's name followed by a “/”. Example: Social/Forums"
+  },
+  "noFoldersAdded": {
+    "message": "No folders added"
+  },
+  "createFoldersToOrganize": {
+    "message": "Create folders to organize your vault items"
+  },
+  "deleteFolderPermanently": {
+    "message": "Are you sure you want to permanently delete this folder?"
   },
   "deleteFolder": {
     "message": "Изтриване на папка"
@@ -808,7 +841,7 @@
     "message": "Показване на картите в страницата с разделите, за лесно автоматично попълване."
   },
   "showIdentitiesInVaultView": {
-    "message": "Show identifies as Autofill suggestions on Vault view"
+    "message": "Показване на самоличности като предложения за самопопълване в изгледа на трезора"
   },
   "showIdentitiesCurrentTab": {
     "message": "Показване на самоличности в страницата с разделите"
@@ -871,7 +904,7 @@
   },
   "defaultUriMatchDetection": {
     "message": "Стандартно засичане на адреси",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "defaultUriMatchDetectionDesc": {
     "message": "Какъв да е начинът, по който да се засича съответствие на адреса за автоматичното попълване на данните."
@@ -1240,7 +1273,7 @@
   },
   "showAutoFillMenuOnFormFields": {
     "message": "Показване на меню за авт. попълване при полетата на формулярите",
-    "description": "Represents the message for allowing the user to enable the auto-fill overlay"
+    "description": "Represents the message for allowing the user to enable the autofill overlay"
   },
   "autofillSuggestionsSectionTitle": {
     "message": "Предложения за авт. попълване"
@@ -1327,8 +1360,14 @@
   "commandOpenSidebar": {
     "message": "Отваряне на трезора в страничната лента"
   },
-  "commandAutofillDesc": {
-    "message": "Автоматично попълване на последно използвания запис в текущия сайт."
+  "commandAutofillLoginDesc": {
+    "message": "Автоматично попълване на последно използвания запис в текущия уеб сайт"
+  },
+  "commandAutofillCardDesc": {
+    "message": "Автоматично попълване на последно използваната карта в текущия уеб сайт"
+  },
+  "commandAutofillIdentityDesc": {
+    "message": "Автоматично попълване на последно използваната самоличност в текущия уеб сайт"
   },
   "commandGeneratePasswordDesc": {
     "message": "Създаване и копиране на нова случайна парола в буфера."
@@ -1468,7 +1507,7 @@
     "message": "Д-р"
   },
   "mx": {
-    "message": "Mx"
+    "message": "Госпоуи"
   },
   "firstName": {
     "message": "Собствено име"
@@ -1546,7 +1585,7 @@
     "message": "Самоличност"
   },
   "newItemHeader": {
-    "message": "New $TYPE$",
+    "message": "Ново $TYPE$",
     "placeholders": {
       "type": {
         "content": "$1",
@@ -1634,6 +1673,10 @@
     "message": "Основен домейн",
     "description": "Domain name. Ex. website.com"
   },
+  "baseDomainOptionRecommended": {
+    "message": "Основен домейн (препоръчително)",
+    "description": "Domain name. Ex. website.com"
+  },
   "domainName": {
     "message": "Име на домейн",
     "description": "Domain name. Ex. website.com"
@@ -1654,11 +1697,11 @@
   },
   "matchDetection": {
     "message": "Откриване на съвпадения",
-    "description": "URI match detection for auto-fill."
+    "description": "URI match detection for autofill."
   },
   "defaultMatchDetection": {
     "message": "Стандартно откриване на съвпадения",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "toggleOptions": {
     "message": "Настройки на превключване"
@@ -1777,6 +1820,29 @@
   },
   "passwordGeneratorPolicyInEffect": {
     "message": "Поне една политика на организация влияе на настройките на генерирането на паролите."
+  },
+  "passwordGenerator": {
+    "message": "Генератор на пароли"
+  },
+  "usernameGenerator": {
+    "message": "Генератор на потребителски имена"
+  },
+  "useThisPassword": {
+    "message": "Използване на тази парола"
+  },
+  "useThisUsername": {
+    "message": "Използване на това потребителско име"
+  },
+  "securePasswordGenerated": {
+    "message": "Създадена е сигурна парола! Не забравяйте и да промените паролата си в уеб сайта."
+  },
+  "useGeneratorHelpTextPartOne": {
+    "message": "Използвайте генератора",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
+  },
+  "useGeneratorHelpTextPartTwo": {
+    "message": "за да създадете сигурна и уникална парола",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
   },
   "vaultTimeoutAction": {
     "message": "Действие при изтичане на времето"
@@ -1975,6 +2041,12 @@
   "nativeMessagingWrongUserTitle": {
     "message": "Регистрациите са различни"
   },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Отключването чрез биометрични данни не беше успешно. Биометричният таен ключ не успя да отключи трезора. Опитайте да направите настройката на биометричните данни отново."
+  },
+  "nativeMessagingWrongUserKeyTitle": {
+    "message": "Несъответстващ биометричен ключ"
+  },
   "biometricsNotEnabledTitle": {
     "message": "Потвърждаването с биометрични данни не е включено"
   },
@@ -2090,7 +2162,7 @@
     "message": "Защита с парола"
   },
   "copyLink": {
-    "message": "Copy link"
+    "message": "Копиране на връзката"
   },
   "copySendLink": {
     "message": "Копиране на връзката към изпратеното",
@@ -2301,6 +2373,9 @@
   },
   "updateWeakMasterPasswordWarning": {
     "message": "Вашата главна парола не отговаря на една или повече политики на организацията Ви. За да получите достъп до трезора, трябва да промените главната си парола сега. Това означава, че ще бъдете отписан(а) от текущата си сесия и ще трябва да се впишете отново. Активните сесии на други устройства може да продължат да бъдат активни още един час."
+  },
+  "tdeDisabledMasterPasswordRequired": {
+    "message": "Вашата организация е деактивирала шифроването чрез доверени устройства. Задайте главна парола, за да получите достъп до трезора си."
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Автоматично включване"
@@ -2758,14 +2833,17 @@
   "autofillKeyboardShortcutUpdateLabel": {
     "message": "Промяна на клавишната комбинация"
   },
+  "autofillKeyboardManagerShortcutsLabel": {
+    "message": "Управление на клавишните комбинации"
+  },
   "autofillShortcut": {
     "message": "Клавишна комбинация за автоматично попълване"
   },
-  "autofillShortcutNotSet": {
-    "message": "Няма зададена клавишна комбинация за автоматичното попълване. Променете това в настройките на браузъра."
+  "autofillLoginShortcutNotSet": {
+    "message": "Няма зададена клавишна комбинация за автоматично попълване на данни за вписване. Променете това в настройките на браузъра."
   },
-  "autofillShortcutText": {
-    "message": "Клавишната комбинация за автоматично попълване е: $COMMAND$. Може да я промените в настройките на браузъра.",
+  "autofillLoginShortcutText": {
+    "message": "Клавишната комбинация за автоматично попълване на данни за вписване е $COMMAND$. Може да променяте всички клавишни комбинации в настройките на браузъра.",
     "placeholders": {
       "command": {
         "content": "$1",
@@ -2948,6 +3026,18 @@
       }
     }
   },
+  "singleFieldNeedsAttention": {
+    "message": "1 поле се нуждае от вниманието Ви."
+  },
+  "multipleFieldsNeedAttention": {
+    "message": "$COUNT$ полета се нуждаят от вниманието Ви.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "selectPlaceholder": {
     "message": "-- Изберете --"
   },
@@ -3016,11 +3106,11 @@
   },
   "passwordRepromptDisabledAutofillOnPageLoad": {
     "message": "Записите с включено изискване за повторно въвеждане на главната парола не могат да бъдат попълвани автоматично при зареждане на страницата. Автоматичното попълване при зареждане на страницата е изключено.",
-    "description": "Toast message for describing that master password re-prompt cannot be auto-filled on page load."
+    "description": "Toast message for describing that master password re-prompt cannot be autofilled on page load."
   },
   "autofillOnPageLoadSetToDefault": {
     "message": "Автоматичното попълване при зареждане на страницата използва настройката си по подразбиране.",
-    "description": "Toast message for informing the user that auto-fill on page load has been set to the default setting."
+    "description": "Toast message for informing the user that autofill on page load has been set to the default setting."
   },
   "turnOffMasterPasswordPromptToEditField": {
     "message": "Изключете повторното въвеждане на главната парола, за да редактирате това поле",
@@ -3049,7 +3139,7 @@
     "description": "Text to display in overlay when the account is locked."
   },
   "unlockYourAccountToViewAutofillSuggestions": {
-    "message": "Unlock your account to view autofill suggestions",
+    "message": "Отключете регистрацията си, за да видите предложение за автоматично попълване",
     "description": "Text to display in overlay when the account is locked."
   },
   "unlockAccount": {
@@ -3057,7 +3147,7 @@
     "description": "Button text to display in overlay when the account is locked."
   },
   "unlockAccountAria": {
-    "message": "Unlock your account, opens in a new window",
+    "message": "Отклюване на регистрацията, отваря се в нов прозорец",
     "description": "Screen reader text (aria-label) for unlock account button in overlay"
   },
   "fillCredentialsFor": {
@@ -3081,27 +3171,27 @@
     "description": "Screen reader text (aria-label) for new item button in overlay"
   },
   "newLogin": {
-    "message": "New login",
+    "message": "Нов елемент за вписване",
     "description": "Button text to display within inline menu when there are no matching items on a login field"
   },
   "addNewLoginItemAria": {
-    "message": "Add new vault login item, opens in a new window",
+    "message": "Добавяне на нов елемент за вписване в трезора, отваря се в нов прозорец",
     "description": "Screen reader text (aria-label) for new login button within inline menu"
   },
   "newCard": {
-    "message": "New card",
+    "message": "Нова карта",
     "description": "Button text to display within inline menu when there are no matching items on a credit card field"
   },
   "addNewCardItemAria": {
-    "message": "Add new vault card item, opens in a new window",
+    "message": "Добавяне на нов елемент за карта в трезора, отваря се в нов прозорец",
     "description": "Screen reader text (aria-label) for new card button within inline menu"
   },
   "newIdentity": {
-    "message": "New identity",
+    "message": "Нова самоличност",
     "description": "Button text to display within inline menu when there are no matching items on an identity field"
   },
   "addNewIdentityItemAria": {
-    "message": "Add new vault identity item, opens in a new window",
+    "message": "Добавяне на нов елемент за идентичност в трезора, отваря се в нов прозорец",
     "description": "Screen reader text (aria-label) for new identity button within inline menu"
   },
   "bitwardenOverlayMenuAvailable": {
@@ -3221,7 +3311,7 @@
     "message": "Неправилна парола за файла. Използвайте паролата, която сте въвели при създаването на изнесения файл."
   },
   "destination": {
-    "message": "Destination"
+    "message": "Местоназначение"
   },
   "learnAboutImportOptions": {
     "message": "Научете повече относно възможностите за внасяне"
@@ -3597,7 +3687,7 @@
   },
   "autofillTitle": {
     "message": "Авт. попълване – $ITEMNAME$",
-    "description": "Title for a button that auto-fills a login item.",
+    "description": "Title for a button that autofills a login item.",
     "placeholders": {
       "itemname": {
         "content": "$1",
@@ -3778,7 +3868,7 @@
     }
   },
   "cardNumberEndsWith": {
-    "message": "card number ends with",
+    "message": "номерът на картата завършва с",
     "description": "Used within the inline menu to provide an aria description when users are attempting to fill a card cipher."
   },
   "loginCredentials": {
@@ -3786,6 +3876,52 @@
   },
   "authenticatorKey": {
     "message": "Ключ за удостоверяване"
+  },
+  "autofillOptions": {
+    "message": "Настройки за автоматичното попълване"
+  },
+  "websiteUri": {
+    "message": "Уеб сайт (адрес)"
+  },
+  "websiteAdded": {
+    "message": "Уеб сайтът е добавен"
+  },
+  "addWebsite": {
+    "message": "Добавяне на уеб сайт"
+  },
+  "deleteWebsite": {
+    "message": "Изтриване на уеб сайт"
+  },
+  "defaultLabel": {
+    "message": "По подразбиране ($VALUE$)",
+    "description": "A label that indicates the default value for a field with the current default value in parentheses.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "Base domain"
+      }
+    }
+  },
+  "showMatchDetection": {
+    "message": "Показване на откритото съвпадение $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "hideMatchDetection": {
+    "message": "Скриване на откритото съвпадение $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "autoFillOnPageLoad": {
+    "message": "Автоматично попълване при зареждане на страницата?"
   },
   "cardDetails": {
     "message": "Данни за картата"
@@ -3807,6 +3943,18 @@
   },
   "data": {
     "message": "Данни"
+  },
+  "passkeys": {
+    "message": "Секретни ключове",
+    "description": "A section header for a list of passkeys."
+  },
+  "passwords": {
+    "message": "Пароли",
+    "description": "A section header for a list of passwords."
+  },
+  "logInWithPasskeyAriaLabel": {
+    "message": "Вписване със секретен ключ",
+    "description": "ARIA label for the inline menu button that logs in with a passkey."
   },
   "assign": {
     "message": "Свързване"
@@ -4001,5 +4149,26 @@
   },
   "itemLocation": {
     "message": "Местоположение на елемента"
+  },
+  "fileSends": {
+    "message": "Файлови изпращания"
+  },
+  "textSends": {
+    "message": "Текстови изпращания"
+  },
+  "bitwardenNewLook": {
+    "message": "Биуорден има нов облик!"
+  },
+  "bitwardenNewLookDesc": {
+    "message": "Сега е по-лесно и интуитивно от всякога да използвате автоматичното попълване и да търсите в раздела на трезора. Разгледайте!"
+  },
+  "accountActions": {
+    "message": "Действия по регистрацията"
+  },
+  "showNumberOfAutofillSuggestions": {
+    "message": "Show number of login autofill suggestions on extension icon"
+  },
+  "systemDefault": {
+    "message": "System default"
   }
 }

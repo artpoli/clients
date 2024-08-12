@@ -116,6 +116,21 @@
   "copySecurityCode": {
     "message": "Скопировать код безопасности"
   },
+  "copyName": {
+    "message": "Скопировать название"
+  },
+  "copyCompany": {
+    "message": "Скопировать компанию"
+  },
+  "copySSN": {
+    "message": "Скопировать номер социального страхования"
+  },
+  "copyPassportNumber": {
+    "message": "Скопировать номер паспорта"
+  },
+  "copyLicenseNumber": {
+    "message": "Скопировать номер лицензии"
+  },
   "autoFill": {
     "message": "Автозаполнение"
   },
@@ -288,6 +303,24 @@
   },
   "editFolder": {
     "message": "Изменить папку"
+  },
+  "newFolder": {
+    "message": "Новый папка"
+  },
+  "folderName": {
+    "message": "Название папки"
+  },
+  "folderHintText": {
+    "message": "Создайте вложенную папку, добавив название родительской папки и символ \"/\". Пример: Сообщества/Форумы"
+  },
+  "noFoldersAdded": {
+    "message": "Нет добавленных папок"
+  },
+  "createFoldersToOrganize": {
+    "message": "Создавайте папки для упорядочивания элементов хранилища"
+  },
+  "deleteFolderPermanently": {
+    "message": "Вы действительно хотите безвозвратно удалить эту папку?"
   },
   "deleteFolder": {
     "message": "Удалить папку"
@@ -871,7 +904,7 @@
   },
   "defaultUriMatchDetection": {
     "message": "Обнаружение совпадения URI по умолчанию",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "defaultUriMatchDetectionDesc": {
     "message": "Выберите стандартный способ определения соответствия URI для логинов при выполнении таких действий, как автоматическое заполнение."
@@ -1240,7 +1273,7 @@
   },
   "showAutoFillMenuOnFormFields": {
     "message": "Показывать меню автозаполнения в полях формы",
-    "description": "Represents the message for allowing the user to enable the auto-fill overlay"
+    "description": "Represents the message for allowing the user to enable the autofill overlay"
   },
   "autofillSuggestionsSectionTitle": {
     "message": "Предложения по автозаполнению"
@@ -1327,8 +1360,14 @@
   "commandOpenSidebar": {
     "message": "Открыть хранилище в боковой панели"
   },
-  "commandAutofillDesc": {
-    "message": "Автозаполнение последнего использованного логина для текущего сайта."
+  "commandAutofillLoginDesc": {
+    "message": "Автозаполнение последнего использованного логина для текущего сайта"
+  },
+  "commandAutofillCardDesc": {
+    "message": "Автозаполнение последней использованной карты для текущего сайта"
+  },
+  "commandAutofillIdentityDesc": {
+    "message": "Автозаполнение последней использованной личности для текущего сайта"
   },
   "commandGeneratePasswordDesc": {
     "message": "Сгенерировать и скопировать новый случайный пароль в буфер обмена."
@@ -1634,6 +1673,10 @@
     "message": "Основной домен",
     "description": "Domain name. Ex. website.com"
   },
+  "baseDomainOptionRecommended": {
+    "message": "Основной домен (рекомендуется)",
+    "description": "Domain name. Ex. website.com"
+  },
   "domainName": {
     "message": "Доменное имя",
     "description": "Domain name. Ex. website.com"
@@ -1654,11 +1697,11 @@
   },
   "matchDetection": {
     "message": "Обнаружение совпадений",
-    "description": "URI match detection for auto-fill."
+    "description": "URI match detection for autofill."
   },
   "defaultMatchDetection": {
     "message": "Метод обнаружения по умолчанию",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "toggleOptions": {
     "message": "Настройки перебора"
@@ -1778,6 +1821,29 @@
   "passwordGeneratorPolicyInEffect": {
     "message": "На настройки генератора влияют одна или несколько политик организации."
   },
+  "passwordGenerator": {
+    "message": "Генератор паролей"
+  },
+  "usernameGenerator": {
+    "message": "Генератор имени пользователя"
+  },
+  "useThisPassword": {
+    "message": "Использовать этот пароль"
+  },
+  "useThisUsername": {
+    "message": "Использовать это имя пользователя"
+  },
+  "securePasswordGenerated": {
+    "message": "Безопасный пароль сгенерирован! Не забудьте также обновить свой пароль на сайте."
+  },
+  "useGeneratorHelpTextPartOne": {
+    "message": "Использовать генератор",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
+  },
+  "useGeneratorHelpTextPartTwo": {
+    "message": "для создания надежного уникального пароля",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
+  },
   "vaultTimeoutAction": {
     "message": "Действие по тайм-ауту хранилища"
   },
@@ -1823,7 +1889,7 @@
     "message": "Заполнить и сохранить"
   },
   "autoFillSuccessAndSavedUri": {
-    "message": "URI элемента заполнен и сохранен"
+    "message": "Элемент заполнен, URI сохранен"
   },
   "autoFillSuccess": {
     "message": "Элемент заполнен "
@@ -1974,6 +2040,12 @@
   },
   "nativeMessagingWrongUserTitle": {
     "message": "Несоответствие аккаунта"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Биометрическая разблокировка не удалась. Биометрический секретный ключ не смог разблокировать хранилище. Пожалуйста, попробуйте настроить биометрию еще раз."
+  },
+  "nativeMessagingWrongUserKeyTitle": {
+    "message": "Несовпадение биометрического ключа"
   },
   "biometricsNotEnabledTitle": {
     "message": "Биометрия не настроена"
@@ -2301,6 +2373,9 @@
   },
   "updateWeakMasterPasswordWarning": {
     "message": "Ваш мастер-пароль не соответствует требованиям политики вашей организации. Для доступа к хранилищу вы должны обновить свой мастер-пароль прямо сейчас. При этом текущий сеанс будет завершен и потребуется повторная авторизация. Сеансы на других устройствах могут оставаться активными в течение часа."
+  },
+  "tdeDisabledMasterPasswordRequired": {
+    "message": "В вашей организации отключено шифрование доверенных устройств. Пожалуйста, установите мастер-пароль для доступа к вашему хранилищу."
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Автоматическое развертывание"
@@ -2758,14 +2833,17 @@
   "autofillKeyboardShortcutUpdateLabel": {
     "message": "Изменить ярлык"
   },
+  "autofillKeyboardManagerShortcutsLabel": {
+    "message": "Управление ярлыками"
+  },
   "autofillShortcut": {
     "message": "Сочетание клавиш для автозаполнения"
   },
-  "autofillShortcutNotSet": {
-    "message": "Сочетание клавиш для автозаполнения не установлено. Установите его в настройках браузера."
+  "autofillLoginShortcutNotSet": {
+    "message": "Сочетание клавиш для автозаполнения логина не установлено. Установите его в настройках браузера."
   },
-  "autofillShortcutText": {
-    "message": "Сочетание клавиш для автозаполнения: $COMMAND$. Измените его в настройках браузера.",
+  "autofillLoginShortcutText": {
+    "message": "Сочетание клавиш для автозаполнения логина - $COMMAND$. Управлять всеми сочетаниями можно в настройках браузера.",
     "placeholders": {
       "command": {
         "content": "$1",
@@ -2948,6 +3026,18 @@
       }
     }
   },
+  "singleFieldNeedsAttention": {
+    "message": "1 поле требует вашего внимания."
+  },
+  "multipleFieldsNeedAttention": {
+    "message": "$COUNT$ полей требуют вашего внимания.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "selectPlaceholder": {
     "message": "-- Выбрать --"
   },
@@ -3016,11 +3106,11 @@
   },
   "passwordRepromptDisabledAutofillOnPageLoad": {
     "message": "Элементы с повторным запросом мастер-пароля не могут быть автоматически заполнены при загрузке страницы. Автозаполнение при загрузке страницы выключено.",
-    "description": "Toast message for describing that master password re-prompt cannot be auto-filled on page load."
+    "description": "Toast message for describing that master password re-prompt cannot be autofilled on page load."
   },
   "autofillOnPageLoadSetToDefault": {
     "message": "Автозаполнение при загрузке страницы использует настройку по умолчанию.",
-    "description": "Toast message for informing the user that auto-fill on page load has been set to the default setting."
+    "description": "Toast message for informing the user that autofill on page load has been set to the default setting."
   },
   "turnOffMasterPasswordPromptToEditField": {
     "message": "Для редактирования этого поля отключите повторный запрос мастер-пароля",
@@ -3597,7 +3687,7 @@
   },
   "autofillTitle": {
     "message": "Автозаполнение - $ITEMNAME$",
-    "description": "Title for a button that auto-fills a login item.",
+    "description": "Title for a button that autofills a login item.",
     "placeholders": {
       "itemname": {
         "content": "$1",
@@ -3787,6 +3877,52 @@
   "authenticatorKey": {
     "message": "Ключ аутентификатора"
   },
+  "autofillOptions": {
+    "message": "Параметры автозаполнения"
+  },
+  "websiteUri": {
+    "message": "Сайт (URI)"
+  },
+  "websiteAdded": {
+    "message": "Сайт добавлен"
+  },
+  "addWebsite": {
+    "message": "Добавить сайт"
+  },
+  "deleteWebsite": {
+    "message": "Удалить сайт"
+  },
+  "defaultLabel": {
+    "message": "По умолчанию ($VALUE$)",
+    "description": "A label that indicates the default value for a field with the current default value in parentheses.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "Base domain"
+      }
+    }
+  },
+  "showMatchDetection": {
+    "message": "Показать обнаружение совпадений $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "hideMatchDetection": {
+    "message": "Скрыть обнаружение совпадений $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "autoFillOnPageLoad": {
+    "message": "Автозаполнение при загрузке страницы?"
+  },
   "cardDetails": {
     "message": "Реквизиты карты"
   },
@@ -3807,6 +3943,18 @@
   },
   "data": {
     "message": "Данные"
+  },
+  "passkeys": {
+    "message": "Passkeys",
+    "description": "A section header for a list of passkeys."
+  },
+  "passwords": {
+    "message": "Пароли",
+    "description": "A section header for a list of passwords."
+  },
+  "logInWithPasskeyAriaLabel": {
+    "message": "Войти с passkey",
+    "description": "ARIA label for the inline menu button that logs in with a passkey."
   },
   "assign": {
     "message": "Назначить"
@@ -4001,5 +4149,26 @@
   },
   "itemLocation": {
     "message": "Расположение элемента"
+  },
+  "fileSends": {
+    "message": "Файловая Send"
+  },
+  "textSends": {
+    "message": "Текстовая Send"
+  },
+  "bitwardenNewLook": {
+    "message": "У Bitwarden новый облик!"
+  },
+  "bitwardenNewLookDesc": {
+    "message": "Теперь автозаполнение и поиск на вкладке Хранилище стали проще и интуитивно понятнее, чем когда-либо. Осмотритесь!"
+  },
+  "accountActions": {
+    "message": "Действия с аккаунтом"
+  },
+  "showNumberOfAutofillSuggestions": {
+    "message": "Show number of login autofill suggestions on extension icon"
+  },
+  "systemDefault": {
+    "message": "System default"
   }
 }

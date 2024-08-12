@@ -116,6 +116,21 @@
   "copySecurityCode": {
     "message": "Biztonsági kód másolása"
   },
+  "copyName": {
+    "message": "Név másolása"
+  },
+  "copyCompany": {
+    "message": "Cég másolása"
+  },
+  "copySSN": {
+    "message": "Társadalombiztosítási szám másolása"
+  },
+  "copyPassportNumber": {
+    "message": "Útlevélszám másolása"
+  },
+  "copyLicenseNumber": {
+    "message": "Licensz szám másolása"
+  },
   "autoFill": {
     "message": "Automatikus kitöltés"
   },
@@ -159,7 +174,7 @@
     "message": "Bejelentkezés a saját széfbe"
   },
   "autoFillInfo": {
-    "message": "Nincsenek elérhető bejelentkezések ehhez a fülhöz ezért az automatikus kitöltés nem működik."
+    "message": "Nincsenek elérhető bejelentkezések az automatikus kitöltéshez az aktuális böngészőfülnél."
   },
   "addLogin": {
     "message": "Bejelentkezés hozzáadása"
@@ -288,6 +303,24 @@
   },
   "editFolder": {
     "message": "Mappa szerkesztése"
+  },
+  "newFolder": {
+    "message": "New folder"
+  },
+  "folderName": {
+    "message": "Folder name"
+  },
+  "folderHintText": {
+    "message": "Nest a folder by adding the parent folder's name followed by a “/”. Example: Social/Forums"
+  },
+  "noFoldersAdded": {
+    "message": "No folders added"
+  },
+  "createFoldersToOrganize": {
+    "message": "Create folders to organize your vault items"
+  },
+  "deleteFolderPermanently": {
+    "message": "Are you sure you want to permanently delete this folder?"
   },
   "deleteFolder": {
     "message": "Mappa törlése"
@@ -637,7 +670,7 @@
     }
   },
   "autofillError": {
-    "message": "Nem sikerült automatikusan kitölteni a bejelentkezést ezen a weboldalon. Helyette másold/illeszt be a felhasználóneved és/vagy a jelszavadat."
+    "message": "Nem sikerült automatikusan kitölteni a kiválasztott elemet ezen az oldalon. Helyette vágólapon keresztül kell bemásolni."
   },
   "totpCaptureError": {
     "message": "Az aktuális weboldalól nem lehet szkennelni a QR kódot."
@@ -871,7 +904,7 @@
   },
   "defaultUriMatchDetection": {
     "message": "Alapértelmezett URI egyezés érzékelés",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "defaultUriMatchDetectionDesc": {
     "message": "Az URI egyezés érzékelés alapértelmezett módjának kiválasztása a bejelentkezéseknél olyan műveletek esetében mint az automatikus kitöltés."
@@ -1240,7 +1273,7 @@
   },
   "showAutoFillMenuOnFormFields": {
     "message": "Automatikus kitöltés menü megjelenítése az űrlapmezőkön",
-    "description": "Represents the message for allowing the user to enable the auto-fill overlay"
+    "description": "Represents the message for allowing the user to enable the autofill overlay"
   },
   "autofillSuggestionsSectionTitle": {
     "message": "Autofill suggestions"
@@ -1327,8 +1360,14 @@
   "commandOpenSidebar": {
     "message": "Széf megnyitása oldalsávon"
   },
-  "commandAutofillDesc": {
+  "commandAutofillLoginDesc": {
     "message": "Az aktuális webhelynél az utoljára használt bejelentkezés automatikus kitöltése."
+  },
+  "commandAutofillCardDesc": {
+    "message": "Az aktuális webhelynél az utoljára használt kártya."
+  },
+  "commandAutofillIdentityDesc": {
+    "message": "Az aktuális webhelynél az utoljára használt személyazonosító."
   },
   "commandGeneratePasswordDesc": {
     "message": "Új véletlenszerű jelszó generálása ás másolása a vágólapra."
@@ -1634,6 +1673,10 @@
     "message": "Alap domain",
     "description": "Domain name. Ex. website.com"
   },
+  "baseDomainOptionRecommended": {
+    "message": "Alap domain (ajánlott)",
+    "description": "Domain name. Ex. website.com"
+  },
   "domainName": {
     "message": "Tartománynév",
     "description": "Domain name. Ex. website.com"
@@ -1654,11 +1697,11 @@
   },
   "matchDetection": {
     "message": "Találat érzékelés",
-    "description": "URI match detection for auto-fill."
+    "description": "URI match detection for autofill."
   },
   "defaultMatchDetection": {
     "message": "Alapértelmezett találat érzékelés",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "toggleOptions": {
     "message": "Opciók váltása"
@@ -1777,6 +1820,29 @@
   },
   "passwordGeneratorPolicyInEffect": {
     "message": "Egy vagy több szervezeti szabály érinti a generátor beállításokat."
+  },
+  "passwordGenerator": {
+    "message": "Password generator"
+  },
+  "usernameGenerator": {
+    "message": "Username generator"
+  },
+  "useThisPassword": {
+    "message": "Use this password"
+  },
+  "useThisUsername": {
+    "message": "Use this username"
+  },
+  "securePasswordGenerated": {
+    "message": "Secure password generated! Don't forget to also update your password on the website."
+  },
+  "useGeneratorHelpTextPartOne": {
+    "message": "Use the generator",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
+  },
+  "useGeneratorHelpTextPartTwo": {
+    "message": "to create a strong unique password",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
   },
   "vaultTimeoutAction": {
     "message": "Széf időkifutás művelet"
@@ -1975,6 +2041,12 @@
   "nativeMessagingWrongUserTitle": {
     "message": "A fiók nem egyezik."
   },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Biometric unlock failed. The biometric secret key failed to unlock the vault. Please try to set up biometrics again."
+  },
+  "nativeMessagingWrongUserKeyTitle": {
+    "message": "Biometric key missmatch"
+  },
   "biometricsNotEnabledTitle": {
     "message": "A biometrikus adatok nincsenek beüzemelve."
   },
@@ -2090,7 +2162,7 @@
     "message": "Jelszóval védett"
   },
   "copyLink": {
-    "message": "Copy link"
+    "message": "Hivatkozás másolása"
   },
   "copySendLink": {
     "message": "Send hivatkozás másolása",
@@ -2301,6 +2373,9 @@
   },
   "updateWeakMasterPasswordWarning": {
     "message": "A mesterjelszó nem felel meg egy vagy több szervezeti szabályzatnak. A széf eléréséhez frissíteni kell a meszerjelszót. A továbblépés kijelentkeztet az aktuális munkamenetből és újra be kell jelentkezni. A többi eszközön lévő aktív munkamenetek akár egy óráig is aktívak maradhatnak."
+  },
+  "tdeDisabledMasterPasswordRequired": {
+    "message": "A szervezete letiltotta a megbízható eszközök titkosítását. Állítsunk be egy mesterjelszót a széf eléréséhez."
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Automatikus regisztráció"
@@ -2758,13 +2833,16 @@
   "autofillKeyboardShortcutUpdateLabel": {
     "message": "Change shortcut"
   },
+  "autofillKeyboardManagerShortcutsLabel": {
+    "message": "Bullenytűparancsok kezelése"
+  },
   "autofillShortcut": {
     "message": "Automatikus kitöltés billentyűparancs"
   },
-  "autofillShortcutNotSet": {
+  "autofillLoginShortcutNotSet": {
     "message": "Az automatikus kitöltés billentyűzetparancs nincs beállítva. Módosítsuk ezt a böngésző beállításaiban."
   },
-  "autofillShortcutText": {
+  "autofillLoginShortcutText": {
     "message": "Az automatikus kitöltés billentyűparancsa: $COMMAND$. Módosítsuk ezt a böngésző beállításaiban.",
     "placeholders": {
       "command": {
@@ -2948,6 +3026,18 @@
       }
     }
   },
+  "singleFieldNeedsAttention": {
+    "message": "1 mező igényel figyelmet.."
+  },
+  "multipleFieldsNeedAttention": {
+    "message": "$COUNT$ mező igényel figyelmet.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "selectPlaceholder": {
     "message": "-- Választás --"
   },
@@ -3016,11 +3106,11 @@
   },
   "passwordRepromptDisabledAutofillOnPageLoad": {
     "message": "A mesterjelszót újra bekérő elemeket nem lehet automatikusan kitölteni az oldal betöltésekor. Az automatikus kitöltés az oldal betöltésekor kikapcsolásra kerül.",
-    "description": "Toast message for describing that master password re-prompt cannot be auto-filled on page load."
+    "description": "Toast message for describing that master password re-prompt cannot be autofilled on page load."
   },
   "autofillOnPageLoadSetToDefault": {
     "message": "Az automatikus kitöltés az oldal betöltésekor az alapértelmezett beállítás használatára lett beállítva.",
-    "description": "Toast message for informing the user that auto-fill on page load has been set to the default setting."
+    "description": "Toast message for informing the user that autofill on page load has been set to the default setting."
   },
   "turnOffMasterPasswordPromptToEditField": {
     "message": "Kapcsoljuk ki a mesterjelszó újbóli bekérését a mező szerkesztéséhez.",
@@ -3033,11 +3123,11 @@
     "message": "Ugrás a tartalomra"
   },
   "bitwardenOverlayButton": {
-    "message": "Bitwarden auto-fill menu button",
+    "message": "Bitwarden autofill menu button",
     "description": "Page title for the iframe containing the overlay button"
   },
   "toggleBitwardenVaultOverlay": {
-    "message": "Toggle Bitwarden auto-fill menu",
+    "message": "Toggle Bitwarden autofill menu",
     "description": "Screen reader and tool tip label for the overlay button"
   },
   "bitwardenVault": {
@@ -3049,7 +3139,7 @@
     "description": "Text to display in overlay when the account is locked."
   },
   "unlockYourAccountToViewAutofillSuggestions": {
-    "message": "Unlock your account to view autofill suggestions",
+    "message": "Oldjuk fel a fiók zárolását az automatikus kitöltési javaslatok megtekintéséhez.",
     "description": "Text to display in overlay when the account is locked."
   },
   "unlockAccount": {
@@ -3057,7 +3147,7 @@
     "description": "Button text to display in overlay when the account is locked."
   },
   "unlockAccountAria": {
-    "message": "Unlock your account, opens in a new window",
+    "message": "Oldjuk fel a fiók zárolását, új ablakban nyílik meg.",
     "description": "Screen reader text (aria-label) for unlock account button in overlay"
   },
   "fillCredentialsFor": {
@@ -3081,31 +3171,31 @@
     "description": "Screen reader text (aria-label) for new item button in overlay"
   },
   "newLogin": {
-    "message": "New login",
+    "message": "Új bejelentkezés",
     "description": "Button text to display within inline menu when there are no matching items on a login field"
   },
   "addNewLoginItemAria": {
-    "message": "Add new vault login item, opens in a new window",
+    "message": "Új széf bejelentkezési elem hozzáadása, új ablakban nyílik meg.",
     "description": "Screen reader text (aria-label) for new login button within inline menu"
   },
   "newCard": {
-    "message": "New card",
+    "message": "Új kártya",
     "description": "Button text to display within inline menu when there are no matching items on a credit card field"
   },
   "addNewCardItemAria": {
-    "message": "Add new vault card item, opens in a new window",
+    "message": "Új széf kártyaelem hozzáadása, új ablakban nyílik meg.",
     "description": "Screen reader text (aria-label) for new card button within inline menu"
   },
   "newIdentity": {
-    "message": "New identity",
+    "message": "Új személyazonosság",
     "description": "Button text to display within inline menu when there are no matching items on an identity field"
   },
   "addNewIdentityItemAria": {
-    "message": "Add new vault identity item, opens in a new window",
+    "message": "Új széf személyazonosság elem hozzáadása, új ablakban nyílik meg.",
     "description": "Screen reader text (aria-label) for new identity button within inline menu"
   },
   "bitwardenOverlayMenuAvailable": {
-    "message": "Bitwarden auto-fill menu available. Press the down arrow key to select.",
+    "message": "Bitwarden autofill menu available. Press the down arrow key to select.",
     "description": "Screen reader text for announcing when the overlay opens on the page"
   },
   "turnOn": {
@@ -3597,7 +3687,7 @@
   },
   "autofillTitle": {
     "message": "Automatikus kitöltés - $ITEMNAME$",
-    "description": "Title for a button that auto-fills a login item.",
+    "description": "Title for a button that autofills a login item.",
     "placeholders": {
       "itemname": {
         "content": "$1",
@@ -3778,7 +3868,7 @@
     }
   },
   "cardNumberEndsWith": {
-    "message": "card number ends with",
+    "message": "kártyaszám végződés:",
     "description": "Used within the inline menu to provide an aria description when users are attempting to fill a card cipher."
   },
   "loginCredentials": {
@@ -3786,6 +3876,52 @@
   },
   "authenticatorKey": {
     "message": "Hitelesítő kulcs"
+  },
+  "autofillOptions": {
+    "message": "Automatikus kitöltés opciók"
+  },
+  "websiteUri": {
+    "message": "Webhely (URI)"
+  },
+  "websiteAdded": {
+    "message": "A webhely hozzáadásra került."
+  },
+  "addWebsite": {
+    "message": "Webhely hozzáadása"
+  },
+  "deleteWebsite": {
+    "message": "Webhely törlése"
+  },
+  "defaultLabel": {
+    "message": "Alapértelmezés ($VALUE$)",
+    "description": "A label that indicates the default value for a field with the current default value in parentheses.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "Base domain"
+      }
+    }
+  },
+  "showMatchDetection": {
+    "message": "$WEBSITE$ egyező érzékelés megjelenítése",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "hideMatchDetection": {
+    "message": "$WEBSITE$ egyező érzékelés elrejtése",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "autoFillOnPageLoad": {
+    "message": "Automatikus kitöltés oldalbetöltésnél?"
   },
   "cardDetails": {
     "message": "Kártyaadatok"
@@ -3807,6 +3943,18 @@
   },
   "data": {
     "message": "Adat"
+  },
+  "passkeys": {
+    "message": "Passkeys",
+    "description": "A section header for a list of passkeys."
+  },
+  "passwords": {
+    "message": "Passwords",
+    "description": "A section header for a list of passwords."
+  },
+  "logInWithPasskeyAriaLabel": {
+    "message": "Log in with passkey",
+    "description": "ARIA label for the inline menu button that logs in with a passkey."
   },
   "assign": {
     "message": "Assign"
@@ -4001,5 +4149,26 @@
   },
   "itemLocation": {
     "message": "Elem helyek"
+  },
+  "fileSends": {
+    "message": "File Sends"
+  },
+  "textSends": {
+    "message": "Text Sends"
+  },
+  "bitwardenNewLook": {
+    "message": "Bitwarden has a new look!"
+  },
+  "bitwardenNewLookDesc": {
+    "message": "It's easier and more intuitive than ever to autofill and search from the Vault tab. Take a look around!"
+  },
+  "accountActions": {
+    "message": "Fiókműveletek"
+  },
+  "showNumberOfAutofillSuggestions": {
+    "message": "Show number of login autofill suggestions on extension icon"
+  },
+  "systemDefault": {
+    "message": "System default"
   }
 }

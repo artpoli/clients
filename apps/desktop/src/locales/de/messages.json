@@ -552,10 +552,10 @@
     "message": "Master-Passwort-Hinweis"
   },
   "joinOrganization": {
-    "message": "Join organization"
+    "message": "Organisation beitreten"
   },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
-    "message": "Finish joining this organization by setting a master password."
+    "message": "Schließe den Beitritt zu dieser Organisation ab, indem du ein Master-Passwort festlegst."
   },
   "settings": {
     "message": "Einstellungen"
@@ -1510,8 +1510,14 @@
   "additionalWindowsHelloSettings": {
     "message": "Zusätzliche Einstellungen für Windows Hello"
   },
+  "unlockWithPolkit": {
+    "message": "Mit Systemauthentifizierung entsperren"
+  },
   "windowsHelloConsentMessage": {
     "message": "Für Bitwarden verifizieren."
+  },
+  "polkitConsentMessage": {
+    "message": "Authentifizieren, um Bitwarden zu entsperren."
   },
   "unlockWithTouchId": {
     "message": "Mit Touch ID entsperren"
@@ -1524,6 +1530,9 @@
   },
   "autoPromptWindowsHello": {
     "message": "Beim Start nach Windows Hello fragen"
+  },
+  "autoPromptPolkit": {
+    "message": "Beim Start nach Systemauthentifizierung fragen"
   },
   "autoPromptTouchId": {
     "message": "Beim Start nach Touch ID fragen"
@@ -1804,6 +1813,12 @@
   "biometricsNotEnabledDesc": {
     "message": "Biometrie im Browser setzt voraus, dass Biometrie zuerst in den Einstellungen der Desktop-Anwendung eingerichtet wird."
   },
+  "biometricsManualSetupTitle": {
+    "message": "Automatische Einrichtung nicht verfügbar"
+  },
+  "biometricsManualSetupDesc": {
+    "message": "Aufgrund der Installationsmethode konnte die Biometrie-Unterstützung nicht automatisch aktiviert werden. Möchtest du die Dokumentation für die manuelle Aktivierung öffnen?"
+  },
   "personalOwnershipSubmitError": {
     "message": "Aufgrund einer Unternehmensrichtlinie darfst du keine Einträge in deinem persönlichen Tresor speichern. Ändere die Eigentümer-Option in eine Organisation und wähle aus den verfügbaren Sammlungen."
   },
@@ -2015,6 +2030,9 @@
   "updateWeakMasterPasswordWarning": {
     "message": "Dein Master-Passwort entspricht nicht einer oder mehreren Richtlinien deiner Organisation. Um auf den Tresor zugreifen zu können, musst du dein Master-Passwort jetzt aktualisieren. Wenn du fortfährst, wirst du von deiner aktuellen Sitzung abgemeldet und musst dich erneut anmelden. Aktive Sitzungen auf anderen Geräten können noch bis zu einer Stunde lang aktiv bleiben."
   },
+  "tdeDisabledMasterPasswordRequired": {
+    "message": "Deine Organisation hat die vertrauenswürdige Geräteverschlüsselung deaktiviert. Bitte lege ein Master-Passwort fest, um auf deinen Tresor zuzugreifen."
+  },
   "tryAgain": {
     "message": "Erneut versuchen"
   },
@@ -2100,7 +2118,7 @@
     "message": "Dein Tresor-Timeout überschreitet die von deinem Unternehmen festgelegten Beschränkungen."
   },
   "inviteAccepted": {
-    "message": "Invitation accepted"
+    "message": "Einladung angenommen"
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Automatische Registrierung"
@@ -2827,7 +2845,7 @@
     "message": "Ungültiges Dateipasswort. Bitte verwende das Passwort, das du beim Erstellen der Exportdatei eingegeben hast."
   },
   "destination": {
-    "message": "Destination"
+    "message": "Ziel"
   },
   "learnAboutImportOptions": {
     "message": "Erfahre mehr über deine Importoptionen"
@@ -3024,6 +3042,12 @@
     }
   },
   "data": {
-    "message": "Data"
+    "message": "Daten"
+  },
+  "fileSends": {
+    "message": "Datei-Sends"
+  },
+  "textSends": {
+    "message": "Text-Sends"
   }
 }

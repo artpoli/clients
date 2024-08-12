@@ -75,7 +75,7 @@
     "message": "Liity organisaatioon"
   },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
-    "message": "Viimeistele organisaatioon liittyminen asettamalla pääsalasana."
+    "message": "Viimeistele liittyminen organisaatioon asettamalla pääsalasana."
   },
   "tab": {
     "message": "Välilehti"
@@ -116,6 +116,21 @@
   "copySecurityCode": {
     "message": "Kopioi turvakoodi"
   },
+  "copyName": {
+    "message": "Kopioi nimi"
+  },
+  "copyCompany": {
+    "message": "Kopioi yritys"
+  },
+  "copySSN": {
+    "message": "Kopioi henkilötunnus"
+  },
+  "copyPassportNumber": {
+    "message": "Kopioi passin numero"
+  },
+  "copyLicenseNumber": {
+    "message": "Kopioi ajokortin numero"
+  },
   "autoFill": {
     "message": "Automaattitäyttö"
   },
@@ -126,7 +141,7 @@
     "message": "Automaattitäytä kortti"
   },
   "autoFillIdentity": {
-    "message": "Automaattitäytä identiteetti"
+    "message": "Automaattitäytä henkilöllisyys"
   },
   "generatePasswordCopied": {
     "message": "Luo salasana (leikepöydälle)"
@@ -150,7 +165,7 @@
     "message": "Lisää kortti"
   },
   "addIdentityMenu": {
-    "message": "Lisää identiteetti"
+    "message": "Lisää henkilöllisyys"
   },
   "unlockVaultMenu": {
     "message": "Avaa holvisi"
@@ -288,6 +303,24 @@
   },
   "editFolder": {
     "message": "Muokkaa kansiota"
+  },
+  "newFolder": {
+    "message": "New folder"
+  },
+  "folderName": {
+    "message": "Folder name"
+  },
+  "folderHintText": {
+    "message": "Nest a folder by adding the parent folder's name followed by a “/”. Example: Social/Forums"
+  },
+  "noFoldersAdded": {
+    "message": "No folders added"
+  },
+  "createFoldersToOrganize": {
+    "message": "Create folders to organize your vault items"
+  },
+  "deleteFolderPermanently": {
+    "message": "Are you sure you want to permanently delete this folder?"
   },
   "deleteFolder": {
     "message": "Poista kansio"
@@ -487,7 +520,7 @@
     "message": "Selaimesi ei tue helppoa leikepöydälle kopiointia. Kopioi kohde manuaalisesti."
   },
   "verifyIdentity": {
-    "message": "Vahvista henkilöllisyys"
+    "message": "Vahvista henkilöllisyytesi"
   },
   "yourVaultIsLocked": {
     "message": "Holvisi on lukittu. Jatka vahvistamalla henkilöllisyytesi."
@@ -799,7 +832,7 @@
     "message": "Ehdota kohteen tallennusta, jos holvistasi ei vielä löydy vastaavaa kohdetta. Koskee kaikkia kirjautuneita tilejä."
   },
   "showCardsInVaultView": {
-    "message": "Näytä kortit automaattitäytön ehdotuksina Holvit-näkymässä"
+    "message": "Näytä kortit automaattitäytön ehdotuksina Holvi-näkymässä"
   },
   "showCardsCurrentTab": {
     "message": "Näytä kortit välilehtiosiossa"
@@ -808,7 +841,7 @@
     "message": "Kortit näytetään laajennuksen välilehtisivulla niiden automaattisen täytön helpottamiseksi."
   },
   "showIdentitiesInVaultView": {
-    "message": "Näytä identiteetit automaattitäytön ehdotuksina Holvit-näkymässä"
+    "message": "Näytä henkilöllisyydet automaattitäytön ehdotuksina Holvi-näkymässä"
   },
   "showIdentitiesCurrentTab": {
     "message": "Näytä henkilöllisyydet välilehtiosiossa"
@@ -871,7 +904,7 @@
   },
   "defaultUriMatchDetection": {
     "message": "URI:n oletuarvoinen tunnistustapa",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "defaultUriMatchDetectionDesc": {
     "message": "Valitse kirjautumistietojen URI:en oletusarvoinen tunnistustapa suoritettaessa automaattisen täytön kaltaisia toimintoja."
@@ -1240,7 +1273,7 @@
   },
   "showAutoFillMenuOnFormFields": {
     "message": "Näytä automaattitäytön valikko lomakekentissä",
-    "description": "Represents the message for allowing the user to enable the auto-fill overlay"
+    "description": "Represents the message for allowing the user to enable the autofill overlay"
   },
   "autofillSuggestionsSectionTitle": {
     "message": "Automaattitäytön ehdotukset"
@@ -1249,13 +1282,13 @@
     "message": "Näytä automaattitäytön ehdotukset lomakekentissä"
   },
   "showInlineMenuOnIconSelectionLabel": {
-    "message": "Näytä ehdotukset, kun kuvake on valittu"
+    "message": "Näytä ehdotukset kun kuvaketta painetaan"
   },
   "showInlineMenuOnFormFieldsDescAlt": {
     "message": "Koskee kaikkia kirjautuneita tilejä."
   },
   "turnOffBrowserBuiltInPasswordManagerSettings": {
-    "message": "Poista selaimesi sisäänrakennettu salasanahallinta käytöstä sen asetuksista ristiriitojen välttämiseksi."
+    "message": "Poista käytöstä selaimesi asetuksista sen sisäänrakennettu salasanahallinta ristiriitojen välttämiseksi."
   },
   "turnOffBrowserBuiltInPasswordManagerSettingsLink": {
     "message": "Muokkaa selaimen asetuksia"
@@ -1282,7 +1315,7 @@
     "message": "Automaattinen täyttö suoritetaan sivun avautuessa, jos sivulla havaitaan kirjautumislomake."
   },
   "autofillOnPageLoadWarning": {
-    "message": "$OPENTAG$Varoitus:$CLOSETAG$ Vaarantuneet tai epäluotettavat verkkosivustot voivat hyväksikäyttää automaattitäyttöä sivun latauksen yhteydessä.",
+    "message": "$OPENTAG$Varoitus:$CLOSETAG$ Vaarantuneet tai epäluotettavat sivustot voivat hyväksikäyttää sivun avautuessa suoritettavaa automaattista täyttöä.",
     "placeholders": {
       "openTag": {
         "content": "$1",
@@ -1295,10 +1328,10 @@
     }
   },
   "experimentalFeature": {
-    "message": "Vaarantuneet tai epäluotettavat sivustot voivat väärinkäyttää sivun avautuessa suoritettavaa automaattista täyttöä."
+    "message": "Vaarantuneet tai epäluotettavat sivustot voivat hyväksikäyttää sivun avautuessa suoritettavaa automaattista täyttöä."
   },
   "learnMoreAboutAutofillOnPageLoadLinkText": {
-    "message": "Lue lisää riskeistä"
+    "message": "Lisätietoja riskeistä"
   },
   "learnMoreAboutAutofill": {
     "message": "Lisätietoja automaattitäytöstä"
@@ -1307,7 +1340,7 @@
     "message": "Kirjautumistietojen automaattitäytön oletusasetus"
   },
   "defaultAutoFillOnPageLoadDesc": {
-    "message": "Automaattinen täyttö on mahdollista ottaa käyttöön tai poistaa käytöstä kirjautumistietokohtaisesti kirjautumistetoa muokkaamalla."
+    "message": "Automaattinen täyttö voidaan ottaa käyttöön tai poistaa käytöstä kohdekohtaisesti muokkaamalla yksittäisiä kirjautumistietoja."
   },
   "itemAutoFillOnPageLoad": {
     "message": "Automaattitäyttö sivun avautuessa (jos määritetty asetuksista)"
@@ -1316,10 +1349,10 @@
     "message": "Käytä oletusasetusta"
   },
   "autoFillOnPageLoadYes": {
-    "message": "Automaattitäyttö sivun avautuessa"
+    "message": "Automaattitäytä sivun avautuessa"
   },
   "autoFillOnPageLoadNo": {
-    "message": "Ei automaattitäyttöä sivun avautuessa"
+    "message": "Älä automaattitäytä sivun avautuessa"
   },
   "commandOpenPopup": {
     "message": "Avaa holvin ponnahdusikkuna"
@@ -1327,8 +1360,14 @@
   "commandOpenSidebar": {
     "message": "Avaa holvi sivupalkissa"
   },
-  "commandAutofillDesc": {
-    "message": "Täytä edellinen nykyisellä sivustolla käytetty kirjautumistieto automaattisesti."
+  "commandAutofillLoginDesc": {
+    "message": "Automaattitäytä tällä sivustolla viimeksi käytetty kirjautumistieto."
+  },
+  "commandAutofillCardDesc": {
+    "message": "Automaattitäytä tällä sivustolla viimeksi käytetty kortti."
+  },
+  "commandAutofillIdentityDesc": {
+    "message": "Automaattitäytä tällä sivustolla viimeksi käytetty henkilöllisyys."
   },
   "commandGeneratePasswordDesc": {
     "message": "Luo uusi satunnainen salasana ja kopioi se leikepöydälle."
@@ -1555,7 +1594,7 @@
     }
   },
   "editItemHeader": {
-    "message": "Muokkaa kohdetta $TYPE$",
+    "message": "Muokkaa: $TYPE$",
     "placeholders": {
       "type": {
         "content": "$1",
@@ -1634,6 +1673,10 @@
     "message": "Pääverkkotunnus",
     "description": "Domain name. Ex. website.com"
   },
+  "baseDomainOptionRecommended": {
+    "message": "Juuriverkkotunnus (suositus)",
+    "description": "Domain name. Ex. website.com"
+  },
   "domainName": {
     "message": "Verkkotunnus",
     "description": "Domain name. Ex. website.com"
@@ -1654,11 +1697,11 @@
   },
   "matchDetection": {
     "message": "Tunnistustapa",
-    "description": "URI match detection for auto-fill."
+    "description": "URI match detection for autofill."
   },
   "defaultMatchDetection": {
     "message": "Oletusarvoinen tunnistustapa",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "toggleOptions": {
     "message": "Näytä tai piilota asetukset"
@@ -1778,6 +1821,29 @@
   "passwordGeneratorPolicyInEffect": {
     "message": "Yksi tai useampi organisaatiokäytäntö vaikuttaa generaattorisi asetuksiin."
   },
+  "passwordGenerator": {
+    "message": "Salasanageneraattori"
+  },
+  "usernameGenerator": {
+    "message": "Käyttäjätunnusgeneraattori"
+  },
+  "useThisPassword": {
+    "message": "Käytä tätä salasanaa"
+  },
+  "useThisUsername": {
+    "message": "Käytä tätä käyttäjätunnusta"
+  },
+  "securePasswordGenerated": {
+    "message": "Secure password generated! Don't forget to also update your password on the website."
+  },
+  "useGeneratorHelpTextPartOne": {
+    "message": "Käytä generaattoria",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
+  },
+  "useGeneratorHelpTextPartTwo": {
+    "message": "to create a strong unique password",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
+  },
   "vaultTimeoutAction": {
     "message": "Holvin aikakatkaisutoiminto"
   },
@@ -1817,7 +1883,7 @@
     "message": "Aikakatkaisutoiminnon vahvistus"
   },
   "autoFillAndSave": {
-    "message": "Automaattitäytä ja tallenna"
+    "message": "Täytä automaattisesti ja tallenna"
   },
   "fillAndSave": {
     "message": "Täytä ja tallenna"
@@ -1975,6 +2041,12 @@
   "nativeMessagingWrongUserTitle": {
     "message": "Tili ei täsmää"
   },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Biometrinen avaus epäonnistui. Biometrinen salainen avain ei voinut avata holvia. Yritä määrittää biometria uudelleen."
+  },
+  "nativeMessagingWrongUserKeyTitle": {
+    "message": "Biometrinen avain ei täsmää"
+  },
   "biometricsNotEnabledTitle": {
     "message": "Biometriaa ei ole määritetty"
   },
@@ -2090,7 +2162,7 @@
     "message": "Salasanasuojattu"
   },
   "copyLink": {
-    "message": "Copy link"
+    "message": "Kopioi linkki"
   },
   "copySendLink": {
     "message": "Kopioi Send-linkki",
@@ -2301,6 +2373,9 @@
   },
   "updateWeakMasterPasswordWarning": {
     "message": "Pääsalasanasi ei täytä yhden tai useamman organisaatiokäytännön vaatimuksia ja holvin käyttämiseksi sinun on vaihdettava se nyt. Tämä uloskirjaa kaikki nykyiset istunnot pakottaen uudelleenkirjautumisen. Muiden laitteiden aktiiviset istunnot saattavat toimia vielä tunnin ajan."
+  },
+  "tdeDisabledMasterPasswordRequired": {
+    "message": "Organisaatiosi on estänyt luotettavan laitesalauksen. Käytä holviasi asettamalla pääsalasana."
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Automaattinen liitos"
@@ -2684,7 +2759,7 @@
     "message": "Tunnistelauseke"
   },
   "fingerprintMatchInfo": {
-    "message": "Varmista, että holvisi on avattu ja tunnistelauseke täsmää toisella laitteella."
+    "message": "Varmista, että vahvistavan laitteen holvi on avattu ja että se näyttää saman tunnistelausekkeen."
   },
   "resendNotification": {
     "message": "Lähetä ilmoitus uudelleen"
@@ -2753,19 +2828,22 @@
     "message": "Automaattitäytön asetukset"
   },
   "autofillKeyboardShortcutSectionTitle": {
-    "message": "Automaattitäyttö-pikakuvake"
+    "message": "Automaattitäytön pikanäppäin"
   },
   "autofillKeyboardShortcutUpdateLabel": {
-    "message": "Muuta pikakuvaketta"
+    "message": "Muuta pikanäppäintä"
+  },
+  "autofillKeyboardManagerShortcutsLabel": {
+    "message": "Hallitse pikanäppäimiä"
   },
   "autofillShortcut": {
     "message": "Automaattitäytön pikanäppäin"
   },
-  "autofillShortcutNotSet": {
-    "message": "Automaattisen täytön pikanäppäintä ei ole määritetty. Määritä se selaimen asetuksista."
+  "autofillLoginShortcutNotSet": {
+    "message": "Automaattitäytön pikanäppäintä ei ole määritetty. Määritä se selaimen asetuksista."
   },
-  "autofillShortcutText": {
-    "message": "Automaattisen täytön pikanäppäin on $COMMAND$. Vaihda se selaimen asetuksista.",
+  "autofillLoginShortcutText": {
+    "message": "Kirjautumistiedon automaatttitäytön pikanäppäin on $COMMAND$. Hallitse pikanäppäimiä selaimen asetuksista.",
     "placeholders": {
       "command": {
         "content": "$1",
@@ -2948,6 +3026,18 @@
       }
     }
   },
+  "singleFieldNeedsAttention": {
+    "message": "1 kenttä vaatii huomiotasi."
+  },
+  "multipleFieldsNeedAttention": {
+    "message": "$COUNT$ kenttää vaatii huomiotasi.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "selectPlaceholder": {
     "message": "-- Valitse --"
   },
@@ -3016,11 +3106,11 @@
   },
   "passwordRepromptDisabledAutofillOnPageLoad": {
     "message": "Kohteille, joille on määritetty pääsalasanan uudelleenkysely, ei voida suorittaa automaattista täyttöä sivun avautuessa. Automaattitäyttö sivun avautuessa poistettiin käytöstä. avautuessa suoritettavan",
-    "description": "Toast message for describing that master password re-prompt cannot be auto-filled on page load."
+    "description": "Toast message for describing that master password re-prompt cannot be autofilled on page load."
   },
   "autofillOnPageLoadSetToDefault": {
     "message": "Automaattitäyttö sivun avautuessa käyttää oletusasetusta.",
-    "description": "Toast message for informing the user that auto-fill on page load has been set to the default setting."
+    "description": "Toast message for informing the user that autofill on page load has been set to the default setting."
   },
   "turnOffMasterPasswordPromptToEditField": {
     "message": "Poista pääsalasanan uudelleenkysely käytöstä muokataksesi kenttää",
@@ -3049,7 +3139,7 @@
     "description": "Text to display in overlay when the account is locked."
   },
   "unlockYourAccountToViewAutofillSuggestions": {
-    "message": "Unlock your account to view autofill suggestions",
+    "message": "Näytä automaattitäytön ehdotukset avaamalla tilisi lukitus",
     "description": "Text to display in overlay when the account is locked."
   },
   "unlockAccount": {
@@ -3057,7 +3147,7 @@
     "description": "Button text to display in overlay when the account is locked."
   },
   "unlockAccountAria": {
-    "message": "Unlock your account, opens in a new window",
+    "message": "Avaa tilisi lukitus. Avautuu uudessa ikkunassa.",
     "description": "Screen reader text (aria-label) for unlock account button in overlay"
   },
   "fillCredentialsFor": {
@@ -3081,27 +3171,27 @@
     "description": "Screen reader text (aria-label) for new item button in overlay"
   },
   "newLogin": {
-    "message": "New login",
+    "message": "Uusi kirjautumistieto",
     "description": "Button text to display within inline menu when there are no matching items on a login field"
   },
   "addNewLoginItemAria": {
-    "message": "Add new vault login item, opens in a new window",
+    "message": "Lisää holviin uusi kirjautumistieto. Avautuu uudessa ikkunassa.",
     "description": "Screen reader text (aria-label) for new login button within inline menu"
   },
   "newCard": {
-    "message": "New card",
+    "message": "Uusi kortti",
     "description": "Button text to display within inline menu when there are no matching items on a credit card field"
   },
   "addNewCardItemAria": {
-    "message": "Add new vault card item, opens in a new window",
+    "message": "Lisää holviin uusi korttitieto. Avautuu uudessa ikkunassa.",
     "description": "Screen reader text (aria-label) for new card button within inline menu"
   },
   "newIdentity": {
-    "message": "New identity",
+    "message": "Uusi henkilöllisyys",
     "description": "Button text to display within inline menu when there are no matching items on an identity field"
   },
   "addNewIdentityItemAria": {
-    "message": "Add new vault identity item, opens in a new window",
+    "message": "Lisää holviin uusi henkilöllisyys. Avautuu uudessa ikkunassa.",
     "description": "Screen reader text (aria-label) for new identity button within inline menu"
   },
   "bitwardenOverlayMenuAvailable": {
@@ -3470,19 +3560,19 @@
     "description": "Title for dialog which asks if the user wants to proceed to a relevant Help Center page"
   },
   "confirmContinueToHelpCenterPasswordManagementContent": {
-    "message": "Muuta selaimesi automaattitäytön ja salasananhallinnan asetuksia.",
+    "message": "Muuta selaimesi automaattisen täytön ja salasanojen hallinnan asetuksia.",
     "description": "Body content for dialog which asks if the user wants to proceed to the Help Center's page about browser password management settings"
   },
   "confirmContinueToHelpCenterKeyboardShortcutsContent": {
-    "message": "Voit tarkastella ja asettaa laajennusten pikakuvakkeita selaimesi asetuksissa.",
+    "message": "Voit tarkastella ja asettaa laajennusten pikavalintoja selaimesi asetuksissa.",
     "description": "Body content for dialog which asks if the user wants to proceed to the Help Center's page about browser keyboard shortcut settings"
   },
   "confirmContinueToBrowserPasswordManagementSettingsContent": {
-    "message": "Muuta selaimesi automaattitäytön ja salasananhallinnan asetuksia.",
+    "message": "Muuta selaimesi automaattisen täytön ja salasanojen hallinnan asetuksia.",
     "description": "Body content for dialog which asks if the user wants to proceed to the browser's password management settings page"
   },
   "confirmContinueToBrowserKeyboardShortcutSettingsContent": {
-    "message": "Voit tarkastella ja asettaa laajennusten pikakuvakkeita selaimesi asetuksissa.",
+    "message": "Voit tarkastella ja asettaa laajennusten pikavalintoja selaimesi asetuksissa.",
     "description": "Body content for dialog which asks if the user wants to proceed to the browser's keyboard shortcut settings page"
   },
   "overrideDefaultBrowserAutofillTitle": {
@@ -3597,7 +3687,7 @@
   },
   "autofillTitle": {
     "message": "Automaattitäyttö - $ITEMNAME$",
-    "description": "Title for a button that auto-fills a login item.",
+    "description": "Title for a button that autofills a login item.",
     "placeholders": {
       "itemname": {
         "content": "$1",
@@ -3778,7 +3868,7 @@
     }
   },
   "cardNumberEndsWith": {
-    "message": "card number ends with",
+    "message": "kortin numero päättyy",
     "description": "Used within the inline menu to provide an aria description when users are attempting to fill a card cipher."
   },
   "loginCredentials": {
@@ -3786,6 +3876,52 @@
   },
   "authenticatorKey": {
     "message": "Todennusavain"
+  },
+  "autofillOptions": {
+    "message": "Automaattitäytön asetukset"
+  },
+  "websiteUri": {
+    "message": "Verkkosivusto (URI)"
+  },
+  "websiteAdded": {
+    "message": "Verkkosivusto lisättiin"
+  },
+  "addWebsite": {
+    "message": "Lisää verkkosivusto"
+  },
+  "deleteWebsite": {
+    "message": "Poista verkkosivusto"
+  },
+  "defaultLabel": {
+    "message": "Oletus ($VALUE$)",
+    "description": "A label that indicates the default value for a field with the current default value in parentheses.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "Base domain"
+      }
+    }
+  },
+  "showMatchDetection": {
+    "message": "Näytä vastaavuuden tunnistus $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "hideMatchDetection": {
+    "message": "Piilota vastaavuuden tunnistus $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "autoFillOnPageLoad": {
+    "message": "Automaattitäytetäänkö sivun avautuessa?"
   },
   "cardDetails": {
     "message": "Kortin tiedot"
@@ -3807,6 +3943,18 @@
   },
   "data": {
     "message": "Tiedot"
+  },
+  "passkeys": {
+    "message": "Avainkoodit",
+    "description": "A section header for a list of passkeys."
+  },
+  "passwords": {
+    "message": "Salasanat",
+    "description": "A section header for a list of passwords."
+  },
+  "logInWithPasskeyAriaLabel": {
+    "message": "Kirjaudu avainkoodilla",
+    "description": "ARIA label for the inline menu button that logs in with a passkey."
   },
   "assign": {
     "message": "Määritä"
@@ -4001,5 +4149,26 @@
   },
   "itemLocation": {
     "message": "Kohteen sijainti"
+  },
+  "fileSends": {
+    "message": "Tiedosto-Sendit"
+  },
+  "textSends": {
+    "message": "Teksti-Sendit"
+  },
+  "bitwardenNewLook": {
+    "message": "Bitwardenilla on uusi ulkoasu!"
+  },
+  "bitwardenNewLookDesc": {
+    "message": "Automaattitäyttäminen ja hakujen tekeminen Holvi-välilehdeltä on entistä helpompaa ja intuitiivisempaa. Kokeile nyt!"
+  },
+  "accountActions": {
+    "message": "Tilitoiminnot"
+  },
+  "showNumberOfAutofillSuggestions": {
+    "message": "Show number of login autofill suggestions on extension icon"
+  },
+  "systemDefault": {
+    "message": "System default"
   }
 }

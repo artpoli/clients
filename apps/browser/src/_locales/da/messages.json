@@ -116,6 +116,21 @@
   "copySecurityCode": {
     "message": "Kopiér sikkerhedskode"
   },
+  "copyName": {
+    "message": "Kopiér navn"
+  },
+  "copyCompany": {
+    "message": "Kopiér virksomhed"
+  },
+  "copySSN": {
+    "message": "Kopiér CPR-nummer"
+  },
+  "copyPassportNumber": {
+    "message": "Kopiér pasnummer"
+  },
+  "copyLicenseNumber": {
+    "message": "Kopier licensnummer"
+  },
   "autoFill": {
     "message": "Auto-udfyld"
   },
@@ -288,6 +303,24 @@
   },
   "editFolder": {
     "message": "Redigér mappe"
+  },
+  "newFolder": {
+    "message": "New folder"
+  },
+  "folderName": {
+    "message": "Folder name"
+  },
+  "folderHintText": {
+    "message": "Nest a folder by adding the parent folder's name followed by a “/”. Example: Social/Forums"
+  },
+  "noFoldersAdded": {
+    "message": "No folders added"
+  },
+  "createFoldersToOrganize": {
+    "message": "Create folders to organize your vault items"
+  },
+  "deleteFolderPermanently": {
+    "message": "Are you sure you want to permanently delete this folder?"
   },
   "deleteFolder": {
     "message": "Slet mappe"
@@ -871,7 +904,7 @@
   },
   "defaultUriMatchDetection": {
     "message": "Standard URI matchmetode",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "defaultUriMatchDetectionDesc": {
     "message": "Vælg den standard måde, som URI matchmetode håndteres til logins, når du udfører handlinger som f.eks. Auto-udfyld."
@@ -1240,7 +1273,7 @@
   },
   "showAutoFillMenuOnFormFields": {
     "message": "Vis autoudfyld-menu i formularfelter",
-    "description": "Represents the message for allowing the user to enable the auto-fill overlay"
+    "description": "Represents the message for allowing the user to enable the autofill overlay"
   },
   "autofillSuggestionsSectionTitle": {
     "message": "Autoudfyldningsforslag"
@@ -1327,8 +1360,14 @@
   "commandOpenSidebar": {
     "message": "Åbn boks i sidebjælken"
   },
-  "commandAutofillDesc": {
-    "message": "Auto-udfyld det sidste anvendte login for den aktuelle hjemmeside"
+  "commandAutofillLoginDesc": {
+    "message": "Autoudfyld det senest anvendte login for det aktuelle websted"
+  },
+  "commandAutofillCardDesc": {
+    "message": "Autoudfyld det senest anvendte kort for det aktuelle websted"
+  },
+  "commandAutofillIdentityDesc": {
+    "message": "Autoudfyld den senest anvendte identitet for det aktuelle websted"
   },
   "commandGeneratePasswordDesc": {
     "message": "Generér en ny tilfældig adgangskode og kopiér den til udklipsholderen"
@@ -1634,6 +1673,10 @@
     "message": "Grund-domæne",
     "description": "Domain name. Ex. website.com"
   },
+  "baseDomainOptionRecommended": {
+    "message": "Basisdomæne (anbefalet)",
+    "description": "Domain name. Ex. website.com"
+  },
   "domainName": {
     "message": "Domænenavn",
     "description": "Domain name. Ex. website.com"
@@ -1654,11 +1697,11 @@
   },
   "matchDetection": {
     "message": "Matchmetode",
-    "description": "URI match detection for auto-fill."
+    "description": "URI match detection for autofill."
   },
   "defaultMatchDetection": {
     "message": "Standard matchmetode",
-    "description": "Default URI match detection for auto-fill."
+    "description": "Default URI match detection for autofill."
   },
   "toggleOptions": {
     "message": "Skift indstillinger"
@@ -1777,6 +1820,29 @@
   },
   "passwordGeneratorPolicyInEffect": {
     "message": "Én eller flere organisationspolitikker påvirker dine generatorindstillinger."
+  },
+  "passwordGenerator": {
+    "message": "Adgangskodegenerator"
+  },
+  "usernameGenerator": {
+    "message": "Brugernavngenerator"
+  },
+  "useThisPassword": {
+    "message": "Anvend denne adgangskode"
+  },
+  "useThisUsername": {
+    "message": "Anvend dette brugernavn"
+  },
+  "securePasswordGenerated": {
+    "message": "Sikker adgangskode genereret! Glem ikke at opdatere adgangskoden på webstedet også."
+  },
+  "useGeneratorHelpTextPartOne": {
+    "message": "Anvend generatoren",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
+  },
+  "useGeneratorHelpTextPartTwo": {
+    "message": "til at oprette en stærk, unik adgangskode",
+    "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
   },
   "vaultTimeoutAction": {
     "message": "Boks timeout-handling"
@@ -1974,6 +2040,12 @@
   },
   "nativeMessagingWrongUserTitle": {
     "message": "Konto mismatch"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Biometrisk oplåsning mislykkedes. Den hemmelige biometriske nøgle kunne ikke oplåse boksen. Prøv at opsætte biometri igen."
+  },
+  "nativeMessagingWrongUserKeyTitle": {
+    "message": "Biometrisk nøgle matcher ikke"
   },
   "biometricsNotEnabledTitle": {
     "message": "Biometri ikke aktiveret"
@@ -2301,6 +2373,9 @@
   },
   "updateWeakMasterPasswordWarning": {
     "message": "Din hovedadgangskode overholder ikke en eller flere organisationspolitikker. For at få adgang til boksen skal hovedadgangskode opdateres nu. Fortsættes, logges du ud af den nuværende session og vil skulle logger ind igen. Aktive sessioner på andre enheder kan forblive aktive i op til én time."
+  },
+  "tdeDisabledMasterPasswordRequired": {
+    "message": "Organisationen har deaktiveret betroet enhedskryptering. Opsæt en hovedadgangskode for at tilgå boksen."
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Automatisk tilmelding"
@@ -2758,14 +2833,17 @@
   "autofillKeyboardShortcutUpdateLabel": {
     "message": "Ændre genvej"
   },
+  "autofillKeyboardManagerShortcutsLabel": {
+    "message": "Håndtér genveje"
+  },
   "autofillShortcut": {
     "message": "Autoudfyld-tastaturgenvej"
   },
-  "autofillShortcutNotSet": {
-    "message": "Autoudfyldningsgenvejen er ikke opsat. Ændr dette i browserens indstillinger."
+  "autofillLoginShortcutNotSet": {
+    "message": "Autoudfyldningsgenvejen er ikke opsat. Ændr dette i webbrowserens indstillinger."
   },
-  "autofillShortcutText": {
-    "message": "Autoudfyldningsgenvejen er: $COMMAND$. Ændr dette i browserens indstillinger.",
+  "autofillLoginShortcutText": {
+    "message": "Autoudfyldningsgenvejen er $COMMAND$. Ændr dette i webbrowserens indstillinger.",
     "placeholders": {
       "command": {
         "content": "$1",
@@ -2948,6 +3026,18 @@
       }
     }
   },
+  "singleFieldNeedsAttention": {
+    "message": "1 felt kræver opmærksomhed."
+  },
+  "multipleFieldsNeedAttention": {
+    "message": "$COUNT$ felter kræver opmærksomhed.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "selectPlaceholder": {
     "message": "-- Vælg --"
   },
@@ -3016,11 +3106,11 @@
   },
   "passwordRepromptDisabledAutofillOnPageLoad": {
     "message": "Emner, hvor der anmodes om hovedadgangskode igen, kan ikke autoudfyldes ved sideindlæsning. Autoudfyldning ved sideindlæsning er slået fra.",
-    "description": "Toast message for describing that master password re-prompt cannot be auto-filled on page load."
+    "description": "Toast message for describing that master password re-prompt cannot be autofilled on page load."
   },
   "autofillOnPageLoadSetToDefault": {
     "message": "Autoudfyldning ved sideindlæsning sat til standardindstillingen.",
-    "description": "Toast message for informing the user that auto-fill on page load has been set to the default setting."
+    "description": "Toast message for informing the user that autofill on page load has been set to the default setting."
   },
   "turnOffMasterPasswordPromptToEditField": {
     "message": "Slå anmodning om hovedadgangskode igen fra for at redigere dette felt",
@@ -3597,7 +3687,7 @@
   },
   "autofillTitle": {
     "message": "Autoudfyld - $ITEMNAME$",
-    "description": "Title for a button that auto-fills a login item.",
+    "description": "Title for a button that autofills a login item.",
     "placeholders": {
       "itemname": {
         "content": "$1",
@@ -3787,6 +3877,52 @@
   "authenticatorKey": {
     "message": "Godkendelsesnøgle"
   },
+  "autofillOptions": {
+    "message": "Auto-fill options"
+  },
+  "websiteUri": {
+    "message": "Website (URI)"
+  },
+  "websiteAdded": {
+    "message": "Website added"
+  },
+  "addWebsite": {
+    "message": "Add website"
+  },
+  "deleteWebsite": {
+    "message": "Delete website"
+  },
+  "defaultLabel": {
+    "message": "Default ($VALUE$)",
+    "description": "A label that indicates the default value for a field with the current default value in parentheses.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "Base domain"
+      }
+    }
+  },
+  "showMatchDetection": {
+    "message": "Show match detection $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "hideMatchDetection": {
+    "message": "Hide match detection $WEBSITE$",
+    "placeholders": {
+      "website": {
+        "content": "$1",
+        "example": "https://example.com"
+      }
+    }
+  },
+  "autoFillOnPageLoad": {
+    "message": "Autofill on page load?"
+  },
   "cardDetails": {
     "message": "Kortoplysninger"
   },
@@ -3807,6 +3943,18 @@
   },
   "data": {
     "message": "Data"
+  },
+  "passkeys": {
+    "message": "Adgangsnøgler",
+    "description": "A section header for a list of passkeys."
+  },
+  "passwords": {
+    "message": "Adgangskoder",
+    "description": "A section header for a list of passwords."
+  },
+  "logInWithPasskeyAriaLabel": {
+    "message": "Log ind med adgangsnøgle",
+    "description": "ARIA label for the inline menu button that logs in with a passkey."
   },
   "assign": {
     "message": "Tildel"
@@ -4001,5 +4149,26 @@
   },
   "itemLocation": {
     "message": "Emneplacering"
+  },
+  "fileSends": {
+    "message": "Fil-Sends"
+  },
+  "textSends": {
+    "message": "Tekst-Sends"
+  },
+  "bitwardenNewLook": {
+    "message": "Bitwarden har fået et nyt look!"
+  },
+  "bitwardenNewLookDesc": {
+    "message": "Det er lettere og mere intuitivt end nogensinde at autoudfylde og søge via fanen Boks. Tag et kig omkring!"
+  },
+  "accountActions": {
+    "message": "Kontohandlinger"
+  },
+  "showNumberOfAutofillSuggestions": {
+    "message": "Show number of login autofill suggestions on extension icon"
+  },
+  "systemDefault": {
+    "message": "System default"
   }
 }

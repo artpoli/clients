@@ -11,7 +11,7 @@ import {
   UnencryptedMessageResponse,
 } from "../models/native-messaging";
 import { BiometricMessage, BiometricAction } from "../types/biometric-message";
-import { isDev, isMacAppStore, isWindowsStore } from "../utils";
+import { isDev, isFlatpak, isMacAppStore, isSnapStore, isWindowsStore } from "../utils";
 
 import { ClipboardWriteMessage } from "./types/clipboard";
 
@@ -47,6 +47,18 @@ const biometric = {
   osSupported: (): Promise<boolean> =>
     ipcRenderer.invoke("biometric", {
       action: BiometricAction.OsSupported,
+    } satisfies BiometricMessage),
+  biometricsNeedsSetup: (): Promise<boolean> =>
+    ipcRenderer.invoke("biometric", {
+      action: BiometricAction.NeedsSetup,
+    } satisfies BiometricMessage),
+  biometricsSetup: (): Promise<void> =>
+    ipcRenderer.invoke("biometric", {
+      action: BiometricAction.Setup,
+    } satisfies BiometricMessage),
+  biometricsCanAutoSetup: (): Promise<boolean> =>
+    ipcRenderer.invoke("biometric", {
+      action: BiometricAction.CanAutoSetup,
     } satisfies BiometricMessage),
   authenticate: (): Promise<boolean> =>
     ipcRenderer.invoke("biometric", {
@@ -99,6 +111,14 @@ const crypto = {
     ipcRenderer.invoke("crypto.argon2", { password, salt, iterations, memory, parallelism }),
 };
 
+const ephemeralStore = {
+  setEphemeralValue: (key: string, value: string): Promise<void> =>
+    ipcRenderer.invoke("setEphemeralValue", { key, value }),
+  getEphemeralValue: (key: string): Promise<string> => ipcRenderer.invoke("getEphemeralValue", key),
+  removeEphemeralValue: (key: string): Promise<void> =>
+    ipcRenderer.invoke("deleteEphemeralValue", key),
+};
+
 export default {
   versions: {
     app: (): Promise<string> => ipcRenderer.invoke("appVersion"),
@@ -107,6 +127,8 @@ export default {
   isDev: isDev(),
   isMacAppStore: isMacAppStore(),
   isWindowsStore: isWindowsStore(),
+  isFlatpak: isFlatpak(),
+  isSnapStore: isSnapStore(),
   reloadProcess: () => ipcRenderer.send("reload-process"),
   log: (level: LogLevelType, message?: any, ...optionalParams: any[]) =>
     ipcRenderer.invoke("ipc.log", { level, message, optionalParams }),
@@ -156,6 +178,7 @@ export default {
   powermonitor,
   nativeMessaging,
   crypto,
+  ephemeralStore,
 };
 
 function deviceType(): DeviceType {

@@ -1,6 +1,6 @@
 <bit-section [formGroup]="loginDetailsForm">
   <bit-section-header>
-    <h2 bitTypography="h5">
+    <h2 bitTypography="h6">
       {{ "loginCredentials" | i18n }}
     </h2>
   </bit-section-header>
@@ -23,6 +23,16 @@
     <bit-form-field>
       <bit-label>{{ "password" | i18n }}</bit-label>
       <input bitInput formControlName="password" type="password" />
+      <bit-hint *ngIf="loginDetailsForm.controls.password.enabled">
+        <ng-container *ngIf="newPasswordGenerated">
+          {{ "securePasswordGenerated" | i18n }}
+        </ng-container>
+        <ng-container *ngIf="!newPasswordGenerated">
+          {{ "useGeneratorHelpTextPartOne" | i18n }}
+          <i class="bwi bwi-generate" aria-hidden="true"></i>
+          {{ "useGeneratorHelpTextPartTwo" | i18n }}
+        </ng-container>
+      </bit-hint>
       <button
         type="button"
         bitIconButton="bwi-check-circle"
@@ -67,14 +77,14 @@
         bitIconButton="bwi-minus-circle"
         buttonType="danger"
         bitSuffix
-        *ngIf="loginDetailsForm.enabled"
+        *ngIf="loginDetailsForm.enabled && viewHiddenFields"
         [bitAction]="removePasskey"
         data-testid="remove-passkey-button"
         [appA11yTitle]="'removePasskey' | i18n"
       ></button>
     </bit-form-field>
 
-    <bit-form-field>
+    <bit-form-field disableMargin>
       <bit-label>
         {{ "authenticatorKey" | i18n }}
         <button
@@ -108,3 +118,5 @@
     </bit-form-field>
   </bit-card>
 </bit-section>
+
+<vault-autofill-options></vault-autofill-options>

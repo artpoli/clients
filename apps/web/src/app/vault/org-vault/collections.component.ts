@@ -4,6 +4,7 @@ import { Component, Inject } from "@angular/core";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
+import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
 import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
@@ -37,6 +38,7 @@ export class CollectionsComponent extends BaseCollectionsComponent {
     private apiService: ApiService,
     logService: LogService,
     configService: ConfigService,
+    accountService: AccountService,
     protected dialogRef: DialogRef,
     @Inject(DIALOG_DATA) params: OrgVaultCollectionsDialogParams,
   ) {
@@ -48,6 +50,7 @@ export class CollectionsComponent extends BaseCollectionsComponent {
       organizationService,
       logService,
       configService,
+      accountService,
       dialogRef,
       params,
     );
@@ -61,10 +64,7 @@ export class CollectionsComponent extends BaseCollectionsComponent {
   protected async loadCipher() {
     // if cipher is unassigned use apiService. We can see this by looking at this.collectionIds
     if (
-      !this.organization.canEditAllCiphers(
-        this.flexibleCollectionsV1Enabled,
-        this.restrictProviderAccess,
-      ) &&
+      !this.organization.canEditAllCiphers(this.restrictProviderAccess) &&
       this.collectionIds.length !== 0
     ) {
       return await super.loadCipher();
@@ -89,10 +89,7 @@ export class CollectionsComponent extends BaseCollectionsComponent {
 
   protected saveCollections() {
     if (
-      this.organization.canEditAllCiphers(
-        this.flexibleCollectionsV1Enabled,
-        this.restrictProviderAccess,
-      ) ||
+      this.organization.canEditAllCiphers(this.restrictProviderAccess) ||
       this.collectionIds.length === 0
     ) {
       const request = new CipherCollectionsRequest(this.cipherDomain.collectionIds);

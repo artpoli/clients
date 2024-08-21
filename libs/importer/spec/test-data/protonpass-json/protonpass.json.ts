@@ -1,7 +1,7 @@
 import { ProtonPassJsonFile } from "../../../src/importers/protonpass/types/protonpass-json-type";
 
 export const testData: ProtonPassJsonFile = {
-  version: "1.3.1",
+  version: "1.21.2",
   userId: "REDACTED_USER_ID",
   encrypted: false,
   vaults: {
@@ -49,12 +49,13 @@ export const testData: ProtonPassJsonFile = {
             ],
             type: "login",
             content: {
-              itemEmail: "Username",
+              itemEmail: "Email",
               password: "Password",
               urls: ["https://example.com/", "https://example2.com/"],
               totpUri:
                 "otpauth://totp/Test%20Login%20-%20Personal%20Vault:Username?issuer=Test%20Login%20-%20Personal%20Vault&secret=TOTPCODE&algorithm=SHA1&digits=6&period=30",
-              itemUsername: "someOtherUsername",
+              passkeys: [],
+              itemUsername: "Username",
             },
           },
           state: 1,
@@ -62,6 +63,7 @@ export const testData: ProtonPassJsonFile = {
           contentFormatVersion: 1,
           createTime: 1689182868,
           modifyTime: 1689182868,
+          pinned: true,
         },
         {
           itemId:
@@ -83,6 +85,7 @@ export const testData: ProtonPassJsonFile = {
           contentFormatVersion: 1,
           createTime: 1689182908,
           modifyTime: 1689182908,
+          pinned: false,
         },
         {
           itemId:
@@ -102,7 +105,7 @@ export const testData: ProtonPassJsonFile = {
               cardType: 0,
               number: "1234222233334444",
               verificationNumber: "333",
-              expirationDate: "012025",
+              expirationDate: "2025-01",
               pin: "1234",
             },
           },
@@ -111,6 +114,7 @@ export const testData: ProtonPassJsonFile = {
           contentFormatVersion: 1,
           createTime: 1691001643,
           modifyTime: 1691001643,
+          pinned: true,
         },
         {
           itemId:
@@ -132,6 +136,7 @@ export const testData: ProtonPassJsonFile = {
           contentFormatVersion: 1,
           createTime: 1689182908,
           modifyTime: 1689182908,
+          pinned: false,
         },
       ],
     },
@@ -161,6 +166,7 @@ export const testData: ProtonPassJsonFile = {
               password: "other vault password",
               urls: [],
               totpUri: "JBSWY3DPEHPK3PXP",
+              passkeys: [],
               itemUsername: "",
             },
           },
@@ -169,6 +175,7 @@ export const testData: ProtonPassJsonFile = {
           contentFormatVersion: 1,
           createTime: 1689182949,
           modifyTime: 1689182949,
+          pinned: false,
         },
       ],
     },

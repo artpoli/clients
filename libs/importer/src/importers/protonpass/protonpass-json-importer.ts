@@ -43,15 +43,23 @@ export class ProtonPassJsonImporter extends BaseImporter implements Importer {
         const cipher = this.initLoginCipher();
         cipher.name = this.getValueOrDefault(item.data.metadata.name, "--");
         cipher.notes = this.getValueOrDefault(item.data.metadata.note);
+        cipher.favorite = item.pinned;
 
         switch (item.data.type) {
           case "login": {
             const loginContent = item.data.content as ProtonPassLoginItemContent;
             cipher.login.uris = this.makeUriArray(loginContent.urls);
-            cipher.login.username = this.getValueOrDefault(loginContent.itemEmail);
+
+            cipher.login.username = this.getValueOrDefault(loginContent.itemUsername);
+            // if the cipher has no username then the email is used as the username
+            if (cipher.login.username == null) {
+              cipher.login.username = this.getValueOrDefault(loginContent.itemEmail);
+            } else {
+              this.processKvp(cipher, "email", loginContent.itemEmail);
+            }
+
             cipher.login.password = this.getValueOrDefault(loginContent.password);
             cipher.login.totp = this.getValueOrDefault(loginContent.totpUri);
-            this.processKvp(cipher, "itemUsername", loginContent.itemUsername);
             for (const extraField of item.data.extraFields) {
               this.processKvp(
                 cipher,
@@ -77,9 +85,9 @@ export class ProtonPassJsonImporter extends BaseImporter implements Importer {
             cipher.card.code = this.getValueOrDefault(creditCardContent.verificationNumber);
 
             if (!this.isNullOrWhitespace(creditCardContent.expirationDate)) {
-              cipher.card.expMonth = creditCardContent.expirationDate.substring(0, 2);
+              cipher.card.expMonth = creditCardContent.expirationDate.substring(5, 7);
               cipher.card.expMonth = cipher.card.expMonth.replace(/^0+/, "");
-              cipher.card.expYear = creditCardContent.expirationDate.substring(2, 6);
+              cipher.card.expYear = creditCardContent.expirationDate.substring(0, 4);
             }
 
             if (!this.isNullOrWhitespace(creditCardContent.pin)) {

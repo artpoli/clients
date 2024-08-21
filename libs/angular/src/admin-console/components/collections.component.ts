@@ -1,7 +1,9 @@
 import { Directive, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { firstValueFrom, map } from "rxjs";
 
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
+import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
 import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
@@ -24,7 +26,6 @@ export class CollectionsComponent implements OnInit {
   collectionIds: string[];
   collections: CollectionView[] = [];
   organization: Organization;
-  flexibleCollectionsV1Enabled: boolean;
   restrictProviderAccess: boolean;
 
   protected cipherDomain: Cipher;
@@ -37,12 +38,10 @@ export class CollectionsComponent implements OnInit {
     protected organizationService: OrganizationService,
     private logService: LogService,
     private configService: ConfigService,
+    private accountService: AccountService,
   ) {}
 
   async ngOnInit() {
-    this.flexibleCollectionsV1Enabled = await this.configService.getFeatureFlag(
-      FeatureFlag.FlexibleCollectionsV1,
-    );
     this.restrictProviderAccess = await this.configService.getFeatureFlag(
       FeatureFlag.RestrictProviderAccess,
     );
@@ -52,8 +51,11 @@ export class CollectionsComponent implements OnInit {
   async load() {
     this.cipherDomain = await this.loadCipher();
     this.collectionIds = this.loadCipherCollections();
+    const activeUserId = await firstValueFrom(
+      this.accountService.activeAccount$.pipe(map((a) => a?.id)),
+    );
     this.cipher = await this.cipherDomain.decrypt(
-      await this.cipherService.getKeyForCipherKeyDecryption(this.cipherDomain),
+      await this.cipherService.getKeyForCipherKeyDecryption(this.cipherDomain, activeUserId),
     );
     this.collections = await this.loadCollections();
 
@@ -72,12 +74,7 @@ export class CollectionsComponent implements OnInit {
   async submit(): Promise<boolean> {
     const selectedCollectionIds = this.collections
       .filter((c) => {
-        if (
-          this.organization.canEditAllCiphers(
-            this.flexibleCollectionsV1Enabled,
-            this.restrictProviderAccess,
-          )
-        ) {
+        if (this.organization.canEditAllCiphers(this.restrictProviderAccess)) {
           return !!(c as any).checked;
         } else {
           return !!(c as any).checked && c.readOnly == null;

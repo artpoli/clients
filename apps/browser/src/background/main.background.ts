@@ -204,6 +204,7 @@ import {
 } from "@bitwarden/vault-export-core";
 
 import { OverlayBackground as OverlayBackgroundInterface } from "../autofill/background/abstractions/overlay.background";
+import { AutoSubmitLoginBackground } from "../autofill/background/auto-submit-login.background";
 import ContextMenusBackground from "../autofill/background/context-menus.background";
 import NotificationBackground from "../autofill/background/notification.background";
 import { OverlayBackground } from "../autofill/background/overlay.background";
@@ -236,6 +237,7 @@ import I18nService from "../platform/services/i18n.service";
 import { LocalBackedSessionStorageService } from "../platform/services/local-backed-session-storage.service";
 import { BackgroundPlatformUtilsService } from "../platform/services/platform-utils/background-platform-utils.service";
 import { BrowserPlatformUtilsService } from "../platform/services/platform-utils/browser-platform-utils.service";
+import { PopupViewCacheBackgroundService } from "../platform/services/popup-view-cache-background.service";
 import { BackgroundTaskSchedulerService } from "../platform/services/task-scheduler/background-task-scheduler.service";
 import { ForegroundTaskSchedulerService } from "../platform/services/task-scheduler/foreground-task-scheduler.service";
 import { BackgroundMemoryStorageService } from "../platform/storage/background-memory-storage.service";
@@ -352,6 +354,7 @@ export default class MainBackground {
   offscreenDocumentService: OffscreenDocumentService;
   syncServiceListener: SyncServiceListener;
   themeStateService: DefaultThemeStateService;
+  autoSubmitLoginBackground: AutoSubmitLoginBackground;
 
   onUpdatedRan: boolean;
   onReplacedRan: boolean;
@@ -370,6 +373,8 @@ export default class MainBackground {
   private syncTimeout: any;
   private isSafari: boolean;
   private nativeMessagingBackground: NativeMessagingBackground;
+
+  private popupViewCacheBackgroundService: PopupViewCacheBackgroundService;
 
   constructor(public popupOnlyContext: boolean = false) {
     // Services
@@ -569,6 +574,10 @@ export default class MainBackground {
       this.encryptService,
       this.logService,
       logoutCallback,
+    );
+
+    this.popupViewCacheBackgroundService = new PopupViewCacheBackgroundService(
+      this.globalStateProvider,
     );
 
     const migrationRunner = new MigrationRunner(
@@ -947,6 +956,7 @@ export default class MainBackground {
       this.collectionService,
       this.cryptoService,
       this.pinService,
+      this.accountService,
     );
 
     this.individualVaultExportService = new IndividualVaultExportService(
@@ -966,6 +976,7 @@ export default class MainBackground {
       this.cryptoFunctionService,
       this.collectionService,
       this.kdfConfigService,
+      this.accountService,
     );
 
     this.exportService = new VaultExportService(
@@ -991,6 +1002,7 @@ export default class MainBackground {
       this.cipherService,
       this.fido2UserInterfaceService,
       this.syncService,
+      this.accountService,
       this.logService,
     );
     const fido2ActiveRequestManager = new Fido2ActiveRequestManager();
@@ -1060,7 +1072,6 @@ export default class MainBackground {
         this.messagingService,
         this.appIdService,
         this.platformUtilsService,
-        this.stateService,
         this.logService,
         this.authService,
         this.biometricStateService,
@@ -1085,6 +1096,7 @@ export default class MainBackground {
         this.logService,
         this.themeStateService,
         this.configService,
+        this.accountService,
       );
 
       this.filelessImporterBackground = new FilelessImporterBackground(
@@ -1095,6 +1107,16 @@ export default class MainBackground {
         this.importService,
         this.syncService,
         this.scriptInjectorService,
+      );
+
+      this.autoSubmitLoginBackground = new AutoSubmitLoginBackground(
+        this.logService,
+        this.autofillService,
+        this.scriptInjectorService,
+        this.authService,
+        this.configService,
+        this.platformUtilsService,
+        this.policyService,
       );
 
       const contextMenuClickedHandler = new ContextMenuClickedHandler(
@@ -1201,6 +1223,8 @@ export default class MainBackground {
     await (this.i18nService as I18nService).init();
     (this.eventUploadService as EventUploadService).init(true);
 
+    this.popupViewCacheBackgroundService.startObservingTabChanges();
+
     if (this.popupOnlyContext) {
       return;
     }
@@ -1215,6 +1239,7 @@ export default class MainBackground {
     await this.idleBackground.init();
     this.webRequestBackground?.startListening();
     this.syncServiceListener?.listener$().subscribe();
+    await this.autoSubmitLoginBackground.init();
 
     if (
       BrowserApi.isManifestVersion(2) &&
@@ -1295,6 +1320,7 @@ export default class MainBackground {
           }),
         ),
       );
+      await this.popupViewCacheBackgroundService.clearState();
       await this.accountService.switchAccount(userId);
       await switchPromise;
       // Clear sequentialized caches
@@ -1383,6 +1409,7 @@ export default class MainBackground {
       this.vaultTimeoutSettingsService.clear(userBeingLoggedOut),
       this.vaultFilterService.clear(),
       this.biometricStateService.logout(userBeingLoggedOut),
+      this.popupViewCacheBackgroundService.clearState(),
       /* We intentionally do not clear:
        *  - autofillSettingsService
        *  - badgeSettingsService

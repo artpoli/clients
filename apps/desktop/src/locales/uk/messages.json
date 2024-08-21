@@ -1174,6 +1174,9 @@
   "premiumPurchaseAlert": {
     "message": "Ви можете передплатити преміум у сховищі на bitwarden.com. Хочете перейти на вебсайт зараз?"
   },
+  "premiumPurchaseAlertV2": {
+    "message": "You can purchase Premium from your account settings on the Bitwarden web app."
+  },
   "premiumCurrentMember": {
     "message": "Ви користуєтеся передплатою преміум!"
   },

@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Данные для авторизации"
   },
+  "personalDetails": {
+    "message": "Личные данные"
+  },
+  "identification": {
+    "message": "Идентификация"
+  },
+  "contactInfo": {
+    "message": "Контактная информация"
+  },
+  "cardDetails": {
+    "message": "Реквизиты карты"
+  },
+  "cardBrandDetails": {
+    "message": "Реквизиты $BRAND$",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "История элемента"
+  },
   "authenticatorKey": {
     "message": "Ключ аутентификатора"
   },
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "Код безопасности (CVV)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Код безопасности / CVV"
   },
   "identityName": {
     "message": "Имя"
@@ -193,6 +220,12 @@
   },
   "dr": {
     "message": "Тов."
+  },
+  "cardExpiredTitle": {
+    "message": "Истек срок действия карты"
+  },
+  "cardExpiredMessage": {
+    "message": "Если вы заменили карту, обновите информацию о ней"
   },
   "expirationMonth": {
     "message": "Месяц"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "Полное имя"
   },
+  "address": {
+    "message": "Адрес"
+  },
   "address1": {
     "message": "Строка адреса 1"
   },
@@ -474,6 +510,15 @@
   },
   "viewItem": {
     "message": "Просмотр элемента"
+  },
+  "viewItemType": {
+    "message": "Просмотр $ITEMTYPE$",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
   },
   "new": {
     "message": "Новый",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Скопировано успешно"
   },
   "copyValue": {
     "message": "Скопировать значение",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "Подсказка к мастер-паролю (необяз.)"
   },
+  "newMasterPassHint": {
+    "message": "Новая подсказка для мастер-пароля (необязательно)"
+  },
   "masterPassHintLabel": {
     "message": "Подсказка к мастер-паролю"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "Ваш аккаунт создан! Теперь вы можете войти в систему."
+  },
+  "newAccountCreated2": {
+    "message": "Ваш новый аккаунт создан!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Вы авторизовались!"
   },
   "trialAccountCreated": {
     "message": "Аккаунт успешно создан."
@@ -3703,7 +3760,7 @@
     "message": "Установите лимит мест для вашей подписки. По достижении этого лимита вы не сможете приглашать новых пользователей."
   },
   "limitSmSubscriptionDesc": {
-    "message": "Установите лимит мест для вашей подписки на Менеджер секретов. По достижении этого лимита вы не сможете приглашать новых пользователей."
+    "message": "Установите лимит мест для вашей подписки на Менеджер секретов. По достижении этого лимита вы не сможете приглашать новых пользователей.Менеджер секретов"
   },
   "maxSeatLimit": {
     "message": "Предел мест (необязательно)",
@@ -3842,6 +3899,12 @@
         "example": "15"
       }
     }
+  },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Обновление ключа шифрования невозможно"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "При обновлении ключа шифрования не удалось расшифровать папки. Чтобы продолжить обновление, папки необходимо удалить. При продолжении обновления элементы хранилища удалены не будут."
   },
   "keyUpdated": {
     "message": "Ключ обновлен"
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "Выбрано"
+  },
+  "recommended": {
+    "message": "Рекомендуется"
   },
   "ownership": {
     "message": "Владелец"
@@ -4964,6 +5030,10 @@
         "example": "An email address"
       }
     }
+  },
+  "viewSend": {
+    "message": "Просмотр Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "viewSendHiddenEmailWarning": {
     "message": "Пользователь Bitwarden, создавший эту Send, решил скрыть свой адрес email. Вы должны убедиться, что доверяете источнику этой ссылки, прежде чем использовать или скачивать ее содержимое.",
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "Аудит доступа членов организации к группам, коллекциям и элементам коллекций. Экспорт в формате CSV содержит подробную разбивку по членам, включая информацию о разрешениях на коллекции и конфигурациях учетных записей."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(Нет коллекций)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(Нет прав для коллекций)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(Нет группы)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "Вкл"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Выкл"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "Вкл"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Выкл"
+  },
   "higherKDFIterations": {
     "message": "Увеличение числа итераций KDF может помочь защитить ваш мастер-пароль от взлома его злоумышленником."
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Повысьте тарифный план, чтобы пригласить больше участников и получить доступ к дополнительным возможностям Bitwarden"
+  "upgradePlans": {
+    "message": "Улучшите свой план, чтобы приглашать пользователей и получить мощные возможности безопасности."
   },
   "upgradeDiscount": {
     "message": "Сэкономить $AMOUNT$%",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
+  "enterprisePlanUpgradeMessage": {
     "message": "Расширенные возможности для крупного бизнеса"
   },
-  "upgradeTeamsMessage": {
-    "message": "Предприятиям нужна мощная система безопасности"
+  "teamsPlanUpgradeMessage": {
+    "message": "Надежная защита для растущих команд"
   },
   "teamsInviteMessage": {
     "message": "Приглашайте неограниченное количество участников"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Синхронизация групп и пользователей из каталога"
   },
-  "upgradeFamilyMessage": {
-    "message": "Делитесь с семьей и друзьями"
+  "familyPlanUpgradeMessage": {
+    "message": "Защитите логины вашей семьи"
   },
   "accessToPremiumFeatures": {
     "message": "Доступ к премиум-возможностям"
   },
   "additionalStorageGbMessage": {
     "message": "Дополнительное место в хранилище"
+  },
+  "premiumAccounts": {
+    "message": "6 Премиум-аккаунтов"
+  },
+  "unlimitedSharing": {
+    "message": "Делитесь без ограничений"
+  },
+  "unlimitedCollections": {
+    "message": "Неограниченное количество коллекций"
+  },
+  "secureDataSharing": {
+    "message": "Защищенный обмен данными"
+  },
+  "eventLogMonitoring": {
+    "message": "Мониторинг журнала событий"
+  },
+  "directoryIntegration": {
+    "message": "Интеграция с доменами"
+  },
+  "passwordLessSso": {
+    "message": "SSO без пароля"
+  },
+  "accountRecovery": {
+    "message": "Восстановление аккаунта"
+  },
+  "customRoles": {
+    "message": "Пользовательские роли"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Неограниченное хранилище секретов"
+  },
+  "unlimitedUsers": {
+    "message": "Неограниченное количество пользователей"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "До 50 машинных аккаунтов"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "До 20 машинных аккаунтов"
+  },
+  "current": {
+    "message": "Текущий"
+  },
+  "secretsManagerSubInfo": {
+    "message": "Ваша подписка на Менеджер секретов будет обновляться в зависимости от выбранного тарифа"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden - Менеджер паролей"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Ваша бесплатная годовая подписка на Password Manager будет обновлена до выбранного тарифного плана. Плата не будет взиматься до тех пор, пока не закончится бесплатный период."
+  },
+  "fileSavedToDevice": {
+    "message": "Файл сохранен на устройстве. Управляйте им из загрузок устройства."
+  },
+  "publicApi": {
+    "message": "Публичный API",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Показать количество символов"
+  },
+  "hideCharacterCount": {
+    "message": "Скрыть количество символов"
+  },
+  "editAccess": {
+    "message": "Изменить доступ"
   }
 }

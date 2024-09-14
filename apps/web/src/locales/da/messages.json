@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Login-legitimationsoplysninger"
   },
+  "personalDetails": {
+    "message": "Personlige oplysninger"
+  },
+  "identification": {
+    "message": "Identifikation"
+  },
+  "contactInfo": {
+    "message": "Kontaktoplysninger"
+  },
+  "cardDetails": {
+    "message": "Kortoplysninger"
+  },
+  "cardBrandDetails": {
+    "message": "$BRAND$-oplysninger",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "Emnehistorik"
+  },
   "authenticatorKey": {
     "message": "Godkendelsesnøgle"
   },
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "Kortverifikationsværdi (CVC)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Sikkerhedskode/CVC"
   },
   "identityName": {
     "message": "Identitetsnavn"
@@ -193,6 +220,12 @@
   },
   "dr": {
     "message": "Dr."
+  },
+  "cardExpiredTitle": {
+    "message": "Udløbet kort"
+  },
+  "cardExpiredMessage": {
+    "message": "Er det blevet fornyet, opdatér venligst kortoplysningerne"
   },
   "expirationMonth": {
     "message": "Udløbsmåned"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "Fulde navn"
   },
+  "address": {
+    "message": "Adresse"
+  },
   "address1": {
     "message": "Adresse 1"
   },
@@ -474,6 +510,15 @@
   },
   "viewItem": {
     "message": "Vis emne"
+  },
+  "viewItemType": {
+    "message": "Vis $ITEMTYPE$",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
   },
   "new": {
     "message": "Nyt",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Kopieret"
   },
   "copyValue": {
     "message": "Kopiér værdi",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "Hovedadgangskodetip (valgfri)"
   },
+  "newMasterPassHint": {
+    "message": "Nyt hovedadgangskodetip (valgfrit)"
+  },
   "masterPassHintLabel": {
     "message": "Hovedadgangskodetip"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "Din nye konto er oprettet! Du kan nu logge ind."
+  },
+  "newAccountCreated2": {
+    "message": "Din nye konto er oprettet!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Du er blevet logget ind!"
   },
   "trialAccountCreated": {
     "message": "Konto oprettet."
@@ -1167,7 +1224,7 @@
     "message": "Sikker på, at du vil fortsætte?"
   },
   "moveSelectedItemsDesc": {
-    "message": "Choose a folder that you would like to add the $COUNT$ selected item(s) to.",
+    "message": "Vælg en mappe som du ønsker at tilføje $COUNT$ valgte element(er) til.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Krypteringsnøgleopdatering kan ikke fortsætte"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "Under opdatering af krypteringsnøglen kunne de relevante mapper ikke dekrypteres. For at fortsætte opdateringen skal mapperne slettes. Ingen boks-emner slettes, hvis der fortsættes."
+  },
   "keyUpdated": {
     "message": "Nøgle opdateret"
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "Valgt"
+  },
+  "recommended": {
+    "message": "Anbefalet"
   },
   "ownership": {
     "message": "Ejerskab"
@@ -4965,6 +5031,10 @@
       }
     }
   },
+  "viewSend": {
+    "message": "Vis Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "viewSendHiddenEmailWarning": {
     "message": "Bitwarden-brugeren, der oprettede denne Send, har valgt at skjule sin e-mailadresse. Du bør sikre dig, at du stoler på kilden til dette link, inden dets indhold downloades/benyttes.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -5866,7 +5936,7 @@
     "message": "For advanced configuration, you can specify the base URL of each service independently."
   },
   "selfHostedEnvFormInvalid": {
-    "message": "You must add either the base Server URL or at least one custom environment."
+    "message": "Du skal tilføje enten den grundlæggende server URL eller mindst et brugerdefineret miljø."
   },
   "apiUrl": {
     "message": "API server URL"
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "Inspicér organisationsmedlemsadgang på tværs af grupper, samlinger og samlingsemner. CSV-eksporten giver en detaljeret opdeling pr. medlem, herunder oplysninger om samlingstilladelser og kontoopsætninger."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(Ingen Samling)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(Ingen Samling-tilladelse)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(Ingen Gruppe)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "Til"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Fra"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "Til"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Fra"
+  },
   "higherKDFIterations": {
     "message": "Højere KDF-iterationer kan hjælpe med at beskytte hovedadgangskoden mod brute force-angreb."
   },
@@ -8792,7 +8883,7 @@
     "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'."
   },
   "contactBitwardenSupport": {
-    "message": "contact Bitwarden support.",
+    "message": "kontakt Bitwarden support.",
     "description": "This will be displayed as part of a larger sentence. The whole sentence reads: 'Notice: Later this month, client vault privacy will be improved and provider members will no longer have direct access to client vault items. For questions, please contact Bitwarden support'. 'Bitwarden' should not be translated"
   },
   "sponsored": {
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Opgradér abonnementstypen for at invitere flere til at blive medlemmer samt opnå adgang til yderligere Bitwarden-funktioner"
+  "upgradePlans": {
+    "message": "Opgradér abonnementet for at invitere folk til at blive medlemmer og opleve kraftfulde sikkerhedsfunktioner."
   },
   "upgradeDiscount": {
     "message": "Spar $AMOUNT$%",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Avancerede muligheder for større virksomheder"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Avancerede muligheder til større organisationer"
   },
-  "upgradeTeamsMessage": {
-    "message": "Virksomheder, som leder efter stærk sikkerhed"
+  "teamsPlanUpgradeMessage": {
+    "message": "Modstandsdygtig beskyttelse til voksende teams"
   },
   "teamsInviteMessage": {
     "message": "Ubegrænset medlemsantal"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Synk grupper og brugere fra et kartotek"
   },
-  "upgradeFamilyMessage": {
-    "message": "Del med familier og venner"
+  "familyPlanUpgradeMessage": {
+    "message": "Sikr familie-logins"
   },
   "accessToPremiumFeatures": {
     "message": "Adgang til Premium-funktioner"
   },
   "additionalStorageGbMessage": {
     "message": "GB ekstra lagerplads"
+  },
+  "premiumAccounts": {
+    "message": "6 Premium-konti"
+  },
+  "unlimitedSharing": {
+    "message": "Ubegrænset antal delinger"
+  },
+  "unlimitedCollections": {
+    "message": "Ubegrænset antal samlinger"
+  },
+  "secureDataSharing": {
+    "message": "Sikker datadeling"
+  },
+  "eventLogMonitoring": {
+    "message": "Hændelseslogmonitorering"
+  },
+  "directoryIntegration": {
+    "message": "Mappeintegration"
+  },
+  "passwordLessSso": {
+    "message": "PasswordLess SSO"
+  },
+  "accountRecovery": {
+    "message": "Kontogenskabelse"
+  },
+  "customRoles": {
+    "message": "Tilpassede roller"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Ubegrænset hemmelighedslagring"
+  },
+  "unlimitedUsers": {
+    "message": "Ubegrænset antal brugere"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "Op til 50 maskinkonti"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "Op til 20 maskinkonti"
+  },
+  "current": {
+    "message": "Nuværende"
+  },
+  "secretsManagerSubInfo": {
+    "message": "Secrets Manager-abonnementet vil opgradere baseret på den valgte plan"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden Adgangskodehåndtering"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Det gratis et-års abonnement på Password Manager opgraderes til den valgte abonnementstype. Betaling opkræves først efter endt gratis-periode."
+  },
+  "fileSavedToDevice": {
+    "message": "Fil gemt på enheden. Håndtér fra enhedens downloads."
+  },
+  "publicApi": {
+    "message": "Offentlig API",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Vis tegnantal"
+  },
+  "hideCharacterCount": {
+    "message": "Skjul tegnantal"
+  },
+  "editAccess": {
+    "message": "Redigér adgang"
   }
 }

@@ -1,17 +1,32 @@
+<!-- The calc() reductions are to account for browser/desktop headers -->
 <main
-  class="tw-flex tw-min-h-screen tw-w-full tw-mx-auto tw-flex-col tw-gap-7 tw-bg-background-alt tw-px-8 tw-pb-4 tw-text-main"
-  [ngClass]="{ 'tw-pt-0': decreaseTopPadding, 'tw-pt-8': !decreaseTopPadding }"
+  class="tw-flex tw-w-full tw-mx-auto tw-flex-col tw-gap-7 tw-bg-background-alt tw-px-8 tw-pb-4 tw-text-main"
+  [ngClass]="{
+    'tw-pt-0': decreaseTopPadding,
+    'tw-pt-8': !decreaseTopPadding,
+    'tw-min-h-screen': clientType === 'web',
+    'tw-min-h-[calc(100vh-72px)]': clientType === 'browser',
+    'tw-min-h-[calc(100vh-54px)]': clientType === 'desktop',
+  }"
 >
-  <bit-icon *ngIf="!hideLogo" [icon]="logo" class="tw-max-w-36"></bit-icon>
+  <bit-icon *ngIf="!hideLogo" [icon]="logo" class="tw-w-[128px] [&>*]:tw-align-top"></bit-icon>
 
   <div class="tw-text-center">
     <div class="tw-mx-auto tw-max-w-28 sm:tw-max-w-32">
       <bit-icon [icon]="icon"></bit-icon>
     </div>
 
-    <h1 *ngIf="title" bitTypography="h3" class="tw-mt-2 sm:tw-text-2xl">
-      {{ title }}
-    </h1>
+    <ng-container *ngIf="title">
+      <!-- Small screens -->
+      <h1 bitTypography="h3" class="tw-mt-2 sm:tw-hidden">
+        {{ title }}
+      </h1>
+      <!-- Medium to Larger screens -->
+      <h1 bitTypography="h2" class="tw-mt-2 tw-hidden sm:tw-block">
+        {{ title }}
+      </h1>
+    </ng-container>
+
     <div *ngIf="subtitle" class="tw-text-sm sm:tw-text-base">{{ subtitle }}</div>
   </div>
 

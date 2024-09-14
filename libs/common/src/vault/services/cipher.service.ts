@@ -17,7 +17,6 @@ import { CryptoService } from "../../platform/abstractions/crypto.service";
 import { EncryptService } from "../../platform/abstractions/encrypt.service";
 import { I18nService } from "../../platform/abstractions/i18n.service";
 import { StateService } from "../../platform/abstractions/state.service";
-import { flagEnabled } from "../../platform/misc/flags";
 import { sequentialize } from "../../platform/misc/sequentialize";
 import { Utils } from "../../platform/misc/utils";
 import Domain from "../../platform/models/domain/domain-base";
@@ -913,8 +912,8 @@ export class CipherService implements CipherServiceAbstraction {
     });
   }
 
-  async replace(ciphers: { [id: string]: CipherData }): Promise<any> {
-    await this.updateEncryptedCipherState(() => ciphers);
+  async replace(ciphers: { [id: string]: CipherData }, userId: UserId): Promise<any> {
+    await this.updateEncryptedCipherState(() => ciphers, userId);
   }
 
   /**
@@ -924,15 +923,18 @@ export class CipherService implements CipherServiceAbstraction {
    */
   private async updateEncryptedCipherState(
     update: (current: Record<CipherId, CipherData>) => Record<CipherId, CipherData>,
+    userId: UserId = null,
   ): Promise<Record<CipherId, CipherData>> {
-    const userId = await firstValueFrom(this.stateProvider.activeUserId$);
+    userId ||= await firstValueFrom(this.stateProvider.activeUserId$);
     // Store that we should wait for an update to return any ciphers
     await this.ciphersExpectingUpdate.forceValue(true);
     await this.clearDecryptedCiphersState(userId);
-    const [, updatedCiphers] = await this.encryptedCiphersState.update((current) => {
-      const result = update(current ?? {});
-      return result;
-    });
+    const updatedCiphers = await this.stateProvider
+      .getUser(userId, ENCRYPTED_CIPHERS)
+      .update((current) => {
+        const result = update(current ?? {});
+        return result;
+      });
     return updatedCiphers;
   }
 
@@ -1659,11 +1661,10 @@ export class CipherService implements CipherServiceAbstraction {
   }
 
   private async getCipherKeyEncryptionEnabled(): Promise<boolean> {
-    return (
-      flagEnabled("enableCipherKeyEncryption") &&
-      (await firstValueFrom(
-        this.configService.checkServerMeetsVersionRequirement$(CIPHER_KEY_ENC_MIN_SERVER_VER),
-      ))
+    const featureEnabled = await this.configService.getFeatureFlag(FeatureFlag.CipherKeyEncryption);
+    const meetsServerVersion = await firstValueFrom(
+      this.configService.checkServerMeetsVersionRequirement$(CIPHER_KEY_ENC_MIN_SERVER_VER),
     );
+    return featureEnabled && meetsServerVersion;
   }
 }

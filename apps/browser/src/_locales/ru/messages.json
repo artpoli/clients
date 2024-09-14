@@ -25,9 +25,6 @@
   "finishCreatingYourAccountBySettingAPassword": {
     "message": "Завершите создание аккаунта, задав пароль"
   },
-  "login": {
-    "message": "Войти"
-  },
   "enterpriseSingleSignOn": {
     "message": "Единая корпоративная авторизация"
   },
@@ -387,16 +384,56 @@
     "message": "Минимальная длина пароля"
   },
   "uppercase": {
-    "message": "Прописные буквы (A-Z)"
+    "message": "Прописные буквы (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Строчные буквы (a-z)"
+    "message": "Строчные буквы (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Цифры (0-9)"
+    "message": "Цифры (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
-    "message": "Специальные символы (!@#$%^&*)"
+    "message": "Специальные символы (!@#$%^&*)",
+    "description": "deprecated. Use specialCharactersLabel instead."
+  },
+  "include": {
+    "message": "Включить",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Включить заглавные символы",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Включить строчные символы",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Включить цифры",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Включить специальные символы",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Количество слов"
@@ -418,7 +455,12 @@
     "message": "Минимум символов"
   },
   "avoidAmbChar": {
-    "message": "Избегать неоднозначных символов"
+    "message": "Избегать неоднозначных символов",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Избегать неоднозначных символов",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "searchVault": {
     "message": "Поиск в хранилище"
@@ -640,6 +682,12 @@
   },
   "newAccountCreated": {
     "message": "Ваш аккаунт создан! Теперь вы можете войти в систему."
+  },
+  "newAccountCreated2": {
+    "message": "Ваш новый аккаунт создан!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Вы авторизовались!"
   },
   "youSuccessfullyLoggedIn": {
     "message": "Вы успешно авторизовались"
@@ -1115,7 +1163,19 @@
   "premiumCurrentMemberThanks": {
     "message": "Благодарим вас за поддержку Bitwarden."
   },
+  "premiumFeatures": {
+    "message": "Перейдите на Премиум и получите:"
+  },
   "premiumPrice": {
+    "message": "Всего лишь $PRICE$ в год!",
+    "placeholders": {
+      "price": {
+        "content": "$1",
+        "example": "$10"
+      }
+    }
+  },
+  "premiumPriceV2": {
     "message": "Всего лишь $PRICE$ в год!",
     "placeholders": {
       "price": {
@@ -1736,6 +1796,15 @@
   "noPasswordsInList": {
     "message": "Нет паролей для отображения."
   },
+  "clearHistory": {
+    "message": "Очистить историю"
+  },
+  "noPasswordsToShow": {
+    "message": "Нет паролей для отображения"
+  },
+  "noRecentlyGeneratedPassword": {
+    "message": "Нет недавно сгенерированных паролей"
+  },
   "remove": {
     "message": "Удалить"
   },
@@ -2073,6 +2142,12 @@
   },
   "biometricsNotUnlockedDesc": {
     "message": "Пожалуйста, разблокируйте этого пользователя в приложении для компьютера и повторите попытку."
+  },
+  "biometricsNotAvailableTitle": {
+    "message": "Разблокировка биометрией недоступна"
+  },
+  "biometricsNotAvailableDesc": {
+    "message": "Разблокировка биометрией в настоящее время недоступна. Пожалуйста, повторите попытку позже."
   },
   "biometricsFailedTitle": {
     "message": "Сбой биометрии"
@@ -3411,7 +3486,7 @@
   "passkeyFeatureIsNotImplementedForAccountsWithoutMasterPassword": {
     "message": "Необходима верификация со стороны инициирующего сайта. Для аккаунтов без мастер-пароля эта возможность пока не реализована."
   },
-  "logInWithPasskey": {
+  "logInWithPasskeyQuestion": {
     "message": "Войти с passkey?"
   },
   "passkeyAlreadyExists": {
@@ -3423,6 +3498,9 @@
   "noMatchingPasskeyLogin": {
     "message": "У вас нет подходящего логина для этого сайта."
   },
+  "noMatchingLoginsForSite": {
+    "message": "Нет подходящих логинов для этого сайта"
+  },
   "confirm": {
     "message": "Подтвердить"
   },
@@ -3432,8 +3510,11 @@
   "savePasskeyNewLogin": {
     "message": "Сохранить passkey как новый логин"
   },
-  "choosePasskey": {
+  "chooseCipherForPasskeySave": {
     "message": "Выберите логин, для которого будет сохранен данный passkey"
+  },
+  "chooseCipherForPasskeyAuth": {
+    "message": "Выберите passkey для авторизации"
   },
   "passkeyItem": {
     "message": "Элемент passkey"
@@ -3630,8 +3711,16 @@
     "message": "Учетные данные успешно сохранены!",
     "description": "Notification message for when saving credentials has succeeded."
   },
+  "passwordSaved": {
+    "message": "Пароль сохранен!",
+    "description": "Notification message for when saving credentials has succeeded."
+  },
   "updateCipherAttemptSuccess": {
     "message": "Учетные данные успешно обновлены!",
+    "description": "Notification message for when updating credentials has succeeded."
+  },
+  "passwordUpdated": {
+    "message": "Пароль обновлен!",
     "description": "Notification message for when updating credentials has succeeded."
   },
   "saveCipherAttemptFailed": {
@@ -3960,6 +4049,12 @@
   "autoFillOnPageLoad": {
     "message": "Автозаполнение при загрузке страницы?"
   },
+  "cardExpiredTitle": {
+    "message": "Истек срок действия карты"
+  },
+  "cardExpiredMessage": {
+    "message": "Если вы заменили карту, обновите информацию о ней"
+  },
   "cardDetails": {
     "message": "Реквизиты карты"
   },
@@ -3971,6 +4066,9 @@
         "example": "Visa"
       }
     }
+  },
+  "enableAnimations": {
+    "message": "Включить анимацию"
   },
   "addAccount": {
     "message": "Добавить аккаунт"
@@ -4210,5 +4308,35 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "К этой настройке были применены требования корпоративной политики"
+  },
+  "fileSavedToDevice": {
+    "message": "Файл сохранен на устройстве. Управляйте им из загрузок устройства."
+  },
+  "showCharacterCount": {
+    "message": "Показать количество символов"
+  },
+  "hideCharacterCount": {
+    "message": "Скрыть количество символов"
+  },
+  "itemsInTrash": {
+    "message": "Элементы в корзине"
+  },
+  "noItemsInTrash": {
+    "message": "Нет элементов в корзине"
+  },
+  "noItemsInTrashDesc": {
+    "message": "Элементы, которые вы удаляете, появятся здесь и будут удалены навсегда через 30 дней"
+  },
+  "trashWarning": {
+    "message": "Элементы, которые были в корзине более 30 дней, будут автоматически удалены"
+  },
+  "restore": {
+    "message": "Восстановить"
+  },
+  "deleteForever": {
+    "message": "Удалить навсегда"
+  },
+  "noEditPermissions": {
+    "message": "У вас нет разрешения на редактирование этого элемента"
   }
 }

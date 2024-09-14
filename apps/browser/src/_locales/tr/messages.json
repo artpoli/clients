@@ -25,9 +25,6 @@
   "finishCreatingYourAccountBySettingAPassword": {
     "message": "Parolanızı belirleyerek hesabınızı oluşturmayı tamamlayın"
   },
-  "login": {
-    "message": "Giriş yap"
-  },
   "enterpriseSingleSignOn": {
     "message": "Kurumsal tek oturum açma (SSO)"
   },
@@ -269,7 +266,7 @@
     "message": "Bitwarden Authenticator allows you to store authenticator keys and generate TOTP codes for 2-step verification flows. Learn more on the bitwarden.com website"
   },
   "bitwardenSecretsManager": {
-    "message": "Bitwarden Sır Yöneticisi"
+    "message": "Bitwarden Secrets Manager"
   },
   "continueToSecretsManagerPageDesc": {
     "message": "Securely store, manage, and share developer secrets with Bitwarden Secrets Manager. Learn more on the bitwarden.com website."
@@ -387,16 +384,56 @@
     "message": "Minimum parola uzunluğu"
   },
   "uppercase": {
-    "message": "Büyük harf (A-Z)"
+    "message": "Büyük harf (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Küçük harf (a-z)"
+    "message": "Küçük harf (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Rakamlar (0-9)"
+    "message": "Rakamlar (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
-    "message": "Özel karakterler (!@#$%^&*)"
+    "message": "Özel karakterler (!@#$%^&*)",
+    "description": "deprecated. Use specialCharactersLabel instead."
+  },
+  "include": {
+    "message": "Dahil et",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Büyük harfleri dahil et",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Küçük harfleri dahil et",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Rakamları dahil et",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Özel karakterleri dahil et",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Kelime sayısı"
@@ -418,7 +455,12 @@
     "message": "En az özel karakter"
   },
   "avoidAmbChar": {
-    "message": "Okurken karışabilecek karakterleri kullanma"
+    "message": "Okurken karışabilecek karakterleri kullanma",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Okurken karışabilecek karakterleri kullanma",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "searchVault": {
     "message": "Kasada ara"
@@ -640,6 +682,12 @@
   },
   "newAccountCreated": {
     "message": "Yeni hesabınız oluşturuldu! Şimdi giriş yapabilirsiniz."
+  },
+  "newAccountCreated2": {
+    "message": "Yeni hesabınız oluşturuldu."
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Oturum açtınız."
   },
   "youSuccessfullyLoggedIn": {
     "message": "Başarıyla giriş yaptınız"
@@ -1083,7 +1131,7 @@
     "message": "Dosya ekleri için 1 GB şifrelenmiş depolama."
   },
   "premiumSignUpEmergency": {
-    "message": "Emergency access"
+    "message": "Acil durum erişimi"
   },
   "premiumSignUpTwoStepOptions": {
     "message": "YubiKey ve Duo gibi marka bazlı iki aşamalı giriş seçenekleri."
@@ -1115,8 +1163,20 @@
   "premiumCurrentMemberThanks": {
     "message": "Bitwarden'ı desteklediğiniz için teşekkür ederiz."
   },
+  "premiumFeatures": {
+    "message": "Upgrade to Premium and receive:"
+  },
   "premiumPrice": {
     "message": "Bunların hepsi sadece yılda $PRICE$!",
+    "placeholders": {
+      "price": {
+        "content": "$1",
+        "example": "$10"
+      }
+    }
+  },
+  "premiumPriceV2": {
+    "message": "Bunların hepsi yılda sadece $PRICE$!",
     "placeholders": {
       "price": {
         "content": "$1",
@@ -1736,6 +1796,15 @@
   "noPasswordsInList": {
     "message": "Listelenecek parola yok."
   },
+  "clearHistory": {
+    "message": "Geçmişi temizle"
+  },
+  "noPasswordsToShow": {
+    "message": "Gösterilecek parola yok"
+  },
+  "noRecentlyGeneratedPassword": {
+    "message": "Yakın zamanda parola üretmediniz"
+  },
   "remove": {
     "message": "Kaldır"
   },
@@ -1843,14 +1912,14 @@
     "message": "Bu kullanıcı adını kullan"
   },
   "securePasswordGenerated": {
-    "message": "Secure password generated! Don't forget to also update your password on the website."
+    "message": "Güvenli parola üretildi. Web sitesindeki parolanızı da güncellemeyi unutmayın."
   },
   "useGeneratorHelpTextPartOne": {
-    "message": "Use the generator",
+    "message": "Güçlü ve benzersiz bir parola üretmek için",
     "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
   },
   "useGeneratorHelpTextPartTwo": {
-    "message": "to create a strong unique password",
+    "message": "üreteci kullanabilirsiniz",
     "description": "This will be used as part of a larger sentence, broken up to include the generator icon. The full sentence will read 'Use the generator [GENERATOR_ICON] to create a strong unique password'"
   },
   "vaultTimeoutAction": {
@@ -2073,6 +2142,12 @@
   },
   "biometricsNotUnlockedDesc": {
     "message": "Lütfen masaüstü uygulamasından bu kullanıcının kilidini açıp yeniden deneyin."
+  },
+  "biometricsNotAvailableTitle": {
+    "message": "Biyometrik kilit açma kullanılamıyor"
+  },
+  "biometricsNotAvailableDesc": {
+    "message": "Biyometrik kilit açma şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyin."
   },
   "biometricsFailedTitle": {
     "message": "Biyometri doğrulanamadı"
@@ -3311,7 +3386,7 @@
     "message": "Error connecting with the Duo service. Use a different two-step login method or contact Duo for assistance."
   },
   "launchDuoAndFollowStepsToFinishLoggingIn": {
-    "message": "Duo'yu başlatın ve oturum açmayı tamamlamak için adımları izleyin."
+    "message": "Duo'yu açın ve girişi tamamlamak için adımları izleyin."
   },
   "duoRequiredForAccount": {
     "message": "Hesabınız için Duo iki adımlı giriş gereklidir."
@@ -3323,7 +3398,7 @@
     "message": "Uzantıyı dışarı al"
   },
   "launchDuo": {
-    "message": "Duo'yu başlat"
+    "message": "Duo'yu aç"
   },
   "importFormatError": {
     "message": "Veriler doğru biçimlendirilmemiş. Lütfen içe aktarma dosyanızı kontrol edin ve tekrar deneyin."
@@ -3411,7 +3486,7 @@
   "passkeyFeatureIsNotImplementedForAccountsWithoutMasterPassword": {
     "message": "Site kimlik doğrulaması gerektiriyor. Bu özellik henüz ana parolası olmayan hesaplarda kullanılamaz."
   },
-  "logInWithPasskey": {
+  "logInWithPasskeyQuestion": {
     "message": "Geçiş anahtarı ile giriş yapılsın mı?"
   },
   "passkeyAlreadyExists": {
@@ -3423,6 +3498,9 @@
   "noMatchingPasskeyLogin": {
     "message": "Bu siteyle eşleşen hiç hesabınız yok."
   },
+  "noMatchingLoginsForSite": {
+    "message": "Bu siteyle eşleşen hesap bulunamadı"
+  },
   "confirm": {
     "message": "Onayla"
   },
@@ -3432,8 +3510,11 @@
   "savePasskeyNewLogin": {
     "message": "Geçiş anahtarını yeni hesap olarak kaydet"
   },
-  "choosePasskey": {
+  "chooseCipherForPasskeySave": {
     "message": "Bu geçiş anahtarının kaydedileceği hesabı seçin"
+  },
+  "chooseCipherForPasskeyAuth": {
+    "message": "Giriş yapılacak geçiş anahtarını seçin"
   },
   "passkeyItem": {
     "message": "Geçiş anahtarı kaydı"
@@ -3557,7 +3638,7 @@
     "message": "konum"
   },
   "useDeviceOrHardwareKey": {
-    "message": "Cihazınızı veya donanımsal anahtarınızı kullanın"
+    "message": "Cihazımı veya anahtar donanımımı kullanacağım"
   },
   "justOnce": {
     "message": "Yalnızca bir defa"
@@ -3630,8 +3711,16 @@
     "message": "Kimlik bilgileri başarıyla kaydedildi!",
     "description": "Notification message for when saving credentials has succeeded."
   },
+  "passwordSaved": {
+    "message": "Parola kaydedildi!",
+    "description": "Notification message for when saving credentials has succeeded."
+  },
   "updateCipherAttemptSuccess": {
     "message": "Kimlik bilgileri başarıyla güncellendi!",
+    "description": "Notification message for when updating credentials has succeeded."
+  },
+  "passwordUpdated": {
+    "message": "Parola güncellendi!",
     "description": "Notification message for when updating credentials has succeeded."
   },
   "saveCipherAttemptFailed": {
@@ -3960,6 +4049,12 @@
   "autoFillOnPageLoad": {
     "message": "Sayfa yüklendiğinde otomatik doldur"
   },
+  "cardExpiredTitle": {
+    "message": "Kartın süresi dolmuş"
+  },
+  "cardExpiredMessage": {
+    "message": "Kartı yenilediyseniz kart bilgilerini güncelleyin"
+  },
   "cardDetails": {
     "message": "Kart bilgileri"
   },
@@ -3971,6 +4066,9 @@
         "example": "Visa"
       }
     }
+  },
+  "enableAnimations": {
+    "message": "Animasyonları etkinleştir"
   },
   "addAccount": {
     "message": "Hesap ekle"
@@ -4210,5 +4308,35 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "Bu ayara kurumsal ilke gereksinimleri uygulandı"
+  },
+  "fileSavedToDevice": {
+    "message": "Dosya cihaza kaydedildi. Cihazınızın indirilenler klasöründen yönetebilirsiniz."
+  },
+  "showCharacterCount": {
+    "message": "Show character count"
+  },
+  "hideCharacterCount": {
+    "message": "Hide character count"
+  },
+  "itemsInTrash": {
+    "message": "Çöp kutusundaki kayıtlar"
+  },
+  "noItemsInTrash": {
+    "message": "Çöp kutusunda hiç kayıt yok"
+  },
+  "noItemsInTrashDesc": {
+    "message": "Sildiğiniz kayıtlar burada görünecek ve 30 gün sonra kalıcı olarak silinecektir"
+  },
+  "trashWarning": {
+    "message": "30 günden uzun süre çöp kutusunda duran kayıtlar otomatik olarak silinecektir"
+  },
+  "restore": {
+    "message": "Geri yükle"
+  },
+  "deleteForever": {
+    "message": "Kalıcı olarak sil"
+  },
+  "noEditPermissions": {
+    "message": "Bu kaydı düzenleme yetkisine sahip değilsiniz"
   }
 }

@@ -25,9 +25,6 @@
   "finishCreatingYourAccountBySettingAPassword": {
     "message": "Finalizați crearea contului prin setarea unei parole"
   },
-  "login": {
-    "message": "Conectare"
-  },
   "enterpriseSingleSignOn": {
     "message": "Conectare unică organizație"
   },
@@ -387,16 +384,56 @@
     "message": "Lungimea minimă a parolei"
   },
   "uppercase": {
-    "message": "Litere mari (A-Z)"
+    "message": "Litere mari (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Litere mici (a-z)"
+    "message": "Litere mici (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Numere (0-9)"
+    "message": "Numere (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
-    "message": "Caractere speciale (!@#$%^&*)"
+    "message": "Caractere speciale (!@#$%^&*)",
+    "description": "deprecated. Use specialCharactersLabel instead."
+  },
+  "include": {
+    "message": "Include",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Include uppercase characters",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Include lowercase characters",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Include numbers",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Include special characters",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Număr de cuvinte"
@@ -418,7 +455,12 @@
     "message": "Minim de caractere speciale"
   },
   "avoidAmbChar": {
-    "message": "Se evită caracterele ambigue"
+    "message": "Se evită caracterele ambigue",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Avoid ambiguous characters",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "searchVault": {
     "message": "Căutare în seif"
@@ -640,6 +682,12 @@
   },
   "newAccountCreated": {
     "message": "Noul dvs. cont a fost creat! Acum vă puteți autentifica."
+  },
+  "newAccountCreated2": {
+    "message": "Your new account has been created!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "You have been logged in!"
   },
   "youSuccessfullyLoggedIn": {
     "message": "V-ați conectat cu succes"
@@ -1083,7 +1131,7 @@
     "message": "1 GB spațiu de stocare criptat pentru atașamente de fișiere."
   },
   "premiumSignUpEmergency": {
-    "message": "Emergency access"
+    "message": "Emergency access."
   },
   "premiumSignUpTwoStepOptions": {
     "message": "Opțiuni brevetate de conectare cu doi factori, cum ar fi YubiKey și Duo."
@@ -1115,8 +1163,20 @@
   "premiumCurrentMemberThanks": {
     "message": "Vă mulțumim pentru susținerea Bitwarden."
   },
+  "premiumFeatures": {
+    "message": "Upgrade to Premium and receive:"
+  },
   "premiumPrice": {
     "message": "Totul pentru doar %price% /an!",
+    "placeholders": {
+      "price": {
+        "content": "$1",
+        "example": "$10"
+      }
+    }
+  },
+  "premiumPriceV2": {
+    "message": "All for just $PRICE$ per year!",
     "placeholders": {
       "price": {
         "content": "$1",
@@ -1736,6 +1796,15 @@
   "noPasswordsInList": {
     "message": "Nicio parolă de afișat."
   },
+  "clearHistory": {
+    "message": "Clear history"
+  },
+  "noPasswordsToShow": {
+    "message": "No passwords to show"
+  },
+  "noRecentlyGeneratedPassword": {
+    "message": "You haven't generated a password recently"
+  },
   "remove": {
     "message": "Ștergere"
   },
@@ -2073,6 +2142,12 @@
   },
   "biometricsNotUnlockedDesc": {
     "message": "Please unlock this user in the desktop application and try again."
+  },
+  "biometricsNotAvailableTitle": {
+    "message": "Biometric unlock unavailable"
+  },
+  "biometricsNotAvailableDesc": {
+    "message": "Biometric unlock is currently unavailable. Please try again later."
   },
   "biometricsFailedTitle": {
     "message": "Biometrica a eșuat"
@@ -3411,7 +3486,7 @@
   "passkeyFeatureIsNotImplementedForAccountsWithoutMasterPassword": {
     "message": "Verification required by the initiating site. This feature is not yet implemented for accounts without master password."
   },
-  "logInWithPasskey": {
+  "logInWithPasskeyQuestion": {
     "message": "Log in with passkey?"
   },
   "passkeyAlreadyExists": {
@@ -3423,6 +3498,9 @@
   "noMatchingPasskeyLogin": {
     "message": "You do not have a matching login for this site."
   },
+  "noMatchingLoginsForSite": {
+    "message": "No matching logins for this site"
+  },
   "confirm": {
     "message": "Confirm"
   },
@@ -3432,8 +3510,11 @@
   "savePasskeyNewLogin": {
     "message": "Save passkey as new login"
   },
-  "choosePasskey": {
+  "chooseCipherForPasskeySave": {
     "message": "Choose a login to save this passkey to"
+  },
+  "chooseCipherForPasskeyAuth": {
+    "message": "Choose a passkey to log in with"
   },
   "passkeyItem": {
     "message": "Passkey Item"
@@ -3630,8 +3711,16 @@
     "message": "Credentials saved successfully!",
     "description": "Notification message for when saving credentials has succeeded."
   },
+  "passwordSaved": {
+    "message": "Password saved!",
+    "description": "Notification message for when saving credentials has succeeded."
+  },
   "updateCipherAttemptSuccess": {
     "message": "Credentials updated successfully!",
+    "description": "Notification message for when updating credentials has succeeded."
+  },
+  "passwordUpdated": {
+    "message": "Password updated!",
     "description": "Notification message for when updating credentials has succeeded."
   },
   "saveCipherAttemptFailed": {
@@ -3960,6 +4049,12 @@
   "autoFillOnPageLoad": {
     "message": "Autofill on page load?"
   },
+  "cardExpiredTitle": {
+    "message": "Expired card"
+  },
+  "cardExpiredMessage": {
+    "message": "If you've renewed it, update the card's information"
+  },
   "cardDetails": {
     "message": "Card details"
   },
@@ -3971,6 +4066,9 @@
         "example": "Visa"
       }
     }
+  },
+  "enableAnimations": {
+    "message": "Enable animations"
   },
   "addAccount": {
     "message": "Add account"
@@ -4210,5 +4308,35 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "Enterprise policy requirements have been applied to this setting"
+  },
+  "fileSavedToDevice": {
+    "message": "File saved to device. Manage from your device downloads."
+  },
+  "showCharacterCount": {
+    "message": "Show character count"
+  },
+  "hideCharacterCount": {
+    "message": "Hide character count"
+  },
+  "itemsInTrash": {
+    "message": "Items in trash"
+  },
+  "noItemsInTrash": {
+    "message": "No items in trash"
+  },
+  "noItemsInTrashDesc": {
+    "message": "Items you delete will appear here and be permanently deleted after 30 days"
+  },
+  "trashWarning": {
+    "message": "Items that have been in trash more than 30 days will automatically be deleted"
+  },
+  "restore": {
+    "message": "Restore"
+  },
+  "deleteForever": {
+    "message": "Delete forever"
+  },
+  "noEditPermissions": {
+    "message": "You don't have permission to edit this item"
   }
 }

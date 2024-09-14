@@ -18,12 +18,12 @@ import {
   EnvironmentService,
   Region,
 } from "@bitwarden/common/platform/abstractions/environment.service";
-import { Fido2ClientService } from "@bitwarden/common/platform/abstractions/fido2/fido2-client.service.abstraction";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { ThemeType } from "@bitwarden/common/platform/enums";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { CloudEnvironment } from "@bitwarden/common/platform/services/default-environment.service";
+import { Fido2ActiveRequestManager } from "@bitwarden/common/platform/services/fido2/fido2-active-request-manager";
 import { ThemeStateService } from "@bitwarden/common/platform/theming/theme-state.service";
 import {
   FakeAccountService,
@@ -32,6 +32,7 @@ import {
 } from "@bitwarden/common/spec";
 import { UserId } from "@bitwarden/common/types/guid";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
+import { VaultSettingsService } from "@bitwarden/common/vault/abstractions/vault-settings/vault-settings.service";
 import { CipherRepromptType, CipherType } from "@bitwarden/common/vault/enums";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 import { Fido2CredentialView } from "@bitwarden/common/vault/models/view/fido2-credential.view";
@@ -89,8 +90,9 @@ describe("OverlayBackground", () => {
   let autofillSettingsService: MockProxy<AutofillSettingsService>;
   let i18nService: MockProxy<I18nService>;
   let platformUtilsService: MockProxy<BrowserPlatformUtilsService>;
-  let availableAutofillCredentialsMock$: BehaviorSubject<Fido2CredentialView[]>;
-  let fido2ClientService: MockProxy<Fido2ClientService>;
+  let enablePasskeysMock$: BehaviorSubject<boolean>;
+  let vaultSettingsServiceMock: MockProxy<VaultSettingsService>;
+  let fido2ActiveRequestManager: Fido2ActiveRequestManager;
   let selectedThemeMock$: BehaviorSubject<ThemeType>;
   let themeStateService: MockProxy<ThemeStateService>;
   let overlayBackground: OverlayBackground;
@@ -159,10 +161,10 @@ describe("OverlayBackground", () => {
     autofillSettingsService.inlineMenuVisibility$ = inlineMenuVisibilityMock$;
     i18nService = mock<I18nService>();
     platformUtilsService = mock<BrowserPlatformUtilsService>();
-    availableAutofillCredentialsMock$ = new BehaviorSubject([]);
-    fido2ClientService = mock<Fido2ClientService>({
-      availableAutofillCredentials$: (_tabId) => availableAutofillCredentialsMock$,
-    });
+    enablePasskeysMock$ = new BehaviorSubject(true);
+    vaultSettingsServiceMock = mock<VaultSettingsService>();
+    vaultSettingsServiceMock.enablePasskeys$ = enablePasskeysMock$;
+    fido2ActiveRequestManager = new Fido2ActiveRequestManager();
     selectedThemeMock$ = new BehaviorSubject(ThemeType.Light);
     themeStateService = mock<ThemeStateService>();
     themeStateService.selectedTheme$ = selectedThemeMock$;
@@ -176,7 +178,8 @@ describe("OverlayBackground", () => {
       autofillSettingsService,
       i18nService,
       platformUtilsService,
-      fido2ClientService,
+      vaultSettingsServiceMock,
+      fido2ActiveRequestManager,
       themeStateService,
     );
     portKeyForTabSpy = overlayBackground["portKeyForTab"];
@@ -717,7 +720,7 @@ describe("OverlayBackground", () => {
       localData: { lastUsedDate: 222 },
       name: "name-1",
       type: CipherType.Login,
-      login: { username: "username-1", uri: url },
+      login: { username: "username-1", password: "password", uri: url },
     });
     const cardCipher = mock<CipherView>({
       id: "id-2",
@@ -752,6 +755,7 @@ describe("OverlayBackground", () => {
       type: CipherType.Login,
       login: {
         username: "username-5",
+        password: "password",
         uri: url,
         fido2Credentials: [
           mock<Fido2CredentialView>({
@@ -775,6 +779,15 @@ describe("OverlayBackground", () => {
       await overlayBackground.updateOverlayCiphers();
 
       expect(getTabFromCurrentWindowIdSpy).not.toHaveBeenCalled();
+      expect(cipherService.getAllDecryptedForUrl).not.toHaveBeenCalled();
+    });
+
+    it("skips updating the inline menu ciphers if the current tab url has non-http protocol", async () => {
+      const nonHttpTab = createChromeTabMock({ url: "chrome-extension://id/route" });
+      getTabFromCurrentWindowIdSpy.mockResolvedValueOnce(nonHttpTab);
+
+      await overlayBackground.updateOverlayCiphers();
+
       expect(cipherService.getAllDecryptedForUrl).not.toHaveBeenCalled();
     });
 
@@ -1112,10 +1125,15 @@ describe("OverlayBackground", () => {
     });
 
     it("adds available passkey ciphers to the inline menu", async () => {
-      availableAutofillCredentialsMock$.next(passkeyCipher.login.fido2Credentials);
+      void fido2ActiveRequestManager.newActiveRequest(
+        tab.id,
+        passkeyCipher.login.fido2Credentials,
+        new AbortController(),
+      );
       overlayBackground["focusedFieldData"] = createFocusedFieldDataMock({
         tabId: tab.id,
         filledByCipherType: CipherType.Login,
+        showPasskeys: true,
       });
       cipherService.getAllDecryptedForUrl.mockResolvedValue([loginCipher1, passkeyCipher]);
       cipherService.sortCiphersByLastUsedThenName.mockReturnValue(-1);
@@ -1190,15 +1208,83 @@ describe("OverlayBackground", () => {
     });
 
     it("does not add a passkey to the inline menu when its rpId is part of the neverDomains exclusion list", async () => {
-      availableAutofillCredentialsMock$.next(passkeyCipher.login.fido2Credentials);
+      void fido2ActiveRequestManager.newActiveRequest(
+        tab.id,
+        passkeyCipher.login.fido2Credentials,
+        new AbortController(),
+      );
       overlayBackground["focusedFieldData"] = createFocusedFieldDataMock({
         tabId: tab.id,
         filledByCipherType: CipherType.Login,
+        showPasskeys: true,
       });
       cipherService.getAllDecryptedForUrl.mockResolvedValue([loginCipher1, passkeyCipher]);
       cipherService.sortCiphersByLastUsedThenName.mockReturnValue(-1);
       getTabFromCurrentWindowIdSpy.mockResolvedValueOnce(tab);
       neverDomainsMock$.next({ "jest-testing-website.com": null });
+
+      await overlayBackground.updateOverlayCiphers();
+
+      expect(listPortSpy.postMessage).toHaveBeenCalledWith({
+        command: "updateAutofillInlineMenuListCiphers",
+        ciphers: [
+          {
+            id: "inline-menu-cipher-0",
+            name: passkeyCipher.name,
+            type: CipherType.Login,
+            reprompt: passkeyCipher.reprompt,
+            favorite: passkeyCipher.favorite,
+            icon: {
+              fallbackImage: "images/bwi-globe.png",
+              icon: "bwi-globe",
+              image: "https://icons.bitwarden.com//jest-testing-website.com/icon.png",
+              imageEnabled: true,
+            },
+            accountCreationFieldType: undefined,
+            login: {
+              username: passkeyCipher.login.username,
+              passkey: null,
+            },
+          },
+          {
+            id: "inline-menu-cipher-1",
+            name: loginCipher1.name,
+            type: CipherType.Login,
+            reprompt: loginCipher1.reprompt,
+            favorite: loginCipher1.favorite,
+            icon: {
+              fallbackImage: "images/bwi-globe.png",
+              icon: "bwi-globe",
+              image: "https://icons.bitwarden.com//jest-testing-website.com/icon.png",
+              imageEnabled: true,
+            },
+            accountCreationFieldType: undefined,
+            login: {
+              username: loginCipher1.login.username,
+              passkey: null,
+            },
+          },
+        ],
+        showInlineMenuAccountCreation: false,
+        showPasskeysLabels: false,
+      });
+    });
+
+    it("does not add passkeys to the inline menu if the passkey setting is disabled", async () => {
+      enablePasskeysMock$.next(false);
+      void fido2ActiveRequestManager.newActiveRequest(
+        tab.id,
+        passkeyCipher.login.fido2Credentials,
+        new AbortController(),
+      );
+      overlayBackground["focusedFieldData"] = createFocusedFieldDataMock({
+        tabId: tab.id,
+        filledByCipherType: CipherType.Login,
+        showPasskeys: true,
+      });
+      cipherService.getAllDecryptedForUrl.mockResolvedValue([loginCipher1, passkeyCipher]);
+      cipherService.sortCiphersByLastUsedThenName.mockReturnValue(-1);
+      getTabFromCurrentWindowIdSpy.mockResolvedValueOnce(tab);
 
       await overlayBackground.updateOverlayCiphers();
 
@@ -2517,6 +2603,7 @@ describe("OverlayBackground", () => {
 
     describe("extension messages that trigger an update of the inline menu ciphers", () => {
       const extensionMessages = [
+        "doFullSync",
         "addedCipher",
         "addEditCipherSubmitted",
         "editedCipher",
@@ -2532,6 +2619,25 @@ describe("OverlayBackground", () => {
           sendMockExtensionMessage({ command: message });
           expect(overlayBackground.updateOverlayCiphers).toHaveBeenCalled();
         });
+      });
+    });
+
+    describe("fido2AbortRequest", () => {
+      const sender = mock<chrome.runtime.MessageSender>({ tab: { id: 1 } });
+      it("removes an active request associated with the sender tab", () => {
+        const removeActiveRequestSpy = jest.spyOn(fido2ActiveRequestManager, "removeActiveRequest");
+
+        sendMockExtensionMessage({ command: "fido2AbortRequest" }, sender);
+
+        expect(removeActiveRequestSpy).toHaveBeenCalledWith(sender.tab.id);
+      });
+
+      it("updates the overlay ciphers after removing the active request", () => {
+        const updateOverlayCiphersSpy = jest.spyOn(overlayBackground, "updateOverlayCiphers");
+
+        sendMockExtensionMessage({ command: "fido2AbortRequest" }, sender);
+
+        expect(updateOverlayCiphersSpy).toHaveBeenCalledWith(false);
       });
     });
   });
@@ -2917,6 +3023,7 @@ describe("OverlayBackground", () => {
           [sender.frameId, pageDetailsForTab],
         ]);
         autofillService.isPasswordRepromptRequired.mockResolvedValue(false);
+        jest.spyOn(fido2ActiveRequestManager, "getActiveRequest");
 
         sendPortMessage(listMessageConnectorSpy, {
           command: "fillAutofillInlineMenuCipher",
@@ -2926,10 +3033,7 @@ describe("OverlayBackground", () => {
         });
         await flushPromises();
 
-        expect(fido2ClientService.autofillCredential).toHaveBeenCalledWith(
-          sender.tab.id,
-          fido2Credential.credentialId,
-        );
+        expect(fido2ActiveRequestManager.getActiveRequest).toHaveBeenCalledWith(sender.tab.id);
       });
     });
 

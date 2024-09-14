@@ -19,9 +19,13 @@ import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/pl
 import { DialogService, ToastService } from "@bitwarden/components";
 
 import {
+  AdjustStorageDialogV2Component,
+  AdjustStorageDialogV2ResultType,
+} from "../shared/adjust-storage-dialog/adjust-storage-dialog-v2.component";
+import {
   AdjustStorageDialogResult,
   openAdjustStorageDialog,
-} from "../shared/adjust-storage.component";
+} from "../shared/adjust-storage-dialog/adjust-storage-dialog.component";
 import {
   OffboardingSurveyDialogResultType,
   openOffboardingSurvey,
@@ -69,6 +73,10 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
 
   protected EnableUpgradePasswordManagerSub$ = this.configService.getFeatureFlag$(
     FeatureFlag.EnableUpgradePasswordManagerSub,
+  );
+
+  protected deprecateStripeSourcesAPI$ = this.configService.getFeatureFlag$(
+    FeatureFlag.AC2476_DeprecateStripeSourcesAPI,
   );
 
   constructor(
@@ -345,6 +353,13 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
     );
   }
 
+  shownSelfHost(): boolean {
+    return (
+      this.sub?.plan.productTier !== ProductTierType.Teams &&
+      this.sub?.plan.productTier !== ProductTierType.Free
+    );
+  }
+
   cancelSubscription = async () => {
     const reference = openOffboardingSurvey(this.dialogService, {
       data: {
@@ -415,6 +430,14 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
     }
   }
 
+  isSecretsManagerTrial(): boolean {
+    return (
+      this.sub?.subscription?.items?.some((item) =>
+        this.sub?.customerDiscount?.appliesTo?.includes(item.productId),
+      ) ?? false
+    );
+  }
+
   closeChangePlan() {
     this.showChangePlan = false;
   }
@@ -449,19 +472,43 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
     this.load();
   }
 
+  calculateTotalAppliedDiscount(total: number) {
+    const discountedTotal = total / (1 - this.customerDiscount?.percentOff / 100);
+    return discountedTotal;
+  }
+
   adjustStorage = (add: boolean) => {
     return async () => {
-      const dialogRef = openAdjustStorageDialog(this.dialogService, {
-        data: {
-          storageGbPrice: this.storageGbPrice,
-          add: add,
-          organizationId: this.organizationId,
-          interval: this.billingInterval,
-        },
-      });
-      const result = await lastValueFrom(dialogRef.closed);
-      if (result === AdjustStorageDialogResult.Adjusted) {
-        await this.load();
+      const deprecateStripeSourcesAPI = await firstValueFrom(this.deprecateStripeSourcesAPI$);
+
+      if (deprecateStripeSourcesAPI) {
+        const dialogRef = AdjustStorageDialogV2Component.open(this.dialogService, {
+          data: {
+            price: this.storageGbPrice,
+            cadence: this.billingInterval,
+            type: add ? "Add" : "Remove",
+            organizationId: this.organizationId,
+          },
+        });
+
+        const result = await lastValueFrom(dialogRef.closed);
+
+        if (result === AdjustStorageDialogV2ResultType.Submitted) {
+          await this.load();
+        }
+      } else {
+        const dialogRef = openAdjustStorageDialog(this.dialogService, {
+          data: {
+            storageGbPrice: this.storageGbPrice,
+            add: add,
+            organizationId: this.organizationId,
+            interval: this.billingInterval,
+          },
+        });
+        const result = await lastValueFrom(dialogRef.closed);
+        if (result === AdjustStorageDialogResult.Adjusted) {
+          await this.load();
+        }
       }
     };
   };

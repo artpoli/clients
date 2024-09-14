@@ -25,9 +25,6 @@
   "finishCreatingYourAccountBySettingAPassword": {
     "message": "Schließe die Erstellung deines Kontos ab, indem du ein Passwort festlegst"
   },
-  "login": {
-    "message": "Anmelden"
-  },
   "enterpriseSingleSignOn": {
     "message": "Enterprise Single-Sign-On"
   },
@@ -387,16 +384,56 @@
     "message": "Minimale Passwortlänge"
   },
   "uppercase": {
-    "message": "Großbuchstaben (A-Z)"
+    "message": "Großbuchstaben (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Kleinbuchstaben (a-z)"
+    "message": "Kleinbuchstaben (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Zahlen (0-9)"
+    "message": "Zahlen (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
-    "message": "Sonderzeichen (!@#$%^&*)"
+    "message": "Sonderzeichen (!@#$%^&*)",
+    "description": "deprecated. Use specialCharactersLabel instead."
+  },
+  "include": {
+    "message": "Einschließen",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Großbuchstaben einschließen",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Kleinbuchstaben einschließen",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Ziffern einschließen",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Sonderzeichen einschließen",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Anzahl der Wörter"
@@ -418,7 +455,12 @@
     "message": "Mindestanzahl Sonderzeichen"
   },
   "avoidAmbChar": {
-    "message": "Mehrdeutige Zeichen vermeiden"
+    "message": "Mehrdeutige Zeichen vermeiden",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Mehrdeutige Zeichen vermeiden",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "searchVault": {
     "message": "Tresor durchsuchen"
@@ -641,6 +683,12 @@
   "newAccountCreated": {
     "message": "Dein neues Konto wurde erstellt! Du kannst dich jetzt anmelden."
   },
+  "newAccountCreated2": {
+    "message": "Dein neues Konto wurde erstellt!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Du wurdest angemeldet!"
+  },
   "youSuccessfullyLoggedIn": {
     "message": "Du hast dich erfolgreich angemeldet."
   },
@@ -670,7 +718,7 @@
     }
   },
   "autofillError": {
-    "message": "Die Felder dieser Seite konnten nicht automatisch ausgefüllt werden. Bitte Nutzernamen und/oder Passwort manuell kopieren."
+    "message": "Die Felder dieser Seite konnten nicht automatisch ausgefüllt werden. Kopiere die Informationen und füge sie manuell ein."
   },
   "totpCaptureError": {
     "message": "QR-Code kann nicht von der aktuellen Webseite gescannt werden"
@@ -910,7 +958,7 @@
     "description": "Default URI match detection for autofill."
   },
   "defaultUriMatchDetectionDesc": {
-    "message": "Wählen Sie die Standardmethode, mit der die URI-Match-Erkennung für Anmeldungen bei Aktionen wie dem automatischen Ausfüllen behandelt wird."
+    "message": "Wähle die Standardmethode, mit der die URI-Match-Erkennung für Anmeldungen bei Aktionen wie dem automatischen Ausfüllen behandelt wird."
   },
   "theme": {
     "message": "Design"
@@ -1083,7 +1131,7 @@
     "message": "1 GB verschlüsselter Speicherplatz für Dateianhänge."
   },
   "premiumSignUpEmergency": {
-    "message": "Emergency access"
+    "message": "Notfallzugriff."
   },
   "premiumSignUpTwoStepOptions": {
     "message": "Proprietäre Optionen für die Zwei-Faktor Authentifizierung wie YubiKey und Duo."
@@ -1107,7 +1155,7 @@
     "message": "Du kannst deine Premium-Mitgliedschaft im Bitwarden.com Web-Tresor kaufen. Möchtest du die Website jetzt besuchen?"
   },
   "premiumPurchaseAlertV2": {
-    "message": "You can purchase Premium from your account settings on the Bitwarden web app."
+    "message": "Du kannst Premium über deine Kontoeinstellungen in der Bitwarden Web-App kaufen."
   },
   "premiumCurrentMember": {
     "message": "Du bist jetzt Premium-Mitglied!"
@@ -1115,8 +1163,20 @@
   "premiumCurrentMemberThanks": {
     "message": "Vielen Dank, dass du Bitwarden unterstützt."
   },
+  "premiumFeatures": {
+    "message": "Upgrade auf Premium und erhalte:"
+  },
   "premiumPrice": {
     "message": "Das alles für %price% pro Jahr!",
+    "placeholders": {
+      "price": {
+        "content": "$1",
+        "example": "$10"
+      }
+    }
+  },
+  "premiumPriceV2": {
+    "message": "Alles für nur $PRICE$ pro Jahr!",
     "placeholders": {
       "price": {
         "content": "$1",
@@ -1736,6 +1796,15 @@
   "noPasswordsInList": {
     "message": "Keine Einträge zum Anzeigen vorhanden."
   },
+  "clearHistory": {
+    "message": "Clear history"
+  },
+  "noPasswordsToShow": {
+    "message": "No passwords to show"
+  },
+  "noRecentlyGeneratedPassword": {
+    "message": "You haven't generated a password recently"
+  },
   "remove": {
     "message": "Entfernen"
   },
@@ -2074,6 +2143,12 @@
   "biometricsNotUnlockedDesc": {
     "message": "Bitte entsperre diesen Nutzer in der Desktop-Anwendung und versuche es erneut."
   },
+  "biometricsNotAvailableTitle": {
+    "message": "Biometrisches Entsperren nicht verfügbar"
+  },
+  "biometricsNotAvailableDesc": {
+    "message": "Biometrisches Entsperren ist derzeit nicht verfügbar. Bitte versuche es später erneut."
+  },
   "biometricsFailedTitle": {
     "message": "Biometrie fehlgeschlagen"
   },
@@ -2305,11 +2380,11 @@
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "createdSendSuccessfully": {
-    "message": "Send created successfully!",
+    "message": "Send erfolgreich erstellt!",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendAvailability": {
-    "message": "The Send will be available to anyone with the link for the next $DAYS$ days.",
+    "message": "Das Send wird jedem mit dem Link für die nächsten $DAYS$ Tage zur Verfügung stehen.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
       "days": {
@@ -2319,7 +2394,7 @@
     }
   },
   "sendLinkCopied": {
-    "message": "Send link copied",
+    "message": "Send-Link kopiert",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "editedSend": {
@@ -3136,7 +3211,7 @@
     "description": "Toast message for describing that master password re-prompt cannot be autofilled on page load."
   },
   "autofillOnPageLoadSetToDefault": {
-    "message": "Auto-Ausfüllen beim Lader einer Seite wurde auf die Standardeinstellung gesetzt.",
+    "message": "Auto-Ausfüllen beim Laden einer Seite wurde auf die Standardeinstellung gesetzt.",
     "description": "Toast message for informing the user that autofill on page load has been set to the default setting."
   },
   "turnOffMasterPasswordPromptToEditField": {
@@ -3411,7 +3486,7 @@
   "passkeyFeatureIsNotImplementedForAccountsWithoutMasterPassword": {
     "message": "Überprüfung durch die initiierende Website erforderlich. Diese Funktion ist noch nicht für Konten ohne Master-Passwort implementiert."
   },
-  "logInWithPasskey": {
+  "logInWithPasskeyQuestion": {
     "message": "Mit Passkey anmelden?"
   },
   "passkeyAlreadyExists": {
@@ -3423,6 +3498,9 @@
   "noMatchingPasskeyLogin": {
     "message": "Du hast keinen passenden Zugangsdaten für diese Website."
   },
+  "noMatchingLoginsForSite": {
+    "message": "Keine passenden Zugangsdaten für diese Seite"
+  },
   "confirm": {
     "message": "Bestätigen"
   },
@@ -3432,8 +3510,11 @@
   "savePasskeyNewLogin": {
     "message": "Passkey als neue Zugangsdaten speichern"
   },
-  "choosePasskey": {
-    "message": "Wähle Zugangsdaten aus, in die dieser Passkey gespeichert werden sollen"
+  "chooseCipherForPasskeySave": {
+    "message": "Wähle die Zugangsdaten aus, in die dieser Passkey gespeichert werden soll"
+  },
+  "chooseCipherForPasskeyAuth": {
+    "message": "Wähle einen Passkey zum Anmelden"
   },
   "passkeyItem": {
     "message": "Passkey-Eintrag"
@@ -3630,8 +3711,16 @@
     "message": "Zugangsdaten erfolgreich gespeichert!",
     "description": "Notification message for when saving credentials has succeeded."
   },
+  "passwordSaved": {
+    "message": "Passwort gespeichert!",
+    "description": "Notification message for when saving credentials has succeeded."
+  },
   "updateCipherAttemptSuccess": {
     "message": "Zugangsdaten erfolgreich aktualisiert!",
+    "description": "Notification message for when updating credentials has succeeded."
+  },
+  "passwordUpdated": {
+    "message": "Passwort aktualisiert!",
     "description": "Notification message for when updating credentials has succeeded."
   },
   "saveCipherAttemptFailed": {
@@ -3960,6 +4049,12 @@
   "autoFillOnPageLoad": {
     "message": "Auto-Ausfüllen beim Laden einer Seite?"
   },
+  "cardExpiredTitle": {
+    "message": "Abgelaufene Karte"
+  },
+  "cardExpiredMessage": {
+    "message": "Wenn du die Karte erneuert hast, aktualisiere die Angaben zur Karte"
+  },
   "cardDetails": {
     "message": "Kartendetails"
   },
@@ -3971,6 +4066,9 @@
         "example": "Visa"
       }
     }
+  },
+  "enableAnimations": {
+    "message": "Animationen aktivieren"
   },
   "addAccount": {
     "message": "Konto hinzufügen"
@@ -4210,5 +4308,35 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "Unternehmens-Richtlinienanforderungen wurden auf diese Einstellung angewandt"
+  },
+  "fileSavedToDevice": {
+    "message": "File saved to device. Manage from your device downloads."
+  },
+  "showCharacterCount": {
+    "message": "Zeichenanzahl anzeigen"
+  },
+  "hideCharacterCount": {
+    "message": "Zeichenanzahl ausblenden"
+  },
+  "itemsInTrash": {
+    "message": "Einträge im Papierkorb"
+  },
+  "noItemsInTrash": {
+    "message": "Keine Einträge im Papierkorb"
+  },
+  "noItemsInTrashDesc": {
+    "message": "Einträge, die du löschst, erscheinen hier und werden nach 30 Tagen dauerhaft gelöscht"
+  },
+  "trashWarning": {
+    "message": "Einträge, die länger als 30 Tage im Papierkorb waren, werden automatisch gelöscht"
+  },
+  "restore": {
+    "message": "Wiederherstellen"
+  },
+  "deleteForever": {
+    "message": "Dauerhaft löschen"
+  },
+  "noEditPermissions": {
+    "message": "Du bist nicht berechtigt, diesen Eintrag zu bearbeiten"
   }
 }

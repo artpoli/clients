@@ -10,9 +10,11 @@ import { RegisterVerificationEmailClickedRequest } from "@bitwarden/common/auth/
 import { HttpStatusCode } from "@bitwarden/common/enums";
 import { ErrorResponse } from "@bitwarden/common/models/response/error.response";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
+import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { ValidationService } from "@bitwarden/common/platform/abstractions/validation.service";
 import { ToastService } from "@bitwarden/components";
 
+import { LoginStrategyServiceAbstraction, PasswordLoginCredentials } from "../../../common";
 import { InputPasswordComponent } from "../../input-password/input-password.component";
 import { PasswordInputResult } from "../../input-password/password-input-result";
 
@@ -31,10 +33,20 @@ export class RegistrationFinishComponent implements OnInit, OnDestroy {
   submitting = false;
   email: string;
 
-  // Note: this token is the email verification token. It is always supplied as a query param, but
+  // Note: this token is the email verification token. When it is supplied as a query param,
   // it either comes from the email verification email or, if email verification is disabled server side
   // via global settings, it comes directly from the registration-start component directly.
+  // It is not provided when the user is coming from another emailed invite (ex: org invite or enterprise
+  // org sponsored free family plan invite).
   emailVerificationToken: string;
+
+  // this token is provided when the user is coming from an emailed invite to
+  // setup a free family plan sponsored by an organization but they don't have an account yet.
+  orgSponsoredFreeFamilyPlanToken: string;
+
+  // this token is provided when the user is coming from an emailed invite to accept an emergency access invite
+  acceptEmergencyAccessInviteToken: string;
+  emergencyAccessId: string;
 
   masterPasswordPolicyOptions: MasterPasswordPolicyOptions | null = null;
 
@@ -46,6 +58,8 @@ export class RegistrationFinishComponent implements OnInit, OnDestroy {
     private registrationFinishService: RegistrationFinishService,
     private validationService: ValidationService,
     private accountApiService: AccountApiService,
+    private loginStrategyService: LoginStrategyServiceAbstraction,
+    private logService: LogService,
   ) {}
 
   async ngOnInit() {
@@ -64,6 +78,15 @@ export class RegistrationFinishComponent implements OnInit, OnDestroy {
 
           if (qParams.token != null) {
             this.emailVerificationToken = qParams.token;
+          }
+
+          if (qParams.orgSponsoredFreeFamilyPlanToken != null) {
+            this.orgSponsoredFreeFamilyPlanToken = qParams.orgSponsoredFreeFamilyPlanToken;
+          }
+
+          if (qParams.acceptEmergencyAccessInviteToken != null && qParams.emergencyAccessId) {
+            this.acceptEmergencyAccessInviteToken = qParams.acceptEmergencyAccessInviteToken;
+            this.emergencyAccessId = qParams.emergencyAccessId;
           }
         }),
         switchMap((qParams: Params) => {
@@ -90,11 +113,15 @@ export class RegistrationFinishComponent implements OnInit, OnDestroy {
 
   async handlePasswordFormSubmit(passwordInputResult: PasswordInputResult) {
     this.submitting = true;
+    let captchaBypassToken: string = null;
     try {
-      await this.registrationFinishService.finishRegistration(
+      captchaBypassToken = await this.registrationFinishService.finishRegistration(
         this.email,
         passwordInputResult,
         this.emailVerificationToken,
+        this.orgSponsoredFreeFamilyPlanToken,
+        this.acceptEmergencyAccessInviteToken,
+        this.emergencyAccessId,
       );
     } catch (e) {
       this.validationService.showError(e);
@@ -102,14 +129,37 @@ export class RegistrationFinishComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // Show acct created toast
     this.toastService.showToast({
       variant: "success",
       title: null,
-      message: this.i18nService.t("newAccountCreated"),
+      message: this.i18nService.t("newAccountCreated2"),
     });
 
+    // login with the new account
+    try {
+      const credentials = new PasswordLoginCredentials(
+        this.email,
+        passwordInputResult.password,
+        captchaBypassToken,
+        null,
+      );
+
+      await this.loginStrategyService.logIn(credentials);
+
+      this.toastService.showToast({
+        variant: "success",
+        title: null,
+        message: this.i18nService.t("youHaveBeenLoggedIn"),
+      });
+
+      await this.router.navigate(["/vault"]);
+    } catch (e) {
+      // If login errors, redirect to login page per product. Don't show error
+      this.logService.error("Error logging in after registration: ", e.message);
+      await this.router.navigate(["/login"], { queryParams: { email: this.email } });
+    }
     this.submitting = false;
-    await this.router.navigate(["/login"], { queryParams: { email: this.email } });
   }
 
   private async registerVerificationEmailClicked(email: string, emailVerificationToken: string) {

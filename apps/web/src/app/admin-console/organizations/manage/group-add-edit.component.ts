@@ -14,9 +14,9 @@ import {
   takeUntil,
 } from "rxjs";
 
+import { OrganizationUserApiService } from "@bitwarden/admin-console/common";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
-import { OrganizationUserService } from "@bitwarden/common/admin-console/abstractions/organization-user/organization-user.service";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
 import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
 import { ErrorResponse } from "@bitwarden/common/models/response/error.response";
@@ -24,7 +24,7 @@ import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.servic
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { UserId } from "@bitwarden/common/types/guid";
-import { DialogService } from "@bitwarden/components";
+import { DialogService, ToastService } from "@bitwarden/components";
 
 import { CollectionAdminService } from "../../../vault/core/collection-admin.service";
 import { CollectionAdminView } from "../../../vault/core/views/collection-admin.view";
@@ -131,7 +131,7 @@ export class GroupAddEditComponent implements OnInit, OnDestroy {
   );
 
   private get orgMembers$(): Observable<Array<AccessItemView & { userId: UserId }>> {
-    return from(this.organizationUserService.getAllUsers(this.organizationId)).pipe(
+    return from(this.organizationUserApiService.getAllUsers(this.organizationId)).pipe(
       map((response) =>
         response.data.map((m) => ({
           id: m.id,
@@ -202,7 +202,7 @@ export class GroupAddEditComponent implements OnInit, OnDestroy {
     @Inject(DIALOG_DATA) private params: GroupAddEditDialogParams,
     private dialogRef: DialogRef<GroupAddEditDialogResultType>,
     private apiService: ApiService,
-    private organizationUserService: OrganizationUserService,
+    private organizationUserApiService: OrganizationUserApiService,
     private groupService: GroupService,
     private i18nService: I18nService,
     private platformUtilsService: PlatformUtilsService,
@@ -213,6 +213,7 @@ export class GroupAddEditComponent implements OnInit, OnDestroy {
     private organizationService: OrganizationService,
     private accountService: AccountService,
     private collectionAdminService: CollectionAdminService,
+    private toastService: ToastService,
   ) {
     this.tabIndex = params.initialTab ?? GroupAddEditTabType.Info;
   }
@@ -280,11 +281,14 @@ export class GroupAddEditComponent implements OnInit, OnDestroy {
 
     if (this.groupForm.invalid) {
       if (this.tabIndex !== GroupAddEditTabType.Info) {
-        this.platformUtilsService.showToast(
-          "error",
-          null,
-          this.i18nService.t("fieldOnTabRequiresAttention", this.i18nService.t("groupInfo")),
-        );
+        this.toastService.showToast({
+          variant: "error",
+          title: null,
+          message: this.i18nService.t(
+            "fieldOnTabRequiresAttention",
+            this.i18nService.t("groupInfo"),
+          ),
+        });
       }
       return;
     }
@@ -300,11 +304,14 @@ export class GroupAddEditComponent implements OnInit, OnDestroy {
 
     await this.groupService.save(groupView);
 
-    this.platformUtilsService.showToast(
-      "success",
-      null,
-      this.i18nService.t(this.editMode ? "editedGroupId" : "createdGroupId", formValue.name),
-    );
+    this.toastService.showToast({
+      variant: "success",
+      title: null,
+      message: this.i18nService.t(
+        this.editMode ? "editedGroupId" : "createdGroupId",
+        formValue.name,
+      ),
+    });
 
     this.dialogRef.close(GroupAddEditDialogResultType.Saved);
   };
@@ -325,11 +332,11 @@ export class GroupAddEditComponent implements OnInit, OnDestroy {
 
     await this.groupService.delete(this.organizationId, this.groupId);
 
-    this.platformUtilsService.showToast(
-      "success",
-      null,
-      this.i18nService.t("deletedGroupId", this.group.name),
-    );
+    this.toastService.showToast({
+      variant: "success",
+      title: null,
+      message: this.i18nService.t("deletedGroupId", this.group.name),
+    });
     this.dialogRef.close(GroupAddEditDialogResultType.Deleted);
   };
 }

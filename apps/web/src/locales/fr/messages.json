@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Identifiants de connexion"
   },
+  "personalDetails": {
+    "message": "Détails personnels"
+  },
+  "identification": {
+    "message": "Identification"
+  },
+  "contactInfo": {
+    "message": "Coordonnées"
+  },
+  "cardDetails": {
+    "message": "Détails de la carte de paiement"
+  },
+  "cardBrandDetails": {
+    "message": "Détails de la carte $BRAND$",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "Historique des éléments"
+  },
   "authenticatorKey": {
     "message": "Clé d'authentification"
   },
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "Cryptogramme visuel (CVV)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Code de sécurité / CVV"
   },
   "identityName": {
     "message": "Identité"
@@ -193,6 +220,12 @@
   },
   "dr": {
     "message": "Dr"
+  },
+  "cardExpiredTitle": {
+    "message": "Carte expirée"
+  },
+  "cardExpiredMessage": {
+    "message": "Si vous l'avez renouvelée, mettez à jour les informations de la carte"
   },
   "expirationMonth": {
     "message": "Mois d'expiration"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "Nom et prénom"
   },
+  "address": {
+    "message": "Adresse"
+  },
   "address1": {
     "message": "Adresse 1"
   },
@@ -474,6 +510,15 @@
   },
   "viewItem": {
     "message": "Afficher l'élément"
+  },
+  "viewItemType": {
+    "message": "Voir $ITEMTYPE$",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
   },
   "new": {
     "message": "Nouveau",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Copie Réussie"
   },
   "copyValue": {
     "message": "Copier la valeur",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "Indice du mot de passe principal (facultatif)"
   },
+  "newMasterPassHint": {
+    "message": "Indice du nouveau mot de passe principal (facultatif)"
+  },
   "masterPassHintLabel": {
     "message": "Indice du mot de passe principal"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "Votre nouveau compte a été créé ! Vous pouvez maintenant vous authentifier."
+  },
+  "newAccountCreated2": {
+    "message": "Votre nouveau compte a été créé !"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Vous avez été connecté!"
   },
   "trialAccountCreated": {
     "message": "Compte créé avec succès."
@@ -1167,7 +1224,7 @@
     "message": "Êtes-vous sûr(e) de vouloir continuer ?"
   },
   "moveSelectedItemsDesc": {
-    "message": "Choose a folder that you would like to add the $COUNT$ selected item(s) to.",
+    "message": "Choisissez un dossier dans lequel vous souhaitez ajouter le(s) $COUNT$ élément(s) sélectionné(s).",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "La mise à jour de la clé de chiffrement ne peut pas continuer"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "Lors de la mise à jour de votre clé de chiffrement, vos dossiers n'ont pas pu être déchiffrés. Pour continuer avec la mise à jour, vos dossiers doivent être supprimés. Aucun élément du coffre ne sera supprimé si vous continuez."
+  },
   "keyUpdated": {
     "message": "Clé mise à jour"
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "Sélectionné(s)"
+  },
+  "recommended": {
+    "message": "Recommandé"
   },
   "ownership": {
     "message": "Propriété"
@@ -4964,6 +5030,10 @@
         "example": "An email address"
       }
     }
+  },
+  "viewSend": {
+    "message": "Voir le Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "viewSendHiddenEmailWarning": {
     "message": "L'utilisateur de Bitwarden qui a créé ce Send a choisi de masquer son adresse électronique. Vous devriez vous assurer que vous faites confiance à la source de ce lien avant d'utiliser ou de télécharger son contenu.",
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "Audite les accès des membres de l'organisation au sein des groupes, des collections et des éléments des collections. L'exportation CSV fournit un rapport détaillé par membre comprenant des informations sur les collections autorisées et les configurations de compte."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(Aucune collection)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(Aucune permission de collection)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(Aucun groupe)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "Activé"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Désactivé"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "Activé"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Désactivé"
+  },
   "higherKDFIterations": {
     "message": "Des itérations KDF plus élevées peuvent aider à protéger votre mot de passe principal contre la force brute d'un assaillant."
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Mettez à niveau votre plan pour inviter plus de membres et accéder à des fonctionnalités supplémentaires de Bitwarden"
+  "upgradePlans": {
+    "message": "Mettez à niveau votre plan pour inviter des membres et profiter de fonctionnalités de sécurité puissantes."
   },
   "upgradeDiscount": {
     "message": "Économisez $AMOUNT$%",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Fonctionnalités avancées pour les entreprises plus grandes"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Fonctionnalités avancées pour les grandes organisations"
   },
-  "upgradeTeamsMessage": {
-    "message": "Entreprises à la recherche d'une sécurité puissante"
+  "teamsPlanUpgradeMessage": {
+    "message": "Protection résistante pour les équipes en croissance"
   },
   "teamsInviteMessage": {
     "message": "Invitez un nombre illimité de membres"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Synchroniser les groupes et les utilisateurs à partir d'un répertoire"
   },
-  "upgradeFamilyMessage": {
-    "message": "Partager avec des membres de la famille et des amis"
+  "familyPlanUpgradeMessage": {
+    "message": "Sécurisez les identifiants de votre famille"
   },
   "accessToPremiumFeatures": {
     "message": "Accède aux fonctionnalités Premium"
   },
   "additionalStorageGbMessage": {
     "message": "GB de stockage additionnel"
+  },
+  "premiumAccounts": {
+    "message": "6 comptes premium"
+  },
+  "unlimitedSharing": {
+    "message": "Partage illimité"
+  },
+  "unlimitedCollections": {
+    "message": "Collections illimitées"
+  },
+  "secureDataSharing": {
+    "message": "Partage sécurisé de données"
+  },
+  "eventLogMonitoring": {
+    "message": "Surveillance du journal des événements"
+  },
+  "directoryIntegration": {
+    "message": "Intégration des répertoires"
+  },
+  "passwordLessSso": {
+    "message": "SSO sans mot de passe"
+  },
+  "accountRecovery": {
+    "message": "Récupération de compte"
+  },
+  "customRoles": {
+    "message": "Rôles personnalisés"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Stockage illimité des secrets"
+  },
+  "unlimitedUsers": {
+    "message": "Utillisateurs illimités"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "Jusqu'à 50 comptes machines"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "Jusqu'à 20 comptes de machine"
+  },
+  "current": {
+    "message": "Actuel"
+  },
+  "secretsManagerSubInfo": {
+    "message": "Votre abonnement au Secrets Manager sera mis à niveau selon le plan sélectionné"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Gestionnaire de Mots de Passe Bitwarden"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Votre abonnement complémentairegratuit d'un an au Gestionnaire de Mots de Passe sera mis à niveau au plan sélectionné. Vous ne serez pas chargé avant la fin de votre période gratuite."
+  },
+  "fileSavedToDevice": {
+    "message": "Fichier enregistré sur l'appareil. Gérez à partir des téléchargements de votre appareil."
+  },
+  "publicApi": {
+    "message": "API publique",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Afficher le nombre de caractères"
+  },
+  "hideCharacterCount": {
+    "message": "Cacher le nombre de caractères"
+  },
+  "editAccess": {
+    "message": "Modifier l'accès"
   }
 }

@@ -79,6 +79,7 @@ import { ConfigService } from "@bitwarden/common/platform/abstractions/config/co
 import { CryptoFunctionService as CryptoFunctionServiceAbstraction } from "@bitwarden/common/platform/abstractions/crypto-function.service";
 import { CryptoService as CryptoServiceAbstraction } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { EncryptService } from "@bitwarden/common/platform/abstractions/encrypt.service";
+import { Fido2ActiveRequestManager as Fido2ActiveRequestManagerAbstraction } from "@bitwarden/common/platform/abstractions/fido2/fido2-active-request-manager.abstraction";
 import { Fido2AuthenticatorService as Fido2AuthenticatorServiceAbstraction } from "@bitwarden/common/platform/abstractions/fido2/fido2-authenticator.service.abstraction";
 import { Fido2ClientService as Fido2ClientServiceAbstraction } from "@bitwarden/common/platform/abstractions/fido2/fido2-client.service.abstraction";
 import { Fido2UserInterfaceService as Fido2UserInterfaceServiceAbstraction } from "@bitwarden/common/platform/abstractions/fido2/fido2-user-interface.service.abstraction";
@@ -97,6 +98,7 @@ import {
   BiometricStateService,
   DefaultBiometricStateService,
 } from "@bitwarden/common/platform/biometrics/biometric-state.service";
+import { BiometricsService } from "@bitwarden/common/platform/biometrics/biometric.service";
 import { StateFactory } from "@bitwarden/common/platform/factories/state-factory";
 import { Message, MessageListener, MessageSender } from "@bitwarden/common/platform/messaging";
 // eslint-disable-next-line no-restricted-imports -- Used for dependency creation
@@ -203,10 +205,12 @@ import {
   VaultExportServiceAbstraction,
 } from "@bitwarden/vault-export-core";
 
+import { OverlayNotificationsBackground as OverlayNotificationsBackgroundInterface } from "../autofill/background/abstractions/overlay-notifications.background";
 import { OverlayBackground as OverlayBackgroundInterface } from "../autofill/background/abstractions/overlay.background";
 import { AutoSubmitLoginBackground } from "../autofill/background/auto-submit-login.background";
 import ContextMenusBackground from "../autofill/background/context-menus.background";
 import NotificationBackground from "../autofill/background/notification.background";
+import { OverlayNotificationsBackground } from "../autofill/background/overlay-notifications.background";
 import { OverlayBackground } from "../autofill/background/overlay.background";
 import TabsBackground from "../autofill/background/tabs.background";
 import WebRequestBackground from "../autofill/background/web-request.background";
@@ -228,6 +232,7 @@ import { ChromeMessageSender } from "../platform/messaging/chrome-message.sender
 import { OffscreenDocumentService } from "../platform/offscreen-document/abstractions/offscreen-document";
 import { DefaultOffscreenDocumentService } from "../platform/offscreen-document/offscreen-document.service";
 import { BrowserTaskSchedulerService } from "../platform/services/abstractions/browser-task-scheduler.service";
+import { BackgroundBrowserBiometricsService } from "../platform/services/background-browser-biometrics.service";
 import { BrowserCryptoService } from "../platform/services/browser-crypto.service";
 import { BrowserEnvironmentService } from "../platform/services/browser-environment.service";
 import BrowserLocalStorageService from "../platform/services/browser-local-storage.service";
@@ -320,6 +325,7 @@ export default class MainBackground {
   userVerificationApiService: UserVerificationApiServiceAbstraction;
   fido2UserInterfaceService: Fido2UserInterfaceServiceAbstraction;
   fido2AuthenticatorService: Fido2AuthenticatorServiceAbstraction;
+  fido2ActiveRequestManager: Fido2ActiveRequestManagerAbstraction;
   fido2ClientService: Fido2ClientServiceAbstraction;
   avatarService: AvatarServiceAbstraction;
   mainContextMenuHandler: MainContextMenuHandler;
@@ -343,6 +349,7 @@ export default class MainBackground {
   organizationVaultExportService: OrganizationVaultExportServiceAbstraction;
   vaultSettingsService: VaultSettingsServiceAbstraction;
   biometricStateService: BiometricStateService;
+  biometricsService: BiometricsService;
   stateEventRunnerService: StateEventRunnerService;
   ssoLoginService: SsoLoginServiceAbstraction;
   billingAccountProfileStateService: BillingAccountProfileStateService;
@@ -365,6 +372,7 @@ export default class MainBackground {
   private idleBackground: IdleBackground;
   private notificationBackground: NotificationBackground;
   private overlayBackground: OverlayBackgroundInterface;
+  private overlayNotificationsBackground: OverlayNotificationsBackgroundInterface;
   private filelessImporterBackground: FilelessImporterBackground;
   private runtimeBackground: RuntimeBackground;
   private tabsBackground: TabsBackground;
@@ -394,6 +402,8 @@ export default class MainBackground {
 
     const logoutCallback = async (logoutReason: LogoutReason, userId?: UserId) =>
       await this.logout(logoutReason, userId);
+
+    const runtimeNativeMessagingBackground = () => this.nativeMessagingBackground;
 
     const refreshAccessTokenErrorCallback = () => {
       // Send toast to popup
@@ -429,7 +439,6 @@ export default class MainBackground {
     this.platformUtilsService = new BackgroundPlatformUtilsService(
       this.messagingService,
       (clipboardValue, clearMs) => this.clearClipboard(clipboardValue, clearMs),
-      async () => this.biometricUnlock(),
       self,
       this.offscreenDocumentService,
     );
@@ -577,6 +586,7 @@ export default class MainBackground {
     );
 
     this.popupViewCacheBackgroundService = new PopupViewCacheBackgroundService(
+      messageListener,
       this.globalStateProvider,
     );
 
@@ -610,6 +620,10 @@ export default class MainBackground {
 
     this.i18nService = new I18nService(BrowserApi.getUILanguage(), this.globalStateProvider);
 
+    this.biometricsService = new BackgroundBrowserBiometricsService(
+      runtimeNativeMessagingBackground,
+    );
+
     this.kdfConfigService = new KdfConfigService(this.stateProvider);
 
     this.pinService = new PinService(
@@ -636,10 +650,11 @@ export default class MainBackground {
       this.accountService,
       this.stateProvider,
       this.biometricStateService,
+      this.biometricsService,
       this.kdfConfigService,
     );
 
-    this.appIdService = new AppIdService(this.globalStateProvider);
+    this.appIdService = new AppIdService(this.storageService, this.logService);
 
     this.userDecryptionOptionsService = new UserDecryptionOptionsService(this.stateProvider);
     this.organizationService = new OrganizationService(this.stateProvider);
@@ -768,6 +783,8 @@ export default class MainBackground {
       this.stateProvider,
       this.authService,
     );
+
+    this.bulkEncryptService = new FallbackBulkEncryptService(this.encryptService);
 
     this.cipherService = new CipherService(
       this.cryptoService,
@@ -942,6 +959,7 @@ export default class MainBackground {
       this.accountService,
       this.authService,
       this.configService,
+      this.userNotificationSettingsService,
       messageListener,
     );
     this.auditService = new AuditService(this.cryptoFunctionService, this.apiService);
@@ -1005,7 +1023,7 @@ export default class MainBackground {
       this.accountService,
       this.logService,
     );
-    const fido2ActiveRequestManager = new Fido2ActiveRequestManager();
+    this.fido2ActiveRequestManager = new Fido2ActiveRequestManager();
     this.fido2ClientService = new Fido2ClientService(
       this.fido2AuthenticatorService,
       this.configService,
@@ -1013,17 +1031,13 @@ export default class MainBackground {
       this.vaultSettingsService,
       this.domainSettingsService,
       this.taskSchedulerService,
-      fido2ActiveRequestManager,
+      this.fido2ActiveRequestManager,
       this.logService,
     );
 
     const systemUtilsServiceReloadCallback = async () => {
-      const forceWindowReload =
-        this.platformUtilsService.isSafari() ||
-        this.platformUtilsService.isFirefox() ||
-        this.platformUtilsService.isOpera();
       await this.taskSchedulerService.clearAllScheduledTasks();
-      BrowserApi.reloadExtension(forceWindowReload ? self : null);
+      BrowserApi.reloadExtension();
     };
 
     this.systemService = new SystemService(
@@ -1045,6 +1059,7 @@ export default class MainBackground {
     if (!this.popupOnlyContext) {
       this.fido2Background = new Fido2Background(
         this.logService,
+        this.fido2ActiveRequestManager,
         this.fido2ClientService,
         this.vaultSettingsService,
         this.scriptInjectorService,
@@ -1097,6 +1112,12 @@ export default class MainBackground {
         this.themeStateService,
         this.configService,
         this.accountService,
+      );
+
+      this.overlayNotificationsBackground = new OverlayNotificationsBackground(
+        this.logService,
+        this.configService,
+        this.notificationBackground,
       );
 
       this.filelessImporterBackground = new FilelessImporterBackground(
@@ -1233,10 +1254,11 @@ export default class MainBackground {
     this.fido2Background.init();
     await this.runtimeBackground.init();
     await this.notificationBackground.init();
+    this.overlayNotificationsBackground.init();
     this.filelessImporterBackground.init();
-    await this.commandsBackground.init();
+    this.commandsBackground.init();
     this.contextMenusBackground?.init();
-    await this.idleBackground.init();
+    this.idleBackground.init();
     this.webRequestBackground?.startListening();
     this.syncServiceListener?.listener$().subscribe();
     await this.autoSubmitLoginBackground.init();
@@ -1248,6 +1270,18 @@ export default class MainBackground {
       await this.bulkEncryptService.setFeatureFlagEncryptService(
         new BulkEncryptServiceImplementation(this.cryptoFunctionService, this.logService),
       );
+    }
+
+    // If the user is logged out, switch to the next account
+    const active = await firstValueFrom(this.accountService.activeAccount$);
+    if (active != null) {
+      const authStatus = await firstValueFrom(
+        this.authService.authStatuses$.pipe(map((statuses) => statuses[active.id])),
+      );
+      if (authStatus === AuthenticationStatus.LoggedOut) {
+        const nextUpAccount = await firstValueFrom(this.accountService.nextUpAccount$);
+        await this.switchAccount(nextUpAccount?.id);
+      }
     }
 
     await this.initOverlayAndTabsBackground();
@@ -1434,7 +1468,14 @@ export default class MainBackground {
     });
 
     if (needStorageReseed) {
-      await this.reseedStorage();
+      await this.reseedStorage(
+        await firstValueFrom(
+          this.configService.userCachedFeatureFlag$(
+            FeatureFlag.StorageReseedRefactor,
+            userBeingLoggedOut,
+          ),
+        ),
+      );
     }
 
     if (BrowserApi.isManifestVersion(3)) {
@@ -1489,7 +1530,7 @@ export default class MainBackground {
     await SafariApp.sendMessageToApp("showPopover", null, true);
   }
 
-  async reseedStorage() {
+  async reseedStorage(doFillBuffer: boolean) {
     if (
       !this.platformUtilsService.isChrome() &&
       !this.platformUtilsService.isVivaldi() &&
@@ -1498,24 +1539,17 @@ export default class MainBackground {
       return;
     }
 
-    await this.storageService.reseed();
+    if (doFillBuffer) {
+      await this.storageService.fillBuffer();
+    } else {
+      await this.storageService.reseed();
+    }
   }
 
   async clearClipboard(clipboardValue: string, clearMs: number) {
     if (this.systemService != null) {
       await this.systemService.clearClipboard(clipboardValue, clearMs);
     }
-  }
-
-  async biometricUnlock(): Promise<boolean> {
-    if (this.nativeMessagingBackground == null) {
-      return false;
-    }
-
-    const responsePromise = this.nativeMessagingBackground.getResponse();
-    await this.nativeMessagingBackground.send({ command: "biometricUnlock" });
-    const response = await responsePromise;
-    return response.response === "unlocked";
   }
 
   private async fullSync(override = false) {
@@ -1574,7 +1608,8 @@ export default class MainBackground {
         this.autofillSettingsService,
         this.i18nService,
         this.platformUtilsService,
-        this.fido2ClientService,
+        this.vaultSettingsService,
+        this.fido2ActiveRequestManager,
         this.themeStateService,
       );
     }

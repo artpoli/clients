@@ -603,6 +603,12 @@
   "newAccountCreated": {
     "message": "Аккаунт создан! Теперь вы можете войти в систему."
   },
+  "newAccountCreated2": {
+    "message": "Ваш новый аккаунт создан!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Вы авторизовались!"
+  },
   "masterPassSent": {
     "message": "Мы отправили вам письмо с подсказкой к мастер-паролю."
   },
@@ -1174,6 +1180,9 @@
   "premiumPurchaseAlert": {
     "message": "Вы можете купить Премиум на bitwarden.com. Перейти на сайт сейчас?"
   },
+  "premiumPurchaseAlertV2": {
+    "message": "Премиум можно приобрести в настройках аккаунта в веб-версии Bitwarden."
+  },
   "premiumCurrentMember": {
     "message": "У вас есть Премиум!"
   },
@@ -1275,6 +1284,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Скопировано успешно"
   },
   "errorRefreshingAccessToken": {
     "message": "Ошибка обновления токена доступа"
@@ -3049,5 +3061,11 @@
   },
   "textSends": {
     "message": "Текстовая Send"
+  },
+  "ssoError": {
+    "message": "Не удалось найти свободные порты для авторизации SSO."
+  },
+  "fileSavedToDevice": {
+    "message": "Файл сохранен на устройстве. Управляйте им из загрузок устройства."
   }
 }

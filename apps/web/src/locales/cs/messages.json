@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Přihlašovací údaje"
   },
+  "personalDetails": {
+    "message": "Osobní údaje"
+  },
+  "identification": {
+    "message": "Identifikace"
+  },
+  "contactInfo": {
+    "message": "Kontaktní informace"
+  },
+  "cardDetails": {
+    "message": "Podrobnosti karty"
+  },
+  "cardBrandDetails": {
+    "message": "Podrobnosti o $BRAND$",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "Historie položky"
+  },
   "authenticatorKey": {
     "message": "Ověřovací klíč"
   },
@@ -117,6 +141,9 @@
     "message": "Expirace"
   },
   "securityCode": {
+    "message": "Bezpečnostní kód (CVC/CVV)"
+  },
+  "securityCodeSlashCVV": {
     "message": "Bezpečnostní kód (CVC/CVV)"
   },
   "identityName": {
@@ -193,6 +220,12 @@
   },
   "dr": {
     "message": "MUDr."
+  },
+  "cardExpiredTitle": {
+    "message": "Prošlá karta"
+  },
+  "cardExpiredMessage": {
+    "message": "Pokud jste ji obnovili, aktualizujte informace o kartě"
   },
   "expirationMonth": {
     "message": "Měsíc expirace"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "Celé jméno"
   },
+  "address": {
+    "message": "Adresa"
+  },
   "address1": {
     "message": "Adresa 1"
   },
@@ -474,6 +510,15 @@
   },
   "viewItem": {
     "message": "Zobrazit položku"
+  },
+  "viewItemType": {
+    "message": "Zobrazit $ITEMTYPE$",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
   },
   "new": {
     "message": "Nový",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Kopírování bylo úspěšné"
   },
   "copyValue": {
     "message": "Kopírovat hodnotu",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "Nápověda k hlavnímu heslu (volitelné)"
   },
+  "newMasterPassHint": {
+    "message": "Nápověda k novému hlavnímu heslu (volitelné)"
+  },
   "masterPassHintLabel": {
     "message": "Nápověda k hlavnímu heslu"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "Váš účet byl vytvořen! Můžete se přihlásit."
+  },
+  "newAccountCreated2": {
+    "message": "Váš nový účet byl vytvořen!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Byli jste přihlášeni!"
   },
   "trialAccountCreated": {
     "message": "Účet byl úspěšně vytvořen."
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Aktualizace šifrovacího klíče nemůže pokračovat"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "Při aktualizaci šifrovacího klíče se nepodařilo dešifrovat Vaše složky. Chcete-li pokračovat v aktualizaci, musí být Vaše složky smazány. Pokud budete pokračovat, nebudou smazány žádné položky trezoru."
+  },
   "keyUpdated": {
     "message": "Klíč byl aktualizován"
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "Vybráno"
+  },
+  "recommended": {
+    "message": "Doporučeno"
   },
   "ownership": {
     "message": "Vlastnictví"
@@ -4964,6 +5030,10 @@
         "example": "An email address"
       }
     }
+  },
+  "viewSend": {
+    "message": "Zobrazit Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "viewSendHiddenEmailWarning": {
     "message": "Uživatel Bitwardenu, který vytvořil tento Send, se rozhodl skrýt svou e-mailovou adresu. Před použitím nebo stažením jeho obsahu byste se měli ujistit, že zdroji tohoto odkazu důvěřujete.",
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "Audit přístupu členů organizace ke skupinám, kolekcím a položkám kolekcí. Export CSV poskytuje podrobný rozpis pro jednotlivé členy, včetně informací o oprávněních ke kolekcím a konfiguracích účtů."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(Žádná kolekce)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(Žádné oprávnění ke kolekci)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(Žádná skupina)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "Zapnuto"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Vypnuto"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "Zapnuto"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Vypnuto"
+  },
   "higherKDFIterations": {
     "message": "Více iterací KDF Vám může pomoci ochránit hlavní heslo před útočníkem, který by ho vylákal hrubou silou."
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Povyšte svůj tarif a pozvěte více členů a získejte přístup k dalším funkcím Bitwardenu"
+  "upgradePlans": {
+    "message": "Aktualizujte svůj plán, pozvěte členy a vyzkoušejte výkonné bezpečnostní funkce."
   },
   "upgradeDiscount": {
     "message": "Ušetřit $AMOUNT$ %",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Pokročilé možnosti pro větší podniky"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Pokročilé funkce pro větší organizace"
   },
-  "upgradeTeamsMessage": {
-    "message": "Podniky hledající silnou bezpečnost"
+  "teamsPlanUpgradeMessage": {
+    "message": "Odolná ochrana pro rostoucí týmy"
   },
   "teamsInviteMessage": {
     "message": "Pozvat neomezený počet členů"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Synchronizace skupin a uživatelů z adresáře"
   },
-  "upgradeFamilyMessage": {
-    "message": "Sdílení s rodinami a přáteli"
+  "familyPlanUpgradeMessage": {
+    "message": "Zabezpečení přihlašovacích údajů v rodině"
   },
   "accessToPremiumFeatures": {
     "message": "Přístup k prémiovým funkcím"
   },
   "additionalStorageGbMessage": {
     "message": "GB dodatečného úložiště"
+  },
+  "premiumAccounts": {
+    "message": "6 účtů Premium"
+  },
+  "unlimitedSharing": {
+    "message": "Neomezené sdílení"
+  },
+  "unlimitedCollections": {
+    "message": "Neomezené kolekce"
+  },
+  "secureDataSharing": {
+    "message": "Zabezpečené sdílení dat"
+  },
+  "eventLogMonitoring": {
+    "message": "Monitorování logů událostí"
+  },
+  "directoryIntegration": {
+    "message": "Integrace adresáře"
+  },
+  "passwordLessSso": {
+    "message": "SSO bez hesla"
+  },
+  "accountRecovery": {
+    "message": "Obnovení účtu"
+  },
+  "customRoles": {
+    "message": "Vlastní role"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Neomezené úložiště tajných klíčů"
+  },
+  "unlimitedUsers": {
+    "message": "Neomezení uživatelé"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "Až 50 účtů"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "Až 20 účtů"
+  },
+  "current": {
+    "message": "Aktuální"
+  },
+  "secretsManagerSubInfo": {
+    "message": "Vaše předplatné Správce tajných klíčů bude aktualizováno na základě vybraného tarifu"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden - Správce hesel"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Vaše doplňkové roční předplatné Správce hesel bude aktualizováno na vybraný plán. Poplatek Vám bude účtován až po skončení bezplatného období."
+  },
+  "fileSavedToDevice": {
+    "message": "Soubor byl uložen. Můžete jej nalézt ve stažené složce v zařízení."
+  },
+  "publicApi": {
+    "message": "Veřejné API",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Zobrazit počet znaků"
+  },
+  "hideCharacterCount": {
+    "message": "Skrýt počet znaků"
+  },
+  "editAccess": {
+    "message": "Upravit přístup"
   }
 }

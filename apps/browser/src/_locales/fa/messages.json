@@ -25,9 +25,6 @@
   "finishCreatingYourAccountBySettingAPassword": {
     "message": "ایجاد حساب خود را با تنظیم رمز عبور تکمیل کنید"
   },
-  "login": {
-    "message": "ورود"
-  },
   "enterpriseSingleSignOn": {
     "message": "ورود به سیستم پروژه"
   },
@@ -387,16 +384,56 @@
     "message": "حداقل طول گذرواژه"
   },
   "uppercase": {
-    "message": "حروف بزرگ (A-Z)"
+    "message": "حروف بزرگ (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "حروف کوچک (a-z)"
+    "message": "حروف کوچک (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "اعداد (‪0-9‬)"
+    "message": "اعداد (‪0-9‬)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
-    "message": "نویسه‌های ویژه (!@#$%^&*)"
+    "message": "نویسه‌های ویژه (!@#$%^&*)",
+    "description": "deprecated. Use specialCharactersLabel instead."
+  },
+  "include": {
+    "message": "Include",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Include uppercase characters",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Include lowercase characters",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Include numbers",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Include special characters",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "تعداد کلمات"
@@ -418,7 +455,12 @@
     "message": "حداقل حرف خاص"
   },
   "avoidAmbChar": {
-    "message": "از کاراکترهای مبهم اجتناب کن"
+    "message": "از کاراکترهای مبهم اجتناب کن",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Avoid ambiguous characters",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "searchVault": {
     "message": "جستجوی گاوصندوق"
@@ -640,6 +682,12 @@
   },
   "newAccountCreated": {
     "message": "حساب کاربری جدید شما ساخته شد! حالا می‌توانید وارد شوید."
+  },
+  "newAccountCreated2": {
+    "message": "Your new account has been created!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "You have been logged in!"
   },
   "youSuccessfullyLoggedIn": {
     "message": "شما با موفقیت وارد شدید"
@@ -1083,7 +1131,7 @@
     "message": "۱ گیگابایت فضای ذخیره سازی رمزگذاری شده برای پیوست های پرونده."
   },
   "premiumSignUpEmergency": {
-    "message": "Emergency access"
+    "message": "Emergency access."
   },
   "premiumSignUpTwoStepOptions": {
     "message": "گزینه های ورود اضافی دو مرحله ای مانند YubiKey و Duo."
@@ -1115,8 +1163,20 @@
   "premiumCurrentMemberThanks": {
     "message": "برای حمایتتان از Bitwarden سپاسگزاریم."
   },
+  "premiumFeatures": {
+    "message": "Upgrade to Premium and receive:"
+  },
   "premiumPrice": {
     "message": "تمامش فقط $PRICE$ در سال!",
+    "placeholders": {
+      "price": {
+        "content": "$1",
+        "example": "$10"
+      }
+    }
+  },
+  "premiumPriceV2": {
+    "message": "All for just $PRICE$ per year!",
     "placeholders": {
       "price": {
         "content": "$1",
@@ -1736,6 +1796,15 @@
   "noPasswordsInList": {
     "message": "هیچ کلمه عبوری برای فهرست کردن وجود ندارد."
   },
+  "clearHistory": {
+    "message": "Clear history"
+  },
+  "noPasswordsToShow": {
+    "message": "No passwords to show"
+  },
+  "noRecentlyGeneratedPassword": {
+    "message": "You haven't generated a password recently"
+  },
   "remove": {
     "message": "حذف"
   },
@@ -2073,6 +2142,12 @@
   },
   "biometricsNotUnlockedDesc": {
     "message": "Please unlock this user in the desktop application and try again."
+  },
+  "biometricsNotAvailableTitle": {
+    "message": "Biometric unlock unavailable"
+  },
+  "biometricsNotAvailableDesc": {
+    "message": "Biometric unlock is currently unavailable. Please try again later."
   },
   "biometricsFailedTitle": {
     "message": "زیست‌سنجی ناموفق بود"
@@ -3411,8 +3486,8 @@
   "passkeyFeatureIsNotImplementedForAccountsWithoutMasterPassword": {
     "message": "تأیید توسط سایت آغازگر الزامی است. این ویژگی هنوز برای حساب‌های بدون کلمه عبور اصلی اجرا نشده است."
   },
-  "logInWithPasskey": {
-    "message": "با کلید عبور وارد می‌شوید؟"
+  "logInWithPasskeyQuestion": {
+    "message": "Log in with passkey?"
   },
   "passkeyAlreadyExists": {
     "message": "یک کلید عبور از قبل برای این برنامه وجود دارد."
@@ -3423,6 +3498,9 @@
   "noMatchingPasskeyLogin": {
     "message": "شما هیچ ورود مشابهی برای این سایت ندارید."
   },
+  "noMatchingLoginsForSite": {
+    "message": "No matching logins for this site"
+  },
   "confirm": {
     "message": "تأیید"
   },
@@ -3432,8 +3510,11 @@
   "savePasskeyNewLogin": {
     "message": "کلید عبور را به عنوان ورود جدید ذخیره کن"
   },
-  "choosePasskey": {
-    "message": "یک ورود برای ذخیره این کلید عبور انتخاب کنید"
+  "chooseCipherForPasskeySave": {
+    "message": "Choose a login to save this passkey to"
+  },
+  "chooseCipherForPasskeyAuth": {
+    "message": "Choose a passkey to log in with"
   },
   "passkeyItem": {
     "message": "مورد کلید عبور"
@@ -3630,8 +3711,16 @@
     "message": "Credentials saved successfully!",
     "description": "Notification message for when saving credentials has succeeded."
   },
+  "passwordSaved": {
+    "message": "Password saved!",
+    "description": "Notification message for when saving credentials has succeeded."
+  },
   "updateCipherAttemptSuccess": {
     "message": "Credentials updated successfully!",
+    "description": "Notification message for when updating credentials has succeeded."
+  },
+  "passwordUpdated": {
+    "message": "Password updated!",
     "description": "Notification message for when updating credentials has succeeded."
   },
   "saveCipherAttemptFailed": {
@@ -3960,6 +4049,12 @@
   "autoFillOnPageLoad": {
     "message": "Autofill on page load?"
   },
+  "cardExpiredTitle": {
+    "message": "Expired card"
+  },
+  "cardExpiredMessage": {
+    "message": "If you've renewed it, update the card's information"
+  },
   "cardDetails": {
     "message": "Card details"
   },
@@ -3971,6 +4066,9 @@
         "example": "Visa"
       }
     }
+  },
+  "enableAnimations": {
+    "message": "Enable animations"
   },
   "addAccount": {
     "message": "Add account"
@@ -4210,5 +4308,35 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "Enterprise policy requirements have been applied to this setting"
+  },
+  "fileSavedToDevice": {
+    "message": "File saved to device. Manage from your device downloads."
+  },
+  "showCharacterCount": {
+    "message": "Show character count"
+  },
+  "hideCharacterCount": {
+    "message": "Hide character count"
+  },
+  "itemsInTrash": {
+    "message": "Items in trash"
+  },
+  "noItemsInTrash": {
+    "message": "No items in trash"
+  },
+  "noItemsInTrashDesc": {
+    "message": "Items you delete will appear here and be permanently deleted after 30 days"
+  },
+  "trashWarning": {
+    "message": "Items that have been in trash more than 30 days will automatically be deleted"
+  },
+  "restore": {
+    "message": "Restore"
+  },
+  "deleteForever": {
+    "message": "Delete forever"
+  },
+  "noEditPermissions": {
+    "message": "You don't have permission to edit this item"
   }
 }

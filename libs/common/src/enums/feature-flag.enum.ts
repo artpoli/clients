@@ -12,7 +12,6 @@ export enum FeatureFlag {
   EnableDeleteProvider = "AC-1218-delete-provider",
   ExtensionRefresh = "extension-refresh",
   PersistPopupView = "persist-popup-view",
-  RestrictProviderAccess = "restrict-provider-access",
   PM4154_BulkEncryptionService = "PM-4154-bulk-encryption-service",
   UseTreeWalkerApiForPageDetailsCollection = "use-tree-walker-api-for-page-details-collection",
   EmailVerification = "email-verification",
@@ -30,8 +29,13 @@ export enum FeatureFlag {
   UnauthenticatedExtensionUIRefresh = "unauth-ui-refresh",
   EnableUpgradePasswordManagerSub = "AC-2708-upgrade-password-manager-sub",
   GenerateIdentityFillScriptRefactor = "generate-identity-fill-script-refactor",
+  EnableNewCardCombinedExpiryAutofill = "enable-new-card-combined-expiry-autofill",
   DelayFido2PageScriptInitWithinMv2 = "delay-fido2-page-script-init-within-mv2",
   AccountDeprovisioning = "pm-10308-account-deprovisioning",
+  NotificationBarAddLoginImprovements = "notification-bar-add-login-improvements",
+  AC2476_DeprecateStripeSourcesAPI = "AC-2476-deprecate-stripe-sources-api",
+  StorageReseedRefactor = "storage-reseed-refactor",
+  CipherKeyEncryption = "cipher-key-encryption",
 }
 
 export type AllowedFeatureFlagTypes = boolean | number | string;
@@ -54,7 +58,6 @@ export const DefaultFeatureFlagValue = {
   [FeatureFlag.EnableDeleteProvider]: FALSE,
   [FeatureFlag.ExtensionRefresh]: FALSE,
   [FeatureFlag.PersistPopupView]: FALSE,
-  [FeatureFlag.RestrictProviderAccess]: FALSE,
   [FeatureFlag.PM4154_BulkEncryptionService]: FALSE,
   [FeatureFlag.UseTreeWalkerApiForPageDetailsCollection]: FALSE,
   [FeatureFlag.EmailVerification]: FALSE,
@@ -72,8 +75,13 @@ export const DefaultFeatureFlagValue = {
   [FeatureFlag.UnauthenticatedExtensionUIRefresh]: FALSE,
   [FeatureFlag.EnableUpgradePasswordManagerSub]: FALSE,
   [FeatureFlag.GenerateIdentityFillScriptRefactor]: FALSE,
+  [FeatureFlag.EnableNewCardCombinedExpiryAutofill]: FALSE,
   [FeatureFlag.DelayFido2PageScriptInitWithinMv2]: FALSE,
+  [FeatureFlag.StorageReseedRefactor]: FALSE,
   [FeatureFlag.AccountDeprovisioning]: FALSE,
+  [FeatureFlag.NotificationBarAddLoginImprovements]: FALSE,
+  [FeatureFlag.AC2476_DeprecateStripeSourcesAPI]: FALSE,
+  [FeatureFlag.CipherKeyEncryption]: FALSE,
 } satisfies Record<FeatureFlag, AllowedFeatureFlagTypes>;
 
 export type DefaultFeatureFlagValueType = typeof DefaultFeatureFlagValue;

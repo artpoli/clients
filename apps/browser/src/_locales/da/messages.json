@@ -25,9 +25,6 @@
   "finishCreatingYourAccountBySettingAPassword": {
     "message": "Afslut kontooprettelsen med at indstille en adgangskode"
   },
-  "login": {
-    "message": "Log ind"
-  },
   "enterpriseSingleSignOn": {
     "message": "Virksomheds Single-Sign-On"
   },
@@ -387,16 +384,56 @@
     "message": "Minimumslængde på adgangskode"
   },
   "uppercase": {
-    "message": "Store bogstaver (A-Z)"
+    "message": "Store bogstaver (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Små bogstaver (a-z)"
+    "message": "Små bogstaver (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Tal (0-9)"
+    "message": "Tal (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
-    "message": "Specialtegn (!@#$%^&*)"
+    "message": "Specialtegn (!@#$%^&*)",
+    "description": "deprecated. Use specialCharactersLabel instead."
+  },
+  "include": {
+    "message": "Inkludér",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Inkludér majuskler",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Inkludér minuskler",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Inkludér tal",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Inkludér specialtegn",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Antal ord"
@@ -418,7 +455,12 @@
     "message": "Mindste antal specialtegn"
   },
   "avoidAmbChar": {
-    "message": "Undgå tvetydige tegn"
+    "message": "Undgå tvetydige tegn",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Undgå tvetydige tegn",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "searchVault": {
     "message": "Søg i boks"
@@ -640,6 +682,12 @@
   },
   "newAccountCreated": {
     "message": "Din nye konto er oprettet! Du kan nu logge ind."
+  },
+  "newAccountCreated2": {
+    "message": "Din nye konto er oprettet!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Du er blevet logget ind!"
   },
   "youSuccessfullyLoggedIn": {
     "message": "Du er nu logget ind"
@@ -1115,8 +1163,20 @@
   "premiumCurrentMemberThanks": {
     "message": "Tak fordi du støtter Bitwarden."
   },
+  "premiumFeatures": {
+    "message": "Opgradér til Premium og modtag:"
+  },
   "premiumPrice": {
     "message": "Alt dette for kun $PRICE$ /år!",
+    "placeholders": {
+      "price": {
+        "content": "$1",
+        "example": "$10"
+      }
+    }
+  },
+  "premiumPriceV2": {
+    "message": "Alt dette for kun $PRICE$ pr. år!",
     "placeholders": {
       "price": {
         "content": "$1",
@@ -1736,6 +1796,15 @@
   "noPasswordsInList": {
     "message": "Der er ingen kodeord at vise."
   },
+  "clearHistory": {
+    "message": "Ryd historik"
+  },
+  "noPasswordsToShow": {
+    "message": "Ingen adgangskoder at vise"
+  },
+  "noRecentlyGeneratedPassword": {
+    "message": "Der er ikke genereret nogen adgangskode for nylig"
+  },
   "remove": {
     "message": "Fjern"
   },
@@ -2074,6 +2143,12 @@
   "biometricsNotUnlockedDesc": {
     "message": "Oplås denne bruger op i computerprogrammet og forsøg igen."
   },
+  "biometricsNotAvailableTitle": {
+    "message": "Biometrisk oplåsning utilgængelig"
+  },
+  "biometricsNotAvailableDesc": {
+    "message": "Biometrisk oplåsning er p.t. ikke tilgængelig. Prøv igen senere."
+  },
   "biometricsFailedTitle": {
     "message": "Biometri mislykkedes"
   },
@@ -2171,7 +2246,7 @@
     "message": "Kodeordsbeskyttet"
   },
   "copyLink": {
-    "message": "Copy link"
+    "message": "Kopier link"
   },
   "copySendLink": {
     "message": "Kopiér Send link",
@@ -3411,7 +3486,7 @@
   "passkeyFeatureIsNotImplementedForAccountsWithoutMasterPassword": {
     "message": "Bekræftelse krævet af startwebstedet. Denne funktion er endnu ikke implementeret for konti uden hovedadgangskode."
   },
-  "logInWithPasskey": {
+  "logInWithPasskeyQuestion": {
     "message": "Log ind med adgangsnøgle?"
   },
   "passkeyAlreadyExists": {
@@ -3423,6 +3498,9 @@
   "noMatchingPasskeyLogin": {
     "message": "Der er intet matchende login til dette websted."
   },
+  "noMatchingLoginsForSite": {
+    "message": "Ingen matchende logins for dette websted"
+  },
   "confirm": {
     "message": "Bekræft"
   },
@@ -3432,8 +3510,11 @@
   "savePasskeyNewLogin": {
     "message": "Gem adgangsnøgle som nyt login"
   },
-  "choosePasskey": {
+  "chooseCipherForPasskeySave": {
     "message": "Vælg et login at gemme denne adgangsnøgle til"
+  },
+  "chooseCipherForPasskeyAuth": {
+    "message": "Vælg en adgangsnøgle at logge ind med"
   },
   "passkeyItem": {
     "message": "Adgangsnøgleemne"
@@ -3630,8 +3711,16 @@
     "message": "Legitimationsoplysninger er gemt!",
     "description": "Notification message for when saving credentials has succeeded."
   },
+  "passwordSaved": {
+    "message": "Adgangskode gemt!",
+    "description": "Notification message for when saving credentials has succeeded."
+  },
   "updateCipherAttemptSuccess": {
     "message": "Legitimationsoplysninger er opdateret!",
+    "description": "Notification message for when updating credentials has succeeded."
+  },
+  "passwordUpdated": {
+    "message": "Adgangskode opdateret!",
     "description": "Notification message for when updating credentials has succeeded."
   },
   "saveCipherAttemptFailed": {
@@ -3958,7 +4047,13 @@
     }
   },
   "autoFillOnPageLoad": {
-    "message": "Autofill on page load?"
+    "message": "Autoudfyld ved sideindlæsning?"
+  },
+  "cardExpiredTitle": {
+    "message": "Udløbet kort"
+  },
+  "cardExpiredMessage": {
+    "message": "Er det blevet fornyet, opdatér venligst kortoplysningerne"
   },
   "cardDetails": {
     "message": "Kortoplysninger"
@@ -3971,6 +4066,9 @@
         "example": "Visa"
       }
     }
+  },
+  "enableAnimations": {
+    "message": "Aktivér animationer"
   },
   "addAccount": {
     "message": "Tilføj konto"
@@ -4210,5 +4308,35 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "Virksomhedspolitikkrav er anvendt på denne indstilling"
+  },
+  "fileSavedToDevice": {
+    "message": "Fil gemt på enheden. Håndtér fra enhedens downloads."
+  },
+  "showCharacterCount": {
+    "message": "Vis tegnantal"
+  },
+  "hideCharacterCount": {
+    "message": "Skjul tegnantal"
+  },
+  "itemsInTrash": {
+    "message": "Emner i papirkurv"
+  },
+  "noItemsInTrash": {
+    "message": "Ingen emner i papirkurv"
+  },
+  "noItemsInTrashDesc": {
+    "message": "Emner, som slettes, vil fremgå her og slettes permanent efter 30 dage"
+  },
+  "trashWarning": {
+    "message": "Emner, som har været i papirkurven i over 30 dage, slettes automatisk"
+  },
+  "restore": {
+    "message": "Gendan"
+  },
+  "deleteForever": {
+    "message": "Slet permanent"
+  },
+  "noEditPermissions": {
+    "message": "Ingen tilladelse til at redigere dette emne"
   }
 }

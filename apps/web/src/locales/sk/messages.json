@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Prihlasovacie údaje"
   },
+  "personalDetails": {
+    "message": "Osobné údaje"
+  },
+  "identification": {
+    "message": "Identifikácia"
+  },
+  "contactInfo": {
+    "message": "Kontaktné informácie"
+  },
+  "cardDetails": {
+    "message": "Podrobnosti o karte"
+  },
+  "cardBrandDetails": {
+    "message": "Podrobnosti o $BRAND$",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "História položky"
+  },
   "authenticatorKey": {
     "message": "Kľúč overovacej aplikácie"
   },
@@ -58,7 +82,7 @@
     "message": "Webová stránka (URI)"
   },
   "websiteUriCount": {
-    "message": "Website (URI) $COUNT$",
+    "message": "Webová stránka (URI) $COUNT$",
     "description": "Label for an input field that contains a website URI. The input field is part of a list of fields, and the count indicates the position of the field in the list.",
     "placeholders": {
       "count": {
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "Bezpečnostný kód (CVV)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Bezpečnostný kód / CVV"
   },
   "identityName": {
     "message": "Názov identity"
@@ -194,6 +221,12 @@
   "dr": {
     "message": "Dr"
   },
+  "cardExpiredTitle": {
+    "message": "Expirovaná karta"
+  },
+  "cardExpiredMessage": {
+    "message": "Ak ste kartu obnovili, aktualizujte jej údaje"
+  },
   "expirationMonth": {
     "message": "Mesiac exspirácie"
   },
@@ -213,7 +246,7 @@
     "message": "Bitwarden umožňuje uložiť a vyplniť kódy dvojstupňového overenia. Vyberte ikonu fotoaparátu a zosnímajte obrazovku QR kódu overovacej aplikácie tejto webovej stránky alebo skopírujte a vložte kľúč do tohto poľa."
   },
   "learnMoreAboutAuthenticators": {
-    "message": "Learn more about authenticators"
+    "message": "Viac informácií o overovateľoch"
   },
   "folder": {
     "message": "Priečinok"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "Celé meno"
   },
+  "address": {
+    "message": "Adresa"
+  },
   "address1": {
     "message": "Adresa 1"
   },
@@ -475,8 +511,17 @@
   "viewItem": {
     "message": "Zobraziť položku"
   },
+  "viewItemType": {
+    "message": "Zobraziť $ITEMTYPE$",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
+  },
   "new": {
-    "message": "New",
+    "message": "Nový",
     "description": "for adding new items"
   },
   "item": {
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Úspešne skopírované"
   },
   "copyValue": {
     "message": "Kopírovať hodnotu",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "Nápoveď k hlavnému heslo (voliteľné)"
   },
+  "newMasterPassHint": {
+    "message": "Nová nápoveď k hlavnému heslu (voliteľné)"
+  },
   "masterPassHintLabel": {
     "message": "Nápoveď pre hlavné heslo"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "Váš nový účet bol vytvorený! Teraz sa môžete prihlásiť."
+  },
+  "newAccountCreated2": {
+    "message": "Váš nový účet bol vytvorený!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Boli ste prihlásený!"
   },
   "trialAccountCreated": {
     "message": "Účet bol úspešne vytvorený."
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Aktualizácia šifrovacieho kľúča nemôže pokračovať"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "Pri aktualizácii šifrovacieho kľúča nebolo možné dešifrovať vaše priečinky. Ak chcete pokračovať v aktualizácii, vaše priečinky sa musia odstrániť. Ak budete pokračovať, nebudú odstránené žiadne položky trezora."
+  },
   "keyUpdated": {
     "message": "Kľúč aktualizovaný"
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "Vybraté"
+  },
+  "recommended": {
+    "message": "Odporúčané"
   },
   "ownership": {
     "message": "Vlastníctvo"
@@ -4964,6 +5030,10 @@
         "example": "An email address"
       }
     }
+  },
+  "viewSend": {
+    "message": "Zobraziť Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "viewSendHiddenEmailWarning": {
     "message": "Používateľ Bitwardenu, ktorý vytvoril tento Send, skryl e-mailové adresy pred príjemcami. Mali by ste zvážiť, či dôverujete zdrojovému odkazu pred jeho použitím alebo stiahnutím jeho obsahu.",
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "Audit prístupu členov organizácie v skupinách, kolekciách a položkách kolekcie. Export CSV poskytuje podrobný rozpis podľa jednotlivých členov vrátane informácií o oprávneniach kolekcií a konfiguráciách účtov."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(Žiadna Zbierka)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(Žiadne povolenia ku zbierke)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(Žiadna Skupina)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "Zapnuté"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Vypnuté"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "Zapnuté"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Vypnuté"
+  },
   "higherKDFIterations": {
     "message": "Zvýšenie počtu KDF iterácií môže pomôcť chrániť vaše hlavné heslo pri brute force útoku."
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Upgrade your plan to invite more members and gain access to additional Bitwarden features"
+  "upgradePlans": {
+    "message": "Upgrade your plan to invite members and experience powerful security features."
   },
   "upgradeDiscount": {
     "message": "Save $AMOUNT$%",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Advanced capabilities for larger businesses"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Advanced capabilities for larger organizations"
   },
-  "upgradeTeamsMessage": {
-    "message": "Businesses looking for powerful security"
+  "teamsPlanUpgradeMessage": {
+    "message": "Resilient protection for growing teams"
   },
   "teamsInviteMessage": {
     "message": "Invite unlimited members"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Sync groups and users from a directory"
   },
-  "upgradeFamilyMessage": {
-    "message": "Share with families and friends"
+  "familyPlanUpgradeMessage": {
+    "message": "Secure your family logins"
   },
   "accessToPremiumFeatures": {
     "message": "Access to Premium features"
   },
   "additionalStorageGbMessage": {
     "message": "GB additional storage"
+  },
+  "premiumAccounts": {
+    "message": "6 prémiových účtov"
+  },
+  "unlimitedSharing": {
+    "message": "Neobmedzené zdieľanie"
+  },
+  "unlimitedCollections": {
+    "message": "Neobmedzené množstvo zbierok"
+  },
+  "secureDataSharing": {
+    "message": "Bezpečné zdieľanie dát"
+  },
+  "eventLogMonitoring": {
+    "message": "Monitorovanie denníka udalostí"
+  },
+  "directoryIntegration": {
+    "message": "Integrácia s adresárom"
+  },
+  "passwordLessSso": {
+    "message": "SSO bez hesla"
+  },
+  "accountRecovery": {
+    "message": "Obnovenie účtu"
+  },
+  "customRoles": {
+    "message": "Vlastné roly"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Neobmedzené úložisko na položky"
+  },
+  "unlimitedUsers": {
+    "message": "Neobmedzený počet používateľov"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "Až 50 strojových účtov"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "Až 20 strojových účtov"
+  },
+  "current": {
+    "message": "Aktuálne"
+  },
+  "secretsManagerSubInfo": {
+    "message": "Vaše predplatné Secrets Manager sa obnoví na základe vybraného plánu"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden Správca Hesiel"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Vaše bezplatné ročné predplatné programu Password Manager sa zmení na vybraný plán. Poplatok vám bude účtovaný až po skončení bezplatného obdobia."
+  },
+  "fileSavedToDevice": {
+    "message": "Súbor sa uložil do zariadenia. Spravujte stiahnuté súbory zo zariadenia."
+  },
+  "publicApi": {
+    "message": "Verejné API",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Zobraziť počítadlo znakov"
+  },
+  "hideCharacterCount": {
+    "message": "Skryť počítadlo znakov"
+  },
+  "editAccess": {
+    "message": "Upraviť prístup"
   }
 }

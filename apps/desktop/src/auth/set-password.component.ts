@@ -1,11 +1,11 @@
 import { Component, NgZone, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
+import { OrganizationUserApiService } from "@bitwarden/admin-console/common";
 import { SetPasswordComponent as BaseSetPasswordComponent } from "@bitwarden/angular/auth/components/set-password.component";
 import { InternalUserDecryptionOptionsServiceAbstraction } from "@bitwarden/auth/common";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { OrganizationApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/organization/organization-api.service.abstraction";
-import { OrganizationUserService } from "@bitwarden/common/admin-console/abstractions/organization-user/organization-user.service";
 import { PolicyApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/policy/policy-api.service.abstraction";
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
@@ -22,7 +22,7 @@ import { StateService } from "@bitwarden/common/platform/abstractions/state.serv
 import { EncString } from "@bitwarden/common/platform/models/domain/enc-string";
 import { MasterKey, UserKey } from "@bitwarden/common/types/key";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
-import { DialogService } from "@bitwarden/components";
+import { DialogService, ToastService } from "@bitwarden/components";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legacy";
 
 const BroadcasterSubscriptionId = "SetPasswordComponent";
@@ -50,12 +50,13 @@ export class SetPasswordComponent extends BaseSetPasswordComponent implements On
     private ngZone: NgZone,
     stateService: StateService,
     organizationApiService: OrganizationApiServiceAbstraction,
-    organizationUserService: OrganizationUserService,
+    organizationUserApiService: OrganizationUserApiService,
     userDecryptionOptionsService: InternalUserDecryptionOptionsServiceAbstraction,
     ssoLoginService: SsoLoginServiceAbstraction,
     dialogService: DialogService,
     kdfConfigService: KdfConfigService,
     encryptService: EncryptService,
+    toastService: ToastService,
   ) {
     super(
       accountService,
@@ -73,12 +74,13 @@ export class SetPasswordComponent extends BaseSetPasswordComponent implements On
       route,
       stateService,
       organizationApiService,
-      organizationUserService,
+      organizationUserApiService,
       userDecryptionOptionsService,
       ssoLoginService,
       dialogService,
       kdfConfigService,
       encryptService,
+      toastService,
     );
   }
 

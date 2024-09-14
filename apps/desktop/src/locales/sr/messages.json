@@ -603,6 +603,12 @@
   "newAccountCreated": {
     "message": "Ваш налог је креиран! Сада се можете пријавити."
   },
+  "newAccountCreated2": {
+    "message": "Ваш нови налог је направљен!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Пријављени сте!"
+  },
   "masterPassSent": {
     "message": "Послали смо Вам поруку са саветом главне лозинке."
   },
@@ -1174,6 +1180,9 @@
   "premiumPurchaseAlert": {
     "message": "Можете купити премијум претплату на bitwarden.com. Да ли желите да посетите веб сајт сада?"
   },
+  "premiumPurchaseAlertV2": {
+    "message": "Можете да купите Премиум у подешавањима налога у веб апликацији Bitwarden."
+  },
   "premiumCurrentMember": {
     "message": "Ви сте премијум члан!"
   },
@@ -1275,6 +1284,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Copy Successful"
   },
   "errorRefreshingAccessToken": {
     "message": "Грешка при освежавању токена приступа"
@@ -3049,5 +3061,11 @@
   },
   "textSends": {
     "message": "Текст „Send“"
+  },
+  "ssoError": {
+    "message": "No free ports could be found for the sso login."
+  },
+  "fileSavedToDevice": {
+    "message": "File saved to device. Manage from your device downloads."
   }
 }

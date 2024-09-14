@@ -42,12 +42,17 @@
   --color-info-600: 85 85 85;
   --color-info-700: 59 58 58;
 
+  --color-art-primary: 2 15 102;
+  --color-art-accent: 85 85 85;
+
   --color-text-main: 33 37 41;
   --color-text-muted: 109 117 126;
   --color-text-contrast: 255 255 255;
   --color-text-alt2: 255 255 255;
   --color-text-code: 192 17 118;
   --color-text-headers: 2 15 102;
+
+  --color-marketing-logo: 23 93 220;
 
   --tw-ring-offset-color: #ffffff;
 }
@@ -88,12 +93,17 @@
   --color-info-600: 164 176 198;
   --color-info-700: 209 215 226;
 
+  --color-art-primary: 226 227 228;
+  --color-art-accent: 164 176 198;
+
   --color-text-main: 255 255 255;
   --color-text-muted: 186 192 206;
   --color-text-contrast: 25 30 38;
   --color-text-alt2: 255 255 255;
   --color-text-code: 240 141 199;
   --color-text-headers: 226 227 228;
+
+  --color-marketing-logo: 255 255 255;
 
   --tw-ring-offset-color: #1f242e;
 }
@@ -134,6 +144,8 @@
   --color-text-alt2: 255 255 255;
   --color-text-code: 219 177 211;
 
+  --color-marketing-logo: 255 255 255;
+
   --tw-ring-offset-color: #434c5e;
 }
 
@@ -172,6 +184,8 @@
   --color-text-contrast: 0 0 0;
   --color-text-alt2: 255 255 255;
   --color-text-code: 240 141 199;
+
+  --color-marketing-logo: 255 255 255;
 
   --tw-ring-offset-color: #002b36;
 }

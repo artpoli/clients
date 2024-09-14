@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "ログイン情報"
   },
+  "personalDetails": {
+    "message": "個人情報"
+  },
+  "identification": {
+    "message": "ID"
+  },
+  "contactInfo": {
+    "message": "連絡先情報"
+  },
+  "cardDetails": {
+    "message": "カード情報"
+  },
+  "cardBrandDetails": {
+    "message": "$BRAND$ の詳細",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "アイテム履歴"
+  },
   "authenticatorKey": {
     "message": "認証キー"
   },
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "セキュリティコード (CVV)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "セキュリティコード / CVV"
   },
   "identityName": {
     "message": "固有名"
@@ -193,6 +220,12 @@
   },
   "dr": {
     "message": "Dr"
+  },
+  "cardExpiredTitle": {
+    "message": "期限切れのカード"
+  },
+  "cardExpiredMessage": {
+    "message": "カードの更新があった場合、カード情報を更新してください"
   },
   "expirationMonth": {
     "message": "有効期限月"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "フルネーム"
   },
+  "address": {
+    "message": "住所"
+  },
   "address1": {
     "message": "住所 1"
   },
@@ -474,6 +510,15 @@
   },
   "viewItem": {
     "message": "アイテムの表示"
+  },
+  "viewItemType": {
+    "message": "$ITEMTYPE$ を表示",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
   },
   "new": {
     "message": "新規作成",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "コピーしました"
   },
   "copyValue": {
     "message": "値のコピー",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "マスターパスワードのヒント (省略可能)"
   },
+  "newMasterPassHint": {
+    "message": "新しいマスターパスワードのヒント (オプション)"
+  },
   "masterPassHintLabel": {
     "message": "マスターパスワードのヒント"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "新しいアカウントを作成しました！今すぐログインできます。"
+  },
+  "newAccountCreated2": {
+    "message": "新しいアカウントを作成しました！"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "ログインしました！"
   },
   "trialAccountCreated": {
     "message": "アカウントを正常に作成しました。"
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "暗号化キーの更新を続行できません"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "暗号化キーを更新する際、フォルダーを復号できませんでした。 アップデートを続行するには、フォルダーを削除する必要があります。続行しても保管庫のアイテムは削除されません。"
+  },
   "keyUpdated": {
     "message": "キーが更新されました"
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "選択済み"
+  },
+  "recommended": {
+    "message": "おすすめ"
   },
   "ownership": {
     "message": "所有者"
@@ -4964,6 +5030,10 @@
         "example": "An email address"
       }
     }
+  },
+  "viewSend": {
+    "message": "Send を表示",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "viewSendHiddenEmailWarning": {
     "message": "この Send を作成した Bitwarden ユーザーが、自身のメールアドレスを非表示にしました。 コンテンツを使用またはダウンロードする前に、このリンクのソースが信頼できるかどうか確認する必要があります。",
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "組織メンバーによるグループ、コレクション、コレクションアイテム間のアクセスを監査します。 CSV エクスポートには、コレクションの権限とアカウント構成に関する情報を含むメンバーごとの詳細な内訳が表示されます。"
   },
+  "memberAccessReportNoCollection": {
+    "message": "（コレクションなし）"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "（コレクション権限がありません）"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "（グループなし）"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "オン"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "オフ"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "オン"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "オフ"
+  },
   "higherKDFIterations": {
     "message": "KDF 反復回数を多くすることで、攻撃者による総当たり攻撃からマスターパスワードを守ることができます。"
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "より多くのメンバーを招待し、Bitwarden の追加機能にアクセスするには、プランをアップグレードしてください。"
+  "upgradePlans": {
+    "message": "メンバーを招待し、強力なセキュリティ機能を体験するにはプランをアップグレードしてください。"
   },
   "upgradeDiscount": {
     "message": "$AMOUNT$ %割引",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "大企業向けの高度な機能"
+  "enterprisePlanUpgradeMessage": {
+    "message": "大規模組織向けの高度な機能"
   },
-  "upgradeTeamsMessage": {
-    "message": "強力なセキュリティを求めている企業"
+  "teamsPlanUpgradeMessage": {
+    "message": "成長するチームにとって強靭な保護"
   },
   "teamsInviteMessage": {
     "message": "無制限のメンバー招待"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "ディレクトリからグループとユーザーを同期"
   },
-  "upgradeFamilyMessage": {
-    "message": "家族や友達と共有"
+  "familyPlanUpgradeMessage": {
+    "message": "家族のログイン情報の保護"
   },
   "accessToPremiumFeatures": {
     "message": "プレミアム機能へのアクセス"
   },
   "additionalStorageGbMessage": {
     "message": "GB の追加ストレージ"
+  },
+  "premiumAccounts": {
+    "message": "6個のプレミアムアカウント"
+  },
+  "unlimitedSharing": {
+    "message": "無制限の共有"
+  },
+  "unlimitedCollections": {
+    "message": "無制限のコレクション"
+  },
+  "secureDataSharing": {
+    "message": "セキュアなデータ共有"
+  },
+  "eventLogMonitoring": {
+    "message": "イベントログの監視"
+  },
+  "directoryIntegration": {
+    "message": "ディレクトリの統合"
+  },
+  "passwordLessSso": {
+    "message": "パスワードレス SSO"
+  },
+  "accountRecovery": {
+    "message": "アカウントの復元"
+  },
+  "customRoles": {
+    "message": "カスタムロール"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "無制限のシークレットストレージ"
+  },
+  "unlimitedUsers": {
+    "message": "無制限のユーザー数"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "最大50個のマシンアカウント"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "最大20個のマシンアカウント"
+  },
+  "current": {
+    "message": "現在"
+  },
+  "secretsManagerSubInfo": {
+    "message": "シークレットマネージャーのサブスクリプションは、選択されたプランを基準にアップグレードされます"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden パスワードマネージャー"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "1年間のパスワードマネージャーサブスクリプションは、選択したプランにアップグレードされます。無料期間が終了するまで課金されることはありません。"
+  },
+  "fileSavedToDevice": {
+    "message": "ファイルをデバイスに保存しました。デバイスのダウンロードで管理できます。"
+  },
+  "publicApi": {
+    "message": "公開 API",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "文字数を表示"
+  },
+  "hideCharacterCount": {
+    "message": "文字数を隠す"
+  },
+  "editAccess": {
+    "message": "編集権限"
   }
 }

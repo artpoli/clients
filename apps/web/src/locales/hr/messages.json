@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Vjerodajnice za prijavu"
   },
+  "personalDetails": {
+    "message": "Osobni podaci"
+  },
+  "identification": {
+    "message": "Identifikacija"
+  },
+  "contactInfo": {
+    "message": "Kontakt podaci"
+  },
+  "cardDetails": {
+    "message": "Detalji kartice"
+  },
+  "cardBrandDetails": {
+    "message": "$BRAND$ detalji",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "Povijest stavke"
+  },
   "authenticatorKey": {
     "message": "Kôd za provjeru"
   },
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "Kontrolni broj"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Security code / CVV"
   },
   "identityName": {
     "message": "Ime identiteta"
@@ -193,6 +220,12 @@
   },
   "dr": {
     "message": "dr."
+  },
+  "cardExpiredTitle": {
+    "message": "Istekla kartica"
+  },
+  "cardExpiredMessage": {
+    "message": "Ako je obnovljeno, ažuriraj podatke o kartici"
   },
   "expirationMonth": {
     "message": "Mjesec isteka"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "Ime i prezime"
   },
+  "address": {
+    "message": "Adresa"
+  },
   "address1": {
     "message": "Adresa 1"
   },
@@ -474,6 +510,15 @@
   },
   "viewItem": {
     "message": "Prikaz stavke"
+  },
+  "viewItemType": {
+    "message": "Pogledaj $ITEMTYPE$",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
   },
   "new": {
     "message": "Novo",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Copy Successful"
   },
   "copyValue": {
     "message": "Kopiraj vrijednost",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "Podsjetnik glavne lozinke (neobavezno)"
   },
+  "newMasterPassHint": {
+    "message": "Podsjetnik nove glavne lozinke (neobavezno)"
+  },
   "masterPassHintLabel": {
     "message": "Podsjetnik glavne lozinke"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "Tvoj novi račun je stvoren! Sada se možeš prijaviti."
+  },
+  "newAccountCreated2": {
+    "message": "Tvoj novi račun je stvoren!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Prijava uspješna!"
   },
   "trialAccountCreated": {
     "message": "Račun je uspješno stvoren."
@@ -1665,7 +1722,7 @@
     "message": "Izuzmi"
   },
   "include": {
-    "message": "Obuhvati"
+    "message": "Uključi"
   },
   "customize": {
     "message": "Prilagodi"
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Encryption key update cannot proceed"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "When updating your encryption key, your folders could not be decrypted. To continue with the update, your folders must be deleted. No vault items will be deleted if you proceed."
+  },
   "keyUpdated": {
     "message": "Ključ ažuriran"
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "Odabrano"
+  },
+  "recommended": {
+    "message": "Recommended"
   },
   "ownership": {
     "message": "Vlasništvo"
@@ -4964,6 +5030,10 @@
         "example": "An email address"
       }
     }
+  },
+  "viewSend": {
+    "message": "Pogledaj Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "viewSendHiddenEmailWarning": {
     "message": "Bitwarden korisnik koji je stvorio ovaj Send odabrao/la je sakriti svoju e-poštu. Koristi i/ili preuzmi ove podatke samo ako vjeruješ izvoru iz kojeg je primljena ova vezu.",
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "Provjeri pristup članova organizacije u grupama, zbirkama i stavkama zbirke. CSV izvoz pruža detaljnu raščlambu po članu, uključujući informacije o dozvolama za prikupljanje i konfiguracijama računa."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(No Collection)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(No Collection Permission)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(No Group)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "On"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Off"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "On"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Off"
+  },
   "higherKDFIterations": {
     "message": "Veće KDF iteracije mogu pomoći u zaštiti tvoje glavne lozinke od napadača."
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Nadogradi svoj plan za pozivanje više članova i pristup dodatnim Bitwarden značajkama"
+  "upgradePlans": {
+    "message": "Upgrade your plan to invite members and experience powerful security features."
   },
   "upgradeDiscount": {
     "message": "Uštedi $AMOUNT$ %",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Napredne mogućnosti za veće tvrtke"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Advanced capabilities for larger organizations"
   },
-  "upgradeTeamsMessage": {
-    "message": "Tvrtke koje traže veću razinu sigurnosti"
+  "teamsPlanUpgradeMessage": {
+    "message": "Resilient protection for growing teams"
   },
   "teamsInviteMessage": {
     "message": "Pozovi neograničen broj članova"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Sinkroniziraj grupe i korisnike iz imenika"
   },
-  "upgradeFamilyMessage": {
-    "message": "Dijeli s obitelji i prijateljima"
+  "familyPlanUpgradeMessage": {
+    "message": "Secure your family logins"
   },
   "accessToPremiumFeatures": {
     "message": "Pristup Premium značajkama"
   },
   "additionalStorageGbMessage": {
     "message": "GB dodatnog prostora"
+  },
+  "premiumAccounts": {
+    "message": "6 premium računa"
+  },
+  "unlimitedSharing": {
+    "message": "Neograničeno dijeljenje"
+  },
+  "unlimitedCollections": {
+    "message": "Neograničen broj zbirki"
+  },
+  "secureDataSharing": {
+    "message": "Sigurno dijeljenje podataka"
+  },
+  "eventLogMonitoring": {
+    "message": "Praćenje dnevnika događaja"
+  },
+  "directoryIntegration": {
+    "message": "Integracija s imenikom"
+  },
+  "passwordLessSso": {
+    "message": "PasswordLess SSO"
+  },
+  "accountRecovery": {
+    "message": "Oporavak računa"
+  },
+  "customRoles": {
+    "message": "Prilagođene uloge"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Neograničena pohrana tajni"
+  },
+  "unlimitedUsers": {
+    "message": "Neograničen broj korisnika"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "Do 50 strojnih računa"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "Do 20 strojnih računa"
+  },
+  "current": {
+    "message": "Trenutno"
+  },
+  "secretsManagerSubInfo": {
+    "message": "Tvoja pretplata na Secrets Manager će se nadograditi na temelju odabranog plana"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden upravitelj lozinki"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Your complimentary one year Password Manager subscription will upgrade to the selected plan. You will not be charged until the complimentary period is over."
+  },
+  "fileSavedToDevice": {
+    "message": "File saved to device. Manage from your device downloads."
+  },
+  "publicApi": {
+    "message": "Javni API",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Show character count"
+  },
+  "hideCharacterCount": {
+    "message": "Hide character count"
+  },
+  "editAccess": {
+    "message": "Uredi pristup"
   }
 }

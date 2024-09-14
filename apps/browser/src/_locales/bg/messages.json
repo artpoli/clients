@@ -25,9 +25,6 @@
   "finishCreatingYourAccountBySettingAPassword": {
     "message": "Завършете регистрацията си като зададете парола"
   },
-  "login": {
-    "message": "Вписване"
-  },
   "enterpriseSingleSignOn": {
     "message": "Еднократна идентификация (SSO)"
   },
@@ -387,16 +384,56 @@
     "message": "Минимална дължина на паролата"
   },
   "uppercase": {
-    "message": "Главни букви (A-Z)"
+    "message": "Главни букви (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Малки букви (a-z)"
+    "message": "Малки букви (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Числа (0-9)"
+    "message": "Числа (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
-    "message": "Специални знаци (!@#$%^&*)"
+    "message": "Специални знаци (!@#$%^&*)",
+    "description": "deprecated. Use specialCharactersLabel instead."
+  },
+  "include": {
+    "message": "Включване",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Включване на главни букви",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Включване на малки букви",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Включване на цифри",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Включване на специални знаци",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Брой думи"
@@ -418,7 +455,12 @@
     "message": "Минимален брой специални знаци"
   },
   "avoidAmbChar": {
-    "message": "Без нееднозначни знаци"
+    "message": "Без нееднозначни знаци",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Без нееднозначни знаци",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "searchVault": {
     "message": "Търсене в трезора"
@@ -640,6 +682,12 @@
   },
   "newAccountCreated": {
     "message": "Абонаментът ви бе създаден. Вече можете да се впишете."
+  },
+  "newAccountCreated2": {
+    "message": "Новата Ви регистрация беше създадена!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Вече сте вписан(а)!"
   },
   "youSuccessfullyLoggedIn": {
     "message": "Вписахте се успешно"
@@ -1083,7 +1131,7 @@
     "message": "1 GB пространство за файлове, които се шифрират."
   },
   "premiumSignUpEmergency": {
-    "message": "Emergency access"
+    "message": "Авариен достъп"
   },
   "premiumSignUpTwoStepOptions": {
     "message": "Частно двустепенно удостоверяване чрез YubiKey и Duo."
@@ -1107,7 +1155,7 @@
     "message": "Може да платите абонамента си през сайта bitwarden.com. Искате ли да го посетите сега?"
   },
   "premiumPurchaseAlertV2": {
-    "message": "You can purchase Premium from your account settings on the Bitwarden web app."
+    "message": "Можете да закупите платената версия от настройките на регистрацията си, в приложението по уеб на Битуорден."
   },
   "premiumCurrentMember": {
     "message": "Честито, ползвате платен абонамент!"
@@ -1115,7 +1163,19 @@
   "premiumCurrentMemberThanks": {
     "message": "Благодарим ви за подкрепата на Bitwarden."
   },
+  "premiumFeatures": {
+    "message": "Преминете към платената версия и ще получите:"
+  },
   "premiumPrice": {
+    "message": "И това само за $PRICE$ на година!",
+    "placeholders": {
+      "price": {
+        "content": "$1",
+        "example": "$10"
+      }
+    }
+  },
+  "premiumPriceV2": {
     "message": "И това само за $PRICE$ на година!",
     "placeholders": {
       "price": {
@@ -1736,6 +1796,15 @@
   "noPasswordsInList": {
     "message": "Няма пароли за показване."
   },
+  "clearHistory": {
+    "message": "Изчистване на историята"
+  },
+  "noPasswordsToShow": {
+    "message": "Няма пароли за показване"
+  },
+  "noRecentlyGeneratedPassword": {
+    "message": "Скоро не сте генерирали пароли"
+  },
   "remove": {
     "message": "Премахване"
   },
@@ -2073,6 +2142,12 @@
   },
   "biometricsNotUnlockedDesc": {
     "message": "Отключете потребителя в настолното приложение и опитайте отново."
+  },
+  "biometricsNotAvailableTitle": {
+    "message": "Отключването чрез биометрични данни не е налично"
+  },
+  "biometricsNotAvailableDesc": {
+    "message": "Отключването чрез биометрични данни не е налично в момента. Опитайте отново по-късно."
   },
   "biometricsFailedTitle": {
     "message": "Неуспешно удостоверяване чрез биометрични данни"
@@ -3411,7 +3486,7 @@
   "passkeyFeatureIsNotImplementedForAccountsWithoutMasterPassword": {
     "message": "Изисква се проверка от иницииращия сайт. Тази функция все още не е внедрена за акаунти без главна парола."
   },
-  "logInWithPasskey": {
+  "logInWithPasskeyQuestion": {
     "message": "Вписване със секретен ключ?"
   },
   "passkeyAlreadyExists": {
@@ -3423,6 +3498,9 @@
   "noMatchingPasskeyLogin": {
     "message": "Нямате елемент за вписване, подходящ за този уеб сайт."
   },
+  "noMatchingLoginsForSite": {
+    "message": "Няма записи за вписване отговарящи на този уеб сайт"
+  },
   "confirm": {
     "message": "Потвърждаване"
   },
@@ -3432,8 +3510,11 @@
   "savePasskeyNewLogin": {
     "message": "Запазване на секретния ключ като нов елемент за вписване"
   },
-  "choosePasskey": {
+  "chooseCipherForPasskeySave": {
     "message": "Изберете елемент, в който да запазите този секретен ключ"
+  },
+  "chooseCipherForPasskeyAuth": {
+    "message": "Изберете секретен ключ, с който да се впишете"
   },
   "passkeyItem": {
     "message": "Секретен ключ"
@@ -3630,8 +3711,16 @@
     "message": "Идентификационните данни са запазени успешно!",
     "description": "Notification message for when saving credentials has succeeded."
   },
+  "passwordSaved": {
+    "message": "Паролата е запазена!",
+    "description": "Notification message for when saving credentials has succeeded."
+  },
   "updateCipherAttemptSuccess": {
     "message": "Идентификационните данни са променени успешно!",
+    "description": "Notification message for when updating credentials has succeeded."
+  },
+  "passwordUpdated": {
+    "message": "Паролата е обновена!",
     "description": "Notification message for when updating credentials has succeeded."
   },
   "saveCipherAttemptFailed": {
@@ -3960,6 +4049,12 @@
   "autoFillOnPageLoad": {
     "message": "Автоматично попълване при зареждане на страницата?"
   },
+  "cardExpiredTitle": {
+    "message": "Изтекла карта"
+  },
+  "cardExpiredMessage": {
+    "message": "Ако сте я подновили, актуализирайте информацията за картата"
+  },
   "cardDetails": {
     "message": "Данни за картата"
   },
@@ -3971,6 +4066,9 @@
         "example": "Visa"
       }
     }
+  },
+  "enableAnimations": {
+    "message": "Включване на анимациите"
   },
   "addAccount": {
     "message": "Добавяне на регистрация"
@@ -4210,5 +4308,35 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "Изискванията на политиката за големи компании бяха приложени към тази настройка"
+  },
+  "fileSavedToDevice": {
+    "message": "Файлът е запазен на устройството. Можете да го намерите в мястото за сваляния на устройството."
+  },
+  "showCharacterCount": {
+    "message": "Показване на броя знаци"
+  },
+  "hideCharacterCount": {
+    "message": "Скриване на броя знаци"
+  },
+  "itemsInTrash": {
+    "message": "Елементи в кошчето"
+  },
+  "noItemsInTrash": {
+    "message": "Няма елементи в кошчето"
+  },
+  "noItemsInTrashDesc": {
+    "message": "Елементите, които изтривате, ще бъдат премествани тук и изтривани окончателно след 30 дни"
+  },
+  "trashWarning": {
+    "message": "Елементите, които са били в кошчето за повече от 30 дни, ще бъдат изтривани автоматично"
+  },
+  "restore": {
+    "message": "Възстановяване"
+  },
+  "deleteForever": {
+    "message": "Изтриване завинаги"
+  },
+  "noEditPermissions": {
+    "message": "Нямате право за редактиране на този елемент"
   }
 }

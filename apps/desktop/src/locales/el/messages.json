@@ -603,6 +603,12 @@
   "newAccountCreated": {
     "message": "Ο λογαριασμός σας έχει δημιουργηθεί! Τώρα μπορείτε να συνδεθείτε."
   },
+  "newAccountCreated2": {
+    "message": "Ο νέος σας λογαριασμός έχει δημιουργηθεί!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Έχετε συνδεθεί!"
+  },
   "masterPassSent": {
     "message": "Σας στείλαμε ένα email με την υπόδειξη του κύριου κωδικού."
   },
@@ -1174,6 +1180,9 @@
   "premiumPurchaseAlert": {
     "message": "Μπορείτε να αγοράσετε συνδρομή premium στο bitwarden.com web vault. Θέλετε να επισκεφθείτε την ιστοσελίδα τώρα;"
   },
+  "premiumPurchaseAlertV2": {
+    "message": "Μπορείτε να αγοράσετε το Premium από τις ρυθμίσεις λογαριασμού σας στη διαδικτυακή εφαρμογή του Bitwarden."
+  },
   "premiumCurrentMember": {
     "message": "Είστε ένα premium μέλος!"
   },
@@ -1275,6 +1284,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Copy Successful"
   },
   "errorRefreshingAccessToken": {
     "message": "Σφάλμα Ανανέωσης Διακριτικού Πρόσβασης"
@@ -3049,5 +3061,11 @@
   },
   "textSends": {
     "message": "Send κειμένων"
+  },
+  "ssoError": {
+    "message": "Δεν βρέθηκαν ελεύθερες θύρες για τη σύνδεση sso."
+  },
+  "fileSavedToDevice": {
+    "message": "File saved to device. Manage from your device downloads."
   }
 }

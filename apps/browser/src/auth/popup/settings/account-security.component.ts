@@ -33,12 +33,13 @@ import { MessagingService } from "@bitwarden/common/platform/abstractions/messag
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { BiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
+import { BiometricsService } from "@bitwarden/common/platform/biometrics/biometric.service";
 import {
   VaultTimeout,
   VaultTimeoutOption,
   VaultTimeoutStringType,
 } from "@bitwarden/common/types/vault-timeout.type";
-import { DialogService } from "@bitwarden/components";
+import { DialogService, ToastService } from "@bitwarden/components";
 
 import { BiometricErrors, BiometricErrorTypes } from "../../../models/biometricErrors";
 import { BrowserApi } from "../../../platform/browser/browser-api";
@@ -94,6 +95,8 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private changeDetectorRef: ChangeDetectorRef,
     private biometricStateService: BiometricStateService,
+    private toastService: ToastService,
+    private biometricsService: BiometricsService,
   ) {
     this.accountSwitcherEnabled = enableAccountSwitching();
   }
@@ -165,7 +168,7 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
     };
     this.form.patchValue(initialValues, { emitEvent: false });
 
-    this.supportsBiometric = await this.platformUtilsService.supportsBiometric();
+    this.supportsBiometric = await this.biometricsService.supportsBiometric();
     this.showChangeMasterPass = await this.userVerificationService.hasMasterPassword();
 
     this.form.controls.vaultTimeout.valueChanges
@@ -272,11 +275,11 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
     // The minTimeoutError does not apply to browser because it supports Immediately
     // So only check for the policyError
     if (this.form.controls.vaultTimeout.hasError("policyError")) {
-      this.platformUtilsService.showToast(
-        "error",
-        null,
-        this.i18nService.t("vaultTimeoutTooLarge"),
-      );
+      this.toastService.showToast({
+        variant: "error",
+        title: null,
+        message: this.i18nService.t("vaultTimeoutTooLarge"),
+      });
       return;
     }
 
@@ -313,11 +316,11 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
     }
 
     if (this.form.controls.vaultTimeout.hasError("policyError")) {
-      this.platformUtilsService.showToast(
-        "error",
-        null,
-        this.i18nService.t("vaultTimeoutTooLarge"),
-      );
+      this.toastService.showToast({
+        variant: "error",
+        title: null,
+        message: this.i18nService.t("vaultTimeoutTooLarge"),
+      });
       return;
     }
 
@@ -405,7 +408,7 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
 
       const biometricsPromise = async () => {
         try {
-          const result = await this.platformUtilsService.authenticateBiometric();
+          const result = await this.biometricsService.authenticateBiometric();
 
           // prevent duplicate dialog
           biometricsResponseReceived = true;
@@ -415,11 +418,11 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
 
           this.form.controls.biometric.setValue(result);
           if (!result) {
-            this.platformUtilsService.showToast(
-              "error",
-              this.i18nService.t("errorEnableBiometricTitle"),
-              this.i18nService.t("errorEnableBiometricDesc"),
-            );
+            this.toastService.showToast({
+              variant: "error",
+              title: this.i18nService.t("errorEnableBiometricTitle"),
+              message: this.i18nService.t("errorEnableBiometricDesc"),
+            });
           }
         } catch (e) {
           // prevent duplicate dialog

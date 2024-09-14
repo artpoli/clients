@@ -53,8 +53,11 @@
           <dt [ngClass]="{ 'tw-text-danger': isExpired }">
             {{ "subscriptionExpiration" | i18n }}
           </dt>
-          <dd [ngClass]="{ 'tw-text-danger': isExpired }">
+          <dd [ngClass]="{ 'tw-text-danger': isExpired }" *ngIf="!enableTimeThreshold">
             {{ nextInvoice ? (nextInvoice.date | date: "mediumDate") : "-" }}
+          </dd>
+          <dd [ngClass]="{ 'tw-text-danger': isExpired }" *ngIf="enableTimeThreshold">
+            {{ nextInvoice ? (sub.subscription.periodEndDate | date: "mediumDate") : "-" }}
           </dd>
         </ng-container>
       </dl>
@@ -66,14 +69,25 @@
     ></app-subscription-status>
     <ng-container *ngIf="userOrg.canEditSubscription">
       <div class="tw-flex-col">
-        <strong class="tw-block tw-border-0 tw-border-b tw-border-solid tw-border-secondary-300">{{
-          "details" | i18n
-        }}</strong>
+        <strong class="tw-block tw-border-0 tw-border-b tw-border-solid tw-border-secondary-300"
+          >{{ "details" | i18n
+          }}<span
+            class="tw-ml-3"
+            *ngIf="customerDiscount?.percentOff > 0 && !isSecretsManagerTrial()"
+            bitBadge
+            variant="success"
+            >{{ "providerDiscount" | i18n: customerDiscount?.percentOff }}</span
+          ></strong
+        >
         <bit-table>
           <ng-template body>
             <ng-container *ngIf="subscription">
               <tr bitRow *ngFor="let i of subscriptionLineItems">
-                <td bitCell [ngClass]="{ 'tw-pl-20': i.addonSubscriptionItem }">
+                <td
+                  bitCell
+                  [ngClass]="{ 'tw-pl-20': i.addonSubscriptionItem }"
+                  class="tw-align-middle"
+                >
                   <span *ngIf="!i.addonSubscriptionItem">{{ i.productName | i18n }} -</span>
                   {{ i.name }} {{ i.quantity > 1 ? "&times;" + i.quantity : "" }} &#64;
                   {{ i.amount | currency: "$" }}
@@ -88,7 +102,19 @@
                     {{ "freeForOneYear" | i18n }}
                   </ng-container>
                   <ng-template #calculateElse>
-                    {{ i.quantity * i.amount | currency: "$" }} /{{ i.interval | i18n }}
+                    <div class="tw-flex tw-flex-col">
+                      <span>
+                        {{ i.quantity * i.amount | currency: "$" }} /{{ i.interval | i18n }}
+                      </span>
+                      <span
+                        *ngIf="customerDiscount?.percentOff && !isSecretsManagerTrial()"
+                        class="tw-line-through !tw-text-muted"
+                        >{{
+                          calculateTotalAppliedDiscount(i.quantity * i.amount) | currency: "$"
+                        }}
+                        / {{ "year" | i18n }}</span
+                      >
+                    </div>
                   </ng-template>
                 </td>
               </tr>
@@ -109,7 +135,7 @@
     </ng-container>
 
     <ng-container *ngIf="userOrg.canEditSubscription">
-      <div class="tw-mt-7">
+      <div class="tw-mt-5">
         <button
           bitButton
           buttonType="secondary"
@@ -222,8 +248,10 @@
       </ng-container>
     </ng-container>
 
-    <h2 bitTypography="h2" class="tw-mt-7">{{ "selfHostingTitle" | i18n }}</h2>
-    <p bitTypography="body1">
+    <h2 bitTypography="h2" *ngIf="shownSelfHost()" class="tw-mt-7">
+      {{ "selfHostingTitle" | i18n }}
+    </h2>
+    <p bitTypography="body1" *ngIf="shownSelfHost()">
       {{ "selfHostingEnterpriseOrganizationSectionCopy" | i18n }}
       <a
         href="https://bitwarden.com/help/licensing-on-premise/#retrieve-organization-license"
@@ -240,7 +268,7 @@
         buttonType="secondary"
         type="button"
         (click)="downloadLicense()"
-        *ngIf="canDownloadLicense"
+        *ngIf="canDownloadLicense && shownSelfHost()"
         [disabled]="showDownloadLicense"
       >
         {{ "downloadLicense" | i18n }}

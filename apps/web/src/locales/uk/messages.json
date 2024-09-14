@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Облікові дані для входу"
   },
+  "personalDetails": {
+    "message": "Особисті дані"
+  },
+  "identification": {
+    "message": "Ідентифікація"
+  },
+  "contactInfo": {
+    "message": "Контактні дані"
+  },
+  "cardDetails": {
+    "message": "Подробиці картки"
+  },
+  "cardBrandDetails": {
+    "message": "Подробиці $BRAND$",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "Історія запису"
+  },
   "authenticatorKey": {
     "message": "Ключ автентифікації"
   },
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "Код безпеки (CVV)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Код безпеки / CVV"
   },
   "identityName": {
     "message": "Назва посвідчення"
@@ -193,6 +220,12 @@
   },
   "dr": {
     "message": "Доктор"
+  },
+  "cardExpiredTitle": {
+    "message": "Протермінована картка"
+  },
+  "cardExpiredMessage": {
+    "message": "Якщо ви її поновили, оновіть інформацію"
   },
   "expirationMonth": {
     "message": "Місяць завершення"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "Повне ім'я"
   },
+  "address": {
+    "message": "Адреса"
+  },
   "address1": {
     "message": "Адреса 1"
   },
@@ -474,6 +510,15 @@
   },
   "viewItem": {
     "message": "Переглянути запис"
+  },
+  "viewItemType": {
+    "message": "Переглянути $ITEMTYPE$",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
   },
   "new": {
     "message": "Новий",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Успішно скопійовано"
   },
   "copyValue": {
     "message": "Копіювати значення",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "Підказка для головного пароля (необов'язково)"
   },
+  "newMasterPassHint": {
+    "message": "Підказка для нового головного пароля (необов'язково)"
+  },
   "masterPassHintLabel": {
     "message": "Підказка для головного пароля"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "Ваш обліковий запис створений! Тепер ви можете увійти."
+  },
+  "newAccountCreated2": {
+    "message": "Ваш обліковий запис створено!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Ви увійшли!"
   },
   "trialAccountCreated": {
     "message": "Обліковий запис успішно створено."
@@ -1103,7 +1160,7 @@
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
   "duoOrganizationDesc": {
-    "message": "Авторизуйтесь за допомогою Duo Security для вашої організації з використанням мобільного додатку Duo Mobile, SMS, телефонного виклику, або ключа безпеки U2F.",
+    "message": "Авторизуйтесь за допомогою Duo Security для вашої організації з використанням програми Duo Mobile, SMS, телефонного виклику, або ключа безпеки U2F.",
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
   "u2fDesc": {
@@ -1384,7 +1441,7 @@
     "message": "Повторно виконайте вхід."
   },
   "logBackInOthersToo": {
-    "message": "Будь ласка, повторно виконайте вхід. Якщо ви користуєтесь іншими додатками Bitwarden, також вийдіть із них, і знову увійдіть."
+    "message": "Будь ласка, повторно виконайте вхід. Якщо ви користуєтесь іншими програмами Bitwarden, також вийдіть із них, і знову увійдіть."
   },
   "changeMasterPassword": {
     "message": "Змінити головний пароль"
@@ -2797,7 +2854,7 @@
     "message": "Отримати допомогу"
   },
   "getApps": {
-    "message": "Отримати додатки"
+    "message": "Отримати програми"
   },
   "loggedInAs": {
     "message": "Вхід виконано"
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Неможливо продовжити оновлення ключа шифрування"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "Не вдалося розшифрувати ваші теки під час оновлення ключа шифрування. Щоб продовжити оновлення, необхідно видалити теки. Якщо ви продовжите, записи у сховищі не будуть видалені."
+  },
   "keyUpdated": {
     "message": "Ключ оновлено"
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "Вибрано"
+  },
+  "recommended": {
+    "message": "Рекомендовано"
   },
   "ownership": {
     "message": "Власник"
@@ -4964,6 +5030,10 @@
         "example": "An email address"
       }
     }
+  },
+  "viewSend": {
+    "message": "Переглянути відправлення",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "viewSendHiddenEmailWarning": {
     "message": "Користувач Bitwarden, який створив це відправлення, вирішив приховати свою адресу електронної пошти. Вам слід упевнитися в надійності джерела цього посилання перед його використанням чи завантаженням вмісту.",
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "Аудит доступу учасника організації до груп, збірок та записів збірок. Експорт CSV надає детальну розбивку для кожного учасника, зокрема інформацію про дозволи для збірок та конфігурації облікового запису."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(Без збірки)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(Без дозволу для збірки)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(Без групи)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "Увімк"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Вимк"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "Увімк"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Вимк"
+  },
   "higherKDFIterations": {
     "message": "Вищі значення KDF-ітерацій можуть допомогти захистити ваш головний пароль від грубого зламу зловмисником."
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Перейдіть на вищий тарифний план, щоб запросити більше учасників та отримати доступ до додаткових функцій Bitwarden"
+  "upgradePlans": {
+    "message": "Оновіть тарифний план, щоб запросити учасників та користуватися потужними функціями безпеки."
   },
   "upgradeDiscount": {
     "message": "Заощадьте $AMOUNT$%",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Розширені можливості для великого бізнесу"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Розширені можливості для більших організацій"
   },
-  "upgradeTeamsMessage": {
-    "message": "Компанії, яким потрібна гарантована безпека"
+  "teamsPlanUpgradeMessage": {
+    "message": "Адаптивний захист для команд, що розширюються"
   },
   "teamsInviteMessage": {
     "message": "Запрошуйте користувачів без обмежень"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Синхронізуйте групи та користувачів з каталогу"
   },
-  "upgradeFamilyMessage": {
-    "message": "Надавайте спільний доступ родині та друзям"
+  "familyPlanUpgradeMessage": {
+    "message": "Захистіть паролі своєї родини"
   },
   "accessToPremiumFeatures": {
     "message": "Доступ до преміальних функцій"
   },
   "additionalStorageGbMessage": {
     "message": "ГБ додаткового сховища"
+  },
+  "premiumAccounts": {
+    "message": "6 облікових записів Преміум"
+  },
+  "unlimitedSharing": {
+    "message": "Необмежений спільний доступ"
+  },
+  "unlimitedCollections": {
+    "message": "Необмежена кількість збірок"
+  },
+  "secureDataSharing": {
+    "message": "Безпечний обмін даними"
+  },
+  "eventLogMonitoring": {
+    "message": "Моніторинг подій"
+  },
+  "directoryIntegration": {
+    "message": "Інтеграція з каталогом"
+  },
+  "passwordLessSso": {
+    "message": "Безпарольний вхід за допомогою SSO"
+  },
+  "accountRecovery": {
+    "message": "Відновлення облікового запису"
+  },
+  "customRoles": {
+    "message": "Користувацькі ролі"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Необмежене сховище для секретів"
+  },
+  "unlimitedUsers": {
+    "message": "Необмежена кількість користувачів"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "До 50 машинних облікових записів"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "До 20 машинних облікових записів"
+  },
+  "current": {
+    "message": "Поточний"
+  },
+  "secretsManagerSubInfo": {
+    "message": "Ваша передплата менеджера секретів поновиться на основі вибраного плану"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden – менеджер паролів"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Ваша додаткова річна передплата менеджера паролів поновиться до вибраного плану. З вас не стягуватиметься платіж доки не завершиться додатковий період."
+  },
+  "fileSavedToDevice": {
+    "message": "Файл збережено на пристрої. Ви можете його знайти у теці завантажень."
+  },
+  "publicApi": {
+    "message": "Відкритий API",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Показати кількість символів"
+  },
+  "hideCharacterCount": {
+    "message": "Приховати кількість символів"
+  },
+  "editAccess": {
+    "message": "Редагувати доступ"
   }
 }

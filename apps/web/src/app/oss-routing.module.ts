@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Route, RouterModule, Routes } from "@angular/router";
 
+import { unauthUiRefreshSwap } from "@bitwarden/angular/auth/functions/unauth-ui-refresh-route-swap";
 import {
   authGuard,
   lockGuard,
@@ -12,13 +13,15 @@ import { canAccessFeature } from "@bitwarden/angular/platform/guard/feature-flag
 import {
   AnonLayoutWrapperComponent,
   AnonLayoutWrapperData,
+  PasswordHintComponent,
   RegistrationFinishComponent,
   RegistrationStartComponent,
   RegistrationStartSecondaryComponent,
   RegistrationStartSecondaryComponentData,
   SetPasswordJitComponent,
-  LockIcon,
   RegistrationLinkExpiredComponent,
+  LockIcon,
+  UserLockIcon,
 } from "@bitwarden/auth/angular";
 import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 
@@ -68,6 +71,7 @@ import { PreferencesComponent } from "./settings/preferences.component";
 import { GeneratorComponent } from "./tools/generator.component";
 import { ReportsModule } from "./tools/reports";
 import { AccessComponent } from "./tools/send/access.component";
+import { SendAccessExplainerComponent } from "./tools/send/send-access-explainer.component";
 import { SendComponent } from "./tools/send/send.component";
 import { VaultModule } from "./vault/individual-vault/vault.module";
 
@@ -146,11 +150,6 @@ const routes: Routes = [
         data: { titleId: "deleteAccount" } satisfies DataProperties,
       },
       {
-        path: "send/:sendId/:key",
-        component: AccessComponent,
-        data: { titleId: "Bitwarden Send" } satisfies DataProperties,
-      },
-      {
         path: "update-temp-password",
         component: UpdateTempPasswordComponent,
         canActivate: [authGuard],
@@ -171,6 +170,49 @@ const routes: Routes = [
       },
     ],
   },
+  ...unauthUiRefreshSwap(
+    AnonLayoutWrapperComponent,
+    AnonLayoutWrapperComponent,
+    {
+      path: "hint",
+      canActivate: [unauthGuardFn()],
+      data: {
+        pageTitle: "passwordHint",
+        titleId: "passwordHint",
+      },
+      children: [
+        { path: "", component: HintComponent },
+        {
+          path: "",
+          component: EnvironmentSelectorComponent,
+          outlet: "environment-selector",
+        },
+      ],
+    },
+    {
+      path: "",
+      children: [
+        {
+          path: "hint",
+          canActivate: [unauthGuardFn()],
+          data: {
+            pageTitle: "requestPasswordHint",
+            pageSubtitle: "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou",
+            pageIcon: UserLockIcon,
+            state: "hint",
+          },
+          children: [
+            { path: "", component: PasswordHintComponent },
+            {
+              path: "",
+              component: EnvironmentSelectorComponent,
+              outlet: "environment-selector",
+            },
+          ],
+        },
+      ],
+    },
+  ),
   {
     path: "",
     component: AnonLayoutWrapperComponent,
@@ -207,6 +249,24 @@ const routes: Routes = [
           {
             path: "",
             component: RegistrationFinishComponent,
+          },
+        ],
+      },
+      {
+        path: "send/:sendId/:key",
+        data: {
+          pageTitle: "viewSend",
+          showReadonlyHostname: true,
+        } satisfies DataProperties & AnonLayoutWrapperData,
+        children: [
+          {
+            path: "",
+            component: AccessComponent,
+          },
+          {
+            path: "",
+            outlet: "secondary",
+            component: SendAccessExplainerComponent,
           },
         ],
       },
@@ -371,25 +431,6 @@ const routes: Routes = [
           {
             path: "",
             component: VerifyRecoverDeleteComponent,
-          },
-        ],
-      },
-      {
-        path: "hint",
-        canActivate: [unauthGuardFn()],
-        data: {
-          pageTitle: "passwordHint",
-          titleId: "passwordHint",
-        } satisfies DataProperties & AnonLayoutWrapperData,
-        children: [
-          {
-            path: "",
-            component: HintComponent,
-          },
-          {
-            path: "",
-            component: EnvironmentSelectorComponent,
-            outlet: "environment-selector",
           },
         ],
       },

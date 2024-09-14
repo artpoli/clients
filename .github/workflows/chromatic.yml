@@ -1,3 +1,4 @@
+---
 name: Chromatic
 
 on:
@@ -13,7 +14,7 @@ jobs:
   check-run:
     name: Check PR run
     uses: bitwarden/gh-actions/.github/workflows/check-run.yml@main
-  
+
   chromatic:
     name: Chromatic
     runs-on: ubuntu-22.04
@@ -24,7 +25,7 @@ jobs:
 
     steps:
       - name: Check out repo
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           ref: ${{  github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -37,13 +38,13 @@ jobs:
           echo "node_version=$NODE_VERSION" >> $GITHUB_OUTPUT
 
       - name: Set up Node
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
           node-version: ${{ steps.retrieve-node-version.outputs.node_version }}
 
       - name: Cache NPM
         id: npm-cache
-        uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319 # v4.0.1
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: "~/.npm"
           key: ${{ runner.os }}-npm-chromatic-${{ hashFiles('**/package-lock.json') }}
@@ -56,7 +57,7 @@ jobs:
         run: npm run build-storybook:ci
 
       - name: Publish to Chromatic
-        uses: chromaui/action@c9067691aca4a28d6fbb40d9eea6e144369fbcae # v10.9.5
+        uses: chromaui/action@b984808b772126a9f44b2b7737b131b68a2ede32 # v11.7.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

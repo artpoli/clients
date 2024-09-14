@@ -25,9 +25,6 @@
   "finishCreatingYourAccountBySettingAPassword": {
     "message": "Dovrši stvaranje svog računa postavljanjem lozinke"
   },
-  "login": {
-    "message": "Prijava"
-  },
   "enterpriseSingleSignOn": {
     "message": "Jedinstvena prijava na razini tvrtke (SSO)"
   },
@@ -387,16 +384,56 @@
     "message": "Minimalna duljina lozinke"
   },
   "uppercase": {
-    "message": "Velika slova (A - Z)"
+    "message": "Velika slova (A - Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Mala slova (a - z)"
+    "message": "Mala slova (a - z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Brojevi (0 - 9)"
+    "message": "Brojevi (0 - 9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
-    "message": "Posebni znakovi (!@#$%^&*)"
+    "message": "Posebni znakovi (!@#$%^&*)",
+    "description": "deprecated. Use specialCharactersLabel instead."
+  },
+  "include": {
+    "message": "Uključi",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Uključi velika slova",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Uključi mala slova",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Uključi brojeve",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Uključi posebne znakove",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Broj riječi"
@@ -418,7 +455,12 @@
     "message": "Najmanje posebnih"
   },
   "avoidAmbChar": {
-    "message": "Izbjegavaj dvosmislene znakove"
+    "message": "Izbjegavaj dvosmislene znakove",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Izbjegavaj dvosmislene znakove",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "searchVault": {
     "message": "Pretraži trezor"
@@ -640,6 +682,12 @@
   },
   "newAccountCreated": {
     "message": "Tvoj novi račun je stvoren! Sada se možeš prijaviti."
+  },
+  "newAccountCreated2": {
+    "message": "Tvoj novi račun je stvoren!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Prijava uspješna!"
   },
   "youSuccessfullyLoggedIn": {
     "message": "Prijava uspješna"
@@ -1083,7 +1131,7 @@
     "message": "1 GB šifriranog prostora za pohranu podataka."
   },
   "premiumSignUpEmergency": {
-    "message": "Emergency access"
+    "message": "Pristup u nuždi."
   },
   "premiumSignUpTwoStepOptions": {
     "message": "Mogućnosti za prijavu u dva koraka kao što su YubiKey i Duo."
@@ -1107,7 +1155,7 @@
     "message": "Možeš kupiti premium članstvo na web trezoru. Želiš li sada posjetiti bitwarden.com?"
   },
   "premiumPurchaseAlertV2": {
-    "message": "You can purchase Premium from your account settings on the Bitwarden web app."
+    "message": "Premium možeš kupiti u postavkama računa na Bitwarden web aplikaciji."
   },
   "premiumCurrentMember": {
     "message": "Ti si premium član!"
@@ -1115,8 +1163,20 @@
   "premiumCurrentMemberThanks": {
     "message": "Hvala ti što podupireš Bitwarden."
   },
+  "premiumFeatures": {
+    "message": "Nadogradi na Premium za:"
+  },
   "premiumPrice": {
     "message": "Sve za samo $PRICE$ /godišnje!",
+    "placeholders": {
+      "price": {
+        "content": "$1",
+        "example": "$10"
+      }
+    }
+  },
+  "premiumPriceV2": {
+    "message": "Sve samo za $PRICE$ /godišnje!",
     "placeholders": {
       "price": {
         "content": "$1",
@@ -1736,6 +1796,15 @@
   "noPasswordsInList": {
     "message": "Nema lozinki na popisu."
   },
+  "clearHistory": {
+    "message": "Clear history"
+  },
+  "noPasswordsToShow": {
+    "message": "No passwords to show"
+  },
+  "noRecentlyGeneratedPassword": {
+    "message": "You haven't generated a password recently"
+  },
   "remove": {
     "message": "Ukloni"
   },
@@ -2073,6 +2142,12 @@
   },
   "biometricsNotUnlockedDesc": {
     "message": "Otključaj ovog korisnika u desktop aplikaciji i pokušaj ponovno."
+  },
+  "biometricsNotAvailableTitle": {
+    "message": "Biometrijsko otključavanje nije dostupno"
+  },
+  "biometricsNotAvailableDesc": {
+    "message": "Biometrijsko otključavanje trenutno nije dostupno. Pokušaj ponovno kasnije."
   },
   "biometricsFailedTitle": {
     "message": "Biometrija neuspješna"
@@ -3411,7 +3486,7 @@
   "passkeyFeatureIsNotImplementedForAccountsWithoutMasterPassword": {
     "message": "Ishodišna stranica zahtijeva verifikaciju. Ova značajka još nije implementirana za račune bez glavne lozinke."
   },
-  "logInWithPasskey": {
+  "logInWithPasskeyQuestion": {
     "message": "Prijava pristupnim ključem?"
   },
   "passkeyAlreadyExists": {
@@ -3423,6 +3498,9 @@
   "noMatchingPasskeyLogin": {
     "message": "Nema odgovarajuće prijavu za ovu stranicu."
   },
+  "noMatchingLoginsForSite": {
+    "message": "Nema prijava za ovu web stranicu"
+  },
   "confirm": {
     "message": "Autoriziraj"
   },
@@ -3432,8 +3510,11 @@
   "savePasskeyNewLogin": {
     "message": "Spremi pristupni ključ kao novu prijavu"
   },
-  "choosePasskey": {
-    "message": "Odaberi prijavu za spremanje ovog pristupnog ključa"
+  "chooseCipherForPasskeySave": {
+    "message": "Odaberi za koju prijavu želiš spremiti ovaj pristupni ključ"
+  },
+  "chooseCipherForPasskeyAuth": {
+    "message": "Odaberi pristupni ključ za prijavu"
   },
   "passkeyItem": {
     "message": "Stavka pristupnog ključa"
@@ -3630,8 +3711,16 @@
     "message": "Vjerodajnice uspješno spremljene!",
     "description": "Notification message for when saving credentials has succeeded."
   },
+  "passwordSaved": {
+    "message": "Lozinka pohranjena!",
+    "description": "Notification message for when saving credentials has succeeded."
+  },
   "updateCipherAttemptSuccess": {
     "message": "Vjerodajnice uspješno ažurirane!",
+    "description": "Notification message for when updating credentials has succeeded."
+  },
+  "passwordUpdated": {
+    "message": "Lozinka ažurirana!",
     "description": "Notification message for when updating credentials has succeeded."
   },
   "saveCipherAttemptFailed": {
@@ -3960,6 +4049,12 @@
   "autoFillOnPageLoad": {
     "message": "Auto-ispuna kod učitavanja?"
   },
+  "cardExpiredTitle": {
+    "message": "Istekla kartica"
+  },
+  "cardExpiredMessage": {
+    "message": "Ako je obnovljeno, ažuriraj podatke o kartici"
+  },
   "cardDetails": {
     "message": "Detalji kartice"
   },
@@ -3971,6 +4066,9 @@
         "example": "Visa"
       }
     }
+  },
+  "enableAnimations": {
+    "message": "Omogući animacije"
   },
   "addAccount": {
     "message": "Dodaj račun"
@@ -4210,5 +4308,35 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "Pravila tvrtke primijenjena su na ovu postavku"
+  },
+  "fileSavedToDevice": {
+    "message": "File saved to device. Manage from your device downloads."
+  },
+  "showCharacterCount": {
+    "message": "Show character count"
+  },
+  "hideCharacterCount": {
+    "message": "Hide character count"
+  },
+  "itemsInTrash": {
+    "message": "Stavke u smeću"
+  },
+  "noItemsInTrash": {
+    "message": "Nema stavki u smeću"
+  },
+  "noItemsInTrashDesc": {
+    "message": "Stavke koje obrišeš biti će premještene ovdje, a nakon 30 dana biti će trajno izbrisane"
+  },
+  "trashWarning": {
+    "message": "Stavke koje se nalaze u Smeću duže od 30 dana će biti automatski izbrisane"
+  },
+  "restore": {
+    "message": "Vrati"
+  },
+  "deleteForever": {
+    "message": "Izbriši zauvijek"
+  },
+  "noEditPermissions": {
+    "message": "Nemaš prava za uređivanje ove stavke"
   }
 }

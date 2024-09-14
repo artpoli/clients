@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Credenciais de início de sessão"
   },
+  "personalDetails": {
+    "message": "Detalhes pessoais"
+  },
+  "identification": {
+    "message": "Identificação"
+  },
+  "contactInfo": {
+    "message": "Informações de contacto"
+  },
+  "cardDetails": {
+    "message": "Detalhes do cartão"
+  },
+  "cardBrandDetails": {
+    "message": "Detalhes do $BRAND$",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "Histórico do item"
+  },
   "authenticatorKey": {
     "message": "Chave de autenticação"
   },
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "Código de segurança (CVV)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Security code / CVV"
   },
   "identityName": {
     "message": "Nome da identidade"
@@ -193,6 +220,12 @@
   },
   "dr": {
     "message": "Dr."
+  },
+  "cardExpiredTitle": {
+    "message": "Cartão expirado"
+  },
+  "cardExpiredMessage": {
+    "message": "Se o renovou, atualize as informações do cartão"
   },
   "expirationMonth": {
     "message": "Mês de validade"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "Nome completo"
   },
+  "address": {
+    "message": "Endereço"
+  },
   "address1": {
     "message": "Endereço 1"
   },
@@ -474,6 +510,15 @@
   },
   "viewItem": {
     "message": "Ver item"
+  },
+  "viewItemType": {
+    "message": "Ver $ITEMTYPE$",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
   },
   "new": {
     "message": "Novo",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Copy Successful"
   },
   "copyValue": {
     "message": "Copiar valor",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "Dica da palavra-passe mestra (opcional)"
   },
+  "newMasterPassHint": {
+    "message": "Nova dica da palavra-passe mestra (opcional)"
+  },
   "masterPassHintLabel": {
     "message": "Dica da palavra-passe mestra"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "A sua nova conta foi criada! Pode agora iniciar sessão."
+  },
+  "newAccountCreated2": {
+    "message": "A sua nova conta foi criada!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Iniciou sessão!"
   },
   "trialAccountCreated": {
     "message": "Conta criada com sucesso."
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Encryption key update cannot proceed"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "When updating your encryption key, your folders could not be decrypted. To continue with the update, your folders must be deleted. No vault items will be deleted if you proceed."
+  },
   "keyUpdated": {
     "message": "Chave atualizada"
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "Selecionado(s)"
+  },
+  "recommended": {
+    "message": "Recomendado"
   },
   "ownership": {
     "message": "Propriedade"
@@ -4964,6 +5030,10 @@
         "example": "An email address"
       }
     }
+  },
+  "viewSend": {
+    "message": "Ver Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "viewSendHiddenEmailWarning": {
     "message": "O utilizador Bitwarden que criou este Send optou por ocultar o seu endereço de e-mail. Deve certificar-se de que confia na fonte deste link antes de utilizar ou descarregar o seu conteúdo.",
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "Audite o acesso dos membros da organização a grupos, coleções e itens de coleção. A exportação CSV fornece uma análise detalhada por membro, incluindo informações sobre permissões de coleção e configurações de conta."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(Sem coleção)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(Sem permissões de coleção)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(Sem grupos)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "Ativado"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Desativado"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "Ativado"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Desativado"
+  },
   "higherKDFIterations": {
     "message": "Iterações KDF mais altas podem ajudar a proteger a sua palavra-passe mestra de ser forçada por um atacante."
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Atualize o seu plano para convidar mais membros e obter acesso a funcionalidades adicionais do Bitwarden"
+  "upgradePlans": {
+    "message": "Atualize o seu plano para convidar membros e experimentar poderosas funcionalidades de segurança."
   },
   "upgradeDiscount": {
     "message": "Poupe $AMOUNT$%",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Capacidades avançadas para empresas de maior dimensão"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Capacidades avançadas para organizações de maior dimensão"
   },
-  "upgradeTeamsMessage": {
-    "message": "Empresas que procuram uma segurança poderosa"
+  "teamsPlanUpgradeMessage": {
+    "message": "Proteção resiliente para equipas em crescimento"
   },
   "teamsInviteMessage": {
     "message": "Convide membros ilimitados"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Sincronize grupos e utilizadores a partir de um diretório"
   },
-  "upgradeFamilyMessage": {
-    "message": "Partilhe com familiares e amigos"
+  "familyPlanUpgradeMessage": {
+    "message": "Proteja as credenciais da sua família"
   },
   "accessToPremiumFeatures": {
     "message": "Acesso a funcionalidades Premium"
   },
   "additionalStorageGbMessage": {
     "message": "GB de armazenamento adicional"
+  },
+  "premiumAccounts": {
+    "message": "6 contas Premium"
+  },
+  "unlimitedSharing": {
+    "message": "Partilha ilimitada"
+  },
+  "unlimitedCollections": {
+    "message": "Coleções ilimitadas"
+  },
+  "secureDataSharing": {
+    "message": "Partilha segura de dados"
+  },
+  "eventLogMonitoring": {
+    "message": "Monitorização do registo de eventos"
+  },
+  "directoryIntegration": {
+    "message": "Integração de diretórios"
+  },
+  "passwordLessSso": {
+    "message": "PasswordLess SSO"
+  },
+  "accountRecovery": {
+    "message": "Recuperação de contas"
+  },
+  "customRoles": {
+    "message": "Papéis personalizados"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Armazenamento ilimitado de segredos"
+  },
+  "unlimitedUsers": {
+    "message": "Utilizadores ilimitados"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "Até 50 contas automáticas"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "Até 20 contas automáticas"
+  },
+  "current": {
+    "message": "Atual"
+  },
+  "secretsManagerSubInfo": {
+    "message": "A sua subscrição do Gestor de Segredos será atualizada com base no plano selecionado"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden - Gestor de Palavras-passe"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Your complimentary one year Password Manager subscription will upgrade to the selected plan. You will not be charged until the complimentary period is over."
+  },
+  "fileSavedToDevice": {
+    "message": "Ficheiro guardado no dispositivo. Gira-o a partir das transferências do seu dispositivo."
+  },
+  "publicApi": {
+    "message": "API pública",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Mostrar contagem de caracteres"
+  },
+  "hideCharacterCount": {
+    "message": "Ocultar contagem de caracteres"
+  },
+  "editAccess": {
+    "message": "Editar acesso"
   }
 }

@@ -25,9 +25,6 @@
   "finishCreatingYourAccountBySettingAPassword": {
     "message": "A fiók létrehozásának befejezése jelszó beállításával"
   },
-  "login": {
-    "message": "Bejelentkezés"
-  },
   "enterpriseSingleSignOn": {
     "message": "Vállalati önálló bejelentkezés"
   },
@@ -387,16 +384,56 @@
     "message": "Minimum jelszó hosszúság"
   },
   "uppercase": {
-    "message": "Nagybetűs (A-Z)"
+    "message": "Nagybetűs (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Kisbetűs (a-z)"
+    "message": "Kisbetűs (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Számok (0-9)"
+    "message": "Számok (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
-    "message": "Speciális karakterek (!@#$%^&*)"
+    "message": "Speciális karakterek (!@#$%^&*)",
+    "description": "deprecated. Use specialCharactersLabel instead."
+  },
+  "include": {
+    "message": "Bevonás",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Nagybetűs karakterek bevonása",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Kisbetűs karakterek bevonása",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Számok bevonása",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Speciális karakterek bevonása",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Szavak száma"
@@ -418,7 +455,12 @@
     "message": "Minimális speciális"
   },
   "avoidAmbChar": {
-    "message": "Félreérthető karakterek mellőzése"
+    "message": "Félreérthető karakterek mellőzése",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Félreérthető karakterek mellőzése",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "searchVault": {
     "message": "Keresés a széfben"
@@ -640,6 +682,12 @@
   },
   "newAccountCreated": {
     "message": "Felhasználódat létrehoztuk. Most már be tudsz jelentkezni."
+  },
+  "newAccountCreated2": {
+    "message": "Az új fiók létrrejött."
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Megtörtént a bejelentkezés!"
   },
   "youSuccessfullyLoggedIn": {
     "message": "A bejelentkezés sikeres volt."
@@ -1083,7 +1131,7 @@
     "message": "1 GB titkosított tárhely a fájlmellékleteknek."
   },
   "premiumSignUpEmergency": {
-    "message": "Emergency access"
+    "message": "Sürgősségi hozzáférés"
   },
   "premiumSignUpTwoStepOptions": {
     "message": "Saját kétlépcsős bejelentkezési lehetőségek mint a YubiKey és a Duo."
@@ -1107,7 +1155,7 @@
     "message": "A prémium tagság megvásárolható a bitwarden.com webes széfben. Szeretnénk felkeresni a webhelyet most?"
   },
   "premiumPurchaseAlertV2": {
-    "message": "You can purchase Premium from your account settings on the Bitwarden web app."
+    "message": "Prémium szolgáltatást vásárolhatunk a Bitwarden webalkalmazás fiókbeállításai között."
   },
   "premiumCurrentMember": {
     "message": "Prémium tag vagyunk!"
@@ -1115,8 +1163,20 @@
   "premiumCurrentMemberThanks": {
     "message": "Köszönjük a Bitwarden támogatását."
   },
+  "premiumFeatures": {
+    "message": "Áttérés prémium verzióra és fogadás:"
+  },
   "premiumPrice": {
     "message": "Mindez csak $PRICE$ /év.",
+    "placeholders": {
+      "price": {
+        "content": "$1",
+        "example": "$10"
+      }
+    }
+  },
+  "premiumPriceV2": {
+    "message": "Mindez csak $PRICE$ /év!",
     "placeholders": {
       "price": {
         "content": "$1",
@@ -1736,6 +1796,15 @@
   "noPasswordsInList": {
     "message": "Nincsenek listázható jelszavak."
   },
+  "clearHistory": {
+    "message": "Előzmények törlése"
+  },
+  "noPasswordsToShow": {
+    "message": "Nincsenek megjeleníthető jelszavak."
+  },
+  "noRecentlyGeneratedPassword": {
+    "message": "Mostanában nem lett jelszó generálva."
+  },
   "remove": {
     "message": "Eltávolítás"
   },
@@ -2073,6 +2142,12 @@
   },
   "biometricsNotUnlockedDesc": {
     "message": "Oldjuk fel a felhasználó zárolását az asztali alkalmazásban és próbáljuk újra."
+  },
+  "biometricsNotAvailableTitle": {
+    "message": "A biometrikus feloldás nem érhető el."
+  },
+  "biometricsNotAvailableDesc": {
+    "message": "A biometrikus feloldás jelenleg nem érhető el. Próbáljuk újra később."
   },
   "biometricsFailedTitle": {
     "message": "A biometria nem sikerült."
@@ -3411,7 +3486,7 @@
   "passkeyFeatureIsNotImplementedForAccountsWithoutMasterPassword": {
     "message": "A kezdeményező hely által megkövetelt ellenőrzés. Ez a szolgáltatás még nincs megvalósítva mesterjelszó nélküli fiókok esetén."
   },
-  "logInWithPasskey": {
+  "logInWithPasskeyQuestion": {
     "message": "Bejelentkezés hozzáférési kulccsal?"
   },
   "passkeyAlreadyExists": {
@@ -3423,6 +3498,9 @@
   "noMatchingPasskeyLogin": {
     "message": "Nincs megfelelő bejelentkezés ehhez a webhelyhez."
   },
+  "noMatchingLoginsForSite": {
+    "message": "Nincsenek egyező bejelentkezések ehhez a webhelyhez."
+  },
   "confirm": {
     "message": "Megerősítés"
   },
@@ -3432,8 +3510,11 @@
   "savePasskeyNewLogin": {
     "message": "Hozzáférési kulcs mentése új bejelentkezésként"
   },
-  "choosePasskey": {
+  "chooseCipherForPasskeySave": {
     "message": "Bejelentkezés választás a hozzáférési kulcs mentéséhez"
+  },
+  "chooseCipherForPasskeyAuth": {
+    "message": "Hozzáférési kulcs választás a bejelentkezéshez"
   },
   "passkeyItem": {
     "message": "Hozzáférési kulcs elem"
@@ -3630,8 +3711,16 @@
     "message": "A hitelesítések sikeresen mentésre kerültek.",
     "description": "Notification message for when saving credentials has succeeded."
   },
+  "passwordSaved": {
+    "message": "A jelszó mentésre került!",
+    "description": "Notification message for when saving credentials has succeeded."
+  },
   "updateCipherAttemptSuccess": {
     "message": "A hitelesítések sikeresen frissítésre kerültek.",
+    "description": "Notification message for when updating credentials has succeeded."
+  },
+  "passwordUpdated": {
+    "message": "A jelszó frissítésre került!",
     "description": "Notification message for when updating credentials has succeeded."
   },
   "saveCipherAttemptFailed": {
@@ -3960,6 +4049,12 @@
   "autoFillOnPageLoad": {
     "message": "Automatikus kitöltés oldalbetöltésnél?"
   },
+  "cardExpiredTitle": {
+    "message": "Lejárt kártya"
+  },
+  "cardExpiredMessage": {
+    "message": "Ha megújítottuk, frissítsük a kártya adatait."
+  },
   "cardDetails": {
     "message": "Kártyaadatok"
   },
@@ -3971,6 +4066,9 @@
         "example": "Visa"
       }
     }
+  },
+  "enableAnimations": {
+    "message": "Animációk engedélyezése"
   },
   "addAccount": {
     "message": "Fiók hozzáadása"
@@ -4210,5 +4308,35 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "Erre a beállításra a vállalkozás rendszabály követelmények lettek alkalmazva."
+  },
+  "fileSavedToDevice": {
+    "message": "A fájl mentésre került az eszközre. Kezeljük az eszközről a letöltéseket."
+  },
+  "showCharacterCount": {
+    "message": "Karakterszámláló megjelenítése"
+  },
+  "hideCharacterCount": {
+    "message": "Karakterszámláló elrejtése"
+  },
+  "itemsInTrash": {
+    "message": "elem van a lomtárban."
+  },
+  "noItemsInTrash": {
+    "message": "Nincs elem a lomtárban."
+  },
+  "noItemsInTrashDesc": {
+    "message": "A törölt elemek itt jelennek meg és 30 nap elteltével véglegesen törlődnek."
+  },
+  "trashWarning": {
+    "message": "A 30 napnál régebben lomtárba került elemek automatikusan törlésre kerülnek."
+  },
+  "restore": {
+    "message": "Visszaállítás"
+  },
+  "deleteForever": {
+    "message": "Végleges törlés"
+  },
+  "noEditPermissions": {
+    "message": "Nincs jogosulltság ezen elem szerkesztéséheu."
   }
 }

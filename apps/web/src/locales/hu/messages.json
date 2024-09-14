@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Bejelentkezési hitelesítések"
   },
+  "personalDetails": {
+    "message": "Személyes adatok"
+  },
+  "identification": {
+    "message": "Azonosítás"
+  },
+  "contactInfo": {
+    "message": "Kapcsolat infó"
+  },
+  "cardDetails": {
+    "message": "Kártyaadatok"
+  },
+  "cardBrandDetails": {
+    "message": "$BRAND$ adatok",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "Elem előzmény"
+  },
   "authenticatorKey": {
     "message": "Hitelesítő kulcs"
   },
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "Biztonsági kód (CVV)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Security code / CVV"
   },
   "identityName": {
     "message": "Személyazonosság megnevezés"
@@ -193,6 +220,12 @@
   },
   "dr": {
     "message": "Dr."
+  },
+  "cardExpiredTitle": {
+    "message": "Lejárt kártya"
+  },
+  "cardExpiredMessage": {
+    "message": "Ha megújítottuk, frissítsük a kártya adatait."
   },
   "expirationMonth": {
     "message": "Lejárati hónap"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "Teljes név"
   },
+  "address": {
+    "message": "Postai cím"
+  },
   "address1": {
     "message": "Cím 1"
   },
@@ -474,6 +510,15 @@
   },
   "viewItem": {
     "message": "Elem megtekintése"
+  },
+  "viewItemType": {
+    "message": "$ITEMTYPE$ megtekintése",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
   },
   "new": {
     "message": "Új",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Copy Successful"
   },
   "copyValue": {
     "message": "Érték másolása",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "Mesterjelszó emlékeztető (nem kötelező)"
   },
+  "newMasterPassHint": {
+    "message": "New master password hint (optional)"
+  },
   "masterPassHintLabel": {
     "message": "Mesterjelszó emlékeztető"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "A fiók létrehozásra került. Most már be lehet jelentkezni."
+  },
+  "newAccountCreated2": {
+    "message": "Your new account has been created!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "You have been logged in!"
   },
   "trialAccountCreated": {
     "message": "A fiók sikeresen létrejött."
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Encryption key update cannot proceed"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "When updating your encryption key, your folders could not be decrypted. To continue with the update, your folders must be deleted. No vault items will be deleted if you proceed."
+  },
   "keyUpdated": {
     "message": "A kulcs frissítésre került."
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "Kiválasztva"
+  },
+  "recommended": {
+    "message": "Ajánlott"
   },
   "ownership": {
     "message": "Tulajdonjog"
@@ -4964,6 +5030,10 @@
         "example": "An email address"
       }
     }
+  },
+  "viewSend": {
+    "message": "Send megtekintése",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "viewSendHiddenEmailWarning": {
     "message": "Az ezt a Send elemet létrehozó Bitwarden felhasználó úgy döntött, hogy elrejti email címét. Mielőtt felhasználnánk vagy letöltenénk a tartalmát, ellenőrizzük a hivatkozás megbízhatóságát.",
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "A szervezeti tagok hozzáférésének ellenőrzése a csoportok, gyűjtemények és gyűjteményelemek között. A CSV exportálás tagonként részletes lebontást biztosít, beleértve a gyűjtemény engedélyekre és a fiókkonfigurációkra vonatkozó információkat."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(Nincs gyűjtemény)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(Nincs gyűjtemény jogosultság)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(Nincs csoport)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "Be"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Ki"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "Be"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Ki"
+  },
   "higherKDFIterations": {
     "message": "A magasabb szintű KDF iterációk segíthetnek megvédeni mesterjelszót a támadók erőszakossága ellen."
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Térjünk át más csomagra, hogy több tagot hívhassunk meg és hozzáférjünk a Bitwarden további funkcióihoz."
+  "upgradePlans": {
+    "message": "Frissítsük a csomagot tagok meghívásához és élvezzük a hatékony biztonsági funkciókat."
   },
   "upgradeDiscount": {
     "message": "$AMOUNT$% megtakarítás",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Fejlett képességek nagyobb vállalkozások számára"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Fejlett képességek nagyobb szervezetek számára"
   },
-  "upgradeTeamsMessage": {
-    "message": "Hatékony biztonságot kereső vállalkozások"
+  "teamsPlanUpgradeMessage": {
+    "message": "Rugalmas védelem növekvő csapatok számára"
   },
   "teamsInviteMessage": {
     "message": "Korlátlan számú tagok meghívása"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "A felhasználók és csoportok szinkronizálása könyvtárból"
   },
-  "upgradeFamilyMessage": {
-    "message": "Mggosztáás családtagokkal és ismerősökkel"
+  "familyPlanUpgradeMessage": {
+    "message": "Családi bejelentkezési adatok biztosítása"
   },
   "accessToPremiumFeatures": {
     "message": "Prémium funkciók elérése"
   },
   "additionalStorageGbMessage": {
     "message": "GB kiegészítő tároló"
+  },
+  "premiumAccounts": {
+    "message": "6 prémium fiók"
+  },
+  "unlimitedSharing": {
+    "message": "Korlátlan megosztás"
+  },
+  "unlimitedCollections": {
+    "message": "Korlátlan gyűjtemény"
+  },
+  "secureDataSharing": {
+    "message": "Biztonságos adatmegosztás"
+  },
+  "eventLogMonitoring": {
+    "message": "Eseménynapló monitorozás"
+  },
+  "directoryIntegration": {
+    "message": "Könyvtár integráció"
+  },
+  "passwordLessSso": {
+    "message": "Jelszómentes SSO"
+  },
+  "accountRecovery": {
+    "message": "Fiók helyreállítás"
+  },
+  "customRoles": {
+    "message": "Egyéni szerepek"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Korlátlan titkos tároló"
+  },
+  "unlimitedUsers": {
+    "message": "Korlátlan felhasználó"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "Legfeljebb 50 gépi fiók"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "Legfeljebb 20 gépi fiók"
+  },
+  "current": {
+    "message": "Jelenlegi"
+  },
+  "secretsManagerSubInfo": {
+    "message": "A Titkos kód kezelő előfizetés a kiválasztott csomag alapján frissül."
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden jelszókezelő"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Your complimentary one year Password Manager subscription will upgrade to the selected plan. You will not be charged until the complimentary period is over."
+  },
+  "fileSavedToDevice": {
+    "message": "A fájl mentésre került az eszközre. Kezeljük az eszközről a letöltéseket."
+  },
+  "publicApi": {
+    "message": "Nyilvános API",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Karakterszámláló megjelenítése"
+  },
+  "hideCharacterCount": {
+    "message": "Karakterszámláló elrejtése"
+  },
+  "editAccess": {
+    "message": "Hozzáférés szerkesztése"
   }
 }

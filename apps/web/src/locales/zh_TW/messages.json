@@ -37,7 +37,7 @@
     "message": "備註"
   },
   "note": {
-    "message": "Note"
+    "message": "備註"
   },
   "customFields": {
     "message": "自訂欄位"
@@ -48,17 +48,41 @@
   "loginCredentials": {
     "message": "Login credentials"
   },
+  "personalDetails": {
+    "message": "Personal details"
+  },
+  "identification": {
+    "message": "Identification"
+  },
+  "contactInfo": {
+    "message": "Contact info"
+  },
+  "cardDetails": {
+    "message": "Card details"
+  },
+  "cardBrandDetails": {
+    "message": "$BRAND$ details",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "Item history"
+  },
   "authenticatorKey": {
     "message": "Authenticator key"
   },
   "autofillOptions": {
-    "message": "Autofill options"
+    "message": "自動填入選項"
   },
   "websiteUri": {
-    "message": "Website (URI)"
+    "message": "網站 (URI)"
   },
   "websiteUriCount": {
-    "message": "Website (URI) $COUNT$",
+    "message": "網站 (URI) $COUNT$",
     "description": "Label for an input field that contains a website URI. The input field is part of a list of fields, and the count indicates the position of the field in the list.",
     "placeholders": {
       "count": {
@@ -68,13 +92,13 @@
     }
   },
   "websiteAdded": {
-    "message": "Website added"
+    "message": "網站已添加"
   },
   "addWebsite": {
-    "message": "Add website"
+    "message": "添加網站"
   },
   "deleteWebsite": {
-    "message": "Delete website"
+    "message": "刪除網站"
   },
   "defaultLabel": {
     "message": "Default ($VALUE$)",
@@ -105,7 +129,7 @@
     }
   },
   "autoFillOnPageLoad": {
-    "message": "Autofill on page load?"
+    "message": "要在頁面載入時自動填寫嗎？"
   },
   "number": {
     "message": "號碼"
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "安全碼 (CVV)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Security code / CVV"
   },
   "identityName": {
     "message": "身分名稱"
@@ -194,6 +221,12 @@
   "dr": {
     "message": "Dr"
   },
+  "cardExpiredTitle": {
+    "message": "支付卡已過期"
+  },
+  "cardExpiredMessage": {
+    "message": "如果您已續卡，請更新支付卡資訊"
+  },
   "expirationMonth": {
     "message": "逾期月份"
   },
@@ -251,7 +284,7 @@
     "description": "This is the folder for uncategorized items"
   },
   "selfOwnershipLabel": {
-    "message": "You",
+    "message": "您",
     "description": "Used as a label to indicate that the user is the owner of an item."
   },
   "addFolder": {
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "全名"
   },
+  "address": {
+    "message": "Address"
+  },
   "address1": {
     "message": "地址 1"
   },
@@ -475,6 +511,15 @@
   "viewItem": {
     "message": "檢視項目"
   },
+  "viewItemType": {
+    "message": "檢視 $ITEMTYPE$",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
+  },
   "new": {
     "message": "新增",
     "description": "for adding new items"
@@ -483,10 +528,10 @@
     "message": "項目"
   },
   "itemDetails": {
-    "message": "Item details"
+    "message": "項目詳細資訊"
   },
   "itemName": {
-    "message": "Item name"
+    "message": "項目名"
   },
   "cannotRemoveViewOnlyCollections": {
     "message": "You cannot remove collections with View only permissions: $COLLECTIONS$",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Copy Successful"
   },
   "copyValue": {
     "message": "複製值",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "主密碼提示（選用）"
   },
+  "newMasterPassHint": {
+    "message": "New master password hint (optional)"
+  },
   "masterPassHintLabel": {
     "message": "主密碼提示"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "帳戶已建立！現在可以登入了。"
+  },
+  "newAccountCreated2": {
+    "message": "Your new account has been created!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "You have been logged in!"
   },
   "trialAccountCreated": {
     "message": "帳戶建立成功。"
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Encryption key update cannot proceed"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "When updating your encryption key, your folders could not be decrypted. To continue with the update, your folders must be deleted. No vault items will be deleted if you proceed."
+  },
   "keyUpdated": {
     "message": "金鑰已更新"
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "已選擇"
+  },
+  "recommended": {
+    "message": "Recommended"
   },
   "ownership": {
     "message": "擁有權"
@@ -4965,6 +5031,10 @@
       }
     }
   },
+  "viewSend": {
+    "message": "View Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "viewSendHiddenEmailWarning": {
     "message": "建立此 Send 的 Bitwarden 使用者已選擇隱藏他們的電子郵件地址。在使用或下載此連結的內容之前，應確保您信任此連結的來源。",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -5446,7 +5516,7 @@
     "message": "為所有現有的和新的成員啓用瀏覽器擴充套件上的頁面載入時自動填入設定。"
   },
   "experimentalFeature": {
-    "message": "被入侵或不可信任的網站可以利用網頁載入時的自動填入功能。"
+    "message": "被入侵或不可信任的網站可不當利用頁面載入時的自動填入功能。"
   },
   "learnMoreAboutAutofill": {
     "message": "進一步瞭解「自動填入」功能"
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "Audit organization member access across groups, collections, and collection items. The CSV export provides a detailed breakdown per member, including information on collection permissions and account configurations."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(No Collection)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(No Collection Permission)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(No Group)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "On"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Off"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "On"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Off"
+  },
   "higherKDFIterations": {
     "message": "Higher KDF iterations can help protect your master password from being brute forced by an attacker."
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Upgrade your plan to invite more members and gain access to additional Bitwarden features"
+  "upgradePlans": {
+    "message": "Upgrade your plan to invite members and experience powerful security features."
   },
   "upgradeDiscount": {
     "message": "Save $AMOUNT$%",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Advanced capabilities for larger businesses"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Advanced capabilities for larger organizations"
   },
-  "upgradeTeamsMessage": {
-    "message": "Businesses looking for powerful security"
+  "teamsPlanUpgradeMessage": {
+    "message": "Resilient protection for growing teams"
   },
   "teamsInviteMessage": {
     "message": "Invite unlimited members"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Sync groups and users from a directory"
   },
-  "upgradeFamilyMessage": {
-    "message": "Share with families and friends"
+  "familyPlanUpgradeMessage": {
+    "message": "Secure your family logins"
   },
   "accessToPremiumFeatures": {
     "message": "Access to Premium features"
   },
   "additionalStorageGbMessage": {
     "message": "GB additional storage"
+  },
+  "premiumAccounts": {
+    "message": "6 premium accounts"
+  },
+  "unlimitedSharing": {
+    "message": "Unlimited sharing"
+  },
+  "unlimitedCollections": {
+    "message": "Unlimited collections"
+  },
+  "secureDataSharing": {
+    "message": "Secure data sharing"
+  },
+  "eventLogMonitoring": {
+    "message": "Event log monitoring"
+  },
+  "directoryIntegration": {
+    "message": "Directory integration"
+  },
+  "passwordLessSso": {
+    "message": "PasswordLess SSO"
+  },
+  "accountRecovery": {
+    "message": "Account recovery"
+  },
+  "customRoles": {
+    "message": "Custom roles"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Unlimited secrets storage"
+  },
+  "unlimitedUsers": {
+    "message": "Unlimited users"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "Up to 50 machine accounts"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "Up to 20 machine accounts"
+  },
+  "current": {
+    "message": "Current"
+  },
+  "secretsManagerSubInfo": {
+    "message": "Your Secrets Manager subscription will upgrade base on the plan selected"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden Password Manager"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Your complimentary one year Password Manager subscription will upgrade to the selected plan. You will not be charged until the complimentary period is over."
+  },
+  "fileSavedToDevice": {
+    "message": "File saved to device. Manage from your device downloads."
+  },
+  "publicApi": {
+    "message": "Public API",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Show character count"
+  },
+  "hideCharacterCount": {
+    "message": "Hide character count"
+  },
+  "editAccess": {
+    "message": "Edit access"
   }
 }

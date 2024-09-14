@@ -3,11 +3,13 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { firstValueFrom, of } from "rxjs";
 import { filter, first, switchMap, tap } from "rxjs/operators";
 
+import {
+  OrganizationUserApiService,
+  OrganizationUserResetPasswordEnrollmentRequest,
+} from "@bitwarden/admin-console/common";
 import { InternalUserDecryptionOptionsServiceAbstraction } from "@bitwarden/auth/common";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { OrganizationApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/organization/organization-api.service.abstraction";
-import { OrganizationUserService } from "@bitwarden/common/admin-console/abstractions/organization-user/organization-user.service";
-import { OrganizationUserResetPasswordEnrollmentRequest } from "@bitwarden/common/admin-console/abstractions/organization-user/requests";
 import { PolicyApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/policy/policy-api.service.abstraction";
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { MasterPasswordPolicyOptions } from "@bitwarden/common/admin-console/models/domain/master-password-policy-options";
@@ -32,7 +34,7 @@ import { EncString } from "@bitwarden/common/platform/models/domain/enc-string";
 import { UserId } from "@bitwarden/common/types/guid";
 import { MasterKey, UserKey } from "@bitwarden/common/types/key";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
-import { DialogService } from "@bitwarden/components";
+import { DialogService, ToastService } from "@bitwarden/components";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legacy";
 
 import { ChangePasswordComponent as BaseChangePasswordComponent } from "./change-password.component";
@@ -68,12 +70,13 @@ export class SetPasswordComponent extends BaseChangePasswordComponent implements
     private route: ActivatedRoute,
     stateService: StateService,
     private organizationApiService: OrganizationApiServiceAbstraction,
-    private organizationUserService: OrganizationUserService,
+    private organizationUserApiService: OrganizationUserApiService,
     private userDecryptionOptionsService: InternalUserDecryptionOptionsServiceAbstraction,
     private ssoLoginService: SsoLoginServiceAbstraction,
     dialogService: DialogService,
     kdfConfigService: KdfConfigService,
     private encryptService: EncryptService,
+    protected toastService: ToastService,
   ) {
     super(
       i18nService,
@@ -87,6 +90,7 @@ export class SetPasswordComponent extends BaseChangePasswordComponent implements
       kdfConfigService,
       masterPasswordService,
       accountService,
+      toastService,
     );
   }
 
@@ -137,7 +141,11 @@ export class SetPasswordComponent extends BaseChangePasswordComponent implements
       )
       .subscribe({
         error: () => {
-          this.platformUtilsService.showToast("error", null, this.i18nService.t("errorOccurred"));
+          this.toastService.showToast({
+            variant: "error",
+            title: null,
+            message: this.i18nService.t("errorOccurred"),
+          });
         },
       });
   }
@@ -213,7 +221,7 @@ export class SetPasswordComponent extends BaseChangePasswordComponent implements
             resetRequest.masterPasswordHash = masterPasswordHash;
             resetRequest.resetPasswordKey = encryptedUserKey.encryptedString;
 
-            return this.organizationUserService.putOrganizationUserResetPasswordEnrollment(
+            return this.organizationUserApiService.putOrganizationUserResetPasswordEnrollment(
               this.orgId,
               this.userId,
               resetRequest,
@@ -237,7 +245,11 @@ export class SetPasswordComponent extends BaseChangePasswordComponent implements
         this.router.navigate([this.successRoute]);
       }
     } catch {
-      this.platformUtilsService.showToast("error", null, this.i18nService.t("errorOccurred"));
+      this.toastService.showToast({
+        variant: "error",
+        title: null,
+        message: this.i18nService.t("errorOccurred"),
+      });
     }
   }
 

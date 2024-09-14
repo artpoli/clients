@@ -1,4 +1,4 @@
-import { Component, NgZone } from "@angular/core";
+import { Component, NgZone, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { firstValueFrom } from "rxjs";
@@ -22,6 +22,7 @@ import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/pl
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
+import { ToastService } from "@bitwarden/components";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legacy";
 
 import { flagEnabled } from "../../platform/flags";
@@ -30,7 +31,7 @@ import { flagEnabled } from "../../platform/flags";
   selector: "app-login",
   templateUrl: "login.component.html",
 })
-export class LoginComponent extends BaseLoginComponent {
+export class LoginComponent extends BaseLoginComponent implements OnInit {
   showPasswordless = false;
   constructor(
     devicesApiService: DevicesApiServiceAbstraction,
@@ -53,6 +54,7 @@ export class LoginComponent extends BaseLoginComponent {
     ssoLoginService: SsoLoginServiceAbstraction,
     webAuthnLoginService: WebAuthnLoginServiceAbstraction,
     registerRouteService: RegisterRouteService,
+    toastService: ToastService,
   ) {
     super(
       devicesApiService,
@@ -74,19 +76,19 @@ export class LoginComponent extends BaseLoginComponent {
       ssoLoginService,
       webAuthnLoginService,
       registerRouteService,
+      toastService,
     );
     super.onSuccessfulLogin = async () => {
       await syncService.fullSync(true);
     };
     super.successRoute = "/tabs/vault";
     this.showPasswordless = flagEnabled("showPasswordless");
+  }
 
+  async ngOnInit(): Promise<void> {
+    await super.ngOnInit();
     if (this.showPasswordless) {
-      this.formGroup.controls.email.setValue(this.loginEmailService.getEmail());
-      this.formGroup.controls.rememberEmail.setValue(this.loginEmailService.getRememberEmail());
-      // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      this.validateEmail();
+      await this.validateEmail();
     }
   }
 

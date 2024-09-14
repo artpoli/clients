@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Login credentials"
   },
+  "personalDetails": {
+    "message": "Personal details"
+  },
+  "identification": {
+    "message": "Identification"
+  },
+  "contactInfo": {
+    "message": "Contact info"
+  },
+  "cardDetails": {
+    "message": "Card details"
+  },
+  "cardBrandDetails": {
+    "message": "$BRAND$ details",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "Item history"
+  },
   "authenticatorKey": {
     "message": "Authenticator key"
   },
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "Security code (CVV)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Security code / CVV"
   },
   "identityName": {
     "message": "Identity name"
@@ -193,6 +220,12 @@
   },
   "dr": {
     "message": "Dr"
+  },
+  "cardExpiredTitle": {
+    "message": "Expired card"
+  },
+  "cardExpiredMessage": {
+    "message": "If you've renewed it, update the card's information"
   },
   "expirationMonth": {
     "message": "Expiration month"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "Full name"
   },
+  "address": {
+    "message": "Address"
+  },
   "address1": {
     "message": "Address 1"
   },
@@ -474,6 +510,15 @@
   },
   "viewItem": {
     "message": "View item"
+  },
+  "viewItemType": {
+    "message": "View $ITEMTYPE$",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
   },
   "new": {
     "message": "New",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Copy Successful"
   },
   "copyValue": {
     "message": "Copy value",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "Master password hint (optional)"
   },
+  "newMasterPassHint": {
+    "message": "New master password hint (optional)"
+  },
   "masterPassHintLabel": {
     "message": "Master password hint"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "Your new account has been created! You may now log in."
+  },
+  "newAccountCreated2": {
+    "message": "Your new account has been created!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "You have been logged in!"
   },
   "trialAccountCreated": {
     "message": "Account created successfully."
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Encryption key update cannot proceed"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "When updating your encryption key, your folders could not be decrypted. To continue with the update, your folders must be deleted. No vault items will be deleted if you proceed."
+  },
   "keyUpdated": {
     "message": "Key updated"
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "Selected"
+  },
+  "recommended": {
+    "message": "Recommended"
   },
   "ownership": {
     "message": "Ownership"
@@ -4964,6 +5030,10 @@
         "example": "An email address"
       }
     }
+  },
+  "viewSend": {
+    "message": "View Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "viewSendHiddenEmailWarning": {
     "message": "The Bitwarden user who created this Send has chosen to hide their email address. You should ensure you trust the source of this link before using or downloading its content.",
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "Audit organisation member access across groups, collections, and collection items. The CSV export provides a detailed breakdown per member, including information on collection permissions and account configurations."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(No Collection)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(No Collection Permission)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(No Group)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "On"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Off"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "On"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Off"
+  },
   "higherKDFIterations": {
     "message": "Higher KDF iterations can help protect your master password from being brute forced by an attacker."
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Upgrade your plan to invite more members and gain access to additional Bitwarden features"
+  "upgradePlans": {
+    "message": "Upgrade your plan to invite members and experience powerful security features."
   },
   "upgradeDiscount": {
     "message": "Save $AMOUNT$%",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Advanced capabilities for larger businesses"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Advanced capabilities for larger organisations"
   },
-  "upgradeTeamsMessage": {
-    "message": "Businesses looking for powerful security"
+  "teamsPlanUpgradeMessage": {
+    "message": "Resilient protection for growing teams"
   },
   "teamsInviteMessage": {
     "message": "Invite unlimited members"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Sync groups and users from a directory"
   },
-  "upgradeFamilyMessage": {
-    "message": "Share with families and friends"
+  "familyPlanUpgradeMessage": {
+    "message": "Secure your family logins"
   },
   "accessToPremiumFeatures": {
     "message": "Access to Premium features"
   },
   "additionalStorageGbMessage": {
     "message": "GB additional storage"
+  },
+  "premiumAccounts": {
+    "message": "6 premium accounts"
+  },
+  "unlimitedSharing": {
+    "message": "Unlimited sharing"
+  },
+  "unlimitedCollections": {
+    "message": "Unlimited collections"
+  },
+  "secureDataSharing": {
+    "message": "Secure data sharing"
+  },
+  "eventLogMonitoring": {
+    "message": "Event log monitoring"
+  },
+  "directoryIntegration": {
+    "message": "Directory integration"
+  },
+  "passwordLessSso": {
+    "message": "Passwordless SSO"
+  },
+  "accountRecovery": {
+    "message": "Account recovery"
+  },
+  "customRoles": {
+    "message": "Custom roles"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Unlimited secrets storage"
+  },
+  "unlimitedUsers": {
+    "message": "Unlimited users"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "Up to 50 machine accounts"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "Up to 20 machine accounts"
+  },
+  "current": {
+    "message": "Current"
+  },
+  "secretsManagerSubInfo": {
+    "message": "Your Secrets Manager subscription will upgrade based on the plan selected"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden Password Manager"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Your complimentary one year Password Manager subscription will upgrade to the selected plan. You will not be charged until the complimentary period is over."
+  },
+  "fileSavedToDevice": {
+    "message": "File saved to device. Manage from your device downloads."
+  },
+  "publicApi": {
+    "message": "Public API",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Show character count"
+  },
+  "hideCharacterCount": {
+    "message": "Hide character count"
+  },
+  "editAccess": {
+    "message": "Edit access"
   }
 }

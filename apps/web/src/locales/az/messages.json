@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Giriş məlumatları"
   },
+  "personalDetails": {
+    "message": "Şəxsi detallar"
+  },
+  "identification": {
+    "message": "İdentifikasiya"
+  },
+  "contactInfo": {
+    "message": "Əlaqə məlumatı"
+  },
+  "cardDetails": {
+    "message": "Kart detalları"
+  },
+  "cardBrandDetails": {
+    "message": "$BRAND$ detalları",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "Element tarixçəsi"
+  },
   "authenticatorKey": {
     "message": "Kimlik doğrulayıcı açarı"
   },
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "Güvənlik kodu (CVV)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Security code / CVV"
   },
   "identityName": {
     "message": "Kimlik adı"
@@ -193,6 +220,12 @@
   },
   "dr": {
     "message": "Dr"
+  },
+  "cardExpiredTitle": {
+    "message": "Kartın müddəti bitib"
+  },
+  "cardExpiredMessage": {
+    "message": "Yeniləmisinizsə, kart məlumatlarınızı güncəlləyin"
   },
   "expirationMonth": {
     "message": "Son istifadə ayı"
@@ -433,6 +466,9 @@
   "fullName": {
     "message": "Tam ad"
   },
+  "address": {
+    "message": "Ünvan"
+  },
   "address1": {
     "message": "Ünvan 1"
   },
@@ -474,6 +510,15 @@
   },
   "viewItem": {
     "message": "Elementə bax"
+  },
+  "viewItemType": {
+    "message": "$ITEMTYPE$ - bax",
+    "placeholders": {
+      "itemtype": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
   },
   "new": {
     "message": "Yeni",
@@ -519,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Copy Successful"
   },
   "copyValue": {
     "message": "Dəyəri kopyala",
@@ -890,6 +938,9 @@
   "masterPassHint": {
     "message": "Ana parol məsləhəti (ixtiyari)"
   },
+  "newMasterPassHint": {
+    "message": "Yeni ana parol ipucusu (ixtiyari)"
+  },
   "masterPassHintLabel": {
     "message": "Ana parol məsləhəti"
   },
@@ -945,6 +996,12 @@
   },
   "newAccountCreated": {
     "message": "Yeni hesabınız yaradıldı! İndi giriş edə bilərsiniz."
+  },
+  "newAccountCreated2": {
+    "message": "Yeni hesabınız yaradıldı!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Giriş etdiniz!"
   },
   "trialAccountCreated": {
     "message": "Hesab uğurla yaradıldı."
@@ -3843,6 +3900,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Encryption key update cannot proceed"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "When updating your encryption key, your folders could not be decrypted. To continue with the update, your folders must be deleted. No vault items will be deleted if you proceed."
+  },
   "keyUpdated": {
     "message": "Açar güncəlləndi"
   },
@@ -3983,6 +4046,9 @@
   },
   "selected": {
     "message": "Seçildi"
+  },
+  "recommended": {
+    "message": "Tövsiyə edilən"
   },
   "ownership": {
     "message": "Sahiblik"
@@ -4965,6 +5031,10 @@
       }
     }
   },
+  "viewSend": {
+    "message": "\"Send\"ə bax",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "viewSendHiddenEmailWarning": {
     "message": "Bu \"Send\"i yaradan Bitwarden istifadəçisi e-poçt ünvanını gizlətməyi seçib. İstifadə etməzdən və ya endirməzdən əvvəl bu keçidin mənbəyinin etibarlı olduğuna əmin olmalısınız.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -5344,19 +5414,19 @@
     "message": "Ana parolunuz təşkilatınızdakı siyasətlərdən birinə və ya bir neçəsinə uyğun gəlmir. Anbara müraciət üçün ana parolunuzu indi güncəlləməlisiniz. Davam etsəniz, hazırkı seansdan çıxış etmiş və təkrar giriş etməli olacaqsınız. Digər cihazlardakı aktiv seanslar bir saata qədər aktiv qalmağa davam edə bilər."
   },
   "automaticAppLogin": {
-    "message": "Automatically log in users for allowed applications"
+    "message": "İcazə verilən tətbiqlər üçün istifadəçilərin avtomatik giriş etməsi"
   },
   "automaticAppLoginDesc": {
-    "message": "Login forms will automatically be filled and submitted for apps launched from your configured identity provider."
+    "message": "Konfiqurasiya edilmiş kimlik provayderinizdən başladılan tətbiqlər üçün giriş xanaları avtomatik doldurulub göndəriləcək."
   },
   "automaticAppLoginIdpHostLabel": {
-    "message": "Identity provider host"
+    "message": "Provayder host-unu müəyyənləşdir"
   },
   "automaticAppLoginIdpHostDesc": {
-    "message": "Enter your identity provider host URL. Enter multiple URLs by separating with a comma."
+    "message": "Provayder host kimliyinin URL-sini daxil edin. Çoxlu URL-ləri vergüllə ayırın."
   },
   "tdeDisabledMasterPasswordRequired": {
-    "message": "Your organization has updated your decryption options. Please set a master password to access your vault."
+    "message": "Təşkilatınız, şifrə açma seçimlərinizi güncəllədi. Anbarınıza müraciət etmək üçün lütfən ana parol təyin edin."
   },
   "maximumVaultTimeout": {
     "message": "Anbara müraciət bitəcək"
@@ -8701,6 +8771,27 @@
   "memberAccessReportPageDesc": {
     "message": "Qruplar, kolleksiyalar və kolleksiya elementləri arasında təşkilat üzvlərinin müraciətini yoxlanışdan keçirin. CSV xaricə köçürməsi, kolleksiya icazələri və hesab konfiqurasiyaları haqqında məlumatlar da daxil olmaqla hər bir üzv üçün detallı məlumat təqdim edir."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(Kolleksiya yoxdur)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(Kolleksiya icazəsi yoxdur)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(Qrup yoxdur)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "Açıq"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Bağlı"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "Açıq"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Bağlı"
+  },
   "higherKDFIterations": {
     "message": "Daha yüksək KDF iterasiyaları, ana parolunuzu təcavüzkar tərəfindən \"brute force\" hücumuna qarşı qorumağa kömək edir."
   },
@@ -8904,8 +8995,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Daha çox üzv dəvət etmək və əlavə Bitwarden özəlliklərinə müraciət əldə etmək üçün planınızı yüksəldin"
+  "upgradePlans": {
+    "message": "Üzv dəvət etmək və güclü təhlükəsizlik özəlliklərini təcrübə etmək üçün planınızı yüksəldin."
   },
   "upgradeDiscount": {
     "message": "$AMOUNT$% endirim",
@@ -8916,11 +9007,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Daha böyük bizneslər üçün qabaqcıl imkanlar"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Daha böyük təşkilatlar üçün qabaqcıl imkanlar"
   },
-  "upgradeTeamsMessage": {
-    "message": "Güclü təhlükəsizlik axtaran bizneslər"
+  "teamsPlanUpgradeMessage": {
+    "message": "Böyüyən komandalar üçün dayanıqlı qoruma"
   },
   "teamsInviteMessage": {
     "message": "Limitsiz üzv dəvət et"
@@ -8931,13 +9022,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Qrupları və istifadəçiləri bir kataloqdan sinxronlaşdır"
   },
-  "upgradeFamilyMessage": {
-    "message": "Ailə və dostlarla paylaş"
+  "familyPlanUpgradeMessage": {
+    "message": "Ailənizin giriş məlumatlarını güvəndə saxlayın"
   },
   "accessToPremiumFeatures": {
     "message": "Premium özəlliklərə müraciət"
   },
   "additionalStorageGbMessage": {
     "message": "GB əlavə saxlama sahəsi"
+  },
+  "premiumAccounts": {
+    "message": "6 premium hesab"
+  },
+  "unlimitedSharing": {
+    "message": "Limitsiz paylaşım"
+  },
+  "unlimitedCollections": {
+    "message": "Limitsiz kolleksiya"
+  },
+  "secureDataSharing": {
+    "message": "Güvənli data paylaşımı"
+  },
+  "eventLogMonitoring": {
+    "message": "Event log izləmə"
+  },
+  "directoryIntegration": {
+    "message": "Directory inteqrasiyası"
+  },
+  "passwordLessSso": {
+    "message": "PasswordLess SSO"
+  },
+  "accountRecovery": {
+    "message": "Hesab geri qaytarma"
+  },
+  "customRoles": {
+    "message": "Özəl rollar"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Limitsiz sirr anbarı"
+  },
+  "unlimitedUsers": {
+    "message": "Limitsiz istifadəçi"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "50-yə qədər maşın hesabı"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "20-yə qədər maşın hesabı"
+  },
+  "current": {
+    "message": "Hazırkı"
+  },
+  "secretsManagerSubInfo": {
+    "message": "Sirr Meneceri abunəliyiniz seçilmiş plan əsasında yüksəldiləcək"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden Parol Meneceri"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Your complimentary one year Password Manager subscription will upgrade to the selected plan. You will not be charged until the complimentary period is over."
+  },
+  "fileSavedToDevice": {
+    "message": "File saved to device. Manage from your device downloads."
+  },
+  "publicApi": {
+    "message": "Hər kəsə açıq API",
+    "description": "The text, 'API', is an acronymn and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Xarakter sayını göstər"
+  },
+  "hideCharacterCount": {
+    "message": "Xarakter sayını gizlət"
+  },
+  "editAccess": {
+    "message": "Müraciətə düzəliş et"
   }
 }

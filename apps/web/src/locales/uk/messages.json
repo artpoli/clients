@@ -48,6 +48,30 @@
   "loginCredentials": {
     "message": "Облікові дані для входу"
   },
+  "personalDetails": {
+    "message": "Особисті дані"
+  },
+  "identification": {
+    "message": "Ідентифікація"
+  },
+  "contactInfo": {
+    "message": "Контактні дані"
+  },
+  "cardDetails": {
+    "message": "Подробиці картки"
+  },
+  "cardBrandDetails": {
+    "message": "Подробиці $BRAND$",
+    "placeholders": {
+      "brand": {
+        "content": "$1",
+        "example": "Visa"
+      }
+    }
+  },
+  "itemHistory": {
+    "message": "Історія запису"
+  },
   "authenticatorKey": {
     "message": "Ключ автентифікації"
   },
@@ -118,6 +142,9 @@
   },
   "securityCode": {
     "message": "Код безпеки (CVV)"
+  },
+  "securityCodeSlashCVV": {
+    "message": "Код безпеки / CVV"
   },
   "identityName": {
     "message": "Назва посвідчення"
@@ -195,10 +222,10 @@
     "message": "Доктор"
   },
   "cardExpiredTitle": {
-    "message": "Expired card"
+    "message": "Протермінована картка"
   },
   "cardExpiredMessage": {
-    "message": "If you've renewed it, update the card's information"
+    "message": "Якщо ви її поновили, оновіть інформацію"
   },
   "expirationMonth": {
     "message": "Місяць завершення"
@@ -439,6 +466,9 @@
   "fullName": {
     "message": "Повне ім'я"
   },
+  "address": {
+    "message": "Адреса"
+  },
   "address1": {
     "message": "Адреса 1"
   },
@@ -482,7 +512,7 @@
     "message": "Переглянути запис"
   },
   "viewItemType": {
-    "message": "View $ITEMTYPE$",
+    "message": "Переглянути $ITEMTYPE$",
     "placeholders": {
       "itemtype": {
         "content": "$1",
@@ -534,6 +564,9 @@
         "example": "Password"
       }
     }
+  },
+  "copySuccessful": {
+    "message": "Успішно скопійовано"
   },
   "copyValue": {
     "message": "Копіювати значення",
@@ -905,6 +938,9 @@
   "masterPassHint": {
     "message": "Підказка для головного пароля (необов'язково)"
   },
+  "newMasterPassHint": {
+    "message": "Підказка для нового головного пароля (необов'язково)"
+  },
   "masterPassHintLabel": {
     "message": "Підказка для головного пароля"
   },
@@ -923,6 +959,18 @@
   },
   "settings": {
     "message": "Налаштування"
+  },
+  "accountEmail": {
+    "message": "Account email"
+  },
+  "requestHint": {
+    "message": "Request hint"
+  },
+  "requestPasswordHint": {
+    "message": "Request password hint"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Enter your account email address and your password hint will be sent to you"
   },
   "passwordHint": {
     "message": "Підказка для пароля"
@@ -960,6 +1008,12 @@
   },
   "newAccountCreated": {
     "message": "Ваш обліковий запис створений! Тепер ви можете увійти."
+  },
+  "newAccountCreated2": {
+    "message": "Ваш обліковий запис створено!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Ви увійшли!"
   },
   "trialAccountCreated": {
     "message": "Обліковий запис успішно створено."
@@ -1118,7 +1172,7 @@
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
   "duoOrganizationDesc": {
-    "message": "Авторизуйтесь за допомогою Duo Security для вашої організації з використанням мобільного додатку Duo Mobile, SMS, телефонного виклику, або ключа безпеки U2F.",
+    "message": "Авторизуйтесь за допомогою Duo Security для вашої організації з використанням програми Duo Mobile, SMS, телефонного виклику, або ключа безпеки U2F.",
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
   "u2fDesc": {
@@ -1399,7 +1453,7 @@
     "message": "Повторно виконайте вхід."
   },
   "logBackInOthersToo": {
-    "message": "Будь ласка, повторно виконайте вхід. Якщо ви користуєтесь іншими додатками Bitwarden, також вийдіть із них, і знову увійдіть."
+    "message": "Будь ласка, повторно виконайте вхід. Якщо ви користуєтесь іншими програмами Bitwarden, також вийдіть із них, і знову увійдіть."
   },
   "changeMasterPassword": {
     "message": "Змінити головний пароль"
@@ -2812,7 +2866,7 @@
     "message": "Отримати допомогу"
   },
   "getApps": {
-    "message": "Отримати додатки"
+    "message": "Отримати програми"
   },
   "loggedInAs": {
     "message": "Вхід виконано"
@@ -3858,6 +3912,12 @@
       }
     }
   },
+  "encryptionKeyUpdateCannotProceed": {
+    "message": "Неможливо продовжити оновлення ключа шифрування"
+  },
+  "keyUpdateFoldersFailed": {
+    "message": "Не вдалося розшифрувати ваші теки під час оновлення ключа шифрування. Щоб продовжити оновлення, необхідно видалити теки. Якщо ви продовжите, записи у сховищі не будуть видалені."
+  },
   "keyUpdated": {
     "message": "Ключ оновлено"
   },
@@ -3998,6 +4058,9 @@
   },
   "selected": {
     "message": "Вибрано"
+  },
+  "recommended": {
+    "message": "Рекомендовано"
   },
   "ownership": {
     "message": "Власник"
@@ -4198,7 +4261,7 @@
   },
   "lock": {
     "message": "Блокувати",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Смітник",
@@ -4979,6 +5042,10 @@
         "example": "An email address"
       }
     }
+  },
+  "viewSend": {
+    "message": "Переглянути відправлення",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "viewSendHiddenEmailWarning": {
     "message": "Користувач Bitwarden, який створив це відправлення, вирішив приховати свою адресу електронної пошти. Вам слід упевнитися в надійності джерела цього посилання перед його використанням чи завантаженням вмісту.",
@@ -6155,7 +6222,7 @@
   },
   "lastSync": {
     "message": "Востаннє синхронізовано",
-    "description": "Used as a prefix to indicate the last time a sync occured. Example \"Last sync 1968-11-16 00:00:00\""
+    "description": "Used as a prefix to indicate the last time a sync occurred. Example \"Last sync 1968-11-16 00:00:00\""
   },
   "sponsorshipsSynced": {
     "message": "Власне розміщене спонсорування синхронізовано."
@@ -6314,57 +6381,57 @@
   },
   "scim": {
     "message": "Забезпечення SCIM",
-    "description": "The text, 'SCIM', is an acronymn and should not be translated."
+    "description": "The text, 'SCIM', is an acronym and should not be translated."
   },
   "scimDescription": {
     "message": "Автоматично забезпечувати користувачів та групи бажаним провайдером ідентифікації через SCIM",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "scimEnabledCheckboxDesc": {
     "message": "Увімкнути SCIM",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "scimEnabledCheckboxDescHelpText": {
     "message": "Налаштуйте бажаного провайдера ідентифікації, вказавши URL-адресу та ключ API для SCIM",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "scimApiKeyHelperText": {
     "message": "Цей ключ API має доступ до керування користувачами в межах вашої організації. Його необхідно надійно зберігати."
   },
   "copyScimKey": {
     "message": "Копіювати ключ SCIM API до буфера обміну",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "rotateScimKey": {
     "message": "Оновити ключ SCIM API",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "rotateScimKeyWarning": {
     "message": "Ви дійсно хочете оновити ключ API для SCIM? Поточний ключ надалі не працюватиме з жодними наявними інтеграціями.",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "rotateKey": {
     "message": "Оновити ключ"
   },
   "scimApiKey": {
     "message": "Ключ SCIM API",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "copyScimUrl": {
     "message": "Копіювати URL кінцевої точки SCIM до буфера обміну",
-    "description": "the text, 'SCIM' and 'URL', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'URL', are acronyms and should not be translated."
   },
   "scimUrl": {
     "message": "URL-адреса SCIM",
-    "description": "the text, 'SCIM' and 'URL', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'URL', are acronyms and should not be translated."
   },
   "scimApiKeyRotated": {
     "message": "Ключ SCIM API успішно оновлено",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "scimSettingsSaved": {
     "message": "Налаштування SCIM збережено",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "inputRequired": {
     "message": "Необхідно ввести дані."
@@ -8716,6 +8783,27 @@
   "memberAccessReportPageDesc": {
     "message": "Аудит доступу учасника організації до груп, збірок та записів збірок. Експорт CSV надає детальну розбивку для кожного учасника, зокрема інформацію про дозволи для збірок та конфігурації облікового запису."
   },
+  "memberAccessReportNoCollection": {
+    "message": "(Без збірки)"
+  },
+  "memberAccessReportNoCollectionPermission": {
+    "message": "(Без дозволу для збірки)"
+  },
+  "memberAccessReportNoGroup": {
+    "message": "(Без групи)"
+  },
+  "memberAccessReportTwoFactorEnabledTrue": {
+    "message": "Увімк"
+  },
+  "memberAccessReportTwoFactorEnabledFalse": {
+    "message": "Вимк"
+  },
+  "memberAccessReportAuthenticationEnabledTrue": {
+    "message": "Увімк"
+  },
+  "memberAccessReportAuthenticationEnabledFalse": {
+    "message": "Вимк"
+  },
   "higherKDFIterations": {
     "message": "Вищі значення KDF-ітерацій можуть допомогти захистити ваш головний пароль від грубого зламу зловмисником."
   },
@@ -8919,8 +9007,8 @@
       }
     }
   },
-  "upgradePlan": {
-    "message": "Перейдіть на вищий тарифний план, щоб запросити більше учасників та отримати доступ до додаткових функцій Bitwarden"
+  "upgradePlans": {
+    "message": "Оновіть тарифний план, щоб запросити учасників та користуватися потужними функціями безпеки."
   },
   "upgradeDiscount": {
     "message": "Заощадьте $AMOUNT$%",
@@ -8931,11 +9019,11 @@
       }
     }
   },
-  "upgradeEnterpriseMessage": {
-    "message": "Розширені можливості для великого бізнесу"
+  "enterprisePlanUpgradeMessage": {
+    "message": "Розширені можливості для більших організацій"
   },
-  "upgradeTeamsMessage": {
-    "message": "Компанії, яким потрібна гарантована безпека"
+  "teamsPlanUpgradeMessage": {
+    "message": "Адаптивний захист для команд, що розширюються"
   },
   "teamsInviteMessage": {
     "message": "Запрошуйте користувачів без обмежень"
@@ -8946,13 +9034,80 @@
   "syncGroupsAndUsersFromDirectory": {
     "message": "Синхронізуйте групи та користувачів з каталогу"
   },
-  "upgradeFamilyMessage": {
-    "message": "Надавайте спільний доступ родині та друзям"
+  "familyPlanUpgradeMessage": {
+    "message": "Захистіть паролі своєї родини"
   },
   "accessToPremiumFeatures": {
     "message": "Доступ до преміальних функцій"
   },
   "additionalStorageGbMessage": {
     "message": "ГБ додаткового сховища"
+  },
+  "premiumAccounts": {
+    "message": "6 облікових записів Преміум"
+  },
+  "unlimitedSharing": {
+    "message": "Необмежений спільний доступ"
+  },
+  "unlimitedCollections": {
+    "message": "Необмежена кількість збірок"
+  },
+  "secureDataSharing": {
+    "message": "Безпечний обмін даними"
+  },
+  "eventLogMonitoring": {
+    "message": "Моніторинг подій"
+  },
+  "directoryIntegration": {
+    "message": "Інтеграція з каталогом"
+  },
+  "passwordLessSso": {
+    "message": "Безпарольний вхід за допомогою SSO"
+  },
+  "accountRecovery": {
+    "message": "Відновлення облікового запису"
+  },
+  "customRoles": {
+    "message": "Користувацькі ролі"
+  },
+  "unlimitedSecretsStorage": {
+    "message": "Необмежене сховище для секретів"
+  },
+  "unlimitedUsers": {
+    "message": "Необмежена кількість користувачів"
+  },
+  "UpTo50MachineAccounts": {
+    "message": "До 50 машинних облікових записів"
+  },
+  "UpTo20MachineAccounts": {
+    "message": "До 20 машинних облікових записів"
+  },
+  "current": {
+    "message": "Поточний"
+  },
+  "secretsManagerSubInfo": {
+    "message": "Ваша передплата менеджера секретів поновиться на основі вибраного плану"
+  },
+  "bitwardenPasswordManager": {
+    "message": "Bitwarden – менеджер паролів"
+  },
+  "secretsManagerComplimentaryPasswordManager": {
+    "message": "Ваша додаткова річна передплата менеджера паролів поновиться до вибраного плану. З вас не стягуватиметься платіж доки не завершиться додатковий період."
+  },
+  "fileSavedToDevice": {
+    "message": "Файл збережено на пристрої. Ви можете його знайти у теці завантажень."
+  },
+  "publicApi": {
+    "message": "Відкритий API",
+    "description": "The text, 'API', is an acronym and should not be translated."
+  },
+  "showCharacterCount": {
+    "message": "Показати кількість символів"
+  },
+  "hideCharacterCount": {
+    "message": "Приховати кількість символів"
+  },
+  "editAccess": {
+    "message": "Редагувати доступ"
   }
 }

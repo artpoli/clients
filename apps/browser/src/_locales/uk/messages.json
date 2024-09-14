@@ -25,9 +25,6 @@
   "finishCreatingYourAccountBySettingAPassword": {
     "message": "Завершіть створення облікового запису, встановивши пароль"
   },
-  "login": {
-    "message": "Увійти"
-  },
   "enterpriseSingleSignOn": {
     "message": "Єдиний корпоративний вхід (SSO)"
   },
@@ -181,6 +178,18 @@
   },
   "addItem": {
     "message": "Додати запис"
+  },
+  "accountEmail": {
+    "message": "Account email"
+  },
+  "requestHint": {
+    "message": "Request hint"
+  },
+  "requestPasswordHint": {
+    "message": "Request password hint"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Enter your account email address and your password hint will be sent to you"
   },
   "passwordHint": {
     "message": "Підказка для пароля"
@@ -387,16 +396,56 @@
     "message": "Мінімальна довжина пароля"
   },
   "uppercase": {
-    "message": "Верхній регістр (A-Z)"
+    "message": "Верхній регістр (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Нижній регістр (a-z)"
+    "message": "Нижній регістр (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Числа (0-9)"
+    "message": "Числа (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
-    "message": "Спеціальні символи (!@#$%^&*)"
+    "message": "Спеціальні символи (!@#$%^&*)",
+    "description": "deprecated. Use specialCharactersLabel instead."
+  },
+  "include": {
+    "message": "Включити",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Символи верхнього регістру",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Символи нижнього регістру",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Цифри",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Спеціальні символи",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Кількість слів"
@@ -418,7 +467,12 @@
     "message": "Мінімум спеціальних символів"
   },
   "avoidAmbChar": {
-    "message": "Уникати неоднозначних символів"
+    "message": "Уникати неоднозначних символів",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Уникати неоднозначних символів",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "searchVault": {
     "message": "Пошук"
@@ -640,6 +694,12 @@
   },
   "newAccountCreated": {
     "message": "Ваш обліковий запис створений! Тепер ви можете увійти."
+  },
+  "newAccountCreated2": {
+    "message": "Ваш обліковий запис створено!"
+  },
+  "youHaveBeenLoggedIn": {
+    "message": "Ви увійшли!"
   },
   "youSuccessfullyLoggedIn": {
     "message": "Ви успішно увійшли в систему"
@@ -1083,7 +1143,7 @@
     "message": "1 ГБ зашифрованого сховища для файлів."
   },
   "premiumSignUpEmergency": {
-    "message": "Екстрений доступ"
+    "message": "Екстрений доступ."
   },
   "premiumSignUpTwoStepOptions": {
     "message": "Додаткові можливості двоетапної авторизації, як-от YubiKey та Duo."
@@ -1116,7 +1176,7 @@
     "message": "Дякуємо за підтримку Bitwarden."
   },
   "premiumFeatures": {
-    "message": "Upgrade to premium and receive:"
+    "message": "Передплатіть преміум та отримайте:"
   },
   "premiumPrice": {
     "message": "Всього лише $PRICE$ / за рік!",
@@ -1128,7 +1188,7 @@
     }
   },
   "premiumPriceV2": {
-    "message": "All for just $PRICE$ per year!",
+    "message": "Усе лише за $PRICE$ на рік!",
     "placeholders": {
       "price": {
         "content": "$1",
@@ -1235,7 +1295,7 @@
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
   "duoOrganizationDesc": {
-    "message": "Авторизуйтесь за допомогою Duo Security для вашої організації з використанням мобільного додатку Duo Mobile, SMS, телефонного виклику, або ключа безпеки U2F.",
+    "message": "Авторизуйтесь за допомогою Duo Security для вашої організації з використанням програми Duo Mobile, SMS, телефонного виклику, або ключа безпеки U2F.",
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
   "webAuthnTitle": {
@@ -1748,6 +1808,15 @@
   "noPasswordsInList": {
     "message": "Немає паролів."
   },
+  "clearHistory": {
+    "message": "Очистити історію"
+  },
+  "noPasswordsToShow": {
+    "message": "Немає паролів"
+  },
+  "noRecentlyGeneratedPassword": {
+    "message": "Ви не генерували паролі останнім часом"
+  },
   "remove": {
     "message": "Вилучити"
   },
@@ -1870,7 +1939,7 @@
   },
   "lock": {
     "message": "Блокувати",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Смітник",
@@ -2085,6 +2154,12 @@
   },
   "biometricsNotUnlockedDesc": {
     "message": "Розблокуйте цього користувача в програмі для комп'ютера і повторіть спробу."
+  },
+  "biometricsNotAvailableTitle": {
+    "message": "Біометричне розблокування недоступне"
+  },
+  "biometricsNotAvailableDesc": {
+    "message": "Біометричне розблокування наразі недоступне. Повторіть спробу пізніше."
   },
   "biometricsFailedTitle": {
     "message": "Збій біометрії"
@@ -3423,7 +3498,7 @@
   "passkeyFeatureIsNotImplementedForAccountsWithoutMasterPassword": {
     "message": "Сайт ініціює обов'язкову верифікацію. Ця функція ще не реалізована для облікових записів без головного пароля."
   },
-  "logInWithPasskey": {
+  "logInWithPasskeyQuestion": {
     "message": "Увійти з ключем доступу?"
   },
   "passkeyAlreadyExists": {
@@ -3435,6 +3510,9 @@
   "noMatchingPasskeyLogin": {
     "message": "У вас немає відповідних записів для цього сайту."
   },
+  "noMatchingLoginsForSite": {
+    "message": "Немає відповідних записів для цього сайту"
+  },
   "confirm": {
     "message": "Підтвердити"
   },
@@ -3444,8 +3522,11 @@
   "savePasskeyNewLogin": {
     "message": "Зберегти ключ доступу як новий запис"
   },
-  "choosePasskey": {
+  "chooseCipherForPasskeySave": {
     "message": "Виберіть запис для збереження цього ключа доступу"
+  },
+  "chooseCipherForPasskeyAuth": {
+    "message": "Виберіть ключ доступу для входу"
   },
   "passkeyItem": {
     "message": "Ключ доступу"
@@ -3642,8 +3723,16 @@
     "message": "Облікові дані успішно збережено!",
     "description": "Notification message for when saving credentials has succeeded."
   },
+  "passwordSaved": {
+    "message": "Пароль збережено!",
+    "description": "Notification message for when saving credentials has succeeded."
+  },
   "updateCipherAttemptSuccess": {
     "message": "Облікові дані успішно оновлено!",
+    "description": "Notification message for when updating credentials has succeeded."
+  },
+  "passwordUpdated": {
+    "message": "Пароль оновлено!",
     "description": "Notification message for when updating credentials has succeeded."
   },
   "saveCipherAttemptFailed": {
@@ -3973,10 +4062,10 @@
     "message": "Автоматично заповнювати під час завантаження сторінки?"
   },
   "cardExpiredTitle": {
-    "message": "Expired card"
+    "message": "Протермінована картка"
   },
   "cardExpiredMessage": {
-    "message": "If you've renewed it, update the card's information"
+    "message": "Якщо ви її поновили, оновіть інформацію"
   },
   "cardDetails": {
     "message": "Подробиці картки"
@@ -3989,6 +4078,9 @@
         "example": "Visa"
       }
     }
+  },
+  "enableAnimations": {
+    "message": "Увімкнути анімацію"
   },
   "addAccount": {
     "message": "Додати обліковий запис"
@@ -4228,5 +4320,35 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "До цього налаштування застосовано вимоги політики компанії"
+  },
+  "fileSavedToDevice": {
+    "message": "Файл збережено на пристрої. Ви можете його знайти у теці завантажень."
+  },
+  "showCharacterCount": {
+    "message": "Показати кількість символів"
+  },
+  "hideCharacterCount": {
+    "message": "Приховати кількість символів"
+  },
+  "itemsInTrash": {
+    "message": "Записи в смітнику"
+  },
+  "noItemsInTrash": {
+    "message": "Немає записів у смітнику"
+  },
+  "noItemsInTrashDesc": {
+    "message": "Видалені записи з'являтимуться тут і будуть остаточно видалені через 30 днів"
+  },
+  "trashWarning": {
+    "message": "Записи, що знаходяться в смітнику понад 30 днів, автоматично видалятимуться"
+  },
+  "restore": {
+    "message": "Відновити"
+  },
+  "deleteForever": {
+    "message": "Видалити остаточно"
+  },
+  "noEditPermissions": {
+    "message": "Вам не дозволено редагувати цей запис"
   }
 }

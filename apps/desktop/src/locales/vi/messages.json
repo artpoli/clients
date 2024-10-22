@@ -407,16 +407,55 @@
     "message": "Độ dài mật khẩu tối thiểu"
   },
   "uppercase": {
-    "message": "Chữ in hoa (A-Z)"
+    "message": "Chữ in hoa (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Chữ in thường (a-z)"
+    "message": "Chữ in thường (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Chữ số (0-9)"
+    "message": "Chữ số (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Ký tự đặc biệt (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Include",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Include uppercase characters",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Include lowercase characters",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Include numbers",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Include special characters",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Số lượng chữ"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Tránh các ký tự dễ gây nhầm lẫn"
+    "message": "Tránh các ký tự dễ gây nhầm lẫn",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Avoid ambiguous characters",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Enterprise policy requirements have been applied to your generator options.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Tìm kiếm bộ sưu tập"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Tham gia tổ chức"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Hoàn tất gia nhập tổ chức này bằng cách đặt một mật khẩu chính."
   },
   "settings": {
     "message": "Cài đặt"
+  },
+  "accountEmail": {
+    "message": "Account email"
+  },
+  "requestHint": {
+    "message": "Request hint"
+  },
+  "requestPasswordHint": {
+    "message": "Request password hint"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Enter your account email address and your password hint will be sent to you"
   },
   "passwordHint": {
     "message": "Gợi ý mật khẩu"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Kho của bạn đã bị khóa. Xác minh danh tính của bạn để mở khoá."
   },
+  "yourAccountIsLocked": {
+    "message": "Your account is locked"
+  },
+  "or": {
+    "message": "or"
+  },
+  "unlockWithBiometrics": {
+    "message": "Unlock with biometrics"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Unlock with master password"
+  },
   "unlock": {
     "message": "Mở khóa"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Thời gian mở kho"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "vaultTimeoutDesc": {
     "message": "Chọn khi nào thì kho của bạn sẽ hết thời gian chờ và thực hiện hành động đã được chọn."
@@ -1555,8 +1639,8 @@
   "recommendedForSecurity": {
     "message": "Đề xuất để tăng cường bảo mật."
   },
-  "lockWithMasterPassOnRestart": {
-    "message": "Khóa với mật khẩu chính khi khởi động lại"
+  "lockWithMasterPassOnRestart1": {
+    "message": "Lock with master password on restart"
   },
   "deleteAccount": {
     "message": "Xóa tài khoản"
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Khóa",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Thùng rác",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Tổ chức của bạn yêu cầu bạn đặt mật khẩu chính.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Yêu cầu xác minh",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Cho phép tích hợp với trình duyệt"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Sử dụng để xác thực sinh trắc học trên trình duyệt."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Used to allow biometric unlock in browsers that are not Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Cho phép tích hợp trình duyệt DuckDuckGo"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Phút"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Tổ chức của bạn đã đặt thời gian mở kho tối đa là $HOURS$ giờ và $MINUTES$ phút.",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ hour(s) and $MINUTES$ minute(s) maximum.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Đã khóa"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Your vault is locked"
+  },
   "unlocked": {
     "message": "Đã mở khóa"
   },
   "generator": {
-    "message": "Trình tạo"
+    "message": "Trình tạo",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Bạn muốn tạo gì?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Quan trọng:"
+  },
+  "accessing": {
+    "message": "Accessing"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "Bạn đã bị đăng xuất do khoá truy cập của bạn không thể giải mã. Vui lòng đăng nhập lại để khắc phục sự cố này."
@@ -3061,6 +3161,12 @@
   },
   "textSends": {
     "message": "Gửi tin nhắn"
+  },
+  "allowScreenshots": {
+    "message": "Allow screen capture"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Allow screen capture of the Bitwarden desktop application."
   },
   "ssoError": {
     "message": "Không thể tìm thấy cổng trống để đăng nhập SSO."

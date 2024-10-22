@@ -407,16 +407,55 @@
     "message": "Минимальная длина пароля"
   },
   "uppercase": {
-    "message": "Прописные буквы (A-Z)"
+    "message": "Прописные буквы (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Строчные буквы (a-z)"
+    "message": "Строчные буквы (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Цифры (0-9)"
+    "message": "Цифры (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Специальные символы (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Включить",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Включить заглавные символы",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Включить строчные символы",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Включить цифры",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Включить специальные символы",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Количество слов"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Избегать неоднозначных символов"
+    "message": "Избегать неоднозначных символов",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Избегать неоднозначных символов",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "К настройкам генератора были применены требования корпоративной политики.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Поиск в коллекции"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Присоединиться к организации"
   },
+  "joinOrganizationName": {
+    "message": "Присоединиться к $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Завершите присоединение к этой организации, установив мастер-пароль."
   },
   "settings": {
     "message": "Настройки"
+  },
+  "accountEmail": {
+    "message": "Email аккаунта"
+  },
+  "requestHint": {
+    "message": "Запросить подсказку"
+  },
+  "requestPasswordHint": {
+    "message": "Запросить подсказку к паролю"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Введите email вашего аккаунта, и вам будет отправлена подсказка для пароля"
   },
   "passwordHint": {
     "message": "Подсказка к паролю"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Ваше xранилище заблокировано. Подтвердите свою личность для продолжения."
   },
+  "yourAccountIsLocked": {
+    "message": "Ваш аккаунт заблокирован"
+  },
+  "or": {
+    "message": "или"
+  },
+  "unlockWithBiometrics": {
+    "message": "Разблокировать с помощью биометрии"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Разблокировать мастер-паролем"
+  },
   "unlock": {
     "message": "Разблокировать"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Тайм-аут хранилища"
+  },
+  "vaultTimeout1": {
+    "message": "Тайм-аут"
   },
   "vaultTimeoutDesc": {
     "message": "Выберите тайм-аут для хранилища и действие, которое необходимо предпринять."
@@ -1555,7 +1639,7 @@
   "recommendedForSecurity": {
     "message": "Рекомендуется для обеспечения безопасности."
   },
-  "lockWithMasterPassOnRestart": {
+  "lockWithMasterPassOnRestart1": {
     "message": "Блокировать мастер-паролем при перезапуске"
   },
   "deleteAccount": {
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Блокировка",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Корзина",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Необходимо установить мастер-пароль для организации.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "из $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Требуется верификация",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Разрешить интеграцию с браузером"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Используется для биометрии в браузере."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Используется для разрешения биометрической разблокировки в браузерах, отличных от Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Разрешить интеграцию в браузер DuckDuckGo"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Мин."
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "В соответствии с политиками вашей организации максимально допустимый тайм-аут хранилища составляет $HOURS$ час. и $MINUTES$ мин.",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "Максимум $HOURS$ час. $MINUTES$ мин.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Заблокировано"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Ваше хранилище заблокировано"
+  },
   "unlocked": {
     "message": "Разблокировано"
   },
   "generator": {
-    "message": "Генератор"
+    "message": "Генератор",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Что вы хотите сгенерировать?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Важно:"
+  },
+  "accessing": {
+    "message": "Доступ"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "Вы были деавторизованы, поскольку ваш токен доступа не удалось расшифровать. Чтобы решить эту проблему, авторизуйтесь снова."
@@ -3061,6 +3161,12 @@
   },
   "textSends": {
     "message": "Текстовая Send"
+  },
+  "allowScreenshots": {
+    "message": "Разрешить скриншоты"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Разрешить скриншоты в Bitwarden для компьютера."
   },
   "ssoError": {
     "message": "Не удалось найти свободные порты для авторизации SSO."

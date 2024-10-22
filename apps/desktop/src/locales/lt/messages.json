@@ -407,16 +407,55 @@
     "message": "Minimalus slaptažodžio ilgis"
   },
   "uppercase": {
-    "message": "Didžiosiomis (A-Z)"
+    "message": "Didžiosiomis (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Mažosiomis (a-z)"
+    "message": "Mažosiomis (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Skaitmenys (0-9)"
+    "message": "Skaitmenys (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Specialieji simboliai (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Include",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Include uppercase characters",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Include lowercase characters",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Include numbers",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Include special characters",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Žodžių skaičius"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Vengti dviprasmiškų simbolių"
+    "message": "Vengti dviprasmiškų simbolių",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Avoid ambiguous characters",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Enterprise policy requirements have been applied to your generator options.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Ieškoti rinkinyje"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Join organization"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Finish joining this organization by setting a master password."
   },
   "settings": {
     "message": "Nustatymai"
+  },
+  "accountEmail": {
+    "message": "Account email"
+  },
+  "requestHint": {
+    "message": "Request hint"
+  },
+  "requestPasswordHint": {
+    "message": "Request password hint"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Enter your account email address and your password hint will be sent to you"
   },
   "passwordHint": {
     "message": "Slaptažodžio užuomina"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Jūsų saugykla užrakinta. Norėdami tęsti, patvirtinkite savo tapatybę."
   },
+  "yourAccountIsLocked": {
+    "message": "Your account is locked"
+  },
+  "or": {
+    "message": "or"
+  },
+  "unlockWithBiometrics": {
+    "message": "Unlock with biometrics"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Unlock with master password"
+  },
   "unlock": {
     "message": "Atrakinti"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Atsijungta nuo saugyklos"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "vaultTimeoutDesc": {
     "message": "Pasirinkite kada jūsų saugykla įvykdys laiko limito veiksmą."
@@ -1286,7 +1370,7 @@
     }
   },
   "copySuccessful": {
-    "message": "Copy Successful"
+    "message": "Kopijavimas sėkmingas"
   },
   "errorRefreshingAccessToken": {
     "message": "Access Token Refresh Error"
@@ -1555,8 +1639,8 @@
   "recommendedForSecurity": {
     "message": "Rekomenduojama dėl saugumo."
   },
-  "lockWithMasterPassOnRestart": {
-    "message": "Užrakinti su pagrindiniu slaptažodžiu perkrovus"
+  "lockWithMasterPassOnRestart1": {
+    "message": "Lock with master password on restart"
   },
   "deleteAccount": {
     "message": "Ištrinti paskyrą"
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Užrakinti",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Šiukšliadėžė",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Jūsų organizacija reikalauja nustatyti pagrindinį slaptažodį.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Reikalingas patvirtinimas",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Leisti naršyklės integravimą"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Naudojama biometrikai naršyklėje."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Used to allow biometric unlock in browsers that are not Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Leisti DuckDuckGo naršyklės integravimą"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Minučių"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Jūsų organizacijos politika pakeitė didžiausią leidžiamą saugyklos laiko limitą į $HOURS$ valandas(-ų) ir $MINUTES$ minutes(-čių).",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ hour(s) and $MINUTES$ minute(s) maximum.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Užrakinta"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Your vault is locked"
+  },
   "unlocked": {
     "message": "Atrakinta"
   },
   "generator": {
-    "message": "Generatorius"
+    "message": "Generatorius",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Ką norėtumėte sugeneruoti?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Svarbu:"
+  },
+  "accessing": {
+    "message": "Accessing"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "You have been logged out because your access token could not be decrypted. Please log in again to resolve this issue."
@@ -3061,6 +3161,12 @@
   },
   "textSends": {
     "message": "Text Sends"
+  },
+  "allowScreenshots": {
+    "message": "Allow screen capture"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Allow screen capture of the Bitwarden desktop application."
   },
   "ssoError": {
     "message": "No free ports could be found for the sso login."

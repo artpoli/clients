@@ -71,6 +71,15 @@
   "joinOrganization": {
     "message": "Присъединяване към организацията"
   },
+  "joinOrganizationName": {
+    "message": "Присъединяване към $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Завършете присъединяването си към тази организация като зададете главна парола."
   },
@@ -128,6 +137,21 @@
   "copyLicenseNumber": {
     "message": "Копиране на номера на свидетелството"
   },
+  "copyCustomField": {
+    "message": "Копиране на $FIELD$",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Копиране на уеб сайта"
+  },
+  "copyNotes": {
+    "message": "Копиране на бележките"
+  },
   "autoFill": {
     "message": "Автоматично дописване"
   },
@@ -178,6 +202,18 @@
   },
   "addItem": {
     "message": "Добавяне на елемент"
+  },
+  "accountEmail": {
+    "message": "Е-поща на регистрацията"
+  },
+  "requestHint": {
+    "message": "Заявка за подсказка"
+  },
+  "requestPasswordHint": {
+    "message": "Заявка за подсказка за паролата"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Въведете е-пощата на регистрацията си и подсказката за паролата ще Ви бъде изпратена"
   },
   "passwordHint": {
     "message": "Подсказка за паролата"
@@ -354,7 +390,7 @@
   },
   "generator": {
     "message": "Генератор",
-    "description": "Short for 'Password Generator'."
+    "description": "Short for 'credential generator'."
   },
   "passGenInfo": {
     "message": "Автоматично създаване на силни и неповторими пароли."
@@ -462,6 +498,10 @@
     "message": "Без нееднозначни знаци",
     "description": "Label for the avoid ambiguous characters checkbox."
   },
+  "generatorPolicyInEffect": {
+    "message": "Изискванията на политиката за големи компании бяха приложени към настройките на генератора.",
+    "description": "Indicates that a policy limits the credential generator screen."
+  },
   "searchVault": {
     "message": "Търсене в трезора"
   },
@@ -503,6 +543,9 @@
   },
   "notes": {
     "message": "Бележки"
+  },
+  "privateNote": {
+    "message": "Лична бележка"
   },
   "note": {
     "message": "Бележка"
@@ -549,6 +592,9 @@
   "sessionTimeoutHeader": {
     "message": "Изтичане на времето за сесията"
   },
+  "vaultTimeoutHeader": {
+    "message": "Време за достъп до трезора"
+  },
   "otherOptions": {
     "message": "Други настройки"
   },
@@ -566,6 +612,15 @@
   },
   "yourVaultIsLocked": {
     "message": "Трезорът е заключен — въведете главната си парола, за да продължите."
+  },
+  "yourVaultIsLockedV2": {
+    "message": "Трезорът Ви е заключен"
+  },
+  "yourAccountIsLocked": {
+    "message": "Регистрацията Ви е заключена"
+  },
+  "or": {
+    "message": "или"
   },
   "unlock": {
     "message": "Отключване"
@@ -587,6 +642,9 @@
     "message": "Грешна главна парола"
   },
   "vaultTimeout": {
+    "message": "Време за достъп"
+  },
+  "vaultTimeout1": {
     "message": "Време за достъп"
   },
   "lockNow": {
@@ -789,6 +847,12 @@
   "twoStepLoginConfirmation": {
     "message": "Двустепенното вписване защитава регистрацията ви, като ви кара да потвърдите влизането си чрез устройство-ключ, приложение за удостоверение, мобилно съобщение, телефонно обаждане или електронна поща. Двустепенното вписване може да се включи чрез сайта bitwarden.com. Искате ли да го посетите?"
   },
+  "twoStepLoginConfirmationContent": {
+    "message": "Подобрете защитата на регистрацията си, като настроите двустепенното удостоверяване в уеб приложението на Битуорден."
+  },
+  "twoStepLoginConfirmationTitle": {
+    "message": "Продължаване към уеб приложението?"
+  },
   "editedFolder": {
     "message": "Редактирана папка"
   },
@@ -892,7 +956,7 @@
     "message": "Показване на картите в страницата с разделите, за лесно автоматично попълване."
   },
   "showIdentitiesInVaultView": {
-    "message": "Показване на самоличности като предложения за самопопълване в изгледа на трезора"
+    "message": "Показване на самоличности като предложения за автоматично попълване в изгледа на трезора"
   },
   "showIdentitiesCurrentTab": {
     "message": "Показване на самоличности в страницата с разделите"
@@ -1096,6 +1160,9 @@
   },
   "file": {
     "message": "Файл"
+  },
+  "fileToShare": {
+    "message": "Файл за споделяне"
   },
   "selectFile": {
     "message": "Изберете файл."
@@ -1349,6 +1416,12 @@
   },
   "showInlineMenuLabel": {
     "message": "Показване на предложения за авт. попълване на полетата във формуляри"
+  },
+  "showInlineMenuIdentitiesLabel": {
+    "message": "Показване на идентичности като предложения"
+  },
+  "showInlineMenuCardsLabel": {
+    "message": "Показване на карти като предложения"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "Показване на предложения когато иконката е избрана"
@@ -1863,8 +1936,17 @@
   "unlockWithPin": {
     "message": "Отключване с ПИН"
   },
+  "setYourPinTitle": {
+    "message": "Задаване на ПИН"
+  },
+  "setYourPinButton": {
+    "message": "Задаване на ПИН"
+  },
   "setYourPinCode": {
     "message": "Задайте ПИН за отключване на Bitwarden. Настройките за ПИН се изчистват при всяко пълно излизане от програмата."
+  },
+  "setYourPinCode1": {
+    "message": "Вашият ПИН ще бъде ползван за отключване на Битуорден, вместо главната парола. Той ще бъде нулиран, ако някога се отпишете напълно от Битуорден."
   },
   "pinRequired": {
     "message": "Необходим е ПИН."
@@ -1878,6 +1960,9 @@
   "unlockWithBiometrics": {
     "message": "Отключване с биометрични данни"
   },
+  "unlockWithMasterPassword": {
+    "message": "Отключване с главната парола"
+  },
   "awaitDesktop": {
     "message": "Чака се потвърждение от самостоятелното приложение"
   },
@@ -1886,6 +1971,9 @@
   },
   "lockWithMasterPassOnRestart": {
     "message": "Заключване с главната парола при повторно пускане на браузъра"
+  },
+  "lockWithMasterPassOnRestart1": {
+    "message": "Изискване на главната парола при повторно пускане на браузъра"
   },
   "selectOneCollection": {
     "message": "Изберете поне една колекция."
@@ -1925,9 +2013,12 @@
   "vaultTimeoutAction": {
     "message": "Действие при изтичане на времето"
   },
+  "vaultTimeoutAction1": {
+    "message": "Действие при изтичането на времето за достъп"
+  },
   "lock": {
     "message": "Заключване",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Кошче",
@@ -2119,11 +2210,11 @@
   "nativeMessagingWrongUserTitle": {
     "message": "Регистрациите са различни"
   },
-  "nativeMessagingWrongUserKeyDesc": {
-    "message": "Отключването чрез биометрични данни не беше успешно. Биометричният таен ключ не успя да отключи трезора. Опитайте да направите настройката на биометричните данни отново."
-  },
   "nativeMessagingWrongUserKeyTitle": {
     "message": "Несъответстващ биометричен ключ"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Отключването чрез биометрични данни не беше успешно. Биометричният таен ключ не успя да отключи трезора. Опитайте да направите настройката на биометричните данни отново."
   },
   "biometricsNotEnabledTitle": {
     "message": "Потвърждаването с биометрични данни не е включено"
@@ -2210,8 +2301,29 @@
   "excludedDomainsSavedSuccess": {
     "message": "Промените на изключените домейни са запазени"
   },
+  "limitSendViews": {
+    "message": "Ограничаване на преглежданията"
+  },
+  "limitSendViewsHint": {
+    "message": "Никой няма да може да преглежда това Изпращане след достигане на ограничението.",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "limitSendViewsCount": {
+    "message": "Остават $ACCESSCOUNT$ преглеждания",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "send": {
     "message": "Изпращане",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDetails": {
+    "message": "Подробности за Изпращането",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -2225,12 +2337,18 @@
   "sendTypeText": {
     "message": "Текст"
   },
+  "sendTypeTextToShare": {
+    "message": "Текст за споделяне"
+  },
   "sendTypeFile": {
     "message": "Файл"
   },
   "allSends": {
     "message": "Всички изпращания",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "hideTextByDefault": {
+    "message": "Скриване на текста по подразбиране"
   },
   "maxAccessCountReached": {
     "message": "Достигнат е максималният брой достъпвания",
@@ -2283,6 +2401,10 @@
     "message": "Сигурни ли сте, че искате да изтриете това изпращане?",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "deleteSendPermanentConfirmation": {
+    "message": "Наистина ли искате да изтриете завинаги това Изпращане?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "editSend": {
     "message": "Редактиране на изпращане",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -2303,6 +2425,10 @@
   },
   "deletionDateDesc": {
     "message": "Изпращането ще бъде окончателно изтрито на зададената дата и време.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deletionDateDescV2": {
+    "message": "Изпращането ще бъде окончателно изтрито на тази дата.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "expirationDate": {
@@ -2336,6 +2462,10 @@
   },
   "sendPasswordDesc": {
     "message": "Изискване на парола за достъп до това изпращане.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDescV2": {
+    "message": "Изискване на тази парола за преглеждане на Изпращането.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2383,7 +2513,25 @@
     "message": "Изпращането е създадено успешно!",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendAvailability": {
+  "sendExpiresInHoursSingle": {
+    "message": "Изпращането ще бъде достъпно за всеки с връзката през следващия 1 час.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInHours": {
+    "message": "Изпращането ще бъде достъпно за всеки с връзката през следващите $HOURS$ часа.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sendExpiresInDaysSingle": {
+    "message": "Изпращането ще бъде достъпно за всеки с връзката през следващия 1 ден.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInDays": {
     "message": "Изпращането ще бъде достъпно за всеки с връзката през следващите $DAYS$ дни.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
@@ -2401,6 +2549,14 @@
     "message": "Редактирано изпращане",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendFilePopoutDialogText": {
+    "message": "Отваряне на разширението в нов прозорец?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFilePopoutDialogDesc": {
+    "message": "За да създадете файлово Изпращане, трябва да отворите разширението в нов прозорец.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "sendLinuxChromiumFileWarning": {
     "message": "За да изберете файл, отворете разширението в страничната лента (ако е възможно) или в нов прозорец, като натиснете това съобщение."
   },
@@ -2409,6 +2565,9 @@
   },
   "sendSafariFileWarning": {
     "message": "За да изберете файл в Safari, отворете разширението в нов прозорец, като натиснете това съобщение."
+  },
+  "popOut": {
+    "message": "Отваряне в прозорец"
   },
   "sendFileCalloutHeader": {
     "message": "Преди да почнете"
@@ -2442,6 +2601,9 @@
   },
   "hideEmail": {
     "message": "Скриване на е-пощата ми от получателите."
+  },
+  "hideYourEmail": {
+    "message": "Скриване на Вашата е-поща от получателите."
   },
   "sendOptionsPolicyInEffect": {
     "message": "Поне една политика на организация влияе на настройките за изпращане."
@@ -2500,6 +2662,15 @@
     "message": "Организацията Ви изисква да зададете главна парола.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "от $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "Изисква се потвърждение",
     "description": "Default title for the user verification dialog."
@@ -2510,8 +2681,37 @@
   "minutes": {
     "message": "Минути"
   },
+  "vaultTimeoutPolicyAffectingOptions": {
+    "message": "Изискванията на политиката за големи компании бяха приложени към настройките на времето за достъп"
+  },
   "vaultTimeoutPolicyInEffect": {
     "message": "Настройките на организацията Ви влияят върху времето за достъп до трезора Ви. Максималното разрешено време за достъп е $HOURS$ час(а) и $MINUTES$ минути",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "Максимум $HOURS$ час(а) и $MINUTES$ минута/и.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyMaximumError": {
+    "message": "Времето за достъп превишава ограничението, зададено от Вашата организация: максимум $HOURS$ час(а) и $MINUTES$ минута/и",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -3477,6 +3677,9 @@
   "typePasskey": {
     "message": "Секретен ключ"
   },
+  "accessing": {
+    "message": "Използване на"
+  },
   "passkeyNotCopied": {
     "message": "Секретният ключ няма да бъде копиран"
   },
@@ -3500,6 +3703,9 @@
   },
   "noMatchingLoginsForSite": {
     "message": "Няма записи за вписване отговарящи на този уеб сайт"
+  },
+  "searchSavePasskeyNewLogin": {
+    "message": "Търсене или запазване на секретния ключ като нов елемент за вписване"
   },
   "confirm": {
     "message": "Потвърждаване"
@@ -4070,6 +4276,9 @@
   "enableAnimations": {
     "message": "Включване на анимациите"
   },
+  "showAnimations": {
+    "message": "Показване на анимации"
+  },
   "addAccount": {
     "message": "Добавяне на регистрация"
   },
@@ -4309,6 +4518,15 @@
   "enterprisePolicyRequirementsApplied": {
     "message": "Изискванията на политиката за големи компании бяха приложени към тази настройка"
   },
+  "retry": {
+    "message": "Повторен опит"
+  },
+  "vaultCustomTimeoutMinimum": {
+    "message": "Минималното персонализирано време за достъп е 1 минута."
+  },
+  "additionalContentAvailable": {
+    "message": "Има налично допълнително съдържание"
+  },
   "fileSavedToDevice": {
     "message": "Файлът е запазен на устройството. Можете да го намерите в мястото за сваляния на устройството."
   },
@@ -4338,5 +4556,8 @@
   },
   "noEditPermissions": {
     "message": "Нямате право за редактиране на този елемент"
+  },
+  "authenticating": {
+    "message": "Удостоверяване"
   }
 }

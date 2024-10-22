@@ -407,16 +407,55 @@
     "message": "Minimumslængde på adgangskode"
   },
   "uppercase": {
-    "message": "Majuskler (A-Z)"
+    "message": "Majuskler (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Minuskler (a-z)"
+    "message": "Minuskler (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Cifre (0-9)"
+    "message": "Cifre (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Specialtegn (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Inkludér",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Inkludér majuskler",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Inkludér minuskler",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Inkludér tal",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Inkludér specialtegn",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Antal ord"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Undgå tvetydige tegn"
+    "message": "Undgå tvetydige tegn",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Undgå tvetydige tegn",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Virksomhedspolitikkrav gør sig gældende på generatorvalgmulighder.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Søg i samling"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Bliv medlem af organisation"
   },
+  "joinOrganizationName": {
+    "message": "Bliv nedlem af $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Færdiggør tilmeldingen til denne organisation ved at opsætte en hovedadgangskode."
   },
   "settings": {
     "message": "Indstillinger"
+  },
+  "accountEmail": {
+    "message": "Konto-e-mail"
+  },
+  "requestHint": {
+    "message": "Anmod om tip"
+  },
+  "requestPasswordHint": {
+    "message": "Anmod om adgangskodetip"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Angiv kontoens e-mailadresse og få et adgangskodetip fremsendt"
   },
   "passwordHint": {
     "message": "Adgangskodetip"
@@ -742,13 +811,13 @@
     "message": "Angiv grund-URL'en til den lokal-hostede Bitwarden-installation."
   },
   "selfHostedBaseUrlHint": {
-    "message": "Specify the base URL of your on-premises hosted Bitwarden installation. Example: https://bitwarden.company.com"
+    "message": "Angiv basis-URL'en for den lokalt-hosted Bitwarden-installation. Eks.: https://bitwarden.firma.dk"
   },
   "selfHostedCustomEnvHeader": {
-    "message": "For advanced configuration, you can specify the base URL of each service independently."
+    "message": "Til avancerede brugere. Man kan angive basis-URL'en for hver tjeneste uafhængigt."
   },
   "selfHostedEnvFormInvalid": {
-    "message": "You must add either the base Server URL or at least one custom environment."
+    "message": "Der skal tilføjes enten basis Server-URL'en eller mindst ét tilpasset miljø."
   },
   "customEnvironment": {
     "message": "Tilpasset miljø"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Din boks er låst. Bekræft din identitet for at fortsætte."
   },
+  "yourAccountIsLocked": {
+    "message": "Kontoen er låst"
+  },
+  "or": {
+    "message": "eller"
+  },
+  "unlockWithBiometrics": {
+    "message": "Oplås med biometri"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Oplås med hovedadgangskode"
+  },
   "unlock": {
     "message": "Oplås"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Boks timeout"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "vaultTimeoutDesc": {
     "message": "Vælg hvornår din boks skal udføre timeout-handlingen."
@@ -1555,7 +1639,7 @@
   "recommendedForSecurity": {
     "message": "Anbefales af sikkerhedshensyn."
   },
-  "lockWithMasterPassOnRestart": {
+  "lockWithMasterPassOnRestart1": {
     "message": "Lås med hovedadgangskode ved genstart"
   },
   "deleteAccount": {
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Lås",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Papirkurv",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Organisationen kræver, at der oprettes en hovedadgangskode.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "ud af $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Bekræftelse kræves",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Tillad browserintegration"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Bruges til biometri i browser."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Bruges til at tillade biometrisk oplåsning i ikke-Safari webbrowsere."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Tillad DuckDuckGo-browserintegration"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Minutter"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Organisationspolitikkerne har fastsat den maksimalt tilladte boks-timeout til $HOURS$ time(r) og $MINUTES$ minut(ter).",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ time(r) og $MINUTES$ minut(ter) maks.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Låst"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Boksen er låst"
+  },
   "unlocked": {
     "message": "Oplåst"
   },
   "generator": {
-    "message": "Generator"
+    "message": "Generator",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Hvad ønskes genereret?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Vigtigt:"
+  },
+  "accessing": {
+    "message": "Tilgår"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "Kontoen er blevet logget ud, fordi adgangstokenet ikke kunne dekrypteres. Log ind igen for at løse problemet."
@@ -3061,6 +3161,12 @@
   },
   "textSends": {
     "message": "Tekst-Sends"
+  },
+  "allowScreenshots": {
+    "message": "Tillad skærmoptagelse"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Tillad skærmoptagelse af Bitwarden-computerprogrammet."
   },
   "ssoError": {
     "message": "Ingen ledige porte fundet til SSO-login."

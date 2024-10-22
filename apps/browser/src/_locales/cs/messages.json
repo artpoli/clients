@@ -71,6 +71,15 @@
   "joinOrganization": {
     "message": "Přidat se k organizaci"
   },
+  "joinOrganizationName": {
+    "message": "Připojit se k $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Dokončete připojení k této organizaci nastavením hlavního hesla."
   },
@@ -128,6 +137,21 @@
   "copyLicenseNumber": {
     "message": "Kopírovat číslo dokladu totožnosti"
   },
+  "copyCustomField": {
+    "message": "Kopírovat $FIELD$",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Kopírovat webovou stránku"
+  },
+  "copyNotes": {
+    "message": "Kopírovat poznámky"
+  },
   "autoFill": {
     "message": "Automatické vyplňování"
   },
@@ -178,6 +202,18 @@
   },
   "addItem": {
     "message": "Přidat položku"
+  },
+  "accountEmail": {
+    "message": "E-mail účtu"
+  },
+  "requestHint": {
+    "message": "Vyžádat nápovědu"
+  },
+  "requestPasswordHint": {
+    "message": "Vyžádat nápovědu k heslu"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Zadejte svou e-mailovou adresu, na kterou Vám zašleme nápovědu k heslu"
   },
   "passwordHint": {
     "message": "Nápověda pro heslo"
@@ -354,7 +390,7 @@
   },
   "generator": {
     "message": "Generátor",
-    "description": "Short for 'Password Generator'."
+    "description": "Short for 'credential generator'."
   },
   "passGenInfo": {
     "message": "Vygenerujte si silné a unikátní heslo pro přihlašovací údaje."
@@ -462,6 +498,10 @@
     "message": "Nepoužívat zaměnitelné znaky",
     "description": "Label for the avoid ambiguous characters checkbox."
   },
+  "generatorPolicyInEffect": {
+    "message": "Na volby generátoru byly uplatněny požadavky podnikových zásad.",
+    "description": "Indicates that a policy limits the credential generator screen."
+  },
   "searchVault": {
     "message": "Vyhledat v trezoru"
   },
@@ -503,6 +543,9 @@
   },
   "notes": {
     "message": "Poznámky"
+  },
+  "privateNote": {
+    "message": "Soukromá poznámka"
   },
   "note": {
     "message": "Poznámka"
@@ -549,6 +592,9 @@
   "sessionTimeoutHeader": {
     "message": "Časový limit relace"
   },
+  "vaultTimeoutHeader": {
+    "message": "Časový limit trezoru"
+  },
   "otherOptions": {
     "message": "Další volby"
   },
@@ -566,6 +612,15 @@
   },
   "yourVaultIsLocked": {
     "message": "Váš trezor je uzamčen. Pro pokračování musíte zadat hlavní heslo."
+  },
+  "yourVaultIsLockedV2": {
+    "message": "Váš trezor je uzamčen"
+  },
+  "yourAccountIsLocked": {
+    "message": "Váš účet je uzamčen"
+  },
+  "or": {
+    "message": "nebo"
   },
   "unlock": {
     "message": "Odemknout"
@@ -588,6 +643,9 @@
   },
   "vaultTimeout": {
     "message": "Časový limit trezoru"
+  },
+  "vaultTimeout1": {
+    "message": "Časový limit"
   },
   "lockNow": {
     "message": "Zamknout nyní"
@@ -788,6 +846,12 @@
   },
   "twoStepLoginConfirmation": {
     "message": "Dvoufázové přihlášení činí Váš účet mnohem bezpečnějším díky nutnosti po každém úspěšném přihlášení zadat ověřovací kód získaný z bezpečnostního klíče, aplikace, SMS, telefonního hovoru nebo e-mailu. Dvoufázové přihlášení lze aktivovat na webové stránce bitwarden.com. Chcete tuto stránku nyní otevřít?"
+  },
+  "twoStepLoginConfirmationContent": {
+    "message": "Vytvořte svůj účet bezpečnějším nastavením dvoufázového přihlášení ve webové aplikaci Bitwarden."
+  },
+  "twoStepLoginConfirmationTitle": {
+    "message": "Pokračovat do webové aplikace?"
   },
   "editedFolder": {
     "message": "Složka byla uložena"
@@ -1097,6 +1161,9 @@
   "file": {
     "message": "Soubor"
   },
+  "fileToShare": {
+    "message": "Soubor ke sdílení"
+  },
   "selectFile": {
     "message": "Zvolte soubor"
   },
@@ -1349,6 +1416,12 @@
   },
   "showInlineMenuLabel": {
     "message": "Zobrazit návrhy automatického vyplňování v polích formuláře"
+  },
+  "showInlineMenuIdentitiesLabel": {
+    "message": "Zobrazit identity jako návrhy"
+  },
+  "showInlineMenuCardsLabel": {
+    "message": "Zobrazit karty jako návrhy"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "Zobrazit návrhy, když je vybrána ikona"
@@ -1863,8 +1936,17 @@
   "unlockWithPin": {
     "message": "Odemknout pomocí PIN"
   },
+  "setYourPinTitle": {
+    "message": "Nastavit PIN"
+  },
+  "setYourPinButton": {
+    "message": "Nastavit PIN"
+  },
   "setYourPinCode": {
     "message": "Nastavte svůj PIN kód pro odemknutí trezoru. Pokud se zcela odhlásíte z aplikace bude Váš aktuální PIN resetován."
+  },
+  "setYourPinCode1": {
+    "message": "Váš PIN bude použit k odemknutí Bitwardenu namísto hlavního hesla. Pokud se někdy plně odhlásíte z Bitwarden, Váš PIN kód se obnoví."
   },
   "pinRequired": {
     "message": "Je vyžadován PIN kód."
@@ -1878,6 +1960,9 @@
   "unlockWithBiometrics": {
     "message": "Odemknout pomocí biometrie"
   },
+  "unlockWithMasterPassword": {
+    "message": "Odemknout pomocí hlavního hesla"
+  },
   "awaitDesktop": {
     "message": "Čeká se na potvrzení z aplikace v počítači"
   },
@@ -1886,6 +1971,9 @@
   },
   "lockWithMasterPassOnRestart": {
     "message": "Zamknout trezor při restartu prohlížeče pomocí hlavního hesla"
+  },
+  "lockWithMasterPassOnRestart1": {
+    "message": "Vyžadovat hlavní heslo při restartu prohlížeče"
   },
   "selectOneCollection": {
     "message": "Musíte vybrat alespoň jednu kolekci."
@@ -1925,9 +2013,12 @@
   "vaultTimeoutAction": {
     "message": "Akce při vypršení časového limitu"
   },
+  "vaultTimeoutAction1": {
+    "message": "Akce vypršení časového limitu"
+  },
   "lock": {
     "message": "Zamknout",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Koš",
@@ -2119,11 +2210,11 @@
   "nativeMessagingWrongUserTitle": {
     "message": "Neshoda účtů"
   },
-  "nativeMessagingWrongUserKeyDesc": {
-    "message": "Biometrické odemknutí se nezdařilo. Zkuste znovu nastavit biometrické prvky."
-  },
   "nativeMessagingWrongUserKeyTitle": {
     "message": "Neshoda biometrického klíče"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Biometrické odemknutí se nezdařilo. Zkuste znovu nastavit biometrické prvky."
   },
   "biometricsNotEnabledTitle": {
     "message": "Biometrie není nastavena"
@@ -2210,8 +2301,29 @@
   "excludedDomainsSavedSuccess": {
     "message": "Vyloučené změny domény byly uloženy"
   },
+  "limitSendViews": {
+    "message": "Omezit zobrazení"
+  },
+  "limitSendViewsHint": {
+    "message": "Po dosažení limitu nebude nikdo moci zobrazit tento Send.",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "limitSendViewsCount": {
+    "message": "Zbývá $ACCESSCOUNT$ zobrazení",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "send": {
     "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDetails": {
+    "message": "Podrobnosti Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -2225,12 +2337,18 @@
   "sendTypeText": {
     "message": "Text"
   },
+  "sendTypeTextToShare": {
+    "message": "Text ke sdílení"
+  },
   "sendTypeFile": {
     "message": "Soubor"
   },
   "allSends": {
     "message": "Všechny Sends",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "hideTextByDefault": {
+    "message": "Ve výchozím nastavení skrýt text"
   },
   "maxAccessCountReached": {
     "message": "Dosažen maximální počet přístupů",
@@ -2283,6 +2401,10 @@
     "message": "Opravdu chcete smazat tento Send?",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "deleteSendPermanentConfirmation": {
+    "message": "Opravdu chcete tento Send trvale smazat?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "editSend": {
     "message": "Upravit Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -2303,6 +2425,10 @@
   },
   "deletionDateDesc": {
     "message": "Tento Send bude trvale smazán v určený datum a čas.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deletionDateDescV2": {
+    "message": "Tento Send bude trvale smazán v určené datum.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "expirationDate": {
@@ -2336,6 +2462,10 @@
   },
   "sendPasswordDesc": {
     "message": "Volitelně vyžadovat heslo pro přístup k tomuto Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDescV2": {
+    "message": "Pro zobrazení Send bude vyžadováno toto heslo.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2383,7 +2513,25 @@
     "message": "Send byl úspěšně vytvořen!",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendAvailability": {
+  "sendExpiresInHoursSingle": {
+    "message": "Send bude k dispozici na příští 1 hodinu každému, kdo má odkaz.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInHours": {
+    "message": "Send bude k dispozici na příštích $HOURS$ hodin každému, kdo má odkaz.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sendExpiresInDaysSingle": {
+    "message": "Send bude k dispozici na příští 1 den každému, kdo má odkaz.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInDays": {
     "message": "Send bude k dispozici na příštích $DAYS$ dnů každému, kdo má odkaz.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
@@ -2401,6 +2549,14 @@
     "message": "Send upraven",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendFilePopoutDialogText": {
+    "message": "Zobrazit rozšíření v novém okně?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFilePopoutDialogDesc": {
+    "message": "Chcete-li vytvořit Send souboru, musí se zobrazit rozšíření v novém okně.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "sendLinuxChromiumFileWarning": {
     "message": "Chcete-li vybrat soubor, otevřete rozšíření v postranním panelu (pokud je to možné) nebo jej otevřete v novém okně klepnutím na tento banner."
   },
@@ -2409,6 +2565,9 @@
   },
   "sendSafariFileWarning": {
     "message": "Chcete-li vybrat soubor pomocí prohlížeče Safari, otevřete nové okno klepnutím na tento banner."
+  },
+  "popOut": {
+    "message": "Nové okno"
   },
   "sendFileCalloutHeader": {
     "message": "Než začnete"
@@ -2442,6 +2601,9 @@
   },
   "hideEmail": {
     "message": "Skrýt mou e-mailovou adresu před příjemci."
+  },
+  "hideYourEmail": {
+    "message": "Skryje Vaši e-mailovou adresu před zobrazením."
   },
   "sendOptionsPolicyInEffect": {
     "message": "Jedna nebo více zásad organizace ovlivňuje nastavení Send."
@@ -2500,6 +2662,15 @@
     "message": "Vaše organizace vyžaduje nastavení hlavního hesla.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "z $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "Je vyžadováno ověření",
     "description": "Default title for the user verification dialog."
@@ -2510,8 +2681,37 @@
   "minutes": {
     "message": "minut"
   },
+  "vaultTimeoutPolicyAffectingOptions": {
+    "message": "Na volby časového limitu byly uplatněny požadavky podnikových zásad"
+  },
   "vaultTimeoutPolicyInEffect": {
     "message": "Pravidla Vaší organizace ovlivňují časový limit trezoru. Maximální povolený časový limit trezoru je $HOURS$ hodin a $MINUTES$ minut.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "Maximálně $HOURS$ hodin a $MINUTES$ minut.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyMaximumError": {
+    "message": "Časový limit překračuje omezení stanovené Vaší organizací: maximálně $HOURS$ hodin a $MINUTES$ minut",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -3477,6 +3677,9 @@
   "typePasskey": {
     "message": "Přístupový klíč"
   },
+  "accessing": {
+    "message": "Přistupování"
+  },
   "passkeyNotCopied": {
     "message": "Přístupový klíč nebude zkopírován"
   },
@@ -3500,6 +3703,9 @@
   },
   "noMatchingLoginsForSite": {
     "message": "Žádné odpovídající přihlašovací údaje pro tento web"
+  },
+  "searchSavePasskeyNewLogin": {
+    "message": "Vyhledat nebo uložit přístupový klíč jako nové přihlášení"
   },
   "confirm": {
     "message": "Potvrdit"
@@ -4070,6 +4276,9 @@
   "enableAnimations": {
     "message": "Povolit animace"
   },
+  "showAnimations": {
+    "message": "Zobrazit animaci"
+  },
   "addAccount": {
     "message": "Přidat účet"
   },
@@ -4309,6 +4518,15 @@
   "enterprisePolicyRequirementsApplied": {
     "message": "Na toto nastavení byly uplatněny požadavky podnikových zásad"
   },
+  "retry": {
+    "message": "Opakovat"
+  },
+  "vaultCustomTimeoutMinimum": {
+    "message": "Minimální vlastní časový limit je 1 minuta."
+  },
+  "additionalContentAvailable": {
+    "message": "Je k dispozici další obsah"
+  },
   "fileSavedToDevice": {
     "message": "Soubor byl uložen. Můžete jej nalézt ve stažené složce v zařízení."
   },
@@ -4338,5 +4556,8 @@
   },
   "noEditPermissions": {
     "message": "Nemáte oprávnění upravit tuto položku"
+  },
+  "authenticating": {
+    "message": "Ověřování"
   }
 }

@@ -99,7 +99,7 @@ export class LoginComponent extends BaseLoginComponent implements OnInit, OnDest
       registerRouteService,
       toastService,
     );
-    super.onSuccessfulLogin = () => {
+    this.onSuccessfulLogin = () => {
       return syncService.fullSync(true);
     };
   }
@@ -226,5 +226,12 @@ export class LoginComponent extends BaseLoginComponent implements OnInit, OnDest
         this.i18nService.t("ssoError"),
       );
     }
+  }
+
+  /**
+   * Force the validatedEmail flag to false, which will show the login page.
+   */
+  invalidateEmail() {
+    this.validatedEmail = false;
   }
 }

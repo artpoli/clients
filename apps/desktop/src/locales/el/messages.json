@@ -6,7 +6,7 @@
     "message": "Φίλτρα"
   },
   "allItems": {
-    "message": "Όλα τα αντικείμενα"
+    "message": "Όλα τα στοιχεία"
   },
   "favorites": {
     "message": "Αγαπημένα"
@@ -407,16 +407,55 @@
     "message": "Ελάχιστο μήκος κωδικού πρόσβασης"
   },
   "uppercase": {
-    "message": "Κεφαλαία (A-Z)"
+    "message": "Κεφαλαία (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Πεζά (a-z)"
+    "message": "Πεζά (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Αριθμοί (0-9)"
+    "message": "Αριθμοί (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Ειδικοί χαρακτήρες (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Συμπερίληψη",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Συμπερίληψη κεφαλαίων χαρακτήρων",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Συμπερίληψη πεζών χαρακτήρων",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Συμπερίληψη αριθμών",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Συμπερίληψη ειδικών χαρακτήρων",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Αριθμός λέξεων"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Αποφυγή αμφιλεγόμενων χαρακτήρων"
+    "message": "Αποφυγή αμφιλεγόμενων χαρακτήρων",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Αποφυγή αμφιλεγόμενων χαρακτήρων",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Οι απαιτήσεις της εταιρικής πολιτικής έχουν εφαρμοστεί στις επιλογές γεννήτριάς σας.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Αναζήτηση στη συλλογή"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Συμμετοχή σε οργανισμό"
   },
+  "joinOrganizationName": {
+    "message": "Συμμετοχή στο $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Ολοκληρώστε τη συμμετοχή σας σε αυτόν τον οργανισμό ορίζοντας έναν κύριο κωδικό πρόσβασης."
   },
   "settings": {
     "message": "Ρυθμίσεις"
+  },
+  "accountEmail": {
+    "message": "Email λογαριασμού"
+  },
+  "requestHint": {
+    "message": "Αίτηση υπόδειξης"
+  },
+  "requestPasswordHint": {
+    "message": "Υπόδειξη κωδικού πρόσβασης"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Εισάγετε τη διεύθυνση ηλεκτρονικού ταχυδρομείου του λογαριασμού σας και θα σας αποσταλεί η υπόδειξη κωδικού πρόσβασης"
   },
   "passwordHint": {
     "message": "Υπόδειξη κωδικού πρόσβασης"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Η κρύπτη σας είναι κλειδωμένη. Επαληθεύστε την ταυτότητά σας για να συνεχίσετε."
   },
+  "yourAccountIsLocked": {
+    "message": "Ο λογαριασμός σας έχει κλειδωθεί"
+  },
+  "or": {
+    "message": "ή"
+  },
+  "unlockWithBiometrics": {
+    "message": "Ξεκλείδωμα με βιομετρικά στοιχεία"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Ξεκλείδωμα με κύριο κωδικό πρόσβασης"
+  },
   "unlock": {
     "message": "Ξεκλείδωμα"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Χρονικό όριο λήξης κρύπτης"
+  },
+  "vaultTimeout1": {
+    "message": "Χρονικό όριο"
   },
   "vaultTimeoutDesc": {
     "message": "Επιλέξτε πότε η κρύπτη σας θα αναλάβει τη δράση χρονικού ορίου λήξης κρύπτης."
@@ -1286,7 +1370,7 @@
     }
   },
   "copySuccessful": {
-    "message": "Copy Successful"
+    "message": "Επιτυχής Αντιγραφή"
   },
   "errorRefreshingAccessToken": {
     "message": "Σφάλμα Ανανέωσης Διακριτικού Πρόσβασης"
@@ -1555,7 +1639,7 @@
   "recommendedForSecurity": {
     "message": "Συνίσταται για ασφάλεια."
   },
-  "lockWithMasterPassOnRestart": {
+  "lockWithMasterPassOnRestart1": {
     "message": "Κλείδωμα με τον κύριο κωδικό πρόσβασης κατά την επανεκκίνηση"
   },
   "deleteAccount": {
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Κλείδωμα",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Κάδος Απορριμάτων",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Ο οργανισμός σας απαιτεί να ορίσετε έναν κύριο κωδικό πρόσβασης.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "από $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Απαιτείται επαλήθευση",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Να επιτρέπεται η ενσωμάτωση περιηγητή"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Χρησιμοποιείται για βιομετρικά στοιχεία στον περιηγητή."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Χρησιμοποιείται για την ενεργοποίηση του ξεκλειδώματος με βιομετρικά στοιχεία, σε προγράμματα περιήγησης εκτός του Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Επίτρεψε ενσωμάτωση περιηγητή DuckDuckGo"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Λεπτά"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Οι πολιτικές του οργανισμού σας έχουν ορίσει το μέγιστο επιτρεπόμενο χρονικό όριο λήξης θησαυ/κίου σε $HOURS$ ώρα(ες) και $MINUTES$ λεπτό(α).",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "Μέγιστο $HOURS$ ώρα(-ες) και $MINUTES$ λεπτό(-α).",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Κλειδωμένο"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Η κρύπτη σας έχει κλειδωθεί"
+  },
   "unlocked": {
     "message": "Ξεκλείδωτο"
   },
   "generator": {
-    "message": "Γεννήτρια"
+    "message": "Γεννήτρια",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Τι θα θέλατε να δημιουργήσετε;"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Σημαντικό:"
+  },
+  "accessing": {
+    "message": "Πρόσβαση"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "Έχετε αποσυνδεθεί επειδή το διακριτικό πρόσβασής σας δεν μπορεί να αποκρυπτογραφηθεί. Παρακαλώ συνδεθείτε ξανά για να επιλύσετε αυτό το ζήτημα."
@@ -3062,10 +3162,16 @@
   "textSends": {
     "message": "Send κειμένων"
   },
+  "allowScreenshots": {
+    "message": "Να επιτρέπεται η καταγραφή οθόνης"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Να επιτρέπεται η καταγραφή οθόνης της εφαρμογής Bitwarden για υπολογιστή."
+  },
   "ssoError": {
     "message": "Δεν βρέθηκαν ελεύθερες θύρες για τη σύνδεση sso."
   },
   "fileSavedToDevice": {
-    "message": "File saved to device. Manage from your device downloads."
+    "message": "Το αρχείο αποθηκεύτηκε στη συσκευή. Διαχείριση από τις λήψεις της συσκευής σας."
   }
 }

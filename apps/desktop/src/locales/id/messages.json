@@ -407,16 +407,55 @@
     "message": "Panjang kata sandi minimum"
   },
   "uppercase": {
-    "message": "Huruf Kapital (A-Z)"
+    "message": "Huruf Kapital (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Huruf Kecil (a-z)"
+    "message": "Huruf Kecil (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Angka (0-9)"
+    "message": "Angka (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Karakter khusus (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Include",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Include uppercase characters",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Include lowercase characters",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Include numbers",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Include special characters",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Jumlah kata"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Hindari Karakter Ambigu"
+    "message": "Hindari Karakter Ambigu",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Avoid ambiguous characters",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Enterprise policy requirements have been applied to your generator options.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Cari koleksi"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Join organization"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Finish joining this organization by setting a master password."
   },
   "settings": {
     "message": "Setelan"
+  },
+  "accountEmail": {
+    "message": "Account email"
+  },
+  "requestHint": {
+    "message": "Request hint"
+  },
+  "requestPasswordHint": {
+    "message": "Request password hint"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Enter your account email address and your password hint will be sent to you"
   },
   "passwordHint": {
     "message": "Petunjuk Sandi"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Brankas Anda terkunci. Verifikasi sandi utama Anda untuk melanjutkan."
   },
+  "yourAccountIsLocked": {
+    "message": "Your account is locked"
+  },
+  "or": {
+    "message": "or"
+  },
+  "unlockWithBiometrics": {
+    "message": "Unlock with biometrics"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Unlock with master password"
+  },
   "unlock": {
     "message": "Buka"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Batas Waktu Brankas"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "vaultTimeoutDesc": {
     "message": "Pilih kapan brankas Anda akan timeout dan melakukan tindakan yang dipilih."
@@ -1555,8 +1639,8 @@
   "recommendedForSecurity": {
     "message": "Direkomendasikan untuk keamanan."
   },
-  "lockWithMasterPassOnRestart": {
-    "message": "Kunci dengan kata sandi utama saat komputer dihidupkan ulang"
+  "lockWithMasterPassOnRestart1": {
+    "message": "Lock with master password on restart"
   },
   "deleteAccount": {
     "message": "Hapus akun"
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Kunci",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Sampah",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Your organization requires you to set a master password.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Verification required",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Aktifkan integrasi browser"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Integrasi browser digunakan untuk biometrik di browser."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Used to allow biometric unlock in browsers that are not Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Izinkan integrasi browser DuckDuckGo"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Menit"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Kebijakan organisasi Anda memengaruhi waktu tunggu brankas. Waktu tunggu brankas maksimum yang diizinkan adalah $HOURS$ jam dan $MINUTES$ menit",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ hour(s) and $MINUTES$ minute(s) maximum.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Terkunci"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Your vault is locked"
+  },
   "unlocked": {
     "message": "Tidak terkunci"
   },
   "generator": {
-    "message": "Pembuat Sandi"
+    "message": "Pembuat Sandi",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Apa yang ingin anda buat?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Penting:"
+  },
+  "accessing": {
+    "message": "Accessing"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "You have been logged out because your access token could not be decrypted. Please log in again to resolve this issue."
@@ -3061,6 +3161,12 @@
   },
   "textSends": {
     "message": "Text Sends"
+  },
+  "allowScreenshots": {
+    "message": "Allow screen capture"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Allow screen capture of the Bitwarden desktop application."
   },
   "ssoError": {
     "message": "No free ports could be found for the sso login."

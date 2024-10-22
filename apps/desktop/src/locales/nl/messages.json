@@ -407,16 +407,55 @@
     "message": "Minimale wachtwoordlengte"
   },
   "uppercase": {
-    "message": "Hoofdletters (A-Z)"
+    "message": "Hoofdletters (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Kleine letters (a-z)"
+    "message": "Kleine letters (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Cijfers (0-9)"
+    "message": "Cijfers (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Speciale tekens (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Toevoegen",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Hoofdletters toevoegen",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Kleine letters toevoegen",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Nummers toevoegen",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Speciale tekens toevoegen",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Aantal woorden"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Vermijd dubbelzinnige tekens"
+    "message": "Vermijd dubbelzinnige tekens",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Dubbelzinnige tekens vermijden",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Bedrijfsbeleidseisen zijn toegepast op je generator-instellingen.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Doorzoek collectie"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Join organisatie"
   },
+  "joinOrganizationName": {
+    "message": "Aansluiten bij $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Voltooi je lidmaatschap aan deze organisatie door een hoofdwachtwoord in te stellen."
   },
   "settings": {
     "message": "Instellingen"
+  },
+  "accountEmail": {
+    "message": "E-mailadres van account"
+  },
+  "requestHint": {
+    "message": "Hint vragen"
+  },
+  "requestPasswordHint": {
+    "message": "Hoofdwachtwoordhint vragen"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Als je het e-mailadres van je account invult, versturen we je je wachtwoordhint"
   },
   "passwordHint": {
     "message": "Wachtwoordhint"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Je kluis is vergrendeld. Voer je hoofdwachtwoord in om door te gaan."
   },
+  "yourAccountIsLocked": {
+    "message": "Je account is vergrendeld"
+  },
+  "or": {
+    "message": "of"
+  },
+  "unlockWithBiometrics": {
+    "message": "Biometrisch ontgrendelen"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Ontgrendelen met hoofdwachtwoord"
+  },
   "unlock": {
     "message": "Ontgrendelen"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Time-out van de kluis"
+  },
+  "vaultTimeout1": {
+    "message": "Time-out"
   },
   "vaultTimeoutDesc": {
     "message": "Stel de time-out van de kluis en de bijbehorende actie in."
@@ -1286,7 +1370,7 @@
     }
   },
   "copySuccessful": {
-    "message": "Copy Successful"
+    "message": "Kopiëren gelukt"
   },
   "errorRefreshingAccessToken": {
     "message": "Fout bij vernieuwen toegangstoken"
@@ -1555,7 +1639,7 @@
   "recommendedForSecurity": {
     "message": "Aanbevolen voor veiligheid."
   },
-  "lockWithMasterPassOnRestart": {
+  "lockWithMasterPassOnRestart1": {
     "message": "Bij herstart vergrendelen met hoofdwachtwoord"
   },
   "deleteAccount": {
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Vergrendelen",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Prullenbak",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Je organisatie vereist dat je een hoofdwachtwoord instelt.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "van $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Verificatie vereist",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Browserintegratie inschakelen"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Browserintegratie wordt gebruikt voor biometrie in de browser."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Wordt gebruikt voor het toestaan van biometrische ontgrendelen in andere browsers dan Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "DuckDuckGo browserintegratie toestaan"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Minuten"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Het beleid van je organisatie heeft invloed op de time-out van je kluis. De maximaal toegestane Kluis Time-out is $HOURS$ uur en $MINUTES$ minuten",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ uren en $MINUTES$ minu(u)t(en) maximaal.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Vergrendeld"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Je kluis is vergrendeld"
+  },
   "unlocked": {
     "message": "Ontgrendeld"
   },
   "generator": {
-    "message": "Generator"
+    "message": "Generator",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Wat wil je genereren?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Belangrijk:"
+  },
+  "accessing": {
+    "message": "Toegang verkrijgen"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "U bent uitgelogd omdat uw toegangstoken niet kon worden gedecodeerd. Log opnieuw in om dit probleem op te lossen."
@@ -3061,6 +3161,12 @@
   },
   "textSends": {
     "message": "Tekst-Sends"
+  },
+  "allowScreenshots": {
+    "message": "Schermopname toestaan"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Schermopnames van de Bitwarden-desktopapplicatie toestaan."
   },
   "ssoError": {
     "message": "Er zijn geen vrije poorten gevonden voor de sso-login."

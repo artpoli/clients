@@ -1,4 +1,5 @@
 import { mock, MockProxy } from "jest-mock-extended";
+import { BehaviorSubject } from "rxjs";
 
 import { CLEAR_NOTIFICATION_LOGIN_DATA_DURATION } from "@bitwarden/common/autofill/constants";
 import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
@@ -24,6 +25,7 @@ import { OverlayNotificationsBackground } from "./overlay-notifications.backgrou
 
 describe("OverlayNotificationsBackground", () => {
   let logService: MockProxy<LogService>;
+  let getFeatureFlagMock$: BehaviorSubject<boolean>;
   let configService: MockProxy<ConfigService>;
   let notificationBackground: NotificationBackground;
   let getEnableChangedPasswordPromptSpy: jest.SpyInstance;
@@ -33,7 +35,10 @@ describe("OverlayNotificationsBackground", () => {
   beforeEach(async () => {
     jest.useFakeTimers();
     logService = mock<LogService>();
-    configService = mock<ConfigService>();
+    getFeatureFlagMock$ = new BehaviorSubject(true);
+    configService = mock<ConfigService>({
+      getFeatureFlag$: jest.fn().mockReturnValue(getFeatureFlagMock$),
+    });
     notificationBackground = mock<NotificationBackground>();
     getEnableChangedPasswordPromptSpy = jest
       .spyOn(notificationBackground, "getEnableChangedPasswordPrompt")
@@ -164,7 +169,16 @@ describe("OverlayNotificationsBackground", () => {
   });
 
   describe("storing the modified login form data", () => {
+    const pageDetails = mock<AutofillPageDetails>({ fields: [mock<AutofillField>()] });
     const sender = mock<chrome.runtime.MessageSender>({ tab: { id: 1 } });
+
+    beforeEach(async () => {
+      sendMockExtensionMessage(
+        { command: "collectPageDetailsResponse", details: pageDetails },
+        sender,
+      );
+      await flushPromises();
+    });
 
     it("stores the modified login cipher form data", async () => {
       sendMockExtensionMessage(
@@ -349,8 +363,14 @@ describe("OverlayNotificationsBackground", () => {
 
     describe("web requests that trigger notifications", () => {
       const requestId = "123345";
+      const pageDetails = mock<AutofillPageDetails>({ fields: [mock<AutofillField>()] });
 
       beforeEach(async () => {
+        sendMockExtensionMessage(
+          { command: "collectPageDetailsResponse", details: pageDetails },
+          sender,
+        );
+        await flushPromises();
         sendMockExtensionMessage(
           {
             command: "formFieldSubmitted",
@@ -446,6 +466,11 @@ describe("OverlayNotificationsBackground", () => {
 
       it("triggers the notification on the beforeRequest listener when a post-submission redirection is encountered", async () => {
         sender.tab = mock<chrome.tabs.Tab>({ id: 4 });
+        sendMockExtensionMessage(
+          { command: "collectPageDetailsResponse", details: pageDetails },
+          sender,
+        );
+        await flushPromises();
         sendMockExtensionMessage(
           {
             command: "formFieldSubmitted",

@@ -8,9 +8,11 @@ import {
   ViewChild,
   ViewContainerRef,
 } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Router } from "@angular/router";
-import { filter, firstValueFrom, map, Subject, takeUntil, timeout } from "rxjs";
+import { catchError, filter, firstValueFrom, map, of, Subject, takeUntil, timeout } from "rxjs";
 
+import { CollectionService } from "@bitwarden/admin-console/common";
 import { ModalRef } from "@bitwarden/angular/components/modal/modal.ref";
 import { ModalService } from "@bitwarden/angular/services/modal.service";
 import { FingerprintDialogComponent } from "@bitwarden/auth/angular";
@@ -21,7 +23,6 @@ import { SearchService } from "@bitwarden/common/abstractions/search.service";
 import { VaultTimeoutSettingsService } from "@bitwarden/common/abstractions/vault-timeout/vault-timeout-settings.service";
 import { VaultTimeoutService } from "@bitwarden/common/abstractions/vault-timeout/vault-timeout.service";
 import { InternalPolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
-import { ProviderService } from "@bitwarden/common/admin-console/abstractions/provider.service";
 import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
 import { AuthService } from "@bitwarden/common/auth/abstractions/auth.service";
 import { KeyConnectorService } from "@bitwarden/common/auth/abstractions/key-connector.service";
@@ -29,6 +30,7 @@ import { MasterPasswordServiceAbstraction } from "@bitwarden/common/auth/abstrac
 import { UserVerificationService } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
 import { AuthenticationStatus } from "@bitwarden/common/auth/enums/authentication-status";
 import { ForceSetPasswordReason } from "@bitwarden/common/auth/models/domain/force-set-password-reason";
+import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { VaultTimeoutAction } from "@bitwarden/common/enums/vault-timeout-action.enum";
 import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
 import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
@@ -37,29 +39,31 @@ import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.servic
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
+import { SdkService } from "@bitwarden/common/platform/abstractions/sdk/sdk.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { SystemService } from "@bitwarden/common/platform/abstractions/system.service";
-import { BiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
 import { clearCaches } from "@bitwarden/common/platform/misc/sequentialize";
 import { StateEventRunnerService } from "@bitwarden/common/platform/state";
 import { SyncService } from "@bitwarden/common/platform/sync";
 import { UserId } from "@bitwarden/common/types/guid";
 import { VaultTimeout, VaultTimeoutStringType } from "@bitwarden/common/types/vault-timeout.type";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
-import { CollectionService } from "@bitwarden/common/vault/abstractions/collection.service";
 import { InternalFolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
 import { CipherType } from "@bitwarden/common/vault/enums";
 import { DialogService, ToastOptions, ToastService } from "@bitwarden/components";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legacy";
+import { BiometricStateService } from "@bitwarden/key-management";
 
 import { DeleteAccountComponent } from "../auth/delete-account.component";
 import { LoginApprovalComponent } from "../auth/login/login-approval.component";
 import { MenuAccount, MenuUpdateRequest } from "../main/menu/menu.updater";
+import { flagEnabled } from "../platform/flags";
 import { PremiumComponent } from "../vault/app/accounts/premium.component";
 import { FolderAddEditComponent } from "../vault/app/vault/folder-add-edit.component";
 
 import { SettingsComponent } from "./accounts/settings.component";
 import { ExportDesktopComponent } from "./tools/export/export-desktop.component";
+import { CredentialGeneratorComponent } from "./tools/generator/credential-generator.component";
 import { GeneratorComponent } from "./tools/generator.component";
 import { ImportDesktopComponent } from "./tools/import/import-desktop.component";
 import { PasswordGeneratorHistoryComponent } from "./tools/password-generator-history.component";
@@ -148,9 +152,28 @@ export class AppComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private biometricStateService: BiometricStateService,
     private stateEventRunnerService: StateEventRunnerService,
-    private providerService: ProviderService,
     private accountService: AccountService,
-  ) {}
+    private sdkService: SdkService,
+  ) {
+    if (flagEnabled("sdk")) {
+      // Warn if the SDK for some reason can't be initialized
+      this.sdkService.supported$
+        .pipe(
+          takeUntilDestroyed(),
+          catchError(() => {
+            return of(false);
+          }),
+        )
+        .subscribe((supported) => {
+          if (!supported) {
+            this.logService.debug("SDK is not supported");
+            this.sdkService.failedToInitialize().catch((e) => this.logService.error(e));
+          } else {
+            this.logService.debug("SDK is supported");
+          }
+        });
+    }
+  }
 
   ngOnInit() {
     this.accountService.activeAccount$.pipe(takeUntil(this.destroy$)).subscribe((account) => {
@@ -235,7 +258,8 @@ export class AppComponent implements OnInit, OnDestroy {
             this.modalService.closeAll();
             if (
               message.userId == null ||
-              message.userId === (await this.stateService.getUserId())
+              message.userId ===
+                (await firstValueFrom(this.accountService.activeAccount$.pipe(map((a) => a?.id))))
             ) {
               await this.router.navigate(["lock"]);
             }
@@ -274,9 +298,11 @@ export class AppComponent implements OnInit, OnDestroy {
             await this.openModal<PremiumComponent>(PremiumComponent, this.premiumRef);
             break;
           case "showFingerprintPhrase": {
-            const fingerprint = await this.cryptoService.getFingerprint(
-              await this.stateService.getUserId(),
+            const activeUserId = await firstValueFrom(
+              this.accountService.activeAccount$.pipe(map((a) => a?.id)),
             );
+            const publicKey = await firstValueFrom(this.cryptoService.userPublicKey$(activeUserId));
+            const fingerprint = await this.cryptoService.getFingerprint(activeUserId, publicKey);
             const dialogRef = FingerprintDialogComponent.open(this.dialogService, { fingerprint });
             await firstValueFrom(dialogRef.closed);
             break;
@@ -395,10 +421,7 @@ export class AppComponent implements OnInit, OnDestroy {
             await this.addFolder();
             break;
           case "openGenerator":
-            // openGenerator has extended functionality if called in the vault
-            if (!this.router.url.includes("vault")) {
-              await this.openGenerator();
-            }
+            await this.openGenerator();
             break;
           case "convertAccountToKeyConnector":
             // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
@@ -500,6 +523,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   async openGenerator() {
+    const isGeneratorSwapEnabled = await this.configService.getFeatureFlag(
+      FeatureFlag.GeneratorToolsModernization,
+    );
+    if (isGeneratorSwapEnabled) {
+      await this.dialogService.open(CredentialGeneratorComponent);
+      return;
+    }
+
     this.modalService.closeAll();
 
     [this.modal] = await this.modalService.openViewRef(

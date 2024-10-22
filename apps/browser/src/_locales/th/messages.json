@@ -71,6 +71,15 @@
   "joinOrganization": {
     "message": "Join organization"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Finish joining this organization by setting a master password."
   },
@@ -128,6 +137,21 @@
   "copyLicenseNumber": {
     "message": "Copy license number"
   },
+  "copyCustomField": {
+    "message": "Copy $FIELD$",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Copy website"
+  },
+  "copyNotes": {
+    "message": "Copy notes"
+  },
   "autoFill": {
     "message": "กรอกข้อมูลอัตโนมัติ"
   },
@@ -178,6 +202,18 @@
   },
   "addItem": {
     "message": "เพิ่มรายการ"
+  },
+  "accountEmail": {
+    "message": "Account email"
+  },
+  "requestHint": {
+    "message": "Request hint"
+  },
+  "requestPasswordHint": {
+    "message": "Request password hint"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Enter your account email address and your password hint will be sent to you"
   },
   "passwordHint": {
     "message": "คำใบ้รหัสผ่าน"
@@ -354,7 +390,7 @@
   },
   "generator": {
     "message": "สุ่มรหัส",
-    "description": "Short for 'Password Generator'."
+    "description": "Short for 'credential generator'."
   },
   "passGenInfo": {
     "message": "สร้างรหัสผ่านที่รัดกุมและไม่ซ้ำใครโดยอัตโนมัติสำหรับการเข้าสู่ระบบของคุณ"
@@ -462,6 +498,10 @@
     "message": "Avoid ambiguous characters",
     "description": "Label for the avoid ambiguous characters checkbox."
   },
+  "generatorPolicyInEffect": {
+    "message": "Enterprise policy requirements have been applied to your generator options.",
+    "description": "Indicates that a policy limits the credential generator screen."
+  },
   "searchVault": {
     "message": "ค้นหาในตู้นิรภัย"
   },
@@ -503,6 +543,9 @@
   },
   "notes": {
     "message": "โน้ต"
+  },
+  "privateNote": {
+    "message": "Private note"
   },
   "note": {
     "message": "โน้ต"
@@ -549,6 +592,9 @@
   "sessionTimeoutHeader": {
     "message": "Session timeout"
   },
+  "vaultTimeoutHeader": {
+    "message": "Vault timeout"
+  },
   "otherOptions": {
     "message": "Other options"
   },
@@ -566,6 +612,15 @@
   },
   "yourVaultIsLocked": {
     "message": "ตู้เซฟของคุณถูกล็อก ยืนยันตัวตนของคุณเพื่อดำเนินการต่อ"
+  },
+  "yourVaultIsLockedV2": {
+    "message": "Your vault is locked"
+  },
+  "yourAccountIsLocked": {
+    "message": "Your account is locked"
+  },
+  "or": {
+    "message": "or"
   },
   "unlock": {
     "message": "ปลดล็อค"
@@ -588,6 +643,9 @@
   },
   "vaultTimeout": {
     "message": "ระยะเวลาล็อกตู้เซฟ"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "lockNow": {
     "message": "Lock Now"
@@ -789,6 +847,12 @@
   "twoStepLoginConfirmation": {
     "message": "Two-step login makes your account more secure by requiring you to enter a security code from an authenticator app whenever you log in. Two-step login can be enabled on the bitwarden.com web vault. Do you want to visit the website now?"
   },
+  "twoStepLoginConfirmationContent": {
+    "message": "Make your account more secure by setting up two-step login in the Bitwarden web app."
+  },
+  "twoStepLoginConfirmationTitle": {
+    "message": "Continue to web app?"
+  },
   "editedFolder": {
     "message": "Edited Folder"
   },
@@ -892,7 +956,7 @@
     "message": "บัตรรายการในหน้าแท็บเพื่อให้ป้อนอัตโนมัติได้ง่าย"
   },
   "showIdentitiesInVaultView": {
-    "message": "Show identifies as Autofill suggestions on Vault view"
+    "message": "Show identities as Autofill suggestions on Vault view"
   },
   "showIdentitiesCurrentTab": {
     "message": "แสดงตัวตนบนหน้าแท็บ"
@@ -1096,6 +1160,9 @@
   },
   "file": {
     "message": "ไฟล์"
+  },
+  "fileToShare": {
+    "message": "File to share"
   },
   "selectFile": {
     "message": "เลือกไฟล์"
@@ -1349,6 +1416,12 @@
   },
   "showInlineMenuLabel": {
     "message": "Show autofill suggestions on form fields"
+  },
+  "showInlineMenuIdentitiesLabel": {
+    "message": "Display identities as suggestions"
+  },
+  "showInlineMenuCardsLabel": {
+    "message": "Display cards as suggestions"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "Display suggestions when icon is selected"
@@ -1863,8 +1936,17 @@
   "unlockWithPin": {
     "message": "ปลดล็อกด้วย PIN"
   },
+  "setYourPinTitle": {
+    "message": "Set PIN"
+  },
+  "setYourPinButton": {
+    "message": "Set PIN"
+  },
   "setYourPinCode": {
     "message": "ตั้ง PIN เพื่อใช้ปลดล็อก Bitwarden ทั้งนี้ หากคุณล็อกเอาต์ออกจากแอปโดยสมบูรณ์จะเป็นการลบการตั้งค่า PIN ของคุณด้วย"
+  },
+  "setYourPinCode1": {
+    "message": "Your PIN will be used to unlock Bitwarden instead of your master password. Your PIN will reset if you ever fully log out of Bitwarden."
   },
   "pinRequired": {
     "message": "ต้องระบุ PIN"
@@ -1878,6 +1960,9 @@
   "unlockWithBiometrics": {
     "message": "ปลดล็อกด้วยไบโอเมตริก"
   },
+  "unlockWithMasterPassword": {
+    "message": "Unlock with master password"
+  },
   "awaitDesktop": {
     "message": "Awaiting confirmation from desktop"
   },
@@ -1886,6 +1971,9 @@
   },
   "lockWithMasterPassOnRestart": {
     "message": "ล็อคด้วยรหัสผ่านหลักเมื่อรีสตาร์ทเบราว์เซอร์"
+  },
+  "lockWithMasterPassOnRestart1": {
+    "message": "Require master password on browser restart"
   },
   "selectOneCollection": {
     "message": "คุณต้องเลือกอย่างน้อยหนึ่งคอลเลกชัน"
@@ -1925,9 +2013,12 @@
   "vaultTimeoutAction": {
     "message": "การดำเนินการหลังหมดเวลาล็อคตู้เซฟ"
   },
+  "vaultTimeoutAction1": {
+    "message": "Timeout action"
+  },
   "lock": {
     "message": "ล็อก",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "ถังขยะ",
@@ -2119,11 +2210,11 @@
   "nativeMessagingWrongUserTitle": {
     "message": "Account missmatch"
   },
-  "nativeMessagingWrongUserKeyDesc": {
-    "message": "Biometric unlock failed. The biometric secret key failed to unlock the vault. Please try to set up biometrics again."
-  },
   "nativeMessagingWrongUserKeyTitle": {
     "message": "Biometric key missmatch"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Biometric unlock failed. The biometric secret key failed to unlock the vault. Please try to set up biometrics again."
   },
   "biometricsNotEnabledTitle": {
     "message": "Biometrics not set up"
@@ -2210,8 +2301,29 @@
   "excludedDomainsSavedSuccess": {
     "message": "Excluded domain changes saved"
   },
+  "limitSendViews": {
+    "message": "Limit views"
+  },
+  "limitSendViewsHint": {
+    "message": "No one can view this Send after the limit is reached.",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "limitSendViewsCount": {
+    "message": "$ACCESSCOUNT$ views left",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "send": {
     "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDetails": {
+    "message": "Send details",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -2225,12 +2337,18 @@
   "sendTypeText": {
     "message": "ข้อความ"
   },
+  "sendTypeTextToShare": {
+    "message": "Text to share"
+  },
   "sendTypeFile": {
     "message": "ไฟล์"
   },
   "allSends": {
     "message": "Send ทั้งหมด",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "hideTextByDefault": {
+    "message": "Hide text by default"
   },
   "maxAccessCountReached": {
     "message": "Max access count reached",
@@ -2283,6 +2401,10 @@
     "message": "คุณต้องการลบ Send นี้ใช่หรือไม่?",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "deleteSendPermanentConfirmation": {
+    "message": "Are you sure you want to permanently delete this Send?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "editSend": {
     "message": "แก้ไข Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -2303,6 +2425,10 @@
   },
   "deletionDateDesc": {
     "message": "The Send will be permanently deleted on the specified date and time.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deletionDateDescV2": {
+    "message": "The Send will be permanently deleted on this date.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "expirationDate": {
@@ -2336,6 +2462,10 @@
   },
   "sendPasswordDesc": {
     "message": "Optionally require a password for users to access this Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDescV2": {
+    "message": "Require this password to view the Send.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2383,7 +2513,25 @@
     "message": "Send created successfully!",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendAvailability": {
+  "sendExpiresInHoursSingle": {
+    "message": "The Send will be available to anyone with the link for the next 1 hour.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInHours": {
+    "message": "The Send will be available to anyone with the link for the next $HOURS$ hours.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sendExpiresInDaysSingle": {
+    "message": "The Send will be available to anyone with the link for the next 1 day.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInDays": {
     "message": "The Send will be available to anyone with the link for the next $DAYS$ days.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
@@ -2401,6 +2549,14 @@
     "message": "Send saved",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendFilePopoutDialogText": {
+    "message": "Pop out extension?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFilePopoutDialogDesc": {
+    "message": "To create a file Send, you need to pop out the extension to a new window.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "sendLinuxChromiumFileWarning": {
     "message": "In order to choose a file, open the extension in the sidebar (if possible) or pop out to a new window by clicking this banner."
   },
@@ -2409,6 +2565,9 @@
   },
   "sendSafariFileWarning": {
     "message": "In order to choose a file using Safari, pop out to a new window by clicking this banner."
+  },
+  "popOut": {
+    "message": "Pop out"
   },
   "sendFileCalloutHeader": {
     "message": "Before you start"
@@ -2442,6 +2601,9 @@
   },
   "hideEmail": {
     "message": "Hide my email address from recipients."
+  },
+  "hideYourEmail": {
+    "message": "Hide your email address from viewers."
   },
   "sendOptionsPolicyInEffect": {
     "message": "One or more organization policies are affecting your Send options."
@@ -2500,6 +2662,15 @@
     "message": "Your organization requires you to set a master password.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "Verification required",
     "description": "Default title for the user verification dialog."
@@ -2510,8 +2681,37 @@
   "minutes": {
     "message": "Minutes"
   },
+  "vaultTimeoutPolicyAffectingOptions": {
+    "message": "Enterprise policy requirements have been applied to your timeout options"
+  },
   "vaultTimeoutPolicyInEffect": {
     "message": "Your organization policies have set your maximum allowed vault timeout to $HOURS$ hour(s) and $MINUTES$ minute(s).",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ hour(s) and $MINUTES$ minute(s) maximum.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyMaximumError": {
+    "message": "Timeout exceeds the restriction set by your organization: $HOURS$ hour(s) and $MINUTES$ minute(s) maximum",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -3477,6 +3677,9 @@
   "typePasskey": {
     "message": "Passkey"
   },
+  "accessing": {
+    "message": "Accessing"
+  },
   "passkeyNotCopied": {
     "message": "Passkey will not be copied"
   },
@@ -3500,6 +3703,9 @@
   },
   "noMatchingLoginsForSite": {
     "message": "No matching logins for this site"
+  },
+  "searchSavePasskeyNewLogin": {
+    "message": "Search or save passkey as new login"
   },
   "confirm": {
     "message": "Confirm"
@@ -4070,6 +4276,9 @@
   "enableAnimations": {
     "message": "Enable animations"
   },
+  "showAnimations": {
+    "message": "Show animations"
+  },
   "addAccount": {
     "message": "Add account"
   },
@@ -4309,6 +4518,15 @@
   "enterprisePolicyRequirementsApplied": {
     "message": "Enterprise policy requirements have been applied to this setting"
   },
+  "retry": {
+    "message": "Retry"
+  },
+  "vaultCustomTimeoutMinimum": {
+    "message": "Minimum custom timeout is 1 minute."
+  },
+  "additionalContentAvailable": {
+    "message": "Additional content is available"
+  },
   "fileSavedToDevice": {
     "message": "File saved to device. Manage from your device downloads."
   },
@@ -4338,5 +4556,8 @@
   },
   "noEditPermissions": {
     "message": "You don't have permission to edit this item"
+  },
+  "authenticating": {
+    "message": "Authenticating"
   }
 }

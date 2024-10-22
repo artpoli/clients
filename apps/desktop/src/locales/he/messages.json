@@ -407,16 +407,55 @@
     "message": "אורך סיסמה מזערי"
   },
   "uppercase": {
-    "message": "אותיות גדולות (A-Z)"
+    "message": "אותיות גדולות (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "אותיות קטנות (a-z)"
+    "message": "אותיות קטנות (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "מספרים (0-9)"
+    "message": "מספרים (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "תווים מיוחדים (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Include",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Include uppercase characters",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Include lowercase characters",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Include numbers",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Include special characters",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "כמות מילים"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "המנע מאותיות ותווים דומים"
+    "message": "המנע מאותיות ותווים דומים",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Avoid ambiguous characters",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Enterprise policy requirements have been applied to your generator options.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "חפש אוסף"
@@ -500,7 +548,7 @@
     "message": "צור חשבון"
   },
   "setAStrongPassword": {
-    "message": "Set a strong password"
+    "message": "הגדרת סיסמה חזקה"
   },
   "finishCreatingYourAccountBySettingAPassword": {
     "message": "Finish creating your account by setting a password"
@@ -552,13 +600,34 @@
     "message": "Master password hint"
   },
   "joinOrganization": {
-    "message": "Join organization"
+    "message": "הצטרפות לארגון"
+  },
+  "joinOrganizationName": {
+    "message": "הצטרפות אל $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
   },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Finish joining this organization by setting a master password."
   },
   "settings": {
     "message": "הגדרות"
+  },
+  "accountEmail": {
+    "message": "Account email"
+  },
+  "requestHint": {
+    "message": "Request hint"
+  },
+  "requestPasswordHint": {
+    "message": "Request password hint"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Enter your account email address and your password hint will be sent to you"
   },
   "passwordHint": {
     "message": "רמז לסיסמה"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "הכספת שלך נעולה. אמת את זהותך כדי להמשיך."
   },
+  "yourAccountIsLocked": {
+    "message": "Your account is locked"
+  },
+  "or": {
+    "message": "or"
+  },
+  "unlockWithBiometrics": {
+    "message": "Unlock with biometrics"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Unlock with master password"
+  },
   "unlock": {
     "message": "בטל נעילה"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "סגירת כספת אוטומטית"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "vaultTimeoutDesc": {
     "message": "בחר כמה זמן יעבור כדי שהכספת תסגר לאחר חוסר פעילות ותבצע את הפעולה שנבחרה."
@@ -1555,8 +1639,8 @@
   "recommendedForSecurity": {
     "message": "מומלץ לשיפור אבטחת מידע."
   },
-  "lockWithMasterPassOnRestart": {
-    "message": "נעל בעזרת הסיסמה הראשית בהפעלה מחדש"
+  "lockWithMasterPassOnRestart1": {
+    "message": "Lock with master password on restart"
   },
   "deleteAccount": {
     "message": "מחק חשבון"
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "נעילה",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "סל המחזור",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Your organization requires you to set a master password.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "נדרש אימות",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "אפשר אינטגרציה עם הדפדפן"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "אינטגרצייה עם הדפדפן מאפשרת שימוש באמצעיים ביומטריים בדפדפן."
+  "enableBrowserIntegrationDesc1": {
+    "message": "משמש כדי לאפשר שחרור עם אמצעים ביומטריים בדפדפנים שאינם Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "אפשר שילוב דפדפן DuckDuckGo"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "דקות"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "מדיניות הארגון שלך משפיעה על הזמן הקצוב לכספת שלך. פסק הזמן המרבי המותר לכספת הוא $HOURS$ שע(ה/ות) ו $MINUTES$ דק(ה/ות)",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ hour(s) and $MINUTES$ minute(s) maximum.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "נָעוּל"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Your vault is locked"
+  },
   "unlocked": {
     "message": "לא נעול"
   },
   "generator": {
-    "message": "מחולל"
+    "message": "מחולל",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "מה ברצונך לחולל?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "חשוב:"
+  },
+  "accessing": {
+    "message": "Accessing"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "You have been logged out because your access token could not be decrypted. Please log in again to resolve this issue."
@@ -3061,6 +3161,12 @@
   },
   "textSends": {
     "message": "Text Sends"
+  },
+  "allowScreenshots": {
+    "message": "Allow screen capture"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Allow screen capture of the Bitwarden desktop application."
   },
   "ssoError": {
     "message": "No free ports could be found for the sso login."

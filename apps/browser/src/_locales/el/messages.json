@@ -3,7 +3,7 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden Διαχειριστής Κωδικών Πρόσβασης",
+    "message": "Bitwarden: Διαχείριση κωδικών πρόσβασης",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
@@ -71,6 +71,15 @@
   "joinOrganization": {
     "message": "Συμμετοχή στον οργανισμό"
   },
+  "joinOrganizationName": {
+    "message": "Συμμετοχή στο $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Ολοκληρώστε τη συμμετοχή σας σε αυτόν τον οργανισμό ορίζοντας έναν κύριο κωδικό πρόσβασης."
   },
@@ -128,6 +137,21 @@
   "copyLicenseNumber": {
     "message": "Αντιγραφή αριθμού άδειας"
   },
+  "copyCustomField": {
+    "message": "Αντιγραφή του «$FIELD$»",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Αντιγραφή ιστοτόπου"
+  },
+  "copyNotes": {
+    "message": "Αντιγραφή σημειώσεων"
+  },
   "autoFill": {
     "message": "Αυτόματη συμπλήρωση"
   },
@@ -178,6 +202,18 @@
   },
   "addItem": {
     "message": "Προσθήκη αντικειμένου"
+  },
+  "accountEmail": {
+    "message": "Email λογαριασμού"
+  },
+  "requestHint": {
+    "message": "Αίτημα για υπόδειξη"
+  },
+  "requestPasswordHint": {
+    "message": "Αίτημα για υπόδειξη κωδικού πρόσβασης"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Εισαγάγετε τη διεύθυνση email του λογαριασμού σας και θα σας αποσταλεί η υπόδειξη για τον κωδικό πρόσβασης"
   },
   "passwordHint": {
     "message": "Υπόδειξη κωδικού πρόσβασης"
@@ -354,7 +390,7 @@
   },
   "generator": {
     "message": "Γεννήτρια",
-    "description": "Short for 'Password Generator'."
+    "description": "Short for 'credential generator'."
   },
   "passGenInfo": {
     "message": "Δημιουργήστε αυτόματα ισχυρούς και μοναδικούς κωδικούς πρόσβασης για τις συνδέσεις σας."
@@ -462,6 +498,10 @@
     "message": "Αποφυγή αμφιλεγόμενων χαρακτήρων",
     "description": "Label for the avoid ambiguous characters checkbox."
   },
+  "generatorPolicyInEffect": {
+    "message": "Οι απαιτήσεις της εταιρικής πολιτικής έχουν εφαρμοστεί στις επιλογές γεννήτριάς σας.",
+    "description": "Indicates that a policy limits the credential generator screen."
+  },
   "searchVault": {
     "message": "Αναζήτηση στο vault"
   },
@@ -503,6 +543,9 @@
   },
   "notes": {
     "message": "Σημειώσεις"
+  },
+  "privateNote": {
+    "message": "Ιδιωτική σημείωση"
   },
   "note": {
     "message": "Σημείωση"
@@ -549,6 +592,9 @@
   "sessionTimeoutHeader": {
     "message": "Χρονικό όριο λήξης συνεδρίας"
   },
+  "vaultTimeoutHeader": {
+    "message": "Χρονικό όριο κρύπτης"
+  },
   "otherOptions": {
     "message": "Άλλες επιλογές"
   },
@@ -566,6 +612,15 @@
   },
   "yourVaultIsLocked": {
     "message": "Το vault σας είναι κλειδωμένο. Επαληθεύστε τον κύριο κωδικό πρόσβασης για να συνεχίσετε."
+  },
+  "yourVaultIsLockedV2": {
+    "message": "Η κρύπτη σας έχει κλειδωθεί"
+  },
+  "yourAccountIsLocked": {
+    "message": "Ο λογαριασμός σας έχει κλειδωθεί"
+  },
+  "or": {
+    "message": "ή"
   },
   "unlock": {
     "message": "Ξεκλείδωμα"
@@ -588,6 +643,9 @@
   },
   "vaultTimeout": {
     "message": "Χρόνος Λήξης Vault"
+  },
+  "vaultTimeout1": {
+    "message": "Λήξη χρονικού ορίου"
   },
   "lockNow": {
     "message": "Κλείδωμα Τώρα"
@@ -788,6 +846,12 @@
   },
   "twoStepLoginConfirmation": {
     "message": "Η σύνδεση δύο βημάτων καθιστά πιο ασφαλή τον λογαριασμό σας, απαιτώντας να επαληθεύσετε τη συνδεσή σας με μια άλλη συσκευή, όπως ένα κλειδί ασφαλείας, μία εφαρμογή επαλήθευσης, ένα μήνυμα SMS, μία τηλεφωνική κλήση ή ένα μήνυμα ηλ. ταχυδρομείου. Μπορείτε να ενεργοποιήσετε τη σύνδεση δύο βημάτων στο διαδικτυακό θυσαυ/κιο bitwarden.com. Θέλετε να επισκεφθείτε την ιστοσελίδα τώρα;"
+  },
+  "twoStepLoginConfirmationContent": {
+    "message": "Κάντε τον λογαριασμό σας πιο ασφαλή με τη ρύθμιση της σύνδεσης δύο βημάτων στη διαδικτυακή εφαρμογή του Bitwarden."
+  },
+  "twoStepLoginConfirmationTitle": {
+    "message": "Συνέχεια στη διαδικτυακή εφαρμογή;"
   },
   "editedFolder": {
     "message": "Ο φάκελος αποθηκεύτηκε"
@@ -1097,6 +1161,9 @@
   "file": {
     "message": "Αρχείο"
   },
+  "fileToShare": {
+    "message": "Αρχείο προς κοινοποίηση"
+  },
   "selectFile": {
     "message": "Επιλέξτε αρχείο"
   },
@@ -1349,6 +1416,12 @@
   },
   "showInlineMenuLabel": {
     "message": "Εμφάνιση μενού αυτόματης συμπλήρωσης στα πεδία της φόρμας"
+  },
+  "showInlineMenuIdentitiesLabel": {
+    "message": "Εμφάνιση ταυτοτήτων ως προτάσεις"
+  },
+  "showInlineMenuCardsLabel": {
+    "message": "Εμφάνιση καρτών ως προτάσεις"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "Εμφάνιση προτάσεων όταν το εικονίδιο είναι επιλεγμένο"
@@ -1797,13 +1870,13 @@
     "message": "Δεν υπάρχουν κωδικοί στη λίστα."
   },
   "clearHistory": {
-    "message": "Clear history"
+    "message": "Διαγραφή ιστορικού"
   },
   "noPasswordsToShow": {
-    "message": "No passwords to show"
+    "message": "Δεν υπάρχουν κωδικοί πρόσβασης για εμφάνιση"
   },
   "noRecentlyGeneratedPassword": {
-    "message": "You haven't generated a password recently"
+    "message": "Δεν έχετε δημιουργήσει πρόσφατα έναν κωδικό πρόσβασης"
   },
   "remove": {
     "message": "Αφαίρεση"
@@ -1863,8 +1936,17 @@
   "unlockWithPin": {
     "message": "Ξεκλείδωμα με PIN"
   },
+  "setYourPinTitle": {
+    "message": "Ορισμός PIN"
+  },
+  "setYourPinButton": {
+    "message": "Ορισμός PIN"
+  },
   "setYourPinCode": {
     "message": "Ορίστε τον κωδικό PIN για να ξεκλειδώσετε το Bitwarden. Οι ρυθμίσεις PIN θα επαναρυθμιστούν αν αποσυνδεθείτε πλήρως από την εφαρμογή."
+  },
+  "setYourPinCode1": {
+    "message": "Το PIN σας θα χρησιμοποιείται για το ξεκλείδωμα του Bitwarden αντί του κύριου κωδικού πρόσβασης. Αν αποσυνδεθείτε εντελώς από το Bitwarden, θα γίνει επαναφορά του PIN σας."
   },
   "pinRequired": {
     "message": "Απαιτείται κωδικός PIN."
@@ -1878,6 +1960,9 @@
   "unlockWithBiometrics": {
     "message": "Ξεκλείδωμα με βιομετρικά στοιχεία"
   },
+  "unlockWithMasterPassword": {
+    "message": "Ξεκλείδωμα με κύριο κωδικό πρόσβασης"
+  },
   "awaitDesktop": {
     "message": "Αναμονή επιβεβαίωσης από την επιφάνεια εργασίας"
   },
@@ -1886,6 +1971,9 @@
   },
   "lockWithMasterPassOnRestart": {
     "message": "Κλείδωμα με κύριο κωδικό πρόσβασης στην επανεκκίνηση του προγράμματος περιήγησης"
+  },
+  "lockWithMasterPassOnRestart1": {
+    "message": "Απαίτηση κύριου κωδικού πρόσβασης κατά την επανεκκίνηση του προγράμματος περιήγησης"
   },
   "selectOneCollection": {
     "message": "Πρέπει να επιλέξετε τουλάχιστον μία συλλογή."
@@ -1925,9 +2013,12 @@
   "vaultTimeoutAction": {
     "message": "Ενέργεια Χρόνου Λήξης Vault"
   },
+  "vaultTimeoutAction1": {
+    "message": "Ενέργεια κατά τη λήξη χρονικού ορίου"
+  },
   "lock": {
     "message": "Κλείδωμα",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Κάδος Απορριμάτων",
@@ -2119,11 +2210,11 @@
   "nativeMessagingWrongUserTitle": {
     "message": "Απόρριψη λογαριασμού"
   },
-  "nativeMessagingWrongUserKeyDesc": {
-    "message": "Το βιομετρικό ξεκλείδωμα απέτυχε. Το βιομετρικό μυστικό κλειδί απέτυχε να ξεκλειδώσει το θησαυ/κιο. Προσπαθήστε να ρυθμίσετε ξανά τα βιομετρικά."
-  },
   "nativeMessagingWrongUserKeyTitle": {
     "message": "Αναντιστοιχία βιομετρικού κλειδιού"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Το βιομετρικό ξεκλείδωμα απέτυχε. Το βιομετρικό μυστικό κλειδί απέτυχε να ξεκλειδώσει το θησαυ/κιο. Προσπαθήστε να ρυθμίσετε ξανά τα βιομετρικά."
   },
   "biometricsNotEnabledTitle": {
     "message": "Δεν έχουν οριστεί βιομετρικά"
@@ -2210,8 +2301,29 @@
   "excludedDomainsSavedSuccess": {
     "message": "Οι αλλαγές αποκλεισμένων τομέων αποθηκεύτηκαν"
   },
+  "limitSendViews": {
+    "message": "Περιορισμός προβολών"
+  },
+  "limitSendViewsHint": {
+    "message": "Κανένας δεν μπορεί να προβάλει αυτό το Send μετά το πέρας του ορίου.",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "limitSendViewsCount": {
+    "message": "Απομένουν $ACCESSCOUNT$ προβολές",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "send": {
     "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDetails": {
+    "message": "Στοιχεία Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -2225,12 +2337,18 @@
   "sendTypeText": {
     "message": "Κείμενο"
   },
+  "sendTypeTextToShare": {
+    "message": "Κείμενο προς κοινοποίηση"
+  },
   "sendTypeFile": {
     "message": "Αρχείο"
   },
   "allSends": {
     "message": "Όλα τα Sends",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "hideTextByDefault": {
+    "message": "Απόκρυψη κειμένου από προεπιλογή"
   },
   "maxAccessCountReached": {
     "message": "Φτάσατε στον μέγιστο αριθμό πρόσβασης",
@@ -2283,6 +2401,10 @@
     "message": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το Send;",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "deleteSendPermanentConfirmation": {
+    "message": "Θέλετε σίγουρα να διαγράψετε οριστικά αυτό το Send;",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "editSend": {
     "message": "Επεξεργασία Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -2303,6 +2425,10 @@
   },
   "deletionDateDesc": {
     "message": "Το Send θα διαγραφεί οριστικά την καθορισμένη ημερομηνία και ώρα.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deletionDateDescV2": {
+    "message": "Το Send θα διαγραφεί οριστικά σε αυτήν την ημερομηνία.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "expirationDate": {
@@ -2336,6 +2462,10 @@
   },
   "sendPasswordDesc": {
     "message": "Προαιρετικά απαιτείται κωδικός πρόσβασης για τους χρήστες για να έχουν πρόσβαση σε αυτό το Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDescV2": {
+    "message": "Να απαιτείται αυτός ο κωδικός πρόσβασης για την προβολή του Send.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2383,7 +2513,25 @@
     "message": "Το Send δημιουργήθηκε επιτυχώς!",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendAvailability": {
+  "sendExpiresInHoursSingle": {
+    "message": "Το Send θα είναι διαθέσιμο σε όποιον έχει τον σύνδεσμο για την επόμενη 1 ώρα.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInHours": {
+    "message": "Το Send θα είναι διαθέσιμο σε όποιον έχει τον σύνδεσμο για τις επόμενες $HOURS$ ώρες.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sendExpiresInDaysSingle": {
+    "message": "Το Send θα είναι διαθέσιμο σε όποιον έχει τον σύνδεσμο για την επόμενη 1 ημέρα.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInDays": {
     "message": "Το Send θα είναι διαθέσιμο σε όποιον έχει τον σύνδεσμο για τις επόμενες $DAYS$ ημέρες.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
@@ -2401,6 +2549,14 @@
     "message": "Το Send αποθηκεύτηκε",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendFilePopoutDialogText": {
+    "message": "Άνοιγμα επέκτασης σε αναδυόμενο παράθυρο;",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFilePopoutDialogDesc": {
+    "message": "Για να δημιουργήσετε ένα Send αρχείου, θα πρέπει να ανοίξετε την επέκταση σε νέο αναδυόμενο παράθυρο.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "sendLinuxChromiumFileWarning": {
     "message": "Για να επιλέξετε ένα αρχείο, ανοίξτε την επέκταση στην πλαϊνή μπάρα (αν είναι δυνατόν) ή βγείτε σε ένα νέο παράθυρο κάνοντας κλικ σε αυτή τη διαφήμιση."
   },
@@ -2409,6 +2565,9 @@
   },
   "sendSafariFileWarning": {
     "message": "Για να επιλέξετε ένα αρχείο χρησιμοποιώντας το Safari, βγαίνετε σε ένα νέο παράθυρο κάνοντας κλικ σε αυτή τη διαφήμιση."
+  },
+  "popOut": {
+    "message": "Άνοιγμα σε αναδυόμενο παράθυρο"
   },
   "sendFileCalloutHeader": {
     "message": "Πριν ξεκινήσετε"
@@ -2442,6 +2601,9 @@
   },
   "hideEmail": {
     "message": "Απόκρυψη της διεύθυνσης email μου από τους παραλήπτες."
+  },
+  "hideYourEmail": {
+    "message": "Απόκρυψη της διεύθυνσης email σας από τους θεατές."
   },
   "sendOptionsPolicyInEffect": {
     "message": "Μία ή περισσότερες οργανωτικές πολιτικές επηρεάζουν τις επιλογές send σας."
@@ -2500,6 +2662,15 @@
     "message": "Ο οργανισμός σας απαιτεί να ορίσετε έναν κύριο κωδικό πρόσβασης.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "από $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "Απαιτείται επαλήθευση",
     "description": "Default title for the user verification dialog."
@@ -2510,8 +2681,37 @@
   "minutes": {
     "message": "Λεπτά"
   },
+  "vaultTimeoutPolicyAffectingOptions": {
+    "message": "Οι απαιτήσεις της εταιρικής πολιτικής έχουν εφαρμοστεί στις επιλογές χρονικού ορίου σας"
+  },
   "vaultTimeoutPolicyInEffect": {
     "message": "Οι πολιτικές του οργανισμού σας επηρεάζουν το χρονικό όριο vault σας. Το μέγιστο επιτρεπόμενο Χρονικό όριο Vault είναι $HOURS$ ώρα(ες) και $MINUTES$ λεπτό(ά)",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ ώρα(ες) και $MINUTES$ λεπτό(ά) το πολύ.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyMaximumError": {
+    "message": "Το χρονικό όριο υπερβαίνει τον περιορισμό που έχει καθοριστεί από τον οργανισμό σας: $HOURS$ ώρα(ες) και $MINUTES$ λεπτό(ά) το πολύ",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -3477,6 +3677,9 @@
   "typePasskey": {
     "message": "Κλειδί πρόσβασης"
   },
+  "accessing": {
+    "message": "Πρόσβαση"
+  },
   "passkeyNotCopied": {
     "message": "Το κλειδί πρόσβασης δε θα αντιγραφεί"
   },
@@ -3487,7 +3690,7 @@
     "message": "Απαιτείται επαλήθευση από τον ιστότοπο εκκίνησης. Αυτή η λειτουργία δεν έχει ακόμα υλοποιηθεί για λογαριασμούς χωρίς τον κύριο κωδικό πρόσβασης."
   },
   "logInWithPasskeyQuestion": {
-    "message": "Log in with passkey?"
+    "message": "Σύνδεση με κλειδί πρόσβασης;"
   },
   "passkeyAlreadyExists": {
     "message": "Υπάρχει ήδη ένα κλειδί πρόσβασης για αυτήν την εφαρμογή."
@@ -3499,7 +3702,10 @@
     "message": "Δεν έχετε στοιχεία σύνδεσης που να συνδυάζονται με αυτόν τον ιστότοπο."
   },
   "noMatchingLoginsForSite": {
-    "message": "No matching logins for this site"
+    "message": "Δεν υπάρχουν αντίστοιχες συνδέσεις για αυτόν τον ιστότοπο"
+  },
+  "searchSavePasskeyNewLogin": {
+    "message": "Αναζήτηση ή αποθήκευση κωδικού πρόσβασης ως νέα σύνδεση"
   },
   "confirm": {
     "message": "Επιβεβαίωση"
@@ -3511,10 +3717,10 @@
     "message": "Αποθήκευση κλειδιού πρόσβασης ως νέα σύνδεση"
   },
   "chooseCipherForPasskeySave": {
-    "message": "Choose a login to save this passkey to"
+    "message": "Επιλέξτε μια σύνδεση για την αποθήκευση αυτού του κλειδιού πρόσβασης"
   },
   "chooseCipherForPasskeyAuth": {
-    "message": "Choose a passkey to log in with"
+    "message": "Επιλέξτε ένα κλειδί πρόσβασης για σύνδεση"
   },
   "passkeyItem": {
     "message": "Αντικείμενο κλειδιού πρόσβασης"
@@ -4070,6 +4276,9 @@
   "enableAnimations": {
     "message": "Ενεργοποίηση κινούμενων εικόνων"
   },
+  "showAnimations": {
+    "message": "Εμφάνιση εφέ κίνησης"
+  },
   "addAccount": {
     "message": "Προσθήκη λογαριασμού"
   },
@@ -4309,14 +4518,23 @@
   "enterprisePolicyRequirementsApplied": {
     "message": "Οι απαιτήσεις της πολιτικής για επιχειρήσεις έχουν εφαρμοστεί σε αυτήν τη ρύθμιση"
   },
+  "retry": {
+    "message": "Επανάληψη"
+  },
+  "vaultCustomTimeoutMinimum": {
+    "message": "Το ελάχιστο προσαρμοσμένο χρονικό όριο λήξης είναι 1 λεπτό."
+  },
+  "additionalContentAvailable": {
+    "message": "Διατίθεται πρόσθετο περιεχόμενο"
+  },
   "fileSavedToDevice": {
-    "message": "File saved to device. Manage from your device downloads."
+    "message": "Το αρχείο αποθηκεύτηκε στη συσκευή. Διαχειριστείτε το από τις λήψεις της συσκευής σας."
   },
   "showCharacterCount": {
-    "message": "Show character count"
+    "message": "Εμφάνιση αριθμού χαρακτήρων"
   },
   "hideCharacterCount": {
-    "message": "Hide character count"
+    "message": "Απόκρυψη αριθμού χαρακτήρων"
   },
   "itemsInTrash": {
     "message": "Αντικείμενα στον κάδο"
@@ -4338,5 +4556,8 @@
   },
   "noEditPermissions": {
     "message": "Δεν έχετε δικαίωμα να επεξεργαστείτε αυτό το αντικείμενο"
+  },
+  "authenticating": {
+    "message": "Ταυτοποίηση"
   }
 }

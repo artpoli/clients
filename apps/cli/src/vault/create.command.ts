@@ -3,6 +3,7 @@ import * as path from "path";
 
 import { firstValueFrom, map } from "rxjs";
 
+import { CollectionRequest } from "@bitwarden/admin-console/common";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
 import { SelectionReadOnlyRequest } from "@bitwarden/common/admin-console/models/request/selection-read-only.request";
@@ -12,11 +13,11 @@ import { CipherExport } from "@bitwarden/common/models/export/cipher.export";
 import { CollectionExport } from "@bitwarden/common/models/export/collection.export";
 import { FolderExport } from "@bitwarden/common/models/export/folder.export";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
+import { EncryptService } from "@bitwarden/common/platform/abstractions/encrypt.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { FolderApiServiceAbstraction } from "@bitwarden/common/vault/abstractions/folder/folder-api.service.abstraction";
 import { FolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
-import { CollectionRequest } from "@bitwarden/common/vault/models/request/collection.request";
 
 import { OrganizationCollectionRequest } from "../admin-console/models/request/organization-collection.request";
 import { OrganizationCollectionResponse } from "../admin-console/models/response/organization-collection.response";
@@ -31,6 +32,7 @@ export class CreateCommand {
     private cipherService: CipherService,
     private folderService: FolderService,
     private cryptoService: CryptoService,
+    private encryptService: EncryptService,
     private apiService: ApiService,
     private folderApiService: FolderApiServiceAbstraction,
     private accountProfileService: BillingAccountProfileStateService,
@@ -167,7 +169,9 @@ export class CreateCommand {
   }
 
   private async createFolder(req: FolderExport) {
-    const folder = await this.folderService.encrypt(FolderExport.toView(req));
+    const activeAccountId = await firstValueFrom(this.accountService.activeAccount$);
+    const userKey = await this.cryptoService.getUserKeyWithLegacySupport(activeAccountId.id);
+    const folder = await this.folderService.encrypt(FolderExport.toView(req), userKey);
     try {
       await this.folderApiService.save(folder);
       const newFolder = await this.folderService.get(folder.id);
@@ -210,7 +214,7 @@ export class CreateCommand {
               (u) => new SelectionReadOnlyRequest(u.id, u.readOnly, u.hidePasswords, u.manage),
             );
       const request = new CollectionRequest();
-      request.name = (await this.cryptoService.encrypt(req.name, orgKey)).encryptedString;
+      request.name = (await this.encryptService.encrypt(req.name, orgKey)).encryptedString;
       request.externalId = req.externalId;
       request.groups = groups;
       request.users = users;

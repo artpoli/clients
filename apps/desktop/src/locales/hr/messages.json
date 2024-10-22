@@ -407,16 +407,55 @@
     "message": "Minimalna duljina lozinke"
   },
   "uppercase": {
-    "message": "Velika slova (A - Z)"
+    "message": "Velika slova (A - Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Mala slova (a - z)"
+    "message": "Mala slova (a - z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Brojevi (0 - 9)"
+    "message": "Brojevi (0 - 9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Posebni znakovi (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Uključi",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Uključi velika slova",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Uključi mala slova",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Uključi brojeve",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Uključi posebne znakove",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Broj riječi"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Izbjegavaj dvosmislene znakove"
+    "message": "Izbjegavaj dvosmislene znakove",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Izbjegavaj dvosmislene znakove",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Pravila tvrtke primjenjena su na generator.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Pretraživanje zbirke"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Pridruži se organizaciji"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Dovrši pridruživanje organizaciji postavljanjem glavne lozinke."
   },
   "settings": {
     "message": "Postavke"
+  },
+  "accountEmail": {
+    "message": "e-pošta računa"
+  },
+  "requestHint": {
+    "message": "Zatraži podsjetnik"
+  },
+  "requestPasswordHint": {
+    "message": "Zatraži podsjetnik lozinke"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Unesi svoju adresu e-pošte računa i poslat ćemo ti tvoj podsjetnik"
   },
   "passwordHint": {
     "message": "Podsjetnik za lozinku"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Tvoj trezor je zaključan. Potvrdi glavnu lozinku za nastavak."
   },
+  "yourAccountIsLocked": {
+    "message": "Račun je zaključan"
+  },
+  "or": {
+    "message": "ili"
+  },
+  "unlockWithBiometrics": {
+    "message": "Otključaj biometrijom"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Otključaj glavnom lozinkom"
+  },
   "unlock": {
     "message": "Otključaj"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Istek trezora"
+  },
+  "vaultTimeout1": {
+    "message": "Vrijeme isteka"
   },
   "vaultTimeoutDesc": {
     "message": "Odaberi kada će isteći trezor i koja će se radnja izvršiti."
@@ -1286,7 +1370,7 @@
     }
   },
   "copySuccessful": {
-    "message": "Copy Successful"
+    "message": "Kopiranje uspješno"
   },
   "errorRefreshingAccessToken": {
     "message": "Pogreška osvježavanja tokena pristupa"
@@ -1555,7 +1639,7 @@
   "recommendedForSecurity": {
     "message": "Preporučeno za sigurnost."
   },
-  "lockWithMasterPassOnRestart": {
+  "lockWithMasterPassOnRestart1": {
     "message": "Zaključaj glavnom lozinkom kod svakog pokretanja"
   },
   "deleteAccount": {
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Zaključaj",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Smeće",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Tvoja organizacija zahtijeva da postaviš glavnu lozinku.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Potrebna je potvrda",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Uključi integraciju s web preglednikom"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Integracija s preglednikom koristi se za biometriju u pregledniku."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Koristi se za biometrijsko otključavanje u preglednicima koji nisu Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Dozvoli integraciju s DuckDuckGo preglednikom"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "minuta"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Pravilo tvoje organizacije utječe na istek trezora. Najveće dozvoljeno vrijeme isteka je $HOURS$:$MINUTES$ h.",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "Najviše: $HOURS$:$MINUTES$",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Zaključano"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Trezor je zaključan"
+  },
   "unlocked": {
     "message": "Otključano"
   },
   "generator": {
-    "message": "Generator"
+    "message": "Generator",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Što želiš generirati?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Važno:"
+  },
+  "accessing": {
+    "message": "Pristupanje"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "Napravljena je odjava ste jer se tvoj pristupni token nije mogao dešifrirati. Ponovno se prijavi."
@@ -3062,10 +3162,16 @@
   "textSends": {
     "message": "Send tekstovi"
   },
+  "allowScreenshots": {
+    "message": "Dozvoli snimanje zaslona"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Dozvoli snimanje zaslona Bitwarden aplikacije za stolna računala."
+  },
   "ssoError": {
     "message": "Nisu nađeni slobodni portovi za SSO prijavu."
   },
   "fileSavedToDevice": {
-    "message": "File saved to device. Manage from your device downloads."
+    "message": "Datoteka spremljena na uređaj. Upravljaj u preuzimanjima svog uređaja."
   }
 }

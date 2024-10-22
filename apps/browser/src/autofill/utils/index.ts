@@ -311,6 +311,18 @@ export function nodeIsFormElement(node: Node): node is HTMLFormElement {
   return nodeIsElement(node) && elementIsFormElement(node);
 }
 
+export function nodeIsTypeSubmitElement(node: Node): node is HTMLElement {
+  return nodeIsElement(node) && getPropertyOrAttribute(node as HTMLElement, "type") === "submit";
+}
+
+export function nodeIsButtonElement(node: Node): node is HTMLButtonElement {
+  return (
+    nodeIsElement(node) &&
+    (elementIsInstanceOf<HTMLButtonElement>(node, "button") ||
+      getPropertyOrAttribute(node as HTMLElement, "type") === "button")
+  );
+}
+
 /**
  * Returns a boolean representing the attribute value of an element.
  *
@@ -362,6 +374,20 @@ export function throttle(callback: (_args: any) => any, limit: number) {
 }
 
 /**
+ * Debounces a callback function to run after a delay of `delay` milliseconds.
+ *
+ * @param callback - The callback function to debounce.
+ * @param delay - The time in milliseconds to debounce the callback.
+ */
+export function debounce(callback: (_args: any) => any, delay: number) {
+  let timeout: NodeJS.Timeout;
+  return function (...args: unknown[]) {
+    globalThis.clearTimeout(timeout);
+    timeout = globalThis.setTimeout(() => callback.apply(this, args), delay);
+  };
+}
+
+/**
  * Gathers and normalizes keywords from a potential submit button element. Used
  * to verify if the element submits a login or change password form.
  *
@@ -399,4 +425,51 @@ export function getSubmitButtonKeywordsSet(element: HTMLElement): Set<string> {
   }
 
   return keywordsSet;
+}
+
+/**
+ * Generates the origin and subdomain match patterns for the URL.
+ *
+ * @param url - The URL of the tab
+ */
+export function generateDomainMatchPatterns(url: string): string[] {
+  try {
+    const extensionUrlPattern =
+      /^(chrome|chrome-extension|moz-extension|safari-web-extension):\/\/\/?/;
+    if (extensionUrlPattern.test(url)) {
+      return [];
+    }
+
+    // Add protocol to URL if it is missing to allow for parsing the hostname correctly
+    const urlPattern = /^(https?|file):\/\/\/?/;
+    if (!urlPattern.test(url)) {
+      url = `https://${url}`;
+    }
+
+    let protocolGlob = "*://";
+    if (url.startsWith("file:///")) {
+      protocolGlob = "*:///"; // File URLs require three slashes to be a valid match pattern
+    }
+
+    const parsedUrl = new URL(url);
+    const originMatchPattern = `${protocolGlob}${parsedUrl.hostname}/*`;
+
+    const splitHost = parsedUrl.hostname.split(".");
+    const domain = splitHost.slice(-2).join(".");
+    const subDomainMatchPattern = `${protocolGlob}*.${domain}/*`;
+
+    return [originMatchPattern, subDomainMatchPattern];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Determines if the status code of the web response is invalid. An invalid status code is
+ * any status code that is not in the 200-299 range.
+ *
+ * @param statusCode - The status code of the web response
+ */
+export function isInvalidResponseStatusCode(statusCode: number) {
+  return statusCode < 200 || statusCode >= 300;
 }

@@ -122,7 +122,7 @@ const moduleRules = [
     loader: "@ngtools/webpack",
   },
   {
-    test: /\.wasm$/,
+    test: /argon2(-simd)?\.wasm$/,
     loader: "base64-loader",
     type: "javascript/auto",
   },
@@ -316,12 +316,17 @@ const mainConfig = {
   },
   output: {
     filename: "[name].js",
+    chunkFilename: "assets/[name].js",
+    webassemblyModuleFilename: "assets/[modulehash].wasm",
     path: path.resolve(__dirname, "build"),
     clean: true,
   },
   module: {
-    noParse: /\.wasm$/,
+    noParse: /argon2(-simd)?\.wasm$/,
     rules: moduleRules,
+  },
+  experiments: {
+    asyncWebAssembly: true,
   },
   plugins: plugins,
 };
@@ -395,12 +400,15 @@ if (manifestVersion == 2) {
           loader: "ts-loader",
         },
         {
-          test: /\.wasm$/,
+          test: /argon2(-simd)?\.wasm$/,
           loader: "base64-loader",
           type: "javascript/auto",
         },
       ],
-      noParse: /\.wasm$/,
+      noParse: /argon2(-simd)?\.wasm$/,
+    },
+    experiments: {
+      asyncWebAssembly: true,
     },
     resolve: {
       extensions: [".ts", ".js"],

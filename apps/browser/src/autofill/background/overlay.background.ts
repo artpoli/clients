@@ -20,6 +20,7 @@ import {
 import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
 import { DomainSettingsService } from "@bitwarden/common/autofill/services/domain-settings.service";
 import { InlineMenuVisibilitySetting } from "@bitwarden/common/autofill/types";
+import { parseYearMonthExpiry } from "@bitwarden/common/autofill/utils";
 import { NeverDomains } from "@bitwarden/common/models/domain/domain-service";
 import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import {
@@ -54,7 +55,11 @@ import {
   MAX_SUB_FRAME_DEPTH,
 } from "../enums/autofill-overlay.enum";
 import { AutofillService } from "../services/abstractions/autofill.service";
-import { generateRandomChars } from "../utils";
+import {
+  generateDomainMatchPatterns,
+  generateRandomChars,
+  isInvalidResponseStatusCode,
+} from "../utils";
 
 import { LockedVaultPendingNotificationsData } from "./abstractions/notification.background";
 import {
@@ -127,6 +132,8 @@ export class OverlayBackground implements OverlayBackgroundInterface {
     updateIsFieldCurrentlyFilling: ({ message }) => this.updateIsFieldCurrentlyFilling(message),
     checkIsFieldCurrentlyFilling: () => this.checkIsFieldCurrentlyFilling(),
     getAutofillInlineMenuVisibility: () => this.getInlineMenuVisibility(),
+    getInlineMenuCardsVisibility: () => this.getInlineMenuCardsVisibility(),
+    getInlineMenuIdentitiesVisibility: () => this.getInlineMenuIdentitiesVisibility(),
     openAutofillInlineMenu: () => this.openInlineMenu(false),
     closeAutofillInlineMenu: ({ message, sender }) => this.closeInlineMenu(sender, message),
     checkAutofillInlineMenuFocused: ({ sender }) => this.checkInlineMenuFocused(sender),
@@ -150,7 +157,7 @@ export class OverlayBackground implements OverlayBackgroundInterface {
     addEditCipherSubmitted: () => this.updateOverlayCiphers(),
     editedCipher: () => this.updateOverlayCiphers(),
     deletedCipher: () => this.updateOverlayCiphers(),
-    fido2AbortRequest: ({ sender }) => this.abortFido2ActiveRequest(sender),
+    fido2AbortRequest: ({ sender }) => this.abortFido2ActiveRequest(sender.tab.id),
   };
   private readonly inlineMenuButtonPortMessageHandlers: InlineMenuButtonPortMessageHandlers = {
     triggerDelayedAutofillInlineMenuClosure: () => this.triggerDelayedInlineMenuClosure(),
@@ -360,7 +367,7 @@ export class OverlayBackground implements OverlayBackgroundInterface {
       }
     }
 
-    if (!this.cardAndIdentityCiphers.size) {
+    if (!this.cardAndIdentityCiphers?.size) {
       this.cardAndIdentityCiphers = null;
     }
 
@@ -671,10 +678,10 @@ export class OverlayBackground implements OverlayBackgroundInterface {
   /**
    * Aborts an active FIDO2 request for a given tab and updates the inline menu ciphers.
    *
-   * @param sender - The sender of the message
+   * @param tabId - The id of the tab to abort the request for
    */
-  private async abortFido2ActiveRequest(sender: chrome.runtime.MessageSender) {
-    this.fido2ActiveRequestManager.removeActiveRequest(sender.tab.id);
+  private async abortFido2ActiveRequest(tabId: number) {
+    this.fido2ActiveRequestManager.removeActiveRequest(tabId);
     await this.updateOverlayCiphers(false);
   }
 
@@ -938,11 +945,10 @@ export class OverlayBackground implements OverlayBackgroundInterface {
 
     if (usePasskey && cipher.login?.hasFido2Credentials) {
       await this.authenticatePasskeyCredential(
-        sender.tab.id,
+        sender,
         cipher.login.fido2Credentials[0].credentialId,
       );
       this.updateLastUsedInlineMenuCipher(inlineMenuCipherId, cipher);
-      this.closeInlineMenu(sender, { forceCloseInlineMenu: true });
 
       return;
     }
@@ -968,11 +974,11 @@ export class OverlayBackground implements OverlayBackgroundInterface {
   /**
    * Triggers a FIDO2 authentication from the inline menu using the passed credential ID.
    *
-   * @param tabId - The tab ID to trigger the authentication for
+   * @param sender - The sender of the port message
    * @param credentialId - The credential ID to authenticate
    */
-  async authenticatePasskeyCredential(tabId: number, credentialId: string) {
-    const request = this.fido2ActiveRequestManager.getActiveRequest(tabId);
+  async authenticatePasskeyCredential(sender: chrome.runtime.MessageSender, credentialId: string) {
+    const request = this.fido2ActiveRequestManager.getActiveRequest(sender.tab.id);
     if (!request) {
       this.logService.error(
         "Could not complete passkey autofill due to missing active Fido2 request",
@@ -980,8 +986,34 @@ export class OverlayBackground implements OverlayBackgroundInterface {
       return;
     }
 
+    chrome.webRequest.onCompleted.addListener(this.handlePasskeyAuthenticationOnCompleted, {
+      urls: generateDomainMatchPatterns(sender.tab.url),
+    });
     request.subject.next({ type: Fido2ActiveRequestEvents.Continue, credentialId });
   }
+
+  /**
+   * Handles the next web request that occurs after a passkey authentication has been completed.
+   * Ensures that the inline menu closes after the request, and that the FIDO2 request is aborted
+   * if the request is not successful.
+   *
+   * @param details - The web request details
+   */
+  private handlePasskeyAuthenticationOnCompleted = (
+    details: chrome.webRequest.WebResponseCacheDetails,
+  ) => {
+    chrome.webRequest.onCompleted.removeListener(this.handlePasskeyAuthenticationOnCompleted);
+
+    if (isInvalidResponseStatusCode(details.statusCode)) {
+      this.closeInlineMenu({ tab: { id: details.tabId } } as chrome.runtime.MessageSender, {
+        forceCloseInlineMenu: true,
+      });
+      this.abortFido2ActiveRequest(details.tabId).catch((error) => this.logService.error(error));
+      return;
+    }
+
+    globalThis.setTimeout(() => this.triggerDelayedInlineMenuClosure(), 3000);
+  };
 
   /**
    * Sets the most recently used cipher at the top of the list of ciphers.
@@ -1454,9 +1486,21 @@ export class OverlayBackground implements OverlayBackgroundInterface {
   }
 
   /**
-   * Gets the user's authentication status from the auth service. If the user's authentication
-   * status has changed, the inline menu button's authentication status will be updated
-   * and the inline menu list's ciphers will be updated.
+   * Gets the inline menu's visibility setting for Cards from the settings service.
+   */
+  private async getInlineMenuCardsVisibility(): Promise<boolean> {
+    return await firstValueFrom(this.autofillSettingsService.showInlineMenuCards$);
+  }
+
+  /**
+   * Gets the inline menu's visibility setting for Identities from the settings service.
+   */
+  private async getInlineMenuIdentitiesVisibility(): Promise<boolean> {
+    return await firstValueFrom(this.autofillSettingsService.showInlineMenuIdentities$);
+  }
+
+  /**
+   * Gets the user's authentication status from the auth service.
    */
   private async getAuthStatus() {
     return await firstValueFrom(this.authService.activeAccountStatus$);
@@ -1586,6 +1630,7 @@ export class OverlayBackground implements OverlayBackgroundInterface {
         passkeys: this.i18nService.translate("passkeys"),
         passwords: this.i18nService.translate("passwords"),
         logInWithPasskey: this.i18nService.translate("logInWithPasskeyAriaLabel"),
+        authenticating: this.i18nService.translate("authenticating"),
       };
     }
 
@@ -1898,10 +1943,20 @@ export class OverlayBackground implements OverlayBackgroundInterface {
     const cardView = new CardView();
     cardView.cardholderName = card.cardholderName || "";
     cardView.number = card.number || "";
-    cardView.expMonth = card.expirationMonth || "";
-    cardView.expYear = card.expirationYear || "";
     cardView.code = card.cvv || "";
     cardView.brand = card.number ? CardView.getCardBrandByPatterns(card.number) : "";
+
+    // If there's a combined expiration date value and no individual month or year values,
+    // try to parse them from the combined value
+    if (card.expirationDate && !card.expirationMonth && !card.expirationYear) {
+      const [parsedYear, parsedMonth] = parseYearMonthExpiry(card.expirationDate);
+
+      cardView.expMonth = parsedMonth || "";
+      cardView.expYear = parsedYear || "";
+    } else {
+      cardView.expMonth = card.expirationMonth || "";
+      cardView.expYear = card.expirationYear || "";
+    }
 
     const cipherView = new CipherView();
     cipherView.name = "";

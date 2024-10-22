@@ -38,7 +38,7 @@
     "message": "Enviar"
   },
   "emailAddress": {
-    "message": "Endereço de E-mail"
+    "message": "Endereço de correio eletrônico"
   },
   "masterPass": {
     "message": "Senha Mestra"
@@ -70,6 +70,15 @@
   },
   "joinOrganization": {
     "message": "Juntar-se à organização"
+  },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
   },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Termine de juntar-se nessa organização definindo uma senha mestra."
@@ -128,11 +137,26 @@
   "copyLicenseNumber": {
     "message": "Copiar número da CNH"
   },
+  "copyCustomField": {
+    "message": "Copiar $FIELD$",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Copiar site"
+  },
+  "copyNotes": {
+    "message": "Copiar Notas"
+  },
   "autoFill": {
     "message": "Autopreencher"
   },
   "autoFillLogin": {
-    "message": "Preenchimento automático login"
+    "message": "Preenchimento automático ‘login’"
   },
   "autoFillCard": {
     "message": "Preenchimento automático cartão"
@@ -178,6 +202,18 @@
   },
   "addItem": {
     "message": "Adicionar Item"
+  },
+  "accountEmail": {
+    "message": "Correio eletrônico da conta"
+  },
+  "requestHint": {
+    "message": "Pedir dica"
+  },
+  "requestPasswordHint": {
+    "message": "Dica da senha mestra"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Digite o endereço de seu correio eletrônico da sua conta e sua dica da senha será enviada para você"
   },
   "passwordHint": {
     "message": "Dica da Senha"
@@ -354,7 +390,7 @@
   },
   "generator": {
     "message": "Gerador",
-    "description": "Short for 'Password Generator'."
+    "description": "Short for 'credential generator'."
   },
   "passGenInfo": {
     "message": "Gere automaticamente senhas fortes e únicas para as suas credenciais."
@@ -462,6 +498,10 @@
     "message": "Evitar Caracteres Ambíguos",
     "description": "Label for the avoid ambiguous characters checkbox."
   },
+  "generatorPolicyInEffect": {
+    "message": "Os requisitos de política empresarial foram aplicados nesta configuração",
+    "description": "Indicates that a policy limits the credential generator screen."
+  },
   "searchVault": {
     "message": "Pesquisar no Cofre"
   },
@@ -503,6 +543,9 @@
   },
   "notes": {
     "message": "Notas"
+  },
+  "privateNote": {
+    "message": "Nota privada"
   },
   "note": {
     "message": "Nota"
@@ -549,6 +592,9 @@
   "sessionTimeoutHeader": {
     "message": "Tempo limite da sessão"
   },
+  "vaultTimeoutHeader": {
+    "message": "Tempo Limite do Cofre"
+  },
   "otherOptions": {
     "message": "Outras opções"
   },
@@ -566,6 +612,15 @@
   },
   "yourVaultIsLocked": {
     "message": "Seu cofre está trancado. Verifique sua identidade para continuar."
+  },
+  "yourVaultIsLockedV2": {
+    "message": "Your vault is locked"
+  },
+  "yourAccountIsLocked": {
+    "message": "Your account is locked"
+  },
+  "or": {
+    "message": "or"
   },
   "unlock": {
     "message": "Desbloquear"
@@ -588,6 +643,9 @@
   },
   "vaultTimeout": {
     "message": "Cofre - tempo esgotado"
+  },
+  "vaultTimeout1": {
+    "message": "Tempo de espera"
   },
   "lockNow": {
     "message": "Bloquear Agora"
@@ -788,6 +846,12 @@
   },
   "twoStepLoginConfirmation": {
     "message": "O login de duas etapas torna a sua conta mais segura ao exigir que digite um código de segurança de um aplicativo de autenticação quando for iniciar a sessão. O login de duas etapas pode ser ativado no cofre web bitwarden.com. Deseja visitar o site agora?"
+  },
+  "twoStepLoginConfirmationContent": {
+    "message": "Torne sua conta mais segura configurando o 'login' em duas etapas no aplicativo ‘web’ do Bitwarden."
+  },
+  "twoStepLoginConfirmationTitle": {
+    "message": "Continuar para o aplicativo da ‘web’?"
   },
   "editedFolder": {
     "message": "Pasta Editada"
@@ -1097,6 +1161,9 @@
   "file": {
     "message": "Arquivo"
   },
+  "fileToShare": {
+    "message": "Arquivo para compartilhar"
+  },
   "selectFile": {
     "message": "Selecione um arquivo."
   },
@@ -1349,6 +1416,12 @@
   },
   "showInlineMenuLabel": {
     "message": "Mostrar sugestões de preenchimento automático nos campos de formulários"
+  },
+  "showInlineMenuIdentitiesLabel": {
+    "message": "Display identities as suggestions"
+  },
+  "showInlineMenuCardsLabel": {
+    "message": "Display cards as suggestions"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "Exibir sugestões quando o ícone for selecionado"
@@ -1797,13 +1870,13 @@
     "message": "Não existem senhas para listar."
   },
   "clearHistory": {
-    "message": "Clear history"
+    "message": "Limpar histórico"
   },
   "noPasswordsToShow": {
-    "message": "No passwords to show"
+    "message": "Nenhuma senha para mostrar"
   },
   "noRecentlyGeneratedPassword": {
-    "message": "You haven't generated a password recently"
+    "message": "Você não gerou uma senha recentemente"
   },
   "remove": {
     "message": "Remover"
@@ -1863,8 +1936,17 @@
   "unlockWithPin": {
     "message": "Desbloquear com o PIN"
   },
+  "setYourPinTitle": {
+    "message": "Definir PIN"
+  },
+  "setYourPinButton": {
+    "message": "Definir PIN"
+  },
   "setYourPinCode": {
     "message": "Defina o seu código PIN para desbloquear o Bitwarden. Suas configurações de PIN serão redefinidas se alguma vez você encerrar completamente toda a sessão do aplicativo."
+  },
+  "setYourPinCode1": {
+    "message": "O seu PIN será usado para desbloquear o Bitwarden em vez da sua senha mestra. O seu PIN será redefinido se terminar sessão completa do Bitwarden."
   },
   "pinRequired": {
     "message": "O código PIN é necessário."
@@ -1878,6 +1960,9 @@
   "unlockWithBiometrics": {
     "message": "Desbloquear com a biometria"
   },
+  "unlockWithMasterPassword": {
+    "message": "Unlock with master password"
+  },
   "awaitDesktop": {
     "message": "Aguardando confirmação do desktop"
   },
@@ -1886,6 +1971,9 @@
   },
   "lockWithMasterPassOnRestart": {
     "message": "Bloquear com senha mestra ao reiniciar o navegador"
+  },
+  "lockWithMasterPassOnRestart1": {
+    "message": "Exigir senha mestra ao reiniciar o navegador"
   },
   "selectOneCollection": {
     "message": "Você deve selecionar pelo menos uma coleção."
@@ -1925,9 +2013,12 @@
   "vaultTimeoutAction": {
     "message": "Ação de Tempo Limite do Cofre"
   },
+  "vaultTimeoutAction1": {
+    "message": "Ação do tempo"
+  },
   "lock": {
     "message": "Bloquear",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Lixeira",
@@ -2119,11 +2210,11 @@
   "nativeMessagingWrongUserTitle": {
     "message": "A conta não confere"
   },
-  "nativeMessagingWrongUserKeyDesc": {
-    "message": "O desbloqueio biométrico falhou. A chave secreta biométrica não conseguiu desbloquear o cofre. Tente configurar os dados biométricos novamente."
-  },
   "nativeMessagingWrongUserKeyTitle": {
     "message": "Falta de chave biométrica"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "O desbloqueio biométrico falhou. A chave secreta biométrica não conseguiu desbloquear o cofre. Tente configurar os dados biométricos novamente."
   },
   "biometricsNotEnabledTitle": {
     "message": "Biometria não ativada"
@@ -2210,8 +2301,29 @@
   "excludedDomainsSavedSuccess": {
     "message": "Mudanças de domínios excluídos salvas"
   },
+  "limitSendViews": {
+    "message": "Limitar visualização"
+  },
+  "limitSendViewsHint": {
+    "message": "Ninguém pode visualizar este envio depois que o limite foi atingido.",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "limitSendViewsCount": {
+    "message": "$ACCESSCOUNT$ Visualizações restantes",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "send": {
     "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDetails": {
+    "message": "Enviar detalhes",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -2225,12 +2337,18 @@
   "sendTypeText": {
     "message": "Texto"
   },
+  "sendTypeTextToShare": {
+    "message": "Texto para compartilhar"
+  },
   "sendTypeFile": {
     "message": "Arquivo"
   },
   "allSends": {
     "message": "Todos os Sends",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "hideTextByDefault": {
+    "message": "Ocultar texto por padrão"
   },
   "maxAccessCountReached": {
     "message": "Número máximo de acessos atingido",
@@ -2283,6 +2401,10 @@
     "message": "Você tem certeza que deseja excluir este Send?",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "deleteSendPermanentConfirmation": {
+    "message": "Tem certeza que deseja excluir este campo permanentemente?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "editSend": {
     "message": "Editar Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -2303,6 +2425,10 @@
   },
   "deletionDateDesc": {
     "message": "O Send será eliminado permanentemente na data e hora especificadas.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deletionDateDescV2": {
+    "message": "O envio será eliminado permanentemente na data e hora especificadas.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "expirationDate": {
@@ -2336,6 +2462,10 @@
   },
   "sendPasswordDesc": {
     "message": "Exigir opcionalmente uma senha para os usuários acessarem este Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDescV2": {
+    "message": "Exigir essa senha para visualizar o Envio.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2383,8 +2513,26 @@
     "message": "Envio criado com sucesso!",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendAvailability": {
-    "message": "O envio estará disponível para qualquer pessoa com o link para os próximos $DAYS$ dias.",
+  "sendExpiresInHoursSingle": {
+    "message": "The Send will be available to anyone with the link for the next 1 hour.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInHours": {
+    "message": "The Send will be available to anyone with the link for the next $HOURS$ hours.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sendExpiresInDaysSingle": {
+    "message": "The Send will be available to anyone with the link for the next 1 day.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInDays": {
+    "message": "The Send will be available to anyone with the link for the next $DAYS$ days.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
       "days": {
@@ -2401,6 +2549,14 @@
     "message": "Send Editado",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendFilePopoutDialogText": {
+    "message": "Mostrar extensão?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFilePopoutDialogDesc": {
+    "message": "Para criar um arquivo enviado, você precisa colocar a extensão em uma nova janela.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "sendLinuxChromiumFileWarning": {
     "message": "Para escolher um arquivo, abra a extensão na barra lateral (se possível), ou abra uma nova janela clicando neste banner."
   },
@@ -2409,6 +2565,9 @@
   },
   "sendSafariFileWarning": {
     "message": "Para escolher um arquivo usando o Safari, abra uma nova janela clicando neste banner."
+  },
+  "popOut": {
+    "message": "Separar da janela"
   },
   "sendFileCalloutHeader": {
     "message": "Antes de começar"
@@ -2442,6 +2601,9 @@
   },
   "hideEmail": {
     "message": "Ocultar meu endereço de e-mail dos destinatários."
+  },
+  "hideYourEmail": {
+    "message": "Ocultar meu endereço de correio eletrônico dos destinatários."
   },
   "sendOptionsPolicyInEffect": {
     "message": "Uma ou mais políticas da organização estão afetando as suas opções de Send."
@@ -2500,6 +2662,15 @@
     "message": "Sua organização requer que você defina uma senha mestra.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "Verificação necessária",
     "description": "Default title for the user verification dialog."
@@ -2510,8 +2681,37 @@
   "minutes": {
     "message": "Minutos"
   },
+  "vaultTimeoutPolicyAffectingOptions": {
+    "message": "Os requisitos de política empresarial foram aplicados nesta configuração"
+  },
   "vaultTimeoutPolicyInEffect": {
     "message": "As políticas da sua organização estão afetando o tempo limite do seu cofre. O Tempo Limite Máximo permitido do Cofre é $HOURS$ hora(s) e $MINUTES$ minuto(s)",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "Máximo de $HOURS$ hora(s) e $MINUTES$ minuto(s).",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyMaximumError": {
+    "message": "Tempo limite excede a restrição definida pela sua organização: máximo de $HOURS$ hora(s) e $MINUTES$ minuto(s)",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -3477,6 +3677,9 @@
   "typePasskey": {
     "message": "Chave de acesso"
   },
+  "accessing": {
+    "message": "Accessing"
+  },
   "passkeyNotCopied": {
     "message": "A chave de acesso não será copiada"
   },
@@ -3500,6 +3703,9 @@
   },
   "noMatchingLoginsForSite": {
     "message": "Sem credenciais correspondentes para este site"
+  },
+  "searchSavePasskeyNewLogin": {
+    "message": "Search or save passkey as new login"
   },
   "confirm": {
     "message": "Confirmar"
@@ -4070,6 +4276,9 @@
   "enableAnimations": {
     "message": "Habilita animações"
   },
+  "showAnimations": {
+    "message": "Exibir animações"
+  },
   "addAccount": {
     "message": "Adicionar conta"
   },
@@ -4309,8 +4518,17 @@
   "enterprisePolicyRequirementsApplied": {
     "message": "Os requisitos de política empresarial foram aplicados nesta configuração"
   },
+  "retry": {
+    "message": "Tente novamente"
+  },
+  "vaultCustomTimeoutMinimum": {
+    "message": "Tempo limite mínimo personalizado é 1 minuto."
+  },
+  "additionalContentAvailable": {
+    "message": "Conteúdo adicional está disponível"
+  },
   "fileSavedToDevice": {
-    "message": "File saved to device. Manage from your device downloads."
+    "message": "Arquivo salvo no dispositivo. Gerencie a partir das transferências do seu dispositivo."
   },
   "showCharacterCount": {
     "message": "Mostrar contagem de caracteres"
@@ -4338,5 +4556,8 @@
   },
   "noEditPermissions": {
     "message": "Você não tem permissão para editar este arquivo"
+  },
+  "authenticating": {
+    "message": "Autenticando"
   }
 }

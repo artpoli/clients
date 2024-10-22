@@ -1,15 +1,15 @@
 import { DialogRef } from "@angular/cdk/dialog";
+import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 import {
   BehaviorSubject,
   combineLatest,
   concatMap,
   distinctUntilChanged,
-  filter,
   firstValueFrom,
   map,
-  Observable,
   pairwise,
   startWith,
   Subject,
@@ -17,7 +17,8 @@ import {
   takeUntil,
 } from "rxjs";
 
-import { FingerprintDialogComponent } from "@bitwarden/auth/angular";
+import { JslibModule } from "@bitwarden/angular/jslib.module";
+import { FingerprintDialogComponent, VaultTimeoutInputComponent } from "@bitwarden/auth/angular";
 import { PinServiceAbstraction } from "@bitwarden/auth/common";
 import { VaultTimeoutSettingsService } from "@bitwarden/common/abstractions/vault-timeout/vault-timeout-settings.service";
 import { VaultTimeoutService } from "@bitwarden/common/abstractions/vault-timeout/vault-timeout.service";
@@ -32,37 +33,73 @@ import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.servic
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
-import { BiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
-import { BiometricsService } from "@bitwarden/common/platform/biometrics/biometric.service";
 import {
   VaultTimeout,
   VaultTimeoutOption,
   VaultTimeoutStringType,
 } from "@bitwarden/common/types/vault-timeout.type";
-import { DialogService, ToastService } from "@bitwarden/components";
+import {
+  CardComponent,
+  CheckboxModule,
+  DialogService,
+  FormFieldModule,
+  IconButtonModule,
+  ItemModule,
+  LinkModule,
+  SectionComponent,
+  SectionHeaderComponent,
+  SelectModule,
+  TypographyModule,
+  ToastService,
+} from "@bitwarden/components";
+import { BiometricsService, BiometricStateService } from "@bitwarden/key-management";
 
 import { BiometricErrors, BiometricErrorTypes } from "../../../models/biometricErrors";
 import { BrowserApi } from "../../../platform/browser/browser-api";
 import { enableAccountSwitching } from "../../../platform/flags";
 import BrowserPopupUtils from "../../../platform/popup/browser-popup-utils";
+import { PopOutComponent } from "../../../platform/popup/components/pop-out.component";
+import { PopupFooterComponent } from "../../../platform/popup/layout/popup-footer.component";
+import { PopupHeaderComponent } from "../../../platform/popup/layout/popup-header.component";
+import { PopupPageComponent } from "../../../platform/popup/layout/popup-page.component";
 import { SetPinComponent } from "../components/set-pin.component";
 
 import { AwaitDesktopDialogComponent } from "./await-desktop-dialog.component";
 
 @Component({
-  selector: "auth-account-security",
   templateUrl: "account-security.component.html",
+  standalone: true,
+  imports: [
+    CardComponent,
+    CheckboxModule,
+    CommonModule,
+    FormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    IconButtonModule,
+    ItemModule,
+    JslibModule,
+    LinkModule,
+    PopOutComponent,
+    PopupFooterComponent,
+    PopupHeaderComponent,
+    PopupPageComponent,
+    RouterModule,
+    SectionComponent,
+    SectionHeaderComponent,
+    SelectModule,
+    TypographyModule,
+    VaultTimeoutInputComponent,
+  ],
 })
 // eslint-disable-next-line rxjs-angular/prefer-takeuntil
 export class AccountSecurityComponent implements OnInit, OnDestroy {
   protected readonly VaultTimeoutAction = VaultTimeoutAction;
 
+  showMasterPasswordOnClientRestartOption = true;
   availableVaultTimeoutActions: VaultTimeoutAction[] = [];
-  vaultTimeoutOptions: VaultTimeoutOption[];
-  vaultTimeoutPolicyCallout: Observable<{
-    timeout: { hours: number; minutes: number };
-    action: VaultTimeoutAction;
-  }>;
+  vaultTimeoutOptions: VaultTimeoutOption[] = [];
+  hasVaultTimeoutPolicy = false;
   supportsBiometric: boolean;
   showChangeMasterPass = true;
   accountSwitcherEnabled = false;
@@ -71,6 +108,7 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
     vaultTimeout: [null as VaultTimeout | null],
     vaultTimeoutAction: [VaultTimeoutAction.Lock],
     pin: [null as boolean | null],
+    pinLockWithMasterPassword: false,
     biometric: false,
     enableAutoBiometricsPrompt: true,
   });
@@ -102,20 +140,12 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    const hasMasterPassword = await this.userVerificationService.hasMasterPassword();
+    this.showMasterPasswordOnClientRestartOption = hasMasterPassword;
     const maximumVaultTimeoutPolicy = this.policyService.get$(PolicyType.MaximumVaultTimeout);
-    this.vaultTimeoutPolicyCallout = maximumVaultTimeoutPolicy.pipe(
-      filter((policy) => policy != null),
-      map((policy) => {
-        let timeout;
-        if (policy.data?.minutes) {
-          timeout = {
-            hours: Math.floor(policy.data?.minutes / 60),
-            minutes: policy.data?.minutes % 60,
-          };
-        }
-        return { timeout: timeout, action: policy.data?.action };
-      }),
-    );
+    if ((await firstValueFrom(this.policyService.get$(PolicyType.MaximumVaultTimeout))) != null) {
+      this.hasVaultTimeoutPolicy = true;
+    }
 
     const showOnLocked =
       !this.platformUtilsService.isFirefox() && !this.platformUtilsService.isSafari();
@@ -161,6 +191,8 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
         this.vaultTimeoutSettingsService.getVaultTimeoutActionByUserId$(activeAccount.id),
       ),
       pin: await this.pinService.isPinSet(activeAccount.id),
+      pinLockWithMasterPassword:
+        (await this.pinService.getPinLockType(activeAccount.id)) == "EPHEMERAL",
       biometric: await this.vaultTimeoutSettingsService.isBiometricLockSet(),
       enableAutoBiometricsPrompt: await firstValueFrom(
         this.biometricStateService.promptAutomatically$,
@@ -185,9 +217,8 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
     this.form.controls.vaultTimeoutAction.valueChanges
       .pipe(
         startWith(initialValues.vaultTimeoutAction), // emit to init pairwise
-        pairwise(),
-        concatMap(async ([previousValue, newValue]) => {
-          await this.saveVaultTimeoutAction(previousValue, newValue);
+        map(async (value) => {
+          await this.saveVaultTimeoutAction(value);
         }),
         takeUntil(this.destroy$),
       )
@@ -197,6 +228,22 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
       .pipe(
         concatMap(async (value) => {
           await this.updatePin(value);
+          this.refreshTimeoutSettings$.next();
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe();
+
+    this.form.controls.pinLockWithMasterPassword.valueChanges
+      .pipe(
+        concatMap(async (value) => {
+          const userId = (await firstValueFrom(this.accountService.activeAccount$)).id;
+          const pinKeyEncryptedUserKey =
+            (await this.pinService.getPinKeyEncryptedUserKeyPersistent(userId)) ||
+            (await this.pinService.getPinKeyEncryptedUserKeyEphemeral(userId));
+          await this.pinService.clearPinKeyEncryptedUserKeyPersistent(userId);
+          await this.pinService.clearPinKeyEncryptedUserKeyEphemeral(userId);
+          await this.pinService.storePinKeyEncryptedUserKey(pinKeyEncryptedUserKey, value, userId);
           this.refreshTimeoutSettings$.next();
         }),
         takeUntil(this.destroy$),
@@ -214,6 +261,15 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
             this.form.controls.enableAutoBiometricsPrompt.disable();
           }
           this.refreshTimeoutSettings$.next();
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe();
+
+    this.form.controls.enableAutoBiometricsPrompt.valueChanges
+      .pipe(
+        concatMap(async (enabled) => {
+          await this.biometricStateService.setPromptAutomatically(enabled);
         }),
         takeUntil(this.destroy$),
       )
@@ -272,17 +328,6 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
       }
     }
 
-    // The minTimeoutError does not apply to browser because it supports Immediately
-    // So only check for the policyError
-    if (this.form.controls.vaultTimeout.hasError("policyError")) {
-      this.toastService.showToast({
-        variant: "error",
-        title: null,
-        message: this.i18nService.t("vaultTimeoutTooLarge"),
-      });
-      return;
-    }
-
     const activeAccount = await firstValueFrom(this.accountService.activeAccount$);
 
     const vaultTimeoutAction = await firstValueFrom(
@@ -299,8 +344,8 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
     }
   }
 
-  async saveVaultTimeoutAction(previousValue: VaultTimeoutAction, newValue: VaultTimeoutAction) {
-    if (newValue === VaultTimeoutAction.LogOut) {
+  async saveVaultTimeoutAction(value: VaultTimeoutAction) {
+    if (value === VaultTimeoutAction.LogOut) {
       const confirmed = await this.dialogService.openSimpleDialog({
         title: { key: "vaultTimeoutLogOutConfirmationTitle" },
         content: { key: "vaultTimeoutLogOutConfirmation" },
@@ -308,7 +353,7 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
       });
 
       if (!confirmed) {
-        this.form.controls.vaultTimeoutAction.setValue(previousValue, {
+        this.form.controls.vaultTimeoutAction.setValue(VaultTimeoutAction.Lock, {
           emitEvent: false,
         });
         return;
@@ -329,7 +374,7 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
     await this.vaultTimeoutSettingsService.setVaultTimeoutOptions(
       activeAccount.id,
       this.form.value.vaultTimeout,
-      newValue,
+      value,
     );
     this.refreshTimeoutSettings$.next();
   }
@@ -343,8 +388,13 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
         return;
       }
 
+      const userId = await firstValueFrom(
+        this.accountService.activeAccount$.pipe(map((account) => account.id)),
+      );
       const userHasPinSet = await firstValueFrom(dialogRef.closed);
       this.form.controls.pin.setValue(userHasPinSet, { emitEvent: false });
+      const requireReprompt = (await this.pinService.getPinLockType(userId)) == "EPHEMERAL";
+      this.form.controls.pinLockWithMasterPassword.setValue(requireReprompt, { emitEvent: false });
     } else {
       await this.vaultTimeoutSettingsService.clear();
     }
@@ -386,77 +436,91 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
         return;
       }
 
-      let awaitDesktopDialogRef: DialogRef<boolean, unknown> | undefined;
-      let biometricsResponseReceived = false;
-
       await this.cryptoService.refreshAdditionalKeys();
 
-      const waitForUserDialogPromise = async () => {
-        // only show waiting dialog if we have waited for 200 msec to prevent double dialog
-        // the os will respond instantly if the dialog shows successfully, and the desktop app will respond instantly if something is wrong
-        await new Promise((resolve) => setTimeout(resolve, 200));
-        if (biometricsResponseReceived) {
+      const successful = await this.trySetupBiometrics();
+      this.form.controls.biometric.setValue(successful);
+      if (!successful) {
+        await this.biometricStateService.setBiometricUnlockEnabled(false);
+        await this.biometricStateService.setFingerprintValidated(false);
+      }
+    }
+  }
+
+  async trySetupBiometrics(): Promise<boolean> {
+    let awaitDesktopDialogRef: DialogRef<boolean, unknown> | undefined;
+    let biometricsResponseReceived = false;
+    let setupResult = false;
+
+    const waitForUserDialogPromise = async () => {
+      // only show waiting dialog if we have waited for 500 msec to prevent double dialog
+      // the os will respond instantly if the dialog shows successfully, and the desktop app will respond instantly if something is wrong
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (biometricsResponseReceived) {
+        return;
+      }
+
+      awaitDesktopDialogRef = AwaitDesktopDialogComponent.open(this.dialogService);
+      await firstValueFrom(awaitDesktopDialogRef.closed);
+      if (!biometricsResponseReceived) {
+        setupResult = false;
+      }
+      return;
+    };
+
+    const biometricsPromise = async () => {
+      try {
+        const result = await this.biometricsService.authenticateBiometric();
+
+        // prevent duplicate dialog
+        biometricsResponseReceived = true;
+        if (awaitDesktopDialogRef) {
+          awaitDesktopDialogRef.close(result);
+        }
+
+        if (!result) {
+          this.platformUtilsService.showToast(
+            "error",
+            this.i18nService.t("errorEnableBiometricTitle"),
+            this.i18nService.t("errorEnableBiometricDesc"),
+          );
+        }
+        setupResult = true;
+      } catch (e) {
+        // prevent duplicate dialog
+        biometricsResponseReceived = true;
+        if (awaitDesktopDialogRef) {
+          awaitDesktopDialogRef.close(true);
+        }
+
+        if (e.message == "canceled") {
+          setupResult = false;
           return;
         }
 
-        awaitDesktopDialogRef = AwaitDesktopDialogComponent.open(this.dialogService);
-        const result = await firstValueFrom(awaitDesktopDialogRef.closed);
-        if (result !== true) {
-          this.form.controls.biometric.setValue(false);
+        const error = BiometricErrors[e.message as BiometricErrorTypes];
+        const shouldRetry = await this.dialogService.openSimpleDialog({
+          title: { key: error.title },
+          content: { key: error.description },
+          acceptButtonText: { key: "retry" },
+          cancelButtonText: null,
+          type: "danger",
+        });
+        if (shouldRetry) {
+          setupResult = await this.trySetupBiometrics();
+        } else {
+          setupResult = false;
+          return;
         }
-      };
-
-      const biometricsPromise = async () => {
-        try {
-          const result = await this.biometricsService.authenticateBiometric();
-
-          // prevent duplicate dialog
-          biometricsResponseReceived = true;
-          if (awaitDesktopDialogRef) {
-            awaitDesktopDialogRef.close(true);
-          }
-
-          this.form.controls.biometric.setValue(result);
-          if (!result) {
-            this.toastService.showToast({
-              variant: "error",
-              title: this.i18nService.t("errorEnableBiometricTitle"),
-              message: this.i18nService.t("errorEnableBiometricDesc"),
-            });
-          }
-        } catch (e) {
-          // prevent duplicate dialog
-          biometricsResponseReceived = true;
-          if (awaitDesktopDialogRef) {
-            awaitDesktopDialogRef.close(true);
-          }
-
-          this.form.controls.biometric.setValue(false);
-
-          if (e.message == "canceled") {
-            return;
-          }
-
-          const error = BiometricErrors[e.message as BiometricErrorTypes];
-          await this.dialogService.openSimpleDialog({
-            title: { key: error.title },
-            content: { key: error.description },
-            acceptButtonText: { key: "ok" },
-            cancelButtonText: null,
-            type: "danger",
-          });
-        } finally {
-          if (awaitDesktopDialogRef) {
-            awaitDesktopDialogRef.close(true);
-          }
+      } finally {
+        if (awaitDesktopDialogRef) {
+          awaitDesktopDialogRef.close(true);
         }
-      };
+      }
+    };
 
-      await Promise.race([waitForUserDialogPromise(), biometricsPromise()]);
-    } else {
-      await this.biometricStateService.setBiometricUnlockEnabled(false);
-      await this.biometricStateService.setFingerprintValidated(false);
-    }
+    await Promise.all([waitForUserDialogPromise(), biometricsPromise()]);
+    return setupResult;
   }
 
   async updateAutoBiometricsPrompt() {
@@ -471,6 +535,7 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
       content: { key: "changeMasterPasswordOnWebConfirmation" },
       type: "info",
       acceptButtonText: { key: "continue" },
+      cancelButtonText: { key: "cancel" },
     });
     if (confirmed) {
       const env = await firstValueFrom(this.environmentService.environment$);
@@ -480,9 +545,11 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
 
   async twoStep() {
     const confirmed = await this.dialogService.openSimpleDialog({
-      title: { key: "twoStepLogin" },
-      content: { key: "twoStepLoginConfirmation" },
+      title: { key: "twoStepLoginConfirmationTitle" },
+      content: { key: "twoStepLoginConfirmationContent" },
       type: "info",
+      acceptButtonText: { key: "continue" },
+      cancelButtonText: { key: "cancel" },
     });
     if (confirmed) {
       // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
@@ -492,9 +559,11 @@ export class AccountSecurityComponent implements OnInit, OnDestroy {
   }
 
   async fingerprint() {
-    const fingerprint = await this.cryptoService.getFingerprint(
-      await this.stateService.getUserId(),
+    const activeUserId = await firstValueFrom(
+      this.accountService.activeAccount$.pipe(map((a) => a?.id)),
     );
+    const publicKey = await firstValueFrom(this.cryptoService.userPublicKey$(activeUserId));
+    const fingerprint = await this.cryptoService.getFingerprint(activeUserId, publicKey);
 
     const dialogRef = FingerprintDialogComponent.open(this.dialogService, {
       fingerprint,

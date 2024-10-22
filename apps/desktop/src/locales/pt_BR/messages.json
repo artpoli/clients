@@ -407,16 +407,55 @@
     "message": "Tamanho mínimo da senha"
   },
   "uppercase": {
-    "message": "Maiúsculas (A-Z)"
+    "message": "Maiúsculas (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Minúsculas (a-z)"
+    "message": "Minúsculas (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Números (0-9)"
+    "message": "Números (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Caracteres especiais (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Include",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Include uppercase characters",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Include lowercase characters",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Include numbers",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Include special characters",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Número de palavras"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Evitar Caracteres Ambíguos"
+    "message": "Evitar Caracteres Ambíguos",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Avoid ambiguous characters",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Enterprise policy requirements have been applied to your generator options.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Pesquisar coleção"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Juntar-se à organização"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Termine de juntar-se nessa organização definindo uma senha mestra."
   },
   "settings": {
     "message": "Configurações"
+  },
+  "accountEmail": {
+    "message": "Account email"
+  },
+  "requestHint": {
+    "message": "Request hint"
+  },
+  "requestPasswordHint": {
+    "message": "Request password hint"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Enter your account email address and your password hint will be sent to you"
   },
   "passwordHint": {
     "message": "Dica da Senha"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Seu cofre está trancado. Verifique sua identidade para continuar."
   },
+  "yourAccountIsLocked": {
+    "message": "Your account is locked"
+  },
+  "or": {
+    "message": "or"
+  },
+  "unlockWithBiometrics": {
+    "message": "Unlock with biometrics"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Unlock with master password"
+  },
   "unlock": {
     "message": "Desbloquear"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Tempo Limite do Cofre"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "vaultTimeoutDesc": {
     "message": "Escolha quando o tempo limite do seu cofre irá se esgotar e execute a ação selecionada."
@@ -1555,8 +1639,8 @@
   "recommendedForSecurity": {
     "message": "Recomendado para segurança."
   },
-  "lockWithMasterPassOnRestart": {
-    "message": "Bloquear com senha mestra ao reiniciar"
+  "lockWithMasterPassOnRestart1": {
+    "message": "Lock with master password on restart"
   },
   "deleteAccount": {
     "message": "Excluir conta"
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Bloquear",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Lixeira",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Sua organização requer que você defina uma senha mestra.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Verificação necessária",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Ativar integração com o navegador"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "A integração do navegador é usada para biometria no navegador."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Used to allow biometric unlock in browsers that are not Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Permitir integração ao navegador DuckDuckGo"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Minutos"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "As políticas da sua organização definiram o tempo limite máximo permitido do cofre para $HOURS$ hora(s) e $MINUTES$ minuto(s).",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ hour(s) and $MINUTES$ minute(s) maximum.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Bloqueado"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Your vault is locked"
+  },
   "unlocked": {
     "message": "Desbloqueado"
   },
   "generator": {
-    "message": "Gerador"
+    "message": "Gerador",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "O que você gostaria de gerar?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Importante:"
+  },
+  "accessing": {
+    "message": "Accessing"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "Você foi desconectado porque seu token de acesso não pôde ser descriptografado. Por favor, faça o login novamente para resolver esse problema."
@@ -3061,6 +3161,12 @@
   },
   "textSends": {
     "message": "Texto enviado"
+  },
+  "allowScreenshots": {
+    "message": "Allow screen capture"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Allow screen capture of the Bitwarden desktop application."
   },
   "ssoError": {
     "message": "Nenhuma porta livre foi encontrada para o cliente final."

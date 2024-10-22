@@ -71,6 +71,15 @@
   "joinOrganization": {
     "message": "Lid van organisatie worden"
   },
+  "joinOrganizationName": {
+    "message": "Aansluiten bij $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Voltooi je lidmaatschap aan deze organisatie door een hoofdwachtwoord in te stellen."
   },
@@ -128,6 +137,21 @@
   "copyLicenseNumber": {
     "message": "Kenteken kopiëren"
   },
+  "copyCustomField": {
+    "message": "$FIELD$ kopiëren",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Website kopiëren"
+  },
+  "copyNotes": {
+    "message": "Notities kopiëren"
+  },
   "autoFill": {
     "message": "Auto-invullen"
   },
@@ -178,6 +202,18 @@
   },
   "addItem": {
     "message": "Item toevoegen"
+  },
+  "accountEmail": {
+    "message": "E-mailadres van account"
+  },
+  "requestHint": {
+    "message": "Hint vragen"
+  },
+  "requestPasswordHint": {
+    "message": "Hoofdwachtwoordhint vragen"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Als je het e-mailadres van je account invult, versturen we je je wachtwoordhint"
   },
   "passwordHint": {
     "message": "Wachtwoordhint"
@@ -354,7 +390,7 @@
   },
   "generator": {
     "message": "Generator",
-    "description": "Short for 'Password Generator'."
+    "description": "Short for 'credential generator'."
   },
   "passGenInfo": {
     "message": "Automatisch sterke, unieke wachtwoorden voor je logins genereren."
@@ -462,6 +498,10 @@
     "message": "Dubbelzinnige tekens vermijden",
     "description": "Label for the avoid ambiguous characters checkbox."
   },
+  "generatorPolicyInEffect": {
+    "message": "Bedrijfsbeleidseisen zijn toegepast op je generator-instellingen.",
+    "description": "Indicates that a policy limits the credential generator screen."
+  },
   "searchVault": {
     "message": "Kluis doorzoeken"
   },
@@ -503,6 +543,9 @@
   },
   "notes": {
     "message": "Notities"
+  },
+  "privateNote": {
+    "message": "Privénotitie"
   },
   "note": {
     "message": "Notitie"
@@ -549,6 +592,9 @@
   "sessionTimeoutHeader": {
     "message": "Sessietime-out"
   },
+  "vaultTimeoutHeader": {
+    "message": "Time-out van de kluis"
+  },
   "otherOptions": {
     "message": "Andere opties"
   },
@@ -566,6 +612,15 @@
   },
   "yourVaultIsLocked": {
     "message": "Je kluis is vergrendeld. Bevestig je identiteit om door te gaan."
+  },
+  "yourVaultIsLockedV2": {
+    "message": "Je kluis is vergrendeld"
+  },
+  "yourAccountIsLocked": {
+    "message": "Je account is vergrendeld"
+  },
+  "or": {
+    "message": "of"
   },
   "unlock": {
     "message": "Ontgrendelen"
@@ -588,6 +643,9 @@
   },
   "vaultTimeout": {
     "message": "Time-out van de kluis"
+  },
+  "vaultTimeout1": {
+    "message": "Time-out"
   },
   "lockNow": {
     "message": "Nu vergrendelen"
@@ -788,6 +846,12 @@
   },
   "twoStepLoginConfirmation": {
     "message": "Tweestapsaanmelding beschermt je account door je inlogpoging te bevestigen met een ander apparaat zoals een beveiligingscode, authenticatie-app, SMS, spraakoproep of e-mail. Je kunt Tweestapsaanmelding inschakelen in de webkluis op bitwarden.com. Wil je de website nu bezoeken?"
+  },
+  "twoStepLoginConfirmationContent": {
+    "message": "Maak je account veiliger met het instellen van tweestapsaanmelding in de Bitwarden-webapp."
+  },
+  "twoStepLoginConfirmationTitle": {
+    "message": "Doorgaan naar web-app?"
   },
   "editedFolder": {
     "message": "Map is bewerkt"
@@ -991,7 +1055,7 @@
     "message": "Bestandsindeling"
   },
   "fileEncryptedExportWarningDesc": {
-    "message": "We beveiligen deze bestandsexport met een wachtwoord beveiligd, je hebt het bestandswachtwoord nodig om het te decoderen."
+    "message": "We beveiligen deze bestandsexport met een wachtwoord, je hebt het bestandswachtwoord nodig om het bestand te decoderen."
   },
   "filePassword": {
     "message": "Bestandswachtwoord"
@@ -1096,6 +1160,9 @@
   },
   "file": {
     "message": "Bestand"
+  },
+  "fileToShare": {
+    "message": "Bestand om te delen"
   },
   "selectFile": {
     "message": "Selecteer een bestand."
@@ -1349,6 +1416,12 @@
   },
   "showInlineMenuLabel": {
     "message": "Suggesties voor automatisch invullen op formuliervelden weergeven"
+  },
+  "showInlineMenuIdentitiesLabel": {
+    "message": "Identiteiten als suggesties weergeven"
+  },
+  "showInlineMenuCardsLabel": {
+    "message": "Kaarten als suggesties weergeven"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "Suggesties weergeven wanneer pictogram is geselecteerd"
@@ -1654,7 +1727,7 @@
     "message": "Identiteit"
   },
   "newItemHeader": {
-    "message": "Nieuw $TYPE$",
+    "message": "Nieuwe $TYPE$",
     "placeholders": {
       "type": {
         "content": "$1",
@@ -1863,8 +1936,17 @@
   "unlockWithPin": {
     "message": "Ontgrendelen met PIN"
   },
+  "setYourPinTitle": {
+    "message": "PIN-code instellen"
+  },
+  "setYourPinButton": {
+    "message": "PIN-code instellen"
+  },
   "setYourPinCode": {
     "message": "Stel je PIN-code in voor het ontgrendelen van Bitwarden. Je PIN-code wordt opnieuw ingesteld als je je ooit volledig afmeldt bij de applicatie."
+  },
+  "setYourPinCode1": {
+    "message": "Je pincode wordt gebruikt om Bitwarden te ontgrendelen in plaats van je hoofdwachtwoord. Je pincode wordt opnieuw ingesteld als je ooit volledig uitlogt op Bitwarden."
   },
   "pinRequired": {
     "message": "PIN-code is vereist."
@@ -1878,6 +1960,9 @@
   "unlockWithBiometrics": {
     "message": "Biometrisch ontgrendelen"
   },
+  "unlockWithMasterPassword": {
+    "message": "Ontgrendelen met hoofdwachtwoord"
+  },
   "awaitDesktop": {
     "message": "Wacht op bevestiging van de desktop"
   },
@@ -1886,6 +1971,9 @@
   },
   "lockWithMasterPassOnRestart": {
     "message": "Vergrendelen met hoofdwachtwoord bij herstart browser"
+  },
+  "lockWithMasterPassOnRestart1": {
+    "message": "Hoofdwachtwoord vereisen bij herstart van browser"
   },
   "selectOneCollection": {
     "message": "Je moet tenminste één verzameling selecteren."
@@ -1925,9 +2013,12 @@
   "vaultTimeoutAction": {
     "message": "Actie bij time-out"
   },
+  "vaultTimeoutAction1": {
+    "message": "Time-out actie"
+  },
   "lock": {
     "message": "Vergrendelen",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Prullenbak",
@@ -2119,11 +2210,11 @@
   "nativeMessagingWrongUserTitle": {
     "message": "Accounts komt niet overeen"
   },
-  "nativeMessagingWrongUserKeyDesc": {
-    "message": "Biometrische ontgrendelen mislukt. De biometrische geheime sleutel kon de kluis niet ontgrendelen. Probeer biometrische gegevens opnieuw in te stellen."
-  },
   "nativeMessagingWrongUserKeyTitle": {
     "message": "Biometrische sleutel discrepantie"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Biometrische ontgrendelen mislukt. De biometrische geheime sleutel kon de kluis niet ontgrendelen. Probeer biometrische gegevens opnieuw in te stellen."
   },
   "biometricsNotEnabledTitle": {
     "message": "Biometrie niet ingeschakeld"
@@ -2210,8 +2301,29 @@
   "excludedDomainsSavedSuccess": {
     "message": "Uitgesloten domeinwijzigingen opgeslagen"
   },
+  "limitSendViews": {
+    "message": "Weergaven limiteren"
+  },
+  "limitSendViewsHint": {
+    "message": "Niemand kan deze Send weergeven als de limiet is bereikt.",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "limitSendViewsCount": {
+    "message": "$ACCESSCOUNT$ weergaven over",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "send": {
     "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDetails": {
+    "message": "Send-details",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -2225,12 +2337,18 @@
   "sendTypeText": {
     "message": "Tekst"
   },
+  "sendTypeTextToShare": {
+    "message": "Te delen tekst"
+  },
   "sendTypeFile": {
     "message": "Bestand"
   },
   "allSends": {
     "message": "Alle Sends",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "hideTextByDefault": {
+    "message": "Tekst standaard verbergen"
   },
   "maxAccessCountReached": {
     "message": "Maximum aantal keren benaderd",
@@ -2283,6 +2401,10 @@
     "message": "Weet je zeker dat je deze Send wilt verwijderen?",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "deleteSendPermanentConfirmation": {
+    "message": "Weet je zeker dat je deze Send permanent wil verwijderen?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "editSend": {
     "message": "Send bewerken",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -2303,6 +2425,10 @@
   },
   "deletionDateDesc": {
     "message": "Deze Send wordt op de aangegeven datum en tijd definitief verwijderd.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deletionDateDescV2": {
+    "message": "Op deze datum wordt de Send definitief verwijderd.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "expirationDate": {
@@ -2336,6 +2462,10 @@
   },
   "sendPasswordDesc": {
     "message": "Vereis optioneel een wachtwoord voor gebruikers om toegang te krijgen tot deze Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDescV2": {
+    "message": "Dit wachtwoord vereisen voor het weergeven van de Send.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2383,7 +2513,25 @@
     "message": "Send succesvol aangemaakt!",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendAvailability": {
+  "sendExpiresInHoursSingle": {
+    "message": "De Send is het komende uur beschikbaar voor iedereen met de link.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInHours": {
+    "message": "De Send is de komende $HOURS$ uur beschikbaar voor iedereen met de link.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sendExpiresInDaysSingle": {
+    "message": "De Send is de komende dag beschikbaar voor iedereen met de link.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInDays": {
     "message": "De Send is de komende $DAYS$ dagen beschikbaar voor iedereen met de link.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
@@ -2401,6 +2549,14 @@
     "message": "Send bewerkt",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendFilePopoutDialogText": {
+    "message": "Extensie uitklappen?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFilePopoutDialogDesc": {
+    "message": "Om een bestand te versturen via Send, moet je de extensie naar een nieuw venster uitklappen.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "sendLinuxChromiumFileWarning": {
     "message": "Om een bestand te kiezen open je de extensie in de zijbalk (indien mogelijk) of pop-out naar een nieuw venster door op deze banner te klikken."
   },
@@ -2409,6 +2565,9 @@
   },
   "sendSafariFileWarning": {
     "message": "Om een bestand te kiezen met Safari, open je een nieuw pop-up-venster door op deze banner te klikken."
+  },
+  "popOut": {
+    "message": "Uitklappen"
   },
   "sendFileCalloutHeader": {
     "message": "Voor je begint"
@@ -2442,6 +2601,9 @@
   },
   "hideEmail": {
     "message": "Verberg mijn e-mailadres voor ontvangers."
+  },
+  "hideYourEmail": {
+    "message": "Je e-mailadres voor ontvangers verbergen."
   },
   "sendOptionsPolicyInEffect": {
     "message": "Een of meer organisatiebeleidseisen heeft invloed op de mogelijkheden van je Send."
@@ -2500,6 +2662,15 @@
     "message": "Your organization requires you to set a master password.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "van $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "Verificatie vereist",
     "description": "Default title for the user verification dialog."
@@ -2510,8 +2681,37 @@
   "minutes": {
     "message": "Minuten"
   },
+  "vaultTimeoutPolicyAffectingOptions": {
+    "message": "Bedrijfsbeleidseisen zijn toegepast op je time-out instellingen"
+  },
   "vaultTimeoutPolicyInEffect": {
     "message": "Het beleid van je organisatie heeft invloed op de time-out van je kluis. De maximaal toegestane kluis time-out is $HOURS$ uur en $MINUTES$ minuten.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ uur en $MINUTES$ minu(u)t(en) maximaal.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyMaximumError": {
+    "message": "Time-out overschrijdt de beperking van je organisatie: $HOURS$ uur en $MINUTES$ minu(u) t(en) maximum",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -3477,6 +3677,9 @@
   "typePasskey": {
     "message": "Passkey"
   },
+  "accessing": {
+    "message": "Toegang verkrijgen"
+  },
   "passkeyNotCopied": {
     "message": "Passkey wordt niet gekopieerd"
   },
@@ -3500,6 +3703,9 @@
   },
   "noMatchingLoginsForSite": {
     "message": "Geen overeenkomende logins voor deze site"
+  },
+  "searchSavePasskeyNewLogin": {
+    "message": "Passkey zoeken of als nieuwe login opslaan"
   },
   "confirm": {
     "message": "Bevestigen"
@@ -3954,7 +4160,7 @@
     }
   },
   "permanentlyDeleteAttachmentConfirmation": {
-    "message": "Weet je zeker dat je deze bijlage definitief permanen wilt verwijderen?"
+    "message": "Weet je zeker dat je deze bijlage definitief wilt verwijderen?"
   },
   "premium": {
     "message": "Premium"
@@ -4069,6 +4275,9 @@
   },
   "enableAnimations": {
     "message": "Animaties inschakelen"
+  },
+  "showAnimations": {
+    "message": "Animaties weergeven"
   },
   "addAccount": {
     "message": "Account toevoegen"
@@ -4309,6 +4518,15 @@
   "enterprisePolicyRequirementsApplied": {
     "message": "Bedrijfsbeleidseisen zijn op deze instelling toegepast"
   },
+  "retry": {
+    "message": "Opnieuw proberen"
+  },
+  "vaultCustomTimeoutMinimum": {
+    "message": "Minimale aangepaste time-out is 1 minuut."
+  },
+  "additionalContentAvailable": {
+    "message": "Extra inhoud beschikbaar"
+  },
   "fileSavedToDevice": {
     "message": "Bestand op apparaat opgeslagen. Beheer vanaf de downloads op je apparaat."
   },
@@ -4338,5 +4556,8 @@
   },
   "noEditPermissions": {
     "message": "Je hebt geen toestemming om dit item te bewerken"
+  },
+  "authenticating": {
+    "message": "Aan het inloggen"
   }
 }

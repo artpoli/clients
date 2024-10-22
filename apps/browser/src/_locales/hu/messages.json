@@ -71,6 +71,15 @@
   "joinOrganization": {
     "message": "Csatlakozás szervezethez"
   },
+  "joinOrganizationName": {
+    "message": "Csatlakozás: $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Fejezzük be a szervezethez csatlakozást egy mesterjelszó beállításával."
   },
@@ -128,6 +137,21 @@
   "copyLicenseNumber": {
     "message": "Licensz szám másolása"
   },
+  "copyCustomField": {
+    "message": "$FIELD$ másolása",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Webhely másolása"
+  },
+  "copyNotes": {
+    "message": "Jegyzet másolása"
+  },
   "autoFill": {
     "message": "Automatikus kitöltés"
   },
@@ -178,6 +202,18 @@
   },
   "addItem": {
     "message": "Elem hozzáadása"
+  },
+  "accountEmail": {
+    "message": "Fiók email cím"
+  },
+  "requestHint": {
+    "message": "Tipp kérése"
+  },
+  "requestPasswordHint": {
+    "message": "Jelszó emlékeztető kérése"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Adjuk meg fiók email címét és elküldésre kerül a jelszóra vonatkozó tipp."
   },
   "passwordHint": {
     "message": "Jelszó emlékeztető"
@@ -354,7 +390,7 @@
   },
   "generator": {
     "message": "Generátor",
-    "description": "Short for 'Password Generator'."
+    "description": "Short for 'credential generator'."
   },
   "passGenInfo": {
     "message": "Automatikusan létrehoz erős, egyedi jelszavakat a bejelentkezéseidhez."
@@ -462,6 +498,10 @@
     "message": "Félreérthető karakterek mellőzése",
     "description": "Label for the avoid ambiguous characters checkbox."
   },
+  "generatorPolicyInEffect": {
+    "message": "A vállalati házirend követelményei kerülnek alkalmazásra a generátor beállításaira.",
+    "description": "Indicates that a policy limits the credential generator screen."
+  },
   "searchVault": {
     "message": "Keresés a széfben"
   },
@@ -503,6 +543,9 @@
   },
   "notes": {
     "message": "Jegyzetek"
+  },
+  "privateNote": {
+    "message": "Személyes jegyzet"
   },
   "note": {
     "message": "Jegyzet"
@@ -549,6 +592,9 @@
   "sessionTimeoutHeader": {
     "message": "Munkamenet időkifutás"
   },
+  "vaultTimeoutHeader": {
+    "message": "Széf időkifutás"
+  },
   "otherOptions": {
     "message": "Egyéb opciók"
   },
@@ -566,6 +612,15 @@
   },
   "yourVaultIsLocked": {
     "message": "A széf zárolásra került. A folytatáshoz meg kell adni a mesterjelszót."
+  },
+  "yourVaultIsLockedV2": {
+    "message": "A széf zárolva van."
+  },
+  "yourAccountIsLocked": {
+    "message": "A fiók zárolva van."
+  },
+  "or": {
+    "message": "vagy"
   },
   "unlock": {
     "message": "Feloldás"
@@ -588,6 +643,9 @@
   },
   "vaultTimeout": {
     "message": "Széf időkifutás"
+  },
+  "vaultTimeout1": {
+    "message": "Időkifutás"
   },
   "lockNow": {
     "message": "Zárolás most"
@@ -789,6 +847,12 @@
   "twoStepLoginConfirmation": {
     "message": "A kétlépcsős bejelentkezés biztonságosabbá teszi a fiókot azáltal, hogy ellenőrizni kell a bejelentkezést egy másik olyan eszközzel mint például biztonsági kulcs, hitelesítő alkalmazás, SMS, telefon hívás vagy email. A kétlépcsős bejelentkezést a bitwarden.com webes széfben lehet engedélyezni. Felkeressük a webhelyet most?"
   },
+  "twoStepLoginConfirmationContent": {
+    "message": "Tegyük biztonságosabbá a fiókot a kétlépcsős bejelentkezés beállításával a Bitwarden webalkalmazásban."
+  },
+  "twoStepLoginConfirmationTitle": {
+    "message": "Tovább a webes alkalmazáshoz?"
+  },
   "editedFolder": {
     "message": "A mappa mentésre került."
   },
@@ -892,7 +956,7 @@
     "message": "Kártyaelemek listázása a Fül oldalon a könnyű automatikus kitöltéshez."
   },
   "showIdentitiesInVaultView": {
-    "message": "Show identifies as Autofill suggestions on Vault view"
+    "message": "Show identities as Autofill suggestions on Vault view"
   },
   "showIdentitiesCurrentTab": {
     "message": "Azonosítások megjelenítése a Fül oldalon"
@@ -1096,6 +1160,9 @@
   },
   "file": {
     "message": "Fájl"
+  },
+  "fileToShare": {
+    "message": "Megosztandó fájl"
   },
   "selectFile": {
     "message": "Válasszunk egy fájlt."
@@ -1349,6 +1416,12 @@
   },
   "showInlineMenuLabel": {
     "message": "Show autofill suggestions on form fields"
+  },
+  "showInlineMenuIdentitiesLabel": {
+    "message": "Az identitások megjelenítése javaslatként"
+  },
+  "showInlineMenuCardsLabel": {
+    "message": "A kártyák megjelenítése javaslatként"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "Display suggestions when icon is selected"
@@ -1863,8 +1936,17 @@
   "unlockWithPin": {
     "message": "Felnyitás pinkóddal"
   },
+  "setYourPinTitle": {
+    "message": "PIN kód beállítása"
+  },
+  "setYourPinButton": {
+    "message": "PIN kód beállítása"
+  },
   "setYourPinCode": {
     "message": "A pinkód beállítása a Bitwarden feloldásához. A pinkód beállítás alaphelyzetbe kerül, ha teljesen kijelentkezünk az alkalmazásból."
+  },
+  "setYourPinCode1": {
+    "message": "A Bitwarden feloldásához a PIN kódot használjuk a mesterjelszó helyett. A PIN kód alaphelyzetbe kerül, ha teljesen kijelentkezünk a Bitwardenből."
   },
   "pinRequired": {
     "message": "A pinkód szükséges."
@@ -1878,6 +1960,9 @@
   "unlockWithBiometrics": {
     "message": "Biometrikus feloldás"
   },
+  "unlockWithMasterPassword": {
+    "message": "Feloldás mesterjelszóval"
+  },
   "awaitDesktop": {
     "message": "Várakozás megerősítésre az asztali alkalmazásból"
   },
@@ -1885,6 +1970,9 @@
     "message": "Erősítsük meg a biometrikus adatok használatát a Bitwarden asztali alkalmazásban a biometrikus adatok engedélyezéséhez a böngészőben."
   },
   "lockWithMasterPassOnRestart": {
+    "message": "Lezárás mesterjelszóval a böngésző újraindításakor"
+  },
+  "lockWithMasterPassOnRestart1": {
     "message": "Lezárás mesterjelszóval a böngésző újraindításakor"
   },
   "selectOneCollection": {
@@ -1925,9 +2013,12 @@
   "vaultTimeoutAction": {
     "message": "Széf időkifutás művelet"
   },
+  "vaultTimeoutAction1": {
+    "message": "Időkifutási művelet"
+  },
   "lock": {
     "message": "Lezárás",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Lomtár",
@@ -2119,11 +2210,11 @@
   "nativeMessagingWrongUserTitle": {
     "message": "A fiók nem egyezik."
   },
-  "nativeMessagingWrongUserKeyDesc": {
-    "message": "A biometrikus feloldás nem sikerült. A biometrikus titkos kulcs nem tudta feloldani a széfet. Próbáljuk újra beállítani a biometrikus adatokat."
-  },
   "nativeMessagingWrongUserKeyTitle": {
     "message": "A biometrikus kulcs nem egyezik."
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "A biometrikus feloldás nem sikerült. A biometrikus titkos kulcs nem tudta feloldani a széfet. Próbáljuk újra beállítani a biometrikus adatokat."
   },
   "biometricsNotEnabledTitle": {
     "message": "A biometrikus adatok nincsenek beüzemelve."
@@ -2210,8 +2301,29 @@
   "excludedDomainsSavedSuccess": {
     "message": "A kizárt tartomány módosítások mentésre kerültek."
   },
+  "limitSendViews": {
+    "message": "Megtekintések korlátozása"
+  },
+  "limitSendViewsHint": {
+    "message": "Senki sem tudja megtekinteni ezt a Send elemet a korlát elérése után.",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "limitSendViewsCount": {
+    "message": "$ACCESSCOUNT$ megtekintés maradt",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "send": {
     "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDetails": {
+    "message": "Send részletek",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -2225,12 +2337,18 @@
   "sendTypeText": {
     "message": "Szöveg"
   },
+  "sendTypeTextToShare": {
+    "message": "Megosztandó szöveg"
+  },
   "sendTypeFile": {
     "message": "Fájl"
   },
   "allSends": {
     "message": "Összes Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "hideTextByDefault": {
+    "message": "Szöveg elrejtése alapértelmezetten"
   },
   "maxAccessCountReached": {
     "message": "A maximális hozzáférések száma elérésre került.",
@@ -2283,6 +2401,10 @@
     "message": "Biztosan törlésre kerüljön ez a Send?",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "deleteSendPermanentConfirmation": {
+    "message": "Biztosan véglegesen törlésre kerüljön ez a Send elem?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "editSend": {
     "message": "Send szerkesztése",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -2303,6 +2425,10 @@
   },
   "deletionDateDesc": {
     "message": "A Send véglegesen törölve lesz a meghatározott időpontban.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deletionDateDescV2": {
+    "message": "A Send véglegesen törölve lesz ebben az időpontban.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "expirationDate": {
@@ -2336,6 +2462,10 @@
   },
   "sendPasswordDesc": {
     "message": "Opcionálisan megadhatunk egy jelszót a felhasználók számára a Küldés eléréséhez. ",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDescV2": {
+    "message": "Jelszó szükséges a Send elem megtekintéséhez.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2383,7 +2513,25 @@
     "message": "A Send sikeresen létrejött!",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendAvailability": {
+  "sendExpiresInHoursSingle": {
+    "message": "A Send bárki számára elérhető a hivatkozással a következő 1 órában.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInHours": {
+    "message": "A Send bárki számára elérhető a hivatkozással a következő $HOURS$ órában.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sendExpiresInDaysSingle": {
+    "message": "A Send bárki számára elérhető a hivatkozással a következő 1 napban.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInDays": {
     "message": "A Send bárki számára elérhető a hivatkozással a következő $DAYS$ napban.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
@@ -2401,6 +2549,14 @@
     "message": "A Send mentésre került.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendFilePopoutDialogText": {
+    "message": "Bővítmény átthelyezése?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFilePopoutDialogDesc": {
+    "message": "A Send fájl létrehozásához át kell helyezni a bővítményt egy új ablakba.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "sendLinuxChromiumFileWarning": {
     "message": "A fájl kiválasztásához nyissuk meg a kiterjesztést az oldalsávon (ha lehetséges) vagy kattintsunk erre a sávra új ablak felbukkanásához."
   },
@@ -2409,6 +2565,9 @@
   },
   "sendSafariFileWarning": {
     "message": "A fájl kiválasztásához Safariban kattintsunk erre a hirdetőtáblára kattintva új ablak nyílik meg."
+  },
+  "popOut": {
+    "message": "Áthelyezés"
   },
   "sendFileCalloutHeader": {
     "message": "Mielőtt belevágnánk"
@@ -2442,6 +2601,9 @@
   },
   "hideEmail": {
     "message": "Saját email cím elrejtése a címzettek elől."
+  },
+  "hideYourEmail": {
+    "message": "Saját email cím elrejtése a megtekintések elől."
   },
   "sendOptionsPolicyInEffect": {
     "message": "Egy vagy több szervezeti szabály érinti a Send opciókat."
@@ -2500,6 +2662,15 @@
     "message": "A szervezet megköveteli egy mesterjelszó beállítását.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "/ $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "Ellenőrzés szükséges",
     "description": "Default title for the user verification dialog."
@@ -2510,8 +2681,37 @@
   "minutes": {
     "message": "Perc"
   },
+  "vaultTimeoutPolicyAffectingOptions": {
+    "message": "Erre a beállításra a vállalkozás rendszabály követelmények lettek alkalmazva."
+  },
   "vaultTimeoutPolicyInEffect": {
     "message": "A szervezeti szabályzata $HOURS$ órára és $MINUTES$ percre állította be a maximálisan megengedett széf időtúllépést.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ óra és $MINUTES$ perc maximum.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyMaximumError": {
+    "message": "Az időkifutás meghaladja a szervezet által beállított korlátozást: $HOURS$ óra és $MINUTES$ perc maxximum.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -3477,6 +3677,9 @@
   "typePasskey": {
     "message": "Hozzáférési kulcs"
   },
+  "accessing": {
+    "message": "Elérés"
+  },
   "passkeyNotCopied": {
     "message": "A hozzáférési kulcs nem kerül másolásra."
   },
@@ -3500,6 +3703,9 @@
   },
   "noMatchingLoginsForSite": {
     "message": "Nincsenek egyező bejelentkezések ehhez a webhelyhez."
+  },
+  "searchSavePasskeyNewLogin": {
+    "message": "Keressés vagy a belépőkulcs mentése bejelentkezésként."
   },
   "confirm": {
     "message": "Megerősítés"
@@ -4070,6 +4276,9 @@
   "enableAnimations": {
     "message": "Animációk engedélyezése"
   },
+  "showAnimations": {
+    "message": "Animációk megjelenítése"
+  },
   "addAccount": {
     "message": "Fiók hozzáadása"
   },
@@ -4309,6 +4518,15 @@
   "enterprisePolicyRequirementsApplied": {
     "message": "Erre a beállításra a vállalkozás rendszabály követelmények lettek alkalmazva."
   },
+  "retry": {
+    "message": "Újra"
+  },
+  "vaultCustomTimeoutMinimum": {
+    "message": "A minimális egyedi időkifutás 1 perc."
+  },
+  "additionalContentAvailable": {
+    "message": "Kiegészítő tartalom érhető el."
+  },
   "fileSavedToDevice": {
     "message": "A fájl mentésre került az eszközre. Kezeljük az eszközről a letöltéseket."
   },
@@ -4338,5 +4556,8 @@
   },
   "noEditPermissions": {
     "message": "Nincs jogosulltság ezen elem szerkesztéséheu."
+  },
+  "authenticating": {
+    "message": "Authenticating"
   }
 }

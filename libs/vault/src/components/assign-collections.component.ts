@@ -22,6 +22,7 @@ import {
   tap,
 } from "rxjs";
 
+import { CollectionService, CollectionView } from "@bitwarden/admin-console/common";
 import { JslibModule } from "@bitwarden/angular/jslib.module";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
 import { OrganizationUserStatusType } from "@bitwarden/common/admin-console/enums";
@@ -30,9 +31,7 @@ import { AccountService } from "@bitwarden/common/auth/abstractions/account.serv
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { CipherId, CollectionId, OrganizationId, UserId } from "@bitwarden/common/types/guid";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
-import { CollectionService } from "@bitwarden/common/vault/abstractions/collection.service";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
-import { CollectionView } from "@bitwarden/common/vault/models/view/collection.view";
 import {
   AsyncActionsModule,
   BitSubmitDirective,
@@ -64,6 +63,15 @@ export interface CollectionAssignmentParams {
    * removed from the ciphers upon submission.
    */
   activeCollection?: CollectionView;
+
+  /**
+   * Flag indicating if the user is performing the action as an admin on a SINGLE cipher. When true,
+   * the `/admin` endpoint will be used to update the cipher's collections. Required when updating
+   * ciphers an Admin does not normally have access to or for Unassigned ciphers.
+   *
+   * The bulk method already handles admin actions internally.
+   */
+  isSingleCipherAdmin?: boolean;
 }
 
 export enum CollectionAssignmentResult {
@@ -463,6 +471,10 @@ export class AssignCollectionsComponent implements OnInit, OnDestroy, AfterViewI
     const { collections } = this.formGroup.getRawValue();
     cipherView.collectionIds = collections.map((i) => i.id as CollectionId);
     const cipher = await this.cipherService.encrypt(cipherView, this.activeUserId);
-    await this.cipherService.saveCollectionsWithServer(cipher);
+    if (this.params.isSingleCipherAdmin) {
+      await this.cipherService.saveCollectionsWithServerAdmin(cipher);
+    } else {
+      await this.cipherService.saveCollectionsWithServer(cipher);
+    }
   }
 }

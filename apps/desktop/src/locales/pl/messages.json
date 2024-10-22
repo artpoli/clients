@@ -407,16 +407,55 @@
     "message": "Minimalna długość hasła"
   },
   "uppercase": {
-    "message": "Wielkie litery (A-Z)"
+    "message": "Wielkie litery (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Małe litery (a-z)"
+    "message": "Małe litery (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Cyfry (0-9)"
+    "message": "Cyfry (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Znaki specjalne (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Include",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Include uppercase characters",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Include lowercase characters",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Include numbers",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Include special characters",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Liczba słów"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Unikaj niejednoznacznych znaków"
+    "message": "Unikaj niejednoznacznych znaków",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Avoid ambiguous characters",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Wymagania polityki przedsiębiorstwa zostały użyte do ustawienia opcji generatora.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Szukaj w kolekcji"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Dołącz do organizacji"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Zakończ dołączanie do tej organizacji przez ustawienie hasła głównego."
   },
   "settings": {
     "message": "Ustawienia"
+  },
+  "accountEmail": {
+    "message": "Adres e-mail konta"
+  },
+  "requestHint": {
+    "message": "Poproś o podpowiedź"
+  },
+  "requestPasswordHint": {
+    "message": "Poproś o podpowiedź do hasła"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Wprowadź adres e-mail swojego konta, a podpowiedź hasła zostanie wysłana do Ciebie"
   },
   "passwordHint": {
     "message": "Podpowiedź do hasła"
@@ -604,10 +673,10 @@
     "message": "Konto zostało utworzone! Teraz możesz się zalogować."
   },
   "newAccountCreated2": {
-    "message": "Your new account has been created!"
+    "message": "Twoje nowe konto zostało utworzone!"
   },
   "youHaveBeenLoggedIn": {
-    "message": "You have been logged in!"
+    "message": "Zalogowano Cię!"
   },
   "masterPassSent": {
     "message": "Wysłaliśmy Tobie wiadomość e-mail z podpowiedzią do hasła głównego."
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Sejf jest zablokowany. Zweryfikuj swoją tożsamość, aby kontynuować."
   },
+  "yourAccountIsLocked": {
+    "message": "Your account is locked"
+  },
+  "or": {
+    "message": "or"
+  },
+  "unlockWithBiometrics": {
+    "message": "Unlock with biometrics"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Unlock with master password"
+  },
   "unlock": {
     "message": "Odblokuj"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Blokowanie sejfu"
+  },
+  "vaultTimeout1": {
+    "message": "Limit czasu"
   },
   "vaultTimeoutDesc": {
     "message": "Wybierz, kiedy sejf zostanie zablokowany i wykonaj następującą akcję."
@@ -1181,7 +1265,7 @@
     "message": "Konto Premium możesz zakupić na stronie sejfu bitwarden.com. Czy chcesz otworzyć tę stronę?"
   },
   "premiumPurchaseAlertV2": {
-    "message": "You can purchase Premium from your account settings on the Bitwarden web app."
+    "message": "Możesz kupić Premium w ustawieniach konta w aplikacji internetowej Bitwarden."
   },
   "premiumCurrentMember": {
     "message": "Posiadasz konto Premium!"
@@ -1286,7 +1370,7 @@
     }
   },
   "copySuccessful": {
-    "message": "Copy Successful"
+    "message": "Kopiowanie zakończone sukcesem"
   },
   "errorRefreshingAccessToken": {
     "message": "Błąd podczas odświeżania tokenu"
@@ -1555,7 +1639,7 @@
   "recommendedForSecurity": {
     "message": "Zalecane dla bezpieczeństwa."
   },
-  "lockWithMasterPassOnRestart": {
+  "lockWithMasterPassOnRestart1": {
     "message": "Zablokuj hasłem głównym po uruchomieniu ponownym"
   },
   "deleteAccount": {
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Zablokuj",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Kosz",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Twoja organizacja wymaga ustawienia hasła głównego.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Wymagana weryfikacja",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Włącz połączenie z przeglądarką"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Używane do odblokowania danymi biometrycznymi."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Used to allow biometric unlock in browsers that are not Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Włącz połączenie z przeglądarką DuckDuckGo"
@@ -2043,7 +2136,7 @@
     "message": "Twoje hasło główne nie spełnia jednej lub kilku zasad organizacji. Aby uzyskać dostęp do sejfu, musisz teraz zaktualizować swoje hasło główne. Kontynuacja wyloguje Cię z bieżącej sesji, wymagając zalogowania się ponownie. Aktywne sesje na innych urządzeniach mogą pozostać aktywne przez maksymalnie jedną godzinę."
   },
   "tdeDisabledMasterPasswordRequired": {
-    "message": "Your organization has disabled trusted device encryption. Please set a master password to access your vault."
+    "message": "Twoja organizacja wyłączyła szyfrowanie zaufanego urządzenia. Ustaw hasło główne, aby uzyskać dostęp do sejfu."
   },
   "tryAgain": {
     "message": "Spróbuj ponownie"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Minuty"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Zasady organizacji mają wpływ na czas blokowania sejfu. Maksymalny dozwolony czas wynosi $HOURS$ godz. i $MINUTES$ min.",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ godzin(y) i $MINUTES$ minut(y) maksymalnie.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Zablokowany"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Your vault is locked"
+  },
   "unlocked": {
     "message": "Odblokowany"
   },
   "generator": {
-    "message": "Generator"
+    "message": "Generator",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Co chcesz wygenerować?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Ważne:"
+  },
+  "accessing": {
+    "message": "Accessing"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "Zostałeś wylogowany, ponieważ token dostępu nie mógł zostać odszyfrowany. Zaloguj się ponownie, aby rozwiązać ten problem."
@@ -3062,10 +3162,16 @@
   "textSends": {
     "message": "Text Sends"
   },
+  "allowScreenshots": {
+    "message": "Pozwól na robienie zrzutów ekranu"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Zezwalaj na przechwytywanie ekranu aplikacji desktopowej Bitwarden."
+  },
   "ssoError": {
-    "message": "No free ports could be found for the sso login."
+    "message": "Nie znaleziono wolnych portów dla logowania SSO."
   },
   "fileSavedToDevice": {
-    "message": "File saved to device. Manage from your device downloads."
+    "message": "Plik zapisany na urządzeniu. Zarządzaj plikiem na swoim urządzeniu."
   }
 }

@@ -75,6 +75,8 @@ describe("AutofillService", () => {
   let autofillService: AutofillService;
   const cipherService = mock<CipherService>();
   let inlineMenuVisibilityMock$!: BehaviorSubject<InlineMenuVisibilitySetting>;
+  let showInlineMenuCardsMock$!: BehaviorSubject<boolean>;
+  let showInlineMenuIdentitiesMock$!: BehaviorSubject<boolean>;
   let autofillSettingsService: MockProxy<AutofillSettingsServiceAbstraction>;
   const mockUserId = Utils.newGuid() as UserId;
   const accountService: FakeAccountService = mockAccountServiceWith(mockUserId);
@@ -98,8 +100,12 @@ describe("AutofillService", () => {
   beforeEach(() => {
     scriptInjectorService = new BrowserScriptInjectorService(platformUtilsService, logService);
     inlineMenuVisibilityMock$ = new BehaviorSubject(AutofillOverlayVisibility.OnFieldFocus);
+    showInlineMenuCardsMock$ = new BehaviorSubject(false);
+    showInlineMenuIdentitiesMock$ = new BehaviorSubject(false);
     autofillSettingsService = mock<AutofillSettingsServiceAbstraction>();
     autofillSettingsService.inlineMenuVisibility$ = inlineMenuVisibilityMock$;
+    autofillSettingsService.showInlineMenuCards$ = showInlineMenuCardsMock$;
+    autofillSettingsService.showInlineMenuIdentities$ = showInlineMenuIdentitiesMock$;
     activeAccountStatusMock$ = new BehaviorSubject(AuthenticationStatus.Unlocked);
     authService = mock<AuthService>();
     authService.activeAccountStatus$ = activeAccountStatusMock$;
@@ -291,12 +297,12 @@ describe("AutofillService", () => {
           expect(BrowserApi.tabSendMessageData).toHaveBeenCalledWith(
             tab1,
             "updateAutofillInlineMenuVisibility",
-            { inlineMenuVisibility: AutofillOverlayVisibility.OnButtonClick },
+            { newSettingValue: AutofillOverlayVisibility.OnButtonClick },
           );
           expect(BrowserApi.tabSendMessageData).toHaveBeenCalledWith(
             tab2,
             "updateAutofillInlineMenuVisibility",
-            { inlineMenuVisibility: AutofillOverlayVisibility.OnButtonClick },
+            { newSettingValue: AutofillOverlayVisibility.OnButtonClick },
           );
         });
 
@@ -308,12 +314,12 @@ describe("AutofillService", () => {
           expect(BrowserApi.tabSendMessageData).toHaveBeenCalledWith(
             tab1,
             "updateAutofillInlineMenuVisibility",
-            { inlineMenuVisibility: AutofillOverlayVisibility.OnFieldFocus },
+            { newSettingValue: AutofillOverlayVisibility.OnFieldFocus },
           );
           expect(BrowserApi.tabSendMessageData).toHaveBeenCalledWith(
             tab2,
             "updateAutofillInlineMenuVisibility",
-            { inlineMenuVisibility: AutofillOverlayVisibility.OnFieldFocus },
+            { newSettingValue: AutofillOverlayVisibility.OnFieldFocus },
           );
         });
       });
@@ -2260,29 +2266,23 @@ describe("AutofillService", () => {
             options,
           );
 
-          expect(AutofillService.fieldIsFuzzyMatch).toHaveBeenCalledTimes(4);
-          expect(AutofillService.fieldIsFuzzyMatch).toHaveBeenNthCalledWith(
-            1,
+          expect(AutofillService.fieldIsFuzzyMatch).toHaveBeenCalledWith(
             usernameField,
             AutoFillConstants.UsernameFieldNames,
           );
-          expect(AutofillService.fieldIsFuzzyMatch).toHaveBeenNthCalledWith(
-            2,
+          expect(AutofillService.fieldIsFuzzyMatch).toHaveBeenCalledWith(
             emailField,
             AutoFillConstants.UsernameFieldNames,
           );
-          expect(AutofillService.fieldIsFuzzyMatch).toHaveBeenNthCalledWith(
-            3,
+          expect(AutofillService.fieldIsFuzzyMatch).toHaveBeenCalledWith(
             telephoneField,
             AutoFillConstants.UsernameFieldNames,
           );
-          expect(AutofillService.fieldIsFuzzyMatch).toHaveBeenNthCalledWith(
-            4,
+          expect(AutofillService.fieldIsFuzzyMatch).toHaveBeenCalledWith(
             totpField,
             AutoFillConstants.UsernameFieldNames,
           );
-          expect(AutofillService.fieldIsFuzzyMatch).not.toHaveBeenNthCalledWith(
-            5,
+          expect(AutofillService.fieldIsFuzzyMatch).not.toHaveBeenCalledWith(
             nonViewableField,
             AutoFillConstants.UsernameFieldNames,
           );
@@ -2328,6 +2328,7 @@ describe("AutofillService", () => {
 
         it("will not attempt to fuzzy match a totp field if totp autofill is not allowed", async () => {
           options.allowTotpAutofill = false;
+          jest.spyOn(autofillService as any, "findMatchingFieldIndex");
 
           await autofillService["generateLoginFillScript"](
             fillScript,
@@ -2336,7 +2337,7 @@ describe("AutofillService", () => {
             options,
           );
 
-          expect(AutofillService.fieldIsFuzzyMatch).not.toHaveBeenCalledWith(
+          expect(autofillService["findMatchingFieldIndex"]).not.toHaveBeenCalledWith(
             expect.anything(),
             AutoFillConstants.TotpFieldNames,
           );
@@ -2386,7 +2387,6 @@ describe("AutofillService", () => {
           false,
           false,
         );
-        expect(AutofillService.fieldIsFuzzyMatch).not.toHaveBeenCalled();
         expect(AutofillService.fillByOpid).toHaveBeenCalledTimes(2);
         expect(AutofillService.fillByOpid).toHaveBeenNthCalledWith(
           1,

@@ -7,8 +7,8 @@ import { firstValueFrom } from "rxjs";
 
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { AbstractStorageService } from "@bitwarden/common/platform/abstractions/storage.service";
-import { BiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
 import { processisolations } from "@bitwarden/desktop-napi";
+import { BiometricStateService } from "@bitwarden/key-management";
 
 import { WindowState } from "../platform/models/domain/window-state";
 import { DesktopSettingsService } from "../platform/services/desktop-settings.service";
@@ -67,6 +67,13 @@ export class WindowMain {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.session.clearCache();
       this.logService.info("Render process reloaded");
+    });
+
+    this.desktopSettingsService.allowScreenshots$.subscribe((allowed) => {
+      if (this.win == null) {
+        return;
+      }
+      this.win.setContentProtection(!allowed);
     });
 
     return new Promise<void>((resolve, reject) => {
@@ -270,6 +277,14 @@ export class WindowMain {
       });
     });
 
+    firstValueFrom(this.desktopSettingsService.allowScreenshots$)
+      .then((allowScreenshots) => {
+        this.win.setContentProtection(!allowScreenshots);
+      })
+      .catch((e) => {
+        this.logService.error(e);
+      });
+
     if (this.createWindowCallback) {
       this.createWindowCallback(this.win);
     }
@@ -308,7 +323,7 @@ export class WindowMain {
   }
 
   private async updateWindowState(configKey: string, win: BrowserWindow) {
-    if (win == null) {
+    if (win == null || win.isDestroyed()) {
       return;
     }
 

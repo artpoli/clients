@@ -407,16 +407,55 @@
     "message": "Minimum jelszó hosszúság"
   },
   "uppercase": {
-    "message": "Nagybetűs (A-Z)"
+    "message": "Nagybetűs (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Kisbetűs (a-z)"
+    "message": "Kisbetűs (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Számok (0-9)"
+    "message": "Számok (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Speciális karakterek (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Bevonás",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Nagybetűs karakterek bevonása",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Kisbetűs karakterek bevonása",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Számok bevonása",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Speciális karakterek bevonása",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Szavak száma"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Félreérthető karakterek mellőzése"
+    "message": "Félreérthető karakterek mellőzése",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Félreérthető karakterek mellőzése",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "A vállalati házirend követelményei kerülnek alkalmazásra a generátor beállításaira.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Gyűjtemény keresése"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Csatlakozás szervezethez"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Fejezzük be a szervezethez csatlakozást egy mesterjelszó beállításával."
   },
   "settings": {
     "message": "Beállítások"
+  },
+  "accountEmail": {
+    "message": "Fiók email cím"
+  },
+  "requestHint": {
+    "message": "Tipp kérése"
+  },
+  "requestPasswordHint": {
+    "message": "Jelszó emlékeztető kérése"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Adjuk meg fiók email címét és elküldésre kerül a jelszóra vonatkozó tipp."
   },
   "passwordHint": {
     "message": "Jelszó emlékeztető"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "A széf zárolásra került. A folytatáshoz meg kell adni a mesterjelszót."
   },
+  "yourAccountIsLocked": {
+    "message": "A fiók zárolva van."
+  },
+  "or": {
+    "message": "vagy"
+  },
+  "unlockWithBiometrics": {
+    "message": "Biometrikus feloldás"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Feloldás mesterjelszóval"
+  },
   "unlock": {
     "message": "Feloldás"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Széf időkifutás"
+  },
+  "vaultTimeout1": {
+    "message": "Időkifutás"
   },
   "vaultTimeoutDesc": {
     "message": "Válasszuk ki, hogy a széfnél mikor legyen időkifutás és a kiválasztott művelet végrehajtása."
@@ -1286,7 +1370,7 @@
     }
   },
   "copySuccessful": {
-    "message": "Copy Successful"
+    "message": "A másolás sikeres volt."
   },
   "errorRefreshingAccessToken": {
     "message": "Hozzáférési vezérjel frissítési hiba"
@@ -1555,7 +1639,7 @@
   "recommendedForSecurity": {
     "message": "Biztonsági szempontból ajánlott."
   },
-  "lockWithMasterPassOnRestart": {
+  "lockWithMasterPassOnRestart1": {
     "message": "Lezárás mesterjelszóval újraindításkor"
   },
   "deleteAccount": {
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Lezárás",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Lomtár",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "A szervezet megköveteli egy mesterjelszó beállítását.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "/ $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Ellenőrzés szükséges",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Böngésző integráció engedélyezése"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "A böngésző integrációt a biometrikus adatokhoz használják a böngészőben."
+  "enableBrowserIntegrationDesc1": {
+    "message": "A biometrikus feloldás engedélyezésére szolgál olyan böngészőkben, amelyek nem Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "DuckDuckGo böngésző integráció engedélyezése"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Perc"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "A szervezeti házirendek hatással vannak a széf időkorlátjára. A széf időkorlátja legfeljebb $HOURS$ óra és $MINUTES$ perc lehet.",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ óra és $MINUTES$ perc maximum.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Lezárva"
   },
+  "yourVaultIsLockedV2": {
+    "message": "A széf zárolva van."
+  },
   "unlocked": {
     "message": "Feloldva"
   },
   "generator": {
-    "message": "Generátor"
+    "message": "Generátor",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Mit szeretnénk generálni?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Fontos:"
+  },
+  "accessing": {
+    "message": "Elérés"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "Megtörtént a kijelentkezés, mert a hozzáférési vezérjelet nem sikerült visszafejteni. Jelentkezzünk be újra a probléma megoldásához."
@@ -3061,6 +3161,12 @@
   },
   "textSends": {
     "message": "Szöveg küldés"
+  },
+  "allowScreenshots": {
+    "message": "Képernyőrögzítés engedélyezése"
+  },
+  "allowScreenshotsDesc": {
+    "message": "A Bitwarden asztali alkalmazás képernyőfelvételének engedélyezése."
   },
   "ssoError": {
     "message": "Nem található szabad port az sso bejelentkezéshez."

@@ -14,6 +14,7 @@ import { BillingAccountProfileStateService } from "@bitwarden/common/billing/abs
 import { VaultTimeoutAction } from "@bitwarden/common/enums/vault-timeout-action.enum";
 import { AppIdService } from "@bitwarden/common/platform/abstractions/app-id.service";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
+import { EncryptService } from "@bitwarden/common/platform/abstractions/encrypt.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
@@ -37,6 +38,7 @@ describe("WebAuthnLoginStrategy", () => {
   let masterPasswordService: FakeMasterPasswordService;
 
   let cryptoService!: MockProxy<CryptoService>;
+  let encryptService!: MockProxy<EncryptService>;
   let apiService!: MockProxy<ApiService>;
   let tokenService!: MockProxy<TokenService>;
   let appIdService!: MockProxy<AppIdService>;
@@ -79,6 +81,7 @@ describe("WebAuthnLoginStrategy", () => {
     masterPasswordService = new FakeMasterPasswordService();
 
     cryptoService = mock<CryptoService>();
+    encryptService = mock<EncryptService>();
     apiService = mock<ApiService>();
     tokenService = mock<TokenService>();
     appIdService = mock<AppIdService>();
@@ -103,6 +106,7 @@ describe("WebAuthnLoginStrategy", () => {
       accountService,
       masterPasswordService,
       cryptoService,
+      encryptService,
       apiService,
       tokenService,
       appIdService,
@@ -221,8 +225,8 @@ describe("WebAuthnLoginStrategy", () => {
     const mockUserKeyArray: Uint8Array = randomBytes(32);
     const mockUserKey = new SymmetricCryptoKey(mockUserKeyArray) as UserKey;
 
-    cryptoService.decryptToBytes.mockResolvedValue(mockPrfPrivateKey);
-    cryptoService.rsaDecrypt.mockResolvedValue(mockUserKeyArray);
+    encryptService.decryptToBytes.mockResolvedValue(mockPrfPrivateKey);
+    encryptService.rsaDecrypt.mockResolvedValue(mockUserKeyArray);
 
     // Act
     await webAuthnLoginStrategy.logIn(webAuthnCredentials);
@@ -235,14 +239,14 @@ describe("WebAuthnLoginStrategy", () => {
       userId,
     );
 
-    expect(cryptoService.decryptToBytes).toHaveBeenCalledTimes(1);
-    expect(cryptoService.decryptToBytes).toHaveBeenCalledWith(
+    expect(encryptService.decryptToBytes).toHaveBeenCalledTimes(1);
+    expect(encryptService.decryptToBytes).toHaveBeenCalledWith(
       idTokenResponse.userDecryptionOptions.webAuthnPrfOption.encryptedPrivateKey,
       webAuthnCredentials.prfKey,
     );
-    expect(cryptoService.rsaDecrypt).toHaveBeenCalledTimes(1);
-    expect(cryptoService.rsaDecrypt).toHaveBeenCalledWith(
-      idTokenResponse.userDecryptionOptions.webAuthnPrfOption.encryptedUserKey.encryptedString,
+    expect(encryptService.rsaDecrypt).toHaveBeenCalledTimes(1);
+    expect(encryptService.rsaDecrypt).toHaveBeenCalledWith(
+      idTokenResponse.userDecryptionOptions.webAuthnPrfOption.encryptedUserKey,
       mockPrfPrivateKey,
     );
     expect(cryptoService.setUserKey).toHaveBeenCalledWith(mockUserKey, userId);
@@ -268,8 +272,8 @@ describe("WebAuthnLoginStrategy", () => {
     await webAuthnLoginStrategy.logIn(webAuthnCredentials);
 
     // Assert
-    expect(cryptoService.decryptToBytes).not.toHaveBeenCalled();
-    expect(cryptoService.rsaDecrypt).not.toHaveBeenCalled();
+    expect(encryptService.decryptToBytes).not.toHaveBeenCalled();
+    expect(encryptService.rsaDecrypt).not.toHaveBeenCalled();
     expect(cryptoService.setUserKey).not.toHaveBeenCalled();
   });
 
@@ -303,7 +307,7 @@ describe("WebAuthnLoginStrategy", () => {
 
     apiService.postIdentityToken.mockResolvedValue(idTokenResponse);
 
-    cryptoService.decryptToBytes.mockResolvedValue(null);
+    encryptService.decryptToBytes.mockResolvedValue(null);
 
     // Act
     await webAuthnLoginStrategy.logIn(webAuthnCredentials);
@@ -321,7 +325,7 @@ describe("WebAuthnLoginStrategy", () => {
 
     apiService.postIdentityToken.mockResolvedValue(idTokenResponse);
 
-    cryptoService.rsaDecrypt.mockResolvedValue(null);
+    encryptService.rsaDecrypt.mockResolvedValue(null);
 
     // Act
     await webAuthnLoginStrategy.logIn(webAuthnCredentials);

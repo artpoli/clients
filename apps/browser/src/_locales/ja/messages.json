@@ -71,6 +71,15 @@
   "joinOrganization": {
     "message": "組織に参加"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "マスターパスワードを設定して、この組織への参加を完了します。"
   },
@@ -128,6 +137,21 @@
   "copyLicenseNumber": {
     "message": "免許証番号をコピー"
   },
+  "copyCustomField": {
+    "message": "$FIELD$ をコピー",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "ウェブサイトをコピー"
+  },
+  "copyNotes": {
+    "message": "メモをコピー"
+  },
   "autoFill": {
     "message": "自動入力"
   },
@@ -178,6 +202,18 @@
   },
   "addItem": {
     "message": "アイテムの追加"
+  },
+  "accountEmail": {
+    "message": "アカウントのメールアドレス"
+  },
+  "requestHint": {
+    "message": "ヒントを要求"
+  },
+  "requestPasswordHint": {
+    "message": "パスワードのヒントを要求する"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "アカウントのメールアドレスを入力すると、パスワードのヒントが送信されます"
   },
   "passwordHint": {
     "message": "パスワードのヒント"
@@ -354,7 +390,7 @@
   },
   "generator": {
     "message": "パス生成",
-    "description": "Short for 'Password Generator'."
+    "description": "Short for 'credential generator'."
   },
   "passGenInfo": {
     "message": "ログインのために強固なユニークパスワードを自動的に生成します。"
@@ -462,6 +498,10 @@
     "message": "あいまいな文字を避ける",
     "description": "Label for the avoid ambiguous characters checkbox."
   },
+  "generatorPolicyInEffect": {
+    "message": "生成オプションにエンタープライズポリシー要件を適用しました",
+    "description": "Indicates that a policy limits the credential generator screen."
+  },
   "searchVault": {
     "message": "保管庫を検索"
   },
@@ -503,6 +543,9 @@
   },
   "notes": {
     "message": "メモ"
+  },
+  "privateNote": {
+    "message": "非公開メモ"
   },
   "note": {
     "message": "メモ"
@@ -549,6 +592,9 @@
   "sessionTimeoutHeader": {
     "message": "セッションタイムアウト"
   },
+  "vaultTimeoutHeader": {
+    "message": "保管庫のタイムアウト"
+  },
   "otherOptions": {
     "message": "その他のオプション"
   },
@@ -566,6 +612,15 @@
   },
   "yourVaultIsLocked": {
     "message": "保管庫がロックされています。続行するには本人確認を行ってください。"
+  },
+  "yourVaultIsLockedV2": {
+    "message": "保管庫がロックされています"
+  },
+  "yourAccountIsLocked": {
+    "message": "アカウントがロックされています"
+  },
+  "or": {
+    "message": "または"
   },
   "unlock": {
     "message": "ロック解除"
@@ -588,6 +643,9 @@
   },
   "vaultTimeout": {
     "message": "保管庫のタイムアウト"
+  },
+  "vaultTimeout1": {
+    "message": "タイムアウト"
   },
   "lockNow": {
     "message": "今すぐロック"
@@ -788,6 +846,12 @@
   },
   "twoStepLoginConfirmation": {
     "message": "2段階認証を使うと、ログイン時にセキュリティキーや認証アプリ、SMS、電話やメールでの認証を必要にすることでアカウントをさらに安全に出来ます。2段階認証は bitwarden.com ウェブ保管庫で有効化できます。ウェブサイトを開きますか？"
+  },
+  "twoStepLoginConfirmationContent": {
+    "message": "Bitwarden ウェブアプリで2段階認証を設定すると、アカウントがより安全になります。"
+  },
+  "twoStepLoginConfirmationTitle": {
+    "message": "ウェブアプリに進みますか？"
   },
   "editedFolder": {
     "message": "フォルダーを編集しました"
@@ -1097,6 +1161,9 @@
   "file": {
     "message": "ファイル"
   },
+  "fileToShare": {
+    "message": "共有するファイル"
+  },
   "selectFile": {
     "message": "ファイルを選択してください。"
   },
@@ -1349,6 +1416,12 @@
   },
   "showInlineMenuLabel": {
     "message": "フォームフィールドに自動入力の候補を表示する"
+  },
+  "showInlineMenuIdentitiesLabel": {
+    "message": "Display identities as suggestions"
+  },
+  "showInlineMenuCardsLabel": {
+    "message": "Display cards as suggestions"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "アイコンが選択されているときに候補を表示する"
@@ -1863,8 +1936,17 @@
   "unlockWithPin": {
     "message": "PIN でロック解除"
   },
+  "setYourPinTitle": {
+    "message": "PIN を設定"
+  },
+  "setYourPinButton": {
+    "message": "PIN を設定"
+  },
   "setYourPinCode": {
     "message": "Bitwarden のロックを解除するための PIN コードを設定します。アプリから完全にログアウトすると、PIN 設定はリセットされます。"
+  },
+  "setYourPinCode1": {
+    "message": "あなたの PIN はマスターパスワードの代わりに Bitwarden のロックを解除するために使用されます。Bitwarden から完全にログアウトすると PIN がリセットされます。"
   },
   "pinRequired": {
     "message": "PIN コードが必要です。"
@@ -1878,6 +1960,9 @@
   "unlockWithBiometrics": {
     "message": "生体認証でロック解除"
   },
+  "unlockWithMasterPassword": {
+    "message": "マスターパスワードでロック解除"
+  },
   "awaitDesktop": {
     "message": "デスクトップからの確認待ち"
   },
@@ -1886,6 +1971,9 @@
   },
   "lockWithMasterPassOnRestart": {
     "message": "ブラウザー再起動時にマスターパスワードでロック"
+  },
+  "lockWithMasterPassOnRestart1": {
+    "message": "ブラウザの再起動時にマスターパスワードを要求"
   },
   "selectOneCollection": {
     "message": "最低でも一つのコレクションを選んでください。"
@@ -1925,9 +2013,12 @@
   "vaultTimeoutAction": {
     "message": "保管庫タイムアウト時のアクション"
   },
+  "vaultTimeoutAction1": {
+    "message": "タイムアウト時のアクション"
+  },
   "lock": {
     "message": "ロック",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "ごみ箱",
@@ -2119,11 +2210,11 @@
   "nativeMessagingWrongUserTitle": {
     "message": "アカウントが一致しません"
   },
-  "nativeMessagingWrongUserKeyDesc": {
-    "message": "生体認証のロック解除に失敗しました。生体認証キーでの保管庫のロック解除に失敗しました。生体認証を再度設定してください。"
-  },
   "nativeMessagingWrongUserKeyTitle": {
     "message": "生体認証キーが一致しません"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "生体認証のロック解除に失敗しました。生体認証キーでの保管庫のロック解除に失敗しました。生体認証を再度設定してください。"
   },
   "biometricsNotEnabledTitle": {
     "message": "生体認証が有効になっていません"
@@ -2210,8 +2301,29 @@
   "excludedDomainsSavedSuccess": {
     "message": "除外ドメインの変更を保存しました"
   },
+  "limitSendViews": {
+    "message": "表示の制限"
+  },
+  "limitSendViewsHint": {
+    "message": "上限に達した後、誰もこの Send を表示できなくなります。",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "limitSendViewsCount": {
+    "message": "残り $ACCESSCOUNT$ 回",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "send": {
     "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDetails": {
+    "message": "Send の詳細",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -2225,12 +2337,18 @@
   "sendTypeText": {
     "message": "テキスト"
   },
+  "sendTypeTextToShare": {
+    "message": "共有するテキスト"
+  },
   "sendTypeFile": {
     "message": "ファイル"
   },
   "allSends": {
     "message": "すべての Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "hideTextByDefault": {
+    "message": "デフォルトでテキストを隠す"
   },
   "maxAccessCountReached": {
     "message": "最大アクセス数に達しました",
@@ -2283,6 +2401,10 @@
     "message": "この Send を削除してもよろしいですか?",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "deleteSendPermanentConfirmation": {
+    "message": "この Send を完全に削除してもよろしいですか？",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "editSend": {
     "message": "Send を編集",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -2303,6 +2425,10 @@
   },
   "deletionDateDesc": {
     "message": "Send は指定された日時に完全に削除されます。",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deletionDateDescV2": {
+    "message": "Send はこの日付で完全に削除されます。",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "expirationDate": {
@@ -2336,6 +2462,10 @@
   },
   "sendPasswordDesc": {
     "message": "必要に応じて、ユーザーがこの Send にアクセスするためのパスワードを要求します。",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDescV2": {
+    "message": "Send を表示するにはこのパスワードが必要になります。",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2383,8 +2513,26 @@
     "message": "Send を作成しました！",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendAvailability": {
-    "message": "Send は、次の $DAYS$ 日間はリンクを知っている人全員が利用できます。",
+  "sendExpiresInHoursSingle": {
+    "message": "Send は、次の1時間はリンクを知っている全員が利用できます。",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInHours": {
+    "message": "Send は、次の$HOURS$時間はリンクを知っている人全員が利用できます。",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sendExpiresInDaysSingle": {
+    "message": "Send は、次の1日間はリンクを知っている全員が利用できます。",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInDays": {
+    "message": "Send は、次の$DAYS$日間はリンクを知っている人全員が利用できます。",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
       "days": {
@@ -2401,6 +2549,14 @@
     "message": "編集済みの Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendFilePopoutDialogText": {
+    "message": "拡張機能をポップアウトしますか？",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFilePopoutDialogDesc": {
+    "message": "ファイル Send を作成するには、拡張機能を新しいウィンドウでポップアウト表示する必要があります。",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "sendLinuxChromiumFileWarning": {
     "message": "ファイルを選択するには、可能な場合サイドバーで拡張子を開くか、このバナーをクリックして新しいウィンドウにポップアップしてください。"
   },
@@ -2409,6 +2565,9 @@
   },
   "sendSafariFileWarning": {
     "message": "Safari を使用してファイルを選択するには、このバナーをクリックして新しいウィンドウで開いてください。"
+  },
+  "popOut": {
+    "message": "ポップアウト"
   },
   "sendFileCalloutHeader": {
     "message": "はじめる前に"
@@ -2442,6 +2601,9 @@
   },
   "hideEmail": {
     "message": "メールアドレスを受信者に表示しない"
+  },
+  "hideYourEmail": {
+    "message": "閲覧者にメールアドレスを見せないようにします。"
   },
   "sendOptionsPolicyInEffect": {
     "message": "一つ以上の組織ポリシーが Send の設定に影響しています。"
@@ -2500,6 +2662,15 @@
     "message": "あなたの組織では、マスターパスワードの設定を義務付けています。",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": " / $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "認証が必要です",
     "description": "Default title for the user verification dialog."
@@ -2510,8 +2681,37 @@
   "minutes": {
     "message": "分"
   },
+  "vaultTimeoutPolicyAffectingOptions": {
+    "message": "タイムアウトオプションにエンタープライズポリシー要件を適用しました"
+  },
   "vaultTimeoutPolicyInEffect": {
     "message": "あなたの組織ポリシーは保管庫のタイムアウトに影響を与えています。最大保管庫のタイムアウト時間は $HOURS$ 時間 $MINUTES$ 分です。",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ 時間と $MINUTES$ 分が最大です。",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyMaximumError": {
+    "message": "タイムアウトが組織によって設定された制限を超えています: 上限 $HOURS$ 時間と $MINUTES$ 分間",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -3477,6 +3677,9 @@
   "typePasskey": {
     "message": "パスキー"
   },
+  "accessing": {
+    "message": "アクセス中"
+  },
   "passkeyNotCopied": {
     "message": "パスキーはコピーされません"
   },
@@ -3500,6 +3703,9 @@
   },
   "noMatchingLoginsForSite": {
     "message": "このサイトに一致するログイン情報がありません"
+  },
+  "searchSavePasskeyNewLogin": {
+    "message": "パスキーを検索または新しいログインとして保存"
   },
   "confirm": {
     "message": "確認"
@@ -4070,6 +4276,9 @@
   "enableAnimations": {
     "message": "アニメーションを有効化"
   },
+  "showAnimations": {
+    "message": "アニメーションを表示"
+  },
   "addAccount": {
     "message": "アカウントを追加"
   },
@@ -4309,6 +4518,15 @@
   "enterprisePolicyRequirementsApplied": {
     "message": "エンタープライズポリシー要件がこの設定に適用されました"
   },
+  "retry": {
+    "message": "再試行"
+  },
+  "vaultCustomTimeoutMinimum": {
+    "message": "カスタムタイムアウトの最小値は1分です。"
+  },
+  "additionalContentAvailable": {
+    "message": "追加コンテンツが利用可能です"
+  },
   "fileSavedToDevice": {
     "message": "ファイルをデバイスに保存しました。デバイスのダウンロードで管理できます。"
   },
@@ -4338,5 +4556,8 @@
   },
   "noEditPermissions": {
     "message": "このアイテムを編集する権限がありません"
+  },
+  "authenticating": {
+    "message": "認証中"
   }
 }

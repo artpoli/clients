@@ -264,6 +264,9 @@ export class LoginStrategyService implements LoginStrategyServiceAbstraction {
         throw e;
       }
     }
+
+    kdfConfig.validateKdfConfigForPrelogin();
+
     return await this.cryptoService.makeMasterKey(masterPassword, email, kdfConfig);
   }
 
@@ -317,6 +320,7 @@ export class LoginStrategyService implements LoginStrategyServiceAbstraction {
       this.accountService,
       this.masterPasswordService,
       this.cryptoService,
+      this.encryptService,
       this.apiService,
       this.tokenService,
       this.appIdService,

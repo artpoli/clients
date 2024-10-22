@@ -19,8 +19,6 @@ import { LogService } from "@bitwarden/common/platform/abstractions/log.service"
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
-import { BiometricStateService } from "@bitwarden/common/platform/biometrics/biometric-state.service";
-import { BiometricsService } from "@bitwarden/common/platform/biometrics/biometric.service";
 import { KeySuffixOptions, ThemeType } from "@bitwarden/common/platform/enums";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { ThemeStateService } from "@bitwarden/common/platform/theming/theme-state.service";
@@ -31,6 +29,7 @@ import {
   VaultTimeoutStringType,
 } from "@bitwarden/common/types/vault-timeout.type";
 import { DialogService } from "@bitwarden/components";
+import { BiometricsService, BiometricStateService } from "@bitwarden/key-management";
 
 import { SetPinComponent } from "../../auth/components/set-pin.component";
 import { DesktopAutofillSettingsService } from "../../autofill/services/desktop-autofill-settings.service";
@@ -109,6 +108,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       disabled: true,
     }),
     enableHardwareAcceleration: true,
+    allowScreenshots: false,
     enableDuckDuckGoBrowserIntegration: false,
     theme: [null as ThemeType | null],
     locale: [null as string | null],
@@ -196,22 +196,23 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.vaultTimeoutOptions = await this.generateVaultTimeoutOptions();
-
-    this.userHasMasterPassword = await this.userVerificationService.hasMasterPassword();
-
-    this.isWindows = (await this.platformUtilsService.getDevice()) === DeviceType.WindowsDesktop;
+    const activeAccount = await firstValueFrom(this.accountService.activeAccount$);
     this.isLinux = (await this.platformUtilsService.getDevice()) === DeviceType.LinuxDesktop;
 
-    if ((await this.stateService.getUserId()) == null) {
+    if (activeAccount == null || activeAccount.id == null) {
       return;
     }
-    this.currentUserEmail = await firstValueFrom(
-      this.accountService.activeAccount$.pipe(map((a) => a?.email)),
-    );
-    this.currentUserId = (await this.stateService.getUserId()) as UserId;
+    this.userHasMasterPassword = await this.userVerificationService.hasMasterPassword();
+
+    this.isWindows = this.platformUtilsService.getDevice() === DeviceType.WindowsDesktop;
+
+    this.currentUserEmail = activeAccount.email;
+    this.currentUserId = activeAccount.id;
 
     this.availableVaultTimeoutActions$ = this.refreshTimeoutSettings$.pipe(
-      switchMap(() => this.vaultTimeoutSettingsService.availableVaultTimeoutActions$()),
+      switchMap(() =>
+        this.vaultTimeoutSettingsService.availableVaultTimeoutActions$(activeAccount.id),
+      ),
     );
 
     // Load timeout policy
@@ -236,12 +237,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
       }),
     );
 
-    const userId = (await firstValueFrom(this.accountService.activeAccount$))?.id;
-
     // Load initial values
-    this.userHasPinSet = await this.pinService.isPinSet(userId);
-
-    const activeAccount = await firstValueFrom(this.accountService.activeAccount$);
+    this.userHasPinSet = await this.pinService.isPinSet(activeAccount.id);
 
     const initialValues = {
       vaultTimeout: await firstValueFrom(
@@ -277,6 +274,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       enableHardwareAcceleration: await firstValueFrom(
         this.desktopSettingsService.hardwareAcceleration$,
       ),
+      allowScreenshots: await firstValueFrom(this.desktopSettingsService.allowScreenshots$),
       theme: await firstValueFrom(this.themeStateService.selectedTheme$),
       locale: await firstValueFrom(this.i18nService.userSetLocale$),
     };
@@ -725,6 +723,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
     await this.desktopSettingsService.setHardwareAcceleration(
       this.form.value.enableHardwareAcceleration,
     );
+  }
+
+  async saveAllowScreenshots() {
+    await this.desktopSettingsService.setAllowScreenshots(this.form.value.allowScreenshots);
   }
 
   private async generateVaultTimeoutOptions(): Promise<VaultTimeoutOption[]> {

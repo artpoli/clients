@@ -407,16 +407,55 @@
     "message": "Minsta tillåtna lösenordslängd"
   },
   "uppercase": {
-    "message": "Versaler (A-Ö)"
+    "message": "Versaler (A-Ö)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Gemener (a-ö)"
+    "message": "Gemener (a-ö)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Siffror (0-9)"
+    "message": "Siffror (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Specialtecken (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Include",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Include uppercase characters",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Include lowercase characters",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Include numbers",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Inkludera specialtecken",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Antal ord"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Undvik tvetydiga tecken"
+    "message": "Undvik tvetydiga tecken",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Undvik tvetydiga tecken",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Enterprise policy requirements have been applied to your generator options.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Sök i samling"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Join organization"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Finish joining this organization by setting a master password."
   },
   "settings": {
     "message": "Inställningar"
+  },
+  "accountEmail": {
+    "message": "Account email"
+  },
+  "requestHint": {
+    "message": "Begär ledtråd"
+  },
+  "requestPasswordHint": {
+    "message": "Begär lösenordsledtråd"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Enter your account email address and your password hint will be sent to you"
   },
   "passwordHint": {
     "message": "Lösenordsledtråd"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Ditt valv är låst. Bekräfta din identitet för att fortsätta."
   },
+  "yourAccountIsLocked": {
+    "message": "Ditt konto är låst"
+  },
+  "or": {
+    "message": "eller"
+  },
+  "unlockWithBiometrics": {
+    "message": "Lås upp med biometri"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Lås upp med huvudlösenord"
+  },
   "unlock": {
     "message": "Lås upp"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Valvets tidsgräns"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "vaultTimeoutDesc": {
     "message": "Välj när valvets tidsgräns överskrids och den valda åtgärden utförs."
@@ -1409,7 +1493,7 @@
     "message": "Set a file password to encrypt the export and import it to any Bitwarden account using the password for decryption."
   },
   "exportTypeHeading": {
-    "message": "Export type"
+    "message": "Exporttyp"
   },
   "accountRestricted": {
     "message": "Account restricted"
@@ -1555,8 +1639,8 @@
   "recommendedForSecurity": {
     "message": "Rekommenderas för säkerhet."
   },
-  "lockWithMasterPassOnRestart": {
-    "message": "Lås med huvudlösenordet vid omstart"
+  "lockWithMasterPassOnRestart1": {
+    "message": "Lock with master password on restart"
   },
   "deleteAccount": {
     "message": "Radera konto"
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Lås",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Papperskorgen",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Din organisation kräver att du anger ett huvudlösenord.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Verifiering krävs",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Tillåt webbläsarintegration"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Webbläsarintegration används för biometri i webbläsaren."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Used to allow biometric unlock in browsers that are not Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Tillåt integration av webbläsaren DuckDuckGo"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Minuter"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Dina organisationsprinciper påverkar ditt valvs tid för timeout. Maximal tillåten tid innan timeout är $HOURS$ timme(ar) och $MINUTES$ minut(er)",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ hour(s) and $MINUTES$ minute(s) maximum.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Låst"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Ditt valv är låst"
+  },
   "unlocked": {
     "message": "Upplåst"
   },
   "generator": {
-    "message": "Generator"
+    "message": "Generator",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Vad skulle du vilja generera?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Viktigt:"
+  },
+  "accessing": {
+    "message": "Accessing"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "You have been logged out because your access token could not be decrypted. Please log in again to resolve this issue."
@@ -3061,6 +3161,12 @@
   },
   "textSends": {
     "message": "Text Sends"
+  },
+  "allowScreenshots": {
+    "message": "Allow screen capture"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Allow screen capture of the Bitwarden desktop application."
   },
   "ssoError": {
     "message": "No free ports could be found for the sso login."

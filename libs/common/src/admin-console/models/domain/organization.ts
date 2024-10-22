@@ -68,11 +68,21 @@ export class Organization {
   /**
    * Refers to the ability for an organization to limit collection creation and deletion to owners and admins only
    */
+  limitCollectionCreation: boolean;
+  limitCollectionDeletion: boolean;
+  // Deprecated: https://bitwarden.atlassian.net/browse/PM-10863
   limitCollectionCreationDeletion: boolean;
+
   /**
    * Refers to the ability for an owner/admin to access all collection items, regardless of assigned collections
    */
   allowAdminAccessToAllCollectionItems: boolean;
+  /**
+   * Indicates if this organization manages the user.
+   * A user is considered managed by an organization if their email domain
+   * matches one of the verified domains of that organization, and the user is a member of it.
+   */
+  userIsManagedByOrganization: boolean;
 
   constructor(obj?: OrganizationData) {
     if (obj == null) {
@@ -125,8 +135,12 @@ export class Organization {
     this.familySponsorshipValidUntil = obj.familySponsorshipValidUntil;
     this.familySponsorshipToDelete = obj.familySponsorshipToDelete;
     this.accessSecretsManager = obj.accessSecretsManager;
+    this.limitCollectionCreation = obj.limitCollectionCreation;
+    this.limitCollectionDeletion = obj.limitCollectionDeletion;
+    // Deprecated: https://bitwarden.atlassian.net/browse/PM-10863
     this.limitCollectionCreationDeletion = obj.limitCollectionCreationDeletion;
     this.allowAdminAccessToAllCollectionItems = obj.allowAdminAccessToAllCollectionItems;
+    this.userIsManagedByOrganization = obj.userIsManagedByOrganization;
   }
 
   get canAccess() {
@@ -163,9 +177,7 @@ export class Organization {
   }
 
   get canCreateNewCollections() {
-    return (
-      !this.limitCollectionCreationDeletion || this.isAdmin || this.permissions.createNewCollections
-    );
+    return !this.limitCollectionCreation || this.isAdmin || this.permissions.createNewCollections;
   }
 
   get canEditAnyCollection() {

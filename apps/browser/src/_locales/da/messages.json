@@ -71,6 +71,15 @@
   "joinOrganization": {
     "message": "Bliv medlem af organisation"
   },
+  "joinOrganizationName": {
+    "message": "Bliv nedlem af $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Færdiggør tilmeldingen til denne organisation ved at opsætte en hovedadgangskode."
   },
@@ -128,8 +137,23 @@
   "copyLicenseNumber": {
     "message": "Kopier licensnummer"
   },
+  "copyCustomField": {
+    "message": "Kopiér $FIELD$",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Kopiér websted"
+  },
+  "copyNotes": {
+    "message": "Kopiér notater"
+  },
   "autoFill": {
-    "message": "Auto-udfyld"
+    "message": "Autoudfyld"
   },
   "autoFillLogin": {
     "message": "Autoudfyld login"
@@ -171,13 +195,25 @@
     "message": "Log ind på din boks"
   },
   "autoFillInfo": {
-    "message": "Der findes ingen login til at auto-udfylde i den nuværende browserfane."
+    "message": "Der findes ingen logins at autoudfylde i den aktuelle webbrowserfane."
   },
   "addLogin": {
     "message": "Tilføj et login"
   },
   "addItem": {
     "message": "Tilføj element"
+  },
+  "accountEmail": {
+    "message": "Konto-e-mail"
+  },
+  "requestHint": {
+    "message": "Anmod om tip"
+  },
+  "requestPasswordHint": {
+    "message": "Anmod om adgangskodetip"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Angiv kontoens e-mailadresse og få et adgangskodetip fremsendt"
   },
   "passwordHint": {
     "message": "Adgangskodetip"
@@ -354,7 +390,7 @@
   },
   "generator": {
     "message": "Generator",
-    "description": "Short for 'Password Generator'."
+    "description": "Short for 'credential generator'."
   },
   "passGenInfo": {
     "message": "Opret automatisk stærke, unikke adgangskoder til dine logins."
@@ -462,6 +498,10 @@
     "message": "Undgå tvetydige tegn",
     "description": "Label for the avoid ambiguous characters checkbox."
   },
+  "generatorPolicyInEffect": {
+    "message": "Virksomhedspolitikkrav gør sig gældende på generatorvalgmulighder.",
+    "description": "Indicates that a policy limits the credential generator screen."
+  },
   "searchVault": {
     "message": "Søg i boks"
   },
@@ -503,6 +543,9 @@
   },
   "notes": {
     "message": "Notater"
+  },
+  "privateNote": {
+    "message": "Private note"
   },
   "note": {
     "message": "Notat"
@@ -549,6 +592,9 @@
   "sessionTimeoutHeader": {
     "message": "Sessionstimeout"
   },
+  "vaultTimeoutHeader": {
+    "message": "Boks-timeout"
+  },
   "otherOptions": {
     "message": "Andre innstillinger"
   },
@@ -566,6 +612,15 @@
   },
   "yourVaultIsLocked": {
     "message": "Din boks er låst. Bekræft din identitet for at fortsætte."
+  },
+  "yourVaultIsLockedV2": {
+    "message": "Boksen er låst"
+  },
+  "yourAccountIsLocked": {
+    "message": "Kontoen er låst"
+  },
+  "or": {
+    "message": "eller"
   },
   "unlock": {
     "message": "Lås op"
@@ -588,6 +643,9 @@
   },
   "vaultTimeout": {
     "message": "Boks timeout"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "lockNow": {
     "message": "Lås nu"
@@ -718,7 +776,7 @@
     }
   },
   "autofillError": {
-    "message": "Ikke i stand til at auto-udfylde det valgte element på denne side. Kopiér og indsæt dataene i stedet for."
+    "message": "Ikke i stand til at autoudfylde det valgte emne på denne side. Kopiér og indsæt informationen i stedet."
   },
   "totpCaptureError": {
     "message": "Kan ikke skanne QR-koden fra den aktuelle webside"
@@ -788,6 +846,12 @@
   },
   "twoStepLoginConfirmation": {
     "message": "To-trins login gør din konto mere sikker ved at kræve, at du verificerer dit login med en anden enhed, såsom en sikkerhedsnøgle, autentificeringsapp, SMS, telefonopkald eller e-mail. To-trins login kan aktiveres i bitwarden.com web-boksen. Vil du besøge hjemmesiden nu?"
+  },
+  "twoStepLoginConfirmationContent": {
+    "message": "Øg kontosikkerheden ved at oprette totrinsindlogning i Bitwarden web-appen."
+  },
+  "twoStepLoginConfirmationTitle": {
+    "message": "Fortsæt til web-app?"
   },
   "editedFolder": {
     "message": "Mappe gemt"
@@ -889,7 +953,7 @@
     "message": "Vis kort på fanebladet"
   },
   "showCardsCurrentTabDesc": {
-    "message": "Vis kortelementer på fanebladet for nem auto-udfyldning."
+    "message": "Vis kortemner på siden Fane for nem autoudfyldning."
   },
   "showIdentitiesInVaultView": {
     "message": "Vis identiteter som Autoudfyldningsforslag ved Boks-visning"
@@ -898,7 +962,7 @@
     "message": "Vis identiteter på fanebladet"
   },
   "showIdentitiesCurrentTabDesc": {
-    "message": "Vis identitetselementer på fanebladet for nem auto-udfyldning."
+    "message": "Vis identitetsemner på siden Fane for nem autoudfyldning."
   },
   "clearClipboard": {
     "message": "Ryd udklipsholder",
@@ -936,7 +1000,7 @@
     "message": "Opdatér"
   },
   "notificationUnlockDesc": {
-    "message": "Oplås din Bitwarden boks for at færdiggøre autoudfyldanmodningen."
+    "message": "Oplås Bitwarden-boksen for at færdiggøre autoudfyldningsanmodningen."
   },
   "notificationUnlock": {
     "message": "Oplås"
@@ -958,7 +1022,7 @@
     "description": "Default URI match detection for autofill."
   },
   "defaultUriMatchDetectionDesc": {
-    "message": "Vælg den standard måde, som URI matchmetode håndteres til logins, når du udfører handlinger som f.eks. Auto-udfyld."
+    "message": "Vælg standardmåden for håndtering af URI-matchdetektering til logins, når der udføres handlinger, såsom f.eks. Autoudfyld."
   },
   "theme": {
     "message": "Tema"
@@ -1097,6 +1161,9 @@
   "file": {
     "message": "Fil"
   },
+  "fileToShare": {
+    "message": "Fil, der skal deles"
+  },
   "selectFile": {
     "message": "Vælg en fil"
   },
@@ -1191,7 +1258,7 @@
     "message": "Kopiér TOTP automatisk"
   },
   "disableAutoTotpCopyDesc": {
-    "message": "Hvis et login har en autentificeringsnøgle, så kopiér TOTP-bekræftelseskoden til din udklipsholder, når du auto-udfylder login."
+    "message": "Har et login har en autentificeringsnøgle, kopiér TOTP-bekræftelseskoden til udklipsholderen, når login autoudfyldes."
   },
   "enableAutoBiometricsPrompt": {
     "message": "Bed om biometri ved start"
@@ -1341,7 +1408,7 @@
     "message": "Miljøets URLs er blevet gemt."
   },
   "showAutoFillMenuOnFormFields": {
-    "message": "Vis autoudfyld-menu i formularfelter",
+    "message": "Vis autoudfyldningsmenu i formularfelter",
     "description": "Represents the message for allowing the user to enable the autofill overlay"
   },
   "autofillSuggestionsSectionTitle": {
@@ -1349,6 +1416,12 @@
   },
   "showInlineMenuLabel": {
     "message": "Vis autoudfyld-menu i formularfelter"
+  },
+  "showInlineMenuIdentitiesLabel": {
+    "message": "Vis identiteter som forslag"
+  },
+  "showInlineMenuCardsLabel": {
+    "message": "Vis kort som forslag"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "Vis forslag, når ikonet vælges"
@@ -1371,17 +1444,17 @@
     "description": "Overlay appearance select option for showing the field on focus of the input element"
   },
   "autofillOverlayVisibilityOnButtonClick": {
-    "message": "Når autoudfyld-ikon vælges",
+    "message": "Når autoudfyldikon vælges",
     "description": "Overlay appearance select option for showing the field on click of the overlay icon"
   },
   "enableAutoFillOnPageLoadSectionTitle": {
     "message": "Autoudfyld ved sideindlæsning"
   },
   "enableAutoFillOnPageLoad": {
-    "message": "Auto-udfyld ved sideindlæsning"
+    "message": "Autoudfyld ved sideindlæsning"
   },
   "enableAutoFillOnPageLoadDesc": {
-    "message": "Hvis der registreres en loginformular, så auto-udfyld, når websiden indlæses."
+    "message": "Registreres en loginformular, autoudfyld når websiden indlæses."
   },
   "autofillOnPageLoadWarning": {
     "message": "$OPENTAG$Advarsel:$CLOSETAG$ Kompromitterede eller ikke-betroede websteder kan misbruge autofyld ved sideindlæsning.",
@@ -1409,19 +1482,19 @@
     "message": "Standardindstilling for autofyld for loginelementer"
   },
   "defaultAutoFillOnPageLoadDesc": {
-    "message": "Du kan deaktivere auto-udfyld ved sideindlæsning for individuelle login-elementer fra elementets redigeringsvisning."
+    "message": "Autoudfyldning ved sideindlæsning kan slås fra for individuelle loginemner fra emnets redigeringsvisning."
   },
   "itemAutoFillOnPageLoad": {
-    "message": "Auto-udfyld ved sideindlæsning (hvis aktiveret i Indstillinger)"
+    "message": "Autoudfyld ved sideindlæsning (hvis opsat i Indstillinger)"
   },
   "autoFillOnPageLoadUseDefault": {
     "message": "Anvend standardindstilling"
   },
   "autoFillOnPageLoadYes": {
-    "message": "Auto-udfyld ved sideindlæsning"
+    "message": "Autoudfyld ved sideindlæsning"
   },
   "autoFillOnPageLoadNo": {
-    "message": "Auto-udfyld ikke ved sideindlæsning"
+    "message": "Autoudfyld ikke ved sideindlæsning"
   },
   "commandOpenPopup": {
     "message": "Åbn boks popup"
@@ -1863,8 +1936,17 @@
   "unlockWithPin": {
     "message": "Lås op med pinkode"
   },
+  "setYourPinTitle": {
+    "message": "Indstil PIN-kode"
+  },
+  "setYourPinButton": {
+    "message": "Indstil PIN-kode"
+  },
   "setYourPinCode": {
     "message": "Indstil din pinkode til at låse Bitwarden op. Dine pin-indstillinger nulstilles, hvis du nogensinde logger helt ud af programmet."
+  },
+  "setYourPinCode1": {
+    "message": "PIN-koden vil blive brugt til oplåsning af Bitwarden i stedet for hovedadgangskoden. PIN-koden nulstilles, hvis man logger helt ud af Bitwarden."
   },
   "pinRequired": {
     "message": "Pinkode er påkrævet."
@@ -1878,6 +1960,9 @@
   "unlockWithBiometrics": {
     "message": "Lås op med biometri"
   },
+  "unlockWithMasterPassword": {
+    "message": "Oplås med hovedadgangskode"
+  },
   "awaitDesktop": {
     "message": "Afventer bekræftelse fra skrivebordet"
   },
@@ -1886,6 +1971,9 @@
   },
   "lockWithMasterPassOnRestart": {
     "message": "Lås med hovedadgangskode ved genstart af browseren"
+  },
+  "lockWithMasterPassOnRestart1": {
+    "message": "Kræver hovedadgangskode efter genstart af webbrowseren"
   },
   "selectOneCollection": {
     "message": "Du skal vælge minimum én samling."
@@ -1925,9 +2013,12 @@
   "vaultTimeoutAction": {
     "message": "Boks timeout-handling"
   },
+  "vaultTimeoutAction1": {
+    "message": "Timeouthandling"
+  },
   "lock": {
     "message": "Lås",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Papirkurv",
@@ -1967,10 +2058,10 @@
     "message": "Udfyld og gem"
   },
   "autoFillSuccessAndSavedUri": {
-    "message": "Autoudfyldte element og URI gemt"
+    "message": "Emne autoudfyldt og URI gemt"
   },
   "autoFillSuccess": {
-    "message": "Autoudfyldte element"
+    "message": "Emne autoudfyldt "
   },
   "insecurePageWarning": {
     "message": "Advarsel: Dette er en ikke-sikret HTTP side, og alle indsendte oplysninger kan potentielt ses og ændres af andre. Dette login blev oprindeligt gemt på en sikker (HTTPS) side."
@@ -2119,11 +2210,11 @@
   "nativeMessagingWrongUserTitle": {
     "message": "Konto mismatch"
   },
-  "nativeMessagingWrongUserKeyDesc": {
-    "message": "Biometrisk oplåsning mislykkedes. Den hemmelige biometriske nøgle kunne ikke oplåse boksen. Prøv at opsætte biometri igen."
-  },
   "nativeMessagingWrongUserKeyTitle": {
     "message": "Biometrisk nøgle matcher ikke"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Biometrisk oplåsning mislykkedes. Den hemmelige biometriske nøgle kunne ikke oplåse boksen. Prøv at opsætte biometri igen."
   },
   "biometricsNotEnabledTitle": {
     "message": "Biometri ikke aktiveret"
@@ -2210,8 +2301,29 @@
   "excludedDomainsSavedSuccess": {
     "message": "Ekskluderet domæne-ændringer gemt"
   },
+  "limitSendViews": {
+    "message": "Limit views"
+  },
+  "limitSendViewsHint": {
+    "message": "No one can view this Send after the limit is reached.",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "limitSendViewsCount": {
+    "message": "$ACCESSCOUNT$ views left",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "send": {
     "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDetails": {
+    "message": "Send-detaljer",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -2225,12 +2337,18 @@
   "sendTypeText": {
     "message": "Tekst"
   },
+  "sendTypeTextToShare": {
+    "message": "Tekst, der skal deles"
+  },
   "sendTypeFile": {
     "message": "Fil"
   },
   "allSends": {
     "message": "Alle Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "hideTextByDefault": {
+    "message": "Skjul tekst som standard"
   },
   "maxAccessCountReached": {
     "message": "Maksimalt adgangsantal nået",
@@ -2246,7 +2364,7 @@
     "message": "Kodeordsbeskyttet"
   },
   "copyLink": {
-    "message": "Kopier link"
+    "message": "Kopiér link"
   },
   "copySendLink": {
     "message": "Kopiér Send link",
@@ -2283,6 +2401,10 @@
     "message": "Er du sikker på, at du vil slette denne Send?",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "deleteSendPermanentConfirmation": {
+    "message": "Sikker på, at denne Send skal slettes permanent?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "editSend": {
     "message": "Redigér Send",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -2303,6 +2425,10 @@
   },
   "deletionDateDesc": {
     "message": "Send'en slettes permanent på den angivne dato og tid.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deletionDateDescV2": {
+    "message": "Denne Send slettes permanent på denne dato.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "expirationDate": {
@@ -2336,6 +2462,10 @@
   },
   "sendPasswordDesc": {
     "message": "Valgfrit brugeradgangskodekrav for at tilgå denne Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDescV2": {
+    "message": "Require this password to view the Send.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2383,8 +2513,26 @@
     "message": "Send er hermed oprettet!",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendAvailability": {
-    "message": "Denne Send vil være tilgængelig for alle med linket i de næste $DAYS$ dage.",
+  "sendExpiresInHoursSingle": {
+    "message": "Denne Send vil være tilgængelig for alle med linket den kommende time.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInHours": {
+    "message": "Denne Send vil være tilgængelig for alle med linket de kommende $HOURS$ timer.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sendExpiresInDaysSingle": {
+    "message": "Denne Send vil være tilgængelig for alle med linket den kommende dag.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInDays": {
+    "message": "Denne Send vil være tilgængelig for alle med linket de kommende $DAYS$ dage.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
       "days": {
@@ -2401,6 +2549,14 @@
     "message": "Send gemt",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendFilePopoutDialogText": {
+    "message": "Pop udvidelsen ud?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFilePopoutDialogDesc": {
+    "message": "For at oprette en fil-Send, skal udvidelsen poppes ud til et nyt vindue.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "sendLinuxChromiumFileWarning": {
     "message": "For at vælge en fil, åben udvidelsen i sidepanelet (om muligt) eller pop ud til et nyt vindue ved at klikke på dette banner."
   },
@@ -2409,6 +2565,9 @@
   },
   "sendSafariFileWarning": {
     "message": "For at vælge en fil i Safari skal du åbne i et nyt vindue ved at klikke på dette banner."
+  },
+  "popOut": {
+    "message": "Pop ud"
   },
   "sendFileCalloutHeader": {
     "message": "Før du starter"
@@ -2442,6 +2601,9 @@
   },
   "hideEmail": {
     "message": "Skjul min e-mailadresse for modtagere."
+  },
+  "hideYourEmail": {
+    "message": "Hide your email address from viewers."
   },
   "sendOptionsPolicyInEffect": {
     "message": "Én eller flere organisationspolitikker påvirker dine Send-valgmuligheder."
@@ -2500,6 +2662,15 @@
     "message": "Organisationen kræver, at der oprettes en hovedadgangskode.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "ud af $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "Bekræftelse kræves",
     "description": "Default title for the user verification dialog."
@@ -2510,8 +2681,37 @@
   "minutes": {
     "message": "Minutter"
   },
+  "vaultTimeoutPolicyAffectingOptions": {
+    "message": "Virksomhedspolitikkrav er anvendt på disse timeoutindstillinger"
+  },
   "vaultTimeoutPolicyInEffect": {
     "message": "Organisationspolitikkerne har fastsat den maksimalt tilladte boks-timeout til $HOURS$ time(r) og $MINUTES$ minut(ter).",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ time(r) og $MINUTES$ minut(ter) maks.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyMaximumError": {
+    "message": "Timeout overskrider den af organisationen angivne restriktion: $HOURS$ time(r) og $MINUTES$ minut(ter) maks.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2927,7 +3127,7 @@
     "message": "Forstået"
   },
   "autofillSettings": {
-    "message": "Autoudfyldelsesindstillinger"
+    "message": "Autoudfyldnigsindstillinger"
   },
   "autofillKeyboardShortcutSectionTitle": {
     "message": "Autoudfyld-genvej"
@@ -3477,6 +3677,9 @@
   "typePasskey": {
     "message": "Adgangsnøgle"
   },
+  "accessing": {
+    "message": "Tilgår"
+  },
   "passkeyNotCopied": {
     "message": "Adgangsnøglen kopieres ikke"
   },
@@ -3500,6 +3703,9 @@
   },
   "noMatchingLoginsForSite": {
     "message": "Ingen matchende logins for dette websted"
+  },
+  "searchSavePasskeyNewLogin": {
+    "message": "Søg eller gem adgangsnøgle som nyt login"
   },
   "confirm": {
     "message": "Bekræft"
@@ -3688,7 +3894,7 @@
     "description": "Dialog title facilitating the ability to override a chrome browser's default autofill behavior"
   },
   "overrideDefaultBrowserAutofillDescription": {
-    "message": "Ignoreres denne indstilling, kan det forårsage konflikter mellem Bitwardens autoudfyld-menu og webbrowsere.",
+    "message": "Ignoreres denne indstilling, kan det forårsage konflikter mellem Bitwardens og webbrowserens autoudfyldningsforslag.",
     "description": "Dialog message facilitating the ability to override a chrome browser's default autofill behavior"
   },
   "overrideDefaultBrowserAutoFillSettings": {
@@ -3994,10 +4200,10 @@
     "message": "Godkendelsesnøgle"
   },
   "autofillOptions": {
-    "message": "Autofill options"
+    "message": "Autoudfyldningsindstillinger"
   },
   "websiteUri": {
-    "message": "Website (URI)"
+    "message": "Websted (URI)"
   },
   "websiteUriCount": {
     "message": "Websted (URI) $COUNT$",
@@ -4010,16 +4216,16 @@
     }
   },
   "websiteAdded": {
-    "message": "Website added"
+    "message": "Websted tilføjet"
   },
   "addWebsite": {
-    "message": "Add website"
+    "message": "Tilføj websted"
   },
   "deleteWebsite": {
-    "message": "Delete website"
+    "message": "Slet websted"
   },
   "defaultLabel": {
-    "message": "Default ($VALUE$)",
+    "message": "Standard ($VALUE$)",
     "description": "A label that indicates the default value for a field with the current default value in parentheses.",
     "placeholders": {
       "value": {
@@ -4029,7 +4235,7 @@
     }
   },
   "showMatchDetection": {
-    "message": "Show match detection $WEBSITE$",
+    "message": "Vis matchdetektion $WEBSITE$",
     "placeholders": {
       "website": {
         "content": "$1",
@@ -4038,7 +4244,7 @@
     }
   },
   "hideMatchDetection": {
-    "message": "Hide match detection $WEBSITE$",
+    "message": "Skjul matchdetektion $WEBSITE$",
     "placeholders": {
       "website": {
         "content": "$1",
@@ -4069,6 +4275,9 @@
   },
   "enableAnimations": {
     "message": "Aktivér animationer"
+  },
+  "showAnimations": {
+    "message": "Vis animationer"
   },
   "addAccount": {
     "message": "Tilføj konto"
@@ -4309,6 +4518,15 @@
   "enterprisePolicyRequirementsApplied": {
     "message": "Virksomhedspolitikkrav er anvendt på denne indstilling"
   },
+  "retry": {
+    "message": "Forsøg igen"
+  },
+  "vaultCustomTimeoutMinimum": {
+    "message": "Tilpasset minimumstimeout udgør 1 minut."
+  },
+  "additionalContentAvailable": {
+    "message": "Yderligere indhold er tilgængeligt"
+  },
   "fileSavedToDevice": {
     "message": "Fil gemt på enheden. Håndtér fra enhedens downloads."
   },
@@ -4338,5 +4556,8 @@
   },
   "noEditPermissions": {
     "message": "Ingen tilladelse til at redigere dette emne"
+  },
+  "authenticating": {
+    "message": "Godkender"
   }
 }

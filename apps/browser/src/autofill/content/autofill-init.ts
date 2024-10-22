@@ -38,7 +38,7 @@ class AutofillInit implements AutofillInitInterface {
    * @param overlayNotificationsContentService - The overlay notifications content service, potentially undefined.
    */
   constructor(
-    private domQueryService: DomQueryService,
+    domQueryService: DomQueryService,
     private autofillOverlayContentService?: AutofillOverlayContentService,
     private autofillInlineMenuContentService?: AutofillInlineMenuContentService,
     private overlayNotificationsContentService?: OverlayNotificationsContentService,
@@ -78,7 +78,7 @@ class AutofillInit implements AutofillInitInterface {
       this.clearCollectPageDetailsOnLoadTimeout();
       this.collectPageDetailsOnLoadTimeout = setTimeout(
         () => this.sendExtensionMessage("bgCollectPageDetails", { sender: "autofillInit" }),
-        250,
+        750,
       );
     };
 

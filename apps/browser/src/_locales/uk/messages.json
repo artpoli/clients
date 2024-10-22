@@ -71,6 +71,15 @@
   "joinOrganization": {
     "message": "Приєднатися до організації"
   },
+  "joinOrganizationName": {
+    "message": "Приєднатися до $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Завершіть приєднання до цієї організації, встановивши головний пароль."
   },
@@ -128,6 +137,21 @@
   "copyLicenseNumber": {
     "message": "Копіювати номер ліцензії"
   },
+  "copyCustomField": {
+    "message": "Копіювати $FIELD$",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Копіювати вебсайт"
+  },
+  "copyNotes": {
+    "message": "Копіювати нотатки"
+  },
   "autoFill": {
     "message": "Автозаповнення"
   },
@@ -178,6 +202,18 @@
   },
   "addItem": {
     "message": "Додати запис"
+  },
+  "accountEmail": {
+    "message": "Е-пошта облікового запису"
+  },
+  "requestHint": {
+    "message": "Підказка для запиту"
+  },
+  "requestPasswordHint": {
+    "message": "Підказка для запиту пароля"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Введіть адресу е-пошти свого облікового запису і вам буде надіслано підказку для пароля"
   },
   "passwordHint": {
     "message": "Підказка для пароля"
@@ -354,7 +390,7 @@
   },
   "generator": {
     "message": "Генератор",
-    "description": "Short for 'Password Generator'."
+    "description": "Short for 'credential generator'."
   },
   "passGenInfo": {
     "message": "Автоматичне генерування стійких, унікальних паролів."
@@ -462,6 +498,10 @@
     "message": "Уникати неоднозначних символів",
     "description": "Label for the avoid ambiguous characters checkbox."
   },
+  "generatorPolicyInEffect": {
+    "message": "До налаштувань генератора застосовано вимоги політики компанії.",
+    "description": "Indicates that a policy limits the credential generator screen."
+  },
   "searchVault": {
     "message": "Пошук"
   },
@@ -503,6 +543,9 @@
   },
   "notes": {
     "message": "Нотатки"
+  },
+  "privateNote": {
+    "message": "Приватна нотатка"
   },
   "note": {
     "message": "Нотатка"
@@ -549,6 +592,9 @@
   "sessionTimeoutHeader": {
     "message": "Час очікування сеансу"
   },
+  "vaultTimeoutHeader": {
+    "message": "Час очікування сховища"
+  },
   "otherOptions": {
     "message": "Інші налаштування"
   },
@@ -566,6 +612,15 @@
   },
   "yourVaultIsLocked": {
     "message": "Ваше сховище заблоковане. Для продовження виконайте перевірку."
+  },
+  "yourVaultIsLockedV2": {
+    "message": "Ваше сховище заблоковано"
+  },
+  "yourAccountIsLocked": {
+    "message": "Ваш обліковий запис заблоковано"
+  },
+  "or": {
+    "message": "або"
   },
   "unlock": {
     "message": "Розблокувати"
@@ -588,6 +643,9 @@
   },
   "vaultTimeout": {
     "message": "Час очікування сховища"
+  },
+  "vaultTimeout1": {
+    "message": "Час очікування"
   },
   "lockNow": {
     "message": "Блокувати зараз"
@@ -789,6 +847,12 @@
   "twoStepLoginConfirmation": {
     "message": "Двоетапна перевірка дає змогу надійніше захистити ваш обліковий запис, вимагаючи підтвердження входу з використанням іншого пристрою, наприклад, за допомогою ключа безпеки, програми автентифікації, SMS, телефонного виклику, або е-пошти. Ви можете налаштувати двоетапну перевірку в сховищі на bitwarden.com. Хочете перейти на вебсайт зараз?"
   },
+  "twoStepLoginConfirmationContent": {
+    "message": "Додайте вищий рівень захисту облікового запису, налаштувавши двоетапну перевірку у вебпрограмі Bitwarden."
+  },
+  "twoStepLoginConfirmationTitle": {
+    "message": "Продовжити у вебпрограмі?"
+  },
   "editedFolder": {
     "message": "Теку збережено"
   },
@@ -892,7 +956,7 @@
     "message": "Показувати список карток на сторінці вкладки для легкого автозаповнення."
   },
   "showIdentitiesInVaultView": {
-    "message": "Показувати особисті дані як пропозиції автозаповнення в режимі перегляду сховища"
+    "message": "Показувати посвідчення як пропозиції автозаповнення в режимі перегляду сховища"
   },
   "showIdentitiesCurrentTab": {
     "message": "Показувати посвідчення на вкладці"
@@ -1096,6 +1160,9 @@
   },
   "file": {
     "message": "Файл"
+  },
+  "fileToShare": {
+    "message": "Файл для поширення"
   },
   "selectFile": {
     "message": "Оберіть файл"
@@ -1349,6 +1416,12 @@
   },
   "showInlineMenuLabel": {
     "message": "Пропозиції автозаповнення на полях форм"
+  },
+  "showInlineMenuIdentitiesLabel": {
+    "message": "Показувати посвідчення як пропозиції"
+  },
+  "showInlineMenuCardsLabel": {
+    "message": "Показувати картки як пропозиції"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "Показувати пропозиції, якщо вибрано піктограму"
@@ -1863,8 +1936,17 @@
   "unlockWithPin": {
     "message": "Розблокування з PIN-кодом"
   },
+  "setYourPinTitle": {
+    "message": "Встановлення PIN-коду"
+  },
+  "setYourPinButton": {
+    "message": "Встановити PIN-код"
+  },
   "setYourPinCode": {
     "message": "Встановіть PIN-код для розблокування Bitwarden. Налаштування PIN-коду будуть скинуті, якщо ви коли-небудь повністю вийдете з програми."
+  },
+  "setYourPinCode1": {
+    "message": "PIN-код буде використовуватися для розблокування Bitwarden замість головного пароля. У разі повного виходу з Bitwarden, ваш PIN-код буде скинуто."
   },
   "pinRequired": {
     "message": "Необхідний PIN-код."
@@ -1878,6 +1960,9 @@
   "unlockWithBiometrics": {
     "message": "Розблокувати з біометрією"
   },
+  "unlockWithMasterPassword": {
+    "message": "Розблокувати з головним паролем"
+  },
   "awaitDesktop": {
     "message": "Очікується підтвердження з комп'ютера"
   },
@@ -1886,6 +1971,9 @@
   },
   "lockWithMasterPassOnRestart": {
     "message": "Блокувати головним паролем при перезапуску браузера"
+  },
+  "lockWithMasterPassOnRestart1": {
+    "message": "Вимагати головний пароль після перезапуску браузера"
   },
   "selectOneCollection": {
     "message": "Необхідно вибрати принаймні одну збірку."
@@ -1925,9 +2013,12 @@
   "vaultTimeoutAction": {
     "message": "Дія після часу очікування сховища"
   },
+  "vaultTimeoutAction1": {
+    "message": "Дія після часу очікування"
+  },
   "lock": {
     "message": "Блокувати",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Смітник",
@@ -2119,11 +2210,11 @@
   "nativeMessagingWrongUserTitle": {
     "message": "Невідповідність облікових записів"
   },
-  "nativeMessagingWrongUserKeyDesc": {
-    "message": "Збій біометричного розблокування. Біометричний секретний ключ не зміг розблокувати сховище. Спробуйте налаштувати біометрію знову."
-  },
   "nativeMessagingWrongUserKeyTitle": {
     "message": "Біометричний ключ відрізняється"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Збій біометричного розблокування. Біометричний секретний ключ не зміг розблокувати сховище. Спробуйте налаштувати біометрію знову."
   },
   "biometricsNotEnabledTitle": {
     "message": "Біометрію не налаштовано"
@@ -2210,8 +2301,29 @@
   "excludedDomainsSavedSuccess": {
     "message": "Виняток для домену збережено"
   },
+  "limitSendViews": {
+    "message": "Ліміт переглядів"
+  },
+  "limitSendViewsHint": {
+    "message": "Ніхто не може переглянути це відправлення після досягнення ліміту.",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "limitSendViewsCount": {
+    "message": "Залишок переглядів: $ACCESSCOUNT$",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "send": {
     "message": "Відправлення",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDetails": {
+    "message": "Надіслати подробиці",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -2225,12 +2337,18 @@
   "sendTypeText": {
     "message": "Текст"
   },
+  "sendTypeTextToShare": {
+    "message": "Текст для поширення"
+  },
   "sendTypeFile": {
     "message": "Файл"
   },
   "allSends": {
     "message": "Усі відправлення",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "hideTextByDefault": {
+    "message": "Типово приховувати текст"
   },
   "maxAccessCountReached": {
     "message": "Досягнуто максимальної кількості доступів",
@@ -2283,6 +2401,10 @@
     "message": "Ви дійсно хочете видалити це відправлення?",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "deleteSendPermanentConfirmation": {
+    "message": "Ви дійсно хочете остаточно видалити це відправлення?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "editSend": {
     "message": "Редагування",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -2303,6 +2425,10 @@
   },
   "deletionDateDesc": {
     "message": "Відправлення буде остаточно видалено у вказаний час.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deletionDateDescV2": {
+    "message": "Відправлення буде остаточно видалено у вказану дату.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "expirationDate": {
@@ -2336,6 +2462,10 @@
   },
   "sendPasswordDesc": {
     "message": "Ви можете встановити пароль для доступу до цього відправлення.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDescV2": {
+    "message": "Вимагати цей пароль для перегляду відправлення.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2383,7 +2513,25 @@
     "message": "Відправлення успішно створено!",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendAvailability": {
+  "sendExpiresInHoursSingle": {
+    "message": "Це відправлення буде доступним будь-кому за посиланням протягом 1 години.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInHours": {
+    "message": "Це відправлення буде доступним будь-кому за посиланням протягом $HOURS$ годин.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sendExpiresInDaysSingle": {
+    "message": "Це відправлення буде доступним будь-кому за посиланням протягом 1 дня.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInDays": {
     "message": "Це відправлення буде доступним будь-кому за посиланням протягом $DAYS$ днів.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
@@ -2401,6 +2549,14 @@
     "message": "Відправлення збережено",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendFilePopoutDialogText": {
+    "message": "Відкріпити розширення?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFilePopoutDialogDesc": {
+    "message": "Щоб створити відправлення файлу, необхідно відкріпити розширення в окреме вікно.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "sendLinuxChromiumFileWarning": {
     "message": "Щоб вибрати файл, відкрийте розширення в бічній панелі (якщо можливо) або в новому вікні, натиснувши цей банер."
   },
@@ -2409,6 +2565,9 @@
   },
   "sendSafariFileWarning": {
     "message": "Щоб вибрати файл з використанням Safari, відкрийте розширення в новому вікні, натиснувши на цей банер."
+  },
+  "popOut": {
+    "message": "Відкріпити"
   },
   "sendFileCalloutHeader": {
     "message": "Перед початком"
@@ -2442,6 +2601,9 @@
   },
   "hideEmail": {
     "message": "Приховувати мою адресу електронної пошти від отримувачів."
+  },
+  "hideYourEmail": {
+    "message": "Приховати адресу е-пошти від отримувачів."
   },
   "sendOptionsPolicyInEffect": {
     "message": "На параметри відправлень впливають одна чи декілька політик організації."
@@ -2500,6 +2662,15 @@
     "message": "Ваша організація вимагає, щоб ви встановили головний пароль.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "з $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "Потрібне підтвердження",
     "description": "Default title for the user verification dialog."
@@ -2510,8 +2681,37 @@
   "minutes": {
     "message": "Хвилин"
   },
+  "vaultTimeoutPolicyAffectingOptions": {
+    "message": "До налаштувань часу очікування застосовано вимоги політики компанії"
+  },
   "vaultTimeoutPolicyInEffect": {
     "message": "Політикою вашої організації встановлено максимальний дозволений час очікування сховища $HOURS$ годин, $MINUTES$ хвилин.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ год і $MINUTES$ хв максимум.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyMaximumError": {
+    "message": "Час очікування перевищує обмеження, встановлене вашою організацією: $HOURS$ год і $MINUTES$ хв максимум",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -3477,6 +3677,9 @@
   "typePasskey": {
     "message": "Ключ доступу"
   },
+  "accessing": {
+    "message": "Доступ"
+  },
   "passkeyNotCopied": {
     "message": "Ключ доступу не буде скопійовано"
   },
@@ -3500,6 +3703,9 @@
   },
   "noMatchingLoginsForSite": {
     "message": "Немає відповідних записів для цього сайту"
+  },
+  "searchSavePasskeyNewLogin": {
+    "message": "Шукати або зберегти ключ доступу як новий запис"
   },
   "confirm": {
     "message": "Підтвердити"
@@ -4070,6 +4276,9 @@
   "enableAnimations": {
     "message": "Увімкнути анімацію"
   },
+  "showAnimations": {
+    "message": "Показати анімації"
+  },
   "addAccount": {
     "message": "Додати обліковий запис"
   },
@@ -4309,6 +4518,15 @@
   "enterprisePolicyRequirementsApplied": {
     "message": "До цього налаштування застосовано вимоги політики компанії"
   },
+  "retry": {
+    "message": "Повторити спробу"
+  },
+  "vaultCustomTimeoutMinimum": {
+    "message": "Мінімальний власний час очікування – 1 хвилина."
+  },
+  "additionalContentAvailable": {
+    "message": "Доступний додатковий вміст"
+  },
   "fileSavedToDevice": {
     "message": "Файл збережено на пристрої. Ви можете його знайти у теці завантажень."
   },
@@ -4338,5 +4556,8 @@
   },
   "noEditPermissions": {
     "message": "Вам не дозволено редагувати цей запис"
+  },
+  "authenticating": {
+    "message": "Аутентифікація"
   }
 }

@@ -407,16 +407,55 @@
     "message": "Минимална дължина на паролата"
   },
   "uppercase": {
-    "message": "Главни букви (A-Z)"
+    "message": "Главни букви (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Малки букви (a-z)"
+    "message": "Малки букви (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Числа (0-9)"
+    "message": "Числа (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Специални знаци (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Включване",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Включване на главни букви",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Включване на малки букви",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Включване на цифри",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Включване на специални знаци",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Брой думи"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Без нееднозначни знаци"
+    "message": "Без нееднозначни знаци",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Без нееднозначни знаци",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Изискванията на политиката за големи компании бяха приложени към настройките на генератора.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Търсене в колекцията"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Присъединяване към организацията"
   },
+  "joinOrganizationName": {
+    "message": "Присъединяване към $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Завършете присъединяването си към тази организация като зададете главна парола."
   },
   "settings": {
     "message": "Настройки"
+  },
+  "accountEmail": {
+    "message": "Е-поща на регистрацията"
+  },
+  "requestHint": {
+    "message": "Заявка за подсказка"
+  },
+  "requestPasswordHint": {
+    "message": "Заявка за подсказка за паролата"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Въведете е-пощата на регистрацията си и подсказката за паролата ще Ви бъде изпратена"
   },
   "passwordHint": {
     "message": "Подсказка за паролата"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Трезорът е заключен — въведете главната си парола, за да продължите."
   },
+  "yourAccountIsLocked": {
+    "message": "Регистрацията Ви е заключена"
+  },
+  "or": {
+    "message": "или"
+  },
+  "unlockWithBiometrics": {
+    "message": "Отключване с биометрични данни"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Отключване с главната парола"
+  },
   "unlock": {
     "message": "Отключване"
   },
@@ -928,6 +1009,9 @@
     "message": "Двустепенно удостоверяване"
   },
   "vaultTimeout": {
+    "message": "Време за достъп"
+  },
+  "vaultTimeout1": {
     "message": "Време за достъп"
   },
   "vaultTimeoutDesc": {
@@ -1286,7 +1370,7 @@
     }
   },
   "copySuccessful": {
-    "message": "Copy Successful"
+    "message": "Копирането е успешно"
   },
   "errorRefreshingAccessToken": {
     "message": "Грешка при опресняването на идентификатора за достъп"
@@ -1555,7 +1639,7 @@
   "recommendedForSecurity": {
     "message": "Препоръчително от гледна точка на сигурността."
   },
-  "lockWithMasterPassOnRestart": {
+  "lockWithMasterPassOnRestart1": {
     "message": "Заключване с главната парола при повторно пускане"
   },
   "deleteAccount": {
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Заключване",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Кошче",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Организацията Ви изисква да зададете главна парола.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "от $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Изисква се потвърждение",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Включване на интеграцията с браузър"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "За потвърждаване с биометрични данни е необходима интеграция с браузъра."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Използва се за разрешаване на отключването чрез биометрични данни в браузъри различни от Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Разрешаване на интеграцията на DuckDuckGo в браузъра"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Минути"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Настройките на организацията Ви влияят върху времето за достъп до трезора Ви. Максималното разрешено време за достъп е $HOURS$ час(а) и $MINUTES$ минути",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "Максимум $HOURS$ час(а) и $MINUTES$ минута/и.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Заключено"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Трезорът Ви е заключен"
+  },
   "unlocked": {
     "message": "Отключено"
   },
   "generator": {
-    "message": "Генератор"
+    "message": "Генератор",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Какво бихте искали да генерирате?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Важно:"
+  },
+  "accessing": {
+    "message": "Използване на"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "Бяхте отписан(а), тъй като идентификаторът Ви за достъп не може да бъде дешифриран. Впишете се отново, за да отстраните проблема."
@@ -3061,6 +3161,12 @@
   },
   "textSends": {
     "message": "Текстови изпращания"
+  },
+  "allowScreenshots": {
+    "message": "Позволяване на заснемането на екрана"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Позволяване на заснемането на екрана когато работи настолното приложение на Битуорден."
   },
   "ssoError": {
     "message": "Не могат да бъдат открити свободни портове за еднократната идентификация."

@@ -1,4 +1,64 @@
 {
+  "allApplications": {
+    "message": "Toutes les applications"
+  },
+  "priorityApplications": {
+    "message": "Applications prioritaires"
+  },
+  "accessIntelligence": {
+    "message": "Accéder à l'Intelligence"
+  },
+  "notifiedMembers": {
+    "message": "Membres notifiés"
+  },
+  "allApplicationsWithCount": {
+    "message": "Toutes les applications ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "priorityApplicationsWithCount": {
+    "message": "Applications prioritaires ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "notifiedMembersWithCount": {
+    "message": "Membres notifiés ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "application": {
+    "message": "Application"
+  },
+  "atRiskPasswords": {
+    "message": "Mots de passes à risque"
+  },
+  "totalPasswords": {
+    "message": "Total des mots de passe"
+  },
+  "atRiskMembers": {
+    "message": "Membres à risque"
+  },
+  "totalMembers": {
+    "message": "Total des membres"
+  },
+  "atRiskApplications": {
+    "message": "Applications à risque"
+  },
+  "totalApplications": {
+    "message": "Total des applications"
+  },
   "whatTypeOfItem": {
     "message": "Quel type d'élément est-ce ?"
   },
@@ -269,9 +329,18 @@
   "cfTypeBoolean": {
     "message": "Booléen"
   },
+  "cfTypeCheckbox": {
+    "message": "Case à cocher"
+  },
   "cfTypeLinked": {
     "message": "Lié",
     "description": "This describes a field that is 'linked' (related) to another field."
+  },
+  "fieldType": {
+    "message": "Type de champ"
+  },
+  "fieldLabel": {
+    "message": "Étiquette du champ"
   },
   "remove": {
     "message": "Supprimer"
@@ -511,6 +580,24 @@
   "viewItem": {
     "message": "Afficher l'élément"
   },
+  "newItemHeader": {
+    "message": "Nouveau $TYPE$",
+    "placeholders": {
+      "type": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
+  },
+  "editItemHeader": {
+    "message": "Modifier $TYPE$",
+    "placeholders": {
+      "type": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
+  },
   "viewItemType": {
     "message": "Voir $ITEMTYPE$",
     "placeholders": {
@@ -576,6 +663,9 @@
     "message": "Copier le mot de passe",
     "description": "Copy password to clipboard"
   },
+  "passwordCopied": {
+    "message": "Mot de passe copié"
+  },
   "copyUsername": {
     "message": "Copier le nom d'utilisateur",
     "description": "Copy username to clipboard"
@@ -591,6 +681,45 @@
   "copyUri": {
     "message": "Copier l'URI",
     "description": "Copy URI to clipboard"
+  },
+  "copyCustomField": {
+    "message": "Copier $FIELD$",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Copier le site web"
+  },
+  "copyNotes": {
+    "message": "Copier les notes"
+  },
+  "copyAddress": {
+    "message": "Copier l'adresse"
+  },
+  "copyPhone": {
+    "message": "Copier le téléphone"
+  },
+  "copyEmail": {
+    "message": "Copier le courriel"
+  },
+  "copyCompany": {
+    "message": "Copier l'entreprise"
+  },
+  "copySSN": {
+    "message": "Copier le numéro de Sécurité Sociale"
+  },
+  "copyPassportNumber": {
+    "message": "Copier le numéro de passeport"
+  },
+  "copyLicenseNumber": {
+    "message": "Copier le numéro de permis de conduire"
+  },
+  "copyName": {
+    "message": "Copier le nom"
   },
   "me": {
     "message": "Moi"
@@ -960,6 +1089,18 @@
   "settings": {
     "message": "Paramètres"
   },
+  "accountEmail": {
+    "message": "Courriel du compte"
+  },
+  "requestHint": {
+    "message": "Demander l'indice"
+  },
+  "requestPasswordHint": {
+    "message": "Demander l'indice du mot de passe"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Entrez l'adresse courriel de votre compte et l'indice de votre mot de passe vous sera envoyé"
+  },
   "passwordHint": {
     "message": "Indice de mot de passe"
   },
@@ -1021,6 +1162,9 @@
   "yourVaultIsLockedV2": {
     "message": "Votre coffre est verrouillé."
   },
+  "yourAccountIsLocked": {
+    "message": "Votre compte est verrouillé"
+  },
   "uuid": {
     "message": "UUID"
   },
@@ -1054,6 +1198,9 @@
   },
   "noPermissionToViewAllCollectionItems": {
     "message": "Vous n'avez pas la permission de voir tous les éléments de cette collection."
+  },
+  "youDoNotHavePermissions": {
+    "message": "Vous n'avez pas les permissions pour cette collection"
   },
   "noCollectionsInList": {
     "message": "Aucune collection à afficher."
@@ -1359,7 +1506,12 @@
     "description": "Minimum special characters"
   },
   "ambiguous": {
-    "message": "Éviter les caractères ambigus"
+    "message": "Éviter les caractères ambigus",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Éviter les caractères ambigus",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "regeneratePassword": {
     "message": "Régénérer un mot de passe"
@@ -1372,17 +1524,50 @@
   },
   "uppercase": {
     "message": "Majuscule (A-Z)",
-    "description": "Include uppercase letters in the password generator."
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
     "message": "Minuscule (a-z)",
-    "description": "Include lowercase letters in the password generator."
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Chiffres (0-9)"
+    "message": "Chiffres (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Caractères spéciaux (!@#$%^&*)"
+  },
+  "uppercaseDescription": {
+    "message": "Inclure les caractères majuscules",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Inclure des caractères minuscules",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Inclure des chiffres",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Inclure des caractères spéciaux",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Nombre de mots"
@@ -1396,6 +1581,10 @@
   },
   "includeNumber": {
     "message": "Inclure un Chiffre"
+  },
+  "generatorPolicyInEffect": {
+    "message": "Les exigences de la politique de sécurité de l'entreprise ont été appliquées aux options de votre générateur.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "passwordHistory": {
     "message": "Historique des mots de passe"
@@ -2117,6 +2306,9 @@
   "checkExposedPasswords": {
     "message": "Vérifier les mots de passe exposés"
   },
+  "timesExposed": {
+    "message": "Nombre d'expositions"
+  },
   "exposedXTimes": {
     "message": "Exposé $COUNT$ fois",
     "placeholders": {
@@ -2151,6 +2343,9 @@
   "noWeakPasswords": {
     "message": "Aucun élément dans votre coffre n'a de mots de passe faibles."
   },
+  "weakness": {
+    "message": "Faiblesse"
+  },
   "reusedPasswordsReport": {
     "message": "Mots de passe réutilisés"
   },
@@ -2175,6 +2370,9 @@
   },
   "noReusedPasswords": {
     "message": "Aucun identifiant dans votre coffre n'a de mots de passe qui sont réutilisés."
+  },
+  "timesReused": {
+    "message": "Nombre de réutilisations"
   },
   "reusedXTimes": {
     "message": "Réutilisé $COUNT$ fois",
@@ -2473,6 +2671,9 @@
   "downloadLicense": {
     "message": "Télécharger la licence"
   },
+  "viewBillingToken": {
+    "message": "Voir le Jeton de Facturation"
+  },
   "updateLicense": {
     "message": "Mettre à jour la licence"
   },
@@ -2519,8 +2720,11 @@
   "invoices": {
     "message": "Factures"
   },
-  "noInvoices": {
-    "message": "Aucune facture."
+  "noUnpaidInvoices": {
+    "message": "Aucune facture impayée."
+  },
+  "noPaidInvoices": {
+    "message": "Aucune facture payée."
   },
   "paid": {
     "message": "Payée",
@@ -3078,6 +3282,10 @@
   "incorrectPin": {
     "message": "Code PIN incorrect"
   },
+  "pin": {
+    "message": "NIP",
+    "description": "PIN code. Ex. The short code (often numeric) that you use to unlock a device."
+  },
   "exportedVault": {
     "message": "Le coffre a été exporté."
   },
@@ -3579,6 +3787,15 @@
   "joinOrganization": {
     "message": "Rejoindre l'organisation"
   },
+  "joinOrganizationName": {
+    "message": "Rejoindre $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "joinOrganizationDesc": {
     "message": "Vous avez été invité à rejoindre l'organisation ci-dessus. Pour accepter l'invitation, vous devez vous connecter ou créer un nouveau compte Bitwarden."
   },
@@ -3981,6 +4198,9 @@
   "vaultTimeout": {
     "message": "Délai d'expiration du coffre"
   },
+  "vaultTimeout1": {
+    "message": "Délai d'expiration"
+  },
   "vaultTimeoutDesc": {
     "message": "Choisissez quand votre coffre entreprendra l'action après le délai d'expiration du coffre."
   },
@@ -4249,7 +4469,7 @@
   },
   "lock": {
     "message": "Verrouiller",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Corbeille",
@@ -4845,12 +5065,6 @@
   },
   "deleteAnyCollection": {
     "message": "Supprimer n'importe quelle collection"
-  },
-  "editAssignedCollections": {
-    "message": "Modifier les collection assignées"
-  },
-  "deleteAssignedCollections": {
-    "message": "Supprimer les collections assignées"
   },
   "manageGroups": {
     "message": "Gérer les groupes"
@@ -5459,6 +5673,19 @@
       }
     }
   },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ heure(s) et $MINUTES$ minute(s) maximum.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
   "vaultTimeoutPolicyWithActionInEffect": {
     "message": "Les politiques de sécurité de votre organisation affectent le délai d'expiration de votre coffre. Le délai autorisé d'expiration du coffre est de $HOURS$ heure(s) et $MINUTES$ minute(s) maximum. L'action après délai d'expiration de votre coffre est fixée à $ACTION$.",
     "placeholders": {
@@ -5484,9 +5711,6 @@
         "example": "Lock"
       }
     }
-  },
-  "customVaultTimeout": {
-    "message": "Délai d'expiration du coffre personnalisé"
   },
   "vaultTimeoutToLarge": {
     "message": "Le délai d'expiration de votre coffre-fort dépasse les restrictions définies par votre organisation."
@@ -5896,8 +6120,8 @@
   "viewBillingSyncToken": {
     "message": "Voir le Jeton de Synchronisation de Facturation"
   },
-  "generateBillingSyncToken": {
-    "message": "Générer un Jeton de Synchronisation de Facturation"
+  "generateBillingToken": {
+    "message": "Générer un jeton de facturation"
   },
   "copyPasteBillingSync": {
     "message": "Copiez et collez ce jeton dans les paramètres de la Synchronisation de Facturation de votre organisation auto-hébergée."
@@ -5905,8 +6129,8 @@
   "billingSyncCanAccess": {
     "message": "Votre Jeton de Synchronisation de Facturation peut accéder et modifier les paramètres d'abonnement de cette organisation."
   },
-  "manageBillingSync": {
-    "message": "Gérer la Synchronisation de Facturation"
+  "manageBillingTokenSync": {
+    "message": "Gérer le Jeton de Facturation"
   },
   "setUpBillingSync": {
     "message": "Configurer la Synchronisation de Facturation"
@@ -5965,14 +6189,14 @@
   "billingSyncApiKeyRotated": {
     "message": "Jeton régénéré"
   },
-  "billingSyncDesc": {
-    "message": "La Synchronisation de Facturation fournit des forfaits Familles Gratuits pour les membres et des capacités de facturation avancées en liant votre Bitwarden auto-hébergé au serveur cloud Bitwarden."
-  },
   "billingSyncKeyDesc": {
     "message": "Un jeton de synchronisation de facturation provenant des paramètres d'abonnement de votre organisation dans le cloud est nécessaire pour remplir ce formulaire."
   },
   "billingSyncKey": {
     "message": "Jeton de Synchronisation de Facturation"
+  },
+  "automaticBillingSyncDesc": {
+    "message": "La synchronisation automatique déverrouille les parrainages des Familles et vous permet de synchroniser votre licence sans téléverser de fichier. Après avoir effectué des mises à jour sur le serveur cloud de Bitwarden, sélectionnez la licence de synchronisation pour appliquer les modifications."
   },
   "active": {
     "message": "Actif"
@@ -6115,7 +6339,8 @@
     "message": "Paramètres du compte"
   },
   "generator": {
-    "message": "Générateur"
+    "message": "Générateur",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Que souhaitez-vous générer ?"
@@ -6210,7 +6435,7 @@
   },
   "lastSync": {
     "message": "Dernière Synchronisation",
-    "description": "Used as a prefix to indicate the last time a sync occured. Example \"Last sync 1968-11-16 00:00:00\""
+    "description": "Used as a prefix to indicate the last time a sync occurred. Example \"Last sync 1968-11-16 00:00:00\""
   },
   "sponsorshipsSynced": {
     "message": "Des parrainages auto-hébergés ont été synchronisés."
@@ -6369,57 +6594,57 @@
   },
   "scim": {
     "message": "Provisionnement SCIM",
-    "description": "The text, 'SCIM', is an acronymn and should not be translated."
+    "description": "The text, 'SCIM', is an acronym and should not be translated."
   },
   "scimDescription": {
     "message": "Fournit automatiquement aux utilisateurs et aux groupes votre fournisseur d'identité préféré via l'approvisionnement SCIM",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "scimEnabledCheckboxDesc": {
     "message": "Activer SCIM",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "scimEnabledCheckboxDescHelpText": {
     "message": "Configurez votre fournisseur d'identité préféré en configurant l'URL et la clé API SCIM",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "scimApiKeyHelperText": {
     "message": "Cette clé API possède l'accès pour gérer les utilisateurs au sein de votre organisation. Elle devrait être tenue secrète."
   },
   "copyScimKey": {
     "message": "Copiez la clé API SCIM dans votre presse-papiers",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "rotateScimKey": {
     "message": "Régénérer la clé API SCIM",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "rotateScimKeyWarning": {
     "message": "Êtes-vous sûr de vouloir régénérer la clé API SCIM ? La clé actuelle ne fonctionnera plus pour aucune intégration existante.",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "rotateKey": {
     "message": "Régénérer la clé"
   },
   "scimApiKey": {
     "message": "Clé API SCIM",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "copyScimUrl": {
     "message": "Copiez l'URL du point de terminaison SCIM dans votre presse-papiers",
-    "description": "the text, 'SCIM' and 'URL', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'URL', are acronyms and should not be translated."
   },
   "scimUrl": {
     "message": "URL SCIM",
-    "description": "the text, 'SCIM' and 'URL', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'URL', are acronyms and should not be translated."
   },
   "scimApiKeyRotated": {
     "message": "Clé API SCIM régénérée avec succès",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "scimSettingsSaved": {
     "message": "Les paramètres SCIM ont été enregistrés avec succès",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "inputRequired": {
     "message": "Entrée requise."
@@ -6490,6 +6715,18 @@
       "count": {
         "content": "$1",
         "example": "4"
+      }
+    }
+  },
+  "singleFieldNeedsAttention": {
+    "message": "1 champ nécessite votre attention."
+  },
+  "multipleFieldsNeedAttention": {
+    "message": "$COUNT$ champs nécessitent votre attention.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
       }
     }
   },
@@ -7341,6 +7578,9 @@
   "fileUpload": {
     "message": "Chargement du fichier"
   },
+  "upload": {
+    "message": "Téléverser"
+  },
   "acceptedFormats": {
     "message": "Formats acceptés :"
   },
@@ -7349,6 +7589,15 @@
   },
   "or": {
     "message": "ou"
+  },
+  "unlockWithBiometrics": {
+    "message": "Déverrouiller par biométrie"
+  },
+  "unlockWithPin": {
+    "message": "Déverrouiller avec le NIP"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Déverrouiller avec le mot de passe principal"
   },
   "licenseAndBillingManagement": {
     "message": "Gestion des licences et de la facturation"
@@ -7359,8 +7608,8 @@
   "manualUpload": {
     "message": "Téléversement manuel"
   },
-  "manualUploadDesc": {
-    "message": "Si vous ne voulez pas opter pour la synchronisation de la facturation, téléchargez manuellement votre licence ici."
+  "manualBillingTokenUploadDesc": {
+    "message": "Si vous ne voulez pas opter pour la synchronisation de facturation, téléverser manuellement votre licence ici. Cela ne déverrouillera pas automatiquement les parrainages des Familles."
   },
   "syncLicense": {
     "message": "Synchroniser la licence"
@@ -7688,6 +7937,15 @@
     "message": "Votre organisation exige que vous définissiez un mot de passe principal.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "sur $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "notFound": {
     "message": "$RESOURCE$ introuvable",
     "placeholders": {
@@ -7949,6 +8207,12 @@
   "limitCollectionCreationDeletionDesc": {
     "message": "Limiter la création et la suppression de la collection aux propriétaires et administrateurs"
   },
+  "limitCollectionCreationDesc": {
+    "message": "Limiter la création de collections aux propriétaires et administrateurs"
+  },
+  "limitCollectionDeletionDesc": {
+    "message": "Limiter la suppression de collections aux propriétaires et administrateurs"
+  },
   "allowAdminAccessToAllCollectionItemsDesc": {
     "message": "Les propriétaires et les administrateurs peuvent gérer toutes les collections et tous les éléments"
   },
@@ -8201,6 +8465,9 @@
   },
   "addField": {
     "message": "Ajouter un champ"
+  },
+  "editField": {
+    "message": "Modifier le champ"
   },
   "items": {
     "message": "Éléments"
@@ -8592,41 +8859,14 @@
   "manageBillingFromProviderPortalMessage": {
     "message": "Gérer la facturation depuis le Portail Fournisseur"
   },
-  "startYour7DayFreeTrialOfBitwarden": {
-    "message": "Commencez votre essai gratuit de 7 jours de Bitwarden"
+  "continueSettingUpFreeTrial": {
+    "message": "Continuer à configurer votre essai gratuit de Bitwarden"
   },
-  "startYour7DayFreeTrialOfBitwardenForTeams": {
-    "message": "Commencez votre essai gratuit de 7 jours de Bitwarden pour les Teams"
+  "continueSettingUpFreeTrialPasswordManager": {
+    "message": "Continuer à configurer votre essai gratuit du gestionnaire de mots de passe Bitwarden"
   },
-  "startYour7DayFreeTrialOfBitwardenForFamilies": {
-    "message": "Commencez votre essai gratuit de 7 jours de Bitwarden pour Familles"
-  },
-  "startYour7DayFreeTrialOfBitwardenForEnterprise": {
-    "message": "Commencez votre essai gratuit de 7 jours de Bitwarden pour Entreprise"
-  },
-  "startYour7DayFreeTrialOfBitwardenSecretsManager": {
-    "message": "Commencez votre essai gratuit de 7 jours de Bitwarden Secrets Manager"
-  },
-  "startYour7DayFreeTrialOfBitwardenSecretsManagerForTeams": {
-    "message": "Commencez votre essai gratuit de 7 jours de Bitwarden Secrets Manager pour Équipes"
-  },
-  "startYour7DayFreeTrialOfBitwardenSecretsManagerForFamilies": {
-    "message": "Commencez votre essai gratuit de 7 jours de Bitwarden Secrets Manager pour Familles"
-  },
-  "startYour7DayFreeTrialOfBitwardenSecretsManagerForEnterprise": {
-    "message": "Commencez votre essai gratuit de 7 jours de Bitwarden Secrets Manager pour Entreprise"
-  },
-  "startYour7DayFreeTrialOfBitwardenPasswordManager": {
-    "message": "Commencez votre essai gratuit de 7 jours du Gestionnaire de Mots de Passe Bitwarden"
-  },
-  "startYour7DayFreeTrialOfBitwardenPasswordManagerForTeams": {
-    "message": "Commencez votre essai gratuit de 7 jours du Gestionnaire de Mots de Passe Bitwarden pour Équipes"
-  },
-  "startYour7DayFreeTrialOfBitwardenPasswordManagerForFamilies": {
-    "message": "Commencez votre essai gratuit de 7 jours du Gestionnaire de Mots de Passe Bitwarden pour Familles"
-  },
-  "startYour7DayFreeTrialOfBitwardenPasswordManagerForEnterprise": {
-    "message": "Commencez votre essai gratuit de 7 jours du Gestionnaire de Mots de Passe Bitwarden pour Entreprise"
+  "continueSettingUpFreeTrialSecretsManager": {
+    "message": "Continuez à configurer votre essai gratuit de Bitwarden Secrets Manager"
   },
   "enterTeamsOrgInfo": {
     "message": "Entrez vos informations d'organisation pour Équipes"
@@ -8938,6 +9178,66 @@
   "purchasedSeatsRemoved": {
     "message": "licenses achetées retirées"
   },
+  "environmentVariables": {
+    "message": "Variables d'environnement"
+  },
+  "organizationId": {
+    "message": "ID d’organisation"
+  },
+  "projectIds": {
+    "message": "ID du projet"
+  },
+  "projectId": {
+    "message": "ID du projet"
+  },
+  "projectsAccessedByMachineAccount": {
+    "message": "Les projets suivants peuvent être consultés par ce compte machine."
+  },
+  "config": {
+    "message": "Configuration"
+  },
+  "learnMoreAboutEmergencyAccess": {
+    "message": "En savoir plus sur l'accès d'urgence"
+  },
+  "learnMoreAboutMatchDetection": {
+    "message": "En savoir plus sur la détection de correspondance"
+  },
+  "learnMoreAboutMasterPasswordReprompt": {
+    "message": "En savoir plus sur la demande de ressaisie du mot de passe principal"
+  },
+  "learnMoreAboutSearchingYourVault": {
+    "message": "En savoir plus sur la recherche dans votre coffre"
+  },
+  "learnMoreAboutYourAccountFingerprintPhrase": {
+    "message": "En savoir plus sur la phrase d'empreinte de votre compte"
+  },
+  "impactOfRotatingYourEncryptionKey": {
+    "message": "Impact de la rotation de votre clé de chiffrement"
+  },
+  "learnMoreAboutEncryptionAlgorithms": {
+    "message": "En savoir plus sur les algorithmes de chiffrement"
+  },
+  "learnMoreAboutKDFIterations": {
+    "message": "En savoir plus sur les itérations KDF"
+  },
+  "learnMoreAboutLocalization": {
+    "message": "En savoir plus sur la localisation"
+  },
+  "learnMoreAboutWebsiteIcons": {
+    "message": "En savoir plus sur l'utilisation des icônes de site web"
+  },
+  "learnMoreAboutUserAccess": {
+    "message": "En savoir plus sur l'accès des utilisateurs"
+  },
+  "learnMoreAboutMemberRoles": {
+    "message": "En savoir plus sur les rôles et les autorisations des membres"
+  },
+  "whatIsACvvNumber": {
+    "message": "Qu'est-ce qu'un numéro CVV ?"
+  },
+  "learnMoreAboutApi": {
+    "message": "En savoir plus sur l'API de Bitwarden"
+  },
   "fileSends": {
     "message": "Déposer des Sends"
   },
@@ -9073,7 +9373,7 @@
   "current": {
     "message": "Actuel"
   },
-  "secretsManagerSubInfo": {
+  "secretsManagerSubscriptionInfo": {
     "message": "Votre abonnement au Secrets Manager sera mis à niveau selon le plan sélectionné"
   },
   "bitwardenPasswordManager": {
@@ -9087,7 +9387,7 @@
   },
   "publicApi": {
     "message": "API publique",
-    "description": "The text, 'API', is an acronymn and should not be translated."
+    "description": "The text, 'API', is an acronym and should not be translated."
   },
   "showCharacterCount": {
     "message": "Afficher le nombre de caractères"
@@ -9097,5 +9397,29 @@
   },
   "editAccess": {
     "message": "Modifier l'accès"
+  },
+  "textHelpText": {
+    "message": "Utiliser des champs de texte pour les données comme les questions de sécurité"
+  },
+  "hiddenHelpText": {
+    "message": "Utiliser des champs cachés pour des données sensibles comme un mot de passe"
+  },
+  "checkBoxHelpText": {
+    "message": "Utilisez les cases à cocher si vous souhaitez remplir automatiquement la case à cocher d'un formulaire, comme la case se souvenir du courriel"
+  },
+  "linkedHelpText": {
+    "message": "Utilisez un champ lié lorsque vous rencontrez des problèmes de saisie automatique pour un site Web spécifique."
+  },
+  "linkedLabelHelpText": {
+    "message": "Entrez l'identifiant html, le nom, l'étiquette aria ou l'espace réservé du champ."
+  },
+  "addAttachment": {
+    "message": "Ajouter une pièce jointe"
+  },
+  "maxFileSizeSansPunctuation": {
+    "message": "La taille maximale du fichier est de 500 Mo"
+  },
+  "permanentlyDeleteAttachmentConfirmation": {
+    "message": "Êtes-vous sûr de vouloir supprimer définitivement cette pièce jointe ?"
   }
 }

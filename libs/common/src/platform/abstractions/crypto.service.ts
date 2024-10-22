@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 
+import { EncryptedOrganizationKeyData } from "../../admin-console/models/data/encrypted-organization-key.data";
 import { ProfileOrganizationResponse } from "../../admin-console/models/response/profile-organization.response";
 import { ProfileProviderOrganizationResponse } from "../../admin-console/models/response/profile-provider-organization.response";
 import { ProfileProviderResponse } from "../../admin-console/models/response/profile-provider.response";
@@ -15,8 +16,7 @@ import {
   UserPublicKey,
 } from "../../types/key";
 import { KeySuffixOptions, HashPurpose } from "../enums";
-import { EncArrayBuffer } from "../models/domain/enc-array-buffer";
-import { EncString } from "../models/domain/enc-string";
+import { EncryptedString, EncString } from "../models/domain/enc-string";
 import { SymmetricCryptoKey } from "../models/domain/symmetric-crypto-key";
 
 export class UserPrivateKeyDecryptionFailedError extends Error {
@@ -290,6 +290,17 @@ export abstract class CryptoService {
   abstract userPrivateKey$(userId: UserId): Observable<UserPrivateKey>;
 
   /**
+   * Gets an observable stream of the given users encrypted private key, will emit null if the user
+   * doesn't have an encrypted private key at all.
+   *
+   * @param userId The user id of the user to get the data for.
+   *
+   * @deprecated Temporary function to allow the SDK to be initialized after the login process, it
+   * will be removed when auth has been migrated to the SDK.
+   */
+  abstract userEncryptedPrivateKey$(userId: UserId): Observable<EncryptedString>;
+
+  /**
    * Gets an observable stream of the given users decrypted private key with legacy support,
    * will emit null if the user doesn't have a UserKey to decrypt the encrypted private key
    * or null if the user doesn't have an encrypted private key at all.
@@ -330,22 +341,6 @@ export abstract class CryptoService {
    * @param userId The user's Id
    */
   abstract clearKeys(userId?: string): Promise<any>;
-  /**
-   * RSA encrypts a value.
-   * @param data The data to encrypt
-   * @param publicKey The public key to use for encryption, if not provided, the user's public key will be used
-   * @returns The encrypted data
-   * @throws If the given publicKey is a null-ish value.
-   */
-  abstract rsaEncrypt(data: Uint8Array, publicKey: Uint8Array): Promise<EncString>;
-  /**
-   * Decrypts a value using RSA.
-   * @param encValue The encrypted value to decrypt
-   * @param privateKey The private key to use for decryption
-   * @returns The decrypted value
-   * @throws If the given privateKey is a null-ish value.
-   */
-  abstract rsaDecrypt(encValue: string, privateKey: Uint8Array): Promise<Uint8Array>;
   abstract randomNumber(min: number, max: number): Promise<number>;
   /**
    * Generates a new cipher key
@@ -373,37 +368,6 @@ export abstract class CryptoService {
    * @param userId The desired user
    */
   abstract clearDeprecatedKeys(keySuffix: KeySuffixOptions, userId?: string): Promise<void>;
-  /**
-   * @deprecated July 25 2022: Get the key you need from CryptoService (getKeyForUserEncryption or getOrgKey)
-   * and then call encryptService.encrypt
-   */
-  abstract encrypt(plainValue: string | Uint8Array, key?: SymmetricCryptoKey): Promise<EncString>;
-  /**
-   * @deprecated July 25 2022: Get the key you need from CryptoService (getKeyForUserEncryption or getOrgKey)
-   * and then call encryptService.encryptToBytes
-   */
-  abstract encryptToBytes(
-    plainValue: Uint8Array,
-    key?: SymmetricCryptoKey,
-  ): Promise<EncArrayBuffer>;
-  /**
-   * @deprecated July 25 2022: Get the key you need from CryptoService (getKeyForUserEncryption or getOrgKey)
-   * and then call encryptService.decryptToBytes
-   */
-  abstract decryptToBytes(encString: EncString, key?: SymmetricCryptoKey): Promise<Uint8Array>;
-  /**
-   * @deprecated July 25 2022: Get the key you need from CryptoService (getKeyForUserEncryption or getOrgKey)
-   * and then call encryptService.decryptToUtf8
-   */
-  abstract decryptToUtf8(encString: EncString, key?: SymmetricCryptoKey): Promise<string>;
-  /**
-   * @deprecated July 25 2022: Get the key you need from CryptoService (getKeyForUserEncryption or getOrgKey)
-   * and then call encryptService.decryptToBytes
-   */
-  abstract decryptFromBytes(
-    encBuffer: EncArrayBuffer,
-    key: SymmetricCryptoKey,
-  ): Promise<Uint8Array>;
 
   /**
    * Retrieves all the keys needed for decrypting Ciphers
@@ -428,6 +392,18 @@ export abstract class CryptoService {
    * @throws If an invalid user id is passed in.
    */
   abstract orgKeys$(userId: UserId): Observable<Record<OrganizationId, OrgKey> | null>;
+
+  /**
+   * Gets an observable stream of the given users encrypted organisation keys.
+   *
+   * @param userId The user id of the user to get the data for.
+   *
+   * @deprecated Temporary function to allow the SDK to be initialized after the login process, it
+   * will be removed when auth has been migrated to the SDK.
+   */
+  abstract encryptedOrgKeys$(
+    userId: UserId,
+  ): Observable<Record<OrganizationId, EncryptedOrganizationKeyData>>;
 
   /**
    * Gets an observable stream of the users public key. If the user is does not have

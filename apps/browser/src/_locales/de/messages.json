@@ -71,6 +71,15 @@
   "joinOrganization": {
     "message": "Organisation beitreten"
   },
+  "joinOrganizationName": {
+    "message": "$ORGANIZATIONNAME$ beitreten",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Schließe den Beitritt zu dieser Organisation ab, indem du ein Master-Passwort festlegst."
   },
@@ -128,6 +137,21 @@
   "copyLicenseNumber": {
     "message": "Lizenznummer kopieren"
   },
+  "copyCustomField": {
+    "message": "$FIELD$ kopieren",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Website kopieren"
+  },
+  "copyNotes": {
+    "message": "Notizen kopieren"
+  },
   "autoFill": {
     "message": "Auto-Ausfüllen"
   },
@@ -178,6 +202,18 @@
   },
   "addItem": {
     "message": "Eintrag hinzufügen"
+  },
+  "accountEmail": {
+    "message": "E-Mail-Adresse des Kontos"
+  },
+  "requestHint": {
+    "message": "Hinweis anfragen"
+  },
+  "requestPasswordHint": {
+    "message": "Passwort-Hinweis anfragen"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Gib deine E-Mail-Adresse ein und dein Passwort-Hinweis wird dir zugesandt"
   },
   "passwordHint": {
     "message": "Passwort-Hinweis"
@@ -354,7 +390,7 @@
   },
   "generator": {
     "message": "Generator",
-    "description": "Short for 'Password Generator'."
+    "description": "Short for 'credential generator'."
   },
   "passGenInfo": {
     "message": "Generiert automatisch ein starkes und einzigartiges Passwort."
@@ -462,6 +498,10 @@
     "message": "Mehrdeutige Zeichen vermeiden",
     "description": "Label for the avoid ambiguous characters checkbox."
   },
+  "generatorPolicyInEffect": {
+    "message": "Die Unternehmensrichtlinien-Anforderungen wurden auf deine Generator-Optionen angewendet.",
+    "description": "Indicates that a policy limits the credential generator screen."
+  },
   "searchVault": {
     "message": "Tresor durchsuchen"
   },
@@ -503,6 +543,9 @@
   },
   "notes": {
     "message": "Notizen"
+  },
+  "privateNote": {
+    "message": "Private Notiz"
   },
   "note": {
     "message": "Notiz"
@@ -549,6 +592,9 @@
   "sessionTimeoutHeader": {
     "message": "Sitzungs-Timeout"
   },
+  "vaultTimeoutHeader": {
+    "message": "Tresor-Timeout"
+  },
   "otherOptions": {
     "message": "Andere Optionen"
   },
@@ -566,6 +612,15 @@
   },
   "yourVaultIsLocked": {
     "message": "Dein Tresor ist gesperrt. Verifiziere deine Identität, um fortzufahren."
+  },
+  "yourVaultIsLockedV2": {
+    "message": "Dein Tresor ist gesperrt"
+  },
+  "yourAccountIsLocked": {
+    "message": "Dein Konto ist gesperrt"
+  },
+  "or": {
+    "message": "oder"
   },
   "unlock": {
     "message": "Entsperren"
@@ -588,6 +643,9 @@
   },
   "vaultTimeout": {
     "message": "Tresor-Timeout"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "lockNow": {
     "message": "Jetzt sperren"
@@ -788,6 +846,12 @@
   },
   "twoStepLoginConfirmation": {
     "message": "Mit der Zwei-Faktor-Authentifizierung wird dein Konto zusätzlich abgesichert, da jede Anmeldung mit einem anderen Gerät wie einem Sicherheitsschlüssel, einer Authentifizierungs-App, einer SMS, einem Anruf oder einer E-Mail verifiziert werden muss. Die Zwei-Faktor-Authentifizierung kann im bitwarden.com Web-Tresor aktiviert werden. Möchtest du die Website jetzt öffnen?"
+  },
+  "twoStepLoginConfirmationContent": {
+    "message": "Mache dein Konto sicherer, indem du eine Zwei-Faktor-Authentifizierung in der Bitwarden Web-App einrichtest."
+  },
+  "twoStepLoginConfirmationTitle": {
+    "message": "Weiter zur Web-App?"
   },
   "editedFolder": {
     "message": "Ordner gespeichert"
@@ -1097,6 +1161,9 @@
   "file": {
     "message": "Datei"
   },
+  "fileToShare": {
+    "message": "Zu teilende Datei"
+  },
   "selectFile": {
     "message": "Wähle eine Datei"
   },
@@ -1349,6 +1416,12 @@
   },
   "showInlineMenuLabel": {
     "message": "Vorschläge zum Auto-Ausfüllen in Formularfeldern anzeigen"
+  },
+  "showInlineMenuIdentitiesLabel": {
+    "message": "Zeige Identitäten als Vorschläge"
+  },
+  "showInlineMenuCardsLabel": {
+    "message": "Zeige Karten als Vorschläge"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "Vorschläge anzeigen, wenn Symbol ausgewählt ist"
@@ -1797,13 +1870,13 @@
     "message": "Keine Einträge zum Anzeigen vorhanden."
   },
   "clearHistory": {
-    "message": "Clear history"
+    "message": "Verlauf löschen"
   },
   "noPasswordsToShow": {
-    "message": "No passwords to show"
+    "message": "Keine Passwörter zum Anzeigen"
   },
   "noRecentlyGeneratedPassword": {
-    "message": "You haven't generated a password recently"
+    "message": "Du hast in letzter Zeit kein Passwort generiert"
   },
   "remove": {
     "message": "Entfernen"
@@ -1863,8 +1936,17 @@
   "unlockWithPin": {
     "message": "Mit PIN-Code entsperren"
   },
+  "setYourPinTitle": {
+    "message": "PIN festlegen"
+  },
+  "setYourPinButton": {
+    "message": "PIN festlegen"
+  },
   "setYourPinCode": {
     "message": "Gebe deinen PIN-Code für das Entsperren von Bitwarden ein. Deine PIN-Einstellungen werden zurückgesetzt, wenn du dich vollständig von der Anwendung abmeldest."
+  },
+  "setYourPinCode1": {
+    "message": "Deine PIN wird verwendet, um Bitwarden anstatt deines Master-Passworts zu entsperren. Deine PIN wird zurückgesetzt, wenn du dich jemals vollständig von Bitwarden abgemeldet hast."
   },
   "pinRequired": {
     "message": "PIN-Code ist erforderlich."
@@ -1878,6 +1960,9 @@
   "unlockWithBiometrics": {
     "message": "Mit Biometrie entsperren"
   },
+  "unlockWithMasterPassword": {
+    "message": "Mit Master-Passwort entsperren"
+  },
   "awaitDesktop": {
     "message": "Warte auf Bestätigung vom Desktop"
   },
@@ -1886,6 +1971,9 @@
   },
   "lockWithMasterPassOnRestart": {
     "message": "Bei Neustart des Browsers mit Master-Passwort sperren"
+  },
+  "lockWithMasterPassOnRestart1": {
+    "message": "Master-Passwort beim Neustart des Browsers verlangen"
   },
   "selectOneCollection": {
     "message": "Sie müssen mindestens eine Sammlung auswählen."
@@ -1925,9 +2013,12 @@
   "vaultTimeoutAction": {
     "message": "Aktion bei Tresor-Timeout"
   },
+  "vaultTimeoutAction1": {
+    "message": "Timeout-Aktion"
+  },
   "lock": {
     "message": "Sperren",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Papierkorb",
@@ -2119,11 +2210,11 @@
   "nativeMessagingWrongUserTitle": {
     "message": "Konten stimmen nicht überein"
   },
-  "nativeMessagingWrongUserKeyDesc": {
-    "message": "Biometrische Entsperrung fehlgeschlagen. Der biometrische Geheimschlüssel konnte den Tresor nicht entsperren. Bitte versuche Biometrie erneut einzurichten."
-  },
   "nativeMessagingWrongUserKeyTitle": {
     "message": "Biometrische Schlüssel stimmen nicht überein"
+  },
+  "nativeMessagingWrongUserKeyDesc": {
+    "message": "Biometrische Entsperrung fehlgeschlagen. Der biometrische Geheimschlüssel konnte den Tresor nicht entsperren. Bitte versuche Biometrie erneut einzurichten."
   },
   "biometricsNotEnabledTitle": {
     "message": "Biometrie ist nicht eingerichtet"
@@ -2210,8 +2301,29 @@
   "excludedDomainsSavedSuccess": {
     "message": "Änderungen der ausgeschlossenen Domain gespeichert"
   },
+  "limitSendViews": {
+    "message": "Ansichten begrenzen"
+  },
+  "limitSendViewsHint": {
+    "message": "Nach Erreichen des Limits kann niemand mehr dieses Send sehen.",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "limitSendViewsCount": {
+    "message": "$ACCESSCOUNT$ Ansichten übrig",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "send": {
     "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDetails": {
+    "message": "Send-Details",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "searchSends": {
@@ -2225,12 +2337,18 @@
   "sendTypeText": {
     "message": "Text"
   },
+  "sendTypeTextToShare": {
+    "message": "Zu teilender Text"
+  },
   "sendTypeFile": {
     "message": "Datei"
   },
   "allSends": {
     "message": "Alle Sends",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "hideTextByDefault": {
+    "message": "Text standardmäßig ausblenden"
   },
   "maxAccessCountReached": {
     "message": "Maximale Zugriffsanzahl erreicht",
@@ -2283,6 +2401,10 @@
     "message": "Bist du sicher, dass du dieses Send löschen möchtest?",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "deleteSendPermanentConfirmation": {
+    "message": "Bist du sicher, dass du dieses Send dauerhaft löschen möchtest?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "editSend": {
     "message": "Send bearbeiten",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -2303,6 +2425,10 @@
   },
   "deletionDateDesc": {
     "message": "Das Send wird am angegebenen Datum zur angegebenen Uhrzeit dauerhaft gelöscht.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deletionDateDescV2": {
+    "message": "Das Send wird an diesem Datum dauerhaft gelöscht.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "expirationDate": {
@@ -2336,6 +2462,10 @@
   },
   "sendPasswordDesc": {
     "message": "Optional ein Passwort verlangen, damit Benutzer auf dieses Send zugreifen können.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDescV2": {
+    "message": "Dieses Passwort zum Anzeigen des Sends verlangen.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2383,7 +2513,25 @@
     "message": "Send erfolgreich erstellt!",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendAvailability": {
+  "sendExpiresInHoursSingle": {
+    "message": "Das Send wird jedem mit dem Link für die nächste Stunde zur Verfügung stehen.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInHours": {
+    "message": "Das Send wird jedem mit dem Link für die nächsten $HOURS$ Stunden zur Verfügung stehen.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sendExpiresInDaysSingle": {
+    "message": "Das Send wird jedem mit dem Link für den nächsten Tag zur Verfügung stehen.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendExpiresInDays": {
     "message": "Das Send wird jedem mit dem Link für die nächsten $DAYS$ Tage zur Verfügung stehen.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
     "placeholders": {
@@ -2401,6 +2549,14 @@
     "message": "Send gespeichert",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendFilePopoutDialogText": {
+    "message": "Erweiterung in einem neuen Fenster öffnen?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFilePopoutDialogDesc": {
+    "message": "Um ein Datei-Send zu erstellen, musst du die Erweiterung in einem neuen Fenster öffnen.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
   "sendLinuxChromiumFileWarning": {
     "message": "Um eine Datei auszuwählen, öffne die Erweiterung in der Sidebar (falls möglich) oder öffne sie in einem neuem Fenster, indem du auf dieses Banner klickst."
   },
@@ -2409,6 +2565,9 @@
   },
   "sendSafariFileWarning": {
     "message": "Um eine Datei mit Safari auszuwählen, öffne ein neues Fenster, indem du auf dieses Banner klickst."
+  },
+  "popOut": {
+    "message": "Abkoppeln"
   },
   "sendFileCalloutHeader": {
     "message": "Bevor du beginnst"
@@ -2442,6 +2601,9 @@
   },
   "hideEmail": {
     "message": "Meine E-Mail-Adresse vor den Empfängern ausblenden."
+  },
+  "hideYourEmail": {
+    "message": "Verberge deine E-Mail-Adresse vor Betrachtern."
   },
   "sendOptionsPolicyInEffect": {
     "message": "Eine oder mehrere Organisationsrichtlinien beeinflussen deine Send Einstellungen."
@@ -2500,6 +2662,15 @@
     "message": "Deine Organisation verlangt, dass du ein Master-Passwort festlegen musst.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "von $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "Verifizierung erforderlich",
     "description": "Default title for the user verification dialog."
@@ -2510,8 +2681,37 @@
   "minutes": {
     "message": "Minuten"
   },
+  "vaultTimeoutPolicyAffectingOptions": {
+    "message": "Die Unternehmens-Richtlinienanforderungen wurden auf deine Timeout-Optionen angewendet"
+  },
   "vaultTimeoutPolicyInEffect": {
     "message": "Deine Unternehmensrichtlinien haben das maximal zulässige Tresor-Timeout auf $HOURS$ Stunde(n) und $MINUTES$ Minute(n) festgelegt.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "Maximal $HOURS$ Stunde(n) und $MINUTES$ Minute(n).",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyMaximumError": {
+    "message": "Das Timeout überschreitet die von deiner Organisation festgelegte Beschränkung: Maximal $HOURS$ Stunde(n) und $MINUTES$ Minute(n)",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -3477,6 +3677,9 @@
   "typePasskey": {
     "message": "Passkey"
   },
+  "accessing": {
+    "message": "Zugriff auf"
+  },
   "passkeyNotCopied": {
     "message": "Passkey wird nicht kopiert"
   },
@@ -3500,6 +3703,9 @@
   },
   "noMatchingLoginsForSite": {
     "message": "Keine passenden Zugangsdaten für diese Seite"
+  },
+  "searchSavePasskeyNewLogin": {
+    "message": "Passkeys suchen oder als neue Zugangsdaten speichern"
   },
   "confirm": {
     "message": "Bestätigen"
@@ -4070,6 +4276,9 @@
   "enableAnimations": {
     "message": "Animationen aktivieren"
   },
+  "showAnimations": {
+    "message": "Animationen anzeigen"
+  },
   "addAccount": {
     "message": "Konto hinzufügen"
   },
@@ -4309,8 +4518,17 @@
   "enterprisePolicyRequirementsApplied": {
     "message": "Unternehmens-Richtlinienanforderungen wurden auf diese Einstellung angewandt"
   },
+  "retry": {
+    "message": "Erneut versuchen"
+  },
+  "vaultCustomTimeoutMinimum": {
+    "message": "Das minimal benutzerdefinierte Timeout beträgt 1 Minute."
+  },
+  "additionalContentAvailable": {
+    "message": "Zusätzlicher Inhalt ist verfügbar"
+  },
   "fileSavedToDevice": {
-    "message": "File saved to device. Manage from your device downloads."
+    "message": "Datei auf Gerät gespeichert. Greife darauf über die Downloads deines Geräts zu."
   },
   "showCharacterCount": {
     "message": "Zeichenanzahl anzeigen"
@@ -4338,5 +4556,8 @@
   },
   "noEditPermissions": {
     "message": "Du bist nicht berechtigt, diesen Eintrag zu bearbeiten"
+  },
+  "authenticating": {
+    "message": "Authentifizierung"
   }
 }

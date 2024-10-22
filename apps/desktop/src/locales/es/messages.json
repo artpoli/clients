@@ -157,7 +157,7 @@
     "message": "Empresa"
   },
   "ssn": {
-    "message": "Nº de la seguridad social"
+    "message": "Nº de seguridad social"
   },
   "passportNumber": {
     "message": "Nº de pasaporte"
@@ -407,16 +407,55 @@
     "message": "Longitud mínima de la contraseña"
   },
   "uppercase": {
-    "message": "Mayúsculas (A-Z)"
+    "message": "Mayúsculas (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Minúsculas (a-z)"
+    "message": "Minúsculas (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Números (0-9)"
+    "message": "Números (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Carácteres especiales (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Include",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Include uppercase characters",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Include lowercase characters",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Include numbers",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Include special characters",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Número de palabras"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Evitar caracteres ambiguos"
+    "message": "Evitar caracteres ambiguos",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Avoid ambiguous characters",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Enterprise policy requirements have been applied to your generator options.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Buscar en colección"
@@ -552,13 +600,34 @@
     "message": "Pista de la contraseña maestra"
   },
   "joinOrganization": {
-    "message": "Join organization"
+    "message": "Unirse a organización"
+  },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
   },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
-    "message": "Finish joining this organization by setting a master password."
+    "message": "Termina de unirte a esta organización estableciendo una contraseña maestra."
   },
   "settings": {
     "message": "Ajustes"
+  },
+  "accountEmail": {
+    "message": "Correo electrónico de la cuenta"
+  },
+  "requestHint": {
+    "message": "Solicitar pista"
+  },
+  "requestPasswordHint": {
+    "message": "Solicitar pista de la contraseña"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Introduce la dirección de correo electrónico de tu cuenta y se te enviará la pista de tu contraseña"
   },
   "passwordHint": {
     "message": "Pista de contraseña"
@@ -604,10 +673,10 @@
     "message": "¡Tu nueva cuenta ha sido creada! Ahora puedes acceder."
   },
   "newAccountCreated2": {
-    "message": "Your new account has been created!"
+    "message": "¡Tu nueva cuenta ha sido creada!"
   },
   "youHaveBeenLoggedIn": {
-    "message": "You have been logged in!"
+    "message": "¡Has iniciado sesión!"
   },
   "masterPassSent": {
     "message": "Te hemos enviado un correo electrónico con la pista de tu contraseña maestra."
@@ -640,7 +709,7 @@
     "message": "Código de verificación requerido."
   },
   "webauthnCancelOrTimeout": {
-    "message": "The authentication was cancelled or took too long. Please try again."
+    "message": "La autenticación fue cancelada o tardó demasiado. Por favor, inténtalo de nuevo."
   },
   "invalidVerificationCode": {
     "message": "Código de verificación incorrecto"
@@ -805,16 +874,16 @@
     "message": "Tu sesión ha expirado."
   },
   "restartRegistration": {
-    "message": "Restart registration"
+    "message": "Reiniciar registro"
   },
   "expiredLink": {
-    "message": "Expired link"
+    "message": "Enlace expirado"
   },
   "pleaseRestartRegistrationOrTryLoggingIn": {
-    "message": "Please restart registration or try logging in."
+    "message": "Por favor, reinicia el registro o intenta iniciar sesión."
   },
   "youMayAlreadyHaveAnAccount": {
-    "message": "You may already have an account"
+    "message": "Puede que ya tengas una cuenta"
   },
   "logOutConfirmation": {
     "message": "¿Estás seguro de querer cerrar sesión?"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Tu caja fuerte está bloqueada. Verifica tu contraseña maestra para continuar."
   },
+  "yourAccountIsLocked": {
+    "message": "Your account is locked"
+  },
+  "or": {
+    "message": "or"
+  },
+  "unlockWithBiometrics": {
+    "message": "Unlock with biometrics"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Unlock with master password"
+  },
   "unlock": {
     "message": "Desbloquear"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Tiempo de espera de la caja fuerte excedido"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "vaultTimeoutDesc": {
     "message": "Elije cuando se agotará el tiempo de espera de tu caja fuerte y se ejecutará la acción seleccionada."
@@ -1555,8 +1639,8 @@
   "recommendedForSecurity": {
     "message": "Recomendado por seguridad."
   },
-  "lockWithMasterPassOnRestart": {
-    "message": "Bloquear con contraseña maestra al reiniciar"
+  "lockWithMasterPassOnRestart1": {
+    "message": "Lock with master password on restart"
   },
   "deleteAccount": {
     "message": "Eliminar cuenta"
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Bloquear",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Papelera",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Tu organización requiere que establezcas una contraseña maestra.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Verificación requerida",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Habilitar integración con el navegador"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "La integración del navegador se usa para la biometría en el mismo."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Used to allow biometric unlock in browsers that are not Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Permitir integración con el navegador DuckDuckGo"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Minutos"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Las políticas de tu organización están afectando el tiempo de espera de tu caja fuerte. El máximo permitido de espera es de $HOURS$ hora(s) y de $MINUTES$ minuto(s)",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ hour(s) and $MINUTES$ minute(s) maximum.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2130,7 +2223,7 @@
     "message": "El tiempo de espera de tu caja fuerte excede las restricciones establecidas por tu organización."
   },
   "inviteAccepted": {
-    "message": "Invitation accepted"
+    "message": "Invitación aceptada"
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Inscripción automática"
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Bloqueado"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Your vault is locked"
+  },
   "unlocked": {
     "message": "Desbloqueado"
   },
   "generator": {
-    "message": "Generador"
+    "message": "Generador",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "¿Qué deseas generar?"
@@ -2589,6 +2686,9 @@
   "important": {
     "message": "Importante:"
   },
+  "accessing": {
+    "message": "Accessing"
+  },
   "accessTokenUnableToBeDecrypted": {
     "message": "Se ha cerrado la sesión porque tu token de acceso no pudo ser descifrado. Por favor, inicia sesión de nuevo para resolver este problema."
   },
@@ -2857,7 +2957,7 @@
     "message": "Contraseña de archivo no válida, por favor utiliza la contraseña que introdujiste cuando creaste el archivo de exportación."
   },
   "destination": {
-    "message": "Destination"
+    "message": "Destino"
   },
   "learnAboutImportOptions": {
     "message": "Aprende acerca de tus opciones de importación"
@@ -3054,13 +3154,19 @@
     }
   },
   "data": {
-    "message": "Data"
+    "message": "Datos"
   },
   "fileSends": {
-    "message": "File Sends"
+    "message": "Envío de archivo"
   },
   "textSends": {
-    "message": "Text Sends"
+    "message": "Envío de texto"
+  },
+  "allowScreenshots": {
+    "message": "Permitir captura de pantalla"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Allow screen capture of the Bitwarden desktop application."
   },
   "ssoError": {
     "message": "No free ports could be found for the sso login."

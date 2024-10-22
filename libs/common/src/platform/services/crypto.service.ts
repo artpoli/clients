@@ -45,10 +45,9 @@ import { KeyGenerationService } from "../abstractions/key-generation.service";
 import { LogService } from "../abstractions/log.service";
 import { PlatformUtilsService } from "../abstractions/platform-utils.service";
 import { StateService } from "../abstractions/state.service";
-import { KeySuffixOptions, HashPurpose, EncryptionType } from "../enums";
+import { KeySuffixOptions, HashPurpose } from "../enums";
 import { convertValues } from "../misc/convert-values";
 import { EFFLongWordList } from "../misc/wordlist";
-import { EncArrayBuffer } from "../models/domain/enc-array-buffer";
 import { EncString, EncryptedString } from "../models/domain/enc-string";
 import { SymmetricCryptoKey } from "../models/domain/symmetric-crypto-key";
 import { ActiveUserState, StateProvider } from "../state";
@@ -442,7 +441,7 @@ export class CryptoService implements CryptoServiceAbstraction {
     const shareKey = await this.keyGenerationService.createKey(512);
     userId ??= await firstValueFrom(this.stateProvider.activeUserId$);
     const publicKey = await firstValueFrom(this.userPublicKey$(userId));
-    const encShareKey = await this.rsaEncrypt(shareKey.key, publicKey);
+    const encShareKey = await this.encryptService.rsaEncrypt(shareKey.key, publicKey);
     return [encShareKey, shareKey as T];
   }
 
@@ -549,68 +548,6 @@ export class CryptoService implements CryptoServiceAbstraction {
     await this.clearKeyPair(userId);
     await this.clearPinKeys(userId);
     await this.stateProvider.setUserState(USER_EVER_HAD_USER_KEY, null, userId);
-  }
-
-  async rsaEncrypt(data: Uint8Array, publicKey: Uint8Array): Promise<EncString> {
-    if (publicKey == null) {
-      throw new Error("'publicKey' is a required parameter and must be non-null");
-    }
-
-    const encBytes = await this.cryptoFunctionService.rsaEncrypt(data, publicKey, "sha1");
-    return new EncString(EncryptionType.Rsa2048_OaepSha1_B64, Utils.fromBufferToB64(encBytes));
-  }
-
-  async rsaDecrypt(encValue: string, privateKey: Uint8Array): Promise<Uint8Array> {
-    if (privateKey == null) {
-      throw new Error("'privateKey' is a required parameter and must be non-null");
-    }
-
-    const headerPieces = encValue.split(".");
-    let encType: EncryptionType = null;
-    let encPieces: string[];
-
-    if (headerPieces.length === 1) {
-      encType = EncryptionType.Rsa2048_OaepSha256_B64;
-      encPieces = [headerPieces[0]];
-    } else if (headerPieces.length === 2) {
-      try {
-        encType = parseInt(headerPieces[0], null);
-        encPieces = headerPieces[1].split("|");
-      } catch (e) {
-        this.logService.error(e);
-      }
-    }
-
-    switch (encType) {
-      case EncryptionType.Rsa2048_OaepSha256_B64:
-      case EncryptionType.Rsa2048_OaepSha1_B64:
-      case EncryptionType.Rsa2048_OaepSha256_HmacSha256_B64: // HmacSha256 types are deprecated
-      case EncryptionType.Rsa2048_OaepSha1_HmacSha256_B64:
-        break;
-      default:
-        throw new Error("encType unavailable.");
-    }
-
-    if (encPieces == null || encPieces.length <= 0) {
-      throw new Error("encPieces unavailable.");
-    }
-
-    const data = Utils.fromB64ToArray(encPieces[0]);
-
-    let alg: "sha1" | "sha256" = "sha1";
-    switch (encType) {
-      case EncryptionType.Rsa2048_OaepSha256_B64:
-      case EncryptionType.Rsa2048_OaepSha256_HmacSha256_B64:
-        alg = "sha256";
-        break;
-      case EncryptionType.Rsa2048_OaepSha1_B64:
-      case EncryptionType.Rsa2048_OaepSha1_HmacSha256_B64:
-        break;
-      default:
-        throw new Error("encType unavailable.");
-    }
-
-    return this.cryptoFunctionService.rsaDecrypt(data, privateKey, alg);
   }
 
   // EFForg/OpenWireless
@@ -859,58 +796,6 @@ export class CryptoService implements CryptoServiceAbstraction {
     }
   }
 
-  // --DEPRECATED METHODS--
-
-  /**
-   * @deprecated July 25 2022: Get the key you need from CryptoService (getKeyForUserEncryption or getOrgKey)
-   * and then call encryptService.encrypt
-   */
-  async encrypt(plainValue: string | Uint8Array, key?: SymmetricCryptoKey): Promise<EncString> {
-    key ||= await this.getUserKeyWithLegacySupport();
-    return await this.encryptService.encrypt(plainValue, key);
-  }
-
-  /**
-   * @deprecated July 25 2022: Get the key you need from CryptoService (getKeyForUserEncryption or getOrgKey)
-   * and then call encryptService.encryptToBytes
-   */
-  async encryptToBytes(plainValue: Uint8Array, key?: SymmetricCryptoKey): Promise<EncArrayBuffer> {
-    key ||= await this.getUserKeyWithLegacySupport();
-    return this.encryptService.encryptToBytes(plainValue, key);
-  }
-
-  /**
-   * @deprecated July 25 2022: Get the key you need from CryptoService (getKeyForUserEncryption or getOrgKey)
-   * and then call encryptService.decryptToBytes
-   */
-  async decryptToBytes(encString: EncString, key?: SymmetricCryptoKey): Promise<Uint8Array> {
-    key ||= await this.getUserKeyWithLegacySupport();
-    return this.encryptService.decryptToBytes(encString, key);
-  }
-
-  /**
-   * @deprecated July 25 2022: Get the key you need from CryptoService (getKeyForUserEncryption or getOrgKey)
-   * and then call encryptService.decryptToUtf8
-   */
-  async decryptToUtf8(encString: EncString, key?: SymmetricCryptoKey): Promise<string> {
-    key ||= await this.getUserKeyWithLegacySupport();
-    return await this.encryptService.decryptToUtf8(encString, key);
-  }
-
-  /**
-   * @deprecated July 25 2022: Get the key you need from CryptoService (getKeyForUserEncryption or getOrgKey)
-   * and then call encryptService.decryptToBytes
-   */
-  async decryptFromBytes(encBuffer: EncArrayBuffer, key: SymmetricCryptoKey): Promise<Uint8Array> {
-    if (encBuffer == null) {
-      throw new Error("No buffer provided for decryption.");
-    }
-
-    key ||= await this.getUserKeyWithLegacySupport();
-
-    return this.encryptService.decryptToBytes(encBuffer, key);
-  }
-
   userKey$(userId: UserId): Observable<UserKey> {
     return this.stateProvider.getUser(userId, USER_KEY).state$;
   }
@@ -954,6 +839,10 @@ export class CryptoService implements CryptoServiceAbstraction {
 
   userPrivateKey$(userId: UserId): Observable<UserPrivateKey> {
     return this.userPrivateKeyHelper$(userId, false).pipe(map((keys) => keys?.userPrivateKey));
+  }
+
+  userEncryptedPrivateKey$(userId: UserId): Observable<EncryptedString> {
+    return this.stateProvider.getUser(userId, USER_ENCRYPTED_PRIVATE_KEY).state$;
   }
 
   userPrivateKeyWithLegacySupport$(userId: UserId): Observable<UserPrivateKey> {
@@ -1042,6 +931,12 @@ export class CryptoService implements CryptoServiceAbstraction {
 
   orgKeys$(userId: UserId): Observable<Record<OrganizationId, OrgKey> | null> {
     return this.cipherDecryptionKeys$(userId, true).pipe(map((keys) => keys?.orgKeys));
+  }
+
+  encryptedOrgKeys$(
+    userId: UserId,
+  ): Observable<Record<OrganizationId, EncryptedOrganizationKeyData>> {
+    return this.stateProvider.getUser(userId, USER_ENCRYPTED_ORGANIZATION_KEYS).state$;
   }
 
   cipherDecryptionKeys$(

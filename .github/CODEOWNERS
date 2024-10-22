@@ -19,9 +19,6 @@ apps/web/src/connectors @bitwarden/team-auth-dev
 bitwarden_license/bit-web/src/app/auth @bitwarden/team-auth-dev
 libs/angular/src/auth @bitwarden/team-auth-dev
 libs/common/src/auth @bitwarden/team-auth-dev
-# biometrics
-apps/desktop/src/services/native-messaging.service.ts @bitwarden/team-auth-dev
-app/browser/src/background/nativeMessaging.background.ts @bitwarden/team-auth-dev
 
 ## Tools team files ##
 apps/browser/src/tools @bitwarden/team-tools-dev
@@ -111,16 +108,11 @@ apps/desktop/src/key-management @bitwarden/team-key-management-dev
 apps/web/src/key-management @bitwarden/team-key-management-dev
 apps/browser/src/key-management @bitwarden/team-key-management-dev
 apps/cli/src/key-management @bitwarden/team-key-management-dev
-libs/common/src/key-management @bitwarden/team-key-management-dev
+libs/key-management @bitwarden/team-key-management-dev
 
-## DevOps team files ##
-/.github/workflows @bitwarden/dept-devops
-
-# DevOps for Docker changes.
-**/Dockerfile @bitwarden/dept-devops
-**/*.Dockerfile @bitwarden/dept-devops
-**/.dockerignore @bitwarden/dept-devops
-**/entrypoint.sh @bitwarden/dept-devops
+apps/desktop/destkop_native/core/src/biometric/ @bitwarden/team-key-management-dev
+apps/desktop/src/services/native-messaging.service.ts @bitwarden/team-key-management-dev
+apps/browser/src/background/nativeMessaging.background.ts @bitwarden/team-key-management-dev
 
 ## Locales ##
 apps/browser/src/_locales/en/messages.json
@@ -128,3 +120,27 @@ apps/browser/store/locales/en
 apps/cli/src/locales/en/messages.json
 apps/desktop/src/locales/en/messages.json
 apps/web/src/locales/en/messages.json
+
+## BRE team owns these workflows ##
+.github/workflows/brew-bump-desktop.yml @bitwarden/dept-bre
+.github/workflows/deploy-web.yml @bitwarden/dept-bre
+.github/workflows/publish-cli.yml @bitwarden/dept-bre
+.github/workflows/publish-desktop.yml @bitwarden/dept-bre
+.github/workflows/publish-web.yml @bitwarden/dept-bre
+.github/workflows/retrieve-current-desktop-rollout.yml @bitwarden/dept-bre
+.github/workflows/staged-rollout-desktop.yml @bitwarden/dept-bre
+
+## Shared ownership workflows ##
+.github/workflows/release-browser.yml
+.github/workflows/release-cli.yml
+.github/workflows/release-desktop-beta.yml
+.github/workflows/release-desktop.yml
+.github/workflows/release-web.yml
+.github/workflows/version-auto-bump.yml
+.github/workflows/version-bump.yml
+
+## Docker files have shared ownership ##
+**/Dockerfile
+**/*.Dockerfile
+**/.dockerignore
+**/entrypoint.sh

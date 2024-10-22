@@ -407,16 +407,55 @@
     "message": "Parooli miinimumpikkus"
   },
   "uppercase": {
-    "message": "Suurtäht (A-Z)"
+    "message": "Suurtäht (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Väiketäht (a-z)"
+    "message": "Väiketäht (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Numbrid (0-9)"
+    "message": "Numbrid (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Erimärgid (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Include",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Include uppercase characters",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Include lowercase characters",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Include numbers",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Include special characters",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Sõnade arv"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Väldi ebamääraseid kirjamärke"
+    "message": "Väldi ebamääraseid kirjamärke",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Avoid ambiguous characters",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "Enterprise policy requirements have been applied to your generator options.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Otsi kogumikku"
@@ -554,11 +602,32 @@
   "joinOrganization": {
     "message": "Liitu organisatsiooniga"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Lõpeta organisatsiooniga liitumine määrates ülemparool."
   },
   "settings": {
     "message": "Seaded"
+  },
+  "accountEmail": {
+    "message": "Konto e-maili aadress"
+  },
+  "requestHint": {
+    "message": "Küsi vihjet"
+  },
+  "requestPasswordHint": {
+    "message": "Küsi ülemparooli vihjet"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Sisesta oma e-maili aadress ja sulle saadetakse sinna parooli vihje"
   },
   "passwordHint": {
     "message": "Parooli vihje"
@@ -902,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Hoidla on lukus. Jätkamiseks sisesta ülemparool."
   },
+  "yourAccountIsLocked": {
+    "message": "Your account is locked"
+  },
+  "or": {
+    "message": "or"
+  },
+  "unlockWithBiometrics": {
+    "message": "Unlock with biometrics"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Unlock with master password"
+  },
   "unlock": {
     "message": "Lukusta lahti"
   },
@@ -929,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Hoidla ajalõpp"
+  },
+  "vaultTimeout1": {
+    "message": "Timeout"
   },
   "vaultTimeoutDesc": {
     "message": "Vali millal saabub hoidla ajalõpp ning sooritatakse valitud tegevus."
@@ -1286,7 +1370,7 @@
     }
   },
   "copySuccessful": {
-    "message": "Copy Successful"
+    "message": "Kopeerimine Õnnestus"
   },
   "errorRefreshingAccessToken": {
     "message": "Juurdepääsukoodi Värskendamine Ebaõnnestus"
@@ -1555,8 +1639,8 @@
   "recommendedForSecurity": {
     "message": "Soovitatud turvalisuse huvides."
   },
-  "lockWithMasterPassOnRestart": {
-    "message": "Lukusta ülemparooliga, kui rakendus taaskäivitatakse"
+  "lockWithMasterPassOnRestart1": {
+    "message": "Lock with master password on restart"
   },
   "deleteAccount": {
     "message": "Kustuta konto"
@@ -1633,7 +1717,7 @@
   },
   "lock": {
     "message": "Lukusta",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Prügikast",
@@ -1676,6 +1760,15 @@
   "orgRequiresYouToSetPassword": {
     "message": "Sinu organisatsioon nõuab sult ülemparooli seadistamist.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
+  },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "verificationRequired": {
     "message": "Tuvastamine vajalik",
@@ -1756,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Lülita sisse brauseri integratsioon"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Brauseri integratsioon on vajalik biomeetria kasutamiseks brauseris."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Used to allow biometric unlock in browsers that are not Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Lubage DuckDuckGo brauseri integreerimine"
@@ -2087,8 +2180,8 @@
   "minutes": {
     "message": "Minutit"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Organisatsiooni poliitikad mõjutavad sinu hoidla ajalõppu. Maksimaalne lubatud hoidla ajalõpp on $HOURS$ tund(i) ja $MINUTES$ minut(it)",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ hour(s) and $MINUTES$ minute(s) maximum.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2237,11 +2330,15 @@
   "locked": {
     "message": "Lukustatud"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Your vault is locked"
+  },
   "unlocked": {
     "message": "Lukustamata"
   },
   "generator": {
-    "message": "Genereerija"
+    "message": "Genereerija",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Mida sa soovid genereerida?"
@@ -2588,6 +2685,9 @@
   },
   "important": {
     "message": "Tähtis:"
+  },
+  "accessing": {
+    "message": "Accessing"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "Sind logiti välja, sest sinu juurdepääsuvõtit (access token) ei õnnestunud dekrüpteerida. Probleemi lahendamiseks palun logige uuesti sisse."
@@ -3062,10 +3162,16 @@
   "textSends": {
     "message": "Kõik Tekst-Sendid"
   },
+  "allowScreenshots": {
+    "message": "Allow screen capture"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Allow screen capture of the Bitwarden desktop application."
+  },
   "ssoError": {
     "message": "SSO-ga sisselogimiseks ei leitud ühtegi vaba porti."
   },
   "fileSavedToDevice": {
-    "message": "File saved to device. Manage from your device downloads."
+    "message": "Fail salvestatud. Halda oma seadmesse allalaaditud faile."
   }
 }

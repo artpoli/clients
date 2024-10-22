@@ -1,4 +1,64 @@
 {
+  "allApplications": {
+    "message": "Всички приложения"
+  },
+  "priorityApplications": {
+    "message": "Приложения с приоритет"
+  },
+  "accessIntelligence": {
+    "message": "Access Intelligence"
+  },
+  "notifiedMembers": {
+    "message": "Известени членове"
+  },
+  "allApplicationsWithCount": {
+    "message": "Всички приложения ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "priorityApplicationsWithCount": {
+    "message": "Приложения с приоритет ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "notifiedMembersWithCount": {
+    "message": "Известени членове ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "application": {
+    "message": "Приложение"
+  },
+  "atRiskPasswords": {
+    "message": "Пароли в риск"
+  },
+  "totalPasswords": {
+    "message": "Общо пароли"
+  },
+  "atRiskMembers": {
+    "message": "Членове в риск"
+  },
+  "totalMembers": {
+    "message": "Общо членове"
+  },
+  "atRiskApplications": {
+    "message": "Приложения в риск"
+  },
+  "totalApplications": {
+    "message": "Общо приложения"
+  },
   "whatTypeOfItem": {
     "message": "Вид на елемента"
   },
@@ -144,7 +204,7 @@
     "message": "Код за сигурност"
   },
   "securityCodeSlashCVV": {
-    "message": "Security code / CVV"
+    "message": "Код за сигурност / CVV"
   },
   "identityName": {
     "message": "Име на самоличността"
@@ -269,9 +329,18 @@
   "cfTypeBoolean": {
     "message": "Булево"
   },
+  "cfTypeCheckbox": {
+    "message": "Поле за отметка"
+  },
   "cfTypeLinked": {
     "message": "Свързано",
     "description": "This describes a field that is 'linked' (related) to another field."
+  },
+  "fieldType": {
+    "message": "Тип на полето"
+  },
+  "fieldLabel": {
+    "message": "Етикет на полето"
   },
   "remove": {
     "message": "Премахване"
@@ -511,6 +580,24 @@
   "viewItem": {
     "message": "Преглед на елемента"
   },
+  "newItemHeader": {
+    "message": "Ново $TYPE$",
+    "placeholders": {
+      "type": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
+  },
+  "editItemHeader": {
+    "message": "Редактиране на $TYPE$",
+    "placeholders": {
+      "type": {
+        "content": "$1",
+        "example": "login"
+      }
+    }
+  },
   "viewItemType": {
     "message": "Преглед на $ITEMTYPE$",
     "placeholders": {
@@ -566,7 +653,7 @@
     }
   },
   "copySuccessful": {
-    "message": "Copy Successful"
+    "message": "Копирането е успешно"
   },
   "copyValue": {
     "message": "Копиране на стойността",
@@ -575,6 +662,9 @@
   "copyPassword": {
     "message": "Копиране на паролата",
     "description": "Copy password to clipboard"
+  },
+  "passwordCopied": {
+    "message": "Паролата е копирана"
   },
   "copyUsername": {
     "message": "Копиране на потребителското име",
@@ -591,6 +681,45 @@
   "copyUri": {
     "message": "Копиране на адреса",
     "description": "Copy URI to clipboard"
+  },
+  "copyCustomField": {
+    "message": "Копиране на $FIELD$",
+    "placeholders": {
+      "field": {
+        "content": "$1",
+        "example": "Custom field label"
+      }
+    }
+  },
+  "copyWebsite": {
+    "message": "Копиране на уеб сайта"
+  },
+  "copyNotes": {
+    "message": "Копиране на бележките"
+  },
+  "copyAddress": {
+    "message": "Копиране на адреса"
+  },
+  "copyPhone": {
+    "message": "Копиране на телефона"
+  },
+  "copyEmail": {
+    "message": "Копиране на е-пощата"
+  },
+  "copyCompany": {
+    "message": "Копиране на компанията"
+  },
+  "copySSN": {
+    "message": "Копиране на номера на осигуровката"
+  },
+  "copyPassportNumber": {
+    "message": "Копиране на номера на паспорта"
+  },
+  "copyLicenseNumber": {
+    "message": "Копиране на номера на свидетелството"
+  },
+  "copyName": {
+    "message": "Копиране на името"
   },
   "me": {
     "message": "Аз"
@@ -744,7 +873,7 @@
     "message": "Ниво на достъп"
   },
   "accessing": {
-    "message": "Accessing"
+    "message": "Използване на"
   },
   "loggedOut": {
     "message": "Бяхте отписани"
@@ -960,6 +1089,18 @@
   "settings": {
     "message": "Настройки"
   },
+  "accountEmail": {
+    "message": "Е-поща на регистрацията"
+  },
+  "requestHint": {
+    "message": "Заявка за подсказка"
+  },
+  "requestPasswordHint": {
+    "message": "Заявка за подсказка за паролата"
+  },
+  "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
+    "message": "Въведете е-пощата на регистрацията си и подсказката за паролата ще Ви бъде изпратена"
+  },
   "passwordHint": {
     "message": "Подсказка за паролата"
   },
@@ -1021,6 +1162,9 @@
   "yourVaultIsLockedV2": {
     "message": "Трезорът Ви е заключен."
   },
+  "yourAccountIsLocked": {
+    "message": "Регистрацията Ви е заключена"
+  },
   "uuid": {
     "message": "ИН на универсален потребител - UUID"
   },
@@ -1054,6 +1198,9 @@
   },
   "noPermissionToViewAllCollectionItems": {
     "message": "Нямате права да преглеждате всички елементи в тази колекция."
+  },
+  "youDoNotHavePermissions": {
+    "message": "Нямате права за тази колекция"
   },
   "noCollectionsInList": {
     "message": "Няма колекции за показване."
@@ -1359,7 +1506,12 @@
     "description": "Minimum special characters"
   },
   "ambiguous": {
-    "message": "Без нееднозначни знаци"
+    "message": "Без нееднозначни знаци",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Без нееднозначни знаци",
+    "description": "Label for the avoid ambiguous characters checkbox."
   },
   "regeneratePassword": {
     "message": "Друга парола"
@@ -1372,17 +1524,50 @@
   },
   "uppercase": {
     "message": "Главни букви (A-Z)",
-    "description": "Include uppercase letters in the password generator."
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
     "message": "Малки букви (a-z)",
-    "description": "Include lowercase letters in the password generator."
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Числа (0-9)"
+    "message": "Числа (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Специални знаци (!@#$%^&*)"
+  },
+  "uppercaseDescription": {
+    "message": "Включване на главни букви",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Включване на малки букви",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Включване на цифри",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Включване на специални знаци",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Брой думи"
@@ -1396,6 +1581,10 @@
   },
   "includeNumber": {
     "message": "И цифри"
+  },
+  "generatorPolicyInEffect": {
+    "message": "Изискванията на политиката за големи компании бяха приложени към настройките на генератора.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "passwordHistory": {
     "message": "Хронология на паролата"
@@ -2117,6 +2306,9 @@
   "checkExposedPasswords": {
     "message": "Проверка за разкрити пароли"
   },
+  "timesExposed": {
+    "message": "Times exposed"
+  },
   "exposedXTimes": {
     "message": "Разкрити $COUNT$ път/и",
     "placeholders": {
@@ -2151,6 +2343,9 @@
   "noWeakPasswords": {
     "message": "Всички записи в трезора са с надеждни пароли."
   },
+  "weakness": {
+    "message": "Слабост"
+  },
   "reusedPasswordsReport": {
     "message": "Доклад за повтарящи се пароли"
   },
@@ -2175,6 +2370,9 @@
   },
   "noReusedPasswords": {
     "message": "В трезора ви няма записи с пароли, които се ползват и другаде."
+  },
+  "timesReused": {
+    "message": "Брой преизползвания"
   },
   "reusedXTimes": {
     "message": "Преизползвана $COUNT$ пъти",
@@ -2473,6 +2671,9 @@
   "downloadLicense": {
     "message": "Изтегляне на лиценз"
   },
+  "viewBillingToken": {
+    "message": "Преглед на идентификатора за плащанията"
+  },
   "updateLicense": {
     "message": "Обновяване на лиценз"
   },
@@ -2519,8 +2720,11 @@
   "invoices": {
     "message": "Фактури"
   },
-  "noInvoices": {
-    "message": "Няма фактури."
+  "noUnpaidInvoices": {
+    "message": "Няма неплатени фактури."
+  },
+  "noPaidInvoices": {
+    "message": "Няма платени фактури."
   },
   "paid": {
     "message": "Платено",
@@ -3078,6 +3282,10 @@
   "incorrectPin": {
     "message": "Неправилен ПИН"
   },
+  "pin": {
+    "message": "ПИН",
+    "description": "PIN code. Ex. The short code (often numeric) that you use to unlock a device."
+  },
   "exportedVault": {
     "message": "Трезорът е изнесен."
   },
@@ -3579,6 +3787,15 @@
   "joinOrganization": {
     "message": "Присъединяване към организация"
   },
+  "joinOrganizationName": {
+    "message": "Присъединяване към $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "joinOrganizationDesc": {
     "message": "Поканени сте да се присъедините към посочената по-горе организация. За да приемете, ще трябва да се впишете в абонамента си към Битуорден. Ако нямате такъв, ще трябва да създадете безплатен абонамент и след това да се впишете в него."
   },
@@ -3901,10 +4118,10 @@
     }
   },
   "encryptionKeyUpdateCannotProceed": {
-    "message": "Encryption key update cannot proceed"
+    "message": "Актуализирането на шифриращия ключ не може да продължи"
   },
   "keyUpdateFoldersFailed": {
-    "message": "When updating your encryption key, your folders could not be decrypted. To continue with the update, your folders must be deleted. No vault items will be deleted if you proceed."
+    "message": "Ако актуализирате шифроващия ключ, папките Ви няма да могат да бъдат дешифрирани. За да продължите с промяната, папките трябва да бъдат изтрити. Елементите в трезора няма да бъдат изтрити, ако продължите."
   },
   "keyUpdated": {
     "message": "Ключът е обновен"
@@ -3979,6 +4196,9 @@
     "message": "Филтри"
   },
   "vaultTimeout": {
+    "message": "Време за достъп"
+  },
+  "vaultTimeout1": {
     "message": "Време за достъп"
   },
   "vaultTimeoutDesc": {
@@ -4249,7 +4469,7 @@
   },
   "lock": {
     "message": "Заключване",
-    "description": "Verb form: to make secure or inaccesible by"
+    "description": "Verb form: to make secure or inaccessible by"
   },
   "trash": {
     "message": "Кошче",
@@ -4845,12 +5065,6 @@
   },
   "deleteAnyCollection": {
     "message": "Изтриване на всякакви колекции"
-  },
-  "editAssignedCollections": {
-    "message": "Редактиране на възложените колекции"
-  },
-  "deleteAssignedCollections": {
-    "message": "Изтриване на възложените колекции"
   },
   "manageGroups": {
     "message": "Управление на групи"
@@ -5459,6 +5673,19 @@
       }
     }
   },
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "Максимум $HOURS$ час(а) и $MINUTES$ минута/и.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
   "vaultTimeoutPolicyWithActionInEffect": {
     "message": "Настройките на организацията Ви влияят върху времето за достъп до трезора Ви. Максималното разрешено време за достъп е $HOURS$ час(а) и $MINUTES$ минута/и. Зададеното действие при изтичане на това време е $ACTION$.",
     "placeholders": {
@@ -5484,9 +5711,6 @@
         "example": "Lock"
       }
     }
-  },
-  "customVaultTimeout": {
-    "message": "Персонализирано време за достъп до трезора"
   },
   "vaultTimeoutToLarge": {
     "message": "Времето за достъп до трезора Ви превишава ограничението, определено от организацията Ви."
@@ -5896,8 +6120,8 @@
   "viewBillingSyncToken": {
     "message": "Преглед на идентификатора за синхронизиране на плащанията"
   },
-  "generateBillingSyncToken": {
-    "message": "Създаване на идентификатор за синхронизиране на плащанията"
+  "generateBillingToken": {
+    "message": "Създаване на идентификатор за плащания"
   },
   "copyPasteBillingSync": {
     "message": "Копирайте този идентификатор в настройките за синхронизиране на плащанията във Вашата организация."
@@ -5905,8 +6129,8 @@
   "billingSyncCanAccess": {
     "message": "Чрез своя идентификатор за синхронизиране на плащанията Вие имате достъп и можете да редактирате настройките за абонамента на тази организация."
   },
-  "manageBillingSync": {
-    "message": "Управление на синхронизирането на плащанията"
+  "manageBillingTokenSync": {
+    "message": "Управление на идентификатора за плащания"
   },
   "setUpBillingSync": {
     "message": "Настройване на синхронизирането на плащанията"
@@ -5965,14 +6189,14 @@
   "billingSyncApiKeyRotated": {
     "message": "Идентификаторът е пресъздаден."
   },
-  "billingSyncDesc": {
-    "message": "Billing sync unlocks Families sponsorships and automatic license syncing on your server. After making updates in the Bitwarden cloud server, select Sync License to apply changes."
-  },
   "billingSyncKeyDesc": {
     "message": "За да попълните този формуляр, се нуждаете от идентификатор за синхронизиране на плащанията, който може да намерите или създадете в настройките за абонамента на организацията си в облака."
   },
   "billingSyncKey": {
     "message": "Идентификатор за синхронизиране на плащанията"
+  },
+  "automaticBillingSyncDesc": {
+    "message": "Автоматичното синхронизиране отключва спонсорирането на Семейния план и позволява да синхронизирате лиценза си без да качвате файл. След като направите промени по облачния сървър на Битуорден, изберете „Синхронизиране на лиценза“, за да приложите промените."
   },
   "active": {
     "message": "Активно"
@@ -6115,7 +6339,8 @@
     "message": "Настройки на регистрацията"
   },
   "generator": {
-    "message": "Генератор"
+    "message": "Генератор",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Какво бихте искали да генерирате?"
@@ -6210,7 +6435,7 @@
   },
   "lastSync": {
     "message": "Последно синхронизиране",
-    "description": "Used as a prefix to indicate the last time a sync occured. Example \"Last sync 1968-11-16 00:00:00\""
+    "description": "Used as a prefix to indicate the last time a sync occurred. Example \"Last sync 1968-11-16 00:00:00\""
   },
   "sponsorshipsSynced": {
     "message": "Спонсорствата на собствения сървър са синхронизирани."
@@ -6369,57 +6594,57 @@
   },
   "scim": {
     "message": "Удостоверяване чрез SCIM",
-    "description": "The text, 'SCIM', is an acronymn and should not be translated."
+    "description": "The text, 'SCIM', is an acronym and should not be translated."
   },
   "scimDescription": {
     "message": "Предоставете на потребителите и групите си автоматично удостоверяване със своя предпочитан доставчик на удостоверителни данни като използвате удостоверяване чрез SCIM",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "scimEnabledCheckboxDesc": {
     "message": "Включване на SCIM",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "scimEnabledCheckboxDescHelpText": {
     "message": "Задайте предпочитания си доставчик на удостоверителни данни като настроите адреса и ключа за API на SCIM",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "scimApiKeyHelperText": {
     "message": "Този ключ за API предоставя достъп за управление на потребителите в организацията Ви. Трябва да го пазите в тайна."
   },
   "copyScimKey": {
     "message": "Копиране на ключа за API на SCIM в буфера",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "rotateScimKey": {
     "message": "Смяна на ключа за API на SCIM",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "rotateScimKeyWarning": {
     "message": "Наистина ли искате да смените ключа за API на SCIM? Текущият ключ ще спре да работи за вече настроените интеграции.",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "rotateKey": {
     "message": "Смяна на ключа"
   },
   "scimApiKey": {
     "message": "Ключ за API на SCIM",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "copyScimUrl": {
     "message": "Копиране на адреса на SCIM в буфера",
-    "description": "the text, 'SCIM' and 'URL', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'URL', are acronyms and should not be translated."
   },
   "scimUrl": {
     "message": "Адрес на SCIM",
-    "description": "the text, 'SCIM' and 'URL', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'URL', are acronyms and should not be translated."
   },
   "scimApiKeyRotated": {
     "message": "Ключът за API на SCIM беше сменен успешно",
-    "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
+    "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "scimSettingsSaved": {
     "message": "Настройките за SCIM бяха запазени успешно",
-    "description": "the text, 'SCIM', is an acronymn and should not be translated."
+    "description": "the text, 'SCIM', is an acronym and should not be translated."
   },
   "inputRequired": {
     "message": "Полето е задължително да бъде попълнено."
@@ -6490,6 +6715,18 @@
       "count": {
         "content": "$1",
         "example": "4"
+      }
+    }
+  },
+  "singleFieldNeedsAttention": {
+    "message": "1 поле се нуждае от вниманието Ви."
+  },
+  "multipleFieldsNeedAttention": {
+    "message": "$COUNT$ полета се нуждаят от вниманието Ви.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
       }
     }
   },
@@ -7341,6 +7578,9 @@
   "fileUpload": {
     "message": "Качване на файлове"
   },
+  "upload": {
+    "message": "Качване"
+  },
   "acceptedFormats": {
     "message": "Поддържани формати:"
   },
@@ -7349,6 +7589,15 @@
   },
   "or": {
     "message": "или"
+  },
+  "unlockWithBiometrics": {
+    "message": "Отключване с биометрични данни"
+  },
+  "unlockWithPin": {
+    "message": "Отключване с ПИН"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Отключване с главната парола"
   },
   "licenseAndBillingManagement": {
     "message": "Управление на лицензи и таксуване"
@@ -7359,8 +7608,8 @@
   "manualUpload": {
     "message": "Ръчно качване"
   },
-  "manualUploadDesc": {
-    "message": "Ако не искате да се възползвате от автоматичното синхронизиране на информацията за таксуване, качете ръчно лиценза си тук."
+  "manualBillingTokenUploadDesc": {
+    "message": "Ако не искате да се възползвате от синхронизирането на плащанията, качете лиценза си тук. Това няма да отключи автоматично спонсорирането на Семейния план."
   },
   "syncLicense": {
     "message": "Синхронизиране на лиценза"
@@ -7688,6 +7937,15 @@
     "message": "Организацията Ви изисква да зададете главна парола.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "от $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "notFound": {
     "message": "Няма намерен $RESOURCE$",
     "placeholders": {
@@ -7949,6 +8207,12 @@
   "limitCollectionCreationDeletionDesc": {
     "message": "Ограничаване на създаването и изтриването на колекции, така че да може да се извършва само от собствениците и администраторите"
   },
+  "limitCollectionCreationDesc": {
+    "message": "Ограничаване на създаването на колекции, така че да може да се извършва само от собствениците и администраторите"
+  },
+  "limitCollectionDeletionDesc": {
+    "message": "Ограничаване на изтриването на колекции, така че да може да се извършва само от собствениците и администраторите"
+  },
   "allowAdminAccessToAllCollectionItemsDesc": {
     "message": "Собствениците и администраторите могат да управляват всички колекции и елементи"
   },
@@ -8201,6 +8465,9 @@
   },
   "addField": {
     "message": "Добавяне на поле"
+  },
+  "editField": {
+    "message": "Редактиране на полето"
   },
   "items": {
     "message": "Елементи"
@@ -8592,41 +8859,14 @@
   "manageBillingFromProviderPortalMessage": {
     "message": "Управление на плащанията от Портала за доставчици"
   },
-  "startYour7DayFreeTrialOfBitwarden": {
-    "message": "Започнете свой безплатен 7-дневен пробен период на Битуорден"
+  "continueSettingUpFreeTrial": {
+    "message": "Продължете настройването на безплатния пробен период на Буторден"
   },
-  "startYour7DayFreeTrialOfBitwardenForTeams": {
-    "message": "Започнете свой безплатен 7-дневен пробен период на Битуорден за екипи"
+  "continueSettingUpFreeTrialPasswordManager": {
+    "message": "Продължете настройването на безплатния пробен период на Управлението на пароли на Буторден"
   },
-  "startYour7DayFreeTrialOfBitwardenForFamilies": {
-    "message": "Започнете свой безплатен 7-дневен пробен период на Битуорден за семейства"
-  },
-  "startYour7DayFreeTrialOfBitwardenForEnterprise": {
-    "message": "Започнете свой безплатен 7-дневен пробен период на Битуорден за големи организации"
-  },
-  "startYour7DayFreeTrialOfBitwardenSecretsManager": {
-    "message": "Започнете безплатен 7-дневен пробен период на Управлението на тайни на Битуорден"
-  },
-  "startYour7DayFreeTrialOfBitwardenSecretsManagerForTeams": {
-    "message": "Започнете безплатен 7-дневен пробен период на Управлението на тайни на Битуорден за екипи"
-  },
-  "startYour7DayFreeTrialOfBitwardenSecretsManagerForFamilies": {
-    "message": "Започнете безплатен 7-дневен пробен период на Управлението на тайни на Битуорден за семейства"
-  },
-  "startYour7DayFreeTrialOfBitwardenSecretsManagerForEnterprise": {
-    "message": "Започнете безплатен 7-дневен пробен период на Управлението на тайни на Битуорден за големи организации"
-  },
-  "startYour7DayFreeTrialOfBitwardenPasswordManager": {
-    "message": "Започнете безплатен 7-дневен пробен период на Управлението на пароли на Битуорден"
-  },
-  "startYour7DayFreeTrialOfBitwardenPasswordManagerForTeams": {
-    "message": "Започнете безплатен 7-дневен пробен период на Управлението на пароли на Битуорден за екипи"
-  },
-  "startYour7DayFreeTrialOfBitwardenPasswordManagerForFamilies": {
-    "message": "Започнете безплатен 7-дневен пробен период на Управлението на пароли на Битуорден за семейства"
-  },
-  "startYour7DayFreeTrialOfBitwardenPasswordManagerForEnterprise": {
-    "message": "Започнете безплатен 7-дневен пробен период на Управлението на пароли на Битуорден за големи организации"
+  "continueSettingUpFreeTrialSecretsManager": {
+    "message": "Продължете настройването на безплатния пробен период на Управлението на тайни на Буторден"
   },
   "enterTeamsOrgInfo": {
     "message": "Въведете информацията относно своята екипна организация"
@@ -8938,6 +9178,66 @@
   "purchasedSeatsRemoved": {
     "message": "purchased seats removed"
   },
+  "environmentVariables": {
+    "message": "Променливи на средата"
+  },
+  "organizationId": {
+    "message": "Идентификатор на организация"
+  },
+  "projectIds": {
+    "message": "Идентификатори на проекти"
+  },
+  "projectId": {
+    "message": "Идентификатор на проект"
+  },
+  "projectsAccessedByMachineAccount": {
+    "message": "Следните проекти са достъпни чрез този машинен акаунт."
+  },
+  "config": {
+    "message": "Конфигурация"
+  },
+  "learnMoreAboutEmergencyAccess": {
+    "message": "Научете повече относно достъпа в извънредни ситуации"
+  },
+  "learnMoreAboutMatchDetection": {
+    "message": "Научете повече относно разпознаването на съвпадения"
+  },
+  "learnMoreAboutMasterPasswordReprompt": {
+    "message": "Научете повече относно повторното запитване за главната парола"
+  },
+  "learnMoreAboutSearchingYourVault": {
+    "message": "Научете повече относно търсенето в трезора"
+  },
+  "learnMoreAboutYourAccountFingerprintPhrase": {
+    "message": "Научете повече относно уникалната фраза на регистрацията си"
+  },
+  "impactOfRotatingYourEncryptionKey": {
+    "message": "Значимост на обновяването на шифриращия ключ"
+  },
+  "learnMoreAboutEncryptionAlgorithms": {
+    "message": "Научете повече относно алгоритмите за шифроване"
+  },
+  "learnMoreAboutKDFIterations": {
+    "message": "Научете повече относно повторенията за KDF"
+  },
+  "learnMoreAboutLocalization": {
+    "message": "Научете повече относно локализацията"
+  },
+  "learnMoreAboutWebsiteIcons": {
+    "message": "Научете повече относно използването на иконки в уеб сайта"
+  },
+  "learnMoreAboutUserAccess": {
+    "message": "Научете повече относно достъпа на потребителите"
+  },
+  "learnMoreAboutMemberRoles": {
+    "message": "Научете повече относно ролите и правата на членовете"
+  },
+  "whatIsACvvNumber": {
+    "message": "Какво представлява номерът CVV?"
+  },
+  "learnMoreAboutApi": {
+    "message": "Научете повече относно ППИ на Биуорден"
+  },
   "fileSends": {
     "message": "Файлови изпращания"
   },
@@ -9073,21 +9373,21 @@
   "current": {
     "message": "Текущо"
   },
-  "secretsManagerSubInfo": {
+  "secretsManagerSubscriptionInfo": {
     "message": "Вашият абонамент за Управлението на тайни ще бъде надграден според избрания план"
   },
   "bitwardenPasswordManager": {
     "message": "Bitwarden — управител на пароли"
   },
   "secretsManagerComplimentaryPasswordManager": {
-    "message": "Your complimentary one year Password Manager subscription will upgrade to the selected plan. You will not be charged until the complimentary period is over."
+    "message": "Вашият безплатен едногодишен абонамент за Управлението на пароли ще бъде надграден до избрания план. Няма да бъдете таксуван(а), докато не изтече безплатния период."
   },
   "fileSavedToDevice": {
     "message": "Файлът е запазен на устройството. Можете да го намерите в мястото за сваляния на устройството."
   },
   "publicApi": {
     "message": "Публичен ППИ",
-    "description": "The text, 'API', is an acronymn and should not be translated."
+    "description": "The text, 'API', is an acronym and should not be translated."
   },
   "showCharacterCount": {
     "message": "Показване на броя знаци"
@@ -9097,5 +9397,29 @@
   },
   "editAccess": {
     "message": "Редактиране на достъпа"
+  },
+  "textHelpText": {
+    "message": "Използвайте текстови полета за обикновени данни, например въпроси за сигурност"
+  },
+  "hiddenHelpText": {
+    "message": "Използвайте скрити полета за чувствителни данни, например пароли"
+  },
+  "checkBoxHelpText": {
+    "message": "Използвайте полета за отметки, ако искате да попълвате автоматично такива полета във формуляри, например такова за запомняне на е-пощата"
+  },
+  "linkedHelpText": {
+    "message": "Използвайте свързано поле, когато имате проблеми с автоматичното попълване на конкретен уеб сайт."
+  },
+  "linkedLabelHelpText": {
+    "message": "Enter the the field's html id, name, aria-label, or placeholder."
+  },
+  "addAttachment": {
+    "message": "Добавяне на прикачен файл"
+  },
+  "maxFileSizeSansPunctuation": {
+    "message": "Максималният размер на файла е 500 MB"
+  },
+  "permanentlyDeleteAttachmentConfirmation": {
+    "message": "Наистина ли искате да изтриете завинаги този прикачен файл?"
   }
 }

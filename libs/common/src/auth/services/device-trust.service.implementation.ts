@@ -2,7 +2,6 @@ import { firstValueFrom, map, Observable } from "rxjs";
 
 import { UserDecryptionOptionsServiceAbstraction } from "@bitwarden/auth/common";
 
-import { FeatureFlag } from "../../enums/feature-flag.enum";
 import { AppIdService } from "../../platform/abstractions/app-id.service";
 import { ConfigService } from "../../platform/abstractions/config/config.service";
 import { CryptoFunctionService } from "../../platform/abstractions/crypto-function.service";
@@ -145,7 +144,7 @@ export class DeviceTrustService implements DeviceTrustServiceAbstraction {
       deviceKeyEncryptedDevicePrivateKey,
     ] = await Promise.all([
       // Encrypt user key with the DevicePublicKey
-      this.cryptoService.rsaEncrypt(userKey.key, devicePublicKey),
+      this.encryptService.rsaEncrypt(userKey.key, devicePublicKey),
 
       // Encrypt devicePublicKey with user key
       this.encryptService.encrypt(devicePublicKey, userKey),
@@ -207,7 +206,7 @@ export class DeviceTrustService implements DeviceTrustServiceAbstraction {
     );
 
     // Encrypt the brand new user key with the now-decrypted public key for the device
-    const encryptedNewUserKey = await this.cryptoService.rsaEncrypt(
+    const encryptedNewUserKey = await this.encryptService.rsaEncrypt(
       newUserKey.key,
       decryptedDevicePublicKey,
     );
@@ -318,8 +317,8 @@ export class DeviceTrustService implements DeviceTrustServiceAbstraction {
       );
 
       // Attempt to decrypt encryptedUserDataKey with devicePrivateKey
-      const userKey = await this.cryptoService.rsaDecrypt(
-        encryptedUserKey.encryptedString,
+      const userKey = await this.encryptService.rsaDecrypt(
+        new EncString(encryptedUserKey.encryptedString),
         devicePrivateKey,
       );
 
@@ -334,9 +333,6 @@ export class DeviceTrustService implements DeviceTrustServiceAbstraction {
   }
 
   async recordDeviceTrustLoss(): Promise<void> {
-    if (!(await this.configService.getFeatureFlag(FeatureFlag.DeviceTrustLogging))) {
-      return;
-    }
     const deviceIdentifier = await this.appIdService.getAppId();
     await this.devicesApiService.postDeviceTrustLoss(deviceIdentifier);
   }

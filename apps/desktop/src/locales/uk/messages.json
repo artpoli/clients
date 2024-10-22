@@ -407,16 +407,55 @@
     "message": "Мінімальна довжина пароля"
   },
   "uppercase": {
-    "message": "Верхній регістр (A-Z)"
+    "message": "Верхній регістр (A-Z)",
+    "description": "deprecated. Use uppercaseLabel instead."
   },
   "lowercase": {
-    "message": "Нижній регістр (a-z)"
+    "message": "Нижній регістр (a-z)",
+    "description": "deprecated. Use lowercaseLabel instead."
   },
   "numbers": {
-    "message": "Числа (0-9)"
+    "message": "Числа (0-9)",
+    "description": "deprecated. Use numbersLabel instead."
   },
   "specialCharacters": {
     "message": "Спеціальні символи (!@#$%^&*)"
+  },
+  "include": {
+    "message": "Включити",
+    "description": "Card header for password generator include block"
+  },
+  "uppercaseDescription": {
+    "message": "Символи верхнього регістру",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Символи нижнього регістру",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Цифри",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Спеціальні символи",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "numWords": {
     "message": "Кількість слів"
@@ -442,7 +481,16 @@
     "description": "Minimum Special Characters"
   },
   "ambiguous": {
-    "message": "Уникати неоднозначних символів"
+    "message": "Уникати неоднозначних символів",
+    "description": "deprecated. Use avoidAmbiguous instead."
+  },
+  "avoidAmbiguous": {
+    "message": "Уникати неоднозначних символів",
+    "description": "Label for the avoid ambiguous characters checkbox."
+  },
+  "generatorPolicyInEffect": {
+    "message": "До налаштувань генератора застосовано вимоги політики компанії.",
+    "description": "Indicates that a policy limits the credential generator screen."
   },
   "searchCollection": {
     "message": "Шукати в збірці"
@@ -554,6 +602,15 @@
   "joinOrganization": {
     "message": "Приєднатися до організації"
   },
+  "joinOrganizationName": {
+    "message": "Join $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
   "finishJoiningThisOrganizationBySettingAMasterPassword": {
     "message": "Завершіть приєднання до цієї організації, встановивши головний пароль."
   },
@@ -561,16 +618,16 @@
     "message": "Налаштування"
   },
   "accountEmail": {
-    "message": "Account email"
+    "message": "Е-пошта облікового запису"
   },
   "requestHint": {
-    "message": "Request hint"
+    "message": "Підказка для запиту"
   },
   "requestPasswordHint": {
-    "message": "Request password hint"
+    "message": "Підказка для запиту пароля"
   },
   "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
-    "message": "Enter your account email address and your password hint will be sent to you"
+    "message": "Введіть адресу е-пошти свого облікового запису і вам буде надіслано підказку для пароля"
   },
   "passwordHint": {
     "message": "Підказка для пароля"
@@ -914,6 +971,18 @@
   "yourVaultIsLocked": {
     "message": "Сховище заблоковано. Пройдіть ідентифікацію для продовження."
   },
+  "yourAccountIsLocked": {
+    "message": "Ваш обліковий запис заблоковано"
+  },
+  "or": {
+    "message": "або"
+  },
+  "unlockWithBiometrics": {
+    "message": "Розблокувати з біометрією"
+  },
+  "unlockWithMasterPassword": {
+    "message": "Розблокувати з головним паролем"
+  },
   "unlock": {
     "message": "Розблокувати"
   },
@@ -941,6 +1010,9 @@
   },
   "vaultTimeout": {
     "message": "Час очікування сховища"
+  },
+  "vaultTimeout1": {
+    "message": "Час очікування"
   },
   "vaultTimeoutDesc": {
     "message": "Оберіть дію, яка виконається після завершення часу очікування сховища."
@@ -1567,7 +1639,7 @@
   "recommendedForSecurity": {
     "message": "Рекомендовано для безпеки."
   },
-  "lockWithMasterPassOnRestart": {
+  "lockWithMasterPassOnRestart1": {
     "message": "Блокувати головним паролем при перезапуску"
   },
   "deleteAccount": {
@@ -1689,6 +1761,15 @@
     "message": "Ваша організація вимагає, щоб ви встановили головний пароль.",
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
+  "cardMetrics": {
+    "message": "out of $TOTAL$",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
   "verificationRequired": {
     "message": "Потрібне підтвердження",
     "description": "Default title for the user verification dialog."
@@ -1768,8 +1849,8 @@
   "enableBrowserIntegration": {
     "message": "Дозволити інтеграцію з браузером"
   },
-  "enableBrowserIntegrationDesc": {
-    "message": "Використовується для біометрії в браузері."
+  "enableBrowserIntegrationDesc1": {
+    "message": "Використовується для біометричного розблокування у браузерах, крім Safari."
   },
   "enableDuckDuckGoBrowserIntegration": {
     "message": "Дозволити інтеграцію з браузером DuckDuckGo"
@@ -2099,8 +2180,8 @@
   "minutes": {
     "message": "Хвилин"
   },
-  "vaultTimeoutPolicyInEffect": {
-    "message": "Політикою вашої організації встановлено максимальний дозволений час очікування сховища $HOURS$ годин, $MINUTES$ хвилин.",
+  "vaultTimeoutPolicyInEffect1": {
+    "message": "$HOURS$ год і $MINUTES$ хв максимум.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -2249,11 +2330,15 @@
   "locked": {
     "message": "Заблоковано"
   },
+  "yourVaultIsLockedV2": {
+    "message": "Ваше сховище заблоковано"
+  },
   "unlocked": {
     "message": "Розблоковано"
   },
   "generator": {
-    "message": "Генератор"
+    "message": "Генератор",
+    "description": "Short for 'credential generator'."
   },
   "whatWouldYouLikeToGenerate": {
     "message": "Що ви бажаєте згенерувати?"
@@ -2600,6 +2685,9 @@
   },
   "important": {
     "message": "Важливо:"
+  },
+  "accessing": {
+    "message": "Доступ"
   },
   "accessTokenUnableToBeDecrypted": {
     "message": "Ви вийшли з системи, оскільки неможливо розшифрувати ваш токен доступу. Увійдіть знову, щоб виправити цю проблему."
@@ -3073,6 +3161,12 @@
   },
   "textSends": {
     "message": "Відправлення тексту"
+  },
+  "allowScreenshots": {
+    "message": "Дозволити захоплення екрана"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Дозволити захоплення екрана для комп'ютерної програми Bitwarden."
   },
   "ssoError": {
     "message": "Не знайдено вільних портів для цього входу SSO."

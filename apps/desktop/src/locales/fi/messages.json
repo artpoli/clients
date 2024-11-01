@@ -60,6 +60,9 @@
       }
     }
   },
+  "welcomeBack": {
+    "message": "Tervetuloa takaisin"
+  },
   "moveToOrgDesc": {
     "message": "Valitse organisaatio, jolle haluat siirtää kohteen. Tämä siirtää kohteen organisaation omistukseen, etkä tämän jälkeen ole enää sen suora omistaja."
   },
@@ -145,7 +148,7 @@
     "message": "Merkki"
   },
   "expiration": {
-    "message": "Erääntymisaika"
+    "message": "Voimassaolo päättyy"
   },
   "securityCode": {
     "message": "Turvakoodi (CVC/CVV)"
@@ -258,6 +261,9 @@
   },
   "generatePassword": {
     "message": "Luo salasana"
+  },
+  "generatePassphrase": {
+    "message": "Luo salalause"
   },
   "type": {
     "message": "Tyyppi"
@@ -393,6 +399,10 @@
   },
   "copyPassword": {
     "message": "Kopioi salasana"
+  },
+  "copyPassphrase": {
+    "message": "Kopioi salalause",
+    "description": "Copy passphrase to clipboard"
   },
   "copyUri": {
     "message": "Kopioi URI"
@@ -547,6 +557,9 @@
   "createAccount": {
     "message": "Luo tili"
   },
+  "newToBitwarden": {
+    "message": "Oletko uusi Bitwardenissa?"
+  },
   "setAStrongPassword": {
     "message": "Aseta vahva salasana"
   },
@@ -555,6 +568,18 @@
   },
   "logIn": {
     "message": "Kirjaudu"
+  },
+  "logInToBitwarden": {
+    "message": "Kirjaudu Bitwardeniin"
+  },
+  "logInWithPasskey": {
+    "message": "Kirjaudu pääsyavaimella"
+  },
+  "loginWithDevice": {
+    "message": "Kirjaudu laitteella"
+  },
+  "useSingleSignOn": {
+    "message": "Käytä kertakirjautumista"
   },
   "submit": {
     "message": "Jatka"
@@ -827,6 +852,10 @@
   },
   "baseUrl": {
     "message": "Palvelimen URL"
+  },
+  "selfHostBaseUrl": {
+    "message": "Itse ylläpidetyn palvelimen URL-osoite",
+    "description": "Label for field requesting a self-hosted integration service URL"
   },
   "apiUrl": {
     "message": "API-palvelimen URL"
@@ -1217,6 +1246,9 @@
   "copyNumber": {
     "message": "Kopioi numero",
     "description": "Copy credit card number"
+  },
+  "copyEmail": {
+    "message": "Kopioi sähköpostiosoite"
   },
   "copySecurityCode": {
     "message": "Kopioi turvakoodi",
@@ -1650,6 +1682,12 @@
   },
   "deleteAccountWarning": {
     "message": "Tilin poisto on pysyvä toimenpide, eikä sen peruminen ole mahdollista."
+  },
+  "cannotDeleteAccount": {
+    "message": "Tiliä ei voi poistaa"
+  },
+  "cannotDeleteAccountDesc": {
+    "message": "Tätä toimintoa ei voida suorittaa, koska tilisi on organisaation omistama. Ota yhteyttä organisaation ylläpitäjään saadaksesi lisätietoja."
   },
   "accountDeleted": {
     "message": "Tili poistettiin"
@@ -2352,6 +2390,23 @@
   "generateUsername": {
     "message": "Luo käyttäjätunnus"
   },
+  "generateEmail": {
+    "message": "Luo sähköpostiosoite"
+  },
+  "generatorBoundariesHint": {
+    "message": "Arvon tulee olla väliltä $MIN$ - $MAX$",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "Käyttäjätunnuksen tyyppi"
   },
@@ -2394,6 +2449,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Luo sähköpostialias ulkoisella ohjauspalvelulla."
+  },
+  "forwarderDomainName": {
+    "message": "Sähköpostin verkkotunnus",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Valitse verkkotunnus, jota valittu palvelu tukee",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "$SERVICENAME$ -virhe: $ERRORMESSAGE$",
@@ -2740,9 +2803,6 @@
   "eu": {
     "message": "EU",
     "description": "European Union"
-  },
-  "loggingInOn": {
-    "message": "Kirjaudutaan sijaintiin"
   },
   "selfHostedServer": {
     "message": "itse ylläpidetty"
@@ -3161,12 +3221,6 @@
   },
   "textSends": {
     "message": "Teksti-Sendit"
-  },
-  "allowScreenshots": {
-    "message": "Salli kuvankaappaus"
-  },
-  "allowScreenshotsDesc": {
-    "message": "Salli kuvankaappaus Bitwardenin työpöytäsovelluksesta."
   },
   "ssoError": {
     "message": "Kertakirjautumiselle ei löytynyt vapaita portteja."

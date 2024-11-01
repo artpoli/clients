@@ -8,6 +8,21 @@
   "accessIntelligence": {
     "message": "Access Intelligence"
   },
+  "passwordRisk": {
+    "message": "Parola Riski"
+  },
+  "discoverAtRiskPasswords": {
+    "message": "Riskli parolaları tespit edip kullanıcıları bu parolaları değiştirmeleri konusunda bilgilendirin."
+  },
+  "dataLastUpdated": {
+    "message": "Son veri güncellemesi: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "2021-01-01"
+      }
+    }
+  },
   "notifiedMembers": {
     "message": "Notified members"
   },
@@ -37,6 +52,21 @@
         "example": "3"
       }
     }
+  },
+  "noPriorityApplicationsTitle": {
+    "message": "Hiçbir uygulamayı öncelikli olarak işaretlemediniz"
+  },
+  "noPriorityApplicationsDescription": {
+    "message": "Select your most critical applications to discover at-risk passwords, and notify users to change those passwords."
+  },
+  "markPriorityApps": {
+    "message": "Mark priority apps"
+  },
+  "markAppAsCritical": {
+    "message": "Mark app as critical"
+  },
+  "appsMarkedAsCritical": {
+    "message": "Kritik olarak işaretlenmiş uygulamalar"
   },
   "application": {
     "message": "Uygulama"
@@ -405,6 +435,9 @@
   "generatePassword": {
     "message": "Parola oluştur"
   },
+  "generatePassphrase": {
+    "message": "Generate passphrase"
+  },
   "checkPassword": {
     "message": "Parolanız ele geçirilip geçirilmediğini kontrol edin."
   },
@@ -662,6 +695,10 @@
   "copyPassword": {
     "message": "Parolayı kopyala",
     "description": "Copy password to clipboard"
+  },
+  "copyPassphrase": {
+    "message": "Copy passphrase",
+    "description": "Copy passphrase to clipboard"
   },
   "passwordCopied": {
     "message": "Parola kopyalandı"
@@ -932,8 +969,14 @@
   "useADifferentLogInMethod": {
     "message": "Başka bir giriş yöntemi kullan"
   },
-  "loginWithPasskey": {
+  "logInWithPasskey": {
     "message": "Geçiş anahtarıyla giriş yap"
+  },
+  "useSingleSignOn": {
+    "message": "Çoklu oturum açma kullan"
+  },
+  "welcomeBack": {
+    "message": "Tekrar hoş geldiniz"
   },
   "invalidPasskeyPleaseTryAgain": {
     "message": "Geçersiz geçiş anahtarı. Lütfen tekrar deneyin."
@@ -1016,6 +1059,9 @@
   "createAccount": {
     "message": "Hesap aç"
   },
+  "newToBitwarden": {
+    "message": "Bitwarden'da yeni misiniz?"
+  },
   "setAStrongPassword": {
     "message": "Güçlü bir parola belirleyin"
   },
@@ -1030,6 +1076,9 @@
   },
   "logIn": {
     "message": "Giriş yap"
+  },
+  "logInToBitwarden": {
+    "message": "Bitwarden'a giriş yapın"
   },
   "verifyIdentity": {
     "message": "Kimliğinizi doğrulayın"
@@ -1537,38 +1586,6 @@
   "specialCharacters": {
     "message": "Özel karakterler (!@#$%^&*)"
   },
-  "uppercaseDescription": {
-    "message": "Büyük harfleri dahil et",
-    "description": "Tooltip for the password generator uppercase character checkbox"
-  },
-  "uppercaseLabel": {
-    "message": "A-Z",
-    "description": "Label for the password generator uppercase character checkbox"
-  },
-  "lowercaseDescription": {
-    "message": "Küçük harfleri dahil et",
-    "description": "Full description for the password generator lowercase character checkbox"
-  },
-  "lowercaseLabel": {
-    "message": "a-z",
-    "description": "Label for the password generator lowercase character checkbox"
-  },
-  "numbersDescription": {
-    "message": "Rakamları dahil et",
-    "description": "Full description for the password generator numbers checkbox"
-  },
-  "numbersLabel": {
-    "message": "0-9",
-    "description": "Label for the password generator numbers checkbox"
-  },
-  "specialCharactersDescription": {
-    "message": "Özel karakterleri dahil et",
-    "description": "Full description for the password generator special characters checkbox"
-  },
-  "specialCharactersLabel": {
-    "message": "!@#$%^&*",
-    "description": "Label for the password generator special characters checkbox"
-  },
   "numWords": {
     "message": "Kelime sayısı"
   },
@@ -1699,6 +1716,9 @@
   "dangerZoneDesc": {
     "message": "Dikkatli olun, bu işlemleri geri alamazsınız!"
   },
+  "dangerZoneDescSingular": {
+    "message": "Dikkatli olun, bu işlemi geri alamazsınız!"
+  },
   "deauthorizeSessions": {
     "message": "Oturumları kapat"
   },
@@ -1710,6 +1730,15 @@
   },
   "sessionsDeauthorized": {
     "message": "Tüm oturumlar kapatıldı"
+  },
+  "accountIsManagedMessage": {
+    "message": "Bu hesap $ORGANIZATIONNAME$ tarafından yönetilmektedir",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "Organization"
+      }
+    }
   },
   "purgeVault": {
     "message": "Kasayı boşalt"
@@ -3073,7 +3102,7 @@
     "message": "İlkeler"
   },
   "singleSignOn": {
-    "message": "Tek oturum açma"
+    "message": "Çoklu oturum açma"
   },
   "editPolicy": {
     "message": "İlkeyi düzenle"
@@ -3167,6 +3196,9 @@
         "example": "20"
       }
     }
+  },
+  "inviteSingleEmailDesc": {
+    "message": "1 davetiyeniz kaldı."
   },
   "userUsingTwoStep": {
     "message": "Bu kullanıcı hesabını korumak için iki aşamalı giriş kullanıyor."
@@ -4566,10 +4598,10 @@
     "message": "Kuruluş tanımlayıcı"
   },
   "ssoLogInWithOrgIdentifier": {
-    "message": "Kuruluşunuzun tek oturum açma portalını kullanarak giriş yapabilirsiniz. Başlamak için lütfen kuruluşunuzun SSO tanımlayıcısını girin."
+    "message": "Kuruluşunuzun çoklu oturum açma portalını kullanarak giriş yapabilirsiniz. Başlamak için lütfen kuruluşunuzun SSO tanımlayıcısını girin."
   },
   "enterpriseSingleSignOn": {
-    "message": "Kurumsal tek oturum açma"
+    "message": "Kurumsal çoklu oturum açma"
   },
   "ssoHandOff": {
     "message": "Şimdi bu sekmeyi kapatıp uzantı üzerinden devam edebilirsiniz."
@@ -4635,23 +4667,29 @@
   "singleOrgDesc": {
     "message": "Üyelerin diğer kuruluşlara katılmasını kısıtlayın."
   },
+  "singleOrgPolicyDesc": {
+    "message": "Restrict members from joining other organizations. This policy is required for organizations that have enabled domain verification."
+  },
   "singleOrgBlockCreateMessage": {
     "message": "Mevcut kuruluşunuzun birden fazla kuruluşa katılmanıza izin vermeyen bir ilkesi var. Lütfen kuruluş yöneticilerinizle iletişime geçin veya farklı bir Bitwarden hesabı açın."
   },
   "singleOrgPolicyWarning": {
     "message": "Sahip veya yönetici olmayan ve zaten başka bir kuruluşun üyesi olan kuruluş üyeleri kuruluşunuzdan kaldırılır."
   },
+  "singleOrgPolicyMemberWarning": {
+    "message": "Non-compliant members will be placed in revoked status until they leave all other organizations. Administrators are exempt and can restore members once compliance is met."
+  },
   "requireSso": {
-    "message": "Tek oturum açma kimlik doğrulamasını zorunlu tut"
+    "message": "Çoklu oturum açma kimlik doğrulamasını zorunlu tut"
   },
   "requireSsoPolicyDesc": {
-    "message": "Üyelerin kurumsal tek oturum açma (SSO) yöntemiyle oturum açmasını zorunlu kılın."
+    "message": "Üyelerin kurumsal çoklu oturum açma (SSO) yöntemiyle oturum açmasını zorunlu kıl."
   },
   "prerequisite": {
     "message": "Önkoşul"
   },
   "requireSsoPolicyReq": {
-    "message": "Bu ilkeyi etkinleştirmeden önce tek kuruluş kurumsal ilkesi etkinleştirilmelidir."
+    "message": "Bu ilkeyi etkinleştirmeden önce çoklu kuruluş kurumsal ilkesi etkinleştirilmelidir."
   },
   "requireSsoPolicyReqError": {
     "message": "Tek kuruluş ilkesi ayarlanmamış."
@@ -5842,7 +5880,7 @@
     "message": "Bağlama türü"
   },
   "idpSingleSignOnServiceUrl": {
-    "message": "Tek oturum açma (SSO) servis URL'si"
+    "message": "Çoklu oturum açma (SSO) servis URL'si"
   },
   "idpSingleLogoutServiceUrl": {
     "message": "Tek çıkış (SLO) servis URL'si"
@@ -5863,7 +5901,7 @@
     "message": "Kimlik doğrulama isteklerini imzala"
   },
   "ssoSettingsSaved": {
-    "message": "Tek oturum açma yapılandırması kaydedildi"
+    "message": "Çoklu oturum açma yapılandırması kaydedildi"
   },
   "sponsoredFamilies": {
     "message": "Ücretsiz Bitwarden Aile"
@@ -6038,7 +6076,7 @@
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Use the require single-sign-on authentication policy to require all members to log in with SSO.'"
   },
   "ssoPolicyHelpAnchor": {
-    "message": "require single sign-on authentication policy",
+    "message": "çoklu oturum açma kimlik doğrulama ilkesini zorunlu tut",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Use the require single-sign-on authentication policy to require all members to log in with SSO.'"
   },
   "ssoPolicyHelpEnd": {
@@ -6354,6 +6392,23 @@
   "generateUsername": {
     "message": "Kullanıcı adı oluştur"
   },
+  "generateEmail": {
+    "message": "E-posta oluştur"
+  },
+  "generatorBoundariesHint": {
+    "message": "Değer $MIN$ ile $MAX$ arasında olmalıdır",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "Kullanıcı adı türü"
   },
@@ -6458,6 +6513,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Harici bir yönlendirme servisiyle e-posta maskesi oluştur."
+  },
+  "forwarderDomainName": {
+    "message": "E-posta alan adı",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Seçtiğiniz servisin desteklediği bir alan adı seçin",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "$SERVICENAME$ hatası: $ERRORMESSAGE$",
@@ -8258,6 +8321,10 @@
   "baseUrl": {
     "message": "Sunucu URL'si"
   },
+  "selfHostBaseUrl": {
+    "message": "Kendi kendine barındırılan sunucu URL'si",
+    "description": "Label for field requesting a self-hosted integration service URL"
+  },
   "aliasDomain": {
     "message": "Alias alan adı"
   },
@@ -9413,6 +9480,38 @@
   "linkedLabelHelpText": {
     "message": "Enter the the field's html id, name, aria-label, or placeholder."
   },
+  "uppercaseDescription": {
+    "message": "Büyük harfleri dahil et",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Küçük harfleri dahil et",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Rakamları dahil et",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Özel karakterleri dahil et",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
+  },
   "addAttachment": {
     "message": "Dosya ekle"
   },
@@ -9421,5 +9520,21 @@
   },
   "permanentlyDeleteAttachmentConfirmation": {
     "message": "Bu dosyayı kalıcı olarak silmek istediğinizden emin misiniz?"
+  },
+  "manageSubscriptionFromThe": {
+    "message": "Aboneliğinizi yönetin:",
+    "description": "This represents the beginning of a sentence. The full sentence will be 'Manage subscription from the Provider Portal', but 'Provider Portal' will be a link and thus cannot be included in the translation file."
+  },
+  "toHostBitwardenOnYourOwnServer": {
+    "message": "To host Bitwarden on your own server, you will need to upload your license file. To support Free Families plans and advanced billing capabilities for your self-hosted organization, you will need to set up automatic sync in your self-hosted organization."
+  },
+  "selfHostingTitleProper": {
+    "message": "Kendi Kendinize Barındırma"
+  },
+  "verified-domain-single-org-warning": {
+    "message": "Verifying a domain will turn on the single organization policy."
+  },
+  "single-org-revoked-user-warning": {
+    "message": "Non-compliant members will be revoked. Administrators can restore members once they leave all other organizations."
   }
 }

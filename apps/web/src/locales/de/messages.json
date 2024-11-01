@@ -8,6 +8,21 @@
   "accessIntelligence": {
     "message": "Access Intelligence"
   },
+  "passwordRisk": {
+    "message": "Password Risk"
+  },
+  "discoverAtRiskPasswords": {
+    "message": "Discover at-risk passwords and notify users to change those passwords."
+  },
+  "dataLastUpdated": {
+    "message": "Data last updated: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "2021-01-01"
+      }
+    }
+  },
   "notifiedMembers": {
     "message": "Benachrichtigte Mitglieder"
   },
@@ -37,6 +52,21 @@
         "example": "3"
       }
     }
+  },
+  "noPriorityApplicationsTitle": {
+    "message": "You haven’t marked any applications as a priority"
+  },
+  "noPriorityApplicationsDescription": {
+    "message": "Select your most critical applications to discover at-risk passwords, and notify users to change those passwords."
+  },
+  "markPriorityApps": {
+    "message": "Mark priority apps"
+  },
+  "markAppAsCritical": {
+    "message": "Mark app as critical"
+  },
+  "appsMarkedAsCritical": {
+    "message": "Apps marked as critical"
   },
   "application": {
     "message": "Anwendung"
@@ -405,6 +435,9 @@
   "generatePassword": {
     "message": "Passwort generieren"
   },
+  "generatePassphrase": {
+    "message": "Passphrase generieren"
+  },
   "checkPassword": {
     "message": "Überprüfen ob ihr Kennwort kompromittiert ist."
   },
@@ -662,6 +695,10 @@
   "copyPassword": {
     "message": "Passwort kopieren",
     "description": "Copy password to clipboard"
+  },
+  "copyPassphrase": {
+    "message": "Passphrase kopieren",
+    "description": "Copy passphrase to clipboard"
   },
   "passwordCopied": {
     "message": "Passwort kopiert"
@@ -932,8 +969,14 @@
   "useADifferentLogInMethod": {
     "message": "Eine andere Anmeldemethode verwenden"
   },
-  "loginWithPasskey": {
+  "logInWithPasskey": {
     "message": "Mit Passkey anmelden"
+  },
+  "useSingleSignOn": {
+    "message": "Single Sign-on verwenden"
+  },
+  "welcomeBack": {
+    "message": "Willkommen zurück"
   },
   "invalidPasskeyPleaseTryAgain": {
     "message": "Ungültiger Passkey. Bitte versuche es erneut."
@@ -1016,6 +1059,9 @@
   "createAccount": {
     "message": "Konto erstellen"
   },
+  "newToBitwarden": {
+    "message": "Neu bei Bitwarden?"
+  },
   "setAStrongPassword": {
     "message": "Lege ein starkes Passwort fest"
   },
@@ -1030,6 +1076,9 @@
   },
   "logIn": {
     "message": "Anmelden"
+  },
+  "logInToBitwarden": {
+    "message": "Bei Bitwarden anmelden"
   },
   "verifyIdentity": {
     "message": "Verifiziere deine Identität"
@@ -1537,38 +1586,6 @@
   "specialCharacters": {
     "message": "Sonderzeichen (!@#$%^&*)"
   },
-  "uppercaseDescription": {
-    "message": "Großbuchstaben einschließen",
-    "description": "Tooltip for the password generator uppercase character checkbox"
-  },
-  "uppercaseLabel": {
-    "message": "A-Z",
-    "description": "Label for the password generator uppercase character checkbox"
-  },
-  "lowercaseDescription": {
-    "message": "Kleinbuchstaben einschließen",
-    "description": "Full description for the password generator lowercase character checkbox"
-  },
-  "lowercaseLabel": {
-    "message": "a-z",
-    "description": "Label for the password generator lowercase character checkbox"
-  },
-  "numbersDescription": {
-    "message": "Ziffern einschließen",
-    "description": "Full description for the password generator numbers checkbox"
-  },
-  "numbersLabel": {
-    "message": "0-9",
-    "description": "Label for the password generator numbers checkbox"
-  },
-  "specialCharactersDescription": {
-    "message": "Sonderzeichen einschließen",
-    "description": "Full description for the password generator special characters checkbox"
-  },
-  "specialCharactersLabel": {
-    "message": "!@#$%^&*",
-    "description": "Label for the password generator special characters checkbox"
-  },
   "numWords": {
     "message": "Anzahl der Wörter"
   },
@@ -1699,6 +1716,9 @@
   "dangerZoneDesc": {
     "message": "Vorsicht, diese Aktionen sind nicht umkehrbar!"
   },
+  "dangerZoneDescSingular": {
+    "message": "Careful, this action is not reversible!"
+  },
   "deauthorizeSessions": {
     "message": "Sitzungen abmelden"
   },
@@ -1710,6 +1730,15 @@
   },
   "sessionsDeauthorized": {
     "message": "Alle Sitzungen wurden abgemeldet"
+  },
+  "accountIsManagedMessage": {
+    "message": "This account is managed by $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "Organization"
+      }
+    }
   },
   "purgeVault": {
     "message": "Tresor leeren"
@@ -3167,6 +3196,9 @@
         "example": "20"
       }
     }
+  },
+  "inviteSingleEmailDesc": {
+    "message": "You have 1 invite remaining."
   },
   "userUsingTwoStep": {
     "message": "Dieser Benutzer hat sein Konto mit einer Zwei-Faktor-Authentifizierung geschützt."
@@ -4635,11 +4667,17 @@
   "singleOrgDesc": {
     "message": "Benutzern verbieten, anderen Organisationen beizutreten."
   },
+  "singleOrgPolicyDesc": {
+    "message": "Restrict members from joining other organizations. This policy is required for organizations that have enabled domain verification."
+  },
   "singleOrgBlockCreateMessage": {
     "message": "Deine aktuelle Organisation hat eine Richtlinie, die es dir nicht erlaubt, mehr als einer Organisation beizutreten. Bitte kontaktiere die Administratoren deiner Organisation oder melden dich mit einem anderen Bitwarden-Konto an."
   },
   "singleOrgPolicyWarning": {
     "message": "Organisationsmitglieder, die nicht Eigentümer oder Administratoren sind und bereits Mitglied einer anderen Organisation sind, werden aus deiner Organisation entfernt."
+  },
+  "singleOrgPolicyMemberWarning": {
+    "message": "Non-compliant members will be placed in revoked status until they leave all other organizations. Administrators are exempt and can restore members once compliance is met."
   },
   "requireSso": {
     "message": "Single Sign-on-Authentifizierung erfordern"
@@ -6354,6 +6392,23 @@
   "generateUsername": {
     "message": "Benutzername generieren"
   },
+  "generateEmail": {
+    "message": "E-Mail generieren"
+  },
+  "generatorBoundariesHint": {
+    "message": "Value must be between $MIN$ and $MAX$",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "Benutzernamenstyp"
   },
@@ -6458,6 +6513,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Generiere ein E-Mail-Alias mit einem externen Weiterleitungsdienst."
+  },
+  "forwarderDomainName": {
+    "message": "E-Mail-Domain",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Wähle eine Domain aus, die vom ausgewählten Dienst unterstützt wird",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "$SERVICENAME$ Fehler: $ERRORMESSAGE$",
@@ -8208,10 +8271,10 @@
     "message": "Sammlungserstellung und -löschung auf Eigentümer und Administratoren beschränken"
   },
   "limitCollectionCreationDesc": {
-    "message": "Begrenze die Erstellung von Sammlungen auf Besitzer und Administratoren"
+    "message": "Das Erstellen von Sammlungen auf Eigentümer und Administratoren beschränken"
   },
   "limitCollectionDeletionDesc": {
-    "message": "Begrenze das Löschen von Sammlungen auf Besitzer und Administratoren"
+    "message": "Das Löschen von Sammlungen auf Eigentümer und Administratoren beschränken"
   },
   "allowAdminAccessToAllCollectionItemsDesc": {
     "message": "Besitzer und Administratoren können alle Sammlungen und Einträge verwalten"
@@ -8257,6 +8320,10 @@
   },
   "baseUrl": {
     "message": "Server-URL"
+  },
+  "selfHostBaseUrl": {
+    "message": "Selbst gehostete Server-URL",
+    "description": "Label for field requesting a self-hosted integration service URL"
   },
   "aliasDomain": {
     "message": "Alias-Domain"
@@ -9411,7 +9478,39 @@
     "message": "Verwende ein verknüpftes Feld, wenn du Probleme mit dem automatischen Ausfüllen einer bestimmten Website hast."
   },
   "linkedLabelHelpText": {
-    "message": "Gib die HTML ID des Felds, Name, Aria-Label oder einen Platzhalter ein."
+    "message": "Gib die HTML-ID des Felds, Name, Aria-Label oder einen Platzhalter ein."
+  },
+  "uppercaseDescription": {
+    "message": "Großbuchstaben einschließen",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Kleinbuchstaben einschließen",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Ziffern einschließen",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Sonderzeichen einschließen",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "addAttachment": {
     "message": "Anhang hinzufügen"
@@ -9421,5 +9520,21 @@
   },
   "permanentlyDeleteAttachmentConfirmation": {
     "message": "Bist du sicher, dass du diesen Anhang dauerhaft löschen möchtest?"
+  },
+  "manageSubscriptionFromThe": {
+    "message": "Manage subscription from the",
+    "description": "This represents the beginning of a sentence. The full sentence will be 'Manage subscription from the Provider Portal', but 'Provider Portal' will be a link and thus cannot be included in the translation file."
+  },
+  "toHostBitwardenOnYourOwnServer": {
+    "message": "Um Bitwarden auf deinem eigenen Server zu hosten, must du deine Lizenzdatei hochladen. Um Free Families-Tarife und erweiterte Abrechnungsmöglichkeiten für deine selbst gehostete Organisation anzubieten, musst du die automatische Synchronisierung für deine selbst gehostete Organisation einrichten."
+  },
+  "selfHostingTitleProper": {
+    "message": "Selbst gehostet"
+  },
+  "verified-domain-single-org-warning": {
+    "message": "Verifying a domain will turn on the single organization policy."
+  },
+  "single-org-revoked-user-warning": {
+    "message": "Non-compliant members will be revoked. Administrators can restore members once they leave all other organizations."
   }
 }

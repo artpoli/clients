@@ -19,6 +19,18 @@
   "createAccount": {
     "message": "Konto erstellen"
   },
+  "newToBitwarden": {
+    "message": "Neu bei Bitwarden?"
+  },
+  "logInWithPasskey": {
+    "message": "Mit Passkey anmelden"
+  },
+  "useSingleSignOn": {
+    "message": "Single Sign-on verwenden"
+  },
+  "welcomeBack": {
+    "message": "Willkommen zurück"
+  },
   "setAStrongPassword": {
     "message": "Lege ein starkes Passwort fest"
   },
@@ -107,6 +119,9 @@
   "copyPassword": {
     "message": "Passwort kopieren"
   },
+  "copyPassphrase": {
+    "message": "Passphrase kopieren"
+  },
   "copyNote": {
     "message": "Notiz kopieren"
   },
@@ -151,6 +166,10 @@
   },
   "copyNotes": {
     "message": "Notizen kopieren"
+  },
+  "fill": {
+    "message": "Ausfüllen",
+    "description": "This string is used on the vault page to indicate autofilling. Horizontal space is limited in the interface here so try and keep translations as concise as possible."
   },
   "autoFill": {
     "message": "Auto-Ausfüllen"
@@ -407,6 +426,9 @@
   "generatePassword": {
     "message": "Passwort generieren"
   },
+  "generatePassphrase": {
+    "message": "Passphrase generieren"
+  },
   "regeneratePassword": {
     "message": "Passwort neu generieren"
   },
@@ -567,6 +589,15 @@
   },
   "launchWebsite": {
     "message": "Website öffnen"
+  },
+  "launchWebsiteName": {
+    "message": "Website aufrufen: $ITEMNAME$",
+    "placeholders": {
+      "itemname": {
+        "content": "$1",
+        "example": "Secret item"
+      }
+    }
   },
   "website": {
     "message": "Webseite"
@@ -813,6 +844,9 @@
   },
   "logIn": {
     "message": "Anmelden"
+  },
+  "logInToBitwarden": {
+    "message": "Bei Bitwarden anmelden"
   },
   "restartRegistration": {
     "message": "Registrierung neu starten"
@@ -1389,6 +1423,10 @@
   "baseUrl": {
     "message": "Server URL"
   },
+  "selfHostBaseUrl": {
+    "message": "Selbst gehostete Server-URL",
+    "description": "Label for field requesting a self-hosted integration service URL"
+  },
   "apiUrl": {
     "message": "API Server-URL"
   },
@@ -1418,10 +1456,10 @@
     "message": "Vorschläge zum Auto-Ausfüllen in Formularfeldern anzeigen"
   },
   "showInlineMenuIdentitiesLabel": {
-    "message": "Zeige Identitäten als Vorschläge"
+    "message": "Identitäten als Vorschläge anzeigen"
   },
   "showInlineMenuCardsLabel": {
-    "message": "Zeige Karten als Vorschläge"
+    "message": "Karten als Vorschläge anzeigen"
   },
   "showInlineMenuOnIconSelectionLabel": {
     "message": "Vorschläge anzeigen, wenn Symbol ausgewählt ist"
@@ -1756,6 +1794,15 @@
   "passwordHistory": {
     "message": "Passwortverlauf"
   },
+  "generatorHistory": {
+    "message": "Generator-Verlauf"
+  },
+  "clearGeneratorHistoryTitle": {
+    "message": "Generator-Verlauf löschen"
+  },
+  "cleargGeneratorHistoryDescription": {
+    "message": "Wenn du fortfährst, werden alle Einträge dauerhaft aus dem Generator-Verlauf gelöscht. Bist du sicher, dass du fortfahren möchtest?"
+  },
   "back": {
     "message": "Zurück"
   },
@@ -1872,11 +1919,11 @@
   "clearHistory": {
     "message": "Verlauf löschen"
   },
-  "noPasswordsToShow": {
-    "message": "Keine Passwörter zum Anzeigen"
+  "nothingToShow": {
+    "message": "Nichts anzuzeigen"
   },
-  "noRecentlyGeneratedPassword": {
-    "message": "Du hast in letzter Zeit kein Passwort generiert"
+  "nothingGeneratedRecently": {
+    "message": "Du hast in letzter Zeit nichts generiert"
   },
   "remove": {
     "message": "Entfernen"
@@ -2464,8 +2511,8 @@
     "message": "Optional ein Passwort verlangen, damit Benutzer auf dieses Send zugreifen können.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendPasswordDescV2": {
-    "message": "Dieses Passwort zum Anzeigen des Sends verlangen.",
+  "sendPasswordDescV3": {
+    "message": "Füge ein optionales Passwort hinzu, mit dem Empfänger auf dieses Send zugreifen können.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "sendNotesDesc": {
@@ -2827,6 +2874,23 @@
   "generateUsername": {
     "message": "Benutzername generieren"
   },
+  "generateEmail": {
+    "message": "E-Mail generieren"
+  },
+  "generatorBoundariesHint": {
+    "message": "Value must be between $MIN$ and $MAX$",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "Benutzernamenstyp"
   },
@@ -2866,6 +2930,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Generiere ein E-Mail-Alias mit einem externen Weiterleitungsdienst."
+  },
+  "forwarderDomainName": {
+    "message": "E-Mail-Domain",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Wähle eine Domain aus, die vom ausgewählten Dienst unterstützt wird",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "$SERVICENAME$ Fehler: $ERRORMESSAGE$",
@@ -3161,9 +3233,6 @@
         "example": "CTRL+Shift+L"
       }
     }
-  },
-  "loggingInOn": {
-    "message": "Anmelden bei"
   },
   "opensInANewWindow": {
     "message": "Wird in einem neuen Fenster geöffnet"
@@ -4494,8 +4563,14 @@
   "itemLocation": {
     "message": "Eintrags-Standort"
   },
+  "fileSend": {
+    "message": "Datei-Send"
+  },
   "fileSends": {
     "message": "Datei-Sends"
+  },
+  "textSend": {
+    "message": "Text-Send"
   },
   "textSends": {
     "message": "Text-Sends"
@@ -4559,5 +4634,158 @@
   },
   "authenticating": {
     "message": "Authentifizierung"
+  },
+  "fillGeneratedPassword": {
+    "message": "Generiertes Passwort ausfüllen",
+    "description": "Heading for the password generator within the inline menu"
+  },
+  "passwordRegenerated": {
+    "message": "Passwort neu generiert",
+    "description": "Notification message for when a password has been regenerated"
+  },
+  "saveLoginToBitwarden": {
+    "message": "Zugangsdaten in Bitwarden speichern?",
+    "description": "Confirmation message for saving a login to Bitwarden"
+  },
+  "spaceCharacterDescriptor": {
+    "message": "Leerzeichen",
+    "description": "Represents the space key in screen reader content as a readable word"
+  },
+  "tildeCharacterDescriptor": {
+    "message": "Tilde",
+    "description": "Represents the ~ key in screen reader content as a readable word"
+  },
+  "backtickCharacterDescriptor": {
+    "message": "Gravis",
+    "description": "Represents the ` key in screen reader content as a readable word"
+  },
+  "exclamationCharacterDescriptor": {
+    "message": "Ausrufezeichen",
+    "description": "Represents the ! key in screen reader content as a readable word"
+  },
+  "atSignCharacterDescriptor": {
+    "message": "At-Zeichen",
+    "description": "Represents the @ key in screen reader content as a readable word"
+  },
+  "hashSignCharacterDescriptor": {
+    "message": "Raute",
+    "description": "Represents the # key in screen reader content as a readable word"
+  },
+  "dollarSignCharacterDescriptor": {
+    "message": "Dollarzeichen",
+    "description": "Represents the $ key in screen reader content as a readable word"
+  },
+  "percentSignCharacterDescriptor": {
+    "message": "Prozentzeichen",
+    "description": "Represents the % key in screen reader content as a readable word"
+  },
+  "caretCharacterDescriptor": {
+    "message": "Zirkumflex",
+    "description": "Represents the ^ key in screen reader content as a readable word"
+  },
+  "ampersandCharacterDescriptor": {
+    "message": "Ampersand",
+    "description": "Represents the & key in screen reader content as a readable word"
+  },
+  "asteriskCharacterDescriptor": {
+    "message": "Sternzeichen",
+    "description": "Represents the * key in screen reader content as a readable word"
+  },
+  "parenLeftCharacterDescriptor": {
+    "message": "Linke Klammer",
+    "description": "Represents the ( key in screen reader content as a readable word"
+  },
+  "parenRightCharacterDescriptor": {
+    "message": "Rechte Klammer",
+    "description": "Represents the ) key in screen reader content as a readable word"
+  },
+  "hyphenCharacterDescriptor": {
+    "message": "Unterstrich",
+    "description": "Represents the _ key in screen reader content as a readable word"
+  },
+  "underscoreCharacterDescriptor": {
+    "message": "Bindestrich",
+    "description": "Represents the - key in screen reader content as a readable word"
+  },
+  "plusCharacterDescriptor": {
+    "message": "Plus",
+    "description": "Represents the + key in screen reader content as a readable word"
+  },
+  "equalsCharacterDescriptor": {
+    "message": "Gleich",
+    "description": "Represents the = key in screen reader content as a readable word"
+  },
+  "braceLeftCharacterDescriptor": {
+    "message": "Linke geschweifte Klammer",
+    "description": "Represents the { key in screen reader content as a readable word"
+  },
+  "braceRightCharacterDescriptor": {
+    "message": "Rechte geschweifte Klammer",
+    "description": "Represents the } key in screen reader content as a readable word"
+  },
+  "bracketLeftCharacterDescriptor": {
+    "message": "Linke eckige Klammer",
+    "description": "Represents the [ key in screen reader content as a readable word"
+  },
+  "bracketRightCharacterDescriptor": {
+    "message": "Rechte eckige Klammer",
+    "description": "Represents the ] key in screen reader content as a readable word"
+  },
+  "pipeCharacterDescriptor": {
+    "message": "Senkrechter Strich",
+    "description": "Represents the | key in screen reader content as a readable word"
+  },
+  "backSlashCharacterDescriptor": {
+    "message": "Rückstrich",
+    "description": "Represents the back slash key in screen reader content as a readable word"
+  },
+  "colonCharacterDescriptor": {
+    "message": "Doppelpunkt",
+    "description": "Represents the : key in screen reader content as a readable word"
+  },
+  "semicolonCharacterDescriptor": {
+    "message": "Semikolon",
+    "description": "Represents the ; key in screen reader content as a readable word"
+  },
+  "doubleQuoteCharacterDescriptor": {
+    "message": "Doppelte Anführungszeichen",
+    "description": "Represents the double quote key in screen reader content as a readable word"
+  },
+  "singleQuoteCharacterDescriptor": {
+    "message": "Einfaches Anführungszeichen",
+    "description": "Represents the ' key in screen reader content as a readable word"
+  },
+  "lessThanCharacterDescriptor": {
+    "message": "Kleiner als",
+    "description": "Represents the < key in screen reader content as a readable word"
+  },
+  "greaterThanCharacterDescriptor": {
+    "message": "Größer als",
+    "description": "Represents the > key in screen reader content as a readable word"
+  },
+  "commaCharacterDescriptor": {
+    "message": "Komma",
+    "description": "Represents the , key in screen reader content as a readable word"
+  },
+  "periodCharacterDescriptor": {
+    "message": "Punkt",
+    "description": "Represents the . key in screen reader content as a readable word"
+  },
+  "questionCharacterDescriptor": {
+    "message": "Fragezeichen",
+    "description": "Represents the ? key in screen reader content as a readable word"
+  },
+  "forwardSlashCharacterDescriptor": {
+    "message": "Schrägstrich",
+    "description": "Represents the / key in screen reader content as a readable word"
+  },
+  "lowercaseAriaLabel": {
+    "message": "Kleinbuchstaben"
+  },
+  "uppercaseAriaLabel": {
+    "message": "Großbuchstaben"
+  },
+  "generatedPassword": {
+    "message": "Generiertes Passwort"
   }
 }

@@ -8,6 +8,21 @@
   "accessIntelligence": {
     "message": "Acesso à informação"
   },
+  "passwordRisk": {
+    "message": "Risco da palavra-passe"
+  },
+  "discoverAtRiskPasswords": {
+    "message": "Descubra as palavras-passe em risco e notifique os utilizadores para alterarem essas palavras-passe."
+  },
+  "dataLastUpdated": {
+    "message": "Última atualização dos dados: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "2021-01-01"
+      }
+    }
+  },
   "notifiedMembers": {
     "message": "Membros notificados"
   },
@@ -37,6 +52,21 @@
         "example": "3"
       }
     }
+  },
+  "noPriorityApplicationsTitle": {
+    "message": "Não marcou nenhuma aplicação como prioritária"
+  },
+  "noPriorityApplicationsDescription": {
+    "message": "Selecione as suas aplicações mais críticas para descobrir palavras-passe em risco e notifique os utilizadores para alterarem essas palavras-passe."
+  },
+  "markPriorityApps": {
+    "message": "Marcar aplicações prioritárias"
+  },
+  "markAppAsCritical": {
+    "message": "Marcar a aplicação como crítica"
+  },
+  "appsMarkedAsCritical": {
+    "message": "Apps marcadas como críticas"
   },
   "application": {
     "message": "Aplicação"
@@ -405,6 +435,9 @@
   "generatePassword": {
     "message": "Gerar palavra-passe"
   },
+  "generatePassphrase": {
+    "message": "Gerar frase de acesso"
+  },
   "checkPassword": {
     "message": "Verificar se a palavra-passe foi exposta."
   },
@@ -662,6 +695,10 @@
   "copyPassword": {
     "message": "Copiar palavra-passe",
     "description": "Copy password to clipboard"
+  },
+  "copyPassphrase": {
+    "message": "Copiar frase de acesso",
+    "description": "Copy passphrase to clipboard"
   },
   "passwordCopied": {
     "message": "Palavra-passe copiada"
@@ -932,8 +969,14 @@
   "useADifferentLogInMethod": {
     "message": "Utilizar um método de início de sessão diferente"
   },
-  "loginWithPasskey": {
+  "logInWithPasskey": {
     "message": "Iniciar sessão com a chave de acesso"
+  },
+  "useSingleSignOn": {
+    "message": "Utilizar início de sessão único"
+  },
+  "welcomeBack": {
+    "message": "Bem-vindo de volta"
   },
   "invalidPasskeyPleaseTryAgain": {
     "message": "Chave de acesso inválida. Por favor, tente novamente."
@@ -1016,6 +1059,9 @@
   "createAccount": {
     "message": "Criar conta"
   },
+  "newToBitwarden": {
+    "message": "Novo no Bitwarden?"
+  },
   "setAStrongPassword": {
     "message": "Defina uma palavra-passe forte"
   },
@@ -1030,6 +1076,9 @@
   },
   "logIn": {
     "message": "Iniciar sessão"
+  },
+  "logInToBitwarden": {
+    "message": "Iniciar sessão no Bitwarden"
   },
   "verifyIdentity": {
     "message": "Verifique a sua identidade"
@@ -1537,38 +1586,6 @@
   "specialCharacters": {
     "message": "Caracteres especiais (!@#$%^&*)"
   },
-  "uppercaseDescription": {
-    "message": "Incluir caracteres em maiúsculas",
-    "description": "Tooltip for the password generator uppercase character checkbox"
-  },
-  "uppercaseLabel": {
-    "message": "A-Z",
-    "description": "Label for the password generator uppercase character checkbox"
-  },
-  "lowercaseDescription": {
-    "message": "Incluir caracteres em minúsculas",
-    "description": "Full description for the password generator lowercase character checkbox"
-  },
-  "lowercaseLabel": {
-    "message": "a-z",
-    "description": "Label for the password generator lowercase character checkbox"
-  },
-  "numbersDescription": {
-    "message": "Incluir números",
-    "description": "Full description for the password generator numbers checkbox"
-  },
-  "numbersLabel": {
-    "message": "0-9",
-    "description": "Label for the password generator numbers checkbox"
-  },
-  "specialCharactersDescription": {
-    "message": "Incluir caracteres especiais",
-    "description": "Full description for the password generator special characters checkbox"
-  },
-  "specialCharactersLabel": {
-    "message": "!@#$%^&*",
-    "description": "Label for the password generator special characters checkbox"
-  },
   "numWords": {
     "message": "Número de palavras"
   },
@@ -1699,6 +1716,9 @@
   "dangerZoneDesc": {
     "message": "Cuidado, estas ações são irreversíveis!"
   },
+  "dangerZoneDescSingular": {
+    "message": "Cuidado, esta ação não é reversível!"
+  },
   "deauthorizeSessions": {
     "message": "Desautorizar sessões"
   },
@@ -1710,6 +1730,15 @@
   },
   "sessionsDeauthorized": {
     "message": "Todas as sessões desautorizadas"
+  },
+  "accountIsManagedMessage": {
+    "message": "Esta conta é gerida por $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "Organization"
+      }
+    }
   },
   "purgeVault": {
     "message": "Purgar cofre"
@@ -3167,6 +3196,9 @@
         "example": "20"
       }
     }
+  },
+  "inviteSingleEmailDesc": {
+    "message": "Ainda tem 1 convite."
   },
   "userUsingTwoStep": {
     "message": "Este utilizador está a utilizar a verificação de dois passos para proteger a sua conta."
@@ -4635,11 +4667,17 @@
   "singleOrgDesc": {
     "message": "Impedir os membros de aderirem a outras organizações."
   },
+  "singleOrgPolicyDesc": {
+    "message": "Restringir a adesão de membros a outras organizações. Esta política é necessária para organizações que tenham ativado a verificação de domínio."
+  },
   "singleOrgBlockCreateMessage": {
     "message": "A sua organização atual tem uma política que não lhe permite aderir a mais do que uma organização. Por favor, contacte os administradores da sua organização ou registe-se a partir de uma conta Bitwarden diferente."
   },
   "singleOrgPolicyWarning": {
     "message": "Os membros da organização que não sejam proprietários ou administradores e que já sejam membros de outra organização serão removidos da sua organização."
+  },
+  "singleOrgPolicyMemberWarning": {
+    "message": "Os membros não conformes serão colocados no estado revogado até deixarem todas as outras organizações. Os administradores estão isentos e podem restaurar os membros assim que a conformidade for cumprida."
   },
   "requireSso": {
     "message": "Exigir autenticação de início de sessão único"
@@ -6354,6 +6392,23 @@
   "generateUsername": {
     "message": "Gerar nome de utilizador"
   },
+  "generateEmail": {
+    "message": "Gerar e-mail"
+  },
+  "generatorBoundariesHint": {
+    "message": "O valor deve estar entre $MIN$ e $MAX$",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "Tipo de nome de utilizador"
   },
@@ -6458,6 +6513,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Gerar um alias de e-mail com um serviço de reencaminhamento externo."
+  },
+  "forwarderDomainName": {
+    "message": "Domínio de e-mail",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Escolha um domínio que seja suportado pelo serviço selecionado",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "Erro no $SERVICENAME$: $ERRORMESSAGE$",
@@ -8258,6 +8321,10 @@
   "baseUrl": {
     "message": "URL do servidor"
   },
+  "selfHostBaseUrl": {
+    "message": "URL do servidor auto-hospedado",
+    "description": "Label for field requesting a self-hosted integration service URL"
+  },
   "aliasDomain": {
     "message": "Alias de domínio"
   },
@@ -9399,19 +9466,51 @@
     "message": "Editar acesso"
   },
   "textHelpText": {
-    "message": "Use text fields for data like security questions"
+    "message": "Utilize campos de texto para dados como perguntas de segurança"
   },
   "hiddenHelpText": {
-    "message": "Use hidden fields for sensitive data like a password"
+    "message": "Utilize campos ocultos para dados sensíveis como uma palavra-passe"
   },
   "checkBoxHelpText": {
-    "message": "Use checkboxes if you'd like to autofill a form's checkbox, like a remember email"
+    "message": "Utilize caixas de verificação se pretender preencher automaticamente uma caixa de verificação de um formulário, como um e-mail de memorização"
   },
   "linkedHelpText": {
-    "message": "Use a linked field when you are experiencing autofill issues for a specific website."
+    "message": "Utilize um campo ligado quando tiver problemas de preenchimento automático para um site específico."
   },
   "linkedLabelHelpText": {
-    "message": "Enter the the field's html id, name, aria-label, or placeholder."
+    "message": "Introduza o ID do HTML, o nome, a aria-label ou o placeholder do campo."
+  },
+  "uppercaseDescription": {
+    "message": "Incluir caracteres em maiúsculas",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Incluir caracteres em minúsculas",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Incluir números",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Incluir caracteres especiais",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
   },
   "addAttachment": {
     "message": "Adicionar anexo"
@@ -9421,5 +9520,21 @@
   },
   "permanentlyDeleteAttachmentConfirmation": {
     "message": "Tem a certeza de que pretende eliminar permanentemente este anexo?"
+  },
+  "manageSubscriptionFromThe": {
+    "message": "Gerir a subscrição a partir do",
+    "description": "This represents the beginning of a sentence. The full sentence will be 'Manage subscription from the Provider Portal', but 'Provider Portal' will be a link and thus cannot be included in the translation file."
+  },
+  "toHostBitwardenOnYourOwnServer": {
+    "message": "Para hospedar o Bitwarden no seu próprio servidor, precisará de carregar o seu ficheiro de licença. Para suportar planos Familiar gratuitos e recursos avançados de faturamento para a sua organização auto-hospedada, precisará de configurar a sincronização automática na sua organização auto-hospedada."
+  },
+  "selfHostingTitleProper": {
+    "message": "Auto-hospedagem"
+  },
+  "verified-domain-single-org-warning": {
+    "message": "A verificação de um domínio ativará a política de organização única."
+  },
+  "single-org-revoked-user-warning": {
+    "message": "Os membros não conformes serão revogados. Os administradores podem restaurar os membros quando estes saírem de todas as outras organizações."
   }
 }

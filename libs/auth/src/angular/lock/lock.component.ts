@@ -7,7 +7,7 @@ import { BehaviorSubject, firstValueFrom, Subject, switchMap, take, takeUntil } 
 import { JslibModule } from "@bitwarden/angular/jslib.module";
 import { InternalPolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { MasterPasswordPolicyOptions } from "@bitwarden/common/admin-console/models/domain/master-password-policy-options";
-import { AccountInfo, AccountService } from "@bitwarden/common/auth/abstractions/account.service";
+import { Account, AccountService } from "@bitwarden/common/auth/abstractions/account.service";
 import { DeviceTrustServiceAbstraction } from "@bitwarden/common/auth/abstractions/device-trust.service.abstraction";
 import { InternalMasterPasswordServiceAbstraction } from "@bitwarden/common/auth/abstractions/master-password.service.abstraction";
 import { UserVerificationService } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
@@ -19,7 +19,6 @@ import {
 } from "@bitwarden/common/auth/types/verification";
 import { ClientType } from "@bitwarden/common/enums";
 import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
-import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
@@ -27,7 +26,6 @@ import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/pl
 import { KeySuffixOptions } from "@bitwarden/common/platform/enums";
 import { SyncService } from "@bitwarden/common/platform/sync";
 import { PasswordStrengthServiceAbstraction } from "@bitwarden/common/tools/password-strength";
-import { UserId } from "@bitwarden/common/types/guid";
 import { UserKey } from "@bitwarden/common/types/key";
 import {
   AsyncActionsModule,
@@ -37,7 +35,7 @@ import {
   IconButtonModule,
   ToastService,
 } from "@bitwarden/components";
-import { BiometricStateService } from "@bitwarden/key-management";
+import { KeyService, BiometricStateService } from "@bitwarden/key-management";
 
 import { PinServiceAbstraction } from "../../common/abstractions";
 import { AnonLayoutWrapperDataService } from "../anon-layout/anon-layout-wrapper-data.service";
@@ -74,7 +72,7 @@ const clientTypeToSuccessRouteRecord: Partial<Record<ClientType, string>> = {
 export class LockV2Component implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
-  activeAccount: { id: UserId | undefined } & AccountInfo;
+  activeAccount: Account | null;
 
   clientType: ClientType;
   ClientType = ClientType;
@@ -123,7 +121,7 @@ export class LockV2Component implements OnInit, OnDestroy {
     private accountService: AccountService,
     private pinService: PinServiceAbstraction,
     private userVerificationService: UserVerificationService,
-    private cryptoService: CryptoService,
+    private keyService: KeyService,
     private platformUtilsService: PlatformUtilsService,
     private router: Router,
     private dialogService: DialogService,
@@ -203,10 +201,14 @@ export class LockV2Component implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  private async handleActiveAccountChange(activeAccount: { id: UserId | undefined } & AccountInfo) {
+  private async handleActiveAccountChange(activeAccount: Account | null) {
     this.activeAccount = activeAccount;
 
     this.resetDataOnActiveAccountChange();
+
+    if (activeAccount == null) {
+      return;
+    }
 
     this.setEmailAsPageSubtitle(activeAccount.email);
 
@@ -307,7 +309,7 @@ export class LockV2Component implements OnInit, OnDestroy {
 
     try {
       await this.biometricStateService.setUserPromptCancelled();
-      const userKey = await this.cryptoService.getUserKeyFromStorage(
+      const userKey = await this.keyService.getUserKeyFromStorage(
         KeySuffixOptions.Biometric,
         this.activeAccount.id,
       );
@@ -481,12 +483,13 @@ export class LockV2Component implements OnInit, OnDestroy {
 
     const userKey = await this.masterPasswordService.decryptUserKeyWithMasterKey(
       masterPasswordVerificationResponse.masterKey,
+      this.activeAccount.id,
     );
     await this.setUserKeyAndContinue(userKey, true);
   }
 
   private async setUserKeyAndContinue(key: UserKey, evaluatePasswordAfterUnlock = false) {
-    await this.cryptoService.setUserKey(key, this.activeAccount.id);
+    await this.keyService.setUserKey(key, this.activeAccount.id);
 
     // Now that we have a decrypted user key in memory, we can check if we
     // need to establish trust on the current device

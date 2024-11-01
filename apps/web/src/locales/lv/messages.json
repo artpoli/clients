@@ -8,6 +8,21 @@
   "accessIntelligence": {
     "message": "Piekļuves inteliģence"
   },
+  "passwordRisk": {
+    "message": "Paroļu risks"
+  },
+  "discoverAtRiskPasswords": {
+    "message": "Atklāj riskam pakļautas paroles un apziņo lietotājus, lai tās nomaina!"
+  },
+  "dataLastUpdated": {
+    "message": "Dati pēdējoreiz atjaunināti: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "2021-01-01"
+      }
+    }
+  },
   "notifiedMembers": {
     "message": "Apziņotie dalībnieki"
   },
@@ -37,6 +52,21 @@
         "example": "3"
       }
     }
+  },
+  "noPriorityApplicationsTitle": {
+    "message": "Neviena lietotne nav atzīmēta kā būtiska"
+  },
+  "noPriorityApplicationsDescription": {
+    "message": "Atlasi kritiskākās lietotnes, la iatklātu riskam pakļautas paroles un apziņotu lietotājus, lai tās nomaina!"
+  },
+  "markPriorityApps": {
+    "message": "Atzīmēt būtiskās lietotnes"
+  },
+  "markAppAsCritical": {
+    "message": "Atzīmēt lietotni kā kritisku"
+  },
+  "appsMarkedAsCritical": {
+    "message": "Lietotnes, kas atzīmētas kā kritisku"
   },
   "application": {
     "message": "Lietotne"
@@ -405,6 +435,9 @@
   "generatePassword": {
     "message": "Veidot paroli"
   },
+  "generatePassphrase": {
+    "message": "Izveidot paroles vārdkopu"
+  },
   "checkPassword": {
     "message": "Pārbaudīt, vai parole ir bijusi nopludināta."
   },
@@ -663,8 +696,12 @@
     "message": "Ievietot paroli starpliktuvē",
     "description": "Copy password to clipboard"
   },
+  "copyPassphrase": {
+    "message": "Ievietot paroles vārdkopu starpliktuvē",
+    "description": "Copy passphrase to clipboard"
+  },
   "passwordCopied": {
-    "message": "Password copied"
+    "message": "Parole ievietota starpliktuvē"
   },
   "copyUsername": {
     "message": "Ievietot lietotājvārdu starpliktuvē",
@@ -932,8 +969,14 @@
   "useADifferentLogInMethod": {
     "message": "Jāizmanto cits pieteikšanās veids"
   },
-  "loginWithPasskey": {
+  "logInWithPasskey": {
     "message": "Pieteikties ar piekļuves atslēgu"
+  },
+  "useSingleSignOn": {
+    "message": "Izmantot vienoto pieteikšanos"
+  },
+  "welcomeBack": {
+    "message": "Laipni lūdzam atpakaļ"
   },
   "invalidPasskeyPleaseTryAgain": {
     "message": "Nederīga piekļuves atslēga. Lūgums mēģināt vēlreiz."
@@ -1016,6 +1059,9 @@
   "createAccount": {
     "message": "Izveidot kontu"
   },
+  "newToBitwarden": {
+    "message": "Bitwarden iepriekš nav izmantots?"
+  },
   "setAStrongPassword": {
     "message": "Jāiestata droša parole"
   },
@@ -1030,6 +1076,9 @@
   },
   "logIn": {
     "message": "Pieteikties"
+  },
+  "logInToBitwarden": {
+    "message": "Pieteikties Bitwarden"
   },
   "verifyIdentity": {
     "message": "Jāapliecina sava identitāte"
@@ -1537,38 +1586,6 @@
   "specialCharacters": {
     "message": "Īpašās rakstzīmes (!@#$%^&*)"
   },
-  "uppercaseDescription": {
-    "message": "Iekļaut lielos burtus",
-    "description": "Tooltip for the password generator uppercase character checkbox"
-  },
-  "uppercaseLabel": {
-    "message": "A-Z",
-    "description": "Label for the password generator uppercase character checkbox"
-  },
-  "lowercaseDescription": {
-    "message": "Iekļaut mazos burtus",
-    "description": "Full description for the password generator lowercase character checkbox"
-  },
-  "lowercaseLabel": {
-    "message": "a-z",
-    "description": "Label for the password generator lowercase character checkbox"
-  },
-  "numbersDescription": {
-    "message": "Iekļaut ciparus",
-    "description": "Full description for the password generator numbers checkbox"
-  },
-  "numbersLabel": {
-    "message": "0-9",
-    "description": "Label for the password generator numbers checkbox"
-  },
-  "specialCharactersDescription": {
-    "message": "Iekļaut īpašās rakstzīmes",
-    "description": "Full description for the password generator special characters checkbox"
-  },
-  "specialCharactersLabel": {
-    "message": "!@#$%^&*",
-    "description": "Label for the password generator special characters checkbox"
-  },
   "numWords": {
     "message": "Vārdu skaits"
   },
@@ -1699,6 +1716,9 @@
   "dangerZoneDesc": {
     "message": "Piesardzību, šīs darbības nav atsaucamas!"
   },
+  "dangerZoneDescSingular": {
+    "message": "Piesardzību, šī darbība ir neatgriezeniska!"
+  },
   "deauthorizeSessions": {
     "message": "Padarīt sesijas spēkā neesošas"
   },
@@ -1710,6 +1730,15 @@
   },
   "sessionsDeauthorized": {
     "message": "Visu sesiju darbība ir atsaukta"
+  },
+  "accountIsManagedMessage": {
+    "message": "Šo kontu pārvalda $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "Organization"
+      }
+    }
   },
   "purgeVault": {
     "message": "Iztīrīt glabātavu"
@@ -3167,6 +3196,9 @@
         "example": "20"
       }
     }
+  },
+  "inviteSingleEmailDesc": {
+    "message": "Tev ir atlicis 1 uzaicinājums."
   },
   "userUsingTwoStep": {
     "message": "Šis lietotājs izmanto divpakāpju pieteikšanos, lai aizsargātu savu kontu."
@@ -4635,11 +4667,17 @@
   "singleOrgDesc": {
     "message": "Ierobežo lietotāju iespēju pievienoties citām apvienībām."
   },
+  "singleOrgPolicyDesc": {
+    "message": "Ierobežot dalībniekus pievienoties citām apvienībām. Šī pamatnostādne ir nepieciešama apvienībām, kurās ir iespējota domēna apliecināšana."
+  },
   "singleOrgBlockCreateMessage": {
     "message": "Pašreizējā apvienībā ir nosacījums, kas neļauj pievienoties vairāk kā vienai apvienībai. Lūgums sazināties ar savas apvienības pārvaldītājiem vai pieteikties no cita Bitwarden konta."
   },
   "singleOrgPolicyWarning": {
     "message": "Apvienības dalībnieki, kas nav īpašnieki vai pārvaldītāji un jau ir dalībnieki citā apvienībā, tiks atbrīvoti."
+  },
+  "singleOrgPolicyMemberWarning": {
+    "message": "Pamatnostādnei neatbilstoši dalībniekiem tiks piešķirts stāvoklis \"Atsaukts\", līdz viņī pametīs visas pārējās apvienības. Pārvaldītāji ir izņēmums, un viņi var atjaunot dalībniekus, tiklīdz ir sasniegta atbilstība pamatnostādnei."
   },
   "requireSso": {
     "message": "Pieprasīt vienotās pieteikšanās autentificēšanos"
@@ -6354,6 +6392,23 @@
   "generateUsername": {
     "message": "Izveidot lietotājvārdu"
   },
+  "generateEmail": {
+    "message": "Izveidot e-pastu"
+  },
+  "generatorBoundariesHint": {
+    "message": "Vērtībai jābūt starp $MIN$ un $MAX$",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "Lietotājvārda veids"
   },
@@ -6458,6 +6513,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Izveidot e-pastu aizstājvārdu ar ārēju pārvirzīšanas pakalpojumu."
+  },
+  "forwarderDomainName": {
+    "message": "E-pasta domēns",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Jāizvēlas domēns, kuru atbalsta atlasītais pakalpojums",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "$SERVICENAME$ kļūda: $ERRORMESSAGE$",
@@ -8258,6 +8321,10 @@
   "baseUrl": {
     "message": "Servera URL"
   },
+  "selfHostBaseUrl": {
+    "message": "Pašmitināta servera URL",
+    "description": "Label for field requesting a self-hosted integration service URL"
+  },
   "aliasDomain": {
     "message": "Aizstājdomēns"
   },
@@ -9413,6 +9480,38 @@
   "linkedLabelHelpText": {
     "message": "Jāievada lauka HTML id, name, aria-label vai placeholder vērtība."
   },
+  "uppercaseDescription": {
+    "message": "Iekļaut lielos burtus",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Iekļaut mazos burtus",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Iekļaut ciparus",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Iekļaut īpašās rakstzīmes",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
+  },
   "addAttachment": {
     "message": "Pievienot pielikumu"
   },
@@ -9421,5 +9520,21 @@
   },
   "permanentlyDeleteAttachmentConfirmation": {
     "message": "Vai tiešām neatgriezeniski izdzēst šo pielikumu?"
+  },
+  "manageSubscriptionFromThe": {
+    "message": "Pārvaldīt abonementu",
+    "description": "This represents the beginning of a sentence. The full sentence will be 'Manage subscription from the Provider Portal', but 'Provider Portal' will be a link and thus cannot be included in the translation file."
+  },
+  "toHostBitwardenOnYourOwnServer": {
+    "message": "Lai mitinātu Bitwarden savā serverī, ir nepieciešams augšupielādēt licences datni. Lai nodrošinātu bezmaksas ģimeņu plānus un papildu norēķinu iespējas pašmitinātajai apvienībai, tajā ir nepieciešams uzstādīt automātisku sinhronizēšanu."
+  },
+  "selfHostingTitleProper": {
+    "message": "Pašmitināts"
+  },
+  "verified-domain-single-org-warning": {
+    "message": "Domēna apliecināšana ieslēgts vienas apvienības pamatnostādni."
+  },
+  "single-org-revoked-user-warning": {
+    "message": "Pamatnostādnei neatbilstošie dalībnieki tiks atsaukti. Pārvaldītāji var atjaunot dalībniekus, tiklīdz viņi pametīs visas pārējās apvienības."
   }
 }

@@ -8,6 +8,21 @@
   "accessIntelligence": {
     "message": "Adgangsintelligens"
   },
+  "passwordRisk": {
+    "message": "Adgangskoderisiko"
+  },
+  "discoverAtRiskPasswords": {
+    "message": "Opdag risikable adgangskoder og underret brugerne om at ændre disse."
+  },
+  "dataLastUpdated": {
+    "message": "Data senest opdateret: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "2021-01-01"
+      }
+    }
+  },
   "notifiedMembers": {
     "message": "Underrettede medlemmer"
   },
@@ -37,6 +52,21 @@
         "example": "3"
       }
     }
+  },
+  "noPriorityApplicationsTitle": {
+    "message": "Ingen programmer er markret som en prioritet"
+  },
+  "noPriorityApplicationsDescription": {
+    "message": "Vælg de mest kritiske programmer for at afsløre risikable adgangskoder og give brugerne besked om at disse."
+  },
+  "markPriorityApps": {
+    "message": "Markér prioriterede apps"
+  },
+  "markAppAsCritical": {
+    "message": "Markér app som kritisk"
+  },
+  "appsMarkedAsCritical": {
+    "message": "Apps markeret som kritiske"
   },
   "application": {
     "message": "Applikation"
@@ -405,6 +435,9 @@
   "generatePassword": {
     "message": "Generér adgangskode"
   },
+  "generatePassphrase": {
+    "message": "Generér adgangssætning"
+  },
   "checkPassword": {
     "message": "Tjek, om adgangskode er blevet kompromitteret."
   },
@@ -662,6 +695,10 @@
   "copyPassword": {
     "message": "Kopiér adgangskode",
     "description": "Copy password to clipboard"
+  },
+  "copyPassphrase": {
+    "message": "Kopiér adgangssætning",
+    "description": "Copy passphrase to clipboard"
   },
   "passwordCopied": {
     "message": "Adgangskode kopieret"
@@ -932,8 +969,14 @@
   "useADifferentLogInMethod": {
     "message": "Benyt en anden login-metode"
   },
-  "loginWithPasskey": {
+  "logInWithPasskey": {
     "message": "Log ind med adgangsnøgle"
+  },
+  "useSingleSignOn": {
+    "message": "Brug Single Sign-On"
+  },
+  "welcomeBack": {
+    "message": "Velkommen tilbage"
   },
   "invalidPasskeyPleaseTryAgain": {
     "message": "Ugyldig adgangsnøgle. Prøv igen."
@@ -1016,6 +1059,9 @@
   "createAccount": {
     "message": "Opret konto"
   },
+  "newToBitwarden": {
+    "message": "Ny på Bitwarden?"
+  },
   "setAStrongPassword": {
     "message": "Indstil en stærk adgangskode"
   },
@@ -1030,6 +1076,9 @@
   },
   "logIn": {
     "message": "Log ind"
+  },
+  "logInToBitwarden": {
+    "message": "Log ind på Bitwarden"
   },
   "verifyIdentity": {
     "message": "Bekræft din identitet"
@@ -1537,38 +1586,6 @@
   "specialCharacters": {
     "message": "Specialtegn (!@#$%^&*)"
   },
-  "uppercaseDescription": {
-    "message": "Inkludér majuskler",
-    "description": "Tooltip for the password generator uppercase character checkbox"
-  },
-  "uppercaseLabel": {
-    "message": "A-Z",
-    "description": "Label for the password generator uppercase character checkbox"
-  },
-  "lowercaseDescription": {
-    "message": "Inkludér minuskler",
-    "description": "Full description for the password generator lowercase character checkbox"
-  },
-  "lowercaseLabel": {
-    "message": "a-z",
-    "description": "Label for the password generator lowercase character checkbox"
-  },
-  "numbersDescription": {
-    "message": "Inkludér tal",
-    "description": "Full description for the password generator numbers checkbox"
-  },
-  "numbersLabel": {
-    "message": "0-9",
-    "description": "Label for the password generator numbers checkbox"
-  },
-  "specialCharactersDescription": {
-    "message": "Inkludér specialtegn",
-    "description": "Full description for the password generator special characters checkbox"
-  },
-  "specialCharactersLabel": {
-    "message": "!@#$%^&*",
-    "description": "Label for the password generator special characters checkbox"
-  },
   "numWords": {
     "message": "Antal ord"
   },
@@ -1699,6 +1716,9 @@
   "dangerZoneDesc": {
     "message": "Pas på, disse handlinger er irreversible!"
   },
+  "dangerZoneDescSingular": {
+    "message": "Forsigtig, denne handling er irreversibel!"
+  },
   "deauthorizeSessions": {
     "message": "Fjern sessionsgodkendelser"
   },
@@ -1710,6 +1730,15 @@
   },
   "sessionsDeauthorized": {
     "message": "Godkendelser for alle sessioner fjernet"
+  },
+  "accountIsManagedMessage": {
+    "message": "Denne konto håndteres af $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "Organization"
+      }
+    }
   },
   "purgeVault": {
     "message": "Tøm boks"
@@ -3167,6 +3196,9 @@
         "example": "20"
       }
     }
+  },
+  "inviteSingleEmailDesc": {
+    "message": "Der er 1 invitation tilbage."
   },
   "userUsingTwoStep": {
     "message": "Denne bruger benytter totrins-login for at beskytte kontoen."
@@ -4635,11 +4667,17 @@
   "singleOrgDesc": {
     "message": "Begræns medlemmer i at tilmelde sig andre organisationer."
   },
+  "singleOrgPolicyDesc": {
+    "message": "Restrict members from joining other organizations. This policy is required for organizations that have enabled domain verification."
+  },
   "singleOrgBlockCreateMessage": {
     "message": "Den nuværende organisationspolitik tillader dig ikke at deltage i mere end én organisation. Kontakt organisationens admins eller benyt en anden Bitwarden-konto under tilmelding."
   },
   "singleOrgPolicyWarning": {
     "message": "Organisationsmedlemmer, undtagen ejere eller admins, som allerede er medlem af en anden organisation, fjernes fra organisationen."
+  },
+  "singleOrgPolicyMemberWarning": {
+    "message": "Non-compliant members will be placed in revoked status until they leave all other organizations. Administrators are exempt and can restore members once compliance is met."
   },
   "requireSso": {
     "message": "Kræv single sign-on godkendelse"
@@ -6354,6 +6392,23 @@
   "generateUsername": {
     "message": "Generér brugernavn"
   },
+  "generateEmail": {
+    "message": "Generér e-mail"
+  },
+  "generatorBoundariesHint": {
+    "message": "Værdi skal være mellem $MIN$ og $MAX$",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "Brugernavnstype"
   },
@@ -6458,6 +6513,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Generér et e-mail alias med en ekstern viderestillingstjeneste."
+  },
+  "forwarderDomainName": {
+    "message": "E-maildomæne",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Vælg et domæne understøttet af den valgte tjeneste",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "$SERVICENAME$-fejl: $ERRORMESSAGE$",
@@ -8258,6 +8321,10 @@
   "baseUrl": {
     "message": "Server-URL"
   },
+  "selfHostBaseUrl": {
+    "message": "URL til selv-hostet server",
+    "description": "Label for field requesting a self-hosted integration service URL"
+  },
   "aliasDomain": {
     "message": "Aliasdomæne"
   },
@@ -9413,6 +9480,38 @@
   "linkedLabelHelpText": {
     "message": "Angiv feltets HTML-ID, navn, aria-label eller pladsholder."
   },
+  "uppercaseDescription": {
+    "message": "Inkludér majuskler",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Inkludér minuskler",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Inkludér tal",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Inkludér specialtegn",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
+  },
   "addAttachment": {
     "message": "Tilføj vedhæftning"
   },
@@ -9421,5 +9520,21 @@
   },
   "permanentlyDeleteAttachmentConfirmation": {
     "message": "Sikker på, at denne vedhæftning skal slettes permanent?"
+  },
+  "manageSubscriptionFromThe": {
+    "message": "Håndtér abonnement fra",
+    "description": "This represents the beginning of a sentence. The full sentence will be 'Manage subscription from the Provider Portal', but 'Provider Portal' will be a link and thus cannot be included in the translation file."
+  },
+  "toHostBitwardenOnYourOwnServer": {
+    "message": "For hoste Bitwarden på egen server, skal man uploade sin licensfil. Opsæt automatisk faktureringssynk for den selv-hostede organisation for at understøtte Free Families-abonnementstyper og avancerede faktureringsmuligheder for organisationen."
+  },
+  "selfHostingTitleProper": {
+    "message": "Selv-hosting"
+  },
+  "verified-domain-single-org-warning": {
+    "message": "Verifying a domain will turn on the single organization policy."
+  },
+  "single-org-revoked-user-warning": {
+    "message": "Non-compliant members will be revoked. Administrators can restore members once they leave all other organizations."
   }
 }

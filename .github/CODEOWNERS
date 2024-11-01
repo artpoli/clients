@@ -31,6 +31,7 @@ libs/common/src/tools @bitwarden/team-tools-dev
 libs/importer @bitwarden/team-tools-dev
 libs/tools @bitwarden/team-tools-dev
 bitwarden_license/bit-web/src/app/tools @bitwarden/team-tools-dev
+bitwarden_license/bit-common/src/tools @bitwarden/team-tools-dev
 
 ## Localization/Crowdin (Tools team)
 apps/browser/src/_locales @bitwarden/team-tools-dev
@@ -105,7 +106,7 @@ apps/desktop/desktop_native @bitwarden/team-platform-dev
 
 ## Key management team files ##
 apps/desktop/src/key-management @bitwarden/team-key-management-dev
-apps/web/src/key-management @bitwarden/team-key-management-dev
+apps/web/src/app/key-management @bitwarden/team-key-management-dev
 apps/browser/src/key-management @bitwarden/team-key-management-dev
 apps/cli/src/key-management @bitwarden/team-key-management-dev
 libs/key-management @bitwarden/team-key-management-dev

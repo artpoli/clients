@@ -940,13 +940,16 @@ export default class AutofillService implements AutofillServiceInterface {
 
     if (options.allowTotpAutofill) {
       await Promise.all(
-        totps.map(async (t) => {
+        totps.map(async (t, i) => {
           if (Object.prototype.hasOwnProperty.call(filledFields, t.opid)) {
             return;
           }
 
           filledFields[t.opid] = t;
-          const totpValue = await this.totpService.getCode(login.totp);
+          let totpValue = await this.totpService.getCode(login.totp);
+          if (totpValue.length == totps.length) {
+            totpValue = totpValue.charAt(i);
+          }
           AutofillService.fillByOpid(fillScript, t, totpValue);
         }),
       );
@@ -1882,7 +1885,10 @@ export default class AutofillService implements AutofillServiceInterface {
    */
   private excludeFieldFromIdentityFill(field: AutofillField): boolean {
     return (
-      AutofillService.isExcludedFieldType(field, AutoFillConstants.ExcludedAutofillTypes) ||
+      AutofillService.isExcludedFieldType(field, [
+        "password",
+        ...AutoFillConstants.ExcludedAutofillTypes,
+      ]) ||
       AutoFillConstants.ExcludedIdentityAutocompleteTypes.has(field.autoCompleteType) ||
       !field.viewable
     );
@@ -2887,6 +2893,12 @@ export default class AutofillService implements AutofillServiceInterface {
     ) {
       return true;
     }
+    if (
+      AutofillService.hasValue(field.dataSetValues) &&
+      this.fuzzyMatch(names, field.dataSetValues)
+    ) {
+      return true;
+    }
 
     return false;
   }
@@ -3062,13 +3074,12 @@ export default class AutofillService implements AutofillServiceInterface {
    *
    * @param oldSettingValue - The previous setting value
    * @param newSettingValue - The current setting value
-   * @param cipherType - The cipher type of the changed inline menu setting
    */
   private async handleInlineMenuVisibilitySettingsChange(
     oldSettingValue: InlineMenuVisibilitySetting | boolean,
     newSettingValue: InlineMenuVisibilitySetting | boolean,
   ) {
-    if (oldSettingValue === undefined || oldSettingValue === newSettingValue) {
+    if (oldSettingValue == null || oldSettingValue === newSettingValue) {
       return;
     }
 
@@ -3076,18 +3087,11 @@ export default class AutofillService implements AutofillServiceInterface {
       typeof oldSettingValue === "boolean" || typeof newSettingValue === "boolean";
     const inlineMenuPreviouslyDisabled = oldSettingValue === AutofillOverlayVisibility.Off;
     const inlineMenuCurrentlyDisabled = newSettingValue === AutofillOverlayVisibility.Off;
-
     if (
       !isInlineMenuVisibilitySubSetting &&
       !inlineMenuPreviouslyDisabled &&
       !inlineMenuCurrentlyDisabled
     ) {
-      const tabs = await BrowserApi.tabsQuery({});
-      tabs.forEach((tab) =>
-        BrowserApi.tabSendMessageData(tab, "updateAutofillInlineMenuVisibility", {
-          newSettingValue,
-        }),
-      );
       return;
     }
 

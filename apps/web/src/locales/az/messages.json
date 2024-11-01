@@ -8,6 +8,21 @@
   "accessIntelligence": {
     "message": "Müraciət Kəşfiyyatı"
   },
+  "passwordRisk": {
+    "message": "Parol riski"
+  },
+  "discoverAtRiskPasswords": {
+    "message": "Riskli parolları kəşf edin və bu parolları dəyişdirməsi üçün istifadəçiləri məlumatlandırın."
+  },
+  "dataLastUpdated": {
+    "message": "Datanın son güncəlləmə tarixi: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "2021-01-01"
+      }
+    }
+  },
   "notifiedMembers": {
     "message": "Məlumatlandırılan üzvlər"
   },
@@ -37,6 +52,21 @@
         "example": "3"
       }
     }
+  },
+  "noPriorityApplicationsTitle": {
+    "message": "Heç bir tətbiqi prioritet olaraq işarələməmisiniz"
+  },
+  "noPriorityApplicationsDescription": {
+    "message": "Riskli parolları kəşf etmək üçün ən kritik tətbiqlərinizi seçin və bu parolları dəyişdirməsi üçün istifadəçiləri məlumatlandırın."
+  },
+  "markPriorityApps": {
+    "message": "Prioritet tətbiqləri işarələ"
+  },
+  "markAppAsCritical": {
+    "message": "Tətbiqi kritik olaraq işarələ"
+  },
+  "appsMarkedAsCritical": {
+    "message": "Kritik olaraq işarələnmiş tətbiqlər"
   },
   "application": {
     "message": "Tətbiq"
@@ -405,6 +435,9 @@
   "generatePassword": {
     "message": "Parol yarat"
   },
+  "generatePassphrase": {
+    "message": "Keçid ifadələri yarat"
+  },
   "checkPassword": {
     "message": "Parolun ifşalanıb ifşalanmadığını yoxlayın."
   },
@@ -662,6 +695,10 @@
   "copyPassword": {
     "message": "Parolu kopyala",
     "description": "Copy password to clipboard"
+  },
+  "copyPassphrase": {
+    "message": "Keçid ifadəsini kopyala",
+    "description": "Copy passphrase to clipboard"
   },
   "passwordCopied": {
     "message": "Parol kopyalandı"
@@ -932,8 +969,14 @@
   "useADifferentLogInMethod": {
     "message": "Fərqli bir giriş üsulu istifadə edin"
   },
-  "loginWithPasskey": {
-    "message": "Parolla giriş et"
+  "logInWithPasskey": {
+    "message": "Keçid açarı ilə giriş et"
+  },
+  "useSingleSignOn": {
+    "message": "Tək daxil olma üsulunu istifadə et"
+  },
+  "welcomeBack": {
+    "message": "Yenidən xoş gəlmisiniz"
   },
   "invalidPasskeyPleaseTryAgain": {
     "message": "Yararsız keçid açarı. Lütfən yenidən sınayın."
@@ -1016,6 +1059,9 @@
   "createAccount": {
     "message": "Hesab yarat"
   },
+  "newToBitwarden": {
+    "message": "Bitwarden-də yenisiniz?"
+  },
   "setAStrongPassword": {
     "message": "Güclü bir parol təyin et"
   },
@@ -1030,6 +1076,9 @@
   },
   "logIn": {
     "message": "Giriş et"
+  },
+  "logInToBitwarden": {
+    "message": "Bitwarden-ə giriş edin"
   },
   "verifyIdentity": {
     "message": "Kimliyinizi doğrulayın"
@@ -1537,38 +1586,6 @@
   "specialCharacters": {
     "message": "Xüsusi simvollar (!@#$%^&*)"
   },
-  "uppercaseDescription": {
-    "message": "Böyük hərf xarakterlərini daxil et",
-    "description": "Tooltip for the password generator uppercase character checkbox"
-  },
-  "uppercaseLabel": {
-    "message": "A-Z",
-    "description": "Label for the password generator uppercase character checkbox"
-  },
-  "lowercaseDescription": {
-    "message": "Kiçik hərf xarakterlərini daxil et",
-    "description": "Full description for the password generator lowercase character checkbox"
-  },
-  "lowercaseLabel": {
-    "message": "a-z",
-    "description": "Label for the password generator lowercase character checkbox"
-  },
-  "numbersDescription": {
-    "message": "Rəqəmləri daxil et",
-    "description": "Full description for the password generator numbers checkbox"
-  },
-  "numbersLabel": {
-    "message": "0-9",
-    "description": "Label for the password generator numbers checkbox"
-  },
-  "specialCharactersDescription": {
-    "message": "Xüsusi xarakterləri daxil et",
-    "description": "Full description for the password generator special characters checkbox"
-  },
-  "specialCharactersLabel": {
-    "message": "!@#$%^&*",
-    "description": "Label for the password generator special characters checkbox"
-  },
   "numWords": {
     "message": "Söz sayı"
   },
@@ -1699,6 +1716,9 @@
   "dangerZoneDesc": {
     "message": "Diqqətli olun, bu əməliyyatları geri qaytara bilməzsiniz!"
   },
+  "dangerZoneDescSingular": {
+    "message": "Diqqətli olun, bu əməliyyatı geri qaytara bilməzsiniz!"
+  },
   "deauthorizeSessions": {
     "message": "Seansların səlahiyyətlərini götür"
   },
@@ -1710,6 +1730,15 @@
   },
   "sessionsDeauthorized": {
     "message": "Bütün seansların səlahiyyəti götürüldü"
+  },
+  "accountIsManagedMessage": {
+    "message": "Bu hesab $ORGANIZATIONNAME$ tərəfindən idarə olunur",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "Organization"
+      }
+    }
   },
   "purgeVault": {
     "message": "Seyfi boşalt"
@@ -3167,6 +3196,9 @@
         "example": "20"
       }
     }
+  },
+  "inviteSingleEmailDesc": {
+    "message": "1 dəvət haqqınız var."
   },
   "userUsingTwoStep": {
     "message": "Bu istifadəçinin hesabını qorumaq üçün iki addımlı giriş istifadə edilir."
@@ -4635,11 +4667,17 @@
   "singleOrgDesc": {
     "message": "İstifadəçilərin digər təşkilatlara qoşulmasını məhdudlaşdırın."
   },
+  "singleOrgPolicyDesc": {
+    "message": "Üzvlərin digər təşkilatlara qoşulmasını məhdudlaşdır. Bu siyasət, domen doğrulamasını fəallaşdıran təşkilatlar üçün tələb olunur."
+  },
   "singleOrgBlockCreateMessage": {
     "message": "Hazırkı təşkilatınızın, bir neçə təşkilata qoşulmasına icazə verməyən bir siyasəti var. Lütfən təşkilat adminləri ilə əlaqə saxlayın və ya fərqli bir Bitwarden hesabı ilə qeydiyyatdan keçin."
   },
   "singleOrgPolicyWarning": {
     "message": "Sahib və ya administrator olmayan və hal-hazırda başqa bir təşkilatın üzvü olan istifadəçilər təşkilatınızdan çıxarılacaq."
+  },
+  "singleOrgPolicyMemberWarning": {
+    "message": "Uyumlu olmayan üzvlər, digər bütün təşkilatları tərk edənə qədər rədd edilmiş statusa daxil ediləcək. Administratorlar azaddır və uyum təmin edildikdən sonra üzvləri bərpa edə bilər."
   },
   "requireSso": {
     "message": "Tək daxil olma kimlik doğrulaması"
@@ -6354,6 +6392,23 @@
   "generateUsername": {
     "message": "İstifadəçi adı yarat"
   },
+  "generateEmail": {
+    "message": "E-poçt yarat"
+  },
+  "generatorBoundariesHint": {
+    "message": "Dəyər $MIN$-$MAX$ arasında olmalıdır",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "İstifadəçi adı növü"
   },
@@ -6458,6 +6513,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Xarici yönləndirmə xidməti ilə e-poçt ləqəbi yaradın."
+  },
+  "forwarderDomainName": {
+    "message": "E-poçt domeni",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Seçilmiş xidmət tərəfindən dəstəklənən bir domen seçin",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "$SERVICENAME$ xətası: $ERRORMESSAGE$",
@@ -8258,6 +8321,10 @@
   "baseUrl": {
     "message": "Server URL-si"
   },
+  "selfHostBaseUrl": {
+    "message": "Self-host server URL-si",
+    "description": "Label for field requesting a self-hosted integration service URL"
+  },
   "aliasDomain": {
     "message": "Domen ləqəbi"
   },
@@ -9413,6 +9480,38 @@
   "linkedLabelHelpText": {
     "message": "Xana üçün bunları daxil edin: kimlik, ad, aria-label və ya placeholder."
   },
+  "uppercaseDescription": {
+    "message": "Böyük hərf xarakterlərini daxil et",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Kiçik hərf xarakterlərini daxil et",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Rəqəmləri daxil et",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Xüsusi xarakterləri daxil et",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
+  },
   "addAttachment": {
     "message": "Qoşma əlavə et"
   },
@@ -9421,5 +9520,21 @@
   },
   "permanentlyDeleteAttachmentConfirmation": {
     "message": "Bu qoşmanı birdəfəlik silmək istədiyinizə əminsiniz?"
+  },
+  "manageSubscriptionFromThe": {
+    "message": "Abunəliyi buradan idarə et:",
+    "description": "This represents the beginning of a sentence. The full sentence will be 'Manage subscription from the Provider Portal', but 'Provider Portal' will be a link and thus cannot be included in the translation file."
+  },
+  "toHostBitwardenOnYourOwnServer": {
+    "message": "Bitwarden-i öz serverinizdə quraşdırmaq üçün lisenziya faylınızı yükləməlisiniz. Self-hosted təşkilatınız üçün Ödənişsiz Ailələr planlarını və qabaqcıl faktura imkanlarını dəstəkləmək üçün, self-hosted təşkilatınızda avto-sinxronlaşdırmanı qurmalısınız."
+  },
+  "selfHostingTitleProper": {
+    "message": "Self-Hosting"
+  },
+  "verified-domain-single-org-warning": {
+    "message": "Bir domeni doğrulamaq, tək təşkilat siyasətini işə salacaq."
+  },
+  "single-org-revoked-user-warning": {
+    "message": "Uyumlu olmayan üzvlər rədd ediləcək. Digər bütün təşkilatları tərk etdikdən sonra üzvlər, administratorlar tərəfindən bərpa edilə bilər."
   }
 }

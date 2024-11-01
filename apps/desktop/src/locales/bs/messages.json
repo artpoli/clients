@@ -60,6 +60,9 @@
       }
     }
   },
+  "welcomeBack": {
+    "message": "Welcome back"
+  },
   "moveToOrgDesc": {
     "message": "Odaberi organizaciju u koju želiš premjestiti ovu stavku. Premještanje prenosi vlasništvo stavke na organizaciju. Nakon premještanja više nećeš biti direktni vlasnik ove stavke."
   },
@@ -259,6 +262,9 @@
   "generatePassword": {
     "message": "Generiraj lozinku"
   },
+  "generatePassphrase": {
+    "message": "Generate passphrase"
+  },
   "type": {
     "message": "Vrsta"
   },
@@ -393,6 +399,10 @@
   },
   "copyPassword": {
     "message": "Kopirajte lozinku"
+  },
+  "copyPassphrase": {
+    "message": "Copy passphrase",
+    "description": "Copy passphrase to clipboard"
   },
   "copyUri": {
     "message": "Kopiraj URI"
@@ -547,6 +557,9 @@
   "createAccount": {
     "message": "Napravi račun"
   },
+  "newToBitwarden": {
+    "message": "New to Bitwarden?"
+  },
   "setAStrongPassword": {
     "message": "Set a strong password"
   },
@@ -555,6 +568,18 @@
   },
   "logIn": {
     "message": "Prijavite se"
+  },
+  "logInToBitwarden": {
+    "message": "Log in to Bitwarden"
+  },
+  "logInWithPasskey": {
+    "message": "Log in with passkey"
+  },
+  "loginWithDevice": {
+    "message": "Log in with device"
+  },
+  "useSingleSignOn": {
+    "message": "Use single sign-on"
   },
   "submit": {
     "message": "Potvrdi"
@@ -827,6 +852,10 @@
   },
   "baseUrl": {
     "message": "URL servera"
+  },
+  "selfHostBaseUrl": {
+    "message": "Self-host server URL",
+    "description": "Label for field requesting a self-hosted integration service URL"
   },
   "apiUrl": {
     "message": "URL API servera"
@@ -1217,6 +1246,9 @@
   "copyNumber": {
     "message": "Kopiraj broj",
     "description": "Copy credit card number"
+  },
+  "copyEmail": {
+    "message": "Copy email"
   },
   "copySecurityCode": {
     "message": "Kopirajte sigurnosni kod",
@@ -1650,6 +1682,12 @@
   },
   "deleteAccountWarning": {
     "message": "Deleting your account is permanent. It cannot be undone."
+  },
+  "cannotDeleteAccount": {
+    "message": "Cannot delete account"
+  },
+  "cannotDeleteAccountDesc": {
+    "message": "This action cannot be completed because your account is owned by an organization. Contact your organization administrator for additional details."
   },
   "accountDeleted": {
     "message": "Account deleted"
@@ -2352,6 +2390,23 @@
   "generateUsername": {
     "message": "Generate username"
   },
+  "generateEmail": {
+    "message": "Generate email"
+  },
+  "generatorBoundariesHint": {
+    "message": "Value must be between $MIN$ and $MAX$",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "Username type"
   },
@@ -2394,6 +2449,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Generate an email alias with an external forwarding service."
+  },
+  "forwarderDomainName": {
+    "message": "Email domain",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Choose a domain that is supported by the selected service",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "$SERVICENAME$ error: $ERRORMESSAGE$",
@@ -2740,9 +2803,6 @@
   "eu": {
     "message": "EU",
     "description": "European Union"
-  },
-  "loggingInOn": {
-    "message": "Logging in on"
   },
   "selfHostedServer": {
     "message": "self-hosted"
@@ -3161,12 +3221,6 @@
   },
   "textSends": {
     "message": "Text Sends"
-  },
-  "allowScreenshots": {
-    "message": "Allow screen capture"
-  },
-  "allowScreenshotsDesc": {
-    "message": "Allow screen capture of the Bitwarden desktop application."
   },
   "ssoError": {
     "message": "No free ports could be found for the sso login."

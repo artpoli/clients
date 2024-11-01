@@ -8,6 +8,21 @@
   "accessIntelligence": {
     "message": "Access Intelligence"
   },
+  "passwordRisk": {
+    "message": "Рискова парола"
+  },
+  "discoverAtRiskPasswords": {
+    "message": "Откриване на пароли в риск и известяване на потребителите да ги сменят."
+  },
+  "dataLastUpdated": {
+    "message": "Последно обновяване на данните: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "2021-01-01"
+      }
+    }
+  },
   "notifiedMembers": {
     "message": "Известени членове"
   },
@@ -37,6 +52,21 @@
         "example": "3"
       }
     }
+  },
+  "noPriorityApplicationsTitle": {
+    "message": "Не сте отбелязали нито едно приложение като приоритетно"
+  },
+  "noPriorityApplicationsDescription": {
+    "message": "Изберете най-важните си приложения, за да откриете паролите, които може да са в риск, и да известите потребителите да ги сменят."
+  },
+  "markPriorityApps": {
+    "message": "Отбелязване на приоритетни приложения"
+  },
+  "markAppAsCritical": {
+    "message": "Отбелязване на приложението като важно"
+  },
+  "appsMarkedAsCritical": {
+    "message": "Приложения, отбелязани като важни"
   },
   "application": {
     "message": "Приложение"
@@ -405,6 +435,9 @@
   "generatePassword": {
     "message": "Нова парола"
   },
+  "generatePassphrase": {
+    "message": "Генериране на парола-фраза"
+  },
   "checkPassword": {
     "message": "Проверка дали паролата е разкрита."
   },
@@ -662,6 +695,10 @@
   "copyPassword": {
     "message": "Копиране на паролата",
     "description": "Copy password to clipboard"
+  },
+  "copyPassphrase": {
+    "message": "Копиране на паролата-фраза",
+    "description": "Copy passphrase to clipboard"
   },
   "passwordCopied": {
     "message": "Паролата е копирана"
@@ -932,8 +969,14 @@
   "useADifferentLogInMethod": {
     "message": "Използване на друг метод на вписване"
   },
-  "loginWithPasskey": {
+  "logInWithPasskey": {
     "message": "Вписване със секретен ключ"
+  },
+  "useSingleSignOn": {
+    "message": "Използване на еднократна идентификация"
+  },
+  "welcomeBack": {
+    "message": "Добре дошли отново"
   },
   "invalidPasskeyPleaseTryAgain": {
     "message": "Грешен секретен ключ. Опитайте отново."
@@ -1016,6 +1059,9 @@
   "createAccount": {
     "message": "Създаване на абонамент"
   },
+  "newToBitwarden": {
+    "message": "За пръв път ли ползвате Битуорден?"
+  },
   "setAStrongPassword": {
     "message": "Използвайте сложна парола"
   },
@@ -1030,6 +1076,9 @@
   },
   "logIn": {
     "message": "Вписване"
+  },
+  "logInToBitwarden": {
+    "message": "Впишете се в Битуорден"
   },
   "verifyIdentity": {
     "message": "Потвърдете самоличността си"
@@ -1537,38 +1586,6 @@
   "specialCharacters": {
     "message": "Специални знаци (!@#$%^&*)"
   },
-  "uppercaseDescription": {
-    "message": "Включване на главни букви",
-    "description": "Tooltip for the password generator uppercase character checkbox"
-  },
-  "uppercaseLabel": {
-    "message": "A-Z",
-    "description": "Label for the password generator uppercase character checkbox"
-  },
-  "lowercaseDescription": {
-    "message": "Включване на малки букви",
-    "description": "Full description for the password generator lowercase character checkbox"
-  },
-  "lowercaseLabel": {
-    "message": "a-z",
-    "description": "Label for the password generator lowercase character checkbox"
-  },
-  "numbersDescription": {
-    "message": "Включване на цифри",
-    "description": "Full description for the password generator numbers checkbox"
-  },
-  "numbersLabel": {
-    "message": "0-9",
-    "description": "Label for the password generator numbers checkbox"
-  },
-  "specialCharactersDescription": {
-    "message": "Включване на специални знаци",
-    "description": "Full description for the password generator special characters checkbox"
-  },
-  "specialCharactersLabel": {
-    "message": "!@#$%^&*",
-    "description": "Label for the password generator special characters checkbox"
-  },
   "numWords": {
     "message": "Брой думи"
   },
@@ -1699,6 +1716,9 @@
   "dangerZoneDesc": {
     "message": "Внимание, тези действия са необратими!"
   },
+  "dangerZoneDescSingular": {
+    "message": "Внимание, това действие е необратимо!"
+  },
   "deauthorizeSessions": {
     "message": "Прекратяване на сесии"
   },
@@ -1710,6 +1730,15 @@
   },
   "sessionsDeauthorized": {
     "message": "Всички сесии са прекратени"
+  },
+  "accountIsManagedMessage": {
+    "message": "Тази регистрация се управлява от $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "Organization"
+      }
+    }
   },
   "purgeVault": {
     "message": "Пълно изчистване на трезора"
@@ -3167,6 +3196,9 @@
         "example": "20"
       }
     }
+  },
+  "inviteSingleEmailDesc": {
+    "message": "Имате 1 оставаща покана."
   },
   "userUsingTwoStep": {
     "message": "Този потребител използва двустепенна защита за достъп."
@@ -4635,11 +4667,17 @@
   "singleOrgDesc": {
     "message": "Потребителите да не може да са членове на друга организация."
   },
+  "singleOrgPolicyDesc": {
+    "message": "Ограничаване на членовете да не могат да се присъединяват към други организации. Тази политика е задължителна за организации, които са включили настройката за проверка на домейна."
+  },
   "singleOrgBlockCreateMessage": {
     "message": "Вашата настояща организация има политика, която не позволява да участвате в повече от една организация. Моля свържете се с администратора на организацията или се впишете с друг Bitwarden потребител."
   },
   "singleOrgPolicyWarning": {
     "message": "Членовете, които не са собственици или администратори и са членове на други организации ще бъдат премахнати от тази организация."
+  },
+  "singleOrgPolicyMemberWarning": {
+    "message": "На членовете, които не отговарят на това условие, ще бъдат отнети правомощията, докато не напуснат всички останали организации. Администраторите не подлежат на това ограничение, така че те ще могат да възстановяват правомощията на членовете, след като отговорят на условието."
   },
   "requireSso": {
     "message": "Еднократна идентификация"
@@ -6354,6 +6392,23 @@
   "generateUsername": {
     "message": "Генериране на потр. име"
   },
+  "generateEmail": {
+    "message": "Генериране на електронна поща"
+  },
+  "generatorBoundariesHint": {
+    "message": "Стойността трябва да бъде между $MIN$ и $MAX$",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "Тип потребителско име"
   },
@@ -6458,6 +6513,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Generate an email alias with an external forwarding service."
+  },
+  "forwarderDomainName": {
+    "message": "Домейн на електронната поща",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Изберете домейн, който се поддържа от избраната услуга",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "Грешка от $SERVICENAME$: $ERRORMESSAGE$",
@@ -8258,6 +8321,10 @@
   "baseUrl": {
     "message": "Адрес на сървъра"
   },
+  "selfHostBaseUrl": {
+    "message": "Адрес на собствения сървър",
+    "description": "Label for field requesting a self-hosted integration service URL"
+  },
   "aliasDomain": {
     "message": "Псевдонимен домейн"
   },
@@ -9413,6 +9480,38 @@
   "linkedLabelHelpText": {
     "message": "Enter the the field's html id, name, aria-label, or placeholder."
   },
+  "uppercaseDescription": {
+    "message": "Включване на главни букви",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Включване на малки букви",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Включване на цифри",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Включване на специални знаци",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
+  },
   "addAttachment": {
     "message": "Добавяне на прикачен файл"
   },
@@ -9421,5 +9520,21 @@
   },
   "permanentlyDeleteAttachmentConfirmation": {
     "message": "Наистина ли искате да изтриете завинаги този прикачен файл?"
+  },
+  "manageSubscriptionFromThe": {
+    "message": "Управлявайте абонамента от тук:",
+    "description": "This represents the beginning of a sentence. The full sentence will be 'Manage subscription from the Provider Portal', but 'Provider Portal' will be a link and thus cannot be included in the translation file."
+  },
+  "toHostBitwardenOnYourOwnServer": {
+    "message": "За да използвате Битуорден на собствен сървър, трябва да качите своя файл с лиценз. Ако искате да поддържате безплатни Семейни планове и разширени опции за таксуване в своята организация със собствен хостинг, ще трябва да настроите автоматичното синхронизиране в организацията си."
+  },
+  "selfHostingTitleProper": {
+    "message": "Собствен хостинг"
+  },
+  "verified-domain-single-org-warning": {
+    "message": "Проверката на домейн ще включи и политиката за единствена организация."
+  },
+  "single-org-revoked-user-warning": {
+    "message": "На членовете, които не отговарят на това условие, ще бъдат отнети правомощията. Администраторите могат да възстановяват правомощията на членовете, след като те напуснат всички останали организации."
   }
 }

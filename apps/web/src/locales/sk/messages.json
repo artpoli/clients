@@ -8,6 +8,21 @@
   "accessIntelligence": {
     "message": "Access Intelligence"
   },
+  "passwordRisk": {
+    "message": "Ohrozenie hesla"
+  },
+  "discoverAtRiskPasswords": {
+    "message": "Odhaľte ohrozené hesla a upozornite používateľov, aby si ich zmenili."
+  },
+  "dataLastUpdated": {
+    "message": "Posledná aktualizácia dát: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "2021-01-01"
+      }
+    }
+  },
   "notifiedMembers": {
     "message": "Notified members"
   },
@@ -37,6 +52,21 @@
         "example": "3"
       }
     }
+  },
+  "noPriorityApplicationsTitle": {
+    "message": "Neoznačili ste žiadne aplikácie ako prioritné"
+  },
+  "noPriorityApplicationsDescription": {
+    "message": "Pre odhalenie ohrozených hesiel a upozornenie používateľov aby si ich zmenili vyberte vaše najkritickejšie aplikácie."
+  },
+  "markPriorityApps": {
+    "message": "Označiť prioritné aplikácie"
+  },
+  "markAppAsCritical": {
+    "message": "Označiť aplikáciu ako kritickú"
+  },
+  "appsMarkedAsCritical": {
+    "message": "Apps marked as critical"
   },
   "application": {
     "message": "Aplikácia"
@@ -405,6 +435,9 @@
   "generatePassword": {
     "message": "Generovať heslo"
   },
+  "generatePassphrase": {
+    "message": "Generovať prístupovú frázu"
+  },
   "checkPassword": {
     "message": "Overiť či došlo k úniku hesla."
   },
@@ -662,6 +695,10 @@
   "copyPassword": {
     "message": "Kopírovať heslo",
     "description": "Copy password to clipboard"
+  },
+  "copyPassphrase": {
+    "message": "Kopírovať prístupovú frázu",
+    "description": "Copy passphrase to clipboard"
   },
   "passwordCopied": {
     "message": "Heslo skopírované"
@@ -932,8 +969,14 @@
   "useADifferentLogInMethod": {
     "message": "Použiť iný spôsob prihlásenia"
   },
-  "loginWithPasskey": {
+  "logInWithPasskey": {
     "message": "Prihlásiť sa s prístupovým kľúčom"
+  },
+  "useSingleSignOn": {
+    "message": "Použiť jednotné prihlásenie"
+  },
+  "welcomeBack": {
+    "message": "Vitajte späť"
   },
   "invalidPasskeyPleaseTryAgain": {
     "message": "Nesprávne Passkey heslo. Prosím skúste to znovu."
@@ -1016,6 +1059,9 @@
   "createAccount": {
     "message": "Vytvoriť účet"
   },
+  "newToBitwarden": {
+    "message": "Ste noví na Bitwardene?"
+  },
   "setAStrongPassword": {
     "message": "Nastavte silné heslo"
   },
@@ -1030,6 +1076,9 @@
   },
   "logIn": {
     "message": "Prihlásiť sa"
+  },
+  "logInToBitwarden": {
+    "message": "Prihlásenie do Bitwardenu"
   },
   "verifyIdentity": {
     "message": "Overte svoju totožnosť"
@@ -1537,38 +1586,6 @@
   "specialCharacters": {
     "message": "Špeciálne znaky (!@#$%^&*)"
   },
-  "uppercaseDescription": {
-    "message": "Zahrnúť veľké písmená",
-    "description": "Tooltip for the password generator uppercase character checkbox"
-  },
-  "uppercaseLabel": {
-    "message": "A-Z",
-    "description": "Label for the password generator uppercase character checkbox"
-  },
-  "lowercaseDescription": {
-    "message": "Zahrnúť malé písmená",
-    "description": "Full description for the password generator lowercase character checkbox"
-  },
-  "lowercaseLabel": {
-    "message": "a-z",
-    "description": "Label for the password generator lowercase character checkbox"
-  },
-  "numbersDescription": {
-    "message": "Vrátane čísiel",
-    "description": "Full description for the password generator numbers checkbox"
-  },
-  "numbersLabel": {
-    "message": "0-9",
-    "description": "Label for the password generator numbers checkbox"
-  },
-  "specialCharactersDescription": {
-    "message": "Zahrnúť špeciálne znaky",
-    "description": "Full description for the password generator special characters checkbox"
-  },
-  "specialCharactersLabel": {
-    "message": "!@#$%^&*",
-    "description": "Label for the password generator special characters checkbox"
-  },
   "numWords": {
     "message": "Počet slov"
   },
@@ -1699,6 +1716,9 @@
   "dangerZoneDesc": {
     "message": "Opatrne, tieto zmeny nemožno vrátiť späť!"
   },
+  "dangerZoneDescSingular": {
+    "message": "Opatrne, túto zmenu nemožno vrátiť späť!"
+  },
   "deauthorizeSessions": {
     "message": "Odhlásiť sedenia"
   },
@@ -1710,6 +1730,15 @@
   },
   "sessionsDeauthorized": {
     "message": "Všetky sedenia odhlásené"
+  },
+  "accountIsManagedMessage": {
+    "message": "Tento účet spravuje $ORGANIZATIONNAME$",
+    "placeholders": {
+      "organizationName": {
+        "content": "$1",
+        "example": "Organization"
+      }
+    }
   },
   "purgeVault": {
     "message": "Vyprázdniť trezor"
@@ -3167,6 +3196,9 @@
         "example": "20"
       }
     }
+  },
+  "inviteSingleEmailDesc": {
+    "message": "Ostáva vám 1 pozvánka."
   },
   "userUsingTwoStep": {
     "message": "Tento používateľ používa dvojstupňové overovanie aby si zabezpečil konto."
@@ -4635,11 +4667,17 @@
   "singleOrgDesc": {
     "message": "Zakázať používateľom stať sa členmi inej organizácie."
   },
+  "singleOrgPolicyDesc": {
+    "message": "Zakázať používateľom stať sa členmi inej organizácie. Toto pravidlo sa vyžaduje od organizácií, ktoré povolili overovanie domény."
+  },
   "singleOrgBlockCreateMessage": {
     "message": "Vaša súčasná organizácia má pravidlo, ktoré vám nedovoľuje pripojiť sa k viac než jednej organizácii. Kontaktujte, prosím, administrátorov vašej organizácie alebo sa prihláste prostredníctvom iného Bitwarden účtu."
   },
   "singleOrgPolicyWarning": {
     "message": "Členovia organizácie, ktorí nie sú vlastníkmi alebo administrátormi a už sú členmi inej organizácie, budú odstránení z vašej organizácie."
+  },
+  "singleOrgPolicyMemberWarning": {
+    "message": "Členovia, ktorí nedodržiavajú pravidlo, budú zaradení do zrušeného stavu, kým neopustia všetky ostatné organizácie. Správcovia majú výnimku a môžu obnoviť členov po splnení požiadaviek pravidiel organizácie."
   },
   "requireSso": {
     "message": "Požadovať overovanie prostredníctvom jednotného prihlasovania (SSO)"
@@ -6354,6 +6392,23 @@
   "generateUsername": {
     "message": "Vygenerovať používateľské meno"
   },
+  "generateEmail": {
+    "message": "Generovať e-mail"
+  },
+  "generatorBoundariesHint": {
+    "message": "Hodnota musí byť medzi $MIN$ a $MAX$",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "Typ používateľského mena"
   },
@@ -6458,6 +6513,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Vytvoriť e-mailový alias pomocou externej služby preposielania."
+  },
+  "forwarderDomainName": {
+    "message": "E-mailová doména",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Vyberte doménu, ktorá je podporovaná vybranou službou",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "$SERVICENAME$ error: $ERRORMESSAGE$",
@@ -8258,6 +8321,10 @@
   "baseUrl": {
     "message": "URL servera"
   },
+  "selfHostBaseUrl": {
+    "message": "Adresa URL vlastného hostingu",
+    "description": "Label for field requesting a self-hosted integration service URL"
+  },
   "aliasDomain": {
     "message": "Alias doména"
   },
@@ -9413,6 +9480,38 @@
   "linkedLabelHelpText": {
     "message": "Zadajte html atribút poľa id, name, aria-label, alebo placeholder."
   },
+  "uppercaseDescription": {
+    "message": "Zahrnúť veľké písmená",
+    "description": "Tooltip for the password generator uppercase character checkbox"
+  },
+  "uppercaseLabel": {
+    "message": "A-Z",
+    "description": "Label for the password generator uppercase character checkbox"
+  },
+  "lowercaseDescription": {
+    "message": "Zahrnúť malé písmená",
+    "description": "Full description for the password generator lowercase character checkbox"
+  },
+  "lowercaseLabel": {
+    "message": "a-z",
+    "description": "Label for the password generator lowercase character checkbox"
+  },
+  "numbersDescription": {
+    "message": "Vrátane čísiel",
+    "description": "Full description for the password generator numbers checkbox"
+  },
+  "numbersLabel": {
+    "message": "0-9",
+    "description": "Label for the password generator numbers checkbox"
+  },
+  "specialCharactersDescription": {
+    "message": "Zahrnúť špeciálne znaky",
+    "description": "Full description for the password generator special characters checkbox"
+  },
+  "specialCharactersLabel": {
+    "message": "!@#$%^&*",
+    "description": "Label for the password generator special characters checkbox"
+  },
   "addAttachment": {
     "message": "Priložiť prílohu"
   },
@@ -9421,5 +9520,21 @@
   },
   "permanentlyDeleteAttachmentConfirmation": {
     "message": "Naozaj chcete natrvalo odstrániť túto prílohu?"
+  },
+  "manageSubscriptionFromThe": {
+    "message": "Spravovať predplatné z",
+    "description": "This represents the beginning of a sentence. The full sentence will be 'Manage subscription from the Provider Portal', but 'Provider Portal' will be a link and thus cannot be included in the translation file."
+  },
+  "toHostBitwardenOnYourOwnServer": {
+    "message": "Ak chcete prevádzkovať Bitwarden na vlastnom serveri, musíte nahrať licenčný súbor. Pre podporu Free Families plánu a pokročilé možnosti fakturácie pre vašu organizáciu s vlastným hostingom, budete musieť nastaviť automatickú synchronizáciu v organizácii vo vlastnom hostingu."
+  },
+  "selfHostingTitleProper": {
+    "message": "Vlastný hosting"
+  },
+  "verified-domain-single-org-warning": {
+    "message": "Overenie domény zapne pravidlo jedinej organizácie."
+  },
+  "single-org-revoked-user-warning": {
+    "message": "Členovia, ktorí nedodržiavajú pravidlo, budú odvolaní. Správcovia môžu obnoviť členov po ich odchode zo všetkých ostatných organizácií."
   }
 }

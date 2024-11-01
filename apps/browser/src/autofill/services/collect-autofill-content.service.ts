@@ -196,7 +196,7 @@ export class CollectAutofillContentService implements CollectAutofillContentServ
   private updateCachedAutofillFieldVisibility() {
     this.autofillFieldElements.forEach(async (autofillField, element) => {
       const previouslyViewable = autofillField.viewable;
-      autofillField.viewable = await this.domElementVisibilityService.isFormFieldViewable(element);
+      autofillField.viewable = await this.domElementVisibilityService.isElementViewable(element);
 
       if (!previouslyViewable && autofillField.viewable) {
         this.setupOverlayOnField(element, autofillField);
@@ -360,13 +360,14 @@ export class CollectAutofillContentService implements CollectAutofillContentServ
       opid: element.opid,
       elementNumber: index,
       maxLength: this.getAutofillFieldMaxLength(element),
-      viewable: await this.domElementVisibilityService.isFormFieldViewable(element),
+      viewable: await this.domElementVisibilityService.isElementViewable(element),
       htmlID: this.getPropertyOrAttribute(element, "id"),
       htmlName: this.getPropertyOrAttribute(element, "name"),
       htmlClass: this.getPropertyOrAttribute(element, "class"),
       tabindex: this.getPropertyOrAttribute(element, "tabindex"),
       title: this.getPropertyOrAttribute(element, "title"),
       tagName: this.getAttributeLowerCase(element, "tagName"),
+      dataSetValues: this.getDataSetValues(element),
     };
 
     if (!autofillFieldBase.viewable) {
@@ -801,6 +802,21 @@ export class CollectAutofillContentService implements CollectAutofillContentServ
   }
 
   /**
+   * Captures the `data-*` attribute metadata to help with validating the autofill data.
+   *
+   * @param element - The form field element to capture the `data-*` attribute metadata from
+   */
+  private getDataSetValues(element: ElementWithOpId<FormFieldElement>): string {
+    let datasetValues = "";
+    const dataset = element.dataset;
+    for (const key in dataset) {
+      datasetValues += `${key}: ${dataset[key]}, `;
+    }
+
+    return datasetValues;
+  }
+
+  /**
    * Get the options from a select element and return them as an array
    * of arrays indicating the select element option text and value.
    * @param {HTMLSelectElement} element
@@ -945,6 +961,7 @@ export class CollectAutofillContentService implements CollectAutofillContentServ
     this.domRecentlyMutated = true;
     if (this.autofillOverlayContentService) {
       this.autofillOverlayContentService.pageDetailsUpdateRequired = true;
+      this.autofillOverlayContentService.clearUserFilledFields();
       void this.sendExtensionMessage("closeAutofillInlineMenu", { forceCloseInlineMenu: true });
     }
     this.noFieldsFound = false;
@@ -963,7 +980,7 @@ export class CollectAutofillContentService implements CollectAutofillContentServ
     const queueLength = this.mutationsQueue.length;
 
     if (!this.domQueryService.pageContainsShadowDomElements()) {
-      this.domQueryService.checkPageContainsShadowDom();
+      this.checkPageContainsShadowDom();
     }
 
     for (let queueIndex = 0; queueIndex < queueLength; queueIndex++) {
@@ -981,6 +998,29 @@ export class CollectAutofillContentService implements CollectAutofillContentServ
 
     this.mutationsQueue = [];
   };
+
+  /**
+   * Handles checking if the current page contains a ShadowDOM element and
+   * flags that a re-collection of page details is required if it does.
+   */
+  private checkPageContainsShadowDom() {
+    this.domQueryService.checkPageContainsShadowDom();
+    if (this.domQueryService.pageContainsShadowDomElements()) {
+      this.flagPageDetailsUpdateIsRequired();
+    }
+  }
+
+  /**
+   * Triggers several flags that indicate that a collection of page details should
+   * occur again on a subsequent call after a mutation has been observed in the DOM.
+   */
+  private flagPageDetailsUpdateIsRequired() {
+    this.domRecentlyMutated = true;
+    if (this.autofillOverlayContentService) {
+      this.autofillOverlayContentService.pageDetailsUpdateRequired = true;
+    }
+    this.noFieldsFound = false;
+  }
 
   /**
    * Processes all mutation records encountered by the mutation observer.
@@ -1006,11 +1046,7 @@ export class CollectAutofillContentService implements CollectAutofillContentServ
       (this.isAutofillElementNodeMutated(mutation.removedNodes, true) ||
         this.isAutofillElementNodeMutated(mutation.addedNodes))
     ) {
-      this.domRecentlyMutated = true;
-      if (this.autofillOverlayContentService) {
-        this.autofillOverlayContentService.pageDetailsUpdateRequired = true;
-      }
-      this.noFieldsFound = false;
+      this.flagPageDetailsUpdateIsRequired();
       return;
     }
 
@@ -1315,8 +1351,7 @@ export class CollectAutofillContentService implements CollectAutofillContentServ
         continue;
       }
 
-      const isViewable =
-        await this.domElementVisibilityService.isFormFieldViewable(formFieldElement);
+      const isViewable = await this.domElementVisibilityService.isElementViewable(formFieldElement);
       if (!isViewable) {
         continue;
       }

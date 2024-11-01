@@ -60,6 +60,9 @@
       }
     }
   },
+  "welcomeBack": {
+    "message": "Yenidən xoş gəlmisiniz"
+  },
   "moveToOrgDesc": {
     "message": "Bu elementi daşımaq istədiyiniz təşkilatı seçin. Bir təşkilata daşımaq, elementin sahibliyini də həmin təşkilata daşıyacaq. Daşıdıqdan sonra bu elementə birbaşa sahibliyiniz olmayacaq."
   },
@@ -259,6 +262,9 @@
   "generatePassword": {
     "message": "Parol yarat"
   },
+  "generatePassphrase": {
+    "message": "Keçid ifadələri yarat"
+  },
   "type": {
     "message": "Növ"
   },
@@ -393,6 +399,10 @@
   },
   "copyPassword": {
     "message": "Parolu kopyala"
+  },
+  "copyPassphrase": {
+    "message": "Keçid ifadəsini kopyala",
+    "description": "Copy passphrase to clipboard"
   },
   "copyUri": {
     "message": "URI-ni kopyala"
@@ -547,6 +557,9 @@
   "createAccount": {
     "message": "Hesab yarat"
   },
+  "newToBitwarden": {
+    "message": "Bitwarden-də yenisiniz?"
+  },
   "setAStrongPassword": {
     "message": "Güclü bir parol təyin et"
   },
@@ -555,6 +568,18 @@
   },
   "logIn": {
     "message": "Giriş et"
+  },
+  "logInToBitwarden": {
+    "message": "Bitwarden-ə giriş edin"
+  },
+  "logInWithPasskey": {
+    "message": "Keçid açarı ilə giriş et"
+  },
+  "loginWithDevice": {
+    "message": "Cihazla giriş et"
+  },
+  "useSingleSignOn": {
+    "message": "Tək daxil olma üsulunu istifadə et"
   },
   "submit": {
     "message": "Göndər"
@@ -827,6 +852,10 @@
   },
   "baseUrl": {
     "message": "Server URL-si"
+  },
+  "selfHostBaseUrl": {
+    "message": "Self-host server URL-si",
+    "description": "Label for field requesting a self-hosted integration service URL"
   },
   "apiUrl": {
     "message": "API server URL-si"
@@ -1217,6 +1246,9 @@
   "copyNumber": {
     "message": "Nömrəni kopyala",
     "description": "Copy credit card number"
+  },
+  "copyEmail": {
+    "message": "E-poçtu kopyala"
   },
   "copySecurityCode": {
     "message": "Güvənlik kodunu kopyala",
@@ -1650,6 +1682,12 @@
   },
   "deleteAccountWarning": {
     "message": "Hesabınızı silmək birdəfəlik prosesdir. Bu əməliyyatın geri dönüşü yoxdur."
+  },
+  "cannotDeleteAccount": {
+    "message": "Hesab silinə bilmir"
+  },
+  "cannotDeleteAccountDesc": {
+    "message": "Hesabınız bir təşkilata aid olduğu üçün bu əməliyyat icra edilə bilməz. Əlavə məlumat üçün təşkilatınızın administratoru ilə əlaqə saxlayın."
   },
   "accountDeleted": {
     "message": "Hesab silindi"
@@ -2352,6 +2390,23 @@
   "generateUsername": {
     "message": "İstifadəçi adı yarat"
   },
+  "generateEmail": {
+    "message": "E-poçt yarat"
+  },
+  "generatorBoundariesHint": {
+    "message": "Dəyər $MIN$-$MAX$ arasında olmalıdır",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "İstifadəçi adı növü"
   },
@@ -2394,6 +2449,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Xarici yönləndirmə xidməti ilə e-poçt ləqəbi yaradın."
+  },
+  "forwarderDomainName": {
+    "message": "E-poçt domeni",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Seçilmiş xidmət tərəfindən dəstəklənən bir domen seçin",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "$SERVICENAME$ xətası: $ERRORMESSAGE$",
@@ -2740,9 +2803,6 @@
   "eu": {
     "message": "AB",
     "description": "European Union"
-  },
-  "loggingInOn": {
-    "message": "Giriş edilir"
   },
   "selfHostedServer": {
     "message": "self-hosted"
@@ -3161,12 +3221,6 @@
   },
   "textSends": {
     "message": "Mətn \"Send\"ləri"
-  },
-  "allowScreenshots": {
-    "message": "Ekranı çəkməyə icazə ver"
-  },
-  "allowScreenshotsDesc": {
-    "message": "Bitwarden masaüstü tətbiqinin ekranını çəkməyə icazə ver."
   },
   "ssoError": {
     "message": "SSO giriş üçün açıq port tapıla bilmədi."

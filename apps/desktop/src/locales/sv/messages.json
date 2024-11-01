@@ -60,6 +60,9 @@
       }
     }
   },
+  "welcomeBack": {
+    "message": "Välkommen tillbaka"
+  },
   "moveToOrgDesc": {
     "message": "Välj en organisation som du vill flytta detta objektet till. Flytt till en organisation överför ägandet av objektet till den organisationen. Du kommer inte längre att vara direkt ägare till detta objekt när det har flyttats."
   },
@@ -259,6 +262,9 @@
   "generatePassword": {
     "message": "Generera lösenord"
   },
+  "generatePassphrase": {
+    "message": "Generera lösenfras"
+  },
   "type": {
     "message": "Typ"
   },
@@ -393,6 +399,10 @@
   },
   "copyPassword": {
     "message": "Kopiera lösenord"
+  },
+  "copyPassphrase": {
+    "message": "Kopiera lösenfras",
+    "description": "Copy passphrase to clipboard"
   },
   "copyUri": {
     "message": "Kopiera URI"
@@ -547,6 +557,9 @@
   "createAccount": {
     "message": "Skapa konto"
   },
+  "newToBitwarden": {
+    "message": "Ny på Bitwarden?"
+  },
   "setAStrongPassword": {
     "message": "Ställ in ett starkt lösenord"
   },
@@ -555,6 +568,18 @@
   },
   "logIn": {
     "message": "Logga in"
+  },
+  "logInToBitwarden": {
+    "message": "Logga in på Bitwarden"
+  },
+  "logInWithPasskey": {
+    "message": "Logga in med nyckel"
+  },
+  "loginWithDevice": {
+    "message": "Logga in med enhet"
+  },
+  "useSingleSignOn": {
+    "message": "Use single sign-on"
   },
   "submit": {
     "message": "Skicka"
@@ -827,6 +852,10 @@
   },
   "baseUrl": {
     "message": "Server-URL"
+  },
+  "selfHostBaseUrl": {
+    "message": "Self-host server URL",
+    "description": "Label for field requesting a self-hosted integration service URL"
   },
   "apiUrl": {
     "message": "API-server-URL"
@@ -1217,6 +1246,9 @@
   "copyNumber": {
     "message": "Kopiera nummer",
     "description": "Copy credit card number"
+  },
+  "copyEmail": {
+    "message": "Copy email"
   },
   "copySecurityCode": {
     "message": "Kopiera säkerhetskod",
@@ -1651,6 +1683,12 @@
   "deleteAccountWarning": {
     "message": "Att radera ditt konto är permanent. Det går inte att ångra."
   },
+  "cannotDeleteAccount": {
+    "message": "Cannot delete account"
+  },
+  "cannotDeleteAccountDesc": {
+    "message": "This action cannot be completed because your account is owned by an organization. Contact your organization administrator for additional details."
+  },
   "accountDeleted": {
     "message": "Kontot raderades"
   },
@@ -1762,7 +1800,7 @@
     "description": "Used as a card title description on the set password page to explain why the user is there"
   },
   "cardMetrics": {
-    "message": "out of $TOTAL$",
+    "message": "av $TOTAL$",
     "placeholders": {
       "total": {
         "content": "$1",
@@ -2352,6 +2390,23 @@
   "generateUsername": {
     "message": "Generera användarnamn"
   },
+  "generateEmail": {
+    "message": "Generate email"
+  },
+  "generatorBoundariesHint": {
+    "message": "Value must be between $MIN$ and $MAX$",
+    "description": "Explains spin box minimum and maximum values to the user",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      },
+      "max": {
+        "content": "$2",
+        "example": "128"
+      }
+    }
+  },
   "usernameType": {
     "message": "Typ av användarnamn"
   },
@@ -2394,6 +2449,14 @@
   },
   "forwardedEmailDesc": {
     "message": "Skapa ett e-postalias med en extern vidarebefordranstjänst."
+  },
+  "forwarderDomainName": {
+    "message": "Email domain",
+    "description": "Labels the domain name email forwarder service option"
+  },
+  "forwarderDomainNameHint": {
+    "message": "Choose a domain that is supported by the selected service",
+    "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
     "message": "$SERVICENAME$-fel: $ERRORMESSAGE$",
@@ -2740,9 +2803,6 @@
   "eu": {
     "message": "EU",
     "description": "European Union"
-  },
-  "loggingInOn": {
-    "message": "Logga in på"
   },
   "selfHostedServer": {
     "message": "självhostad"
@@ -3161,12 +3221,6 @@
   },
   "textSends": {
     "message": "Text Sends"
-  },
-  "allowScreenshots": {
-    "message": "Allow screen capture"
-  },
-  "allowScreenshotsDesc": {
-    "message": "Allow screen capture of the Bitwarden desktop application."
   },
   "ssoError": {
     "message": "No free ports could be found for the sso login."

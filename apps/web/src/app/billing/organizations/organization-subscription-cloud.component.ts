@@ -56,6 +56,7 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
   preSelectedProductTier: ProductTierType = ProductTierType.Free;
   showSubscription = true;
   showSelfHost = false;
+  organizationIsManagedByConsolidatedBillingMSP = false;
 
   protected readonly subscriptionHiddenIcon = SubscriptionHiddenIcon;
   protected readonly teamsStarter = ProductTierType.TeamsStarter;
@@ -129,26 +130,23 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
     this.locale = await firstValueFrom(this.i18nService.locale$);
     this.userOrg = await this.organizationService.get(this.organizationId);
 
-    /*
-    +--------------------+--------------+----------------------+--------------+
-    |     User Type      | Has Provider | Consolidated Billing | Subscription |
-    +--------------------+--------------+----------------------+--------------+
-    | Organization Owner | False        | N/A                  | Shown        |
-    | Organization Owner | True         | N/A                  | Hidden       |
-    | Provider User      | True         | False                | Shown        |
-    | Provider User      | True         | True                 | Hidden       |
-    +--------------------+--------------+----------------------+--------------+
-     */
-
     const consolidatedBillingEnabled = await firstValueFrom(this.enableConsolidatedBilling$);
 
-    this.showSubscription =
-      (!this.userOrg.hasProvider && this.userOrg.isOwner) ||
-      (this.userOrg.hasProvider && this.userOrg.isProviderUser && !consolidatedBillingEnabled);
+    const isIndependentOrganizationOwner = !this.userOrg.hasProvider && this.userOrg.isOwner;
+    const isResoldOrganizationOwner = this.userOrg.hasReseller && this.userOrg.isOwner;
+    const isMSPUser = this.userOrg.hasProvider && this.userOrg.isProviderUser;
 
     const metadata = await this.billingApiService.getOrganizationBillingMetadata(
       this.organizationId,
     );
+
+    this.organizationIsManagedByConsolidatedBillingMSP =
+      consolidatedBillingEnabled && this.userOrg.hasProvider && metadata.isManaged;
+
+    this.showSubscription =
+      isIndependentOrganizationOwner ||
+      isResoldOrganizationOwner ||
+      (isMSPUser && !this.organizationIsManagedByConsolidatedBillingMSP);
 
     this.showSelfHost = metadata.isEligibleForSelfHost;
 
@@ -523,6 +521,10 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
 
   get showChangePlanButton() {
     return this.sub.plan.productTier !== ProductTierType.Enterprise && !this.showChangePlan;
+  }
+
+  get canUseBillingSync() {
+    return this.userOrg.productTierType === ProductTierType.Enterprise;
   }
 }
 

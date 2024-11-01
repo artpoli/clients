@@ -1,9 +1,10 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { OnInit, Input, Output, EventEmitter, Component, OnDestroy } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
-import { BehaviorSubject, takeUntil, Subject, map, filter, tap, debounceTime, skip } from "rxjs";
+import { BehaviorSubject, takeUntil, Subject, map, filter, tap, skip, ReplaySubject } from "rxjs";
 
 import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
+import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { UserId } from "@bitwarden/common/types/guid";
 import {
   Generators,
@@ -33,11 +34,13 @@ export class PasswordSettingsComponent implements OnInit, OnDestroy {
   /** Instantiates the component
    *  @param accountService queries user availability
    *  @param generatorService settings and policy logic
+   *  @param i18nService localize hints
    *  @param formBuilder reactive form controls
    */
   constructor(
     private formBuilder: FormBuilder,
     private generatorService: CredentialGeneratorService,
+    private i18nService: I18nService,
     private accountService: AccountService,
   ) {}
 
@@ -132,14 +135,6 @@ export class PasswordSettingsComponent implements OnInit, OnDestroy {
           toValidators(Controls.minSpecial, Generators.password, constraints),
         );
 
-        // forward word boundaries to the template (can't do it through the rx form)
-        this.minLength = constraints.length.min;
-        this.maxLength = constraints.length.max;
-        this.minMinNumber = constraints.minNumber.min;
-        this.maxMinNumber = constraints.minNumber.max;
-        this.minMinSpecial = constraints.minSpecial.min;
-        this.maxMinSpecial = constraints.minSpecial.max;
-
         this.policyInEffect = constraints.policyInEffect;
 
         const toggles = [
@@ -155,6 +150,13 @@ export class PasswordSettingsComponent implements OnInit, OnDestroy {
         for (const [control, enabled] of toggles) {
           this.toggleEnabled(control, enabled);
         }
+
+        const boundariesHint = this.i18nService.t(
+          "generatorBoundariesHint",
+          constraints.length.min,
+          constraints.length.max,
+        );
+        this.lengthBoundariesHint.next(boundariesHint);
       });
 
     // cascade selections between checkboxes and spinboxes
@@ -201,9 +203,6 @@ export class PasswordSettingsComponent implements OnInit, OnDestroy {
     // now that outputs are set up, connect inputs
     this.settings.valueChanges
       .pipe(
-        // debounce ensures rapid edits to a field, such as partial edits to a
-        // spinbox or rapid button clicks don't emit spurious generator updates
-        debounceTime(this.waitMs),
         map((settings) => {
           // interface is "avoid" while storage is "include"
           const s: any = { ...settings };
@@ -216,26 +215,13 @@ export class PasswordSettingsComponent implements OnInit, OnDestroy {
       .subscribe(settings);
   }
 
-  /** attribute binding for length[min] */
-  protected minLength: number;
-
-  /** attribute binding for length[max] */
-  protected maxLength: number;
-
-  /** attribute binding for minNumber[min] */
-  protected minMinNumber: number;
-
-  /** attribute binding for minNumber[max] */
-  protected maxMinNumber: number;
-
-  /** attribute binding for minSpecial[min] */
-  protected minMinSpecial: number;
-
-  /** attribute binding for minSpecial[max] */
-  protected maxMinSpecial: number;
-
   /** display binding for enterprise policy notice */
   protected policyInEffect: boolean;
+
+  private lengthBoundariesHint = new ReplaySubject<string>(1);
+
+  /** display binding for min/max constraints of `length` */
+  protected lengthBoundariesHint$ = this.lengthBoundariesHint.asObservable();
 
   private toggleEnabled(setting: keyof typeof Controls, enabled: boolean) {
     if (enabled) {

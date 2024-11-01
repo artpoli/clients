@@ -13,7 +13,6 @@ import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/s
 import { DomainSettingsService } from "@bitwarden/common/autofill/services/domain-settings.service";
 import { DeviceType } from "@bitwarden/common/enums";
 import { VaultTimeoutAction } from "@bitwarden/common/enums/vault-timeout-action.enum";
-import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
@@ -29,7 +28,7 @@ import {
   VaultTimeoutStringType,
 } from "@bitwarden/common/types/vault-timeout.type";
 import { DialogService } from "@bitwarden/components";
-import { BiometricsService, BiometricStateService } from "@bitwarden/key-management";
+import { KeyService, BiometricsService, BiometricStateService } from "@bitwarden/key-management";
 
 import { SetPinComponent } from "../../auth/components/set-pin.component";
 import { DesktopAutofillSettingsService } from "../../autofill/services/desktop-autofill-settings.service";
@@ -108,7 +107,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
       disabled: true,
     }),
     enableHardwareAcceleration: true,
-    allowScreenshots: false,
     enableDuckDuckGoBrowserIntegration: false,
     theme: [null as ThemeType | null],
     locale: [null as string | null],
@@ -127,7 +125,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private stateService: StateService,
     private autofillSettingsService: AutofillSettingsServiceAbstraction,
     private messagingService: MessagingService,
-    private cryptoService: CryptoService,
+    private keyService: KeyService,
     private themeStateService: ThemeStateService,
     private domainSettingsService: DomainSettingsService,
     private dialogService: DialogService,
@@ -274,7 +272,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
       enableHardwareAcceleration: await firstValueFrom(
         this.desktopSettingsService.hardwareAcceleration$,
       ),
-      allowScreenshots: await firstValueFrom(this.desktopSettingsService.allowScreenshots$),
       theme: await firstValueFrom(this.themeStateService.selectedTheme$),
       locale: await firstValueFrom(this.i18nService.userSetLocale$),
     };
@@ -462,7 +459,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       if (!enabled || !this.supportsBiometric) {
         this.form.controls.biometric.setValue(false, { emitEvent: false });
         await this.biometricStateService.setBiometricUnlockEnabled(false);
-        await this.cryptoService.refreshAdditionalKeys();
+        await this.keyService.refreshAdditionalKeys();
         return;
       }
 
@@ -501,10 +498,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
         await this.biometricStateService.setRequirePasswordOnStart(true);
         await this.biometricStateService.setDismissedRequirePasswordOnStartCallout();
       }
-      await this.cryptoService.refreshAdditionalKeys();
+      await this.keyService.refreshAdditionalKeys();
 
       // Validate the key is stored in case biometrics fail.
-      const biometricSet = await this.cryptoService.hasUserKeyStored(KeySuffixOptions.Biometric);
+      const biometricSet = await this.keyService.hasUserKeyStored(KeySuffixOptions.Biometric);
       this.form.controls.biometric.setValue(biometricSet, { emitEvent: false });
       if (!biometricSet) {
         await this.biometricStateService.setBiometricUnlockEnabled(false);
@@ -536,7 +533,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       await this.biometricStateService.setRequirePasswordOnStart(false);
     }
     await this.biometricStateService.setDismissedRequirePasswordOnStartCallout();
-    await this.cryptoService.refreshAdditionalKeys();
+    await this.keyService.refreshAdditionalKeys();
   }
 
   async saveFavicons() {
@@ -629,7 +626,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
   async saveBrowserIntegration() {
     if (
       ipc.platform.deviceType === DeviceType.MacOsDesktop &&
-      !this.platformUtilsService.isMacAppStore()
+      !this.platformUtilsService.isMacAppStore() &&
+      !ipc.platform.isDev
     ) {
       await this.dialogService.openSimpleDialog({
         title: { key: "browserIntegrationUnsupportedTitle" },
@@ -723,10 +721,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
     await this.desktopSettingsService.setHardwareAcceleration(
       this.form.value.enableHardwareAcceleration,
     );
-  }
-
-  async saveAllowScreenshots() {
-    await this.desktopSettingsService.setAllowScreenshots(this.form.value.allowScreenshots);
   }
 
   private async generateVaultTimeoutOptions(): Promise<VaultTimeoutOption[]> {

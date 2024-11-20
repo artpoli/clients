@@ -3,16 +3,19 @@
     "message": "Всі програми"
   },
   "criticalApplications": {
-    "message": "Critical applications"
+    "message": "Критичні програми"
   },
   "accessIntelligence": {
-    "message": "Керування доступом"
+    "message": "Управління доступом"
+  },
+  "riskInsights": {
+    "message": "Інформація щодо ризику"
   },
   "passwordRisk": {
     "message": "Ризиковані паролі"
   },
-  "discoverAtRiskPasswords": {
-    "message": "Дізнавайтеся про ризиковані паролі та сповіщайте користувачів про необхідність їх заміни."
+  "reviewAtRiskPasswords": {
+    "message": "Переглядайте ризиковані паролі в різних програмах (слабкі, викриті, або повторно використані). Виберіть найбільш критичні програми, щоб визначити пріоритети дій щодо безпеки для користувачів, які використовують ризиковані паролі."
   },
   "dataLastUpdated": {
     "message": "Дані востаннє оновлено: $DATE$",
@@ -36,10 +39,10 @@
     }
   },
   "createNewLoginItem": {
-    "message": "Create new login item"
+    "message": "Створити новий запис"
   },
   "criticalApplicationsWithCount": {
-    "message": "Critical applications ($COUNT$)",
+    "message": "Критичні програми ($COUNT$)",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -57,7 +60,7 @@
     }
   },
   "noAppsInOrgTitle": {
-    "message": "No applications found in $ORG NAME$",
+    "message": "Не знайдено програм в $ORG NAME$",
     "placeholders": {
       "org name": {
         "content": "$1",
@@ -66,22 +69,22 @@
     }
   },
   "noAppsInOrgDescription": {
-    "message": "As users save logins, applications appear here, showing any at-risk passwords. Mark critical apps and notify users to update passwords."
+    "message": "Коли користувачі зберігатимуть записи, тут з'являтимуться програми з ризикованими паролями. Позначте критичні програми та сповіщайте користувачів про необхідність зміни паролів."
   },
   "noCriticalAppsTitle": {
-    "message": "You haven't marked any applications as a Critical"
+    "message": "Ви не позначили жодної критичної програми"
   },
   "noCriticalAppsDescription": {
-    "message": "Select your most critical applications to discover at-risk passwords, and notify users to change those passwords."
+    "message": "Виберіть найбільш критичні програми, для яких виявлятимуться ризиковані паролі, та сповіщайте користувачів про необхідність їх заміни."
   },
   "markCriticalApps": {
-    "message": "Mark critical apps"
+    "message": "Позначити критичні програми"
   },
   "markAppAsCritical": {
     "message": "Позначити програму критичною"
   },
   "appsMarkedAsCritical": {
-    "message": "Apps marked as critical"
+    "message": "Позначені критичні програми"
   },
   "application": {
     "message": "Програма"
@@ -90,13 +93,13 @@
     "message": "Ризиковані паролі"
   },
   "requestPasswordChange": {
-    "message": "Request password change"
+    "message": "Подати запит на зміну пароля"
   },
   "totalPasswords": {
     "message": "Всього паролів"
   },
   "searchApps": {
-    "message": "Search applications"
+    "message": "Пошук програм"
   },
   "atRiskMembers": {
     "message": "Ризиковані учасники"
@@ -559,6 +562,9 @@
   "typeSecureNote": {
     "message": "Захищена нотатка"
   },
+  "typeSshKey": {
+    "message": "Ключ SSH"
+  },
   "typeLoginPlural": {
     "message": "Записи"
   },
@@ -978,6 +984,9 @@
   "loginWithDeviceEnabledNote": {
     "message": "Потрібно увімкнути схвалення запитів на вхід у налаштуваннях програми Bitwarden. Потрібен інший варіант?"
   },
+  "needAnotherOptionV1": {
+    "message": "Need another option?"
+  },
   "loginWithMasterPassword": {
     "message": "Увійти з головним паролем"
   },
@@ -994,7 +1003,7 @@
     "message": "Увійти з ключем доступу"
   },
   "useSingleSignOn": {
-    "message": "Використовувати єдиний вхід"
+    "message": "Використати єдиний вхід"
   },
   "welcomeBack": {
     "message": "З поверненням"
@@ -1295,6 +1304,12 @@
   },
   "notificationSentDevice": {
     "message": "Сповіщення було надіслано на ваш пристрій."
+  },
+  "aNotificationWasSentToYourDevice": {
+    "message": "A notification was sent to your device"
+  },
+  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
+    "message": "Make sure your account is unlocked and the fingerprint phrase matches on the other device"
   },
   "versionNumber": {
     "message": "Версія $VERSION_NUMBER$",
@@ -1738,7 +1753,7 @@
     "message": "Обережно, ці дії неможливо скасувати!"
   },
   "dangerZoneDescSingular": {
-    "message": "Careful, this action is not reversible!"
+    "message": "Обережно, цю дію неможливо скасувати!"
   },
   "deauthorizeSessions": {
     "message": "Завершити сеанси"
@@ -1753,7 +1768,7 @@
     "message": "Усі сеанси завершено"
   },
   "accountIsManagedMessage": {
-    "message": "This account is managed by $ORGANIZATIONNAME$",
+    "message": "Цим обліковим записом керує $ORGANIZATIONNAME$",
     "placeholders": {
       "organizationName": {
         "content": "$1",
@@ -3218,9 +3233,6 @@
       }
     }
   },
-  "inviteSingleEmailDesc": {
-    "message": "You have 1 invite remaining."
-  },
   "userUsingTwoStep": {
     "message": "Цей користувач використовує двоетапну перевірку для захисту свого облікового запису."
   },
@@ -3383,6 +3395,9 @@
         "example": "'Google'"
       }
     }
+  },
+  "viewAllLogInOptions": {
+    "message": "View all log in options"
   },
   "viewAllLoginOptions": {
     "message": "Переглянути всі варіанти входу"
@@ -3836,6 +3851,55 @@
   },
   "updateBrowserDesc": {
     "message": "Ви використовуєте непідтримуваний браузер. Вебсховище може працювати неправильно."
+  },
+  "freeTrialEndPrompt": {
+    "message": "Ваш безплатний пробний період завершується через $COUNT$ днів. Щоб продовжити передплату,",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "You must set up 2FA on your user account before you can join this organization."
+      }
+    }
+  },
+  "freeTrialEndPromptAboveTwoDays": {
+    "message": "$ORGANIZATION$, ваш безплатний пробний період завершується через $COUNT$ днів. Щоб продовжити передплату,",
+    "placeholders": {
+      "count": {
+        "content": "$2",
+        "example": "organization name"
+      },
+      "organization": {
+        "content": "$1",
+        "example": "remaining days"
+      }
+    }
+  },
+  "freeTrialEndPromptForOneDay": {
+    "message": "$ORGANIZATION$, ваш безплатний пробний період завершується завтра. Щоб продовжити передплату,",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "organization name"
+      }
+    }
+  },
+  "freeTrialEndPromptForOneDayNoOrgName": {
+    "message": "Ваш безплатний пробний період завершується завтра. Щоб продовжити передплату,"
+  },
+  "freeTrialEndPromptForLessThanADay": {
+    "message": "$ORGANIZATION$, ваш безплатний пробний період завершується сьогодні. Щоб продовжити передплату,",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "organization name"
+      }
+    }
+  },
+  "freeTrialEndingSoonWithoutOrgName": {
+    "message": "Ваш безплатний пробний період завершується сьогодні. Щоб продовжити передплату,"
+  },
+  "routeToPaymentMethodTrigger": {
+    "message": "додайте спосіб оплати."
   },
   "joinOrganization": {
     "message": "Приєднатися до організації"
@@ -4391,6 +4455,9 @@
     "message": "Ніколи не вимагати перевірки фрази відбитка у запрошених користувачів (не рекомендовано)",
     "description": "A 'fingerprint phrase' is a unique word phrase (similar to a passphrase) that a user can use to authenticate their public key with another user, for the purposes of sharing."
   },
+  "youWillBeNotifiedOnceTheRequestIsApproved": {
+    "message": "You will be notified once the request is approved"
+  },
   "free": {
     "message": "Безплатно",
     "description": "Free, as in 'Free beer'"
@@ -4689,7 +4756,7 @@
     "message": "Заборонити користувачам приєднуватися до інших організацій."
   },
   "singleOrgPolicyDesc": {
-    "message": "Restrict members from joining other organizations. This policy is required for organizations that have enabled domain verification."
+    "message": "Обмежте можливість учасників приєднуватися до інших організацій. Ця політика є обов'язковою для організацій, які активували перевірку доменів."
   },
   "singleOrgBlockCreateMessage": {
     "message": "Ваша організація має політику, що не дозволяє вам приєднуватися до більш, ніж однієї організації. Будь ласка, зв'яжіться з адміністратором вашої організації, або увійдіть з іншим обліковим записом Bitwarden."
@@ -4698,7 +4765,7 @@
     "message": "Учасники організації, які не є власниками чи адміністраторами, але вже є учасниками іншої організації, будуть вилучені з вашої організації."
   },
   "singleOrgPolicyMemberWarning": {
-    "message": "Non-compliant members will be placed in revoked status until they leave all other organizations. Administrators are exempt and can restore members once compliance is met."
+    "message": "Учасникам, які не відповідають вимогам, буде призначено стан \"відкликано\" доки вони не покинуть інші організації. Адміністратори є винятком і можуть відновити учасників у разі відповідності вимогам."
   },
   "requireSso": {
     "message": "Вимагати автентифікацію з використанням єдиного входу (SSO)"
@@ -6324,6 +6391,9 @@
   "idpSingleSignOnServiceUrlRequired": {
     "message": "Обов'язково, якщо ID об'єкта не є URL."
   },
+  "offerNoLongerValid": {
+    "message": "This offer is no longer valid. Contact your organization administrators for more information."
+  },
   "openIdOptionalCustomizations": {
     "message": "Додаткові налаштування"
   },
@@ -6416,8 +6486,8 @@
   "generateEmail": {
     "message": "Генерувати е-пошту"
   },
-  "generatorBoundariesHint": {
-    "message": "Value must be between $MIN$ and $MAX$",
+  "spinboxBoundariesHint": {
+    "message": "Value must be between $MIN$ and $MAX$.",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -6427,6 +6497,26 @@
       "max": {
         "content": "$2",
         "example": "128"
+      }
+    }
+  },
+  "passwordLengthRecommendationHint": {
+    "message": " Use $RECOMMENDED$ characters or more to generate a strong password.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "passphraseNumWordsRecommendationHint": {
+    "message": " Use $RECOMMENDED$ words or more to generate a strong passphrase.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "6"
       }
     }
   },
@@ -8444,7 +8534,7 @@
   },
   "addAPaymentMethod": {
     "message": "додайте спосіб оплати",
-    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'"
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method'"
   },
   "organizationInformation": {
     "message": "Інформація про організацію"
@@ -9017,6 +9107,12 @@
   "providerPlan": {
     "message": "Керований постачальник послуг"
   },
+  "managedServiceProvider": {
+    "message": "Провайдер керованих послуг"
+  },
+  "multiOrganizationEnterprise": {
+    "message": "Підприємство з розгалуженою організацією"
+  },
   "orgSeats": {
     "message": "Місць в організації"
   },
@@ -9419,6 +9515,30 @@
   "additionalStorageGbMessage": {
     "message": "ГБ додаткового сховища"
   },
+  "sshKeyAlgorithm": {
+    "message": "Алгоритм ключа"
+  },
+  "sshKeyFingerprint": {
+    "message": "Цифровий відбиток"
+  },
+  "sshKeyPrivateKey": {
+    "message": "Закритий ключ"
+  },
+  "sshKeyPublicKey": {
+    "message": "Відкритий ключ"
+  },
+  "sshKeyAlgorithmED25519": {
+    "message": "ED25519"
+  },
+  "sshKeyAlgorithmRSA2048": {
+    "message": "RSA 2048-Bit"
+  },
+  "sshKeyAlgorithmRSA3072": {
+    "message": "RSA 3072-Bit"
+  },
+  "sshKeyAlgorithmRSA4096": {
+    "message": "RSA 4096-Bit"
+  },
   "premiumAccounts": {
     "message": "6 облікових записів Преміум"
   },
@@ -9553,9 +9673,83 @@
     "message": "Власне розміщення"
   },
   "verified-domain-single-org-warning": {
-    "message": "Verifying a domain will turn on the single organization policy."
+    "message": "Підтвердження домену ввімкне політику єдиної організації."
   },
   "single-org-revoked-user-warning": {
-    "message": "Non-compliant members will be revoked. Administrators can restore members once they leave all other organizations."
+    "message": "Невідповідних учасників буде відкликано. Адміністратори зможуть відновити учасників, коли ті покинуть всі інші організації."
+  },
+  "deleteOrganizationUser": {
+    "message": "Видалити $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "John Doe"
+      },
+      "description": "Title for the delete organization user dialog"
+    }
+  },
+  "deleteOrganizationUserWarning": {
+    "message": "Якщо учасник видаляється, його обліковий запис Bitwarden разом з даними особистого сховища також остаточно видаляється. Дані збірок залишаються в організації. Щоб їх відновити, учасник повинен створити обліковий запис і приєднатися до організації знову.",
+    "description": "Warning for the delete organization user dialog"
+  },
+  "organizationUserDeleted": {
+    "message": "Видалено $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "John Doe"
+      }
+    }
+  },
+  "organizationUserDeletedDesc": {
+    "message": "Користувача вилучено з організації. Всі пов'язані дані користувача видалено."
+  },
+  "deletedUserId": {
+    "message": "Видалений користувач $ID$ - власник / адміністратор видалив обліковий запис користувача",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "First 8 Character of a GUID"
+      }
+    }
+  },
+  "userLeftOrganization": {
+    "message": "Користувач $ID$ покинув організацію",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "First 8 Character of a GUID"
+      }
+    }
+  },
+  "suspendedOrganizationTitle": {
+    "message": "Організацію $ORGANIZATION$ призупинено",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "Acme c"
+      }
+    }
+  },
+  "suspendedUserOrgMessage": {
+    "message": "Зверніться до власника організації для консультації."
+  },
+  "suspendedOwnerOrgMessage": {
+    "message": "Щоб повернути доступ до своєї організації, додайте спосіб оплати."
+  },
+  "deleteMembers": {
+    "message": "Видалити учасників"
+  },
+  "noSelectedMembersApplicable": {
+    "message": "Ця дія не застосовується для жодного з вибраних учасників."
+  },
+  "deletedSuccessfully": {
+    "message": "Успішно видалено"
+  },
+  "freeFamiliesSponsorship": {
+    "message": "Remove Free Bitwarden Families sponsorship"
+  },
+  "freeFamiliesSponsorshipPolicyDesc": {
+    "message": "Do not allow members to redeem a Families plan through this organization."
   }
 }

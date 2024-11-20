@@ -84,7 +84,7 @@
     "message": "Incorporarse a la organización"
   },
   "joinOrganizationName": {
-    "message": "Join $ORGANIZATIONNAME$",
+    "message": "Unirse a $ORGANIZATIONNAME$",
     "placeholders": {
       "organizationName": {
         "content": "$1",
@@ -152,8 +152,17 @@
   "copyLicenseNumber": {
     "message": "Copiar número de licencia"
   },
+  "copyPrivateKey": {
+    "message": "Copy private key"
+  },
+  "copyPublicKey": {
+    "message": "Copy public key"
+  },
+  "copyFingerprint": {
+    "message": "Copy fingerprint"
+  },
   "copyCustomField": {
-    "message": "Copy $FIELD$",
+    "message": "Copiar $FIELD$",
     "placeholders": {
       "field": {
         "content": "$1",
@@ -162,10 +171,10 @@
     }
   },
   "copyWebsite": {
-    "message": "Copy website"
+    "message": "Copiar sitio web"
   },
   "copyNotes": {
-    "message": "Copy notes"
+    "message": "Copiar notas"
   },
   "fill": {
     "message": "Fill",
@@ -223,13 +232,13 @@
     "message": "Añadir elemento"
   },
   "accountEmail": {
-    "message": "Account email"
+    "message": "Correo electrónico de la cuenta"
   },
   "requestHint": {
-    "message": "Request hint"
+    "message": "Solicitar pista"
   },
   "requestPasswordHint": {
-    "message": "Request password hint"
+    "message": "Solicitar pista de la contraseña"
   },
   "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
     "message": "Enter your account email address and your password hint will be sent to you"
@@ -567,7 +576,7 @@
     "message": "Notas"
   },
   "privateNote": {
-    "message": "Private note"
+    "message": "Nota privada"
   },
   "note": {
     "message": "Nota"
@@ -624,7 +633,7 @@
     "message": "Tiempo de sesión agotado"
   },
   "vaultTimeoutHeader": {
-    "message": "Vault timeout"
+    "message": "Tiempo de espera de la caja fuerte"
   },
   "otherOptions": {
     "message": "Otras opciones"
@@ -645,13 +654,13 @@
     "message": "Tu caja fuerte está bloqueada. Verifica tu identidad para continuar."
   },
   "yourVaultIsLockedV2": {
-    "message": "Your vault is locked"
+    "message": "Tu caja fuerte está bloqueada"
   },
   "yourAccountIsLocked": {
-    "message": "Your account is locked"
+    "message": "Tu cuenta está bloqueada"
   },
   "or": {
-    "message": "or"
+    "message": "o"
   },
   "unlock": {
     "message": "Desbloquear"
@@ -676,7 +685,7 @@
     "message": "Tiempo de espera de la caja fuerte"
   },
   "vaultTimeout1": {
-    "message": "Timeout"
+    "message": "Tiempo de espera"
   },
   "lockNow": {
     "message": "Bloquear"
@@ -1763,6 +1772,9 @@
   },
   "typeIdentity": {
     "message": "Identidad"
+  },
+  "typeSshKey": {
+    "message": "SSH key"
   },
   "newItemHeader": {
     "message": "Nuevo $TYPE$",
@@ -4592,6 +4604,30 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "Enterprise policy requirements have been applied to this setting"
+  },
+  "sshPrivateKey": {
+    "message": "Private key"
+  },
+  "sshPublicKey": {
+    "message": "Public key"
+  },
+  "sshFingerprint": {
+    "message": "Fingerprint"
+  },
+  "sshKeyAlgorithm": {
+    "message": "Key type"
+  },
+  "sshKeyAlgorithmED25519": {
+    "message": "ED25519"
+  },
+  "sshKeyAlgorithmRSA2048": {
+    "message": "RSA 2048-Bit"
+  },
+  "sshKeyAlgorithmRSA3072": {
+    "message": "RSA 3072-Bit"
+  },
+  "sshKeyAlgorithmRSA4096": {
+    "message": "RSA 4096-Bit"
   },
   "retry": {
     "message": "Retry"

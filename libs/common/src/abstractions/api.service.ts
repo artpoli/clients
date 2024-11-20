@@ -24,6 +24,7 @@ import {
 } from "../admin-console/models/response/organization-connection.response";
 import { OrganizationExportResponse } from "../admin-console/models/response/organization-export.response";
 import { OrganizationSponsorshipSyncStatusResponse } from "../admin-console/models/response/organization-sponsorship-sync-status.response";
+import { PreValidateSponsorshipResponse } from "../admin-console/models/response/pre-validate-sponsorship.response";
 import {
   ProviderOrganizationOrganizationDetailsResponse,
   ProviderOrganizationResponse,
@@ -35,7 +36,7 @@ import {
   ProviderUserUserDetailsResponse,
 } from "../admin-console/models/response/provider/provider-user.response";
 import { SelectionReadOnlyResponse } from "../admin-console/models/response/selection-read-only.response";
-import { CreateAuthRequest } from "../auth/models/request/create-auth.request";
+import { AuthRequest } from "../auth/models/request/auth.request";
 import { DeviceVerificationRequest } from "../auth/models/request/device-verification.request";
 import { DisableTwoFactorAuthenticatorRequest } from "../auth/models/request/disable-two-factor-authenticator.request";
 import { EmailTokenRequest } from "../auth/models/request/email-token.request";
@@ -185,8 +186,8 @@ export abstract class ApiService {
   putUpdateTdeOffboardingPassword: (request: UpdateTdeOffboardingPasswordRequest) => Promise<any>;
   postConvertToKeyConnector: () => Promise<void>;
   //passwordless
-  postAuthRequest: (request: CreateAuthRequest) => Promise<AuthRequestResponse>;
-  postAdminAuthRequest: (request: CreateAuthRequest) => Promise<AuthRequestResponse>;
+  postAuthRequest: (request: AuthRequest) => Promise<AuthRequestResponse>;
+  postAdminAuthRequest: (request: AuthRequest) => Promise<AuthRequestResponse>;
   getAuthResponse: (id: string, accessCode: string) => Promise<AuthRequestResponse>;
   getAuthRequest: (id: string) => Promise<AuthRequestResponse>;
   putAuthRequest: (id: string, request: PasswordlessAuthRequest) => Promise<AuthRequestResponse>;
@@ -490,7 +491,9 @@ export abstract class ApiService {
   ) => Promise<OrganizationSponsorshipSyncStatusResponse>;
   deleteRevokeSponsorship: (sponsoringOrganizationId: string) => Promise<void>;
   deleteRemoveSponsorship: (sponsoringOrgId: string) => Promise<void>;
-  postPreValidateSponsorshipToken: (sponsorshipToken: string) => Promise<boolean>;
+  postPreValidateSponsorshipToken: (
+    sponsorshipToken: string,
+  ) => Promise<PreValidateSponsorshipResponse>;
   postRedeemSponsorship: (
     sponsorshipToken: string,
     request: OrganizationSponsorshipRedeemRequest,

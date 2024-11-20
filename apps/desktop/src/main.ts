@@ -1,6 +1,6 @@
 import * as path from "path";
 
-import { app } from "electron";
+import { app, ipcMain } from "electron";
 import { Subject, firstValueFrom } from "rxjs";
 
 import { AccountServiceImplementation } from "@bitwarden/common/auth/services/account.service";
@@ -38,6 +38,8 @@ import { WindowMain } from "./main/window.main";
 import { ClipboardMain } from "./platform/main/clipboard.main";
 import { DesktopCredentialStorageListener } from "./platform/main/desktop-credential-storage-listener";
 import { MainCryptoFunctionService } from "./platform/main/main-crypto-function.service";
+import { MainSshAgentService } from "./platform/main/main-ssh-agent.service";
+import { VersionMain } from "./platform/main/version.main";
 import { DesktopSettingsService } from "./platform/services/desktop-settings.service";
 import { ElectronLogMainService } from "./platform/services/electron-log.main.service";
 import { ElectronStorageService } from "./platform/services/electron-storage.service";
@@ -71,6 +73,8 @@ export class Main {
   nativeMessagingMain: NativeMessagingMain;
   clipboardMain: ClipboardMain;
   desktopAutofillSettingsService: DesktopAutofillSettingsService;
+  versionMain: VersionMain;
+  sshAgentService: MainSshAgentService;
 
   constructor() {
     // Set paths for portable builds
@@ -197,6 +201,8 @@ export class Main {
       });
     });
 
+    this.versionMain = new VersionMain(this.windowMain);
+
     this.powerMonitorMain = new PowerMonitorMain(this.messagingService, this.logService);
     this.menuMain = new MenuMain(
       this.i18nService,
@@ -205,6 +211,7 @@ export class Main {
       this.windowMain,
       this.updaterMain,
       this.desktopSettingsService,
+      this.versionMain,
     );
 
     this.biometricsService = new BiometricsService(
@@ -239,6 +246,13 @@ export class Main {
 
     this.clipboardMain = new ClipboardMain();
     this.clipboardMain.init();
+
+    ipcMain.handle("sshagent.init", async (event: any, message: any) => {
+      if (this.sshAgentService == null) {
+        this.sshAgentService = new MainSshAgentService(this.logService, this.messagingService);
+        this.sshAgentService.init();
+      }
+    });
 
     new EphemeralValueStorageService();
     new SSOLocalhostCallbackService(this.environmentService, this.messagingService);

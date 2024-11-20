@@ -62,8 +62,13 @@ export class VaultPopupItemsService {
   private _otherAutoFillTypes$: Observable<CipherType[]> = combineLatest([
     this.vaultSettingsService.showCardsCurrentTab$,
     this.vaultSettingsService.showIdentitiesCurrentTab$,
+    this.vaultPopupAutofillService.nonLoginCipherTypesOnPage$,
   ]).pipe(
-    map(([showCards, showIdentities]) => {
+    map(([showCardsSettingEnabled, showIdentitiesSettingEnabled, nonLoginCipherTypesOnPage]) => {
+      const showCards = showCardsSettingEnabled && nonLoginCipherTypesOnPage[CipherType.Card];
+      const showIdentities =
+        showIdentitiesSettingEnabled && nonLoginCipherTypesOnPage[CipherType.Identity];
+
       return [
         ...(showCards ? [CipherType.Card] : []),
         ...(showIdentities ? [CipherType.Identity] : []),
@@ -277,6 +282,7 @@ export class VaultPopupItemsService {
       [CipherType.Card]: 2,
       [CipherType.Identity]: 3,
       [CipherType.SecureNote]: 4,
+      [CipherType.SshKey]: 5,
     };
 
     // Compare types first

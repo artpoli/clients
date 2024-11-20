@@ -100,7 +100,7 @@ export class ViewV2Component {
         switchMap(async (cipher) => {
           this.cipher = cipher;
           this.headerText = this.setHeader(cipher.type);
-          if (this.loadAction === AUTOFILL_ID || this.loadAction === SHOW_AUTOFILL_BUTTON) {
+          if (this.loadAction === AUTOFILL_ID) {
             await this.vaultPopupAutofillService.doAutofill(this.cipher);
           }
 
@@ -131,6 +131,8 @@ export class ViewV2Component {
         );
       case CipherType.SecureNote:
         return this.i18nService.t("viewItemHeader", this.i18nService.t("note").toLowerCase());
+      case CipherType.SshKey:
+        return this.i18nService.t("viewItemHeader", this.i18nService.t("typeSshkey").toLowerCase());
     }
   }
 

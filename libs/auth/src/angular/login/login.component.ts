@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { firstValueFrom, Subject, take, takeUntil } from "rxjs";
+import { firstValueFrom, Subject, take, takeUntil, tap } from "rxjs";
 
 import { JslibModule } from "@bitwarden/angular/jslib.module";
 import {
@@ -19,9 +19,11 @@ import { CaptchaIFrame } from "@bitwarden/common/auth/captcha-iframe";
 import { AuthResult } from "@bitwarden/common/auth/models/domain/auth-result";
 import { ForceSetPasswordReason } from "@bitwarden/common/auth/models/domain/force-set-password-reason";
 import { ClientType, HttpStatusCode } from "@bitwarden/common/enums";
+import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { ErrorResponse } from "@bitwarden/common/models/response/error.response";
 import { AppIdService } from "@bitwarden/common/platform/abstractions/app-id.service";
 import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
+import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
@@ -102,12 +104,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.formGroup.controls.email;
   }
 
-  /**
-   * LoginViaAuthRequestSupported is a boolean that determines if we show the Login with device button.
-   * An AuthRequest is the mechanism that allows users to login to the client via a device that is already logged in.
-   */
-  loginViaAuthRequestSupported = false;
-
   // Web properties
   enforcedPasswordPolicyOptions: MasterPasswordPolicyOptions;
   policies: Policy[];
@@ -139,12 +135,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     private toastService: ToastService,
     private logService: LogService,
     private validationService: ValidationService,
+    private configService: ConfigService,
   ) {
     this.clientType = this.platformUtilsService.getClientType();
-    this.loginViaAuthRequestSupported = this.loginComponentService.isLoginViaAuthRequestSupported();
   }
 
   async ngOnInit(): Promise<void> {
+    // TODO: remove this when the UnauthenticatedExtensionUIRefresh feature flag is removed.
+    this.listenForUnauthUiRefreshFlagChanges();
+
     await this.defaultOnInit();
 
     if (this.clientType === ClientType.Desktop) {
@@ -160,6 +159,29 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  private listenForUnauthUiRefreshFlagChanges() {
+    this.configService
+      .getFeatureFlag$(FeatureFlag.UnauthenticatedExtensionUIRefresh)
+      .pipe(
+        tap(async (flag) => {
+          // If the flag is turned OFF, we must force a reload to ensure the correct UI is shown
+          if (!flag) {
+            const uniqueQueryParams = {
+              ...this.activatedRoute.queryParams,
+              // adding a unique timestamp to the query params to force a reload
+              t: new Date().getTime().toString(), // Adding a unique timestamp as a query parameter
+            };
+
+            await this.router.navigate(["/"], {
+              queryParams: uniqueQueryParams,
+            });
+          }
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe();
   }
 
   submit = async (): Promise<void> => {
@@ -373,10 +395,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       // Reset master password only when going from validated to not validated so that autofill can work properly
       this.formGroup.controls.masterPassword.reset();
 
-      if (this.loginViaAuthRequestSupported) {
-        // Reset known device state when going back to email entry if it is supported
-        this.isKnownDevice = false;
-      }
+      // Reset known device state when going back to email entry if it is supported
+      this.isKnownDevice = false;
     } else if (this.loginUiState === LoginUiState.MASTER_PASSWORD_ENTRY) {
       this.loginComponentService.showBackButton(true);
       this.anonLayoutWrapperDataService.setAnonLayoutWrapperData({
@@ -397,9 +417,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
       }
 
-      if (this.loginViaAuthRequestSupported) {
-        await this.getKnownDevice(this.emailFormControl.value);
-      }
+      // Check to see if the device is known so we can show the Login with Device option
+      await this.getKnownDevice(this.emailFormControl.value);
     }
   }
 
@@ -551,9 +570,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       await this.loadEmailSettings();
     }
 
-    if (this.loginViaAuthRequestSupported) {
-      await this.getKnownDevice(this.emailFormControl.value);
-    }
+    // Check to see if the device is known so that we can show the Login with Device option
+    await this.getKnownDevice(this.emailFormControl.value);
 
     // Backup check to handle unknown case where activatedRoute is not available
     // This shouldn't happen under normal circumstances

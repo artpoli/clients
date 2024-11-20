@@ -14,13 +14,15 @@
       </h2>
     </ng-container>
     <ng-container slot="description">
-      <p class="tw-text-muted">
-        {{ "noAppsInOrgDescription" | i18n }}
+      <div class="tw-flex tw-flex-col tw-mb-2">
+        <span class="tw-text-muted">
+          {{ "noAppsInOrgDescription" | i18n }}
+        </span>
         <a class="text-primary" routerLink="/login">{{ "learnMore" | i18n }}</a>
-      </p>
+      </div>
     </ng-container>
     <ng-container slot="button">
-      <button bitButton buttonType="primary" type="button">
+      <button (click)="goToCreateNewLoginItem()" bitButton buttonType="primary" type="button">
         {{ "createNewLoginItem" | i18n }}
       </button>
     </ng-container>
@@ -50,7 +52,16 @@
       class="tw-grow"
       [formControl]="searchControl"
     ></bit-search>
-    <button class="tw-rounded-lg" type="button" buttonType="secondary" bitButton>
+    <button
+      class="tw-rounded-lg"
+      type="button"
+      buttonType="secondary"
+      bitButton
+      *ngIf="isCritialAppsFeatureEnabled"
+      [disabled]="!selectedIds.size"
+      [loading]="markingAsCritical"
+      (click)="markAppsAsCritical()"
+    >
       <i class="bwi bwi-star-f tw-mr-2"></i>
       {{ "markAppAsCritical" | i18n }}
     </button>
@@ -58,7 +69,7 @@
   <bit-table [dataSource]="dataSource">
     <ng-container header>
       <tr>
-        <th></th>
+        <th *ngIf="isCritialAppsFeatureEnabled"></th>
         <th bitSortable="name" bitCell>{{ "application" | i18n }}</th>
         <th bitSortable="atRiskPasswords" bitCell>{{ "atRiskPasswords" | i18n }}</th>
         <th bitSortable="totalPasswords" bitCell>{{ "totalPasswords" | i18n }}</th>
@@ -68,7 +79,7 @@
     </ng-container>
     <ng-template body let-rows$>
       <tr bitRow *ngFor="let r of rows$ | async; trackBy: trackByFunction">
-        <td>
+        <td *ngIf="isCritialAppsFeatureEnabled">
           <input
             bitCheckbox
             type="checkbox"

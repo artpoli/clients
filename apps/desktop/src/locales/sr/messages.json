@@ -26,6 +26,9 @@
   "typeSecureNote": {
     "message": "Сигурносна белешка"
   },
+  "typeSshKey": {
+    "message": "SSH key"
+  },
   "folders": {
     "message": "Фасцикле"
   },
@@ -61,7 +64,7 @@
     }
   },
   "welcomeBack": {
-    "message": "Welcome back"
+    "message": "Добродошли назад"
   },
   "moveToOrgDesc": {
     "message": "Изаберите организацију у коју желите да преместите ову ставку. Пребацивање у организацију преноси власништво над ставком тој организацији. Више нећете бити директни власник ове ставке када буде премештена."
@@ -177,6 +180,48 @@
   "address": {
     "message": "Адреса"
   },
+  "sshPrivateKey": {
+    "message": "Private key"
+  },
+  "sshPublicKey": {
+    "message": "Public key"
+  },
+  "sshFingerprint": {
+    "message": "Fingerprint"
+  },
+  "sshKeyAlgorithm": {
+    "message": "Key type"
+  },
+  "sshKeyAlgorithmED25519": {
+    "message": "ED25519"
+  },
+  "sshKeyAlgorithmRSA2048": {
+    "message": "RSA 2048-Bit"
+  },
+  "sshKeyAlgorithmRSA3072": {
+    "message": "RSA 3072-Bit"
+  },
+  "sshKeyAlgorithmRSA4096": {
+    "message": "RSA 4096-Bit"
+  },
+  "sshKeyGenerated": {
+    "message": "A new SSH key was generated"
+  },
+  "sshAgentUnlockRequired": {
+    "message": "Please unlock your vault to approve the SSH key request."
+  },
+  "sshAgentUnlockTimeout": {
+    "message": "SSH key request timed out."
+  },
+  "enableSshAgent": {
+    "message": "Enable SSH agent"
+  },
+  "enableSshAgentDesc": {
+    "message": "Enable the SSH agent to sign SSH requests right from your Bitwarden vault."
+  },
+  "enableSshAgentHelp": {
+    "message": "The SSH agent is a service targeted at developers that allows you to sign SSH requests directly from your Bitwarden vault."
+  },
   "premiumRequired": {
     "message": "Потребан Премијум"
   },
@@ -263,7 +308,7 @@
     "message": "Генерисање лозинке"
   },
   "generatePassphrase": {
-    "message": "Generate passphrase"
+    "message": "Генеришите приступну фразу"
   },
   "type": {
     "message": "Тип"
@@ -400,8 +445,14 @@
   "copyPassword": {
     "message": "Копирај лозинку"
   },
+  "regenerateSshKey": {
+    "message": "Regenerate SSH key"
+  },
+  "copySshPrivateKey": {
+    "message": "Copy SSH private key"
+  },
   "copyPassphrase": {
-    "message": "Copy passphrase",
+    "message": "Копирај приступну фразу",
     "description": "Copy passphrase to clipboard"
   },
   "copyUri": {
@@ -854,7 +905,7 @@
     "message": "УРЛ Сервера"
   },
   "selfHostBaseUrl": {
-    "message": "Self-host server URL",
+    "message": "УРЛ сервера који се самостално хостује",
     "description": "Label for field requesting a self-hosted integration service URL"
   },
   "apiUrl": {
@@ -1248,7 +1299,7 @@
     "description": "Copy credit card number"
   },
   "copyEmail": {
-    "message": "Copy email"
+    "message": "Копирати имејл"
   },
   "copySecurityCode": {
     "message": "Копирај сигурносни код",
@@ -2391,7 +2442,7 @@
     "message": "Генериши име"
   },
   "generateEmail": {
-    "message": "Generate email"
+    "message": "Генеришите имејл"
   },
   "generatorBoundariesHint": {
     "message": "Value must be between $MIN$ and $MAX$",
@@ -2451,11 +2502,11 @@
     "message": "Генеришите псеудоним е-поште помоћу екстерне услуге прослеђивања."
   },
   "forwarderDomainName": {
-    "message": "Email domain",
+    "message": "Домен имејла",
     "description": "Labels the domain name email forwarder service option"
   },
   "forwarderDomainNameHint": {
-    "message": "Choose a domain that is supported by the selected service",
+    "message": "Изаберите домен који подржава изабрана услуга",
     "description": "Guidance provided for email forwarding services that support multiple email domains."
   },
   "forwarderError": {
@@ -2944,10 +2995,10 @@
     "message": "Приступачни кључ"
   },
   "passkeyNotCopied": {
-    "message": "Приступачни кључ се неће копирати"
+    "message": "Приступни кључ неће бити копиран"
   },
   "passkeyNotCopiedAlert": {
-    "message": "Приступачни кључ неће бити копиран на клонирану ставку. Да ли желите да наставите са клонирањем ставке?"
+    "message": "Приступни кључ неће бити копиран на клонирану ставку. Да ли желите да наставите са клонирањем ставке?"
   },
   "aliasDomain": {
     "message": "Домен алијаса"
@@ -3168,10 +3219,10 @@
     "message": "Омогућите хардверско убрзање и поново покрените"
   },
   "removePasskey": {
-    "message": "Уклонити приступачни кључ"
+    "message": "Уклонити приступни кључ"
   },
   "passkeyRemoved": {
-    "message": "Приступачни кључ је уклоњен"
+    "message": "Приступни кључ је уклоњен"
   },
   "errorAssigningTargetCollection": {
     "message": "Грешка при додељивању циљне колекције."
@@ -3224,6 +3275,36 @@
   },
   "ssoError": {
     "message": "Нису пронађени портови за SSO пријаву."
+  },
+  "authorize": {
+    "message": "Authorize"
+  },
+  "deny": {
+    "message": "Deny"
+  },
+  "sshkeyApprovalTitle": {
+    "message": "Confirm SSH key usage"
+  },
+  "sshkeyApprovalMessageInfix": {
+    "message": "is requesting access to"
+  },
+  "unknownApplication": {
+    "message": "An application"
+  },
+  "sshKeyPasswordUnsupported": {
+    "message": "Importing password protected SSH keys is not yet supported"
+  },
+  "invalidSshKey": {
+    "message": "The SSH key is invalid"
+  },
+  "sshKeyTypeUnsupported": {
+    "message": "The SSH key type is not supported"
+  },
+  "importSshKeyFromClipboard": {
+    "message": "Import key from clipboard"
+  },
+  "sshKeyPasted": {
+    "message": "SSH key imported successfully"
   },
   "fileSavedToDevice": {
     "message": "Датотека је сачувана на уређају. Управљајте преузимањима са свог уређаја."

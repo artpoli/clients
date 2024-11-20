@@ -2,17 +2,20 @@
   "allApplications": {
     "message": "Všetky aplikácie"
   },
-  "priorityApplications": {
-    "message": "Prioritné aplikácie"
+  "criticalApplications": {
+    "message": "Kritické aplikácie"
   },
   "accessIntelligence": {
-    "message": "Access Intelligence"
+    "message": "Prehľad o prístupe"
+  },
+  "riskInsights": {
+    "message": "Prehľad o rizikách"
   },
   "passwordRisk": {
     "message": "Ohrozenie hesla"
   },
-  "discoverAtRiskPasswords": {
-    "message": "Odhaľte ohrozené hesla a upozornite používateľov, aby si ich zmenili."
+  "reviewAtRiskPasswords": {
+    "message": "Skontrolujte ohrozené heslá (slabé, odhalené, alebo opätovne použité) naprieč aplikáciami. Vyberte najkritickejšie aplikácie a priorizujte vaším používateľom bezpečnostné opatrenia ohľadom ohrozených hesiel."
   },
   "dataLastUpdated": {
     "message": "Posledná aktualizácia dát: $DATE$",
@@ -35,8 +38,11 @@
       }
     }
   },
-  "priorityApplicationsWithCount": {
-    "message": "Prioritné aplikácie ($COUNT$)",
+  "createNewLoginItem": {
+    "message": "Pridať novu položku s prihlásením"
+  },
+  "criticalApplicationsWithCount": {
+    "message": "Kritické aplikácie ($COUNT$)",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -53,20 +59,32 @@
       }
     }
   },
-  "noPriorityApplicationsTitle": {
-    "message": "Neoznačili ste žiadne aplikácie ako prioritné"
+  "noAppsInOrgTitle": {
+    "message": "Neboli nájdené žiadne aplikácie v $ORG NAME$",
+    "placeholders": {
+      "org name": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
   },
-  "noPriorityApplicationsDescription": {
+  "noAppsInOrgDescription": {
+    "message": "Keď používatelia uložia prihlasovacie údaje, tu sa zobrazia aplikácie a ohrozené heslá. Označte kritické aplikácie a upozornite používateľov, aby si aktualizovali heslá."
+  },
+  "noCriticalAppsTitle": {
+    "message": "Neoznačili ste žiadne aplikácie ako kritické"
+  },
+  "noCriticalAppsDescription": {
     "message": "Pre odhalenie ohrozených hesiel a upozornenie používateľov aby si ich zmenili vyberte vaše najkritickejšie aplikácie."
   },
-  "markPriorityApps": {
-    "message": "Označiť prioritné aplikácie"
+  "markCriticalApps": {
+    "message": "Označiť kritické aplikácie"
   },
   "markAppAsCritical": {
     "message": "Označiť aplikáciu ako kritickú"
   },
   "appsMarkedAsCritical": {
-    "message": "Apps marked as critical"
+    "message": "Aplikácie označené ako kritické"
   },
   "application": {
     "message": "Aplikácia"
@@ -74,8 +92,14 @@
   "atRiskPasswords": {
     "message": "Ohrozených hesiel"
   },
+  "requestPasswordChange": {
+    "message": "Požiadať o zmenu hesla"
+  },
   "totalPasswords": {
     "message": "Celkom hesiel"
+  },
+  "searchApps": {
+    "message": "Vyhľadať aplikácie"
   },
   "atRiskMembers": {
     "message": "Ohrozených členov"
@@ -537,6 +561,9 @@
   },
   "typeSecureNote": {
     "message": "Zabezpečená poznámka"
+  },
+  "typeSshKey": {
+    "message": "Kľúč SSH"
   },
   "typeLoginPlural": {
     "message": "Prihlásenia"
@@ -3197,9 +3224,6 @@
       }
     }
   },
-  "inviteSingleEmailDesc": {
-    "message": "Ostáva vám 1 pozvánka."
-  },
   "userUsingTwoStep": {
     "message": "Tento používateľ používa dvojstupňové overovanie aby si zabezpečil konto."
   },
@@ -3815,6 +3839,55 @@
   },
   "updateBrowserDesc": {
     "message": "Používate nepodporovaný prehliadač. Webový trezor nemusí úplne fungovať."
+  },
+  "freeTrialEndPrompt": {
+    "message": "Vaše bezplatné skúšobné obdobie vyprší o $COUNT$ dni. Ak si chcete udržať predplatné,",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "You must set up 2FA on your user account before you can join this organization."
+      }
+    }
+  },
+  "freeTrialEndPromptAboveTwoDays": {
+    "message": "$ORGANIZATION$, vaše bezplatné skúšobné obdobie vyprší o $COUNT$ dni. Ak si chcete udržať predplatné,",
+    "placeholders": {
+      "count": {
+        "content": "$2",
+        "example": "organization name"
+      },
+      "organization": {
+        "content": "$1",
+        "example": "remaining days"
+      }
+    }
+  },
+  "freeTrialEndPromptForOneDay": {
+    "message": "$ORGANIZATION$, zajtra vyprší vaše bezplatné skúšobné obdobie. Ak si chcete udržať predplatné,",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "organization name"
+      }
+    }
+  },
+  "freeTrialEndPromptForOneDayNoOrgName": {
+    "message": "Zajtra vyprší vaše bezplatné skúšobné obdobie. Ak si chcete udržať predplatné,"
+  },
+  "freeTrialEndPromptForLessThanADay": {
+    "message": "$ORGANIZATION$, dnes vyprší vaše bezplatné skúšobné obdobie. Ak si chcete udržať predplatné,",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "organization name"
+      }
+    }
+  },
+  "freeTrialEndingSoonWithoutOrgName": {
+    "message": "Dnes vyprší vaše bezplatné skúšobné obdobie. Ak si chcete udržať predplatné,"
+  },
+  "routeToPaymentMethodTrigger": {
+    "message": "pridajte spôsob platby."
   },
   "joinOrganization": {
     "message": "Pripojte sa k organizácii"
@@ -8423,7 +8496,7 @@
   },
   "addAPaymentMethod": {
     "message": "pridajte spôsob platby",
-    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'"
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method'"
   },
   "organizationInformation": {
     "message": "Informácie o organizácii"
@@ -8996,6 +9069,12 @@
   "providerPlan": {
     "message": "Managed Service Provider"
   },
+  "managedServiceProvider": {
+    "message": "Spravovaný poskytovateľ služieb"
+  },
+  "multiOrganizationEnterprise": {
+    "message": "Spoločnosť s viacerými organizáciami"
+  },
   "orgSeats": {
     "message": "Organization Seats"
   },
@@ -9398,6 +9477,30 @@
   "additionalStorageGbMessage": {
     "message": "GB additional storage"
   },
+  "sshKeyAlgorithm": {
+    "message": "Algoritmus kľúča"
+  },
+  "sshKeyFingerprint": {
+    "message": "Odtlačok"
+  },
+  "sshKeyPrivateKey": {
+    "message": "Súkromný kľúč"
+  },
+  "sshKeyPublicKey": {
+    "message": "Verejný kľúč"
+  },
+  "sshKeyAlgorithmED25519": {
+    "message": "ED25519"
+  },
+  "sshKeyAlgorithmRSA2048": {
+    "message": "RSA 2048-Bit"
+  },
+  "sshKeyAlgorithmRSA3072": {
+    "message": "RSA 3072-Bit"
+  },
+  "sshKeyAlgorithmRSA4096": {
+    "message": "RSA 4096-Bit"
+  },
   "premiumAccounts": {
     "message": "6 prémiových účtov"
   },
@@ -9536,5 +9639,73 @@
   },
   "single-org-revoked-user-warning": {
     "message": "Členovia, ktorí nedodržiavajú pravidlo, budú odvolaní. Správcovia môžu obnoviť členov po ich odchode zo všetkých ostatných organizácií."
+  },
+  "deleteOrganizationUser": {
+    "message": "Odstrániť $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "John Doe"
+      },
+      "description": "Title for the delete organization user dialog"
+    }
+  },
+  "deleteOrganizationUserWarning": {
+    "message": "Keď je člen odstránený, jeho účet Bitwarden a individuálne údaje z trezora sa natrvalo odstránia. Údaje zo zbierky zostanú v organizácii. Ak ho chcete znovu pridať, musí si vytvoriť účet a byť znovu zaradený do systému.",
+    "description": "Warning for the delete organization user dialog"
+  },
+  "organizationUserDeleted": {
+    "message": "Odstránený $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "John Doe"
+      }
+    }
+  },
+  "organizationUserDeletedDesc": {
+    "message": "Používateľ bol odstránený z organizácie a všetky súvisiace dáta boli vymazané."
+  },
+  "deletedUserId": {
+    "message": "Odstránený používateľ $ID$ - vlastnik / správca vymazal používateľský účet",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "First 8 Character of a GUID"
+      }
+    }
+  },
+  "userLeftOrganization": {
+    "message": "Používateľ $ID$ opustil organizáciu",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "First 8 Character of a GUID"
+      }
+    }
+  },
+  "suspendedOrganizationTitle": {
+    "message": "$ORGANIZATION$ je pozastavené",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "Acme c"
+      }
+    }
+  },
+  "suspendedUserOrgMessage": {
+    "message": "Kontaktujte o pomoc vlastníka organizácie."
+  },
+  "suspendedOwnerOrgMessage": {
+    "message": "Pre obnovenie prístupu k vašej organizácii pridajte platobnú metódu."
+  },
+  "deleteMembers": {
+    "message": "Vymazať členov"
+  },
+  "noSelectedMembersApplicable": {
+    "message": "Táto akcia sa nevzťahuje na žiadneho z vybraných členov."
+  },
+  "deletedSuccessfully": {
+    "message": "Úspešne odstránené"
   }
 }

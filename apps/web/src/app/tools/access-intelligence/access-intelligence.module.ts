@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 
 import { AccessIntelligenceRoutingModule } from "./access-intelligence-routing.module";
-import { AccessIntelligenceComponent } from "./access-intelligence.component";
+import { RiskInsightsComponent } from "./risk-insights.component";
 
 @NgModule({
-  imports: [AccessIntelligenceComponent, AccessIntelligenceRoutingModule],
+  imports: [RiskInsightsComponent, AccessIntelligenceRoutingModule],
 })
 export class AccessIntelligenceModule {}

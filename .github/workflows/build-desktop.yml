@@ -1,7 +1,8 @@
 name: Build Desktop
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize]
     branches-ignore:
       - 'l10n_master'
       - 'cf-pages'
@@ -25,19 +26,31 @@ on:
       - '!*.txt'
       - '.github/workflows/build-desktop.yml'
   workflow_dispatch:
-    inputs: {}
+    inputs:
+      sdk_branch:
+        description: "Custom SDK branch"
+        required: false
+        type: string
 
 defaults:
   run:
     shell: bash
 
 jobs:
+  check-run:
+    name: Check PR run
+    uses: bitwarden/gh-actions/.github/workflows/check-run.yml@main
+
   electron-verify:
     name: Verify Electron Version
     runs-on: ubuntu-22.04
+    needs:
+      - check-run
     steps:
-      - name: Checkout repo
+      - name: Check out repo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{  github.event.pull_request.head.sha }}
 
       - name: Verify
         run: |
@@ -54,6 +67,8 @@ jobs:
   setup:
     name: Setup
     runs-on: ubuntu-22.04
+    needs:
+      - check-run
     outputs:
       package_version: ${{ steps.retrieve-version.outputs.package_version }}
       release_channel: ${{ steps.release-channel.outputs.channel }}
@@ -65,8 +80,10 @@ jobs:
       run:
         working-directory: apps/desktop
     steps:
-      - name: Checkout repo
+      - name: Check out repo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{  github.event.pull_request.head.sha }}
 
       - name: Get Package Version
         id: retrieve-version
@@ -138,8 +155,10 @@ jobs:
       run:
         working-directory: apps/desktop
     steps:
-      - name: Checkout repo
+      - name: Check out repo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{  github.event.pull_request.head.sha }}
 
       - name: Set up Node
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
@@ -151,7 +170,7 @@ jobs:
       - name: Set up environment
         run: |
           sudo apt-get update
-          sudo apt-get -y install pkg-config libxss-dev libsecret-1-dev rpm musl-dev musl-tools
+          sudo apt-get -y install pkg-config libxss-dev libsecret-1-dev rpm musl-dev musl-tools flatpak flatpak-builder
 
       - name: Set up Snap
         run: sudo snap install snapcraft --classic
@@ -166,6 +185,26 @@ jobs:
       - name: Install Node dependencies
         run: npm ci
         working-directory: ./
+
+      - name: Download SDK Artifacts
+        if: ${{ inputs.sdk_branch != '' }}
+        uses: bitwarden/gh-actions/download-artifacts@main
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build-wasm-internal.yml
+          workflow_conclusion: success
+          branch: ${{ inputs.sdk_branch }}
+          artifacts: sdk-internal
+          repo: bitwarden/sdk-internal
+          path: ../sdk-internal
+          if_no_artifact_found: fail
+
+      - name: Override SDK
+        if: ${{ inputs.sdk_branch != '' }}
+        working-directory: ./
+        run: |
+          ls -l ../
+          npm link ../sdk-internal
 
       - name: Cache Native Module
         uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
@@ -234,11 +273,25 @@ jobs:
           path: apps/desktop/dist/${{ needs.setup.outputs.release_channel }}-linux.yml
           if-no-files-found: error
 
+      - name: Build flatpak
+        working-directory: apps/desktop
+        run: |
+          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          sudo npm run pack:lin:flatpak
+
+      - name: Upload flatpak artifact
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        with:
+          name: com.bitwarden.desktop.flatpak
+          path: apps/desktop/dist/com.bitwarden.desktop.flatpak
+          if-no-files-found: error
+
 
   windows:
     name: Windows Build
     runs-on: windows-2022
-    needs: setup
+    needs:
+      - setup
     defaults:
       run:
         shell: pwsh
@@ -248,8 +301,10 @@ jobs:
       _NODE_VERSION: ${{ needs.setup.outputs.node_version }}
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
-      - name: Checkout repo
+      - name: Check out repo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{  github.event.pull_request.head.sha }}
 
       - name: Set up Node
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
@@ -296,6 +351,26 @@ jobs:
       - name: Install Node dependencies
         run: npm ci
         working-directory: ./
+
+      - name: Download SDK Artifacts
+        if: ${{ inputs.sdk_branch != '' }}
+        uses: bitwarden/gh-actions/download-artifacts@main
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build-wasm-internal.yml
+          workflow_conclusion: success
+          branch: ${{ inputs.sdk_branch }}
+          artifacts: sdk-internal
+          repo: bitwarden/sdk-internal
+          path: ../sdk-internal
+          if_no_artifact_found: fail
+
+      - name: Override SDK
+        if: ${{ inputs.sdk_branch != '' }}
+        working-directory: ./
+        run: |
+          ls -l ../
+          npm link ../sdk-internal
 
       - name: Cache Native Module
         uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
@@ -447,7 +522,8 @@ jobs:
   macos-build:
     name: MacOS Build
     runs-on: macos-13
-    needs: setup
+    needs:
+      - setup
     env:
       _PACKAGE_VERSION: ${{ needs.setup.outputs.package_version }}
       _NODE_VERSION: ${{ needs.setup.outputs.node_version }}
@@ -456,8 +532,10 @@ jobs:
       run:
         working-directory: apps/desktop
     steps:
-      - name: Checkout repo
+      - name: Check out repo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{  github.event.pull_request.head.sha }}
 
       - name: Set up Node
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
@@ -582,6 +660,26 @@ jobs:
         run: npm ci
         working-directory: ./
 
+      - name: Download SDK Artifacts
+        if: ${{ inputs.sdk_branch != '' }}
+        uses: bitwarden/gh-actions/download-artifacts@main
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build-wasm-internal.yml
+          workflow_conclusion: success
+          branch: ${{ inputs.sdk_branch }}
+          artifacts: sdk-internal
+          repo: bitwarden/sdk-internal
+          path: ../sdk-internal
+          if_no_artifact_found: fail
+
+      - name: Override SDK
+        if: ${{ inputs.sdk_branch != '' }}
+        working-directory: ./
+        run: |
+          ls -l ../
+          npm link ../sdk-internal
+
       - name: Cache Native Module
         uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
         id: cache
@@ -622,8 +720,10 @@ jobs:
       run:
         working-directory: apps/desktop
     steps:
-      - name: Checkout repo
+      - name: Check out repo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{  github.event.pull_request.head.sha }}
 
       - name: Set up Node
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
@@ -748,6 +848,26 @@ jobs:
         run: npm ci
         working-directory: ./
 
+      - name: Download SDK Artifacts
+        if: ${{ inputs.sdk_branch != '' }}
+        uses: bitwarden/gh-actions/download-artifacts@main
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build-wasm-internal.yml
+          workflow_conclusion: success
+          branch: ${{ inputs.sdk_branch }}
+          artifacts: sdk-internal
+          repo: bitwarden/sdk-internal
+          path: ../sdk-internal
+          if_no_artifact_found: fail
+
+      - name: Override SDK
+        if: ${{ inputs.sdk_branch != '' }}
+        working-directory: ./
+        run: |
+          ls -l ../
+          npm link ../sdk-internal
+
       - name: Cache Native Module
         uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
         id: cache
@@ -841,8 +961,10 @@ jobs:
       run:
         working-directory: apps/desktop
     steps:
-      - name: Checkout repo
+      - name: Check out repo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{  github.event.pull_request.head.sha }}
 
       - name: Set up Node
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
@@ -974,6 +1096,26 @@ jobs:
         run: npm ci
         working-directory: ./
 
+      - name: Download SDK Artifacts
+        if: ${{ inputs.sdk_branch != '' }}
+        uses: bitwarden/gh-actions/download-artifacts@main
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build-wasm-internal.yml
+          workflow_conclusion: success
+          branch: ${{ inputs.sdk_branch }}
+          artifacts: sdk-internal
+          repo: bitwarden/sdk-internal
+          path: ../sdk-internal
+          if_no_artifact_found: fail
+
+      - name: Override SDK
+        if: ${{ inputs.sdk_branch != '' }}
+        working-directory: ./
+        run: |
+          ls -l ../
+          npm link ../sdk-internal
+
       - name: Cache Native Module
         uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
         id: cache
@@ -1033,9 +1175,8 @@ jobs:
       - name: Deploy to TestFlight
         id: testflight-deploy
         if: |
-            (github.ref == 'refs/heads/main'
-            || github.ref == 'refs/heads/rc'
-            || github.ref == 'refs/heads/hotfix-rc-desktop')
+          github.event_name != 'pull_request_target'
+          && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rc' || github.ref == 'refs/heads/hotfix-rc-desktop')
         env:
           APP_STORE_CONNECT_TEAM_ISSUER: ${{ secrets.APP_STORE_CONNECT_TEAM_ISSUER }}
           APP_STORE_CONNECT_AUTH_KEY: 6TV9MKN3GP
@@ -1050,9 +1191,8 @@ jobs:
       - name: Post message to a Slack channel
         id: slack-message
         if: |
-            (github.ref == 'refs/heads/main'
-            || github.ref == 'refs/heads/rc'
-            || github.ref == 'refs/heads/hotfix-rc-desktop')
+          github.event_name != 'pull_request_target'
+          && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rc' || github.ref == 'refs/heads/hotfix-rc-desktop')
         uses: slackapi/slack-github-action@37ebaef184d7626c5f204ab8d3baff4262dd30f0 # v1.27.0
         with:
           channel-id: C074F5UESQ0
@@ -1088,8 +1228,10 @@ jobs:
       run:
         working-directory: apps/desktop
     steps:
-      - name: Checkout repo
+      - name: Check out repo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{  github.event.pull_request.head.sha }}
 
       - name: Set up Node
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
@@ -1209,6 +1351,26 @@ jobs:
         run: npm ci
         working-directory: ./
 
+      - name: Download SDK Artifacts
+        if: ${{ inputs.sdk_branch != '' }}
+        uses: bitwarden/gh-actions/download-artifacts@main
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build-wasm-internal.yml
+          workflow_conclusion: success
+          branch: ${{ inputs.sdk_branch }}
+          artifacts: sdk-internal
+          repo: bitwarden/sdk-internal
+          path: ../sdk-internal
+          if_no_artifact_found: fail
+
+      - name: Override SDK
+        if: ${{ inputs.sdk_branch != '' }}
+        working-directory: ./
+        run: |
+          ls -l ../
+          npm link ../sdk-internal
+
       - name: Cache Native Module
         uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
         id: cache
@@ -1279,8 +1441,10 @@ jobs:
       - macos-package-mas
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout repo
+      - name: Check out repo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{  github.event.pull_request.head.sha }}
 
       - name: Login to Azure
         uses: Azure/login@e15b166166a8746d1a47596803bd8c1b595455cf # v1.6.0
@@ -1323,7 +1487,10 @@ jobs:
       - crowdin-push
     steps:
       - name: Check if any job failed
-        if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rc' || github.ref == 'refs/heads/hotfix-rc') && contains(needs.*.result, 'failure')
+        if: |
+          github.event_name != 'pull_request_target'
+          && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rc' || github.ref == 'refs/heads/hotfix-rc-desktop')
+          && contains(needs.*.result, 'failure')
         run: exit 1
 
       - name: Login to Azure - Prod Subscription

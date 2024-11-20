@@ -152,6 +152,15 @@
   "copyLicenseNumber": {
     "message": "複製駕照號碼"
   },
+  "copyPrivateKey": {
+    "message": "Copy private key"
+  },
+  "copyPublicKey": {
+    "message": "Copy public key"
+  },
+  "copyFingerprint": {
+    "message": "Copy fingerprint"
+  },
   "copyCustomField": {
     "message": "複製 $FIELD$",
     "placeholders": {
@@ -458,7 +467,7 @@
     "description": "deprecated. Use specialCharactersLabel instead."
   },
   "include": {
-    "message": "Include",
+    "message": "包含",
     "description": "Card header for password generator include block"
   },
   "uppercaseDescription": {
@@ -730,10 +739,10 @@
     "message": "安全"
   },
   "confirmMasterPassword": {
-    "message": "Confirm master password"
+    "message": "確認主密碼"
   },
   "masterPassword": {
-    "message": "Master password"
+    "message": "主密碼"
   },
   "masterPassImportant": {
     "message": "Your master password cannot be recovered if you forget it!"
@@ -1092,10 +1101,10 @@
     "message": "This file export will be password protected and require the file password to decrypt."
   },
   "filePassword": {
-    "message": "File password"
+    "message": "檔案密碼"
   },
   "exportPasswordDescription": {
-    "message": "This password will be used to export and import this file"
+    "message": "此密碼將用於匯出和匯入此檔案"
   },
   "accountRestrictedOptionDescription": {
     "message": "Use your account encryption key, derived from your account's username and Master Password, to encrypt the export and restrict import to only the current Bitwarden account."
@@ -1763,6 +1772,9 @@
   },
   "typeIdentity": {
     "message": "身分"
+  },
+  "typeSshKey": {
+    "message": "SSH key"
   },
   "newItemHeader": {
     "message": "新增 $TYPE$",
@@ -3542,7 +3554,7 @@
     "description": "Screen reader text (aria-label) for new item button in overlay"
   },
   "newLogin": {
-    "message": "New login",
+    "message": "新增登入資訊",
     "description": "Button text to display within inline menu when there are no matching items on a login field"
   },
   "addNewLoginItemAria": {
@@ -4592,6 +4604,30 @@
   },
   "enterprisePolicyRequirementsApplied": {
     "message": "Enterprise policy requirements have been applied to this setting"
+  },
+  "sshPrivateKey": {
+    "message": "Private key"
+  },
+  "sshPublicKey": {
+    "message": "Public key"
+  },
+  "sshFingerprint": {
+    "message": "Fingerprint"
+  },
+  "sshKeyAlgorithm": {
+    "message": "Key type"
+  },
+  "sshKeyAlgorithmED25519": {
+    "message": "ED25519"
+  },
+  "sshKeyAlgorithmRSA2048": {
+    "message": "RSA 2048-Bit"
+  },
+  "sshKeyAlgorithmRSA3072": {
+    "message": "RSA 3072-Bit"
+  },
+  "sshKeyAlgorithmRSA4096": {
+    "message": "RSA 4096-Bit"
   },
   "retry": {
     "message": "Retry"

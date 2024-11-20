@@ -56,11 +56,12 @@ import {
 } from "../../../billing/organizations/change-plan-dialog.component";
 import { BaseMembersComponent } from "../../common/base-members.component";
 import { PeopleTableDataSource } from "../../common/people-table-data-source";
-import { GroupService } from "../core";
+import { GroupApiService } from "../core";
 import { OrganizationUserView } from "../core/views/organization-user.view";
 import { openEntityEventsDialog } from "../manage/entity-events.component";
 
 import { BulkConfirmDialogComponent } from "./components/bulk/bulk-confirm-dialog.component";
+import { BulkDeleteDialogComponent } from "./components/bulk/bulk-delete-dialog.component";
 import { BulkEnableSecretsManagerDialogComponent } from "./components/bulk/bulk-enable-sm-dialog.component";
 import { BulkRemoveDialogComponent } from "./components/bulk/bulk-remove-dialog.component";
 import { BulkRestoreRevokeComponent } from "./components/bulk/bulk-restore-revoke.component";
@@ -98,13 +99,13 @@ export class MembersComponent extends BaseMembersComponent<OrganizationUserView>
 
   protected canUseSecretsManager$: Observable<boolean>;
 
-  protected enableUpgradePasswordManagerSub$ = this.configService.getFeatureFlag$(
-    FeatureFlag.EnableUpgradePasswordManagerSub,
+  protected accountDeprovisioningEnabled$: Observable<boolean> = this.configService.getFeatureFlag$(
+    FeatureFlag.AccountDeprovisioning,
   );
 
   // Fixed sizes used for cdkVirtualScroll
-  protected rowHeight = 62;
-  protected rowHeightClass = `tw-h-[62px]`;
+  protected rowHeight = 69;
+  protected rowHeightClass = `tw-h-[69px]`;
 
   constructor(
     apiService: ApiService,
@@ -125,7 +126,7 @@ export class MembersComponent extends BaseMembersComponent<OrganizationUserView>
     private organizationApiService: OrganizationApiServiceAbstraction,
     private organizationUserApiService: OrganizationUserApiService,
     private router: Router,
-    private groupService: GroupService,
+    private groupService: GroupApiService,
     private collectionService: CollectionService,
     private billingApiService: BillingApiServiceAbstraction,
     private modalService: ModalService,
@@ -483,29 +484,20 @@ export class MembersComponent extends BaseMembersComponent<OrganizationUserView>
         this.organization.productTierType === ProductTierType.TeamsStarter ||
         this.organization.productTierType === ProductTierType.Families)
     ) {
-      const enableUpgradePasswordManagerSub = await firstValueFrom(
-        this.enableUpgradePasswordManagerSub$,
-      );
-      if (enableUpgradePasswordManagerSub) {
-        const reference = openChangePlanDialog(this.dialogService, {
-          data: {
-            organizationId: this.organization.id,
-            subscription: null,
-            productTierType: this.organization.productTierType,
-          },
-        });
+      const reference = openChangePlanDialog(this.dialogService, {
+        data: {
+          organizationId: this.organization.id,
+          subscription: null,
+          productTierType: this.organization.productTierType,
+        },
+      });
 
-        const result = await lastValueFrom(reference.closed);
+      const result = await lastValueFrom(reference.closed);
 
-        if (result === ChangePlanDialogResultType.Submitted) {
-          await this.load();
-        }
-        return;
-      } else {
-        // Show org upgrade modal
-        await this.showSeatLimitReachedDialog();
-        return;
+      if (result === ChangePlanDialogResultType.Submitted) {
+        await this.load();
       }
+      return;
     }
 
     const dialog = openUserAddEditDialog(this.dialogService, {
@@ -518,6 +510,7 @@ export class MembersComponent extends BaseMembersComponent<OrganizationUserView>
         isOnSecretsManagerStandalone: this.orgIsOnSecretsManagerStandalone,
         initialTab: initialTab,
         numConfirmedMembers: this.dataSource.confirmedUserCount,
+        managedByOrganization: user?.managedByOrganization,
       },
     });
 
@@ -542,6 +535,21 @@ export class MembersComponent extends BaseMembersComponent<OrganizationUserView>
     }
 
     const dialogRef = BulkRemoveDialogComponent.open(this.dialogService, {
+      data: {
+        organizationId: this.organization.id,
+        users: this.dataSource.getCheckedUsers(),
+      },
+    });
+    await lastValueFrom(dialogRef.closed);
+    await this.load();
+  }
+
+  async bulkDelete() {
+    if (this.actionPromise != null) {
+      return;
+    }
+
+    const dialogRef = BulkDeleteDialogComponent.open(this.dialogService, {
       data: {
         organizationId: this.organization.id,
         users: this.dataSource.getCheckedUsers(),
@@ -723,6 +731,40 @@ export class MembersComponent extends BaseMembersComponent<OrganizationUserView>
     }
 
     return true;
+  }
+
+  async deleteUser(user: OrganizationUserView) {
+    const confirmed = await this.dialogService.openSimpleDialog({
+      title: {
+        key: "deleteOrganizationUser",
+        placeholders: [this.userNamePipe.transform(user)],
+      },
+      content: { key: "deleteOrganizationUserWarning" },
+      type: "warning",
+      acceptButtonText: { key: "delete" },
+      cancelButtonText: { key: "cancel" },
+    });
+
+    if (!confirmed) {
+      return false;
+    }
+
+    this.actionPromise = this.organizationUserApiService.deleteOrganizationUser(
+      this.organization.id,
+      user.id,
+    );
+    try {
+      await this.actionPromise;
+      this.toastService.showToast({
+        variant: "success",
+        title: null,
+        message: this.i18nService.t("organizationUserDeleted", this.userNamePipe.transform(user)),
+      });
+      this.dataSource.removeUser(user);
+    } catch (e) {
+      this.validationService.showError(e);
+    }
+    this.actionPromise = null;
   }
 
   private async noMasterPasswordConfirmationDialog(user: OrganizationUserView) {

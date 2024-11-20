@@ -2,17 +2,20 @@
   "allApplications": {
     "message": "Összes alkalmazás"
   },
-  "priorityApplications": {
-    "message": "Prioritás alkalmazások"
+  "criticalApplications": {
+    "message": "Kritikus alkalmazások"
   },
   "accessIntelligence": {
     "message": "Elérés intelligencia"
   },
+  "riskInsights": {
+    "message": "Kockázati betekintés"
+  },
   "passwordRisk": {
     "message": "Jelszó kockázat"
   },
-  "discoverAtRiskPasswords": {
-    "message": "Fedezzük fel a veszélyeztetett jelszavakat és értesítsük a felhasználókat, hogy módosítsák ezeket a jelszavakat."
+  "reviewAtRiskPasswords": {
+    "message": "Tekintsük meg a veszélyeztetett jelszavakat (gyenge, nyilvános vagy újrafelhasznált) az alkalmazásokban. Válasszuk ki a legkritikusabb alkalmazásokat, hogy előnyben részesítsük a biztonsági műveleteket a felhasználók számára a veszélyeztetett jelszavak kezeléséhez."
   },
   "dataLastUpdated": {
     "message": "Az adatok utolsó frissítése: $DATE$",
@@ -35,8 +38,11 @@
       }
     }
   },
-  "priorityApplicationsWithCount": {
-    "message": "Prioriitás alkalmazások ($COUNT$)",
+  "createNewLoginItem": {
+    "message": "Új bejelentkezési elem létrehozása"
+  },
+  "criticalApplicationsWithCount": {
+    "message": "Kritikus alkalmazások ($COUNT$)",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -53,14 +59,26 @@
       }
     }
   },
-  "noPriorityApplicationsTitle": {
-    "message": "Egyetlen alkalmazás sem lett megjelölve kiemeltként."
+  "noAppsInOrgTitle": {
+    "message": "Nem találhatók alkalmazások: $ORG NAME$",
+    "placeholders": {
+      "org name": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
   },
-  "noPriorityApplicationsDescription": {
+  "noAppsInOrgDescription": {
+    "message": "Amint a felhasználók elmentik a bejelentkezéseket, itt megjelennek az alkalmazások és megjelenítik a veszélyeztetett jelszavakat. Jelöljük meg a kritikus alkalmazásokat és értesítsük a felhasználókat a jelszavak frissítéséről."
+  },
+  "noCriticalAppsTitle": {
+    "message": "Egyetlen alkalmazás sem lett megjelölve kritikusként."
+  },
+  "noCriticalAppsDescription": {
     "message": "Válasszuk ki a legkritikusabb alkalmazásokat a veszélyeztetett jelszavak felfedezéséhez és értesítsük a felhasználókat a jelszavak megváltoztatásáról."
   },
-  "markPriorityApps": {
-    "message": "Kiemelt alkalmazások megjelölése"
+  "markCriticalApps": {
+    "message": "Kritikus alkalmazások megjelölése"
   },
   "markAppAsCritical": {
     "message": "Alkalmazások megjelölése kritikusként"
@@ -74,8 +92,14 @@
   "atRiskPasswords": {
     "message": "Veszélyes jelszavak"
   },
+  "requestPasswordChange": {
+    "message": "Jelszó változtatás kérése"
+  },
   "totalPasswords": {
     "message": "Összes jelszavak száma"
+  },
+  "searchApps": {
+    "message": "Alkalmazások keresése"
   },
   "atRiskMembers": {
     "message": "Veszélyes tagok"
@@ -537,6 +561,9 @@
   },
   "typeSecureNote": {
     "message": "Biztonságos jegyzet"
+  },
+  "typeSshKey": {
+    "message": "SSH kulcs"
   },
   "typeLoginPlural": {
     "message": "Bejelentkezések"
@@ -3197,9 +3224,6 @@
       }
     }
   },
-  "inviteSingleEmailDesc": {
-    "message": "1 meghívó maradt."
-  },
   "userUsingTwoStep": {
     "message": "Ez a felhasználó kétlépcsős bejelentkezést használ fiókja védelmére."
   },
@@ -3815,6 +3839,55 @@
   },
   "updateBrowserDesc": {
     "message": "Nem támogatott böngészőt használunk. Előfordulhat, hogy a webes széf nem működik megfelelően."
+  },
+  "freeTrialEndPrompt": {
+    "message": "Az ingyenes próbaidőszak $COUNT$ nap múlva ér véget. Az előfizetés fenntartásához",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "You must set up 2FA on your user account before you can join this organization."
+      }
+    }
+  },
+  "freeTrialEndPromptAboveTwoDays": {
+    "message": "$ORGANIZATION$, az ingyenes próbaidőszak $COUNT$ nap múlva lejár. Az előfizetés fenntartásához",
+    "placeholders": {
+      "count": {
+        "content": "$2",
+        "example": "organization name"
+      },
+      "organization": {
+        "content": "$1",
+        "example": "remaining days"
+      }
+    }
+  },
+  "freeTrialEndPromptForOneDay": {
+    "message": "$ORGANIZATION$, az ingyenes próbaidőszak holnap véget ér. Az előfizetés fenntartásához",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "organization name"
+      }
+    }
+  },
+  "freeTrialEndPromptForOneDayNoOrgName": {
+    "message": "Az ingyenes próbaidőszak holnap véget ér. Az előfizetés fenntartásához"
+  },
+  "freeTrialEndPromptForLessThanADay": {
+    "message": "$ORGANIZATION$, az ingyenes próbaidőszak holnap véget ér. Az előfizetés fenntartásához",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "organization name"
+      }
+    }
+  },
+  "freeTrialEndingSoonWithoutOrgName": {
+    "message": "Az ingyenes próbaidőszak ma véget ér. Az előfizetés fenntartásához"
+  },
+  "routeToPaymentMethodTrigger": {
+    "message": "adjunk hozzá egy fizetési módot."
   },
   "joinOrganization": {
     "message": "Csatlakozás szervezethez"
@@ -8423,7 +8496,7 @@
   },
   "addAPaymentMethod": {
     "message": "fitetési metódus hozzáadása",
-    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'"
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method'"
   },
   "organizationInformation": {
     "message": "Szervezeti információ"
@@ -8996,6 +9069,12 @@
   "providerPlan": {
     "message": "Menedzselt szolgáltató"
   },
+  "managedServiceProvider": {
+    "message": "Menedzselt szolgáltató"
+  },
+  "multiOrganizationEnterprise": {
+    "message": "Több-szervezetű vállalkozás"
+  },
   "orgSeats": {
     "message": "Szervezeti helyek"
   },
@@ -9398,6 +9477,30 @@
   "additionalStorageGbMessage": {
     "message": "GB kiegészítő tároló"
   },
+  "sshKeyAlgorithm": {
+    "message": "Kulcs algoritmus"
+  },
+  "sshKeyFingerprint": {
+    "message": "Ujjlenyomat"
+  },
+  "sshKeyPrivateKey": {
+    "message": "Személyes kulcs"
+  },
+  "sshKeyPublicKey": {
+    "message": "Nyilvános kulcs"
+  },
+  "sshKeyAlgorithmED25519": {
+    "message": "ED25519"
+  },
+  "sshKeyAlgorithmRSA2048": {
+    "message": "RSA 2048-Bit"
+  },
+  "sshKeyAlgorithmRSA3072": {
+    "message": "RSA 3072-Bit"
+  },
+  "sshKeyAlgorithmRSA4096": {
+    "message": "RSA 4096-Bit"
+  },
   "premiumAccounts": {
     "message": "6 prémium fiók"
   },
@@ -9529,12 +9632,80 @@
     "message": "Ha a Bitwarden szolgáltatást saját szerveren szeretnénk tárolni, fel kell tölteni a licenszfájlt. A Free Families csomagok és a speciális számlázási lehetőségek támogatásához a saját üzemeltetésű szervezet számára be kell állítani az automatikus szinkronizálást a saját üzemeltetésű szervezetben."
   },
   "selfHostingTitleProper": {
-    "message": "Sahát üzemeltetés"
+    "message": "Saját üzemeltetés"
   },
   "verified-domain-single-org-warning": {
     "message": "A tartomány ellenőrzése bekapcsolja az önálló szervezet házirendjét."
   },
   "single-org-revoked-user-warning": {
     "message": "A nem megfelelő tagok visszavonásra kerülnek. Az adminisztrátorok visszaállíthatják a tagokat, miután elhagyják az összes többi szervezetet."
+  },
+  "deleteOrganizationUser": {
+    "message": "$NAME$ törlése",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "John Doe"
+      },
+      "description": "Title for the delete organization user dialog"
+    }
+  },
+  "deleteOrganizationUserWarning": {
+    "message": "Amikor egy tag törlésre kerül, a Bitwarden fiókjuk és az egyéni széf adataik véglegesen törlésre kerülnek. A gyűjtési adatok a szervezetben maradnak. A visszaállításukhoz egy fiókot kell létrehozni és újra be kell lépni.",
+    "description": "Warning for the delete organization user dialog"
+  },
+  "organizationUserDeleted": {
+    "message": "$NAME$ törlésre került.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "John Doe"
+      }
+    }
+  },
+  "organizationUserDeletedDesc": {
+    "message": "A felhasználó eltávolításra került a szervezetből és az összes kapcsolódó felhasználói adat törlésre került."
+  },
+  "deletedUserId": {
+    "message": "$ID$ felhasználó törlésre került – egy tulajdonos/adminisztrátor törölte a felhasználói fiókot.",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "First 8 Character of a GUID"
+      }
+    }
+  },
+  "userLeftOrganization": {
+    "message": "$ID$ felhasználó elhagyta a szervezetet.",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "First 8 Character of a GUID"
+      }
+    }
+  },
+  "suspendedOrganizationTitle": {
+    "message": "$ORGANIZATION$ felfüggesztésre került.",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "Acme c"
+      }
+    }
+  },
+  "suspendedUserOrgMessage": {
+    "message": "Segítségért forduljunk a szervezet tulajdonosához."
+  },
+  "suspendedOwnerOrgMessage": {
+    "message": "A szervezethez hozzáférés visszaszerzéséhez adjunk hozzá egy fizetési módot."
+  },
+  "deleteMembers": {
+    "message": "Tagok törlése"
+  },
+  "noSelectedMembersApplicable": {
+    "message": "Ez a művelet egyik kiválasztott tagra sem alkalmazható."
+  },
+  "deletedSuccessfully": {
+    "message": "A törlés sikeres volt."
   }
 }

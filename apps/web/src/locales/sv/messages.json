@@ -1,18 +1,21 @@
 {
   "allApplications": {
-    "message": "All applications"
+    "message": "Alla applikationer"
   },
-  "priorityApplications": {
-    "message": "Priority applications"
+  "criticalApplications": {
+    "message": "Kritiska applikationer"
   },
   "accessIntelligence": {
     "message": "Access Intelligence"
   },
-  "passwordRisk": {
-    "message": "Password Risk"
+  "riskInsights": {
+    "message": "Riskinsikter"
   },
-  "discoverAtRiskPasswords": {
-    "message": "Discover at-risk passwords and notify users to change those passwords."
+  "passwordRisk": {
+    "message": "Lösenordsrisk"
+  },
+  "reviewAtRiskPasswords": {
+    "message": "Review at-risk passwords (weak, exposed, or reused) across applications. Select your most critical applications to prioritize security actions for your users to address at-risk passwords."
   },
   "dataLastUpdated": {
     "message": "Data last updated: $DATE$",
@@ -27,7 +30,7 @@
     "message": "Notified members"
   },
   "allApplicationsWithCount": {
-    "message": "All applications ($COUNT$)",
+    "message": "Alla applikationer ($COUNT$)",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -35,8 +38,11 @@
       }
     }
   },
-  "priorityApplicationsWithCount": {
-    "message": "Priority applications ($COUNT$)",
+  "createNewLoginItem": {
+    "message": "Skapa nytt inloggningsobjekt"
+  },
+  "criticalApplicationsWithCount": {
+    "message": "Kritiska applikationer ($COUNT$)",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -53,29 +59,47 @@
       }
     }
   },
-  "noPriorityApplicationsTitle": {
-    "message": "You haven’t marked any applications as a priority"
+  "noAppsInOrgTitle": {
+    "message": "Inga applikationer hittades i $ORG NAME$",
+    "placeholders": {
+      "org name": {
+        "content": "$1",
+        "example": "Company Name"
+      }
+    }
   },
-  "noPriorityApplicationsDescription": {
+  "noAppsInOrgDescription": {
+    "message": "As users save logins, applications appear here, showing any at-risk passwords. Mark critical apps and notify users to update passwords."
+  },
+  "noCriticalAppsTitle": {
+    "message": "You haven't marked any applications as a Critical"
+  },
+  "noCriticalAppsDescription": {
     "message": "Select your most critical applications to discover at-risk passwords, and notify users to change those passwords."
   },
-  "markPriorityApps": {
-    "message": "Mark priority apps"
+  "markCriticalApps": {
+    "message": "Markera kritiska applikationer"
   },
   "markAppAsCritical": {
     "message": "Markera app som kritisk"
   },
   "appsMarkedAsCritical": {
-    "message": "Apps marked as critical"
+    "message": "Appar markerade som kritiska"
   },
   "application": {
-    "message": "Application"
+    "message": "Applikation"
   },
   "atRiskPasswords": {
     "message": "At-risk passwords"
   },
+  "requestPasswordChange": {
+    "message": "Request password change"
+  },
   "totalPasswords": {
     "message": "Total passwords"
+  },
+  "searchApps": {
+    "message": "Search applications"
   },
   "atRiskMembers": {
     "message": "At-risk members"
@@ -121,7 +145,7 @@
     "message": "Nytt lösenord"
   },
   "passphrase": {
-    "message": "Lösenordsfras"
+    "message": "Lösenfras"
   },
   "notes": {
     "message": "Anteckningar"
@@ -142,7 +166,7 @@
     "message": "Personal details"
   },
   "identification": {
-    "message": "Identification"
+    "message": "Identifikation"
   },
   "contactInfo": {
     "message": "Contact info"
@@ -160,7 +184,7 @@
     }
   },
   "itemHistory": {
-    "message": "Item history"
+    "message": "Objekthistorik"
   },
   "authenticatorKey": {
     "message": "Autentiseringsnyckel"
@@ -439,7 +463,7 @@
     "message": "Generera lösenfras"
   },
   "checkPassword": {
-    "message": "Kontrollera om lösenordet har avslöjats."
+    "message": "Kontrollera om ditt lösenord har äventyrats."
   },
   "passwordExposed": {
     "message": "Detta lösenord har avslöjats $VALUE$ gång(er) i dataintrång. Du bör ändra det.",
@@ -537,6 +561,9 @@
   },
   "typeSecureNote": {
     "message": "Säker anteckning"
+  },
+  "typeSshKey": {
+    "message": "SSH-nyckel"
   },
   "typeLoginPlural": {
     "message": "Inloggningar"
@@ -738,10 +765,10 @@
     "message": "Kopiera adress"
   },
   "copyPhone": {
-    "message": "Copy phone"
+    "message": "Kopiera telefon"
   },
   "copyEmail": {
-    "message": "Copy email"
+    "message": "Kopiera e-postadress"
   },
   "copyCompany": {
     "message": "Kopiera företag"
@@ -973,7 +1000,7 @@
     "message": "Logga in med nyckel"
   },
   "useSingleSignOn": {
-    "message": "Use single sign-on"
+    "message": "Använd Single Sign-On"
   },
   "welcomeBack": {
     "message": "Välkommen tillbaka"
@@ -1315,10 +1342,10 @@
     "message": "Använd en annan metod för tvåstegsverifiering"
   },
   "insertYubiKey": {
-    "message": "Anslut din YubiKey till datorns USB-port och tryck sedan på dess knapp."
+    "message": "Sätt in din YubiKey i din dators USB-port och tryck på dess knapp."
   },
   "insertU2f": {
-    "message": "Anslut din säkerhetsnyckel till datorns USB-port. Om den har en knapp, tryck på den."
+    "message": "Sätt in din säkerhetsnyckel i din dators USB-port. Om den har en knapp, tryck på den."
   },
   "loginUnavailable": {
     "message": "Inloggning ej tillgänglig"
@@ -1349,7 +1376,7 @@
     "message": "Yubico OTP-säkerhetsnyckel"
   },
   "yubiKeyDesc": {
-    "message": "Använd en YubiKey för att komma åt ditt konto. Fungerar med YubiKey 4-serien, 5-serien och NEO-enheter."
+    "message": "Använd en YubiKey 4-, 5- eller NEO-enhet."
   },
   "duoDescV2": {
     "message": "Ange en kod som genererats av Duo Security.",
@@ -1369,7 +1396,7 @@
     "message": "Nyckel"
   },
   "webAuthnDesc": {
-    "message": "Använd en WebAuthn-aktiverad säkerhetsnyckel för att komma åt ditt konto."
+    "message": "Använd enhetens biometri eller en FIDO2-kompatibel säkerhetsnyckel."
   },
   "webAuthnMigrated": {
     "message": "(Migrerad från FIDO)"
@@ -1732,7 +1759,7 @@
     "message": "Alla sessioner avauktoriserades"
   },
   "accountIsManagedMessage": {
-    "message": "Detta konto hanteras av $ORGANIZATIONNAME$",
+    "message": "This account is managed by $ORGANIZATIONNAME$",
     "placeholders": {
       "organizationName": {
         "content": "$1",
@@ -1801,7 +1828,7 @@
     "description": "This will be part of a larger sentence, that will read like this: If you don't have any data to import, you can create a new login instead. (Optional second half: You may need to wait until your administrator confirms your organization membership.)"
   },
   "onboardingImportDataDetailsPartTwoNoOrgs": {
-    "message": " istället.",
+    "message": " i stället.",
     "description": "This will be part of a larger sentence, that will read like this: If you don't have any data to import, you can create a new item instead."
   },
   "onboardingImportDataDetailsPartTwoWithOrgs": {
@@ -2099,7 +2126,7 @@
     "message": "Lägg till en ny YubiKey till ditt konto"
   },
   "twoFactorYubikeyPlugIn": {
-    "message": "Anslut din YubiKey till datorns USB-port."
+    "message": "Sätt in YubiKey i din dators USB-port."
   },
   "twoFactorYubikeySelectKey": {
     "message": "Välj det första tomma YubiKey-inmatningsfältet nedan."
@@ -2204,7 +2231,7 @@
     "message": "Ge säkerhetsnyckeln ett namn för att kunna identifiera den."
   },
   "twoFactorU2fPlugInReadKey": {
-    "message": "Anslut säkerhetsnyckeln till din dators USB-port och klicka på knappen \"Läs nyckel\"."
+    "message": "Sätt in säkerhetsnyckeln i din dators USB-port, och klicka på knappen \"Läs nyckel\"."
   },
   "twoFactorU2fTouchButton": {
     "message": "Om säkerhetsnyckeln har en knapp, tryck på den."
@@ -3197,9 +3224,6 @@
       }
     }
   },
-  "inviteSingleEmailDesc": {
-    "message": "Du har 1 inbjudan kvar."
-  },
   "userUsingTwoStep": {
     "message": "Denna användare använder tvåstegsverifiering för att skydda sitt konto."
   },
@@ -3816,6 +3840,55 @@
   "updateBrowserDesc": {
     "message": "Du använder en webbläsare som inte stöds. Webbvalvet kanske inte fungerar som det ska."
   },
+  "freeTrialEndPrompt": {
+    "message": "Your free trial ends in $COUNT$ days. To maintain your subscription,",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "You must set up 2FA on your user account before you can join this organization."
+      }
+    }
+  },
+  "freeTrialEndPromptAboveTwoDays": {
+    "message": "$ORGANIZATION$, your free trial ends in $COUNT$ days. To maintain your subscription,",
+    "placeholders": {
+      "count": {
+        "content": "$2",
+        "example": "organization name"
+      },
+      "organization": {
+        "content": "$1",
+        "example": "remaining days"
+      }
+    }
+  },
+  "freeTrialEndPromptForOneDay": {
+    "message": "$ORGANIZATION$, your free trial ends tomorrow. To maintain your subscription,",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "organization name"
+      }
+    }
+  },
+  "freeTrialEndPromptForOneDayNoOrgName": {
+    "message": "Your free trial ends tomorrow. To maintain your subscription,"
+  },
+  "freeTrialEndPromptForLessThanADay": {
+    "message": "$ORGANIZATION$, your free trial ends today. To maintain your subscription,",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "organization name"
+      }
+    }
+  },
+  "freeTrialEndingSoonWithoutOrgName": {
+    "message": "Your free trial ends today. To maintain your subscription,"
+  },
+  "routeToPaymentMethodTrigger": {
+    "message": "add a payment method."
+  },
   "joinOrganization": {
     "message": "Gå med i organisation"
   },
@@ -4198,13 +4271,13 @@
     "message": "Du har inte markerat något."
   },
   "receiveMarketingEmailsV2": {
-    "message": "Get advice, announcements, and research opportunities from Bitwarden in your inbox."
+    "message": "Få råd, tillkännagivanden och forskningsmöjligheter från Bitwarden i din inkorg."
   },
   "unsubscribe": {
     "message": "Unsubscribe"
   },
   "atAnyTime": {
-    "message": "at any time."
+    "message": "när som helst."
   },
   "byContinuingYouAgreeToThe": {
     "message": "By continuing, you agree to the"
@@ -5229,7 +5302,7 @@
     "message": "Bitwarden Secrets Manager"
   },
   "moreProductsFromBitwarden": {
-    "message": "More products from Bitwarden"
+    "message": "Fler produkter från Bitwarden"
   },
   "requestAccessToSecretsManager": {
     "message": "Request access to Secrets Manager"
@@ -5541,7 +5614,7 @@
     "message": "Klienter"
   },
   "client": {
-    "message": "Client",
+    "message": "Klient",
     "description": "This is used as a table header to describe which client application created an event log."
   },
   "providerAdmin": {
@@ -5712,7 +5785,7 @@
     }
   },
   "vaultTimeoutPolicyInEffect1": {
-    "message": "$HOURS$ hour(s) and $MINUTES$ minute(s) maximum.",
+    "message": "$HOURS$ timme(ar) och $MINUTES$ minut(er) max.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -5808,7 +5881,7 @@
     "message": "Authority"
   },
   "clientId": {
-    "message": "Client ID"
+    "message": "Klient-ID"
   },
   "clientSecret": {
     "message": "Klienthemlighet"
@@ -6267,7 +6340,7 @@
     "message": "1 fält ovan kräver din uppmärksamhet."
   },
   "fieldRequiredError": {
-    "message": "$FIELDNAME$ is required.",
+    "message": "$FIELDNAME$ är obligatoriskt.",
     "placeholders": {
       "fieldname": {
         "content": "$1",
@@ -6436,10 +6509,10 @@
     "message": "Username generator"
   },
   "useThisPassword": {
-    "message": "Use this password"
+    "message": "Använd detta lösenord"
   },
   "useThisUsername": {
-    "message": "Use this username"
+    "message": "Använd detta användarnamn"
   },
   "securePasswordGenerated": {
     "message": "Secure password generated! Don't forget to also update your password on the website."
@@ -6515,7 +6588,7 @@
     "message": "Generera ett e-postalias med en extern vidarebefordranstjänst."
   },
   "forwarderDomainName": {
-    "message": "Email domain",
+    "message": "E-postdomän",
     "description": "Labels the domain name email forwarder service option"
   },
   "forwarderDomainNameHint": {
@@ -6541,7 +6614,7 @@
     "description": "Displayed with the address on the forwarding service's configuration screen."
   },
   "forwarderGeneratedByWithWebsite": {
-    "message": "Website: $WEBSITE$. Generated by Bitwarden.",
+    "message": "Webbplats: $WEBSITE$. Genererad av Bitwarden.",
     "description": "Displayed with the address on the forwarding service's configuration screen.",
     "placeholders": {
       "WEBSITE": {
@@ -6687,10 +6760,10 @@
     "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "rotateKey": {
-    "message": "Rotate key"
+    "message": "Rotera nyckel"
   },
   "scimApiKey": {
-    "message": "SCIM API key",
+    "message": "SCIM API-nyckel",
     "description": "the text, 'SCIM' and 'API', are acronyms and should not be translated."
   },
   "copyScimUrl": {
@@ -6803,7 +6876,7 @@
     "message": "Duo two-step login is required for your account."
   },
   "launchDuo": {
-    "message": "Launch Duo"
+    "message": "Starta Duo"
   },
   "turnOn": {
     "message": "Turn on"
@@ -6884,7 +6957,7 @@
     "message": "Rensa alla"
   },
   "toggleCharacterCount": {
-    "message": "Toggle character count",
+    "message": "Visa/dölj teckenantal",
     "description": "'Character count' describes a feature that displays a number next to each character of the password."
   },
   "passwordCharacterCount": {
@@ -7354,10 +7427,10 @@
     "message": "Ingen samlingar lades till"
   },
   "noMembersAdded": {
-    "message": "No members added"
+    "message": "Inga medlemmar tillagda"
   },
   "noGroupsAdded": {
-    "message": "No groups added"
+    "message": "Inga grupper tillagda"
   },
   "group": {
     "message": "Grupp"
@@ -7935,7 +8008,7 @@
     "description": "The message shown to the user when bulk deleting projects and the user doesn't have access to some projects."
   },
   "updateKdfSettings": {
-    "message": "Update KDF settings"
+    "message": "Uppdatera KDF-inställningar"
   },
   "loginInitiated": {
     "message": "Inloggning påbörjad"
@@ -8023,7 +8096,7 @@
     "description": "Default title for the user verification dialog."
   },
   "recoverAccount": {
-    "message": "Recover account"
+    "message": "Återställ konto"
   },
   "updatedTempPassword": {
     "message": "User updated a password issued through account recovery."
@@ -8423,7 +8496,7 @@
   },
   "addAPaymentMethod": {
     "message": "lägg till en betalningsmetod",
-    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method.'"
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To maintain your subscription for $ORG$, add a payment method'"
   },
   "organizationInformation": {
     "message": "Organization information"
@@ -8849,10 +8922,10 @@
     "message": "Use Bitwarden Secrets Manager SDK in the following programming languages to build your own applications."
   },
   "setUpGithubActions": {
-    "message": "Set up Github Actions"
+    "message": "Ställ in GitHub Actions"
   },
   "setUpKubernetes": {
-    "message": "Set up Kubernetes"
+    "message": "Ställ in Kubernetes"
   },
   "setUpGitlabCICD": {
     "message": "Ställ in GitLab CI/CD"
@@ -8955,7 +9028,7 @@
     }
   },
   "backTo": {
-    "message": "Back to $NAME$",
+    "message": "Tillbaka till $NAME$",
     "description": "Navigate back to a previous folder or collection",
     "placeholders": {
       "name": {
@@ -8996,6 +9069,12 @@
   "providerPlan": {
     "message": "Managed Service Provider"
   },
+  "managedServiceProvider": {
+    "message": "Managed service provider"
+  },
+  "multiOrganizationEnterprise": {
+    "message": "Multi-organization enterprise"
+  },
   "orgSeats": {
     "message": "Organization Seats"
   },
@@ -9012,7 +9091,7 @@
     "message": "Low KDF iterations. Increase your iterations to improve the security of your account."
   },
   "changeKDFSettings": {
-    "message": "Change KDF settings"
+    "message": "Ändra KDF-inställningar"
   },
   "secureYourInfrastructure": {
     "message": "Säkra din infrastruktur"
@@ -9282,19 +9361,19 @@
     "message": "Impact of rotating your encryption key"
   },
   "learnMoreAboutEncryptionAlgorithms": {
-    "message": "Learn more about encryption algorithms"
+    "message": "Läs mer om krypteringsalgoritmer"
   },
   "learnMoreAboutKDFIterations": {
     "message": "Learn more about KDF iterations"
   },
   "learnMoreAboutLocalization": {
-    "message": "Learn more about localization"
+    "message": "Läs mer om lokalisering"
   },
   "learnMoreAboutWebsiteIcons": {
     "message": "Learn more about using website icons"
   },
   "learnMoreAboutUserAccess": {
-    "message": "Learn more about user access"
+    "message": "Läs mer om användaråtkomst"
   },
   "learnMoreAboutMemberRoles": {
     "message": "Learn more about member roles and permissions"
@@ -9398,6 +9477,30 @@
   "additionalStorageGbMessage": {
     "message": "GB additional storage"
   },
+  "sshKeyAlgorithm": {
+    "message": "Nyckelalgoritm"
+  },
+  "sshKeyFingerprint": {
+    "message": "Fingeravtryck"
+  },
+  "sshKeyPrivateKey": {
+    "message": "Privat nyckel"
+  },
+  "sshKeyPublicKey": {
+    "message": "Offentlig nyckel"
+  },
+  "sshKeyAlgorithmED25519": {
+    "message": "ED25519"
+  },
+  "sshKeyAlgorithmRSA2048": {
+    "message": "RSA 2048-Bit"
+  },
+  "sshKeyAlgorithmRSA3072": {
+    "message": "RSA 3072-Bit"
+  },
+  "sshKeyAlgorithmRSA4096": {
+    "message": "RSA 4096-Bit"
+  },
   "premiumAccounts": {
     "message": "6 premium accounts"
   },
@@ -9417,7 +9520,7 @@
     "message": "Directory integration"
   },
   "passwordLessSso": {
-    "message": "Passwordless SSO"
+    "message": "PasswordLess SSO"
   },
   "accountRecovery": {
     "message": "Kontoåterställning"
@@ -9466,10 +9569,10 @@
     "message": "Redigera åtkomst"
   },
   "textHelpText": {
-    "message": "Use text fields for data like security questions"
+    "message": "Använd textfält för data, som t. ex. säkerhetsfrågor"
   },
   "hiddenHelpText": {
-    "message": "Use hidden fields for sensitive data like a password"
+    "message": "Använd dolda fält för känslig data, som t. ex. ett lösenord"
   },
   "checkBoxHelpText": {
     "message": "Use checkboxes if you'd like to autofill a form's checkbox, like a remember email"
@@ -9481,7 +9584,7 @@
     "message": "Enter the the field's html id, name, aria-label, or placeholder."
   },
   "uppercaseDescription": {
-    "message": "Include uppercase characters",
+    "message": "Inkludera versaler",
     "description": "Tooltip for the password generator uppercase character checkbox"
   },
   "uppercaseLabel": {
@@ -9489,7 +9592,7 @@
     "description": "Label for the password generator uppercase character checkbox"
   },
   "lowercaseDescription": {
-    "message": "Include lowercase characters",
+    "message": "Inkludera gemener",
     "description": "Full description for the password generator lowercase character checkbox"
   },
   "lowercaseLabel": {
@@ -9497,7 +9600,7 @@
     "description": "Label for the password generator lowercase character checkbox"
   },
   "numbersDescription": {
-    "message": "Include numbers",
+    "message": "Inkludera siffror",
     "description": "Full description for the password generator numbers checkbox"
   },
   "numbersLabel": {
@@ -9536,5 +9639,73 @@
   },
   "single-org-revoked-user-warning": {
     "message": "Non-compliant members will be revoked. Administrators can restore members once they leave all other organizations."
+  },
+  "deleteOrganizationUser": {
+    "message": "Radera $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "John Doe"
+      },
+      "description": "Title for the delete organization user dialog"
+    }
+  },
+  "deleteOrganizationUserWarning": {
+    "message": "When a member is deleted, their Bitwarden account and individual vault data will be permanently deleted. Collection data will remain in the organization. To reinstate them they must create an account and be onboarded again.",
+    "description": "Warning for the delete organization user dialog"
+  },
+  "organizationUserDeleted": {
+    "message": "Deleted $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "John Doe"
+      }
+    }
+  },
+  "organizationUserDeletedDesc": {
+    "message": "The user was removed from the organization and all associated user data has been deleted."
+  },
+  "deletedUserId": {
+    "message": "Deleted user $ID$ - an owner / admin deleted the user account",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "First 8 Character of a GUID"
+      }
+    }
+  },
+  "userLeftOrganization": {
+    "message": "User $ID$ left organization",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "First 8 Character of a GUID"
+      }
+    }
+  },
+  "suspendedOrganizationTitle": {
+    "message": "The $ORGANIZATION$ is suspended",
+    "placeholders": {
+      "organization": {
+        "content": "$1",
+        "example": "Acme c"
+      }
+    }
+  },
+  "suspendedUserOrgMessage": {
+    "message": "Contact your organization owner for assistance."
+  },
+  "suspendedOwnerOrgMessage": {
+    "message": "To regain access to your organization, add a payment method."
+  },
+  "deleteMembers": {
+    "message": "Radera medlemmar"
+  },
+  "noSelectedMembersApplicable": {
+    "message": "Denna åtgärd är inte tillämplig på någon av de valda medlemmarna."
+  },
+  "deletedSuccessfully": {
+    "message": "Deleted successfully"
   }
 }

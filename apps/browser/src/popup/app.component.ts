@@ -1,3 +1,5 @@
+// FIXME: Update this file to be type safe and remove this and next line
+// @ts-strict-ignore
 import { ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, inject } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { NavigationEnd, Router, RouterOutlet } from "@angular/router";
@@ -25,6 +27,7 @@ import {
 
 import { flagEnabled } from "../platform/flags";
 import { PopupCompactModeService } from "../platform/popup/layout/popup-compact-mode.service";
+import { PopupWidthService } from "../platform/popup/layout/popup-width.service";
 import { PopupViewCacheService } from "../platform/popup/view-cache/popup-view-cache.service";
 import { initPopupClosedListener } from "../platform/services/popup-view-cache-background.service";
 import { BrowserSendStateService } from "../tools/popup/services/browser-send-state.service";
@@ -37,13 +40,14 @@ import { DesktopSyncVerificationDialogComponent } from "./components/desktop-syn
   selector: "app-root",
   styles: [],
   animations: [routerTransition],
-  template: ` <div [@routerTransition]="getState(o)">
-    <router-outlet #o="outlet"></router-outlet>
+  template: ` <div [@routerTransition]="getRouteElevation(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
   </div>`,
 })
 export class AppComponent implements OnInit, OnDestroy {
   private viewCacheService = inject(PopupViewCacheService);
   private compactModeService = inject(PopupCompactModeService);
+  private widthService = inject(PopupWidthService);
 
   private lastActivity: Date;
   private activeUserId: UserId;
@@ -99,6 +103,7 @@ export class AppComponent implements OnInit, OnDestroy {
     await this.viewCacheService.init();
 
     this.compactModeService.init();
+    this.widthService.init();
 
     // Component states must not persist between closing and reopening the popup, otherwise they become dead objects
     // Clear them aggressively to make sure this doesn't occur
@@ -220,23 +225,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  getState(outlet: RouterOutlet) {
+  getRouteElevation(outlet: RouterOutlet) {
     if (!this.routerAnimations) {
       return;
-    } else if (outlet.activatedRouteData.state === "ciphers") {
-      const routeDirection =
-        (window as any).routeDirection != null ? (window as any).routeDirection : "";
-      return (
-        "ciphers_direction=" +
-        routeDirection +
-        "_" +
-        (outlet.activatedRoute.queryParams as any).value.folderId +
-        "_" +
-        (outlet.activatedRoute.queryParams as any).value.collectionId
-      );
-    } else {
-      return outlet.activatedRouteData.state;
     }
+
+    return outlet.activatedRouteData.elevation;
   }
 
   private async recordActivity() {

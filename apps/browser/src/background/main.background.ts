@@ -1,3 +1,5 @@
+// FIXME: Update this file to be type safe and remove this and next line
+// @ts-strict-ignore
 import { Subject, filter, firstValueFrom, map, merge, timeout } from "rxjs";
 
 import { CollectionService, DefaultCollectionService } from "@bitwarden/admin-console/common";
@@ -33,7 +35,6 @@ import { AvatarService as AvatarServiceAbstraction } from "@bitwarden/common/aut
 import { DeviceTrustServiceAbstraction } from "@bitwarden/common/auth/abstractions/device-trust.service.abstraction";
 import { DevicesServiceAbstraction } from "@bitwarden/common/auth/abstractions/devices/devices.service.abstraction";
 import { DevicesApiServiceAbstraction } from "@bitwarden/common/auth/abstractions/devices-api.service.abstraction";
-import { KdfConfigService as kdfConfigServiceAbstraction } from "@bitwarden/common/auth/abstractions/kdf-config.service";
 import { KeyConnectorService as KeyConnectorServiceAbstraction } from "@bitwarden/common/auth/abstractions/key-connector.service";
 import { InternalMasterPasswordServiceAbstraction } from "@bitwarden/common/auth/abstractions/master-password.service.abstraction";
 import { SsoLoginServiceAbstraction } from "@bitwarden/common/auth/abstractions/sso-login.service.abstraction";
@@ -48,7 +49,6 @@ import { AvatarService } from "@bitwarden/common/auth/services/avatar.service";
 import { DeviceTrustService } from "@bitwarden/common/auth/services/device-trust.service.implementation";
 import { DevicesServiceImplementation } from "@bitwarden/common/auth/services/devices/devices.service.implementation";
 import { DevicesApiServiceImplementation } from "@bitwarden/common/auth/services/devices-api.service.implementation";
-import { KdfConfigService } from "@bitwarden/common/auth/services/kdf-config.service";
 import { KeyConnectorService } from "@bitwarden/common/auth/services/key-connector.service";
 import { MasterPasswordService } from "@bitwarden/common/auth/services/master-password/master-password.service";
 import { SsoLoginService } from "@bitwarden/common/auth/services/sso-login.service";
@@ -76,7 +76,7 @@ import { DefaultBillingAccountProfileStateService } from "@bitwarden/common/bill
 import { ClientType } from "@bitwarden/common/enums";
 import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { ProcessReloadServiceAbstraction } from "@bitwarden/common/key-management/abstractions/process-reload.service";
-import { ProcessReloadService } from "@bitwarden/common/key-management/services/process-reload.service";
+import { DefaultProcessReloadService } from "@bitwarden/common/key-management/services/default-process-reload.service";
 import { AppIdService as AppIdServiceAbstraction } from "@bitwarden/common/platform/abstractions/app-id.service";
 import { ConfigApiServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config-api.service.abstraction";
 import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
@@ -201,6 +201,8 @@ import {
   ImportServiceAbstraction,
 } from "@bitwarden/importer/core";
 import {
+  DefaultKdfConfigService,
+  KdfConfigService,
   BiometricStateService,
   BiometricsService,
   DefaultBiometricStateService,
@@ -369,7 +371,7 @@ export default class MainBackground {
   intraprocessMessagingSubject: Subject<Message<Record<string, unknown>>>;
   userAutoUnlockKeyService: UserAutoUnlockKeyService;
   scriptInjectorService: BrowserScriptInjectorService;
-  kdfConfigService: kdfConfigServiceAbstraction;
+  kdfConfigService: KdfConfigService;
   offscreenDocumentService: OffscreenDocumentService;
   syncServiceListener: SyncServiceListener;
   themeStateService: DefaultThemeStateService;
@@ -630,7 +632,7 @@ export default class MainBackground {
       runtimeNativeMessagingBackground,
     );
 
-    this.kdfConfigService = new KdfConfigService(this.stateProvider);
+    this.kdfConfigService = new DefaultKdfConfigService(this.stateProvider);
 
     this.pinService = new PinService(
       this.accountService,
@@ -691,7 +693,7 @@ export default class MainBackground {
     );
 
     this.domainSettingsService = new DefaultDomainSettingsService(this.stateProvider);
-    this.fileUploadService = new FileUploadService(this.logService);
+    this.fileUploadService = new FileUploadService(this.logService, this.apiService);
     this.cipherFileUploadService = new CipherFileUploadService(
       this.apiService,
       this.fileUploadService,
@@ -725,7 +727,7 @@ export default class MainBackground {
     );
 
     const sdkClientFactory = flagEnabled("sdk")
-      ? new BrowserSdkClientFactory()
+      ? new BrowserSdkClientFactory(this.logService)
       : new NoopSdkClientFactory();
     this.sdkService = new DefaultSdkService(
       sdkClientFactory,
@@ -1051,14 +1053,6 @@ export default class MainBackground {
 
     const systemUtilsServiceReloadCallback = async () => {
       await this.taskSchedulerService.clearAllScheduledTasks();
-      if (this.platformUtilsService.isSafari()) {
-        // If we do `chrome.runtime.reload` on safari they will send an onInstalled reason of install
-        // and that prompts us to show a new tab, this apparently doesn't happen on sideloaded
-        // extensions and only shows itself production scenarios. See: https://bitwarden.atlassian.net/browse/PM-12298
-        self.location.reload();
-        return;
-      }
-
       BrowserApi.reloadExtension();
     };
 
@@ -1068,7 +1062,7 @@ export default class MainBackground {
       this.taskSchedulerService,
     );
 
-    this.processReloadService = new ProcessReloadService(
+    this.processReloadService = new DefaultProcessReloadService(
       this.pinService,
       this.messagingService,
       systemUtilsServiceReloadCallback,

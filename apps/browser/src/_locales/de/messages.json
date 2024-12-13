@@ -1125,6 +1125,10 @@
     "message": "ACHTUNG",
     "description": "WARNING (should stay in capitalized letters if the language permits)"
   },
+  "warningCapitalized": {
+    "message": "Warnung",
+    "description": "Warning (should maintain locale-relevant capitalization)"
+  },
   "confirmVaultExport": {
     "message": "Tresor-Export bestätigen"
   },
@@ -1315,6 +1319,12 @@
   "enterVerificationCodeApp": {
     "message": "Gib den 6-stelligen Verifizierungscode aus deiner Authenticator App ein."
   },
+  "authenticationTimeout": {
+    "message": "Authentication timeout"
+  },
+  "authenticationSessionTimedOut": {
+    "message": "The authentication session timed out. Please restart the login process."
+  },
   "enterVerificationCodeEmail": {
     "message": "Gib den 6-stelligen Bestätigungscode ein, der an $EMAIL$ gesendet wurde.",
     "placeholders": {
@@ -1502,19 +1512,6 @@
   },
   "enableAutoFillOnPageLoadDesc": {
     "message": "Wenn eine Anmeldemaske erkannt wird, die Zugangsdaten automatisch ausfüllen während die Webseite lädt."
-  },
-  "autofillOnPageLoadWarning": {
-    "message": "$OPENTAG$Warnung:$CLOSETAG$ Kompromittierte oder nicht vertrauenswürdige Websites können Auto-Ausfüllen beim Laden einer Seite missbrauchen.",
-    "placeholders": {
-      "openTag": {
-        "content": "$1",
-        "example": "<b>"
-      },
-      "closeTag": {
-        "content": "$2",
-        "example": "</b>"
-      }
-    }
   },
   "experimentalFeature": {
     "message": "Kompromittierte oder nicht vertrauenswürdige Websites können Auto-Ausfüllen beim Laden der Seite ausnutzen."
@@ -1850,6 +1847,9 @@
   },
   "secureNotes": {
     "message": "Sichere Notizen"
+  },
+  "sshKeys": {
+    "message": "SSH-Schlüssel"
   },
   "clear": {
     "message": "Löschen",
@@ -2889,8 +2889,8 @@
   "generateEmail": {
     "message": "E-Mail generieren"
   },
-  "generatorBoundariesHint": {
-    "message": "Wert muss zwischen $MIN$ und $MAX$ liegen",
+  "spinboxBoundariesHint": {
+    "message": "Wert muss zwischen $MIN$ und $MAX$ liegen.",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -2900,6 +2900,26 @@
       "max": {
         "content": "$2",
         "example": "128"
+      }
+    }
+  },
+  "passwordLengthRecommendationHint": {
+    "message": " Verwende $RECOMMENDED$ oder mehr Zeichen, um ein starkes Passwort zu generieren.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "passphraseNumWordsRecommendationHint": {
+    "message": " Verwende $RECOMMENDED$ oder mehr Wörter, um eine starke Passphrase zu generieren.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "6"
       }
     }
   },
@@ -3150,11 +3170,26 @@
   "resendNotification": {
     "message": "Benachrichtigung erneut senden"
   },
-  "viewAllLoginOptions": {
+  "viewAllLogInOptions": {
     "message": "Alle Anmeldeoptionen anzeigen"
+  },
+  "viewAllLoginOptionsV1": {
+    "message": "View all log in options"
   },
   "notificationSentDevice": {
     "message": "Eine Benachrichtigung wurde an dein Gerät gesendet."
+  },
+  "aNotificationWasSentToYourDevice": {
+    "message": "Eine Benachrichtigung wurde an dein Gerät gesendet"
+  },
+  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
+    "message": "Stelle sicher, dass dein Konto entsperrt ist und die Fingerabdruck-Phrase mit der vom anderen Gerät übereinstimmt"
+  },
+  "youWillBeNotifiedOnceTheRequestIsApproved": {
+    "message": "Du wirst benachrichtigt, sobald die Anfrage genehmigt wurde"
+  },
+  "needAnotherOptionV1": {
+    "message": "Brauchst du eine andere Option?"
   },
   "loginInitiated": {
     "message": "Anmeldung eingeleitet"
@@ -3249,8 +3284,17 @@
   "opensInANewWindow": {
     "message": "Wird in einem neuen Fenster geöffnet"
   },
+  "rememberThisDeviceToMakeFutureLoginsSeamless": {
+    "message": "Dieses Gerät merken, um zukünftige Anmeldungen reibungslos zu gestalten"
+  },
   "deviceApprovalRequired": {
     "message": "Geräte-Genehmigung erforderlich. Wähle unten eine Genehmigungsoption aus:"
+  },
+  "deviceApprovalRequiredV2": {
+    "message": "Geräte-Genehmigung erforderlich"
+  },
+  "selectAnApprovalOptionBelow": {
+    "message": "Wähle unten eine Genehmigungsoption aus"
   },
   "rememberThisDevice": {
     "message": "Dieses Gerät merken"
@@ -3324,6 +3368,9 @@
   },
   "userEmailMissing": {
     "message": "E-Mail-Adresse des Benutzers fehlt"
+  },
+  "activeUserEmailNotFoundLoggingYouOut": {
+    "message": "Aktive Benutzer-E-Mail-Adresse nicht gefunden. Du wirst abgemeldet."
   },
   "deviceTrusted": {
     "message": "Gerät wird vertraut"
@@ -3760,6 +3807,9 @@
   },
   "accessing": {
     "message": "Zugriff auf"
+  },
+  "loggedInExclamation": {
+    "message": "Angemeldet!"
   },
   "passkeyNotCopied": {
     "message": "Passkey wird nicht kopiert"
@@ -4251,6 +4301,21 @@
   },
   "filters": {
     "message": "Filter"
+  },
+  "filterVault": {
+    "message": "Tresor filtern"
+  },
+  "filterApplied": {
+    "message": "Ein Filter angewendet"
+  },
+  "filterAppliedPlural": {
+    "message": "$COUNT$ Filter angewendet",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "personalDetails": {
     "message": "Persönliche Details"
@@ -4823,5 +4888,20 @@
   },
   "generatedPassword": {
     "message": "Generiertes Passwort"
+  },
+  "compactMode": {
+    "message": "Kompaktmodus"
+  },
+  "beta": {
+    "message": "Beta"
+  },
+  "extensionWidth": {
+    "message": "Breite der Erweiterung"
+  },
+  "wide": {
+    "message": "Breit"
+  },
+  "extraWide": {
+    "message": "Extra breit"
   }
 }

@@ -1,3 +1,5 @@
+// FIXME: Update this file to be type safe and remove this and next line
+// @ts-strict-ignore
 import { firstValueFrom, map, mergeMap } from "rxjs";
 
 import { LockService } from "@bitwarden/auth/common";
@@ -71,6 +73,7 @@ export default class RuntimeBackground {
         "biometricUnlockAvailable",
         "getUseTreeWalkerApiForPageDetailsCollectionFeatureFlag",
         "getInlineMenuFieldQualificationFeatureFlag",
+        "getInlineMenuTotpFeatureFlag",
       ];
 
       if (messagesWithResponse.includes(msg.command)) {
@@ -194,6 +197,9 @@ export default class RuntimeBackground {
       }
       case "getInlineMenuFieldQualificationFeatureFlag": {
         return await this.configService.getFeatureFlag(FeatureFlag.InlineMenuFieldQualification);
+      }
+      case "getInlineMenuTotpFeatureFlag": {
+        return await this.configService.getFeatureFlag(FeatureFlag.InlineMenuTotp);
       }
     }
   }

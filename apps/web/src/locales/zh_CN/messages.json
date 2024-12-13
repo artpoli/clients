@@ -984,6 +984,9 @@
   "loginWithDeviceEnabledNote": {
     "message": "必须在 Bitwarden App 的设置中启用设备登录。需要其他登录选项吗？"
   },
+  "needAnotherOptionV1": {
+    "message": "需要其他选项吗？"
+  },
   "loginWithMasterPassword": {
     "message": "使用主密码登录"
   },
@@ -1301,6 +1304,12 @@
   },
   "notificationSentDevice": {
     "message": "通知已发送到您的设备。"
+  },
+  "aNotificationWasSentToYourDevice": {
+    "message": "通知已发送到您的设备"
+  },
+  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
+    "message": "确保您的账户已解锁，并且指纹短语与其他设备上的相匹配。"
   },
   "versionNumber": {
     "message": "版本: $VERSION_NUMBER$",
@@ -1633,8 +1642,26 @@
   "passwordHistory": {
     "message": "密码历史记录"
   },
+  "generatorHistory": {
+    "message": "生成器历史记录"
+  },
+  "clearGeneratorHistoryTitle": {
+    "message": "清除生成器历史记录"
+  },
+  "cleargGeneratorHistoryDescription": {
+    "message": "若继续，所有条目将从生成器历史记录中永久删除。确定要继续吗？"
+  },
   "noPasswordsInList": {
     "message": "没有可列出的密码。"
+  },
+  "clearHistory": {
+    "message": "清除历史记录"
+  },
+  "nothingToShow": {
+    "message": "没有可显示的内容"
+  },
+  "nothingGeneratedRecently": {
+    "message": "您最近没有生成任何内容"
   },
   "clear": {
     "message": "清除",
@@ -1758,8 +1785,8 @@
   "sessionsDeauthorized": {
     "message": "已取消所有会话授权"
   },
-  "accountIsManagedMessage": {
-    "message": "此账户由 $ORGANIZATIONNAME$ 管理",
+  "accountIsOwnedMessage": {
+    "message": "此账户由 $ORGANIZATIONNAME$ 拥有",
     "placeholders": {
       "organizationName": {
         "content": "$1",
@@ -3387,6 +3414,9 @@
       }
     }
   },
+  "viewAllLogInOptions": {
+    "message": "查看所有登录选项"
+  },
   "viewAllLoginOptions": {
     "message": "查看所有登录选项"
   },
@@ -4442,6 +4472,9 @@
   "dontAskFingerprintAgain": {
     "message": "不再提示验证受邀用户的指纹短语（不推荐）",
     "description": "A 'fingerprint phrase' is a unique word phrase (similar to a passphrase) that a user can use to authenticate their public key with another user, for the purposes of sharing."
+  },
+  "youWillBeNotifiedOnceTheRequestIsApproved": {
+    "message": "请求获得批准后，您将收到通知"
   },
   "free": {
     "message": "免费",
@@ -6376,6 +6409,9 @@
   "idpSingleSignOnServiceUrlRequired": {
     "message": "如果实体 ID 不是一个 URL，则必填。"
   },
+  "offerNoLongerValid": {
+    "message": "此优惠不再可用。请联系组织管理员获取更多信息。"
+  },
   "openIdOptionalCustomizations": {
     "message": "个性化（可选）"
   },
@@ -6468,8 +6504,8 @@
   "generateEmail": {
     "message": "生成电子邮件地址"
   },
-  "generatorBoundariesHint": {
-    "message": "值必须在 $MIN$ 和 $MAX$ 之间",
+  "spinboxBoundariesHint": {
+    "message": "值必须在 $MIN$ 和 $MAX$ 之间。",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -6479,6 +6515,26 @@
       "max": {
         "content": "$2",
         "example": "128"
+      }
+    }
+  },
+  "passwordLengthRecommendationHint": {
+    "message": " 使用 $RECOMMENDED$ 或更多个字符生成强大的密码。",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "passphraseNumWordsRecommendationHint": {
+    "message": " 使用 $RECOMMENDED$ 或更多个单词生成强大的密码短语。",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "6"
       }
     }
   },
@@ -8013,8 +8069,17 @@
   "loginInitiated": {
     "message": "登录已发起"
   },
+  "rememberThisDeviceToMakeFutureLoginsSeamless": {
+    "message": "记住此设备以便将来无缝登录"
+  },
   "deviceApprovalRequired": {
     "message": "需要设备批准。请在下面选择一个批准选项："
+  },
+  "deviceApprovalRequiredV2": {
+    "message": "需要设备批准"
+  },
+  "selectAnApprovalOptionBelow": {
+    "message": "在下方选择一个批准选项"
   },
   "rememberThisDevice": {
     "message": "记住此设备"
@@ -8245,6 +8310,9 @@
   "userEmailMissing": {
     "message": "缺少用户电子邮件"
   },
+  "activeUserEmailNotFoundLoggingYouOut": {
+    "message": "未找到活动的用户电子邮件。您将被注销。"
+  },
   "deviceTrusted": {
     "message": "设备已信任"
   },
@@ -8339,9 +8407,6 @@
   },
   "collectionManagementDesc": {
     "message": "管理组织的集合行为"
-  },
-  "limitCollectionCreationDeletionDesc": {
-    "message": "限制为仅所有者和管理员可以创建和删除集合"
   },
   "limitCollectionCreationDesc": {
     "message": "限制为仅所有者和管理员可以创建集合"
@@ -9707,5 +9772,20 @@
   },
   "deletedSuccessfully": {
     "message": "删除成功"
+  },
+  "freeFamiliesSponsorship": {
+    "message": "移除免费的 Bitwarden 家庭赞助"
+  },
+  "freeFamiliesSponsorshipPolicyDesc": {
+    "message": "不允许成员通过此组织兑换家庭计划。"
+  },
+  "verifyBankAccountWithStatementDescriptorWarning": {
+    "message": "使用银行账户付款仅对美国用户开放。您将被要求验证您的银行账户。我们将在 1-2 个工作日内进行一笔小额转账，请在组织的计费页面输入该转账的语句描述符代码以验证银行账户。验证银行账户失败将会错过支付，您的订阅将失效。"
+  },
+  "verifyBankAccountWithStatementDescriptorInstructions": {
+    "message": "我们已向您的银行账户存入了一笔小额转账（可能需要 1-2 个工作日到账）。请输入转账说明中以 \"SM\" 开头的六位数代码。验证银行账户失败将会错过支付，您的订阅将失效。"
+  },
+  "descriptorCode": {
+    "message": "描述符代码"
   }
 }

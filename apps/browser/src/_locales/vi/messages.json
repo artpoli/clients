@@ -1125,6 +1125,10 @@
     "message": "CẢNH BÁO",
     "description": "WARNING (should stay in capitalized letters if the language permits)"
   },
+  "warningCapitalized": {
+    "message": "Warning",
+    "description": "Warning (should maintain locale-relevant capitalization)"
+  },
   "confirmVaultExport": {
     "message": "Xác nhận xuất kho"
   },
@@ -1315,6 +1319,12 @@
   "enterVerificationCodeApp": {
     "message": "Nhập mã xác nhận 6 chữ số từ ứng dụng xác thực của bạn."
   },
+  "authenticationTimeout": {
+    "message": "Authentication timeout"
+  },
+  "authenticationSessionTimedOut": {
+    "message": "The authentication session timed out. Please restart the login process."
+  },
   "enterVerificationCodeEmail": {
     "message": "Nhập mã xác nhận 6 chữ số đã được gửi tới email",
     "placeholders": {
@@ -1502,19 +1512,6 @@
   },
   "enableAutoFillOnPageLoadDesc": {
     "message": "Nếu phát hiện biểu mẫu đăng nhập, thực hiện tự động điền khi trang web tải xong."
-  },
-  "autofillOnPageLoadWarning": {
-    "message": "$OPENTAG$Cảnh báo:$CLOSETAG$ Các trang web bị xâm phạm hoặc không đáng tin cậy có thể lợi dụng tính năng tự động điền khi trang web được tải.",
-    "placeholders": {
-      "openTag": {
-        "content": "$1",
-        "example": "<b>"
-      },
-      "closeTag": {
-        "content": "$2",
-        "example": "</b>"
-      }
-    }
   },
   "experimentalFeature": {
     "message": "Các trang web bị xâm phạm hoặc không đáng tin cậy có thể khai thác tính năng tự động điền khi tải trang."
@@ -1850,6 +1847,9 @@
   },
   "secureNotes": {
     "message": "Ghi chú bảo mật"
+  },
+  "sshKeys": {
+    "message": "SSH Keys"
   },
   "clear": {
     "message": "Xoá",
@@ -2889,8 +2889,8 @@
   "generateEmail": {
     "message": "Generate email"
   },
-  "generatorBoundariesHint": {
-    "message": "Value must be between $MIN$ and $MAX$",
+  "spinboxBoundariesHint": {
+    "message": "Value must be between $MIN$ and $MAX$.",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -2900,6 +2900,26 @@
       "max": {
         "content": "$2",
         "example": "128"
+      }
+    }
+  },
+  "passwordLengthRecommendationHint": {
+    "message": " Use $RECOMMENDED$ characters or more to generate a strong password.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "passphraseNumWordsRecommendationHint": {
+    "message": " Use $RECOMMENDED$ words or more to generate a strong passphrase.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "6"
       }
     }
   },
@@ -3150,11 +3170,26 @@
   "resendNotification": {
     "message": "Gửi lại thông báo"
   },
-  "viewAllLoginOptions": {
-    "message": "Xem tất cả tùy chọn đăng nhập"
+  "viewAllLogInOptions": {
+    "message": "View all log in options"
+  },
+  "viewAllLoginOptionsV1": {
+    "message": "View all log in options"
   },
   "notificationSentDevice": {
     "message": "Một thông báo đã được gửi đến thiết bị của bạn."
+  },
+  "aNotificationWasSentToYourDevice": {
+    "message": "A notification was sent to your device"
+  },
+  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
+    "message": "Make sure your account is unlocked and the fingerprint phrase matches on the other device"
+  },
+  "youWillBeNotifiedOnceTheRequestIsApproved": {
+    "message": "You will be notified once the request is approved"
+  },
+  "needAnotherOptionV1": {
+    "message": "Need another option?"
   },
   "loginInitiated": {
     "message": "Bắt đầu đăng nhập"
@@ -3249,8 +3284,17 @@
   "opensInANewWindow": {
     "message": "Mở trong cửa sổ mới"
   },
+  "rememberThisDeviceToMakeFutureLoginsSeamless": {
+    "message": "Remember this device to make future logins seamless"
+  },
   "deviceApprovalRequired": {
     "message": "Yêu cầu phê duyệt thiết bị. Chọn một tuỳ chọn phê duyệt bên dưới:"
+  },
+  "deviceApprovalRequiredV2": {
+    "message": "Device approval required"
+  },
+  "selectAnApprovalOptionBelow": {
+    "message": "Select an approval option below"
   },
   "rememberThisDevice": {
     "message": "Lưu thiết bị này"
@@ -3324,6 +3368,9 @@
   },
   "userEmailMissing": {
     "message": "Thiếu email người dùng"
+  },
+  "activeUserEmailNotFoundLoggingYouOut": {
+    "message": "Active user email not found. Logging you out."
   },
   "deviceTrusted": {
     "message": "Thiết bị tin cậy"
@@ -3760,6 +3807,9 @@
   },
   "accessing": {
     "message": "Accessing"
+  },
+  "loggedInExclamation": {
+    "message": "Logged in!"
   },
   "passkeyNotCopied": {
     "message": "Không thể sao chép mã khoá"
@@ -4251,6 +4301,21 @@
   },
   "filters": {
     "message": "Bộ lọc"
+  },
+  "filterVault": {
+    "message": "Filter vault"
+  },
+  "filterApplied": {
+    "message": "One filter applied"
+  },
+  "filterAppliedPlural": {
+    "message": "$COUNT$ filters applied",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "personalDetails": {
     "message": "Thông tin cá nhân"
@@ -4823,5 +4888,20 @@
   },
   "generatedPassword": {
     "message": "Generated password"
+  },
+  "compactMode": {
+    "message": "Compact mode"
+  },
+  "beta": {
+    "message": "Beta"
+  },
+  "extensionWidth": {
+    "message": "Extension width"
+  },
+  "wide": {
+    "message": "Wide"
+  },
+  "extraWide": {
+    "message": "Extra wide"
   }
 }

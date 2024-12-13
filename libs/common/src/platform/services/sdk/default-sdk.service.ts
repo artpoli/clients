@@ -1,3 +1,5 @@
+// FIXME: Update this file to be type safe and remove this and next line
+// @ts-strict-ignore
 import {
   combineLatest,
   concatMap,
@@ -11,7 +13,7 @@ import {
   catchError,
 } from "rxjs";
 
-import { KeyService } from "@bitwarden/key-management";
+import { KeyService, KdfConfigService, KdfConfig, KdfType } from "@bitwarden/key-management";
 import {
   BitwardenClient,
   ClientSettings,
@@ -22,8 +24,6 @@ import {
 import { ApiService } from "../../../abstractions/api.service";
 import { EncryptedOrganizationKeyData } from "../../../admin-console/models/data/encrypted-organization-key.data";
 import { AccountInfo, AccountService } from "../../../auth/abstractions/account.service";
-import { KdfConfigService } from "../../../auth/abstractions/kdf-config.service";
-import { KdfConfig } from "../../../auth/models/domain/kdf-config";
 import { DeviceType } from "../../../enums/device-type.enum";
 import { OrganizationId, UserId } from "../../../types/guid";
 import { UserKey } from "../../../types/key";
@@ -31,9 +31,20 @@ import { Environment, EnvironmentService } from "../../abstractions/environment.
 import { PlatformUtilsService } from "../../abstractions/platform-utils.service";
 import { SdkClientFactory } from "../../abstractions/sdk/sdk-client-factory";
 import { SdkService } from "../../abstractions/sdk/sdk.service";
-import { KdfType } from "../../enums";
 import { compareValues } from "../../misc/compare-values";
 import { EncryptedString } from "../../models/domain/enc-string";
+
+export class RecoverableSDKError extends Error {
+  sdk: BitwardenClient;
+  timeout: number;
+
+  constructor(sdk: BitwardenClient, timeout: number) {
+    super(`SDK took ${timeout}s to initialize`);
+
+    this.sdk = sdk;
+    this.timeout = timeout;
+  }
+}
 
 export class DefaultSdkService implements SdkService {
   private sdkClientCache = new Map<UserId, Observable<BitwardenClient>>();
@@ -41,7 +52,15 @@ export class DefaultSdkService implements SdkService {
   client$ = this.environmentService.environment$.pipe(
     concatMap(async (env) => {
       const settings = this.toSettings(env);
-      return await this.sdkClientFactory.createSdkClient(settings, LogLevel.Info);
+      try {
+        return await this.sdkClientFactory.createSdkClient(settings, LogLevel.Info);
+      } catch (e) {
+        if (e instanceof RecoverableSDKError) {
+          await this.failedToInitialize("sdk", e);
+          return e.sdk;
+        }
+        throw e;
+      }
     }),
     shareReplay({ refCount: true, bufferSize: 1 }),
   );

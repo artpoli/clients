@@ -1125,6 +1125,10 @@
     "message": "ПОПЕРЕДЖЕННЯ",
     "description": "WARNING (should stay in capitalized letters if the language permits)"
   },
+  "warningCapitalized": {
+    "message": "Попередження",
+    "description": "Warning (should maintain locale-relevant capitalization)"
+  },
   "confirmVaultExport": {
     "message": "Підтвердити експорт сховища"
   },
@@ -1315,6 +1319,12 @@
   "enterVerificationCodeApp": {
     "message": "Введіть 6-значний код підтвердження з програми автентифікації."
   },
+  "authenticationTimeout": {
+    "message": "Час очікування автентифікації"
+  },
+  "authenticationSessionTimedOut": {
+    "message": "Час очікування сеансу автентифікації завершився. Перезапустіть процес входу в систему."
+  },
   "enterVerificationCodeEmail": {
     "message": "Введіть 6-значний код підтвердження, надісланий на $EMAIL$.",
     "placeholders": {
@@ -1502,19 +1512,6 @@
   },
   "enableAutoFillOnPageLoadDesc": {
     "message": "Якщо виявлено форму входу, автоматично заповнювати її під час завантаження вебсторінки."
-  },
-  "autofillOnPageLoadWarning": {
-    "message": "$OPENTAG$Обережно!$CLOSETAG$ Скомпрометовані або ненадійні вебсайти можуть використати функцію автозаповнення під час завантаження сторінки для завдання шкоди.",
-    "placeholders": {
-      "openTag": {
-        "content": "$1",
-        "example": "<b>"
-      },
-      "closeTag": {
-        "content": "$2",
-        "example": "</b>"
-      }
-    }
   },
   "experimentalFeature": {
     "message": "Скомпрометовані або ненадійні вебсайти можуть використати функцію автозаповнення під час завантаження сторінки для завдання шкоди."
@@ -1850,6 +1847,9 @@
   },
   "secureNotes": {
     "message": "Захищені нотатки"
+  },
+  "sshKeys": {
+    "message": "Ключі SSH"
   },
   "clear": {
     "message": "Стерти",
@@ -2889,8 +2889,8 @@
   "generateEmail": {
     "message": "Генерувати е-пошту"
   },
-  "generatorBoundariesHint": {
-    "message": "Значення має бути між $MIN$ та $MAX$",
+  "spinboxBoundariesHint": {
+    "message": "Значення має бути між $MIN$ та $MAX$.",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -2900,6 +2900,26 @@
       "max": {
         "content": "$2",
         "example": "128"
+      }
+    }
+  },
+  "passwordLengthRecommendationHint": {
+    "message": " Використовуйте $RECOMMENDED$ або більше символів, щоб згенерувати надійний пароль.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "passphraseNumWordsRecommendationHint": {
+    "message": " Використовуйте $RECOMMENDED$ або більше слів, щоб згенерувати надійну парольну фразу.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "6"
       }
     }
   },
@@ -3150,11 +3170,26 @@
   "resendNotification": {
     "message": "Надіслати сповіщення ще раз"
   },
-  "viewAllLoginOptions": {
+  "viewAllLogInOptions": {
     "message": "Переглянути всі варіанти входу"
+  },
+  "viewAllLoginOptionsV1": {
+    "message": "View all log in options"
   },
   "notificationSentDevice": {
     "message": "Сповіщення було надіслано на ваш пристрій."
+  },
+  "aNotificationWasSentToYourDevice": {
+    "message": "Сповіщення надіслано на ваш пристрій"
+  },
+  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
+    "message": "Переконайтеся, що ваш обліковий запис розблоковано і фраза відбитка на іншому пристрої збігається"
+  },
+  "youWillBeNotifiedOnceTheRequestIsApproved": {
+    "message": "Після схвалення запиту ви отримаєте сповіщення"
+  },
+  "needAnotherOptionV1": {
+    "message": "Потрібен інший варіант?"
   },
   "loginInitiated": {
     "message": "Ініційовано вхід"
@@ -3249,8 +3284,17 @@
   "opensInANewWindow": {
     "message": "Відкривається у новому вікні"
   },
+  "rememberThisDeviceToMakeFutureLoginsSeamless": {
+    "message": "Запам'ятайте цей пристрій, щоб спростити майбутні входи в систему"
+  },
   "deviceApprovalRequired": {
     "message": "Необхідне підтвердження пристрою. Виберіть варіант підтвердження нижче:"
+  },
+  "deviceApprovalRequiredV2": {
+    "message": "Потрібне підтвердження пристрою"
+  },
+  "selectAnApprovalOptionBelow": {
+    "message": "Виберіть варіант підтвердження нижче"
   },
   "rememberThisDevice": {
     "message": "Запам'ятати цей пристрій"
@@ -3324,6 +3368,9 @@
   },
   "userEmailMissing": {
     "message": "Немає адреси електронної пошти"
+  },
+  "activeUserEmailNotFoundLoggingYouOut": {
+    "message": "Адресу е-пошти активного користувача не знайдено. Виконується вихід із системи."
   },
   "deviceTrusted": {
     "message": "Довірений пристрій"
@@ -3760,6 +3807,9 @@
   },
   "accessing": {
     "message": "Доступ"
+  },
+  "loggedInExclamation": {
+    "message": "Ви увійшли!"
   },
   "passkeyNotCopied": {
     "message": "Ключ доступу не буде скопійовано"
@@ -4251,6 +4301,21 @@
   },
   "filters": {
     "message": "Фільтри"
+  },
+  "filterVault": {
+    "message": "Фільтр сховища"
+  },
+  "filterApplied": {
+    "message": "Застосовано один фільтр"
+  },
+  "filterAppliedPlural": {
+    "message": "Застосовані фільтри: $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "personalDetails": {
     "message": "Особисті дані"
@@ -4823,5 +4888,20 @@
   },
   "generatedPassword": {
     "message": "Згенерований пароль"
+  },
+  "compactMode": {
+    "message": "Компактний режим"
+  },
+  "beta": {
+    "message": "Бета"
+  },
+  "extensionWidth": {
+    "message": "Ширина вікна розширення"
+  },
+  "wide": {
+    "message": "Широке"
+  },
+  "extraWide": {
+    "message": "Дуже широке"
   }
 }

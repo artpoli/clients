@@ -1,3 +1,5 @@
+// FIXME: Update this file to be type safe and remove this and next line
+// @ts-strict-ignore
 import { mock } from "jest-mock-extended";
 
 import { AuthenticationStatus } from "@bitwarden/common/auth/enums/authentication-status";
@@ -239,7 +241,7 @@ export function createInitAutofillInlineMenuListMessageMock(
       createAutofillOverlayCipherDataMock(4, {
         icon: { imageEnabled: false, image: "", fallbackImage: "", icon: "" },
       }),
-      createAutofillOverlayCipherDataMock(5),
+      createAutofillOverlayCipherDataMock(5, { login: { totp: "123456", totpField: true } }),
       createAutofillOverlayCipherDataMock(6),
       createAutofillOverlayCipherDataMock(7),
       createAutofillOverlayCipherDataMock(8),

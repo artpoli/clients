@@ -20,16 +20,16 @@
     "message": "Стварыць уліковы запіс"
   },
   "newToBitwarden": {
-    "message": "New to Bitwarden?"
+    "message": "Упершыню ў Bitwarden?"
   },
   "logInWithPasskey": {
     "message": "Log in with passkey"
   },
   "useSingleSignOn": {
-    "message": "Use single sign-on"
+    "message": "Выкарыстаць аднаразовы ўваход"
   },
   "welcomeBack": {
-    "message": "Welcome back"
+    "message": "З вяртаннем"
   },
   "setAStrongPassword": {
     "message": "Прызначыць надзейны пароль"
@@ -120,7 +120,7 @@
     "message": "Скапіяваць пароль"
   },
   "copyPassphrase": {
-    "message": "Copy passphrase"
+    "message": "Скапіяваць парольную фразу"
   },
   "copyNote": {
     "message": "Скапіяваць нататку"
@@ -153,13 +153,13 @@
     "message": "Скапіяваць нумар ліцэнзіі"
   },
   "copyPrivateKey": {
-    "message": "Copy private key"
+    "message": "Скапіяваць прыватны ключ"
   },
   "copyPublicKey": {
-    "message": "Copy public key"
+    "message": "Скапіяваць публічны ключ"
   },
   "copyFingerprint": {
-    "message": "Copy fingerprint"
+    "message": "Скапіяваць адбітак пальца"
   },
   "copyCustomField": {
     "message": "Скапіяваць $FIELD$",
@@ -177,7 +177,7 @@
     "message": "Скапіяваць нататкі"
   },
   "fill": {
-    "message": "Fill",
+    "message": "Запоўніць",
     "description": "This string is used on the vault page to indicate autofilling. Horizontal space is limited in the interface here so try and keep translations as concise as possible."
   },
   "autoFill": {
@@ -436,7 +436,7 @@
     "message": "Генерыраваць пароль"
   },
   "generatePassphrase": {
-    "message": "Generate passphrase"
+    "message": "Згенерыраваць парольную фразу"
   },
   "regeneratePassword": {
     "message": "Паўторна генерыраваць пароль"
@@ -600,7 +600,7 @@
     "message": "Адкрыць сайт"
   },
   "launchWebsiteName": {
-    "message": "Launch website $ITEMNAME$",
+    "message": "Адкрыць сайт $ITEMNAME$",
     "placeholders": {
       "itemname": {
         "content": "$1",
@@ -855,7 +855,7 @@
     "message": "Увайсці"
   },
   "logInToBitwarden": {
-    "message": "Log in to Bitwarden"
+    "message": "Увайсці ў Bitwarden"
   },
   "restartRegistration": {
     "message": "Restart registration"
@@ -1125,6 +1125,10 @@
     "message": "ПАПЯРЭДЖАННЕ",
     "description": "WARNING (should stay in capitalized letters if the language permits)"
   },
+  "warningCapitalized": {
+    "message": "Папярэджанне",
+    "description": "Warning (should maintain locale-relevant capitalization)"
+  },
   "confirmVaultExport": {
     "message": "Пацвердзіць экспартаванне сховішча"
   },
@@ -1315,6 +1319,12 @@
   "enterVerificationCodeApp": {
     "message": "Увядзіце 6 лічбаў праверачнага кода з вашай праграмы аўтэнтыфікацыі."
   },
+  "authenticationTimeout": {
+    "message": "Authentication timeout"
+  },
+  "authenticationSessionTimedOut": {
+    "message": "The authentication session timed out. Please restart the login process."
+  },
   "enterVerificationCodeEmail": {
     "message": "Увядзіце 6 лічбаў праверачнага кода, які быў адпраўлены на $EMAIL$.",
     "placeholders": {
@@ -1459,7 +1469,7 @@
     "description": "Represents the message for allowing the user to enable the autofill overlay"
   },
   "autofillSuggestionsSectionTitle": {
-    "message": "Autofill suggestions"
+    "message": "Прапановы аўтазапаўнення"
   },
   "showInlineMenuLabel": {
     "message": "Show autofill suggestions on form fields"
@@ -1502,19 +1512,6 @@
   },
   "enableAutoFillOnPageLoadDesc": {
     "message": "Калі выяўлена форма ўваходу, то будзе выканана яе аўтазапаўненне падчас загрузкі вэб-старонкі."
-  },
-  "autofillOnPageLoadWarning": {
-    "message": "$OPENTAG$Warning:$CLOSETAG$ Compromised or untrusted websites can exploit autofill on page load.",
-    "placeholders": {
-      "openTag": {
-        "content": "$1",
-        "example": "<b>"
-      },
-      "closeTag": {
-        "content": "$2",
-        "example": "</b>"
-      }
-    }
   },
   "experimentalFeature": {
     "message": "Скампраметаваныя або ненадзейныя вэб-сайты могуць задзейнічаць функцыю аўтазапаўнення падчас загрузкі старонкі."
@@ -1774,7 +1771,7 @@
     "message": "Пасведчанне"
   },
   "typeSshKey": {
-    "message": "SSH key"
+    "message": "Ключ SSH"
   },
   "newItemHeader": {
     "message": "Новы $TYPE$",
@@ -1807,7 +1804,7 @@
     "message": "Гісторыя пароляў"
   },
   "generatorHistory": {
-    "message": "Generator history"
+    "message": "Гісторыя генератара"
   },
   "clearGeneratorHistoryTitle": {
     "message": "Clear generator history"
@@ -1850,6 +1847,9 @@
   },
   "secureNotes": {
     "message": "Абароненыя нататкі"
+  },
+  "sshKeys": {
+    "message": "Ключы SSH"
   },
   "clear": {
     "message": "Ачысціць",
@@ -1932,7 +1932,7 @@
     "message": "Ачысціць гісторыю"
   },
   "nothingToShow": {
-    "message": "Nothing to show"
+    "message": "Адсутнічаюць элементы для паказу"
   },
   "nothingGeneratedRecently": {
     "message": "You haven't generated anything recently"
@@ -2889,8 +2889,8 @@
   "generateEmail": {
     "message": "Generate email"
   },
-  "generatorBoundariesHint": {
-    "message": "Value must be between $MIN$ and $MAX$",
+  "spinboxBoundariesHint": {
+    "message": "Value must be between $MIN$ and $MAX$.",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -2900,6 +2900,26 @@
       "max": {
         "content": "$2",
         "example": "128"
+      }
+    }
+  },
+  "passwordLengthRecommendationHint": {
+    "message": " Use $RECOMMENDED$ characters or more to generate a strong password.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "passphraseNumWordsRecommendationHint": {
+    "message": " Use $RECOMMENDED$ words or more to generate a strong passphrase.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "6"
       }
     }
   },
@@ -3150,11 +3170,26 @@
   "resendNotification": {
     "message": "Адправіць апавяшчэнне паўторна"
   },
-  "viewAllLoginOptions": {
-    "message": "Паглядзець усе варыянты ўваходу"
+  "viewAllLogInOptions": {
+    "message": "View all log in options"
+  },
+  "viewAllLoginOptionsV1": {
+    "message": "View all log in options"
   },
   "notificationSentDevice": {
     "message": "Апавяшчэнне было адпраўлена на вашу прыладу."
+  },
+  "aNotificationWasSentToYourDevice": {
+    "message": "A notification was sent to your device"
+  },
+  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
+    "message": "Make sure your account is unlocked and the fingerprint phrase matches on the other device"
+  },
+  "youWillBeNotifiedOnceTheRequestIsApproved": {
+    "message": "You will be notified once the request is approved"
+  },
+  "needAnotherOptionV1": {
+    "message": "Need another option?"
   },
   "loginInitiated": {
     "message": "Ініцыяваны ўваход"
@@ -3249,8 +3284,17 @@
   "opensInANewWindow": {
     "message": "Адкрываць у новым акне"
   },
+  "rememberThisDeviceToMakeFutureLoginsSeamless": {
+    "message": "Remember this device to make future logins seamless"
+  },
   "deviceApprovalRequired": {
     "message": "Патрабуецца ўхваленне прылады. Выберыце параметры ўхвалення ніжэй:"
+  },
+  "deviceApprovalRequiredV2": {
+    "message": "Device approval required"
+  },
+  "selectAnApprovalOptionBelow": {
+    "message": "Select an approval option below"
   },
   "rememberThisDevice": {
     "message": "Запомніць гэту прыладу"
@@ -3324,6 +3368,9 @@
   },
   "userEmailMissing": {
     "message": "Адсутнічае электронная пошта карыстальніка"
+  },
+  "activeUserEmailNotFoundLoggingYouOut": {
+    "message": "Active user email not found. Logging you out."
   },
   "deviceTrusted": {
     "message": "Давераная прылада"
@@ -3760,6 +3807,9 @@
   },
   "accessing": {
     "message": "Accessing"
+  },
+  "loggedInExclamation": {
+    "message": "Logged in!"
   },
   "passkeyNotCopied": {
     "message": "Passkey will not be copied"
@@ -4251,6 +4301,21 @@
   },
   "filters": {
     "message": "Filters"
+  },
+  "filterVault": {
+    "message": "Filter vault"
+  },
+  "filterApplied": {
+    "message": "One filter applied"
+  },
+  "filterAppliedPlural": {
+    "message": "$COUNT$ filters applied",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "personalDetails": {
     "message": "Personal details"
@@ -4823,5 +4888,20 @@
   },
   "generatedPassword": {
     "message": "Generated password"
+  },
+  "compactMode": {
+    "message": "Compact mode"
+  },
+  "beta": {
+    "message": "Beta"
+  },
+  "extensionWidth": {
+    "message": "Extension width"
+  },
+  "wide": {
+    "message": "Wide"
+  },
+  "extraWide": {
+    "message": "Extra wide"
   }
 }

@@ -1,4 +1,7 @@
+// FIXME: Update this file to be type safe and remove this and next line
+// @ts-strict-ignore
 import { APP_INITIALIZER, NgModule, NgZone } from "@angular/core";
+import { Router } from "@angular/router";
 import { Subject, merge, of } from "rxjs";
 
 import { CollectionService } from "@bitwarden/admin-console/common";
@@ -22,6 +25,8 @@ import {
   AnonLayoutWrapperDataService,
   LoginComponentService,
   LockComponentService,
+  SsoComponentService,
+  LoginDecryptionOptionsService,
 } from "@bitwarden/auth/angular";
 import { LockService, LoginEmailService, PinServiceAbstraction } from "@bitwarden/auth/common";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
@@ -34,7 +39,6 @@ import {
   AccountService as AccountServiceAbstraction,
 } from "@bitwarden/common/auth/abstractions/account.service";
 import { AuthService } from "@bitwarden/common/auth/abstractions/auth.service";
-import { KdfConfigService } from "@bitwarden/common/auth/abstractions/kdf-config.service";
 import { InternalMasterPasswordServiceAbstraction } from "@bitwarden/common/auth/abstractions/master-password.service.abstraction";
 import { SsoLoginServiceAbstraction } from "@bitwarden/common/auth/abstractions/sso-login.service.abstraction";
 import { UserVerificationService } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
@@ -105,12 +109,19 @@ import { TotpService as TotpServiceAbstraction } from "@bitwarden/common/vault/a
 import { TotpService } from "@bitwarden/common/vault/services/totp.service";
 import { CompactModeService, DialogService, ToastService } from "@bitwarden/components";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legacy";
-import { BiometricStateService, BiometricsService, KeyService } from "@bitwarden/key-management";
+import {
+  KdfConfigService,
+  KeyService,
+  BiometricStateService,
+  BiometricsService,
+} from "@bitwarden/key-management";
 import { PasswordRepromptService } from "@bitwarden/vault";
 
 import { ForegroundLockService } from "../../auth/popup/accounts/foreground-lock.service";
 import { ExtensionAnonLayoutWrapperDataService } from "../../auth/popup/extension-anon-layout-wrapper/extension-anon-layout-wrapper-data.service";
 import { ExtensionLoginComponentService } from "../../auth/popup/login/extension-login-component.service";
+import { ExtensionSsoComponentService } from "../../auth/popup/login/extension-sso-component.service";
+import { ExtensionLoginDecryptionOptionsService } from "../../auth/popup/login-decryption-options/extension-login-decryption-options.service";
 import { AutofillService as AutofillServiceAbstraction } from "../../autofill/services/abstractions/autofill.service";
 import AutofillService from "../../autofill/services/autofill.service";
 import { InlineMenuFieldQualificationService } from "../../autofill/services/inline-menu-field-qualification.service";
@@ -569,8 +580,9 @@ const safeProviders: SafeProvider[] = [
   }),
   safeProvider({
     provide: SdkClientFactory,
-    useClass: flagEnabled("sdk") ? BrowserSdkClientFactory : NoopSdkClientFactory,
-    deps: [],
+    useFactory: (logService) =>
+      flagEnabled("sdk") ? new BrowserSdkClientFactory(logService) : new NoopSdkClientFactory(),
+    deps: [LogService],
   }),
   safeProvider({
     provide: LoginEmailService,
@@ -586,6 +598,16 @@ const safeProviders: SafeProvider[] = [
     provide: CompactModeService,
     useExisting: PopupCompactModeService,
     deps: [],
+  }),
+  safeProvider({
+    provide: SsoComponentService,
+    useClass: ExtensionSsoComponentService,
+    deps: [SyncService, AuthService, EnvironmentService, I18nServiceAbstraction, LogService],
+  }),
+  safeProvider({
+    provide: LoginDecryptionOptionsService,
+    useClass: ExtensionLoginDecryptionOptionsService,
+    deps: [MessagingServiceAbstraction, Router],
   }),
 ];
 

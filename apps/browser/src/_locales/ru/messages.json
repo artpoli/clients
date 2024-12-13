@@ -1125,6 +1125,10 @@
     "message": "ВНИМАНИЕ",
     "description": "WARNING (should stay in capitalized letters if the language permits)"
   },
+  "warningCapitalized": {
+    "message": "Предупреждение",
+    "description": "Warning (should maintain locale-relevant capitalization)"
+  },
   "confirmVaultExport": {
     "message": "Подтвердить экспорт хранилища"
   },
@@ -1315,6 +1319,12 @@
   "enterVerificationCodeApp": {
     "message": "Введите 6-значный код подтверждения из вашего приложения-аутентификатора."
   },
+  "authenticationTimeout": {
+    "message": "Таймаут аутентификации"
+  },
+  "authenticationSessionTimedOut": {
+    "message": "Сеанс аутентификации завершился по времени. Пожалуйста, попробуйте войти еще раз."
+  },
   "enterVerificationCodeEmail": {
     "message": "Введите 6-значный код подтверждения, который был отправлен на $EMAIL$.",
     "placeholders": {
@@ -1502,19 +1512,6 @@
   },
   "enableAutoFillOnPageLoadDesc": {
     "message": "Если обнаружена форма входа, автозаполнение выполняется при загрузке веб-страницы."
-  },
-  "autofillOnPageLoadWarning": {
-    "message": "$OPENTAG$Предупреждение:$CLOSETAG$ взломанные или недоверенные сайты могут использовать автозаполнение при загрузке страницы.",
-    "placeholders": {
-      "openTag": {
-        "content": "$1",
-        "example": "<b>"
-      },
-      "closeTag": {
-        "content": "$2",
-        "example": "</b>"
-      }
-    }
   },
   "experimentalFeature": {
     "message": "Взломанные или недоверенные сайты могут внедрить вредоносный код во время автозаполнения при загрузке страницы."
@@ -1850,6 +1847,9 @@
   },
   "secureNotes": {
     "message": "Защищенные заметки"
+  },
+  "sshKeys": {
+    "message": "Ключи SSH"
   },
   "clear": {
     "message": "Очистить",
@@ -2889,8 +2889,8 @@
   "generateEmail": {
     "message": "Сгенерировать email"
   },
-  "generatorBoundariesHint": {
-    "message": "Значение должно быть между $MIN$ и $MAX$",
+  "spinboxBoundariesHint": {
+    "message": "Значение должно быть между $MIN$ и $MAX$.",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -2900,6 +2900,26 @@
       "max": {
         "content": "$2",
         "example": "128"
+      }
+    }
+  },
+  "passwordLengthRecommendationHint": {
+    "message": " Для создания надежного пароля используйте $RECOMMENDED$ символов или больше.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "passphraseNumWordsRecommendationHint": {
+    "message": " Для создания надежной парольной фразы используйте $RECOMMENDED$ слов или больше.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "6"
       }
     }
   },
@@ -3150,11 +3170,26 @@
   "resendNotification": {
     "message": "Отправить уведомление повторно"
   },
-  "viewAllLoginOptions": {
+  "viewAllLogInOptions": {
     "message": "Посмотреть все варианты авторизации"
+  },
+  "viewAllLoginOptionsV1": {
+    "message": "View all log in options"
   },
   "notificationSentDevice": {
     "message": "На ваше устройство отправлено уведомление."
+  },
+  "aNotificationWasSentToYourDevice": {
+    "message": "На ваше устройство было отправлено уведомление"
+  },
+  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
+    "message": "Убедитесь, что ваш аккаунт разблокирован и фраза отпечатка совпадает с фразой на другом устройстве"
+  },
+  "youWillBeNotifiedOnceTheRequestIsApproved": {
+    "message": "Вы получите уведомление, когда запрос будет одобрен"
+  },
+  "needAnotherOptionV1": {
+    "message": "Нужен другой вариант?"
   },
   "loginInitiated": {
     "message": "Вход инициирован"
@@ -3249,8 +3284,17 @@
   "opensInANewWindow": {
     "message": "Откроется в новом окне"
   },
+  "rememberThisDeviceToMakeFutureLoginsSeamless": {
+    "message": "Запомнить это устройство, чтобы в будущем авторизовываться быстрее"
+  },
   "deviceApprovalRequired": {
     "message": "Требуется одобрение устройства. Выберите вариант ниже:"
+  },
+  "deviceApprovalRequiredV2": {
+    "message": "Требуется подтверждение устройства"
+  },
+  "selectAnApprovalOptionBelow": {
+    "message": "Выберите вариант подтверждения ниже"
   },
   "rememberThisDevice": {
     "message": "Запомнить это устройство"
@@ -3324,6 +3368,9 @@
   },
   "userEmailMissing": {
     "message": "Отсутствует email пользователя"
+  },
+  "activeUserEmailNotFoundLoggingYouOut": {
+    "message": "Email активного пользователя не найден. Разлогиниваем."
   },
   "deviceTrusted": {
     "message": "Доверенное устройство"
@@ -3760,6 +3807,9 @@
   },
   "accessing": {
     "message": "Доступ"
+  },
+  "loggedInExclamation": {
+    "message": "Выполнен вход!"
   },
   "passkeyNotCopied": {
     "message": "Passkey не будет скопирован"
@@ -4252,6 +4302,21 @@
   "filters": {
     "message": "Фильтры"
   },
+  "filterVault": {
+    "message": "Фильтр хранилища"
+  },
+  "filterApplied": {
+    "message": "Применен один фильтр"
+  },
+  "filterAppliedPlural": {
+    "message": "Применено фильтров: $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
   "personalDetails": {
     "message": "Личные данные"
   },
@@ -4594,7 +4659,7 @@
     "message": "Теперь автозаполнение и поиск на вкладке Хранилище стали проще и интуитивно понятнее, чем когда-либо. Осмотритесь!"
   },
   "accountActions": {
-    "message": "Действия с аккаунтом"
+    "message": "Действия аккаунта"
   },
   "showNumberOfAutofillSuggestions": {
     "message": "Показывать количество вариантов автозаполнения логина на значке расширения"
@@ -4823,5 +4888,20 @@
   },
   "generatedPassword": {
     "message": "Сгенерированный пароль"
+  },
+  "compactMode": {
+    "message": "Компактный режим"
+  },
+  "beta": {
+    "message": "Beta"
+  },
+  "extensionWidth": {
+    "message": "Ширина расширения"
+  },
+  "wide": {
+    "message": "Широкое"
+  },
+  "extraWide": {
+    "message": "Очень широкое"
   }
 }

@@ -27,10 +27,10 @@
     }
   },
   "notifiedMembers": {
-    "message": "Notified members"
+    "message": "Miembros notificados"
   },
   "allApplicationsWithCount": {
-    "message": "All applications ($COUNT$)",
+    "message": "Todas las aplicaciones ($COUNT$)",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -42,7 +42,7 @@
     "message": "Create new login item"
   },
   "criticalApplicationsWithCount": {
-    "message": "Critical applications ($COUNT$)",
+    "message": "Aplicaciones críticas ($COUNT$)",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -51,7 +51,7 @@
     }
   },
   "notifiedMembersWithCount": {
-    "message": "Notified members ($COUNT$)",
+    "message": "Miembros notificados ($COUNT$)",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -87,7 +87,7 @@
     "message": "Apps marked as critical"
   },
   "application": {
-    "message": "Application"
+    "message": "Aplicación"
   },
   "atRiskPasswords": {
     "message": "At-risk passwords"
@@ -759,31 +759,31 @@
     "message": "Copy website"
   },
   "copyNotes": {
-    "message": "Copy notes"
+    "message": "Copiar notas"
   },
   "copyAddress": {
-    "message": "Copy address"
+    "message": "Copiar dirección"
   },
   "copyPhone": {
-    "message": "Copy phone"
+    "message": "Copiar teléfono"
   },
   "copyEmail": {
-    "message": "Copy email"
+    "message": "Copiar correo electrónico"
   },
   "copyCompany": {
     "message": "Copy company"
   },
   "copySSN": {
-    "message": "Copy Social Security number"
+    "message": "Copiar número de seguro social"
   },
   "copyPassportNumber": {
-    "message": "Copy passport number"
+    "message": "Copiar número de pasaporte"
   },
   "copyLicenseNumber": {
-    "message": "Copy license number"
+    "message": "Copiar número de licencia"
   },
   "copyName": {
-    "message": "Copy name"
+    "message": "Copiar nombre"
   },
   "me": {
     "message": "Yo"
@@ -952,7 +952,7 @@
     "message": "Restart registration"
   },
   "expiredLink": {
-    "message": "Expired link"
+    "message": "Enlace expirado"
   },
   "pleaseRestartRegistrationOrTryLoggingIn": {
     "message": "Please restart registration or try logging in."
@@ -983,6 +983,9 @@
   },
   "loginWithDeviceEnabledNote": {
     "message": "Iniciar sesión con el dispositivo debe configurarse en los ajustes de la aplicación Bitwarden. ¿Necesitas otra opción?"
+  },
+  "needAnotherOptionV1": {
+    "message": "Need another option?"
   },
   "loginWithMasterPassword": {
     "message": "Iniciar sesión con contraseña maestra"
@@ -1166,10 +1169,10 @@
     "message": "Configuración"
   },
   "accountEmail": {
-    "message": "Account email"
+    "message": "Correo electrónico de la cuenta"
   },
   "requestHint": {
-    "message": "Request hint"
+    "message": "Solicitar pista"
   },
   "requestPasswordHint": {
     "message": "Request password hint"
@@ -1218,7 +1221,7 @@
     "message": "Your new account has been created!"
   },
   "youHaveBeenLoggedIn": {
-    "message": "You have been logged in!"
+    "message": "¡Has iniciado sesión!"
   },
   "trialAccountCreated": {
     "message": "Cuenta creada con éxito."
@@ -1301,6 +1304,12 @@
   },
   "notificationSentDevice": {
     "message": "Se ha enviado una notificación a tu dispositivo."
+  },
+  "aNotificationWasSentToYourDevice": {
+    "message": "A notification was sent to your device"
+  },
+  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
+    "message": "Make sure your account is unlocked and the fingerprint phrase matches on the other device"
   },
   "versionNumber": {
     "message": "Versión $VERSION_NUMBER$",
@@ -1633,8 +1642,26 @@
   "passwordHistory": {
     "message": "Historial de contraseñas"
   },
+  "generatorHistory": {
+    "message": "Generator history"
+  },
+  "clearGeneratorHistoryTitle": {
+    "message": "Clear generator history"
+  },
+  "cleargGeneratorHistoryDescription": {
+    "message": "If you continue, all entries will be permanently deleted from generator's history. Are you sure you want to continue?"
+  },
   "noPasswordsInList": {
     "message": "No hay contraseñas que listar."
+  },
+  "clearHistory": {
+    "message": "Clear history"
+  },
+  "nothingToShow": {
+    "message": "Nothing to show"
+  },
+  "nothingGeneratedRecently": {
+    "message": "You haven't generated anything recently"
   },
   "clear": {
     "message": "Limpiar",
@@ -1758,8 +1785,8 @@
   "sessionsDeauthorized": {
     "message": "Desautorizadas todas las sesiones"
   },
-  "accountIsManagedMessage": {
-    "message": "This account is managed by $ORGANIZATIONNAME$",
+  "accountIsOwnedMessage": {
+    "message": "This account is owned by $ORGANIZATIONNAME$",
     "placeholders": {
       "organizationName": {
         "content": "$1",
@@ -3387,6 +3414,9 @@
       }
     }
   },
+  "viewAllLogInOptions": {
+    "message": "View all log in options"
+  },
   "viewAllLoginOptions": {
     "message": "Ver todas las opciones de inicio de sesión"
   },
@@ -4442,6 +4472,9 @@
   "dontAskFingerprintAgain": {
     "message": "No pida verificar la frase de la huella dactilar de nuevo",
     "description": "A 'fingerprint phrase' is a unique word phrase (similar to a passphrase) that a user can use to authenticate their public key with another user, for the purposes of sharing."
+  },
+  "youWillBeNotifiedOnceTheRequestIsApproved": {
+    "message": "You will be notified once the request is approved"
   },
   "free": {
     "message": "Gratis",
@@ -6376,6 +6409,9 @@
   "idpSingleSignOnServiceUrlRequired": {
     "message": "Requerido si el ID de la entidad no es una URL."
   },
+  "offerNoLongerValid": {
+    "message": "This offer is no longer valid. Contact your organization administrators for more information."
+  },
   "openIdOptionalCustomizations": {
     "message": "Personalizaciones opcionales"
   },
@@ -6468,8 +6504,8 @@
   "generateEmail": {
     "message": "Generate email"
   },
-  "generatorBoundariesHint": {
-    "message": "Value must be between $MIN$ and $MAX$",
+  "spinboxBoundariesHint": {
+    "message": "Value must be between $MIN$ and $MAX$.",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -6479,6 +6515,26 @@
       "max": {
         "content": "$2",
         "example": "128"
+      }
+    }
+  },
+  "passwordLengthRecommendationHint": {
+    "message": " Use $RECOMMENDED$ characters or more to generate a strong password.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "passphraseNumWordsRecommendationHint": {
+    "message": " Use $RECOMMENDED$ words or more to generate a strong passphrase.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "6"
       }
     }
   },
@@ -8013,8 +8069,17 @@
   "loginInitiated": {
     "message": "Inicio de sesión en proceso"
   },
+  "rememberThisDeviceToMakeFutureLoginsSeamless": {
+    "message": "Remember this device to make future logins seamless"
+  },
   "deviceApprovalRequired": {
     "message": "Se requiere aprobación en el dispositivo. Seleccione una opción de aprobación a continuación:"
+  },
+  "deviceApprovalRequiredV2": {
+    "message": "Device approval required"
+  },
+  "selectAnApprovalOptionBelow": {
+    "message": "Select an approval option below"
   },
   "rememberThisDevice": {
     "message": "Recordar en este dispositivo"
@@ -8245,6 +8310,9 @@
   "userEmailMissing": {
     "message": "Falta el correo electrónico del usuario"
   },
+  "activeUserEmailNotFoundLoggingYouOut": {
+    "message": "Active user email not found. Logging you out."
+  },
   "deviceTrusted": {
     "message": "Dispositivo de confianza"
   },
@@ -8339,9 +8407,6 @@
   },
   "collectionManagementDesc": {
     "message": "Administrar el comportamiento de la colección para la organización"
-  },
-  "limitCollectionCreationDeletionDesc": {
-    "message": "Limit collection creation and deletion to owners and admins"
   },
   "limitCollectionCreationDesc": {
     "message": "Limit collection creation to owners and admins"
@@ -8604,16 +8669,16 @@
     }
   },
   "addField": {
-    "message": "Add field"
+    "message": "Añadir campo"
   },
   "editField": {
-    "message": "Edit field"
+    "message": "Editar campo"
   },
   "items": {
     "message": "Elementos"
   },
   "assignedSeats": {
-    "message": "Assigned seats"
+    "message": "Asientos asignados"
   },
   "assigned": {
     "message": "Asignado"
@@ -8628,16 +8693,16 @@
     "message": "Desvincular organización"
   },
   "manageSeats": {
-    "message": "MANAGE SEATS"
+    "message": "GESTIONAR ASIENTOS"
   },
   "manageSeatsDescription": {
     "message": "Adjustments to seats will be reflected in the next billing cycle."
   },
   "unassignedSeatsDescription": {
-    "message": "Unassigned seats"
+    "message": "Asientos no asignados"
   },
   "purchaseSeatDescription": {
-    "message": "Additional seats purchased"
+    "message": "Asientos adicionales comprados"
   },
   "assignedSeatCannotUpdate": {
     "message": "Assigned Seats can not be updated. Please contact your organization owner for assistance."
@@ -9707,5 +9772,20 @@
   },
   "deletedSuccessfully": {
     "message": "Deleted successfully"
+  },
+  "freeFamiliesSponsorship": {
+    "message": "Remove Free Bitwarden Families sponsorship"
+  },
+  "freeFamiliesSponsorshipPolicyDesc": {
+    "message": "Do not allow members to redeem a Families plan through this organization."
+  },
+  "verifyBankAccountWithStatementDescriptorWarning": {
+    "message": "Payment with a bank account is only available to customers in the United States. You will be required to verify your bank account. We will make a micro-deposit within the next 1-2 business days. Enter the statement descriptor code from this deposit on the organization's billing page to verify the bank account. Failure to verify the bank account will result in a missed payment and your subscription being suspended."
+  },
+  "verifyBankAccountWithStatementDescriptorInstructions": {
+    "message": "We have made a micro-deposit to your bank account (this may take 1-2 business days). Enter the six-digit code starting with 'SM' found on the deposit description. Failure to verify the bank account will result in a missed payment and your subscription being suspended."
+  },
+  "descriptorCode": {
+    "message": "Descriptor code"
   }
 }

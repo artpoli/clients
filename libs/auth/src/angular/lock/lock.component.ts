@@ -1,3 +1,5 @@
+// FIXME: Update this file to be type safe and remove this and next line
+// @ts-strict-ignore
 import { CommonModule } from "@angular/common";
 import { Component, NgZone, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
@@ -228,6 +230,7 @@ export class LockV2Component implements OnInit, OnDestroy {
     this.unlockOptions = null;
     this.activeUnlockOption = null;
     this.formGroup = null; // new form group will be created based on new active unlock option
+    this.isInitialLockScreen = true;
 
     // Desktop properties:
     this.biometricAsked = false;
@@ -531,8 +534,14 @@ export class LockV2Component implements OnInit, OnDestroy {
 
     if (this.clientType === "browser") {
       const previousUrl = this.lockComponentService.getPreviousUrl();
+      /**
+       * In a passkey flow, the `previousUrl` will still be `/fido2?<queryParams>` at this point
+       * because the `/lockV2` route doesn't save the URL in the `BrowserRouterService`. This is
+       * handled by the `doNotSaveUrl` property on the `lockV2` route in `app-routing.module.ts`.
+       */
       if (previousUrl) {
         await this.router.navigateByUrl(previousUrl);
+        return;
       }
     }
 

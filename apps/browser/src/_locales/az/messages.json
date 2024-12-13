@@ -26,7 +26,7 @@
     "message": "Keçid açarı ilə giriş et"
   },
   "useSingleSignOn": {
-    "message": "Tək daxil olma üsulunu istifadə et"
+    "message": "Vahid daxil olma üsulunu istifadə et"
   },
   "welcomeBack": {
     "message": "Yenidən xoş gəlmisiniz"
@@ -38,7 +38,7 @@
     "message": "Bir parol təyin edərək hesabınızı yaratmağı başa çatdırın"
   },
   "enterpriseSingleSignOn": {
-    "message": "Müəssisə üçün tək daxil olma"
+    "message": "Müəssisə üçün vahid daxil olma"
   },
   "cancel": {
     "message": "İmtina"
@@ -1125,6 +1125,10 @@
     "message": "XƏBƏRDARLIQ",
     "description": "WARNING (should stay in capitalized letters if the language permits)"
   },
+  "warningCapitalized": {
+    "message": "Xəbərdarlıq",
+    "description": "Warning (should maintain locale-relevant capitalization)"
+  },
   "confirmVaultExport": {
     "message": "Seyfi xaricə köçürməyi təsdiqlə"
   },
@@ -1315,6 +1319,12 @@
   "enterVerificationCodeApp": {
     "message": "Kimlik doğrulayıcı tətbiqindən 6 rəqəmli doğrulama kodunu daxil edin."
   },
+  "authenticationTimeout": {
+    "message": "Kimlik doğrulama vaxtı bitdi"
+  },
+  "authenticationSessionTimedOut": {
+    "message": "Kimlik doğrulama seansının vaxtı bitdi. Lütfən giriş prosesini yenidən başladın."
+  },
   "enterVerificationCodeEmail": {
     "message": "$EMAIL$ ünvanına göndərilən e-poçtdakı 6 rəqəmli doğrulama kodunu daxil edin.",
     "placeholders": {
@@ -1502,19 +1512,6 @@
   },
   "enableAutoFillOnPageLoadDesc": {
     "message": "Giriş formu aşkarlananda, səhifə yüklənən zaman formu avto-doldurma icra edilsin."
-  },
-  "autofillOnPageLoadWarning": {
-    "message": "$OPENTAG$Xəbərdarlıq:$CLOSETAG$ Təhlükəsizliyi pozulmuş və ya güvənilməyən veb saytlar, səhifə yüklənəndə avto-doldurmanı istifadə edə bilər.",
-    "placeholders": {
-      "openTag": {
-        "content": "$1",
-        "example": "<b>"
-      },
-      "closeTag": {
-        "content": "$2",
-        "example": "</b>"
-      }
-    }
   },
   "experimentalFeature": {
     "message": "Təhlükəli və ya güvənilməyən veb saytlar, səhifə yüklənərkən avto-doldurmanı istifadə edə bilər."
@@ -1850,6 +1847,9 @@
   },
   "secureNotes": {
     "message": "Güvənli qeydlər"
+  },
+  "sshKeys": {
+    "message": "SSH Açarları"
   },
   "clear": {
     "message": "Təmizlə",
@@ -2889,8 +2889,8 @@
   "generateEmail": {
     "message": "E-poçt yarat"
   },
-  "generatorBoundariesHint": {
-    "message": "Dəyər $MIN$-$MAX$ arasında olmalıdır",
+  "spinboxBoundariesHint": {
+    "message": "Dəyər, $MIN$-$MAX$ arasında olmalıdır.",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -2900,6 +2900,26 @@
       "max": {
         "content": "$2",
         "example": "128"
+      }
+    }
+  },
+  "passwordLengthRecommendationHint": {
+    "message": " Güclü bir parol yaratmaq üçün $RECOMMENDED$ və ya daha çox xarakter istifadə edin.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "passphraseNumWordsRecommendationHint": {
+    "message": " Güclü bir keçid ifadəsi yaratmaq üçün $RECOMMENDED$ və ya daha çox söz istifadə edin.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "6"
       }
     }
   },
@@ -3150,11 +3170,26 @@
   "resendNotification": {
     "message": "Bildirişi təkrar göndər"
   },
-  "viewAllLoginOptions": {
+  "viewAllLogInOptions": {
     "message": "Bütün giriş seçimlərinə bax"
+  },
+  "viewAllLoginOptionsV1": {
+    "message": "View all log in options"
   },
   "notificationSentDevice": {
     "message": "Cihazınıza bir bildiriş göndərildi."
+  },
+  "aNotificationWasSentToYourDevice": {
+    "message": "Cihazınıza bir bildiriş göndərildi"
+  },
+  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
+    "message": "Hesabınızın kilidinin açıq olduğuna və barmaq izi ifadəsinin digər cihazda uyuşduğuna əmin olun"
+  },
+  "youWillBeNotifiedOnceTheRequestIsApproved": {
+    "message": "Tələbiniz təsdiqləndikdə bildiriş alacaqsınız"
+  },
+  "needAnotherOptionV1": {
+    "message": "Başqa bir seçimə ehtiyacınız var?"
   },
   "loginInitiated": {
     "message": "Giriş başladıldı"
@@ -3249,8 +3284,17 @@
   "opensInANewWindow": {
     "message": "Yeni bir pəncərədə açılır"
   },
+  "rememberThisDeviceToMakeFutureLoginsSeamless": {
+    "message": "Gələcək girişləri problemsiz etmək üçün bu cihazı xatırla"
+  },
   "deviceApprovalRequired": {
     "message": "Cihaz təsdiqi tələb olunur. Aşağıdan bir təsdiq variantı seçin:"
+  },
+  "deviceApprovalRequiredV2": {
+    "message": "Cihaz təsdiqi tələb olunur"
+  },
+  "selectAnApprovalOptionBelow": {
+    "message": "Aşağıdan bir təsdiq seçimi edin"
   },
   "rememberThisDevice": {
     "message": "Bu cihazı xatırla"
@@ -3324,6 +3368,9 @@
   },
   "userEmailMissing": {
     "message": "İstifadəçi e-poçtu əskikdir"
+  },
+  "activeUserEmailNotFoundLoggingYouOut": {
+    "message": "Aktiv istifadəçi e-poçtu tapılmadı. Hesabınızdan çıxış edilir."
   },
   "deviceTrusted": {
     "message": "Cihaz güvənlidir"
@@ -3760,6 +3807,9 @@
   },
   "accessing": {
     "message": "Müraciət edilir"
+  },
+  "loggedInExclamation": {
+    "message": "Giriş edildi!"
   },
   "passkeyNotCopied": {
     "message": "Keçid açarı kopyalanmır"
@@ -4251,6 +4301,21 @@
   },
   "filters": {
     "message": "Filtrlər"
+  },
+  "filterVault": {
+    "message": "Seyfi filtrlə"
+  },
+  "filterApplied": {
+    "message": "Bir filtr tətbiq olundu"
+  },
+  "filterAppliedPlural": {
+    "message": "$COUNT$ filtr tətbiq olundu",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "personalDetails": {
     "message": "Şəxsi detallar"
@@ -4823,5 +4888,20 @@
   },
   "generatedPassword": {
     "message": "Parol yarat"
+  },
+  "compactMode": {
+    "message": "Yığcam rejim"
+  },
+  "beta": {
+    "message": "Beta"
+  },
+  "extensionWidth": {
+    "message": "Uzantı eni"
+  },
+  "wide": {
+    "message": "Eni"
+  },
+  "extraWide": {
+    "message": "Ekstra enli"
   }
 }

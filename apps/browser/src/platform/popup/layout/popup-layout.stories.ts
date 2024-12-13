@@ -1,3 +1,5 @@
+// FIXME: Update this file to be type safe and remove this and next line
+// @ts-strict-ignore
 import { CommonModule } from "@angular/common";
 import { Component, importProvidersFrom } from "@angular/core";
 import { RouterModule } from "@angular/router";
@@ -313,6 +315,10 @@ export default {
               back: "Back",
               loading: "Loading",
               search: "Search",
+              vault: "Vault",
+              generator: "Generator",
+              send: "Send",
+              settings: "Settings",
             });
           },
         },
@@ -507,6 +513,28 @@ export const TransparentHeader: Story = {
           <vault-placeholder></vault-placeholder>
         </popup-page>
       </extension-container>
+    `,
+  }),
+};
+
+export const WidthOptions: Story = {
+  render: (args) => ({
+    props: args,
+    template: /* HTML */ `
+      <div class="tw-flex tw-flex-col tw-gap-4 tw-text-main">
+        <div>Default:</div>
+        <div class="tw-h-[640px] tw-w-[380px] tw-border tw-border-solid tw-border-secondary-300">
+          <mock-vault-page></mock-vault-page>
+        </div>
+        <div>Wide:</div>
+        <div class="tw-h-[640px] tw-w-[480px] tw-border tw-border-solid tw-border-secondary-300">
+          <mock-vault-page></mock-vault-page>
+        </div>
+        <div>Extra wide:</div>
+        <div class="tw-h-[640px] tw-w-[600px] tw-border tw-border-solid tw-border-secondary-300">
+          <mock-vault-page></mock-vault-page>
+        </div>
+      </div>
     `,
   }),
 };

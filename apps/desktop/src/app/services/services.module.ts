@@ -1,3 +1,5 @@
+// FIXME: Update this file to be type safe and remove this and next line
+// @ts-strict-ignore
 import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { Subject, merge } from "rxjs";
 
@@ -23,9 +25,12 @@ import {
   LoginComponentService,
   SetPasswordJitService,
   LockComponentService,
+  SsoComponentService,
+  DefaultSsoComponentService,
 } from "@bitwarden/auth/angular";
 import {
   InternalUserDecryptionOptionsServiceAbstraction,
+  LoginApprovalComponentServiceAbstraction,
   LoginEmailService,
   PinServiceAbstraction,
 } from "@bitwarden/auth/common";
@@ -41,16 +46,13 @@ import {
   AuthService,
   AuthService as AuthServiceAbstraction,
 } from "@bitwarden/common/auth/abstractions/auth.service";
-import {
-  KdfConfigService,
-  KdfConfigService as KdfConfigServiceAbstraction,
-} from "@bitwarden/common/auth/abstractions/kdf-config.service";
 import { InternalMasterPasswordServiceAbstraction } from "@bitwarden/common/auth/abstractions/master-password.service.abstraction";
 import { SsoLoginServiceAbstraction } from "@bitwarden/common/auth/abstractions/sso-login.service.abstraction";
 import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
 import { ClientType } from "@bitwarden/common/enums";
 import { ProcessReloadServiceAbstraction } from "@bitwarden/common/key-management/abstractions/process-reload.service";
-import { ProcessReloadService } from "@bitwarden/common/key-management/services/process-reload.service";
+import { DefaultProcessReloadService } from "@bitwarden/common/key-management/services/default-process-reload.service";
+import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { CryptoFunctionService as CryptoFunctionServiceAbstraction } from "@bitwarden/common/platform/abstractions/crypto-function.service";
 import { EncryptService } from "@bitwarden/common/platform/abstractions/encrypt.service";
 import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
@@ -84,14 +86,17 @@ import { CipherService as CipherServiceAbstraction } from "@bitwarden/common/vau
 import { DialogService, ToastService } from "@bitwarden/components";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legacy";
 import {
+  KdfConfigService,
   KeyService,
   KeyService as KeyServiceAbstraction,
   BiometricStateService,
   BiometricsService,
 } from "@bitwarden/key-management";
 
+import { DesktopLoginApprovalComponentService } from "../../auth/login/desktop-login-approval-component.service";
 import { DesktopLoginComponentService } from "../../auth/login/desktop-login-component.service";
 import { DesktopAutofillSettingsService } from "../../autofill/services/desktop-autofill-settings.service";
+import { DesktopAutofillService } from "../../autofill/services/desktop-autofill.service";
 import { ElectronBiometricsService } from "../../key-management/biometrics/electron-biometrics.service";
 import { flagEnabled } from "../../platform/flags";
 import { DesktopSettingsService } from "../../platform/services/desktop-settings.service";
@@ -107,9 +112,10 @@ import { ElectronRendererStorageService } from "../../platform/services/electron
 import { I18nRendererService } from "../../platform/services/i18n.renderer.service";
 import { fromIpcMessaging } from "../../platform/utils/from-ipc-messaging";
 import { fromIpcSystemTheme } from "../../platform/utils/from-ipc-system-theme";
+import { BiometricMessageHandlerService } from "../../services/biometric-message-handler.service";
 import { DesktopLockComponentService } from "../../services/desktop-lock-component.service";
+import { DuckDuckGoMessageHandlerService } from "../../services/duckduckgo-message-handler.service";
 import { EncryptedMessageHandlerService } from "../../services/encrypted-message-handler.service";
-import { NativeMessageHandlerService } from "../../services/native-message-handler.service";
 import { NativeMessagingService } from "../../services/native-messaging.service";
 import { SearchBarService } from "../layout/search/search-bar.service";
 
@@ -135,6 +141,7 @@ const safeProviders: SafeProvider[] = [
     deps: [],
   }),
   safeProvider(NativeMessagingService),
+  safeProvider(BiometricMessageHandlerService),
   safeProvider(SearchBarService),
   safeProvider(DialogService),
   safeProvider({
@@ -221,7 +228,7 @@ const safeProviders: SafeProvider[] = [
   }),
   safeProvider({
     provide: ProcessReloadServiceAbstraction,
-    useClass: ProcessReloadService,
+    useClass: DefaultProcessReloadService,
     deps: [
       PinServiceAbstraction,
       MessagingServiceAbstraction,
@@ -258,7 +265,7 @@ const safeProviders: SafeProvider[] = [
     ],
   }),
   safeProvider({
-    provide: NativeMessageHandlerService,
+    provide: DuckDuckGoMessageHandlerService,
     deps: [
       StateServiceAbstraction,
       EncryptService,
@@ -289,7 +296,7 @@ const safeProviders: SafeProvider[] = [
       AccountServiceAbstraction,
       StateProvider,
       BiometricStateService,
-      KdfConfigServiceAbstraction,
+      KdfConfigService,
     ],
   }),
   safeProvider({
@@ -299,6 +306,10 @@ const safeProviders: SafeProvider[] = [
   safeProvider({
     provide: DesktopAutofillSettingsService,
     deps: [StateProvider],
+  }),
+  safeProvider({
+    provide: DesktopAutofillService,
+    deps: [LogService, CipherServiceAbstraction, ConfigService],
   }),
   safeProvider({
     provide: NativeMessagingManifestService,
@@ -351,6 +362,16 @@ const safeProviders: SafeProvider[] = [
     provide: LoginEmailService,
     useClass: LoginEmailService,
     deps: [AccountService, AuthService, StateProvider],
+  }),
+  safeProvider({
+    provide: SsoComponentService,
+    useClass: DefaultSsoComponentService,
+    deps: [],
+  }),
+  safeProvider({
+    provide: LoginApprovalComponentServiceAbstraction,
+    useClass: DesktopLoginApprovalComponentService,
+    deps: [I18nServiceAbstraction],
   }),
 ];
 

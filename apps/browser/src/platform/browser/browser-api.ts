@@ -1,3 +1,5 @@
+// FIXME: Update this file to be type safe and remove this and next line
+// @ts-strict-ignore
 import { Observable } from "rxjs";
 
 import { DeviceType } from "@bitwarden/common/enums";
@@ -200,15 +202,17 @@ export class BrowserApi {
     tab: chrome.tabs.Tab,
     obj: T,
     options: chrome.tabs.MessageSendOptions = null,
+    rejectOnError = false,
   ): Promise<TResponse> {
     if (!tab || !tab.id) {
       return;
     }
 
-    return new Promise<TResponse>((resolve) => {
+    return new Promise<TResponse>((resolve, reject) => {
       chrome.tabs.sendMessage(tab.id, obj, options, (response) => {
-        if (chrome.runtime.lastError) {
+        if (chrome.runtime.lastError && rejectOnError) {
           // Some error happened
+          reject();
         }
         resolve(response);
       });
@@ -435,6 +439,12 @@ export class BrowserApi {
    * Handles reloading the extension using the underlying functionality exposed by the browser API.
    */
   static reloadExtension() {
+    // If we do `chrome.runtime.reload` on safari they will send an onInstalled reason of install
+    // and that prompts us to show a new tab, this apparently doesn't happen on sideloaded
+    // extensions and only shows itself production scenarios. See: https://bitwarden.atlassian.net/browse/PM-12298
+    if (this.isSafariApi) {
+      self.location.reload();
+    }
     return chrome.runtime.reload();
   }
 

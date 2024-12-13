@@ -984,6 +984,9 @@
   "loginWithDeviceEnabledNote": {
     "message": "Die Anmeldung über ein Gerät muss in den Einstellungen der Bitwarden App eingerichtet werden. Benötigst du eine andere Option?"
   },
+  "needAnotherOptionV1": {
+    "message": "Brauchst du eine andere Option?"
+  },
   "loginWithMasterPassword": {
     "message": "Mit Master-Passwort anmelden"
   },
@@ -1301,6 +1304,12 @@
   },
   "notificationSentDevice": {
     "message": "Eine Benachrichtigung wurde an dein Gerät gesendet."
+  },
+  "aNotificationWasSentToYourDevice": {
+    "message": "Eine Benachrichtigung wurde an dein Gerät gesendet"
+  },
+  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
+    "message": "Stelle sicher, dass dein Konto entsperrt ist und die Fingerabdruck-Phrase mit der vom anderen Gerät übereinstimmt"
   },
   "versionNumber": {
     "message": "Version $VERSION_NUMBER$",
@@ -1633,8 +1642,26 @@
   "passwordHistory": {
     "message": "Passwortverlauf"
   },
+  "generatorHistory": {
+    "message": "Generator-Verlauf"
+  },
+  "clearGeneratorHistoryTitle": {
+    "message": "Generator-Verlauf löschen"
+  },
+  "cleargGeneratorHistoryDescription": {
+    "message": "Wenn du fortfährst, werden alle Einträge dauerhaft aus dem Generator-Verlauf gelöscht. Bist du sicher, dass du fortfahren möchtest?"
+  },
   "noPasswordsInList": {
     "message": "Keine Passwörter vorhanden."
+  },
+  "clearHistory": {
+    "message": "Verlauf löschen"
+  },
+  "nothingToShow": {
+    "message": "Nichts anzuzeigen"
+  },
+  "nothingGeneratedRecently": {
+    "message": "Du hast in letzter Zeit nichts generiert"
   },
   "clear": {
     "message": "Löschen",
@@ -1758,8 +1785,8 @@
   "sessionsDeauthorized": {
     "message": "Alle Sitzungen wurden abgemeldet"
   },
-  "accountIsManagedMessage": {
-    "message": "Dieses Konto wird von $ORGANIZATIONNAME$ verwaltet",
+  "accountIsOwnedMessage": {
+    "message": "Dieses Konto ist im Besitz von $ORGANIZATIONNAME$",
     "placeholders": {
       "organizationName": {
         "content": "$1",
@@ -3387,6 +3414,9 @@
       }
     }
   },
+  "viewAllLogInOptions": {
+    "message": "Alle Anmeldeoptionen anzeigen"
+  },
   "viewAllLoginOptions": {
     "message": "Alle Anmeldeoptionen anzeigen"
   },
@@ -4442,6 +4472,9 @@
   "dontAskFingerprintAgain": {
     "message": "Keine Aufforderung zur Überprüfung von Fingerabdruck-Phrasen für eingeladene Benutzer (nicht empfohlen)",
     "description": "A 'fingerprint phrase' is a unique word phrase (similar to a passphrase) that a user can use to authenticate their public key with another user, for the purposes of sharing."
+  },
+  "youWillBeNotifiedOnceTheRequestIsApproved": {
+    "message": "Du wirst benachrichtigt, sobald die Anfrage genehmigt wurde"
   },
   "free": {
     "message": "Free",
@@ -6376,6 +6409,9 @@
   "idpSingleSignOnServiceUrlRequired": {
     "message": "Erforderlich, wenn die Entitäts-ID keine URL ist."
   },
+  "offerNoLongerValid": {
+    "message": "Dieses Angebot ist nicht mehr gültig. Kontaktiere die Administratoren deiner Organisation für weitere Informationen."
+  },
   "openIdOptionalCustomizations": {
     "message": "Optionale Anpassungen"
   },
@@ -6468,8 +6504,8 @@
   "generateEmail": {
     "message": "E-Mail generieren"
   },
-  "generatorBoundariesHint": {
-    "message": "Wert muss zwischen $MIN$ und $MAX$ liegen",
+  "spinboxBoundariesHint": {
+    "message": "Wert muss zwischen $MIN$ und $MAX$ liegen.",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -6479,6 +6515,26 @@
       "max": {
         "content": "$2",
         "example": "128"
+      }
+    }
+  },
+  "passwordLengthRecommendationHint": {
+    "message": " Verwende $RECOMMENDED$ oder mehr Zeichen, um ein starkes Passwort zu generieren.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "passphraseNumWordsRecommendationHint": {
+    "message": " Verwende $RECOMMENDED$ oder mehr Wörter, um eine starke Passphrase zu generieren.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "6"
       }
     }
   },
@@ -8013,8 +8069,17 @@
   "loginInitiated": {
     "message": "Anmeldung eingeleitet"
   },
+  "rememberThisDeviceToMakeFutureLoginsSeamless": {
+    "message": "Dieses Gerät merken, um zukünftige Anmeldungen reibungslos zu gestalten"
+  },
   "deviceApprovalRequired": {
     "message": "Geräte-Genehmigung erforderlich. Wähle unten eine Genehmigungsoption aus:"
+  },
+  "deviceApprovalRequiredV2": {
+    "message": "Geräte-Genehmigung erforderlich"
+  },
+  "selectAnApprovalOptionBelow": {
+    "message": "Wähle unten eine Genehmigungsoption aus"
   },
   "rememberThisDevice": {
     "message": "Dieses Gerät merken"
@@ -8245,6 +8310,9 @@
   "userEmailMissing": {
     "message": "E-Mail-Adresse des Benutzers fehlt"
   },
+  "activeUserEmailNotFoundLoggingYouOut": {
+    "message": "Aktive Benutzer-E-Mail-Adresse nicht gefunden. Du wirst abgemeldet."
+  },
   "deviceTrusted": {
     "message": "Gerät wird vertraut"
   },
@@ -8339,9 +8407,6 @@
   },
   "collectionManagementDesc": {
     "message": "Verwalte das Sammlungsverhalten für die Organisation"
-  },
-  "limitCollectionCreationDeletionDesc": {
-    "message": "Sammlungserstellung und -löschung auf Eigentümer und Administratoren beschränken"
   },
   "limitCollectionCreationDesc": {
     "message": "Das Erstellen von Sammlungen auf Eigentümer und Administratoren beschränken"
@@ -9625,7 +9690,7 @@
     "message": "Bist du sicher, dass du diesen Anhang dauerhaft löschen möchtest?"
   },
   "manageSubscriptionFromThe": {
-    "message": "Manage subscription from the",
+    "message": "Verwalte das Abonnement von",
     "description": "This represents the beginning of a sentence. The full sentence will be 'Manage subscription from the Provider Portal', but 'Provider Portal' will be a link and thus cannot be included in the translation file."
   },
   "toHostBitwardenOnYourOwnServer": {
@@ -9707,5 +9772,20 @@
   },
   "deletedSuccessfully": {
     "message": "Erfolgreich gelöscht"
+  },
+  "freeFamiliesSponsorship": {
+    "message": "Kostenloses Bitwarden Families-Sponsoring entfernen"
+  },
+  "freeFamiliesSponsorshipPolicyDesc": {
+    "message": "Erlaube Mitgliedern nicht, einen Families-Tarif über diese Organisation einzulösen."
+  },
+  "verifyBankAccountWithStatementDescriptorWarning": {
+    "message": "Die Zahlung mit einem Bankkonto ist nur für Kunden in den Vereinigten Staaten möglich. Du musst dein Bankkonto verifizieren. Wir werden innerhalb der nächsten 1-2 Werktage eine Mikro-Einzahlung vornehmen. Gib den Code aus der Beschreibung dieser Einzahlung auf der Rechnungsseite der Organisation ein, um das Bankkonto zu verifizieren. Schlägt die Verifizierung des Bankkontos fehl, wird dies als versäumte Zahlung gewertet und dein Abonnement gesperrt."
+  },
+  "verifyBankAccountWithStatementDescriptorInstructions": {
+    "message": "Wir haben eine Mikro-Einzahlung auf dein Bankkonto vorgenommen (dies kann 1-2 Werktage dauern). Gib den sechsstelligen Code ein, der mit \"SM\" beginnt und in der Einzahlungsbeschreibung steht. Schlägt die Verifizierung des Bankkontos fehl, wird dies als versäumte Zahlung gewertet und dein Abonnement gesperrt."
+  },
+  "descriptorCode": {
+    "message": "Beschreibungscode"
   }
 }

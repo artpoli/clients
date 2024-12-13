@@ -9,13 +9,7 @@ pub mod passwords {
     #[napi]
     pub async fn get_password(service: String, account: String) -> napi::Result<String> {
         desktop_core::password::get_password(&service, &account)
-            .map_err(|e| napi::Error::from_reason(e.to_string()))
-    }
-
-    /// Fetch the stored password from the keychain that was stored with Keytar.
-    #[napi]
-    pub async fn get_password_keytar(service: String, account: String) -> napi::Result<String> {
-        desktop_core::password::get_password_keytar(&service, &account)
+            .await
             .map_err(|e| napi::Error::from_reason(e.to_string()))
     }
 
@@ -27,6 +21,7 @@ pub mod passwords {
         password: String,
     ) -> napi::Result<()> {
         desktop_core::password::set_password(&service, &account, &password)
+            .await
             .map_err(|e| napi::Error::from_reason(e.to_string()))
     }
 
@@ -34,13 +29,16 @@ pub mod passwords {
     #[napi]
     pub async fn delete_password(service: String, account: String) -> napi::Result<()> {
         desktop_core::password::delete_password(&service, &account)
+            .await
             .map_err(|e| napi::Error::from_reason(e.to_string()))
     }
 
     // Checks if the os secure storage is available
     #[napi]
     pub async fn is_available() -> napi::Result<bool> {
-        desktop_core::password::is_available().map_err(|e| napi::Error::from_reason(e.to_string()))
+        desktop_core::password::is_available()
+            .await
+            .map_err(|e| napi::Error::from_reason(e.to_string()))
     }
 }
 
@@ -81,6 +79,7 @@ pub mod biometrics {
             key_material.map(|m| m.into()),
             &iv_b64,
         )
+        .await
         .map_err(|e| napi::Error::from_reason(e.to_string()))
     }
 
@@ -92,6 +91,7 @@ pub mod biometrics {
     ) -> napi::Result<String> {
         let result =
             Biometric::get_biometric_secret(&service, &account, key_material.map(|m| m.into()))
+                .await
                 .map_err(|e| napi::Error::from_reason(e.to_string()));
         result
     }
@@ -247,41 +247,53 @@ pub mod sshagent {
 
     #[napi]
     pub async fn serve(
-        callback: ThreadsafeFunction<String, CalleeHandled>,
+        callback: ThreadsafeFunction<(Option<String>, bool, String), CalleeHandled>,
     ) -> napi::Result<SshAgentState> {
-        let (auth_request_tx, mut auth_request_rx) = tokio::sync::mpsc::channel::<(u32, String)>(32);
-        let (auth_response_tx, auth_response_rx) = tokio::sync::broadcast::channel::<(u32, bool)>(32);
+        let (auth_request_tx, mut auth_request_rx) =
+            tokio::sync::mpsc::channel::<desktop_core::ssh_agent::SshAgentUIRequest>(32);
+        let (auth_response_tx, auth_response_rx) =
+            tokio::sync::broadcast::channel::<(u32, bool)>(32);
         let auth_response_tx_arc = Arc::new(Mutex::new(auth_response_tx));
         tokio::spawn(async move {
             let _ = auth_response_rx;
 
-            while let Some((request_id, cipher_uuid)) = auth_request_rx.recv().await {
-                let cloned_request_id = request_id.clone();
-                let cloned_cipher_uuid = cipher_uuid.clone();
+            while let Some(request) = auth_request_rx.recv().await {
                 let cloned_response_tx_arc = auth_response_tx_arc.clone();
                 let cloned_callback = callback.clone();
                 tokio::spawn(async move {
-                    let request_id = cloned_request_id;
-                    let cipher_uuid = cloned_cipher_uuid;
                     let auth_response_tx_arc = cloned_response_tx_arc;
                     let callback = cloned_callback;
-                    let promise_result: Result<Promise<bool>, napi::Error> =
-                        callback.call_async(Ok(cipher_uuid)).await;
+                    let promise_result: Result<Promise<bool>, napi::Error> = callback
+                        .call_async(Ok((
+                            request.cipher_id,
+                            request.is_list,
+                            request.process_name,
+                        )))
+                        .await;
                     match promise_result {
                         Ok(promise_result) => match promise_result.await {
                             Ok(result) => {
-                                let _ = auth_response_tx_arc.lock().await.send((request_id, result))
+                                let _ = auth_response_tx_arc
+                                    .lock()
+                                    .await
+                                    .send((request.request_id, result))
                                     .expect("should be able to send auth response to agent");
                             }
                             Err(e) => {
                                 println!("[SSH Agent Native Module] calling UI callback promise was rejected: {}", e);
-                                let _ = auth_response_tx_arc.lock().await.send((request_id, false))
+                                let _ = auth_response_tx_arc
+                                    .lock()
+                                    .await
+                                    .send((request.request_id, false))
                                     .expect("should be able to send auth response to agent");
                             }
                         },
                         Err(e) => {
                             println!("[SSH Agent Native Module] calling UI callback could not create promise: {}", e);
-                            let _ = auth_response_tx_arc.lock().await.send((request_id, false))
+                            let _ = auth_response_tx_arc
+                                .lock()
+                                .await
+                                .send((request.request_id, false))
                                 .expect("should be able to send auth response to agent");
                         }
                     }
@@ -343,6 +355,14 @@ pub mod sshagent {
         let result = desktop_core::ssh_agent::importer::import_key(encoded_key, password)
             .map_err(|e| napi::Error::from_reason(e.to_string()))?;
         Ok(result.into())
+    }
+
+    #[napi]
+    pub fn clear_keys(agent_state: &mut SshAgentState) -> napi::Result<()> {
+        let bitwarden_agent_state = &mut agent_state.state;
+        bitwarden_agent_state
+            .clear_keys()
+            .map_err(|e| napi::Error::from_reason(e.to_string()))
     }
 
     #[napi]
@@ -520,5 +540,34 @@ pub mod ipc {
                 // NAPI doesn't support u64 or usize, so we need to convert to u32
                 .map(|u| u32::try_from(u).unwrap_or_default())
         }
+    }
+}
+
+#[napi]
+pub mod autofill {
+    #[napi]
+    pub async fn run_command(value: String) -> napi::Result<String> {
+        desktop_core::autofill::run_command(value)
+            .await
+            .map_err(|e| napi::Error::from_reason(e.to_string()))
+    }
+}
+
+#[napi]
+pub mod crypto {
+    use napi::bindgen_prelude::Buffer;
+
+    #[napi]
+    pub async fn argon2(
+        secret: Buffer,
+        salt: Buffer,
+        iterations: u32,
+        memory: u32,
+        parallelism: u32,
+    ) -> napi::Result<Buffer> {
+        desktop_core::crypto::argon2(&secret, &salt, iterations, memory, parallelism)
+            .map_err(|e| napi::Error::from_reason(e.to_string()))
+            .map(|v| v.to_vec())
+            .map(|v| Buffer::from(v))
     }
 }

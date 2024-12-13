@@ -1,5 +1,8 @@
+// FIXME: Update this file to be type safe and remove this and next line
+// @ts-strict-ignore
 import {
   AfterContentChecked,
+  AfterViewInit,
   Component,
   ElementRef,
   HostBinding,
@@ -17,7 +20,7 @@ let nextId = 0;
   templateUrl: "./toggle.component.html",
   preserveWhitespaces: false,
 })
-export class ToggleComponent<TValue> implements AfterContentChecked {
+export class ToggleComponent<TValue> implements AfterContentChecked, AfterViewInit {
   id = nextId++;
 
   @Input() value?: TValue;
@@ -30,6 +33,7 @@ export class ToggleComponent<TValue> implements AfterContentChecked {
   @HostBinding("class") classList = ["tw-group/toggle", "tw-flex", "tw-min-w-16"];
 
   protected bitBadgeContainerHasChidlren = signal(false);
+  protected labelTitle = signal<string>(null);
 
   get name() {
     return this.groupComponent.name;
@@ -41,10 +45,6 @@ export class ToggleComponent<TValue> implements AfterContentChecked {
 
   get inputClasses() {
     return ["tw-peer/toggle-input", "tw-appearance-none", "tw-outline-none"];
-  }
-
-  get labelTextContent() {
-    return this.labelContent?.nativeElement.innerText ?? null;
   }
 
   get labelClasses() {
@@ -101,5 +101,12 @@ export class ToggleComponent<TValue> implements AfterContentChecked {
     this.bitBadgeContainerHasChidlren.set(
       this.bitBadgeContainer?.nativeElement.childElementCount > 0,
     );
+  }
+
+  ngAfterViewInit() {
+    const labelText = this.labelContent?.nativeElement.innerText;
+    if (labelText) {
+      this.labelTitle.set(labelText);
+    }
   }
 }

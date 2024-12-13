@@ -6,7 +6,7 @@
     "message": "Критичные приложения"
   },
   "accessIntelligence": {
-    "message": "Access Intelligence"
+    "message": "Управление доступом"
   },
   "riskInsights": {
     "message": "Информация о рисках"
@@ -984,6 +984,9 @@
   "loginWithDeviceEnabledNote": {
     "message": "Вход с устройства должен быть настроен в настройках мобильного приложения Bitwarden. Нужен другой вариант?"
   },
+  "needAnotherOptionV1": {
+    "message": "Нужен другой вариант?"
+  },
   "loginWithMasterPassword": {
     "message": "Войти с мастер-паролем"
   },
@@ -1301,6 +1304,12 @@
   },
   "notificationSentDevice": {
     "message": "На ваше устройство отправлено уведомление."
+  },
+  "aNotificationWasSentToYourDevice": {
+    "message": "На ваше устройство было отправлено уведомление"
+  },
+  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
+    "message": "Убедитесь, что ваш аккаунт разблокирован и фраза отпечатка совпадает с фразой на другом устройстве"
   },
   "versionNumber": {
     "message": "Версия $VERSION_NUMBER$",
@@ -1633,8 +1642,26 @@
   "passwordHistory": {
     "message": "История паролей"
   },
+  "generatorHistory": {
+    "message": "История генератора"
+  },
+  "clearGeneratorHistoryTitle": {
+    "message": "Очистить историю генератора"
+  },
+  "cleargGeneratorHistoryDescription": {
+    "message": "Если вы продолжите, все записи будут навсегда удалены из истории генератора. Вы уверены, что хотите продолжить?"
+  },
   "noPasswordsInList": {
     "message": "Нет паролей для отображения."
+  },
+  "clearHistory": {
+    "message": "Очистить историю"
+  },
+  "nothingToShow": {
+    "message": "Нечего показать"
+  },
+  "nothingGeneratedRecently": {
+    "message": "Вы ничего не создавали в последнее время"
   },
   "clear": {
     "message": "Очистить",
@@ -1758,8 +1785,8 @@
   "sessionsDeauthorized": {
     "message": "Все сессии деавторизованы"
   },
-  "accountIsManagedMessage": {
-    "message": "Управление этим аккаунтом осуществляет $ORGANIZATIONNAME$",
+  "accountIsOwnedMessage": {
+    "message": "Этот аккаунт принадлежит $ORGANIZATIONNAME$",
     "placeholders": {
       "organizationName": {
         "content": "$1",
@@ -3387,6 +3414,9 @@
       }
     }
   },
+  "viewAllLogInOptions": {
+    "message": "Посмотреть все варианты авторизации"
+  },
   "viewAllLoginOptions": {
     "message": "Посмотреть все варианты авторизации"
   },
@@ -4442,6 +4472,9 @@
   "dontAskFingerprintAgain": {
     "message": "Никогда не запрашивать верификацию фразы отпечатка для приглашенных пользователей (не рекомендуется)",
     "description": "A 'fingerprint phrase' is a unique word phrase (similar to a passphrase) that a user can use to authenticate their public key with another user, for the purposes of sharing."
+  },
+  "youWillBeNotifiedOnceTheRequestIsApproved": {
+    "message": "Вы получите уведомление, когда запрос будет одобрен"
   },
   "free": {
     "message": "Бесплатно",
@@ -6376,6 +6409,9 @@
   "idpSingleSignOnServiceUrlRequired": {
     "message": "Обязательно, если ID сущности не является URL."
   },
+  "offerNoLongerValid": {
+    "message": "Это предложение больше не действует. Для получения дополнительной информации обратитесь к администраторам вашей организации."
+  },
   "openIdOptionalCustomizations": {
     "message": "Дополнительные настройки"
   },
@@ -6468,8 +6504,8 @@
   "generateEmail": {
     "message": "Сгенерировать email"
   },
-  "generatorBoundariesHint": {
-    "message": "Значение должно быть между $MIN$ и $MAX$",
+  "spinboxBoundariesHint": {
+    "message": "Значение должно быть между $MIN$ и $MAX$.",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -6479,6 +6515,26 @@
       "max": {
         "content": "$2",
         "example": "128"
+      }
+    }
+  },
+  "passwordLengthRecommendationHint": {
+    "message": " Для создания надежного пароля используйте $RECOMMENDED$ символов или больше.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "passphraseNumWordsRecommendationHint": {
+    "message": " Для создания надежной парольной фразы используйте $RECOMMENDED$ слов или больше.",
+    "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
+    "placeholders": {
+      "recommended": {
+        "content": "$1",
+        "example": "6"
       }
     }
   },
@@ -8013,8 +8069,17 @@
   "loginInitiated": {
     "message": "Вход инициирован"
   },
+  "rememberThisDeviceToMakeFutureLoginsSeamless": {
+    "message": "Запомнить это устройство, чтобы в будущем авторизовываться быстрее"
+  },
   "deviceApprovalRequired": {
     "message": "Требуется одобрение устройства. Выберите вариант ниже:"
+  },
+  "deviceApprovalRequiredV2": {
+    "message": "Требуется подтверждение устройства"
+  },
+  "selectAnApprovalOptionBelow": {
+    "message": "Выберите вариант подтверждения ниже"
   },
   "rememberThisDevice": {
     "message": "Запомнить это устройство"
@@ -8245,6 +8310,9 @@
   "userEmailMissing": {
     "message": "Отсутствует email пользователя"
   },
+  "activeUserEmailNotFoundLoggingYouOut": {
+    "message": "Email активного пользователя не найден. Разлогиниваем."
+  },
   "deviceTrusted": {
     "message": "Доверенное устройство"
   },
@@ -8340,9 +8408,6 @@
   "collectionManagementDesc": {
     "message": "Управление настройками коллекций для организации"
   },
-  "limitCollectionCreationDeletionDesc": {
-    "message": "Ограничить создание и удаление коллекций владельцам и администраторам"
-  },
   "limitCollectionCreationDesc": {
     "message": "Ограничить создание коллекций владельцам и администраторам"
   },
@@ -8380,7 +8445,7 @@
     "message": "Максимальная потенциальная стоимость сервисного аккаунта"
   },
   "loggedInExclamation": {
-    "message": "Вход выполнен!"
+    "message": "Выполнен вход!"
   },
   "beta": {
     "message": "Beta"
@@ -9707,5 +9772,20 @@
   },
   "deletedSuccessfully": {
     "message": "Успешно удален"
+  },
+  "freeFamiliesSponsorship": {
+    "message": "Удалить спонсорство Free Bitwarden Families"
+  },
+  "freeFamiliesSponsorshipPolicyDesc": {
+    "message": "Не разрешать участникам выкупать план Families через эту организацию."
+  },
+  "verifyBankAccountWithStatementDescriptorWarning": {
+    "message": "Оплата с помощью банковского счета доступна только для клиентов в США. Вам потребуется подтвердить свой банковский счет. Мы сделаем микродепозит в течение следующих 1-2 рабочих дней. Введите код дескриптора выписки из этого депозита на странице выставления счетов организации, чтобы подтвердить банковский счет. Неподтверждение банковского счета приведет к пропуску платежа и приостановке подписки."
+  },
+  "verifyBankAccountWithStatementDescriptorInstructions": {
+    "message": "Мы перевели микродепозит на ваш банковский счет (это может занять 1-2 рабочих дня). Введите шестизначный код, начинающийся с 'SM', который указан в описании депозита. Если вы не подтвердите банковский счет, это приведет к пропуску платежа и приостановке подписки."
+  },
+  "descriptorCode": {
+    "message": "Код дескриптора"
   }
 }

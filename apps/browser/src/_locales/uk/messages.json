@@ -192,6 +192,13 @@
   "autoFillIdentity": {
     "message": "Автозаповнення посвідчень"
   },
+  "fillVerificationCode": {
+    "message": "Fill verification code"
+  },
+  "fillVerificationCodeAria": {
+    "message": "Fill Verification Code",
+    "description": "Aria label for the heading displayed the inline menu for totp code autofill"
+  },
   "generatePasswordCopied": {
     "message": "Генерувати пароль (з копіюванням)"
   },
@@ -1125,6 +1132,10 @@
     "message": "ПОПЕРЕДЖЕННЯ",
     "description": "WARNING (should stay in capitalized letters if the language permits)"
   },
+  "warningCapitalized": {
+    "message": "Попередження",
+    "description": "Warning (should maintain locale-relevant capitalization)"
+  },
   "confirmVaultExport": {
     "message": "Підтвердити експорт сховища"
   },
@@ -1315,6 +1326,12 @@
   "enterVerificationCodeApp": {
     "message": "Введіть 6-значний код підтвердження з програми автентифікації."
   },
+  "authenticationTimeout": {
+    "message": "Час очікування автентифікації"
+  },
+  "authenticationSessionTimedOut": {
+    "message": "Час очікування сеансу автентифікації завершився. Перезапустіть процес входу в систему."
+  },
   "enterVerificationCodeEmail": {
     "message": "Введіть 6-значний код підтвердження, надісланий на $EMAIL$.",
     "placeholders": {
@@ -1502,19 +1519,6 @@
   },
   "enableAutoFillOnPageLoadDesc": {
     "message": "Якщо виявлено форму входу, автоматично заповнювати її під час завантаження вебсторінки."
-  },
-  "autofillOnPageLoadWarning": {
-    "message": "$OPENTAG$Обережно!$CLOSETAG$ Скомпрометовані або ненадійні вебсайти можуть використати функцію автозаповнення під час завантаження сторінки для завдання шкоди.",
-    "placeholders": {
-      "openTag": {
-        "content": "$1",
-        "example": "<b>"
-      },
-      "closeTag": {
-        "content": "$2",
-        "example": "</b>"
-      }
-    }
   },
   "experimentalFeature": {
     "message": "Скомпрометовані або ненадійні вебсайти можуть використати функцію автозаповнення під час завантаження сторінки для завдання шкоди."
@@ -1850,6 +1854,9 @@
   },
   "secureNotes": {
     "message": "Захищені нотатки"
+  },
+  "sshKeys": {
+    "message": "Ключі SSH"
   },
   "clear": {
     "message": "Стерти",
@@ -2890,7 +2897,7 @@
     "message": "Генерувати е-пошту"
   },
   "spinboxBoundariesHint": {
-    "message": "Value must be between $MIN$ and $MAX$.",
+    "message": "Значення має бути між $MIN$ та $MAX$.",
     "description": "Explains spin box minimum and maximum values to the user",
     "placeholders": {
       "min": {
@@ -2904,7 +2911,7 @@
     }
   },
   "passwordLengthRecommendationHint": {
-    "message": " Use $RECOMMENDED$ characters or more to generate a strong password.",
+    "message": " Використовуйте $RECOMMENDED$ або більше символів, щоб згенерувати надійний пароль.",
     "description": "Appended to `spinboxBoundariesHint` to recommend a length to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
     "placeholders": {
       "recommended": {
@@ -2914,7 +2921,7 @@
     }
   },
   "passphraseNumWordsRecommendationHint": {
-    "message": " Use $RECOMMENDED$ words or more to generate a strong passphrase.",
+    "message": " Використовуйте $RECOMMENDED$ або більше слів, щоб згенерувати надійну парольну фразу.",
     "description": "Appended to `spinboxBoundariesHint` to recommend a number of words to the user. This must include any language-specific 'sentence' separator characters (e.g. a space in english).",
     "placeholders": {
       "recommended": {
@@ -3171,25 +3178,25 @@
     "message": "Надіслати сповіщення ще раз"
   },
   "viewAllLogInOptions": {
-    "message": "View all log in options"
+    "message": "Переглянути всі варіанти входу"
   },
-  "viewAllLoginOptions": {
+  "viewAllLoginOptionsV1": {
     "message": "Переглянути всі варіанти входу"
   },
   "notificationSentDevice": {
     "message": "Сповіщення було надіслано на ваш пристрій."
   },
   "aNotificationWasSentToYourDevice": {
-    "message": "A notification was sent to your device"
+    "message": "Сповіщення надіслано на ваш пристрій"
   },
   "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
-    "message": "Make sure your account is unlocked and the fingerprint phrase matches on the other device"
+    "message": "Переконайтеся, що ваш обліковий запис розблоковано і фраза відбитка на іншому пристрої збігається"
   },
   "youWillBeNotifiedOnceTheRequestIsApproved": {
-    "message": "You will be notified once the request is approved"
+    "message": "Після схвалення запиту ви отримаєте сповіщення"
   },
   "needAnotherOptionV1": {
-    "message": "Need another option?"
+    "message": "Потрібен інший варіант?"
   },
   "loginInitiated": {
     "message": "Ініційовано вхід"
@@ -3284,8 +3291,17 @@
   "opensInANewWindow": {
     "message": "Відкривається у новому вікні"
   },
+  "rememberThisDeviceToMakeFutureLoginsSeamless": {
+    "message": "Запам'ятайте цей пристрій, щоб спростити майбутні входи в систему"
+  },
   "deviceApprovalRequired": {
     "message": "Необхідне підтвердження пристрою. Виберіть варіант підтвердження нижче:"
+  },
+  "deviceApprovalRequiredV2": {
+    "message": "Потрібне підтвердження пристрою"
+  },
+  "selectAnApprovalOptionBelow": {
+    "message": "Виберіть варіант підтвердження нижче"
   },
   "rememberThisDevice": {
     "message": "Запам'ятати цей пристрій"
@@ -3359,6 +3375,9 @@
   },
   "userEmailMissing": {
     "message": "Немає адреси електронної пошти"
+  },
+  "activeUserEmailNotFoundLoggingYouOut": {
+    "message": "Адресу е-пошти активного користувача не знайдено. Виконується вихід із системи."
   },
   "deviceTrusted": {
     "message": "Довірений пристрій"
@@ -3567,6 +3586,14 @@
   "unlockAccountAria": {
     "message": "Розблокування облікового запису – відкриється нове вікно",
     "description": "Screen reader text (aria-label) for unlock account button in overlay"
+  },
+  "totpCodeAria": {
+    "message": "Time-based One-Time Password Verification Code",
+    "description": "Aria label for the totp code displayed in the inline menu for autofill"
+  },
+  "totpSecondsSpanAria": {
+    "message": "Time remaining before current TOTP expires",
+    "description": "Aria label for the totp seconds displayed in the inline menu for autofill"
   },
   "fillCredentialsFor": {
     "message": "Заповнити облікові дані для",
@@ -3795,6 +3822,9 @@
   },
   "accessing": {
     "message": "Доступ"
+  },
+  "loggedInExclamation": {
+    "message": "Ви увійшли!"
   },
   "passkeyNotCopied": {
     "message": "Ключ доступу не буде скопійовано"
@@ -4288,13 +4318,13 @@
     "message": "Фільтри"
   },
   "filterVault": {
-    "message": "Filter vault"
+    "message": "Фільтр сховища"
   },
   "filterApplied": {
-    "message": "One filter applied"
+    "message": "Застосовано один фільтр"
   },
   "filterAppliedPlural": {
-    "message": "$COUNT$ filters applied",
+    "message": "Застосовані фільтри: $COUNT$",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -4875,9 +4905,18 @@
     "message": "Згенерований пароль"
   },
   "compactMode": {
-    "message": "Compact mode"
+    "message": "Компактний режим"
   },
   "beta": {
-    "message": "Beta"
+    "message": "Бета"
+  },
+  "extensionWidth": {
+    "message": "Ширина вікна розширення"
+  },
+  "wide": {
+    "message": "Широке"
+  },
+  "extraWide": {
+    "message": "Дуже широке"
   }
 }

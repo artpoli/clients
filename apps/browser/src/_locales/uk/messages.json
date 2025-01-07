@@ -193,10 +193,10 @@
     "message": "Автозаповнення посвідчень"
   },
   "fillVerificationCode": {
-    "message": "Fill verification code"
+    "message": "Заповнити код підтвердження"
   },
   "fillVerificationCodeAria": {
-    "message": "Fill Verification Code",
+    "message": "Заповнити код підтвердження",
     "description": "Aria label for the heading displayed the inline menu for totp code autofill"
   },
   "generatePasswordCopied": {
@@ -454,9 +454,6 @@
   "length": {
     "message": "Довжина"
   },
-  "passwordMinLength": {
-    "message": "Мінімальна довжина пароля"
-  },
   "uppercase": {
     "message": "Верхній регістр (A-Z)",
     "description": "deprecated. Use uppercaseLabel instead."
@@ -527,10 +524,6 @@
   },
   "minSpecial": {
     "message": "Мінімум спеціальних символів"
-  },
-  "avoidAmbChar": {
-    "message": "Уникати неоднозначних символів",
-    "description": "deprecated. Use avoidAmbiguous instead."
   },
   "avoidAmbiguous": {
     "message": "Уникати неоднозначних символів",
@@ -647,9 +640,6 @@
   },
   "rateExtension": {
     "message": "Оцінити розширення"
-  },
-  "rateExtensionDesc": {
-    "message": "Розкажіть іншим про свої враження, залишивши хороший відгук!"
   },
   "browserNotSupportClipboard": {
     "message": "Ваш браузер не підтримує копіювання даних в буфер обміну. Скопіюйте вручну."
@@ -1014,6 +1004,9 @@
   "showIdentitiesCurrentTabDesc": {
     "message": "Показувати список посвідчень на сторінці вкладки для легкого автозаповнення."
   },
+  "clickToAutofillOnVault": {
+    "message": "Натисніть на запис у режимі перегляду сховища для автозаповнення"
+  },
   "clearClipboard": {
     "message": "Очистити буфер обміну",
     "description": "Clipboard is the operating system thing where you copy/paste data to on your device."
@@ -1159,9 +1152,6 @@
   },
   "moveToOrganization": {
     "message": "Перемістити до організації"
-  },
-  "share": {
-    "message": "Поділитися"
   },
   "movedItemToOrg": {
     "message": "$ITEMNAME$ переміщено до $ORGNAME$",
@@ -2050,9 +2040,6 @@
   "clone": {
     "message": "Клонувати"
   },
-  "passwordGeneratorPolicyInEffect": {
-    "message": "На параметри генератора впливають одна чи декілька політик організації."
-  },
   "passwordGenerator": {
     "message": "Генератор паролів"
   },
@@ -2337,6 +2324,9 @@
     "message": "Домени",
     "description": "A category title describing the concept of web domains"
   },
+  "blockedDomains": {
+    "message": "Blocked domains"
+  },
   "excludedDomains": {
     "message": "Виключені домени"
   },
@@ -2345,6 +2335,15 @@
   },
   "excludedDomainsDescAlt": {
     "message": "Bitwarden не запитуватиме про збереження даних входу для цих доменів для всіх облікових записів, до яких виконано вхід. Потрібно оновити сторінку для застосування змін."
+  },
+  "blockedDomainsDesc": {
+    "message": "Autofill and other related features will not be offered for these websites. You must refresh the page for changes to take effect."
+  },
+  "autofillBlockedNotice": {
+    "message": "Autofill is blocked for this website. Review or change this in settings."
+  },
+  "autofillBlockedTooltip": {
+    "message": "Autofill is blocked on this website. Review in settings."
   },
   "websiteItemLabel": {
     "message": "Вебсайт $number$ (URI)",
@@ -2363,6 +2362,9 @@
         "example": "duckduckgo.com"
       }
     }
+  },
+  "blockedDomainsSavedSuccess": {
+    "message": "Blocked domain changes saved"
   },
   "excludedDomainsSavedSuccess": {
     "message": "Виняток для домену збережено"
@@ -2392,14 +2394,6 @@
     "message": "Надіслати подробиці",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "searchSends": {
-    "message": "Шукати відправлення",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
-  },
-  "addSend": {
-    "message": "Додати відправлення",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
-  },
   "sendTypeText": {
     "message": "Текст"
   },
@@ -2416,15 +2410,8 @@
   "hideTextByDefault": {
     "message": "Типово приховувати текст"
   },
-  "maxAccessCountReached": {
-    "message": "Досягнуто максимальної кількості доступів",
-    "description": "This text will be displayed after a Send has been accessed the maximum amount of times."
-  },
   "expired": {
     "message": "Термін дії завершився"
-  },
-  "pendingDeletion": {
-    "message": "Очікується видалення"
   },
   "passwordProtected": {
     "message": "Захищено паролем"
@@ -2475,23 +2462,8 @@
     "message": "Редагування",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
-  "sendTypeHeader": {
-    "message": "Який це тип відправлення?",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
-  },
-  "sendNameDesc": {
-    "message": "Опис цього відправлення.",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
-  },
-  "sendFileDesc": {
-    "message": "Файл, який ви хочете відправити."
-  },
   "deletionDate": {
     "message": "Термін дії"
-  },
-  "deletionDateDesc": {
-    "message": "Відправлення буде остаточно видалено у вказаний час.",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "deletionDateDescV2": {
     "message": "Відправлення буде остаточно видалено у вказану дату.",
@@ -2499,10 +2471,6 @@
   },
   "expirationDate": {
     "message": "Дата завершення"
-  },
-  "expirationDateDesc": {
-    "message": "Якщо встановлено, термін дії цього відправлення завершиться у вказаний час.",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "oneDay": {
     "message": "1 день"
@@ -2519,42 +2487,9 @@
   "custom": {
     "message": "Власний"
   },
-  "maximumAccessCount": {
-    "message": "Максимальна кількість доступів"
-  },
-  "maximumAccessCountDesc": {
-    "message": "Якщо встановлено, користувачі більше не зможуть отримати доступ до цього відправлення після досягнення максимальної кількості доступів.",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
-  },
-  "sendPasswordDesc": {
-    "message": "Ви можете встановити пароль для доступу до цього відправлення.",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
-  },
   "sendPasswordDescV3": {
     "message": "За бажання додайте пароль для отримувачів цього відправлення.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
-  },
-  "sendNotesDesc": {
-    "message": "Особисті нотатки про це відправлення.",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
-  },
-  "sendDisableDesc": {
-    "message": "Деактивувати це відправлення для скасування доступу до нього.",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
-  },
-  "sendShareDesc": {
-    "message": "Копіювати посилання цього відправлення перед збереженням.",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
-  },
-  "sendTextDesc": {
-    "message": "Текст, який ви хочете відправити."
-  },
-  "sendHideText": {
-    "message": "Приховувати текст цього відправлення.",
-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
-  },
-  "currentAccessCount": {
-    "message": "Поточна кількість доступів"
   },
   "createSend": {
     "message": "Нове відправлення",
@@ -2638,18 +2573,6 @@
   "sendFileCalloutHeader": {
     "message": "Перед початком"
   },
-  "sendFirefoxCustomDatePopoutMessage1": {
-    "message": "Щоб використовувати календарний стиль вибору дати",
-    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read '**To use a calendar style date picker ** click here to pop out your window.'"
-  },
-  "sendFirefoxCustomDatePopoutMessage2": {
-    "message": "натисніть тут",
-    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker **click here** to pop out your window.'"
-  },
-  "sendFirefoxCustomDatePopoutMessage3": {
-    "message": "щоб відкріпити ваше вікно.",
-    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker click here **to pop out your window.**'"
-  },
   "expirationDateIsInvalid": {
     "message": "Вказано недійсний термін дії."
   },
@@ -2665,14 +2588,8 @@
   "dateParsingError": {
     "message": "При збереженні дат видалення і терміну дії виникла помилка."
   },
-  "hideEmail": {
-    "message": "Приховувати мою адресу електронної пошти від отримувачів."
-  },
   "hideYourEmail": {
     "message": "Приховати адресу е-пошти від отримувачів."
-  },
-  "sendOptionsPolicyInEffect": {
-    "message": "На параметри відправлень впливають одна чи декілька політик організації."
   },
   "passwordPrompt": {
     "message": "Повторний запит головного пароля"
@@ -2887,9 +2804,6 @@
   "error": {
     "message": "Помилка"
   },
-  "regenerateUsername": {
-    "message": "Повторно генерувати ім'я користувача"
-  },
   "generateUsername": {
     "message": "Генерувати ім'я користувача"
   },
@@ -2930,9 +2844,6 @@
       }
     }
   },
-  "usernameType": {
-    "message": "Тип імені користувача"
-  },
   "plusAddressedEmail": {
     "message": "Адреса е-пошти з плюсом",
     "description": "Username generator option that appends a random sub-address to the username. For example: address+subaddress@email.com"
@@ -2954,12 +2865,6 @@
   },
   "websiteName": {
     "message": "Назва вебсайту"
-  },
-  "whatWouldYouLikeToGenerate": {
-    "message": "Що ви бажаєте згенерувати?"
-  },
-  "passwordType": {
-    "message": "Тип пароля"
   },
   "service": {
     "message": "Послуга"
@@ -3588,11 +3493,11 @@
     "description": "Screen reader text (aria-label) for unlock account button in overlay"
   },
   "totpCodeAria": {
-    "message": "Time-based One-Time Password Verification Code",
+    "message": "Код підтвердження одноразового пароля",
     "description": "Aria label for the totp code displayed in the inline menu for autofill"
   },
   "totpSecondsSpanAria": {
-    "message": "Time remaining before current TOTP expires",
+    "message": "Час, що залишився до завершення чинного TOTP",
     "description": "Aria label for the totp seconds displayed in the inline menu for autofill"
   },
   "fillCredentialsFor": {
@@ -4679,6 +4584,9 @@
   "showNumberOfAutofillSuggestions": {
     "message": "Показувати кількість пропозицій автозаповнення на піктограмі розширення"
   },
+  "showQuickCopyActions": {
+    "message": "Показати дії швидкого копіювання у сховищі"
+  },
   "systemDefault": {
     "message": "Типово (система)"
   },
@@ -4909,6 +4817,42 @@
   },
   "beta": {
     "message": "Бета"
+  },
+  "importantNotice": {
+    "message": "Важлива інформація"
+  },
+  "setupTwoStepLogin": {
+    "message": "Налаштувати двоетапну перевірку"
+  },
+  "newDeviceVerificationNoticeContentPage1": {
+    "message": "Bitwarden надсилатиме код підтвердження на електронну пошту вашого облікового запису під час входу з нових пристроїв, починаючи з лютого 2025 року."
+  },
+  "newDeviceVerificationNoticeContentPage2": {
+    "message": "Ви можете налаштувати двоетапну перевірку як альтернативний спосіб захисту свого облікового запису, або змінити електронну пошту на таку, до якої ви маєте доступ."
+  },
+  "remindMeLater": {
+    "message": "Нагадати пізніше"
+  },
+  "newDeviceVerificationNoticePageOneFormContent": {
+    "message": "Ви маєте постійний доступ до своєї електронної пошти $EMAIL$?",
+    "placeholders": {
+      "email": {
+        "content": "$1",
+        "example": "your_name@email.com"
+      }
+    }
+  },
+  "newDeviceVerificationNoticePageOneEmailAccessNo": {
+    "message": "Ні, не маю"
+  },
+  "newDeviceVerificationNoticePageOneEmailAccessYes": {
+    "message": "Так, я маю постійний доступ до своєї електронної пошти"
+  },
+  "turnOnTwoStepLogin": {
+    "message": "Увімкнути двоетапну перевірку"
+  },
+  "changeAcctEmail": {
+    "message": "Змінити адресу е-пошти"
   },
   "extensionWidth": {
     "message": "Ширина вікна розширення"

@@ -208,19 +208,19 @@
     "message": "Згенеровано новий ключ SSH"
   },
   "sshKeyWrongPassword": {
-    "message": "The password you entered is incorrect."
+    "message": "Ви ввели неправильний пароль."
   },
   "importSshKey": {
-    "message": "Import"
+    "message": "Імпорт"
   },
   "confirmSshKeyPassword": {
-    "message": "Confirm password"
+    "message": "Підтвердити пароль"
   },
   "enterSshKeyPasswordDesc": {
-    "message": "Enter the password for the SSH key."
+    "message": "Введіть пароль для ключа SSH."
   },
   "enterSshKeyPassword": {
-    "message": "Enter password"
+    "message": "Введіть пароль"
   },
   "sshAgentUnlockRequired": {
     "message": "Розблокуйте своє сховище, щоб затвердити запит ключа SSH."
@@ -920,10 +920,10 @@
     "message": "URL-адреса сервера"
   },
   "authenticationTimeout": {
-    "message": "Authentication timeout"
+    "message": "Час очікування автентифікації"
   },
   "authenticationSessionTimedOut": {
-    "message": "The authentication session timed out. Please restart the login process."
+    "message": "Час очікування сеансу автентифікації завершився. Перезапустіть процес входу в систему."
   },
   "selfHostBaseUrl": {
     "message": "URL-адреса власного сервера",
@@ -1393,13 +1393,13 @@
     "message": "Історія паролів"
   },
   "generatorHistory": {
-    "message": "Generator history"
+    "message": "Історія генератора"
   },
   "clearGeneratorHistoryTitle": {
-    "message": "Clear generator history"
+    "message": "Очистити історію генератора"
   },
   "cleargGeneratorHistoryDescription": {
-    "message": "If you continue, all entries will be permanently deleted from generator's history. Are you sure you want to continue?"
+    "message": "Якщо ви продовжите, усі записи будуть остаточно видалені з історії генератора. Справді продовжити?"
   },
   "clear": {
     "message": "Стерти",
@@ -1409,13 +1409,13 @@
     "message": "Немає паролів."
   },
   "clearHistory": {
-    "message": "Clear history"
+    "message": "Очистити історію"
   },
   "nothingToShow": {
-    "message": "Nothing to show"
+    "message": "Немає даних для показу"
   },
   "nothingGeneratedRecently": {
-    "message": "You haven't generated anything recently"
+    "message": "Ви нічого не генерували останнім часом"
   },
   "undo": {
     "message": "Повернути"
@@ -2726,13 +2726,13 @@
     "message": "Сповіщення було надіслано на ваш пристрій."
   },
   "aNotificationWasSentToYourDevice": {
-    "message": "A notification was sent to your device"
+    "message": "Сповіщення надіслано на ваш пристрій"
   },
   "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
-    "message": "Make sure your account is unlocked and the fingerprint phrase matches on the other device"
+    "message": "Переконайтеся, що ваш обліковий запис розблоковано і фраза відбитка на іншому пристрої збігається"
   },
   "needAnotherOptionV1": {
-    "message": "Need another option?"
+    "message": "Потрібен інший варіант?"
   },
   "fingerprintMatchInfo": {
     "message": "Переконайтеся, що ваше сховище розблоковане, а фраза відбитка збігається з іншим пристроєм."
@@ -2741,13 +2741,13 @@
     "message": "Фраза відбитка"
   },
   "youWillBeNotifiedOnceTheRequestIsApproved": {
-    "message": "You will be notified once the request is approved"
+    "message": "Після схвалення запиту ви отримаєте сповіщення"
   },
   "needAnotherOption": {
     "message": "Потрібно увімкнути схвалення запитів на вхід у налаштуваннях програми Bitwarden. Потрібен інший варіант?"
   },
   "viewAllLogInOptions": {
-    "message": "View all log in options"
+    "message": "Переглянути всі варіанти входу"
   },
   "viewAllLoginOptions": {
     "message": "Переглянути всі варіанти входу"
@@ -2869,7 +2869,7 @@
     "message": "Перевірити відомі витоки даних для цього пароля"
   },
   "loggedInExclamation": {
-    "message": "Logged in!"
+    "message": "Ви увійшли!"
   },
   "important": {
     "message": "Важливо:"
@@ -2902,16 +2902,16 @@
     "message": "Оновлення рекомендованих налаштувань"
   },
   "rememberThisDeviceToMakeFutureLoginsSeamless": {
-    "message": "Remember this device to make future logins seamless"
+    "message": "Запам'ятайте цей пристрій, щоб спростити майбутні входи в систему"
   },
   "deviceApprovalRequired": {
     "message": "Необхідне підтвердження пристрою. Виберіть варіант підтвердження нижче:"
   },
   "deviceApprovalRequiredV2": {
-    "message": "Device approval required"
+    "message": "Потрібне підтвердження пристрою"
   },
   "selectAnApprovalOptionBelow": {
-    "message": "Select an approval option below"
+    "message": "Виберіть варіант підтвердження нижче"
   },
   "rememberThisDevice": {
     "message": "Запам'ятати цей пристрій"
@@ -2966,7 +2966,7 @@
     "message": "Немає адреси електронної пошти"
   },
   "activeUserEmailNotFoundLoggingYouOut": {
-    "message": "Active user email not found. Logging you out."
+    "message": "Адресу е-пошти активного користувача не знайдено. Виконується вихід із системи."
   },
   "deviceTrusted": {
     "message": "Довірений пристрій"
@@ -3394,5 +3394,41 @@
   },
   "fileSavedToDevice": {
     "message": "Файл збережено на пристрої. Ви можете його знайти у теці завантажень."
+  },
+  "importantNotice": {
+    "message": "Важлива інформація"
+  },
+  "setupTwoStepLogin": {
+    "message": "Налаштувати двоетапну перевірку"
+  },
+  "newDeviceVerificationNoticeContentPage1": {
+    "message": "Bitwarden надсилатиме код підтвердження на електронну пошту вашого облікового запису під час входу з нових пристроїв, починаючи з лютого 2025 року."
+  },
+  "newDeviceVerificationNoticeContentPage2": {
+    "message": "Ви можете налаштувати двоетапну перевірку як альтернативний спосіб захисту свого облікового запису, або змінити електронну пошту на таку, до якої ви маєте доступ."
+  },
+  "remindMeLater": {
+    "message": "Нагадати пізніше"
+  },
+  "newDeviceVerificationNoticePageOneFormContent": {
+    "message": "Ви маєте постійний доступ до своєї електронної пошти $EMAIL$?",
+    "placeholders": {
+      "email": {
+        "content": "$1",
+        "example": "your_name@email.com"
+      }
+    }
+  },
+  "newDeviceVerificationNoticePageOneEmailAccessNo": {
+    "message": "Ні, не маю"
+  },
+  "newDeviceVerificationNoticePageOneEmailAccessYes": {
+    "message": "Так, я маю постійний доступ до своєї електронної пошти"
+  },
+  "turnOnTwoStepLogin": {
+    "message": "Увімкнути двоетапну перевірку"
+  },
+  "changeAcctEmail": {
+    "message": "Змінити адресу е-пошти"
   }
 }

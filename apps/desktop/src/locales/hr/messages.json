@@ -249,6 +249,20 @@
   "error": {
     "message": "Pogreška"
   },
+  "decryptionError": {
+    "message": "Pogreška pri dešifriranju"
+  },
+  "couldNotDecryptVaultItemsBelow": {
+    "message": "Bitwarden nije mogao dešifrirati sljedeće stavke trezora."
+  },
+  "contactCSToAvoidDataLossPart1": {
+    "message": "Kontaktiraj službu za korisnike",
+    "description": "This is part of a larger sentence. The full sentence will read 'Contact customer success to avoid additional data loss.'"
+  },
+  "contactCSToAvoidDataLossPart2": {
+    "message": "kako bi izbjegli gubitak podataka.",
+    "description": "This is part of a larger sentence. The full sentence will read 'Contact customer success to avoid additional data loss.'"
+  },
   "january": {
     "message": "siječanj"
   },
@@ -529,10 +543,6 @@
     "message": "Uključi posebne znakove",
     "description": "Full description for the password generator special characters checkbox"
   },
-  "specialCharactersLabel": {
-    "message": "! @ # $ % ^ & *",
-    "description": "Label for the password generator special characters checkbox"
-  },
   "numWords": {
     "message": "Broj riječi"
   },
@@ -638,6 +648,15 @@
   "logInToBitwarden": {
     "message": "Prijavi se u Bitwarden"
   },
+  "enterTheCodeSentToYourEmail": {
+    "message": "Enter the code sent to your email"
+  },
+  "enterTheCodeFromYourAuthenticatorApp": {
+    "message": "Enter the code from your authenticator app"
+  },
+  "pressYourYubiKeyToAuthenticate": {
+    "message": "Press your YubiKey to authenticate"
+  },
   "logInWithPasskey": {
     "message": "Prijava pristupnim ključem"
   },
@@ -690,6 +709,15 @@
   "masterPassHintLabel": {
     "message": "Podsjetnik glavne lozinke"
   },
+  "passwordStrengthScore": {
+    "message": "Password strength score $SCORE$",
+    "placeholders": {
+      "score": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
+  },
   "joinOrganization": {
     "message": "Pridruži se organizaciji"
   },
@@ -719,12 +747,6 @@
   },
   "enterYourAccountEmailAddressAndYourPasswordHintWillBeSentToYou": {
     "message": "Unesi svoju adresu e-pošte računa i poslat ćemo ti tvoj podsjetnik"
-  },
-  "passwordHint": {
-    "message": "Podsjetnik za lozinku"
-  },
-  "enterEmailToGetHint": {
-    "message": "Unesi adresu e-pošte svog računa za primitak podsjetnika glavne lozinke."
   },
   "getMasterPasswordHint": {
     "message": "Slanje podsjetnika glavne lozinke"
@@ -802,6 +824,9 @@
   "webauthnCancelOrTimeout": {
     "message": "Autentifikacija je otkazana ili je trajala predugo. Molimo pokušaj ponovno."
   },
+  "openInNewTab": {
+    "message": "Open in new tab"
+  },
   "invalidVerificationCode": {
     "message": "Nevažeći kôd za provjeru"
   },
@@ -832,11 +857,21 @@
   "rememberMe": {
     "message": "Zapamti me"
   },
+  "dontAskAgainOnThisDeviceFor30Days": {
+    "message": "Don't ask again on this device for 30 days"
+  },
   "sendVerificationCodeEmailAgain": {
     "message": "Ponovno slanje kontrolnog koda e-poštom"
   },
   "useAnotherTwoStepMethod": {
     "message": "Koristiti drugi način prijave dvostrukom autentifikacijom"
+  },
+  "selectAnotherMethod": {
+    "message": "Select another method",
+    "description": "Select another two-step login method"
+  },
+  "useYourRecoveryCode": {
+    "message": "Use your recovery code"
   },
   "insertYubiKey": {
     "message": "Umetni svoj YubiKey u USB priključak računala, a zatim dodirni njegovu tipku."
@@ -871,6 +906,15 @@
     "message": "Potvrdi s Duo Security za svoju organizaciju pomoću aplikacije Duo Mobile, SMS-om, telefonskim pozivom ili U2F sigurnosnim ključem.",
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
+  "verifyYourIdentity": {
+    "message": "Verify your Identity"
+  },
+  "weDontRecognizeThisDevice": {
+    "message": "Ne prepoznajemo ovaj uređaj. Za potvrdu identiteta unesi kôd poslan e-poštom."
+  },
+  "continueLoggingIn": {
+    "message": "Nastavi prijavu"
+  },
   "webAuthnTitle": {
     "message": "FIDO2 WebAuthn"
   },
@@ -895,11 +939,11 @@
   "twoStepOptions": {
     "message": "Mogućnosti prijave dvostrukom autentifikacijom"
   },
+  "selectTwoStepLoginMethod": {
+    "message": "Select two-step login method"
+  },
   "selfHostedEnvironment": {
     "message": "Vlastito hosting okruženje"
-  },
-  "selfHostedEnvironmentFooter": {
-    "message": "Navedi osnovni URL svoje lokalno smještene Bitwarden instalacije."
   },
   "selfHostedBaseUrlHint": {
     "message": "Navedi osnovni URL svoje lokalne Bitwarden instalacije, npr.: https://bitwarden.tvrtka.hr"
@@ -912,9 +956,6 @@
   },
   "customEnvironment": {
     "message": "Prilagođeno okruženje"
-  },
-  "customEnvironmentFooter": {
-    "message": "Za napredne korisnike. Samostalno možeš odrediti osnovni URL svake usluge."
   },
   "baseUrl": {
     "message": "URL poslužitelja"
@@ -955,6 +996,9 @@
   },
   "no": {
     "message": "Ne"
+  },
+  "location": {
+    "message": "Location"
   },
   "overwritePassword": {
     "message": "Prebriši lozinku"
@@ -1104,7 +1148,7 @@
     "message": "Neispravna glavna lozinka"
   },
   "twoStepLoginConfirmation": {
-    "message": "Prijava dvostrukom autentifikacijom čini tvoj račun još sigurnijim tako što će zahtijevati potvrdu prijave putem drugog uređaja kao što su sigurnosni ključ, autentifikatorske aplikacije, SMS-om, pozivom ili e-poštom. Prijavu dvostrukom autentifikacijom možeš omogućiti na web trezoru. Želiš li sada posjetiti bitwarden.com?"
+    "message": "Prijava dvostrukom autentifikacijom čini tvoj račun još sigurnijim tako što će zahtijevati potvrdu prijave drugim uređajem kao što je sigurnosni ključ, autentifikatorska aplikacija, SMS, poziv ili e-pošta. Prijavu dvostrukom autentifikacijom možeš omogućiti na web trezoru. Želiš li sada posjetiti bitwarden.com?"
   },
   "twoStepLogin": {
     "message": "Prijava dvostrukom autentifikacijom"
@@ -1364,9 +1408,6 @@
   },
   "premiumPurchase": {
     "message": "Kupi premium članstvo"
-  },
-  "premiumPurchaseAlert": {
-    "message": "Možeš kupiti premium članstvo na web trezoru. Želiš li sada posjetiti bitwarden.com?"
   },
   "premiumPurchaseAlertV2": {
     "message": "Premium možeš kupiti u postavkama računa na Bitwarden web aplikaciji."
@@ -1754,6 +1795,9 @@
   },
   "requirePasswordOnStart": {
     "message": "Zahtijevaj lozinku ili PIN pri pokretanju"
+  },
+  "requirePasswordWithoutPinOnStart": {
+    "message": "Require password on app start"
   },
   "recommendedForSecurity": {
     "message": "Preporučeno za sigurnost."
@@ -2224,6 +2268,12 @@
   "webAuthnAuthenticate": {
     "message": "Ovjeri WebAuthn"
   },
+  "readSecurityKey": {
+    "message": "Read security key"
+  },
+  "awaitingSecurityKeyInteraction": {
+    "message": "Awaiting security key interaction..."
+  },
   "hideEmail": {
     "message": "Sakrij moju adresu e-pošte od primatelja."
   },
@@ -2530,6 +2580,9 @@
   "catchallEmailDesc": {
     "message": "Koristi konfigurirani catch-all sandučić svoje domene."
   },
+  "useThisEmail": {
+    "message": "Koristi ovu e-poštu"
+  },
   "random": {
     "message": "Nasumično"
   },
@@ -2606,6 +2659,30 @@
   "forwaderInvalidTokenWithMessage": {
     "message": "Nevažeći $SERVICENAME$ API token: $ERRORMESSAGE$",
     "description": "Displayed when the user's API token is rejected by the forwarding service with an error message.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      },
+      "errormessage": {
+        "content": "$2",
+        "example": "Please verify your email address to continue."
+      }
+    }
+  },
+  "forwaderInvalidOperation": {
+    "message": "$SERVICENAME$ refused your request. Please contact your service provider for assistance.",
+    "description": "Displayed when the user is forbidden from using the API by the forwarding service.",
+    "placeholders": {
+      "servicename": {
+        "content": "$1",
+        "example": "SimpleLogin"
+      }
+    }
+  },
+  "forwaderInvalidOperationWithMessage": {
+    "message": "$SERVICENAME$ refused your request: $ERRORMESSAGE$",
+    "description": "Displayed when the user is forbidden from using the API by the forwarding service with an error message.",
     "placeholders": {
       "servicename": {
         "content": "$1",
@@ -2695,14 +2772,8 @@
   "loginWithMasterPassword": {
     "message": "Prijava glavnom lozinkom"
   },
-  "loggingInAs": {
-    "message": "Prijava kao"
-  },
   "rememberEmail": {
     "message": "Zapamti adresu e-pošte"
-  },
-  "notYou": {
-    "message": "Nisi ti?"
   },
   "newAroundHere": {
     "message": "Novi korisnik?"
@@ -2722,14 +2793,23 @@
   "loginInitiated": {
     "message": "Prijava pokrenuta"
   },
+  "logInRequestSent": {
+    "message": "Zahtjev poslan"
+  },
   "notificationSentDevice": {
     "message": "Obavijest je poslana na tvoj uređaj."
   },
   "aNotificationWasSentToYourDevice": {
     "message": "Obavijest je poslana na tvoj uređaj"
   },
-  "makeSureYourAccountIsUnlockedAndTheFingerprintEtc": {
-    "message": "Provjeri je li trezor otključan i slaže li se jedinstvena fraza s drugim uređajem"
+  "notificationSentDevicePart1": {
+    "message": "Otključaj Bitwarden na svojem uređaju ili na "
+  },
+  "notificationSentDeviceAnchor": {
+    "message": "web trezoru"
+  },
+  "notificationSentDevicePart2": {
+    "message": "Provjeri slaže li se jedinstvena fraza s ovdje prikazanom prije odobravanja."
   },
   "needAnotherOptionV1": {
     "message": "Trebaš drugu opciju?"
@@ -2759,11 +2839,11 @@
     "message": "Prikaži/Sakrij broj znakova",
     "description": "'Character count' describes a feature that displays a number next to each character of the password."
   },
-  "areYouTryingtoLogin": {
-    "message": "Pokušavaš li se prijaviti?"
+  "areYouTryingToAccessYourAccount": {
+    "message": "Pokušavaš li pristupiti svom računu?"
   },
-  "logInAttemptBy": {
-    "message": "$EMAIL$ se pokušava prijaviti",
+  "accessAttemptBy": {
+    "message": "$EMAIL$ pokušava pristupiti",
     "placeholders": {
       "email": {
         "content": "$1",
@@ -2780,11 +2860,11 @@
   "time": {
     "message": "Vrijeme"
   },
-  "confirmLogIn": {
-    "message": "Potvrdi prijavu"
+  "confirmAccess": {
+    "message": "Potvrdi pristup"
   },
-  "denyLogIn": {
-    "message": "Odbij prijavu"
+  "denyAccess": {
+    "message": "Odbij pristup"
   },
   "logInConfirmedForEmailOnDevice": {
     "message": "Prijava za $EMAIL$ potvrđena na uređaju $DEVICE$",
@@ -2820,7 +2900,7 @@
   "thisRequestIsNoLongerValid": {
     "message": "Ovaj zahtjev više nije valjan."
   },
-  "confirmLoginAtemptForMail": {
+  "confirmAccessAttempt": {
     "message": "Potvrdi pokušaj prijave za $EMAIL$",
     "placeholders": {
       "email": {
@@ -2831,6 +2911,9 @@
   },
   "logInRequested": {
     "message": "Zatražena je prijava"
+  },
+  "accountAccessRequested": {
+    "message": "Zatražen je pristup računu"
   },
   "creatingAccountOn": {
     "message": "Stvaranje računa na"
@@ -2864,6 +2947,12 @@
   },
   "weakAndBreachedMasterPasswordDesc": {
     "message": "Slaba lozinka je nađena među ukradenima tijekom krađa podataka. Za zaštitu svog računa koristi jaku i jedinstvenu lozinku. Želiš li svejedno korisiti slabu, ukradenu lozinku?"
+  },
+  "useThisPassword": {
+    "message": "Koristi ovu lozinku"
+  },
+  "useThisUsername": {
+    "message": "Koristi ovo korisničko ime"
   },
   "checkForBreaches": {
     "message": "Provjeri je li lozinka ukradena prilikom krađe podataka"
@@ -2925,9 +3014,6 @@
   "requestAdminApproval": {
     "message": "Zatraži odobrenje administratora"
   },
-  "approveWithMasterPassword": {
-    "message": "Odobri glavnom lozinkom"
-  },
   "region": {
     "message": "Regija"
   },
@@ -2952,9 +3038,6 @@
   },
   "adminApprovalRequestSentToAdmins": {
     "message": "Tvoj zahtjev je poslan administratoru."
-  },
-  "youWillBeNotifiedOnceApproved": {
-    "message": "Dobiti ćeš obavijest kada bude odobreno."
   },
   "troubleLoggingIn": {
     "message": "Problem s prijavom?"
@@ -3137,6 +3220,12 @@
   },
   "duoRequiredByOrgForAccount": {
     "message": "Za tvoj račun je potrebna Duo dvostruka autentifikacija."
+  },
+  "duoTwoFactorRequiredPageSubtitle": {
+    "message": "Duo two-step login is required for your account. Follow the steps below to finish logging in."
+  },
+  "followTheStepsBelowToFinishLoggingIn": {
+    "message": "Follow the steps below to finish logging in."
   },
   "launchDuo": {
     "message": "Pokreni Duo u pregledniku"
@@ -3362,6 +3451,30 @@
   "ssoError": {
     "message": "Nisu nađeni slobodni portovi za SSO prijavu."
   },
+  "biometricsStatusHelptextUnlockNeeded": {
+    "message": "Biometrijsko otključavanje nije dostupno jer je prvo potrebno otključati PIN-om ili lozinkom."
+  },
+  "biometricsStatusHelptextHardwareUnavailable": {
+    "message": "Biometrijsko otključavanje trenutno nije dostupno."
+  },
+  "biometricsStatusHelptextAutoSetupNeeded": {
+    "message": "Biometrijsko otključavanje nije dostupno zbog pogrešno konfiguriranih sistemskih datoteka."
+  },
+  "biometricsStatusHelptextManualSetupNeeded": {
+    "message": "Biometrijsko otključavanje nije dostupno zbog pogrešno konfiguriranih sistemskih datoteka."
+  },
+  "biometricsStatusHelptextNotEnabledLocally": {
+    "message": "Biometrijsko otključavanje nije dostupno jer nije omogućeno za $EMAIL$ u Bitwarden desktop aplikaciji.",
+    "placeholders": {
+      "email": {
+        "content": "$1",
+        "example": "mail@example.com"
+      }
+    }
+  },
+  "biometricsStatusHelptextUnavailableReasonUnknown": {
+    "message": "Biometrijsko otključavanje trenutno nije dostupno iz nepoznatog razloga."
+  },
   "authorize": {
     "message": "Autoriziraj"
   },
@@ -3371,14 +3484,29 @@
   "sshkeyApprovalTitle": {
     "message": "Potvrdi korištenje SSH ključa"
   },
+  "agentForwardingWarningTitle": {
+    "message": "Warning: Agent Forwarding"
+  },
+  "agentForwardingWarningText": {
+    "message": "This request comes from a remote device that you are logged into"
+  },
   "sshkeyApprovalMessageInfix": {
     "message": "traži pristup za"
   },
+  "sshkeyApprovalMessageSuffix": {
+    "message": "in order to"
+  },
+  "sshActionLogin": {
+    "message": "authenticate to a server"
+  },
+  "sshActionSign": {
+    "message": "sign a message"
+  },
+  "sshActionGitSign": {
+    "message": "sign a git commit"
+  },
   "unknownApplication": {
     "message": "Aplikacija"
-  },
-  "sshKeyPasswordUnsupported": {
-    "message": "Uvoz SSH ključeva zaštićenih lozinkom još nije podržan"
   },
   "invalidSshKey": {
     "message": "SSH ključ nije valjan"
@@ -3389,8 +3517,8 @@
   "importSshKeyFromClipboard": {
     "message": "Uvezi ključ iz međuspremnika"
   },
-  "sshKeyPasted": {
-    "message": "SSH ključ uspješno uvezen"
+  "sshKeyImported": {
+    "message": "SSH key imported successfully"
   },
   "fileSavedToDevice": {
     "message": "Datoteka spremljena na uređaj. Upravljaj u preuzimanjima svog uređaja."
@@ -3430,5 +3558,26 @@
   },
   "changeAcctEmail": {
     "message": "Promjeni e-poštu računa"
+  },
+  "allowScreenshots": {
+    "message": "Dozvoli snimanje zaslona"
+  },
+  "allowScreenshotsDesc": {
+    "message": "Dozvoli da Bitwarden desktop aplikacija bude snimljena u snimkama zaslona i prikazana u sesijama udaljene radne površine. Onemogućavanje ove opcije onemogućit će pristup nekim vanjskim zaslonima."
+  },
+  "confirmWindowStillVisibleTitle": {
+    "message": "Potvrdi prozor je još uvijek vidljiv"
+  },
+  "confirmWindowStillVisibleContent": {
+    "message": "Potvrdi da je prozor još uvijek vidljiv."
+  },
+  "updateBrowserOrDisableFingerprintDialogTitle": {
+    "message": "Potrebno je ažurirati proširenje"
+  },
+  "updateBrowserOrDisableFingerprintDialogMessage": {
+    "message": "Proširenje preglednika koje koristitš zastarjelo. Ažuriraj ga ili onemogući provjeru otiska prsta u pregledniku u postavkama aplikacije za stolno računalo."
+  },
+  "changeAtRiskPassword": {
+    "message": "Change at-risk password"
   }
 }

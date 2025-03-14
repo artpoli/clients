@@ -15,21 +15,21 @@ import { isCardExpired } from "@bitwarden/common/autofill/utils";
 import { BillingAccountProfileStateService } from "@bitwarden/common/billing/abstractions/account/billing-account-profile-state.service";
 import { ProductTierType } from "@bitwarden/common/billing/enums";
 import { EventType } from "@bitwarden/common/enums";
-import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
+import { SdkService } from "@bitwarden/common/platform/abstractions/sdk/sdk.service";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { FolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
 import { TotpService } from "@bitwarden/common/vault/abstractions/totp.service";
 import { CipherType } from "@bitwarden/common/vault/enums";
 import { Launchable } from "@bitwarden/common/vault/interfaces/launchable";
 import { CipherAuthorizationService } from "@bitwarden/common/vault/services/cipher-authorization.service";
-import { DialogService } from "@bitwarden/components";
+import { DialogService, ToastService } from "@bitwarden/components";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legacy";
-import { PasswordRepromptService } from "@bitwarden/vault";
+import { PasswordRepromptService, SshImportPromptService } from "@bitwarden/vault";
 
 @Component({
   selector: "app-vault-add-edit",
@@ -73,6 +73,9 @@ export class AddEditComponent extends BaseAddEditComponent implements OnInit, On
     configService: ConfigService,
     private billingAccountProfileStateService: BillingAccountProfileStateService,
     cipherAuthorizationService: CipherAuthorizationService,
+    toastService: ToastService,
+    sdkService: SdkService,
+    sshImportPromptService: SshImportPromptService,
   ) {
     super(
       cipherService,
@@ -93,19 +96,15 @@ export class AddEditComponent extends BaseAddEditComponent implements OnInit, On
       datePipe,
       configService,
       cipherAuthorizationService,
+      toastService,
+      sdkService,
+      sshImportPromptService,
     );
   }
 
   async ngOnInit() {
     await super.ngOnInit();
     await this.load();
-
-    // https://bitwarden.atlassian.net/browse/PM-10413
-    // cannot generate ssh keys so block creation
-    if (this.type === CipherType.SshKey && this.cipherId == null) {
-      this.type = CipherType.Login;
-      this.cipher.type = CipherType.Login;
-    }
 
     this.viewOnly = !this.cipher.edit && this.editMode;
     // remove when all the title for all clients are updated to New Item
@@ -126,19 +125,18 @@ export class AddEditComponent extends BaseAddEditComponent implements OnInit, On
 
     if (this.showTotp()) {
       await this.totpUpdateCode();
-      const interval = this.totpService.getTimeInterval(this.cipher.login.totp);
-      await this.totpTick(interval);
-
-      this.totpInterval = window.setInterval(async () => {
+      const totpResponse = await firstValueFrom(this.totpService.getCode$(this.cipher.login.totp));
+      if (totpResponse) {
+        const interval = totpResponse.period;
         await this.totpTick(interval);
-      }, 1000);
+
+        this.totpInterval = window.setInterval(async () => {
+          await this.totpTick(interval);
+        }, 1000);
+      }
     }
 
-    const extensionRefreshEnabled = await firstValueFrom(
-      this.configService.getFeatureFlag$(FeatureFlag.ExtensionRefresh),
-    );
-
-    this.cardIsExpired = extensionRefreshEnabled && isCardExpired(this.cipher.card);
+    this.cardIsExpired = isCardExpired(this.cipher.card);
   }
 
   ngOnDestroy() {
@@ -185,11 +183,11 @@ export class AddEditComponent extends BaseAddEditComponent implements OnInit, On
     }
 
     this.platformUtilsService.copyToClipboard(value, { window: window });
-    this.platformUtilsService.showToast(
-      "info",
-      null,
-      this.i18nService.t("valueCopied", this.i18nService.t(typeI18nKey)),
-    );
+    this.toastService.showToast({
+      variant: "info",
+      title: null,
+      message: this.i18nService.t("valueCopied", this.i18nService.t(typeI18nKey)),
+    });
 
     if (this.editMode) {
       if (typeI18nKey === "password") {
@@ -268,7 +266,8 @@ export class AddEditComponent extends BaseAddEditComponent implements OnInit, On
       return;
     }
 
-    this.totpCode = await this.totpService.getCode(this.cipher.login.totp);
+    const totpResponse = await firstValueFrom(this.totpService.getCode$(this.cipher.login.totp));
+    this.totpCode = totpResponse?.code;
     if (this.totpCode != null) {
       if (this.totpCode.length > 4) {
         const half = Math.floor(this.totpCode.length / 2);

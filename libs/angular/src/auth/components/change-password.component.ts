@@ -6,16 +6,14 @@ import { Subject, firstValueFrom, map, takeUntil } from "rxjs";
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { MasterPasswordPolicyOptions } from "@bitwarden/common/admin-console/models/domain/master-password-policy-options";
 import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
-import { InternalMasterPasswordServiceAbstraction } from "@bitwarden/common/auth/abstractions/master-password.service.abstraction";
+import { InternalMasterPasswordServiceAbstraction } from "@bitwarden/common/key-management/master-password/abstractions/master-password.service.abstraction";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
-import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { EncString } from "@bitwarden/common/platform/models/domain/enc-string";
 import { UserKey, MasterKey } from "@bitwarden/common/types/key";
 import { DialogService, ToastService } from "@bitwarden/components";
-import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legacy";
 import { KdfConfig, KdfConfigService, KeyService } from "@bitwarden/key-management";
 
 import { PasswordColorText } from "../../tools/password-strength/password-strength.component";
@@ -41,10 +39,8 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     protected i18nService: I18nService,
     protected keyService: KeyService,
     protected messagingService: MessagingService,
-    protected passwordGenerationService: PasswordGenerationServiceAbstraction,
     protected platformUtilsService: PlatformUtilsService,
     protected policyService: PolicyService,
-    protected stateService: StateService,
     protected dialogService: DialogService,
     protected kdfConfigService: KdfConfigService,
     protected masterPasswordService: InternalMasterPasswordServiceAbstraction,

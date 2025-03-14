@@ -5,17 +5,17 @@ import { Router } from "@angular/router";
 import { firstValueFrom, map } from "rxjs";
 
 import { ChangePasswordComponent as BaseChangePasswordComponent } from "@bitwarden/angular/auth/components/change-password.component";
-import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { AuditService } from "@bitwarden/common/abstractions/audit.service";
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
-import { InternalMasterPasswordServiceAbstraction } from "@bitwarden/common/auth/abstractions/master-password.service.abstraction";
+import { MasterPasswordApiService } from "@bitwarden/common/auth/abstractions/master-password-api.service.abstraction";
 import { UserVerificationService } from "@bitwarden/common/auth/abstractions/user-verification/user-verification.service.abstraction";
 import { PasswordRequest } from "@bitwarden/common/auth/models/request/password.request";
+import { getUserId } from "@bitwarden/common/auth/services/account.service";
+import { InternalMasterPasswordServiceAbstraction } from "@bitwarden/common/key-management/master-password/abstractions/master-password.service.abstraction";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
-import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { HashPurpose } from "@bitwarden/common/platform/enums";
 import { EncString } from "@bitwarden/common/platform/models/domain/enc-string";
 import { UserId } from "@bitwarden/common/types/guid";
@@ -23,7 +23,6 @@ import { MasterKey, UserKey } from "@bitwarden/common/types/key";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
 import { DialogService, ToastService } from "@bitwarden/components";
-import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legacy";
 import { KdfConfigService, KeyService } from "@bitwarden/key-management";
 
 import { UserKeyRotationService } from "../../key-management/key-rotation/user-key-rotation.service";
@@ -46,14 +45,12 @@ export class ChangePasswordComponent
     i18nService: I18nService,
     keyService: KeyService,
     messagingService: MessagingService,
-    stateService: StateService,
-    passwordGenerationService: PasswordGenerationServiceAbstraction,
     platformUtilsService: PlatformUtilsService,
     policyService: PolicyService,
     private auditService: AuditService,
     private cipherService: CipherService,
     private syncService: SyncService,
-    private apiService: ApiService,
+    private masterPasswordApiService: MasterPasswordApiService,
     private router: Router,
     dialogService: DialogService,
     private userVerificationService: UserVerificationService,
@@ -67,10 +64,8 @@ export class ChangePasswordComponent
       i18nService,
       keyService,
       messagingService,
-      passwordGenerationService,
       platformUtilsService,
       policyService,
-      stateService,
       dialogService,
       kdfConfigService,
       masterPasswordService,
@@ -93,7 +88,9 @@ export class ChangePasswordComponent
 
   async rotateUserKeyClicked() {
     if (this.rotateUserKey) {
-      const ciphers = await this.cipherService.getAllDecrypted();
+      const activeUserId = await firstValueFrom(this.accountService.activeAccount$.pipe(getUserId));
+
+      const ciphers = await this.cipherService.getAllDecrypted(activeUserId);
       let hasOldAttachments = false;
       if (ciphers != null) {
         for (let i = 0; i < ciphers.length; i++) {
@@ -188,7 +185,7 @@ export class ChangePasswordComponent
       await this.kdfConfigService.getKdfConfig(),
     );
 
-    const userId = await firstValueFrom(this.accountService.activeAccount$.pipe(map((a) => a?.id)));
+    const userId = await firstValueFrom(getUserId(this.accountService.activeAccount$));
     const newLocalKeyHash = await this.keyService.hashMasterKey(
       this.masterPassword,
       newMasterKey,
@@ -216,14 +213,14 @@ export class ChangePasswordComponent
 
     try {
       if (this.rotateUserKey) {
-        this.formPromise = this.apiService.postPassword(request).then(async () => {
+        this.formPromise = this.masterPasswordApiService.postPassword(request).then(async () => {
           // we need to save this for local masterkey verification during rotation
           await this.masterPasswordService.setMasterKeyHash(newLocalKeyHash, userId as UserId);
           await this.masterPasswordService.setMasterKey(newMasterKey, userId as UserId);
           return this.updateKey();
         });
       } else {
-        this.formPromise = this.apiService.postPassword(request);
+        this.formPromise = this.masterPasswordApiService.postPassword(request);
       }
 
       await this.formPromise;

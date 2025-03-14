@@ -6,11 +6,16 @@ import {
   PinServiceAbstraction,
   UserDecryptionOptionsServiceAbstraction,
 } from "@bitwarden/auth/common";
-import { VaultTimeoutSettingsService } from "@bitwarden/common/abstractions/vault-timeout/vault-timeout-settings.service";
+import { VaultTimeoutSettingsService } from "@bitwarden/common/key-management/vault-timeout";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { UserId } from "@bitwarden/common/types/guid";
-import { KeyService, BiometricsService } from "@bitwarden/key-management";
-import { BiometricsDisableReason, UnlockOptions } from "@bitwarden/key-management/angular";
+import {
+  KeyService,
+  BiometricsService,
+  BiometricsStatus,
+  BiometricStateService,
+} from "@bitwarden/key-management";
+import { UnlockOptions } from "@bitwarden/key-management-ui";
 
 import { BrowserRouterService } from "../../../platform/popup/services/browser-router.service";
 
@@ -26,6 +31,7 @@ describe("ExtensionLockComponentService", () => {
   let vaultTimeoutSettingsService: MockProxy<VaultTimeoutSettingsService>;
   let keyService: MockProxy<KeyService>;
   let routerService: MockProxy<BrowserRouterService>;
+  let biometricStateService: MockProxy<BiometricStateService>;
 
   beforeEach(() => {
     userDecryptionOptionsService = mock<UserDecryptionOptionsServiceAbstraction>();
@@ -35,6 +41,7 @@ describe("ExtensionLockComponentService", () => {
     vaultTimeoutSettingsService = mock<VaultTimeoutSettingsService>();
     keyService = mock<KeyService>();
     routerService = mock<BrowserRouterService>();
+    biometricStateService = mock<BiometricStateService>();
 
     TestBed.configureTestingModule({
       providers: [
@@ -66,6 +73,10 @@ describe("ExtensionLockComponentService", () => {
         {
           provide: BrowserRouterService,
           useValue: routerService,
+        },
+        {
+          provide: BiometricStateService,
+          useValue: biometricStateService,
         },
       ],
     });
@@ -121,8 +132,7 @@ describe("ExtensionLockComponentService", () => {
   describe("getAvailableUnlockOptions$", () => {
     interface MockInputs {
       hasMasterPassword: boolean;
-      osSupportsBiometric: boolean;
-      biometricLockSet: boolean;
+      biometricsStatusForUser: BiometricsStatus;
       hasBiometricEncryptedUserKeyStored: boolean;
       platformSupportsSecureStorage: boolean;
       pinDecryptionAvailable: boolean;
@@ -133,8 +143,7 @@ describe("ExtensionLockComponentService", () => {
         // MP + PIN + Biometrics available
         {
           hasMasterPassword: true,
-          osSupportsBiometric: true,
-          biometricLockSet: true,
+          biometricsStatusForUser: BiometricsStatus.Available,
           hasBiometricEncryptedUserKeyStored: true,
           platformSupportsSecureStorage: true,
           pinDecryptionAvailable: true,
@@ -148,7 +157,7 @@ describe("ExtensionLockComponentService", () => {
           },
           biometrics: {
             enabled: true,
-            disableReason: null,
+            biometricsStatus: BiometricsStatus.Available,
           },
         },
       ],
@@ -156,8 +165,7 @@ describe("ExtensionLockComponentService", () => {
         // PIN + Biometrics available
         {
           hasMasterPassword: false,
-          osSupportsBiometric: true,
-          biometricLockSet: true,
+          biometricsStatusForUser: BiometricsStatus.Available,
           hasBiometricEncryptedUserKeyStored: true,
           platformSupportsSecureStorage: true,
           pinDecryptionAvailable: true,
@@ -171,7 +179,7 @@ describe("ExtensionLockComponentService", () => {
           },
           biometrics: {
             enabled: true,
-            disableReason: null,
+            biometricsStatus: BiometricsStatus.Available,
           },
         },
       ],
@@ -179,8 +187,7 @@ describe("ExtensionLockComponentService", () => {
         // Biometrics available: user key stored with no secure storage
         {
           hasMasterPassword: false,
-          osSupportsBiometric: true,
-          biometricLockSet: true,
+          biometricsStatusForUser: BiometricsStatus.Available,
           hasBiometricEncryptedUserKeyStored: true,
           platformSupportsSecureStorage: false,
           pinDecryptionAvailable: false,
@@ -194,7 +201,7 @@ describe("ExtensionLockComponentService", () => {
           },
           biometrics: {
             enabled: true,
-            disableReason: null,
+            biometricsStatus: BiometricsStatus.Available,
           },
         },
       ],
@@ -202,8 +209,7 @@ describe("ExtensionLockComponentService", () => {
         // Biometrics available: no user key stored with no secure storage
         {
           hasMasterPassword: false,
-          osSupportsBiometric: true,
-          biometricLockSet: true,
+          biometricsStatusForUser: BiometricsStatus.Available,
           hasBiometricEncryptedUserKeyStored: false,
           platformSupportsSecureStorage: false,
           pinDecryptionAvailable: false,
@@ -217,7 +223,7 @@ describe("ExtensionLockComponentService", () => {
           },
           biometrics: {
             enabled: true,
-            disableReason: null,
+            biometricsStatus: BiometricsStatus.Available,
           },
         },
       ],
@@ -225,8 +231,7 @@ describe("ExtensionLockComponentService", () => {
         // Biometrics not available: biometric lock not set
         {
           hasMasterPassword: false,
-          osSupportsBiometric: true,
-          biometricLockSet: false,
+          biometricsStatusForUser: BiometricsStatus.UnlockNeeded,
           hasBiometricEncryptedUserKeyStored: true,
           platformSupportsSecureStorage: true,
           pinDecryptionAvailable: false,
@@ -240,7 +245,7 @@ describe("ExtensionLockComponentService", () => {
           },
           biometrics: {
             enabled: false,
-            disableReason: BiometricsDisableReason.EncryptedKeysUnavailable,
+            biometricsStatus: BiometricsStatus.UnlockNeeded,
           },
         },
       ],
@@ -248,8 +253,7 @@ describe("ExtensionLockComponentService", () => {
         // Biometrics not available: user key not stored
         {
           hasMasterPassword: false,
-          osSupportsBiometric: true,
-          biometricLockSet: true,
+          biometricsStatusForUser: BiometricsStatus.NotEnabledInConnectedDesktopApp,
           hasBiometricEncryptedUserKeyStored: false,
           platformSupportsSecureStorage: true,
           pinDecryptionAvailable: false,
@@ -263,7 +267,7 @@ describe("ExtensionLockComponentService", () => {
           },
           biometrics: {
             enabled: false,
-            disableReason: BiometricsDisableReason.EncryptedKeysUnavailable,
+            biometricsStatus: BiometricsStatus.NotEnabledInConnectedDesktopApp,
           },
         },
       ],
@@ -271,8 +275,7 @@ describe("ExtensionLockComponentService", () => {
         // Biometrics not available: OS doesn't support
         {
           hasMasterPassword: false,
-          osSupportsBiometric: false,
-          biometricLockSet: true,
+          biometricsStatusForUser: BiometricsStatus.HardwareUnavailable,
           hasBiometricEncryptedUserKeyStored: true,
           platformSupportsSecureStorage: true,
           pinDecryptionAvailable: false,
@@ -286,7 +289,7 @@ describe("ExtensionLockComponentService", () => {
           },
           biometrics: {
             enabled: false,
-            disableReason: BiometricsDisableReason.NotSupportedOnOperatingSystem,
+            biometricsStatus: BiometricsStatus.HardwareUnavailable,
           },
         },
       ],
@@ -304,12 +307,17 @@ describe("ExtensionLockComponentService", () => {
       );
 
       // Biometrics
-      biometricsService.supportsBiometric.mockResolvedValue(mockInputs.osSupportsBiometric);
-      vaultTimeoutSettingsService.isBiometricLockSet.mockResolvedValue(mockInputs.biometricLockSet);
+      biometricsService.getBiometricsStatusForUser.mockResolvedValue(
+        mockInputs.biometricsStatusForUser,
+      );
+      vaultTimeoutSettingsService.isBiometricLockSet.mockResolvedValue(
+        mockInputs.hasBiometricEncryptedUserKeyStored,
+      );
       keyService.hasUserKeyStored.mockResolvedValue(mockInputs.hasBiometricEncryptedUserKeyStored);
       platformUtilsService.supportsSecureStorage.mockReturnValue(
         mockInputs.platformSupportsSecureStorage,
       );
+      biometricStateService.biometricUnlockEnabled$ = of(true);
 
       //  PIN
       pinService.isPinDecryptionAvailable.mockResolvedValue(mockInputs.pinDecryptionAvailable);

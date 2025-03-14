@@ -19,33 +19,16 @@ import { AvatarModule, ButtonModule, FormFieldModule, ToastModule } from "@bitwa
 
 import { AccountComponent } from "../auth/popup/account-switching/account.component";
 import { CurrentAccountComponent } from "../auth/popup/account-switching/current-account.component";
-import { EnvironmentComponent } from "../auth/popup/environment.component";
 import { ExtensionAnonLayoutWrapperComponent } from "../auth/popup/extension-anon-layout-wrapper/extension-anon-layout-wrapper.component";
-import { HintComponent } from "../auth/popup/hint.component";
-import { HomeComponent } from "../auth/popup/home.component";
-import { LoginDecryptionOptionsComponentV1 } from "../auth/popup/login-decryption-options/login-decryption-options-v1.component";
-import { LoginComponentV1 } from "../auth/popup/login-v1.component";
-import { LoginViaAuthRequestComponentV1 } from "../auth/popup/login-via-auth-request-v1.component";
-import { RegisterComponent } from "../auth/popup/register.component";
 import { RemovePasswordComponent } from "../auth/popup/remove-password.component";
 import { SetPasswordComponent } from "../auth/popup/set-password.component";
 import { AccountSecurityComponent } from "../auth/popup/settings/account-security.component";
 import { VaultTimeoutInputComponent } from "../auth/popup/settings/vault-timeout-input.component";
 import { SsoComponentV1 } from "../auth/popup/sso-v1.component";
-import { TwoFactorOptionsComponent } from "../auth/popup/two-factor-options.component";
-import { TwoFactorComponent } from "../auth/popup/two-factor.component";
+import { TwoFactorOptionsComponentV1 } from "../auth/popup/two-factor-options-v1.component";
+import { TwoFactorComponentV1 } from "../auth/popup/two-factor-v1.component";
 import { UpdateTempPasswordComponent } from "../auth/popup/update-temp-password.component";
-import { Fido2CipherRowV1Component } from "../autofill/popup/fido2/fido2-cipher-row-v1.component";
-import { Fido2CipherRowComponent } from "../autofill/popup/fido2/fido2-cipher-row.component";
-import { Fido2UseBrowserLinkV1Component } from "../autofill/popup/fido2/fido2-use-browser-link-v1.component";
-import { Fido2UseBrowserLinkComponent } from "../autofill/popup/fido2/fido2-use-browser-link.component";
-import { Fido2V1Component } from "../autofill/popup/fido2/fido2-v1.component";
-import { Fido2Component } from "../autofill/popup/fido2/fido2.component";
-import { AutofillV1Component } from "../autofill/popup/settings/autofill-v1.component";
 import { AutofillComponent } from "../autofill/popup/settings/autofill.component";
-import { ExcludedDomainsV1Component } from "../autofill/popup/settings/excluded-domains-v1.component";
-import { ExcludedDomainsComponent } from "../autofill/popup/settings/excluded-domains.component";
-import { NotificationsSettingsV1Component } from "../autofill/popup/settings/notifications-v1.component";
 import { NotificationsSettingsComponent } from "../autofill/popup/settings/notifications.component";
 import { PopOutComponent } from "../platform/popup/components/pop-out.component";
 import { HeaderComponent } from "../platform/popup/header.component";
@@ -87,10 +70,6 @@ import "../platform/popup/locales";
     ScrollingModule,
     ServicesModule,
     DialogModule,
-    ExcludedDomainsComponent,
-    Fido2CipherRowComponent,
-    Fido2Component,
-    Fido2UseBrowserLinkComponent,
     FilePopoutCalloutComponent,
     AvatarModule,
     AccountComponent,
@@ -111,28 +90,15 @@ import "../platform/popup/locales";
     AppComponent,
     ColorPasswordPipe,
     ColorPasswordCountPipe,
-    EnvironmentComponent,
-    ExcludedDomainsV1Component,
-    Fido2CipherRowV1Component,
-    Fido2UseBrowserLinkV1Component,
-    HintComponent,
-    HomeComponent,
-    LoginViaAuthRequestComponentV1,
-    LoginComponentV1,
-    LoginDecryptionOptionsComponentV1,
-    NotificationsSettingsV1Component,
-    RegisterComponent,
     SetPasswordComponent,
     SsoComponentV1,
     TabsV2Component,
-    TwoFactorComponent,
-    TwoFactorOptionsComponent,
+    TwoFactorComponentV1,
+    TwoFactorOptionsComponentV1,
     UpdateTempPasswordComponent,
     UserVerificationComponent,
     VaultTimeoutInputComponent,
     RemovePasswordComponent,
-    Fido2V1Component,
-    AutofillV1Component,
     EnvironmentSelectorComponent,
   ],
   exports: [],

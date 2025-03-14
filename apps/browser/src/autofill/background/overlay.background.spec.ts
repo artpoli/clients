@@ -190,7 +190,9 @@ describe("OverlayBackground", () => {
     inlineMenuFieldQualificationService = new InlineMenuFieldQualificationService();
     themeStateService = mock<ThemeStateService>();
     themeStateService.selectedTheme$ = selectedThemeMock$;
-    totpService = mock<TotpService>();
+    totpService = mock<TotpService>({
+      getCode$: jest.fn().mockReturnValue(of(undefined)),
+    });
     overlayBackground = new OverlayBackground(
       logService,
       cipherService,
@@ -206,6 +208,7 @@ describe("OverlayBackground", () => {
       inlineMenuFieldQualificationService,
       themeStateService,
       totpService,
+      accountService,
       generatedPasswordCallbackMock,
       addPasswordCallbackMock,
     );
@@ -849,7 +852,7 @@ describe("OverlayBackground", () => {
       await flushPromises();
 
       expect(BrowserApi.getTabFromCurrentWindowId).toHaveBeenCalled();
-      expect(cipherService.getAllDecryptedForUrl).toHaveBeenCalledWith(url, [
+      expect(cipherService.getAllDecryptedForUrl).toHaveBeenCalledWith(url, mockUserId, [
         CipherType.Card,
         CipherType.Identity,
       ]);
@@ -872,7 +875,7 @@ describe("OverlayBackground", () => {
       await flushPromises();
 
       expect(BrowserApi.getTabFromCurrentWindowId).toHaveBeenCalled();
-      expect(cipherService.getAllDecryptedForUrl).toHaveBeenCalledWith(url);
+      expect(cipherService.getAllDecryptedForUrl).toHaveBeenCalledWith(url, mockUserId);
       expect(cipherService.sortCiphersByLastUsedThenName).toHaveBeenCalled();
       expect(overlayBackground["inlineMenuCiphers"]).toStrictEqual(
         new Map([
@@ -891,7 +894,7 @@ describe("OverlayBackground", () => {
       await flushPromises();
 
       expect(BrowserApi.getTabFromCurrentWindowId).toHaveBeenCalled();
-      expect(cipherService.getAllDecryptedForUrl).toHaveBeenCalledWith(url, [
+      expect(cipherService.getAllDecryptedForUrl).toHaveBeenCalledWith(url, mockUserId, [
         CipherType.Card,
         CipherType.Identity,
       ]);
@@ -966,7 +969,7 @@ describe("OverlayBackground", () => {
             icon: {
               fallbackImage: "",
               icon: "bwi-credit-card",
-              image: undefined,
+              image: null,
               imageEnabled: true,
             },
             id: "inline-menu-cipher-0",
@@ -1004,7 +1007,7 @@ describe("OverlayBackground", () => {
               icon: {
                 fallbackImage: "",
                 icon: "bwi-id-card",
-                image: undefined,
+                image: null,
                 imageEnabled: true,
               },
               id: "inline-menu-cipher-1",
@@ -1045,7 +1048,7 @@ describe("OverlayBackground", () => {
               icon: {
                 fallbackImage: "",
                 icon: "bwi-id-card",
-                image: undefined,
+                image: null,
                 imageEnabled: true,
               },
               id: "inline-menu-cipher-0",
@@ -1117,7 +1120,7 @@ describe("OverlayBackground", () => {
               icon: {
                 fallbackImage: "",
                 icon: "bwi-id-card",
-                image: undefined,
+                image: null,
                 imageEnabled: true,
               },
               id: "inline-menu-cipher-1",
@@ -1923,7 +1926,17 @@ describe("OverlayBackground", () => {
 
       it("returns true if the overlay login ciphers are populated", async () => {
         overlayBackground["inlineMenuCiphers"] = new Map([
-          ["inline-menu-cipher-0", mock<CipherView>({ type: CipherType.Login })],
+          [
+            "inline-menu-cipher-0",
+            mock<CipherView>({
+              type: CipherType.Login,
+              login: {
+                username: "username1",
+                password: "password1",
+                uri: "https://example.com",
+              },
+            }),
+          ],
         ]);
         await overlayBackground["getInlineMenuCipherData"]();
 
@@ -2901,6 +2914,124 @@ describe("OverlayBackground", () => {
           },
           { frameId: 0 },
         );
+      });
+    });
+    describe("handles menu position when input is focused", () => {
+      it("sets button and menu width and position when non-multi-input totp field is focused", async () => {
+        const subframe = {
+          top: 0,
+          left: 0,
+          url: "",
+          frameId: 0,
+        };
+
+        overlayBackground["focusedFieldData"] = createFocusedFieldDataMock({
+          focusedFieldRects: {
+            width: 49.328125,
+            height: 64,
+            top: 302.171875,
+            left: 1270.8125,
+          },
+        });
+
+        const buttonPostion = overlayBackground["getInlineMenuButtonPosition"](subframe);
+        const menuPostion = overlayBackground["getInlineMenuListPosition"](subframe);
+
+        expect(menuPostion).toEqual({
+          width: "49px",
+          top: "366px",
+          left: "1271px",
+        });
+        expect(buttonPostion).toEqual({
+          width: "34px",
+          height: "34px",
+          top: "317px",
+          left: "1271px",
+        });
+      });
+      it("sets button and menu width and position when multi-input totp field is focused", async () => {
+        const subframe = {
+          top: 0,
+          left: 0,
+          url: "",
+          frameId: 0,
+        };
+
+        const totpFields = [
+          createAutofillFieldMock({ autoCompleteType: "one-time-code", opid: "__0" }),
+          createAutofillFieldMock({ autoCompleteType: "one-time-code", opid: "__1" }),
+          createAutofillFieldMock({ autoCompleteType: "one-time-code", opid: "__2" }),
+        ];
+        const allFieldData = [
+          createAutofillFieldMock({
+            autoCompleteType: "one-time-code",
+            opid: "__0",
+            rect: {
+              x: 1041.5,
+              y: 302.171875,
+              width: 49.328125,
+              height: 64,
+              top: 302.171875,
+              right: 1090.828125,
+              bottom: 366.171875,
+              left: 1041.5,
+            },
+          }),
+          createAutofillFieldMock({
+            autoCompleteType: "one-time-code",
+            opid: "__1",
+            rect: {
+              x: 1098.828125,
+              y: 302.171875,
+              width: 49.328125,
+              height: 64,
+              top: 302.171875,
+              right: 1148.15625,
+              bottom: 366.171875,
+              left: 1098.828125,
+            },
+          }),
+          createAutofillFieldMock({
+            autoCompleteType: "one-time-code",
+            opid: "__2",
+            rect: {
+              x: 1156.15625,
+              y: 302.171875,
+              width: 249.328125,
+              height: 64,
+              top: 302.171875,
+              right: 2205.484375,
+              bottom: 366.171875,
+              left: 2156.15625,
+            },
+          }),
+        ];
+        overlayBackground["focusedFieldData"] = createFocusedFieldDataMock({
+          focusedFieldRects: {
+            width: 49.328125,
+            height: 64,
+            top: 302.171875,
+            left: 1270.8125,
+          },
+        });
+
+        overlayBackground["allFieldData"] = allFieldData;
+        jest.spyOn(overlayBackground as any, "isTotpFieldForCurrentField").mockReturnValue(true);
+        jest.spyOn(overlayBackground as any, "getTotpFields").mockReturnValue(totpFields);
+
+        const buttonPostion = overlayBackground["getInlineMenuButtonPosition"](subframe);
+        const menuPostion = overlayBackground["getInlineMenuListPosition"](subframe);
+        expect(menuPostion).toEqual({
+          width: "1164px",
+          top: "366px",
+          left: "1042px",
+        });
+        expect(buttonPostion).toEqual({
+          width: "34px",
+          height: "34px",
+          top: "292px",
+          left: "2187px",
+        });
       });
     });
 

@@ -9,6 +9,7 @@ import {
   NotificationType,
 } from "../../../notification/abstractions/notification-bar";
 import { NotificationCipherData } from "../cipher/types";
+import { CollectionView, FolderView, OrgView } from "../common-types";
 import { themes, spacing } from "../constants/styles";
 
 import { NotificationBody, componentClassPrefix as notificationBodyClassPrefix } from "./body";
@@ -18,23 +19,31 @@ import {
   componentClassPrefix as notificationHeaderClassPrefix,
 } from "./header";
 
-export function NotificationContainer({
-  handleCloseNotification,
-  i18n,
-  theme = ThemeTypes.Light,
-  type,
-  ciphers,
-  handleSaveAction,
-  handleEditOrUpdateAction,
-}: NotificationBarIframeInitData & {
+export type NotificationContainerProps = NotificationBarIframeInitData & {
   handleCloseNotification: (e: Event) => void;
   handleSaveAction: (e: Event) => void;
   handleEditOrUpdateAction: (e: Event) => void;
 } & {
+  ciphers?: NotificationCipherData[];
+  collections?: CollectionView[];
+  folders?: FolderView[];
   i18n: { [key: string]: string };
+  organizations?: OrgView[];
   type: NotificationType; // @TODO typing override for generic `NotificationBarIframeInitData.type`
-  ciphers: NotificationCipherData[];
-}) {
+};
+
+export function NotificationContainer({
+  handleCloseNotification,
+  handleEditOrUpdateAction,
+  handleSaveAction,
+  ciphers,
+  collections,
+  folders,
+  i18n,
+  organizations,
+  theme = ThemeTypes.Light,
+  type,
+}: NotificationContainerProps) {
   const headerMessage = getHeaderMessage(i18n, type);
   const showBody = true;
 
@@ -42,8 +51,8 @@ export function NotificationContainer({
     <div class=${notificationContainerStyles(theme)}>
       ${NotificationHeader({
         handleCloseNotification,
-        standalone: showBody,
         message: headerMessage,
+        standalone: showBody,
         theme,
       })}
       ${showBody
@@ -52,13 +61,17 @@ export function NotificationContainer({
             ciphers,
             notificationType: type,
             theme,
+            i18n,
           })
         : null}
       ${NotificationFooter({
         handleSaveAction,
-        theme,
-        notificationType: type,
+        collections,
+        folders,
         i18n,
+        notificationType: type,
+        organizations,
+        theme,
       })}
     </div>
   `;
@@ -86,9 +99,9 @@ const notificationContainerStyles = (theme: Theme) => css`
 function getHeaderMessage(i18n: { [key: string]: string }, type?: NotificationType) {
   switch (type) {
     case NotificationTypes.Add:
-      return i18n.saveAsNewLoginAction;
+      return i18n.saveLogin;
     case NotificationTypes.Change:
-      return i18n.updateLoginPrompt;
+      return i18n.updateLogin;
     case NotificationTypes.Unlock:
       return "";
     default:

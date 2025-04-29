@@ -532,7 +532,7 @@
     "description": "Label for the password generator lowercase character checkbox"
   },
   "numbersDescription": {
-    "message": "העתק מספרים",
+    "message": "כלול מספרים",
     "description": "Full description for the password generator numbers checkbox"
   },
   "numbersLabel": {
@@ -825,25 +825,13 @@
     "message": "האימות בוטל או לקח זמן רב מדי. נא לנסות שוב."
   },
   "openInNewTab": {
-    "message": "פתח בכרטיסייה חדשה"
+    "message": "פתח בכרטיסיה חדשה"
   },
   "invalidVerificationCode": {
     "message": "קוד אימות שגוי"
   },
   "continue": {
     "message": "המשך"
-  },
-  "enterVerificationCodeApp": {
-    "message": "הכנס את קוד האימות בן 6 הספרות מאפליקציית האימות שלך."
-  },
-  "enterVerificationCodeEmail": {
-    "message": "הכנס את קוד האימות בן 6 הספרות שנשלח ל-$EMAIL$.",
-    "placeholders": {
-      "email": {
-        "content": "$1",
-        "example": "example@gmail.com"
-      }
-    }
   },
   "verificationCodeEmailSent": {
     "message": "מייל אימות נשלח לכתובת $EMAIL$.",
@@ -854,17 +842,8 @@
       }
     }
   },
-  "rememberMe": {
-    "message": "זכור אותי"
-  },
   "dontAskAgainOnThisDeviceFor30Days": {
     "message": "אל תשאל אותי שוב במכשיר זה למשך 30 יום"
-  },
-  "sendVerificationCodeEmailAgain": {
-    "message": "שלח שוב קוד אימות לאימייל"
-  },
-  "useAnotherTwoStepMethod": {
-    "message": "השתמש בשיטה אחרת עבור כניסה דו שלבית"
   },
   "selectAnotherMethod": {
     "message": "בחר שיטה אחרת",
@@ -872,9 +851,6 @@
   },
   "useYourRecoveryCode": {
     "message": "השתמש בקוד השחזור שלך"
-  },
-  "insertYubiKey": {
-    "message": "הכנס את ה-YubiKey אל כניסת ה-USB במחשבך, ואז גע בכפתור שלו."
   },
   "insertU2f": {
     "message": "הכנס את מפתח האבטחה שלך אל כניסת ה-USB במחשבך. אם יש לו כפתור, גע בו."
@@ -2096,6 +2072,9 @@
   "personalOwnershipSubmitError": {
     "message": "בשל מדיניות ארגונית, אתה מוגבל מלשמור פריטים לכספת האישית שלך. שנה את אפשרות הבעלות לארגון ובחר מאוספים זמינים."
   },
+  "yourNewPasswordCannotBeTheSameAsYourCurrentPassword": {
+    "message": "Your new password cannot be the same as your current password."
+  },
   "hintEqualsPassword": {
     "message": "רמז הסיסמה שלך לא יכול להיות אותו הדבר כמו הסיסמה שלך."
   },
@@ -2305,7 +2284,7 @@
     "message": "עדכון סיסמה ראשית"
   },
   "updateMasterPasswordWarning": {
-    "message": "הסיסמה הראשית שלך שונתה לאחרונה על ידי מנהל הארגון שלך. כדי לגשת לכספת, עליך לעדכן אותה כעת. המשך התהליך יוציא אותך מההפעלה הנוכחית שלך ותידרש להיכנס חזרה. הפעלות פעילות במכשירים אחרים עלולות להישאר פעילות למשך עד שעה אחת."
+    "message": "הסיסמה הראשית שלך שונתה לאחרונה על ידי מנהל הארגון שלך. כדי לגשת לכספת, עליך לעדכן אותה כעת. המשך התהליך יוציא אותך מההפעלה הנוכחית שלך, מה שידרוש ממך להיכנס חזרה. הפעלות פעילות במכשירים אחרים עלולות להישאר פעילות למשך עד שעה אחת."
   },
   "updateWeakMasterPasswordWarning": {
     "message": "הסיסמה הראשית שלך אינה עומדת באחת או יותר מפוליסות הארגון שלך. כדי לגשת לכספת, אתה מוכרח לעדכן את הסיסמה הראשית שלך עכשיו. בהמשך תנותק מההפעלה הנוכחית שלך, מה שידרוש ממך להיכנס חזרה. הפעלות פעילות במכשירים אחרים עלולות להישאר פעילות למשך עד שעה אחת."
@@ -2483,6 +2462,15 @@
   },
   "exportingIndividualVaultDescription": {
     "message": "רק פריטי הכספת האישית המשויכת עם $EMAIL$ ייוצאו. פריטי כספת ארגון לא יכללו. רק פרטי פריט כספת ייוצאו ולא יכללו צרופות משויכות.",
+    "placeholders": {
+      "email": {
+        "content": "$1",
+        "example": "name@example.com"
+      }
+    }
+  },
+  "exportingIndividualVaultWithAttachmentsDescription": {
+    "message": "Only the individual vault items including attachments associated with $EMAIL$ will be exported. Organization vault items will not be included",
     "placeholders": {
       "email": {
         "content": "$1",
@@ -3155,7 +3143,7 @@
     "message": "תפריט משנה"
   },
   "toggleSideNavigation": {
-    "message": "פתח או סגור ניווט צדדי"
+    "message": "החלף מצב ניווט צדדי"
   },
   "skipToContent": {
     "message": "דלג לתוכן"
@@ -3215,9 +3203,6 @@
   "duoHealthCheckResultsInNullAuthUrlError": {
     "message": "שגיאה בהתחברות עם השירות Duo. השתמש בשיטת כניסה דו־שלבית אחרת או פנה אל Duo לסיוע."
   },
-  "launchDuoAndFollowStepsToFinishLoggingIn": {
-    "message": "פתח את Duo ועקוב אחר השלבים כדי לסיים להיכנס."
-  },
   "duoRequiredByOrgForAccount": {
     "message": "נדרשת כניסה דו־שלבית של Duo עבור החשבון שלך."
   },
@@ -3249,7 +3234,7 @@
     "message": "למד על אפשרויות הייבוא שלך"
   },
   "selectImportFolder": {
-    "message": "בחר תיקיה"
+    "message": "בחר תיקייה"
   },
   "selectImportCollection": {
     "message": "בחר אוסף"
@@ -3302,7 +3287,7 @@
     "message": "אשר סיסמת קובץ"
   },
   "exportSuccess": {
-    "message": "נתוני כספת יוצאו"
+    "message": "נתוני הכספת יוצאו"
   },
   "multifactorAuthenticationCancelled": {
     "message": "אימות רב־גורמי בוטל"
@@ -3521,7 +3506,7 @@
     "message": "מפתח SSH יובא בהצלחה"
   },
   "fileSavedToDevice": {
-    "message": "קובץ נשמר למכשיר. נהל מהורדות המכשיר שלך."
+    "message": "הקובץ נשמר למכשיר. נהל מהורדות המכשיר שלך."
   },
   "importantNotice": {
     "message": "הודעה חשובה"
@@ -3579,5 +3564,8 @@
   },
   "changeAtRiskPassword": {
     "message": "שנה סיסמה בסיכון"
+  },
+  "move": {
+    "message": "Move"
   }
 }

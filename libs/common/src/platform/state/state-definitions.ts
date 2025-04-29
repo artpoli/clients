@@ -131,6 +131,10 @@ export const THEMING_DISK = new StateDefinition("theming", "disk", { web: "disk-
 export const TRANSLATION_DISK = new StateDefinition("translation", "disk", { web: "disk-local" });
 export const ANIMATION_DISK = new StateDefinition("animation", "disk");
 export const TASK_SCHEDULER_DISK = new StateDefinition("taskScheduler", "disk");
+export const EXTENSION_INITIAL_INSTALL_DISK = new StateDefinition(
+  "extensionInitialInstall",
+  "disk",
+);
 
 // Design System
 
@@ -202,3 +206,8 @@ export const VAULT_APPEARANCE = new StateDefinition("vaultAppearance", "disk");
 export const SECURITY_TASKS_DISK = new StateDefinition("securityTasks", "disk");
 export const AT_RISK_PASSWORDS_PAGE_DISK = new StateDefinition("atRiskPasswordsPage", "disk");
 export const NOTIFICATION_DISK = new StateDefinition("notifications", "disk");
+export const VAULT_NUDGES_DISK = new StateDefinition("vaultNudges", "disk");
+export const VAULT_BROWSER_INTRO_CAROUSEL = new StateDefinition(
+  "vaultBrowserIntroCarousel",
+  "disk",
+);

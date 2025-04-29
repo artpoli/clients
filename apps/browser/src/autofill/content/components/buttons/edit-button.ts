@@ -21,11 +21,12 @@ export function EditButton({
     <button
       type="button"
       title=${buttonText}
+      aria-label=${buttonText}
       class=${editButtonStyles({ disabled, theme })}
       @click=${(event: Event) => {
-        // FIXME: Remove when updating file. Eslint update
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        !disabled && buttonAction(event);
+        if (!disabled) {
+          buttonAction(event);
+        }
       }}
     >
       ${PencilSquare({ disabled, theme })}

@@ -11,10 +11,12 @@ import {
   SymmetricCryptoKey,
 } from "@bitwarden/common/platform/models/domain/symmetric-crypto-key";
 import { CsprngArray } from "@bitwarden/common/types/csprng";
+import { PureCrypto } from "@bitwarden/sdk-internal";
 
 import { makeStaticByteArray } from "../../../../spec";
 import { DefaultFeatureFlagValue, FeatureFlag } from "../../../enums/feature-flag.enum";
 import { ServerConfig } from "../../../platform/abstractions/config/server-config";
+import { SdkLoadService } from "../../../platform/abstractions/sdk/sdk-load.service";
 
 import { EncryptServiceImplementation } from "./encrypt.service.implementation";
 
@@ -343,6 +345,24 @@ describe("EncryptService", () => {
       );
     });
 
+    it("calls PureCrypto when useSDKForDecryption is true", async () => {
+      (encryptService as any).useSDKForDecryption = true;
+      const decryptedBytes = makeStaticByteArray(10, 200);
+      Object.defineProperty(SdkLoadService, "Ready", {
+        value: Promise.resolve(),
+        configurable: true,
+      });
+      jest.spyOn(PureCrypto, "symmetric_decrypt_array_buffer").mockReturnValue(decryptedBytes);
+
+      const actual = await encryptService.decryptToBytes(encBuffer, key);
+
+      expect(PureCrypto.symmetric_decrypt_array_buffer).toHaveBeenCalledWith(
+        encBuffer.buffer,
+        key.toEncoded(),
+      );
+      expect(actual).toEqualBuffer(decryptedBytes);
+    });
+
     it("decrypts data with provided key for Aes256CbcHmac", async () => {
       const decryptedBytes = makeStaticByteArray(10, 200);
 
@@ -450,6 +470,25 @@ describe("EncryptService", () => {
       );
     });
 
+    it("calls PureCrypto when useSDKForDecryption is true", async () => {
+      (encryptService as any).useSDKForDecryption = true;
+      const key = new SymmetricCryptoKey(makeStaticByteArray(64, 0));
+      const encString = new EncString(EncryptionType.AesCbc256_HmacSha256_B64, "data", "iv", "mac");
+      Object.defineProperty(SdkLoadService, "Ready", {
+        value: Promise.resolve(),
+        configurable: true,
+      });
+      jest.spyOn(PureCrypto, "symmetric_decrypt").mockReturnValue("data");
+
+      const actual = await encryptService.decryptToUtf8(encString, key);
+
+      expect(actual).toEqual("data");
+      expect(PureCrypto.symmetric_decrypt).toHaveBeenCalledWith(
+        encString.encryptedString,
+        key.toEncoded(),
+      );
+    });
+
     it("decrypts data with provided key for AesCbc256_HmacSha256", async () => {
       const key = new SymmetricCryptoKey(makeStaticByteArray(64, 0));
       const encString = new EncString(EncryptionType.AesCbc256_HmacSha256_B64, "data", "iv", "mac");
@@ -535,6 +574,98 @@ describe("EncryptService", () => {
       const actual = await encryptService.decryptToUtf8(encString, key);
       expect(actual).toBeNull();
       expect(logService.error).toHaveBeenCalled();
+    });
+  });
+
+  describe("encryptString", () => {
+    it("is a proxy to encrypt", async () => {
+      const key = new SymmetricCryptoKey(makeStaticByteArray(64));
+      const plainValue = "data";
+      encryptService.encrypt = jest.fn();
+      await encryptService.encryptString(plainValue, key);
+      expect(encryptService.encrypt).toHaveBeenCalledWith(plainValue, key);
+    });
+  });
+
+  describe("encryptBytes", () => {
+    it("is a proxy to encrypt", async () => {
+      const key = new SymmetricCryptoKey(makeStaticByteArray(64));
+      const plainValue = makeStaticByteArray(16, 1);
+      encryptService.encrypt = jest.fn();
+      await encryptService.encryptBytes(plainValue, key);
+      expect(encryptService.encrypt).toHaveBeenCalledWith(plainValue, key);
+    });
+  });
+
+  describe("encryptFileData", () => {
+    it("is a proxy to encryptToBytes", async () => {
+      const key = new SymmetricCryptoKey(makeStaticByteArray(64));
+      const plainValue = makeStaticByteArray(16, 1);
+      encryptService.encryptToBytes = jest.fn();
+      await encryptService.encryptFileData(plainValue, key);
+      expect(encryptService.encryptToBytes).toHaveBeenCalledWith(plainValue, key);
+    });
+  });
+
+  describe("decryptString", () => {
+    it("is a proxy to decryptToUtf8", async () => {
+      const key = new SymmetricCryptoKey(makeStaticByteArray(64));
+      const encString = new EncString(EncryptionType.AesCbc256_B64, "data");
+      encryptService.decryptToUtf8 = jest.fn();
+      await encryptService.decryptString(encString, key);
+      expect(encryptService.decryptToUtf8).toHaveBeenCalledWith(encString, key);
+    });
+  });
+
+  describe("decryptBytes", () => {
+    it("is a proxy to decryptToBytes", async () => {
+      const key = new SymmetricCryptoKey(makeStaticByteArray(64));
+      const encString = new EncString(EncryptionType.AesCbc256_B64, "data");
+      encryptService.decryptToBytes = jest.fn();
+      await encryptService.decryptBytes(encString, key);
+      expect(encryptService.decryptToBytes).toHaveBeenCalledWith(encString, key);
+    });
+  });
+
+  describe("decryptFileData", () => {
+    it("is a proxy to decrypt", async () => {
+      const key = new SymmetricCryptoKey(makeStaticByteArray(64));
+      const encString = new EncArrayBuffer(makeStaticByteArray(60, EncryptionType.AesCbc256_B64));
+      encryptService.decryptToBytes = jest.fn();
+      await encryptService.decryptFileData(encString, key);
+      expect(encryptService.decryptToBytes).toHaveBeenCalledWith(encString, key);
+    });
+  });
+
+  describe("unwrapDecapsulationKey", () => {
+    it("is a proxy to decryptBytes", async () => {
+      const key = new SymmetricCryptoKey(makeStaticByteArray(64));
+      const encString = new EncString(EncryptionType.AesCbc256_B64, "data");
+      encryptService.decryptBytes = jest.fn();
+      await encryptService.unwrapDecapsulationKey(encString, key);
+      expect(encryptService.decryptBytes).toHaveBeenCalledWith(encString, key);
+    });
+  });
+
+  describe("unwrapEncapsulationKey", () => {
+    it("is a proxy to decryptBytes", async () => {
+      const key = new SymmetricCryptoKey(makeStaticByteArray(64));
+      const encString = new EncString(EncryptionType.AesCbc256_B64, "data");
+      encryptService.decryptBytes = jest.fn();
+      await encryptService.unwrapEncapsulationKey(encString, key);
+      expect(encryptService.decryptBytes).toHaveBeenCalledWith(encString, key);
+    });
+  });
+
+  describe("unwrapSymmetricKey", () => {
+    it("is a proxy to decryptBytes", async () => {
+      const key = new SymmetricCryptoKey(makeStaticByteArray(64));
+      const encString = new EncString(EncryptionType.AesCbc256_B64, "data");
+      const jestFn = jest.fn();
+      jestFn.mockResolvedValue(new Uint8Array(64));
+      encryptService.decryptBytes = jestFn;
+      await encryptService.unwrapSymmetricKey(encString, key);
+      expect(encryptService.decryptBytes).toHaveBeenCalledWith(encString, key);
     });
   });
 

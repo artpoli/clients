@@ -15,13 +15,9 @@ import {
   unauthGuardFn,
 } from "@bitwarden/angular/auth/guards";
 import { featureFlaggedRoute } from "@bitwarden/angular/platform/utils/feature-flagged-route";
-import { NewDeviceVerificationNoticeGuard } from "@bitwarden/angular/vault/guards";
 import {
-  AnonLayoutWrapperComponent,
-  AnonLayoutWrapperData,
   LoginComponent,
   LoginSecondaryContentComponent,
-  LockIcon,
   LoginViaAuthRequestComponent,
   PasswordHintComponent,
   RegistrationFinishComponent,
@@ -43,14 +39,9 @@ import {
   DeviceVerificationIcon,
 } from "@bitwarden/auth/angular";
 import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
+import { AnonLayoutWrapperComponent, AnonLayoutWrapperData, Icons } from "@bitwarden/components";
 import { LockComponent } from "@bitwarden/key-management-ui";
-import {
-  NewDeviceVerificationNoticePageOneComponent,
-  NewDeviceVerificationNoticePageTwoComponent,
-  VaultIcons,
-} from "@bitwarden/vault";
 
-import { AccessibilityCookieComponent } from "../auth/accessibility-cookie.component";
 import { maxAccountsGuardFn } from "../auth/guards/max-accounts.guard";
 import { SetPasswordComponent } from "../auth/set-password.component";
 import { UpdateTempPasswordComponent } from "../auth/update-temp-password.component";
@@ -108,43 +99,15 @@ const routes: Routes = [
       },
     } satisfies RouteDataProperties & AnonLayoutWrapperData,
   },
-  {
-    path: "new-device-notice",
-    component: AnonLayoutWrapperComponent,
-    canActivate: [],
-    children: [
-      {
-        path: "",
-        component: NewDeviceVerificationNoticePageOneComponent,
-        data: {
-          pageIcon: VaultIcons.ExclamationTriangle,
-          pageTitle: {
-            key: "importantNotice",
-          },
-        },
-      },
-      {
-        path: "setup",
-        component: NewDeviceVerificationNoticePageTwoComponent,
-        data: {
-          pageIcon: VaultIcons.UserLock,
-          pageTitle: {
-            key: "setupTwoStepLogin",
-          },
-        },
-      },
-    ],
-  },
   ...featureFlaggedRoute({
     defaultComponent: VaultComponent,
     flaggedComponent: VaultV2Component,
     featureFlag: FeatureFlag.PM18520_UpdateDesktopCipherForm,
     routeOptions: {
       path: "vault",
-      canActivate: [authGuard, NewDeviceVerificationNoticeGuard],
+      canActivate: [authGuard],
     },
   }),
-  { path: "accessibility-cookie", component: AccessibilityCookieComponent },
   { path: "set-password", component: SetPasswordComponent },
   {
     path: "send",
@@ -257,6 +220,9 @@ const routes: Routes = [
             path: "",
             component: EnvironmentSelectorComponent,
             outlet: "environment-selector",
+            data: {
+              overlayPosition: DesktopDefaultOverlayPosition,
+            },
           },
         ],
       },
@@ -277,6 +243,9 @@ const routes: Routes = [
             path: "",
             component: EnvironmentSelectorComponent,
             outlet: "environment-selector",
+            data: {
+              overlayPosition: DesktopDefaultOverlayPosition,
+            },
           },
         ],
       },
@@ -311,6 +280,9 @@ const routes: Routes = [
             path: "",
             component: EnvironmentSelectorComponent,
             outlet: "environment-selector",
+            data: {
+              overlayPosition: DesktopDefaultOverlayPosition,
+            },
           },
         ],
       },
@@ -318,7 +290,7 @@ const routes: Routes = [
         path: "lock",
         canActivate: [lockGuard()],
         data: {
-          pageIcon: LockIcon,
+          pageIcon: Icons.LockIcon,
           pageTitle: {
             key: "yourVaultIsLockedV2",
           },

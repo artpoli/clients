@@ -37,6 +37,52 @@ export function getNestedCollectionTree(
   return nodes;
 }
 
+export function getNestedCollectionTree_vNext(
+  collections: (CollectionView | CollectionAdminView)[],
+): TreeNode<CollectionView | CollectionAdminView>[] {
+  if (!collections) {
+    return [];
+  }
+
+  // Collections need to be cloned because ServiceUtils.nestedTraverse actively
+  // modifies the names of collections.
+  // These changes risk affecting collections store in StateService.
+  const clonedCollections = collections
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map(cloneCollection);
+
+  const nodes: TreeNode<CollectionView | CollectionAdminView>[] = [];
+  clonedCollections.forEach((collection) => {
+    const parts =
+      collection.name != null
+        ? collection.name.replace(/^\/+|\/+$/g, "").split(NestingDelimiter)
+        : [];
+    ServiceUtils.nestedTraverse_vNext(nodes, 0, parts, collection, null, NestingDelimiter);
+  });
+  return nodes;
+}
+
+export function getFlatCollectionTree(
+  nodes: TreeNode<CollectionAdminView>[],
+): CollectionAdminView[];
+export function getFlatCollectionTree(nodes: TreeNode<CollectionView>[]): CollectionView[];
+export function getFlatCollectionTree(
+  nodes: TreeNode<CollectionView | CollectionAdminView>[],
+): (CollectionView | CollectionAdminView)[] {
+  if (!nodes || nodes.length === 0) {
+    return [];
+  }
+
+  return nodes.flatMap((node) => {
+    if (!node.children || node.children.length === 0) {
+      return [node.node];
+    }
+
+    const children = getFlatCollectionTree(node.children);
+    return [node.node, ...children];
+  });
+}
+
 function cloneCollection(collection: CollectionView): CollectionView;
 function cloneCollection(collection: CollectionAdminView): CollectionAdminView;
 function cloneCollection(

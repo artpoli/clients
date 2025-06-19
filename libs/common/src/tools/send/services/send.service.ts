@@ -2,6 +2,8 @@
 // @ts-strict-ignore
 import { Observable, concatMap, distinctUntilChanged, firstValueFrom, map } from "rxjs";
 
+// This import has been flagged as unallowed for this class. It may be involved in a circular dependency loop.
+// eslint-disable-next-line no-restricted-imports
 import { PBKDF2KdfConfig, KeyService } from "@bitwarden/key-management";
 
 import { EncryptService } from "../../../key-management/crypto/abstractions/encrypt.service";
@@ -86,12 +88,12 @@ export class SendService implements InternalSendServiceAbstraction {
       userKey = await this.keyService.getUserKey();
     }
     // Key is not a SymmetricCryptoKey, but key material used to derive the cryptoKey
-    send.key = await this.encryptService.encrypt(model.key, userKey);
-    send.name = await this.encryptService.encrypt(model.name, model.cryptoKey);
-    send.notes = await this.encryptService.encrypt(model.notes, model.cryptoKey);
+    send.key = await this.encryptService.encryptBytes(model.key, userKey);
+    send.name = await this.encryptService.encryptString(model.name, model.cryptoKey);
+    send.notes = await this.encryptService.encryptString(model.notes, model.cryptoKey);
     if (send.type === SendType.Text) {
       send.text = new SendText();
-      send.text.text = await this.encryptService.encrypt(model.text.text, model.cryptoKey);
+      send.text.text = await this.encryptService.encryptString(model.text.text, model.cryptoKey);
       send.text.hidden = model.text.hidden;
     } else if (send.type === SendType.File) {
       send.file = new SendFile();
@@ -292,10 +294,9 @@ export class SendService implements InternalSendServiceAbstraction {
   ) {
     const requests = await Promise.all(
       sends.map(async (send) => {
-        const sendKey = new SymmetricCryptoKey(
-          await this.encryptService.decryptToBytes(send.key, originalUserKey),
-        );
-        send.key = await this.encryptService.wrapSymmetricKey(sendKey, rotateUserKey);
+        // Send key is not a key but a 16 byte seed used to derive the key
+        const sendKey = await this.encryptService.decryptBytes(send.key, originalUserKey);
+        send.key = await this.encryptService.encryptBytes(sendKey, rotateUserKey);
         return new SendWithIdRequest(send);
       }),
     );
@@ -333,8 +334,8 @@ export class SendService implements InternalSendServiceAbstraction {
     if (key == null) {
       key = await this.keyService.getUserKey();
     }
-    const encFileName = await this.encryptService.encrypt(fileName, key);
-    const encFileData = await this.encryptService.encryptToBytes(new Uint8Array(data), key);
+    const encFileName = await this.encryptService.encryptString(fileName, key);
+    const encFileData = await this.encryptService.encryptFileData(new Uint8Array(data), key);
     return [encFileName, encFileData];
   }
 

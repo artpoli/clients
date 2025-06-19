@@ -49,7 +49,9 @@ import { OrganizationBillingServiceAbstraction } from "@bitwarden/common/billing
 import { BillingAccountProfileStateService } from "@bitwarden/common/billing/abstractions/account/billing-account-profile-state.service";
 import { BillingApiServiceAbstraction } from "@bitwarden/common/billing/abstractions/billing-api.service.abstraction";
 import { EventType } from "@bitwarden/common/enums";
+import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
+import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
@@ -64,6 +66,7 @@ import { CipherRepromptType } from "@bitwarden/common/vault/enums/cipher-repromp
 import { TreeNode } from "@bitwarden/common/vault/models/domain/tree-node";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 import { ServiceUtils } from "@bitwarden/common/vault/service-utils";
+import { RestrictedItemTypesService } from "@bitwarden/common/vault/services/restricted-item-types.service";
 import { filterOutNullish } from "@bitwarden/common/vault/utils/observable-utilities";
 import { DialogRef, DialogService, Icons, ToastService } from "@bitwarden/components";
 import {
@@ -79,7 +82,11 @@ import {
   PasswordRepromptService,
 } from "@bitwarden/vault";
 
-import { getNestedCollectionTree } from "../../admin-console/organizations/collections";
+import {
+  getNestedCollectionTree,
+  getFlatCollectionTree,
+  getNestedCollectionTree_vNext,
+} from "../../admin-console/organizations/collections";
 import {
   CollectionDialogAction,
   CollectionDialogTabType,
@@ -127,7 +134,6 @@ const BroadcasterSubscriptionId = "VaultComponent";
 const SearchTextDebounceInterval = 200;
 
 @Component({
-  standalone: true,
   selector: "app-vault",
   templateUrl: "vault.component.html",
   imports: [
@@ -267,6 +273,8 @@ export class VaultComponent implements OnInit, OnDestroy {
     private trialFlowService: TrialFlowService,
     private organizationBillingService: OrganizationBillingServiceAbstraction,
     private billingNotificationService: BillingNotificationService,
+    private configService: ConfigService,
+    private restrictedItemTypesService: RestrictedItemTypesService,
   ) {}
 
   async ngOnInit() {
@@ -323,8 +331,15 @@ export class VaultComponent implements OnInit, OnDestroy {
 
     const filter$ = this.routedVaultFilterService.filter$;
     const allCollections$ = this.collectionService.decryptedCollections$;
-    const nestedCollections$ = allCollections$.pipe(
-      map((collections) => getNestedCollectionTree(collections)),
+    const nestedCollections$ = combineLatest([
+      allCollections$,
+      this.configService.getFeatureFlag$(FeatureFlag.OptimizeNestedTraverseTypescript),
+    ]).pipe(
+      map(([collections, shouldOptimize]) =>
+        shouldOptimize
+          ? getNestedCollectionTree_vNext(collections)
+          : getNestedCollectionTree(collections),
+      ),
     );
 
     this.searchText$
@@ -343,12 +358,13 @@ export class VaultComponent implements OnInit, OnDestroy {
       this.cipherService.cipherViews$(activeUserId).pipe(filter((c) => c !== null)),
       filter$,
       this.currentSearchText$,
+      this.restrictedItemTypesService.restricted$,
     ]).pipe(
       filter(([ciphers, filter]) => ciphers != undefined && filter != undefined),
-      concatMap(async ([ciphers, filter, searchText]) => {
+      concatMap(async ([ciphers, filter, searchText, restrictedTypes]) => {
         const failedCiphers =
           (await firstValueFrom(this.cipherService.failedToDecryptCiphers$(activeUserId))) ?? [];
-        const filterFunction = createFilterFunction(filter);
+        const filterFunction = createFilterFunction(filter, restrictedTypes);
         // Append any failed to decrypt ciphers to the top of the cipher list
         const allCiphers = [...failedCiphers, ...ciphers];
 
@@ -372,31 +388,35 @@ export class VaultComponent implements OnInit, OnDestroy {
         if (filter.collectionId === undefined || filter.collectionId === Unassigned) {
           return [];
         }
-        let collectionsToReturn = [];
+        let searchableCollectionNodes: TreeNode<CollectionView>[] = [];
         if (filter.organizationId !== undefined && filter.collectionId === All) {
-          collectionsToReturn = collections
-            .filter((c) => c.node.organizationId === filter.organizationId)
-            .map((c) => c.node);
+          searchableCollectionNodes = collections.filter(
+            (c) => c.node.organizationId === filter.organizationId,
+          );
         } else if (filter.collectionId === All) {
-          collectionsToReturn = collections.map((c) => c.node);
+          searchableCollectionNodes = collections;
         } else {
           const selectedCollection = ServiceUtils.getTreeNodeObjectFromList(
             collections,
             filter.collectionId,
           );
-          collectionsToReturn = selectedCollection?.children.map((c) => c.node) ?? [];
+          searchableCollectionNodes = selectedCollection?.children ?? [];
         }
 
         if (await this.searchService.isSearchable(activeUserId, searchText)) {
-          collectionsToReturn = this.searchPipe.transform(
-            collectionsToReturn,
+          // Flatten the tree for searching through all levels
+          const flatCollectionTree: CollectionView[] =
+            getFlatCollectionTree(searchableCollectionNodes);
+
+          return this.searchPipe.transform(
+            flatCollectionTree,
             searchText,
             (collection) => collection.name,
             (collection) => collection.id,
           );
         }
 
-        return collectionsToReturn;
+        return searchableCollectionNodes.map((treeNode: TreeNode<CollectionView>) => treeNode.node);
       }),
       shareReplay({ refCount: true, bufferSize: 1 }),
     );
@@ -652,6 +672,7 @@ export class VaultComponent implements OnInit, OnDestroy {
 
     const dialogRef = AttachmentsV2Component.open(this.dialogService, {
       cipherId: cipher.id as CipherId,
+      organizationId: cipher.organizationId as OrganizationId,
     });
 
     const result: AttachmentDialogCloseResult = await lastValueFrom(dialogRef.closed);
@@ -925,7 +946,7 @@ export class VaultComponent implements OnInit, OnDestroy {
     if (orgId && orgId !== "MyVault") {
       const organization = this.allOrganizations.find((o) => o.id === orgId);
       availableCollections = this.allCollections.filter(
-        (c) => c.organizationId === organization.id && !c.readOnly,
+        (c) => c.organizationId === organization.id,
       );
     }
 

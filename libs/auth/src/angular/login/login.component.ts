@@ -17,7 +17,6 @@ import { MasterPasswordPolicyOptions } from "@bitwarden/common/admin-console/mod
 import { Policy } from "@bitwarden/common/admin-console/models/domain/policy";
 import { DevicesApiServiceAbstraction } from "@bitwarden/common/auth/abstractions/devices-api.service.abstraction";
 import { AuthResult } from "@bitwarden/common/auth/models/domain/auth-result";
-import { ForceSetPasswordReason } from "@bitwarden/common/auth/models/domain/force-set-password-reason";
 import { ClientType, HttpStatusCode } from "@bitwarden/common/enums";
 import { ErrorResponse } from "@bitwarden/common/models/response/error.response";
 import { AppIdService } from "@bitwarden/common/platform/abstractions/app-id.service";
@@ -30,7 +29,10 @@ import { ValidationService } from "@bitwarden/common/platform/abstractions/valid
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { PasswordStrengthServiceAbstraction } from "@bitwarden/common/tools/password-strength";
 import { UserId } from "@bitwarden/common/types/guid";
+// This import has been flagged as unallowed for this class. It may be involved in a circular dependency loop.
+// eslint-disable-next-line no-restricted-imports
 import {
+  AnonLayoutWrapperDataService,
   AsyncActionsModule,
   ButtonModule,
   CheckboxModule,
@@ -40,20 +42,20 @@ import {
   ToastService,
 } from "@bitwarden/components";
 
-import { AnonLayoutWrapperDataService } from "../anon-layout/anon-layout-wrapper-data.service";
 import { VaultIcon, WaveIcon } from "../icons";
 
 import { LoginComponentService, PasswordPolicies } from "./login-component.service";
 
 const BroadcasterSubscriptionId = "LoginComponent";
 
+// FIXME: update to use a const object instead of a typescript enum
+// eslint-disable-next-line @bitwarden/platform/no-enums
 export enum LoginUiState {
   EMAIL_ENTRY = "EmailEntry",
   MASTER_PASSWORD_ENTRY = "MasterPasswordEntry",
 }
 
 @Component({
-  standalone: true,
   templateUrl: "./login.component.html",
   imports: [
     AsyncActionsModule,
@@ -279,16 +281,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   private async handleAuthResult(authResult: AuthResult): Promise<void> {
     if (authResult.requiresEncryptionKeyMigration) {
       /* Legacy accounts used the master key to encrypt data.
-         Migration is required but only performed on Web. */
-      if (this.clientType === ClientType.Web) {
-        await this.router.navigate(["migrate-legacy-encryption"]);
-      } else {
-        this.toastService.showToast({
-          variant: "error",
-          title: this.i18nService.t("errorOccured"),
-          message: this.i18nService.t("encryptionKeyMigrationRequired"),
-        });
-      }
+         This is now unsupported and requires a downgraded client */
+      this.toastService.showToast({
+        variant: "error",
+        title: this.i18nService.t("errorOccured"),
+        message: this.i18nService.t("legacyEncryptionUnsupported"),
+      });
       return;
     }
 
@@ -307,10 +305,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     await this.loginSuccessHandlerService.run(authResult.userId);
 
     // Determine where to send the user next
-    if (authResult.forcePasswordReset != ForceSetPasswordReason.None) {
-      await this.router.navigate(["update-temp-password"]);
-      return;
-    }
+    // The AuthGuard will handle routing to update-temp-password based on state
 
     // TODO: PM-18269 - evaluate if we can combine this with the
     // password evaluation done in the password login strategy.
@@ -539,7 +534,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       // If we load an email into the form, we need to initialize it for the login process as well
       // so that other login components can use it.
       // We do this here as it's possible that a user doesn't edit the email field before submitting.
-      this.loginEmailService.setLoginEmail(storedEmail);
+      await this.loginEmailService.setLoginEmail(storedEmail);
     } else {
       this.formGroup.controls.rememberEmail.setValue(false);
     }

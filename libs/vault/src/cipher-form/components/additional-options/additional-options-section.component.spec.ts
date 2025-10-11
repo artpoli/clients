@@ -28,12 +28,13 @@ describe("AdditionalOptionsSectionComponent", () => {
   let passwordRepromptService: MockProxy<PasswordRepromptService>;
   let passwordRepromptEnabled$: BehaviorSubject<boolean>;
 
-  const getInitialCipherView = jest.fn(() => null);
+  const getInitialCipherView = jest.fn((): any => null);
+  const formStatusChange$ = new BehaviorSubject<"enabled" | "disabled">("enabled");
 
   beforeEach(async () => {
     getInitialCipherView.mockClear();
 
-    cipherFormProvider = mock<CipherFormContainer>({ getInitialCipherView });
+    cipherFormProvider = mock<CipherFormContainer>({ getInitialCipherView, formStatusChange$ });
     passwordRepromptService = mock<PasswordRepromptService>();
     passwordRepromptEnabled$ = new BehaviorSubject(true);
     passwordRepromptService.enabled$ = passwordRepromptEnabled$;
@@ -85,7 +86,10 @@ describe("AdditionalOptionsSectionComponent", () => {
     expect(cipherFormProvider.patchCipher).toHaveBeenCalled();
     const patchFn = cipherFormProvider.patchCipher.mock.lastCall[0];
 
-    const updated = patchFn(new CipherView());
+    const newCipher = new CipherView();
+    newCipher.creationDate = newCipher.revisionDate = expectedCipher.creationDate;
+
+    const updated = patchFn(newCipher);
 
     expect(updated).toEqual(expectedCipher);
   });

@@ -2,9 +2,10 @@
 // @ts-strict-ignore
 import * as chalk from "chalk";
 import { program, Command, OptionValues } from "commander";
-import { firstValueFrom } from "rxjs";
+import { firstValueFrom, of, switchMap } from "rxjs";
 
 import { AuthenticationStatus } from "@bitwarden/common/auth/enums/authentication-status";
+import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 
 import { LockCommand } from "./auth/commands/lock.command";
 import { LoginCommand } from "./auth/commands/login.command";
@@ -26,6 +27,10 @@ const writeLn = CliUtils.writeLn;
 
 export class Program extends BaseProgram {
   async register() {
+    const isArchivedEnabled = await this.serviceContainer.configService.getFeatureFlag(
+      FeatureFlag.PM19148_InnovationArchive,
+    );
+
     program
       .option("--pretty", "Format output. JSON is tabbed with two spaces.")
       .option("--raw", "Return raw output instead of a descriptive message.")
@@ -94,6 +99,9 @@ export class Program extends BaseProgram {
         "    bw edit folder c7c7b60b-9c61-40f2-8ccd-36c49595ed72 eyJuYW1lIjoiTXkgRm9sZGVyMiJ9Cg==",
       );
       writeLn("    bw delete item 99ee88d2-6046-4ea7-92c2-acac464b1412");
+      if (isArchivedEnabled) {
+        writeLn("    bw archive item 99ee88d2-6046-4ea7-92c2-acac464b1412");
+      }
       writeLn("    bw generate -lusn --length 18");
       writeLn("    bw config server https://bitwarden.example.com");
       writeLn("    bw send -f ./file.ext");
@@ -129,7 +137,17 @@ export class Program extends BaseProgram {
         "Path to a file containing your password as its first line",
       )
       .option("--check", "Check login status.", async () => {
-        const authed = await this.serviceContainer.stateService.getIsAuthenticated();
+        const authed = await firstValueFrom(
+          this.serviceContainer.accountService.activeAccount$.pipe(
+            switchMap((account) => {
+              if (account == null) {
+                return of(false);
+              }
+
+              return this.serviceContainer.tokenService.hasAccessToken$(account.id);
+            }),
+          ),
+        );
         if (authed) {
           const res = new MessageResponse("You are logged in!", null);
           this.processResponse(Response.success(res), true);
@@ -350,7 +368,8 @@ export class Program extends BaseProgram {
       .action(async (options) => {
         const command = new GenerateCommand(
           this.serviceContainer.passwordGenerationService,
-          this.serviceContainer.stateService,
+          this.serviceContainer.tokenService,
+          this.serviceContainer.accountService,
         );
         const response = await command.run(options);
         this.processResponse(response);

@@ -10,8 +10,21 @@ import {
   unauthGuardFn,
   activeAuthGuard,
 } from "@bitwarden/angular/auth/guards";
+import { LoginViaWebAuthnComponent } from "@bitwarden/angular/auth/login-via-webauthn/login-via-webauthn.component";
 import { ChangePasswordComponent } from "@bitwarden/angular/auth/password-management/change-password";
 import { SetInitialPasswordComponent } from "@bitwarden/angular/auth/password-management/set-initial-password/set-initial-password.component";
+import {
+  DevicesIcon,
+  RegistrationUserAddIcon,
+  TwoFactorTimeoutIcon,
+  TwoFactorAuthEmailIcon,
+  TwoFactorAuthSecurityKeyIcon,
+  UserLockIcon,
+  VaultIcon,
+  SsoKeyIcon,
+  LockIcon,
+  BrowserExtensionIcon,
+} from "@bitwarden/assets/svg";
 import {
   PasswordHintComponent,
   RegistrationFinishComponent,
@@ -21,25 +34,15 @@ import {
   RegistrationLinkExpiredComponent,
   LoginComponent,
   LoginSecondaryContentComponent,
-  TwoFactorTimeoutIcon,
-  UserLockIcon,
-  SsoKeyIcon,
   LoginViaAuthRequestComponent,
-  DevicesIcon,
-  RegistrationUserAddIcon,
-  RegistrationLockAltIcon,
-  RegistrationExpiredLinkIcon,
   SsoComponent,
-  VaultIcon,
   LoginDecryptionOptionsComponent,
   TwoFactorAuthComponent,
   TwoFactorAuthGuard,
   NewDeviceVerificationComponent,
-  DeviceVerificationIcon,
 } from "@bitwarden/auth/angular";
-import { AnonLayoutWrapperComponent, AnonLayoutWrapperData, Icons } from "@bitwarden/components";
+import { AnonLayoutWrapperComponent, AnonLayoutWrapperData } from "@bitwarden/components";
 import { LockComponent } from "@bitwarden/key-management-ui";
-import { VaultIcons } from "@bitwarden/vault";
 
 import { flagEnabled, Flags } from "../utils/flags";
 
@@ -48,7 +51,6 @@ import { AcceptFamilySponsorshipComponent } from "./admin-console/organizations/
 import { FamiliesForEnterpriseSetupComponent } from "./admin-console/organizations/sponsorships/families-for-enterprise-setup.component";
 import { CreateOrganizationComponent } from "./admin-console/settings/create-organization.component";
 import { deepLinkGuard } from "./auth/guards/deep-link/deep-link.guard";
-import { LoginViaWebAuthnComponent } from "./auth/login/login-via-webauthn/login-via-webauthn.component";
 import { AcceptOrganizationComponent } from "./auth/organization-invite/accept-organization.component";
 import { RecoverDeleteComponent } from "./auth/recover-delete.component";
 import { RecoverTwoFactorComponent } from "./auth/recover-two-factor.component";
@@ -64,6 +66,7 @@ import { freeTrialTextResolver } from "./billing/trial-initiation/complete-trial
 import { EnvironmentSelectorComponent } from "./components/environment-selector/environment-selector.component";
 import { RouteDataProperties } from "./core";
 import { ReportsModule } from "./dirt/reports";
+import { ConfirmKeyConnectorDomainComponent } from "./key-management/key-connector/confirm-key-connector-domain.component";
 import { RemovePasswordComponent } from "./key-management/key-connector/remove-password.component";
 import { FrontendLayoutComponent } from "./layouts/frontend-layout.component";
 import { UserLayoutComponent } from "./layouts/user-layout.component";
@@ -104,11 +107,6 @@ const routes: Routes = [
         children: [], // Children lets us have an empty component.
         canActivate: [redirectGuard()], // Redirects either to vault, login, or lock page.
       },
-      {
-        path: "login-with-passkey",
-        component: LoginViaWebAuthnComponent,
-        data: { titleId: "logInWithPasskey" } satisfies RouteDataProperties,
-      },
       { path: "verify-email", component: VerifyEmailTokenComponent },
       {
         path: "accept-organization",
@@ -139,6 +137,28 @@ const routes: Routes = [
     component: AnonLayoutWrapperComponent,
     children: [
       {
+        path: "login-with-passkey",
+        canActivate: [unauthGuardFn()],
+        data: {
+          pageIcon: TwoFactorAuthSecurityKeyIcon,
+          titleId: "logInWithPasskey",
+          pageTitle: {
+            key: "logInWithPasskey",
+          },
+          pageSubtitle: {
+            key: "readingPasskeyLoadingInfo",
+          },
+        } satisfies RouteDataProperties & AnonLayoutWrapperData,
+        children: [
+          { path: "", component: LoginViaWebAuthnComponent },
+          {
+            path: "",
+            component: EnvironmentSelectorComponent,
+            outlet: "environment-selector",
+          },
+        ],
+      },
+      {
         path: "signup",
         canActivate: [unauthGuardFn()],
         data: {
@@ -167,7 +187,7 @@ const routes: Routes = [
         path: "finish-signup",
         canActivate: [unauthGuardFn()],
         data: {
-          pageIcon: RegistrationLockAltIcon,
+          pageIcon: LockIcon,
           titleId: "setAStrongPassword",
         } satisfies RouteDataProperties & AnonLayoutWrapperData,
         children: [
@@ -300,7 +320,7 @@ const routes: Routes = [
         path: "signup-link-expired",
         canActivate: [unauthGuardFn()],
         data: {
-          pageIcon: RegistrationExpiredLinkIcon,
+          pageIcon: TwoFactorTimeoutIcon,
           pageTitle: {
             key: "expiredLink",
           },
@@ -374,7 +394,7 @@ const routes: Routes = [
           pageTitle: {
             key: "yourVaultIsLockedV2",
           },
-          pageIcon: Icons.LockIcon,
+          pageIcon: LockIcon,
           showReadonlyHostname: true,
         } satisfies AnonLayoutWrapperData,
       },
@@ -431,7 +451,7 @@ const routes: Routes = [
           },
         ],
         data: {
-          pageIcon: DeviceVerificationIcon,
+          pageIcon: TwoFactorAuthEmailIcon,
           pageTitle: {
             key: "verifyYourIdentity",
           },
@@ -509,6 +529,17 @@ const routes: Routes = [
         } satisfies RouteDataProperties & AnonLayoutWrapperData,
       },
       {
+        path: "confirm-key-connector-domain",
+        component: ConfirmKeyConnectorDomainComponent,
+        canActivate: [],
+        data: {
+          pageTitle: {
+            key: "confirmKeyConnectorDomain",
+          },
+          titleId: "confirmKeyConnectorDomain",
+        } satisfies RouteDataProperties & AnonLayoutWrapperData,
+      },
+      {
         path: "trial-initiation",
         canActivate: [unauthGuardFn()],
         component: CompleteTrialInitiationComponent,
@@ -533,7 +564,7 @@ const routes: Routes = [
       {
         path: "browser-extension-prompt",
         data: {
-          pageIcon: VaultIcons.BrowserExtensionIcon,
+          pageIcon: BrowserExtensionIcon,
         } satisfies AnonLayoutWrapperData,
         children: [
           {

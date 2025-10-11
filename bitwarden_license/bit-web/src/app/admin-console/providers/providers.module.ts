@@ -7,20 +7,25 @@ import { JslibModule } from "@bitwarden/angular/jslib.module";
 import { CardComponent, ScrollLayoutDirective, SearchModule } from "@bitwarden/components";
 import { DangerZoneComponent } from "@bitwarden/web-vault/app/auth/settings/account/danger-zone.component";
 import { OrganizationPlansComponent } from "@bitwarden/web-vault/app/billing";
-import { PaymentComponent } from "@bitwarden/web-vault/app/billing/shared/payment/payment.component";
-import { VerifyBankAccountComponent } from "@bitwarden/web-vault/app/billing/shared/verify-bank-account/verify-bank-account.component";
+import {
+  EnterBillingAddressComponent,
+  EnterPaymentMethodComponent,
+} from "@bitwarden/web-vault/app/billing/payment/components";
 import { OssModule } from "@bitwarden/web-vault/app/oss.module";
 
 import {
   CreateClientDialogComponent,
+  InvoicesComponent,
   ManageClientNameDialogComponent,
   ManageClientSubscriptionDialogComponent,
+  NoInvoicesComponent,
   ProviderBillingHistoryComponent,
   ProviderSubscriptionComponent,
   ProviderSubscriptionStatusComponent,
 } from "../../billing/providers";
 import { AddExistingOrganizationDialogComponent } from "../../billing/providers/clients/add-existing-organization-dialog.component";
 import { SetupBusinessUnitComponent } from "../../billing/providers/setup/setup-business-unit.component";
+import { ProviderWarningsModule } from "../../billing/providers/warnings/provider-warnings.module";
 
 import { AddOrganizationComponent } from "./clients/add-organization.component";
 import { CreateOrganizationComponent } from "./clients/create-organization.component";
@@ -51,10 +56,11 @@ import { VerifyRecoverDeleteProviderComponent } from "./verify-recover-delete-pr
     ProvidersLayoutComponent,
     DangerZoneComponent,
     ScrollingModule,
-    VerifyBankAccountComponent,
     CardComponent,
     ScrollLayoutDirective,
-    PaymentComponent,
+    ProviderWarningsModule,
+    EnterPaymentMethodComponent,
+    EnterBillingAddressComponent,
   ],
   declarations: [
     AcceptProviderComponent,
@@ -70,8 +76,10 @@ import { VerifyRecoverDeleteProviderComponent } from "./verify-recover-delete-pr
     AddEditMemberDialogComponent,
     AddExistingOrganizationDialogComponent,
     CreateClientDialogComponent,
+    InvoicesComponent,
     ManageClientNameDialogComponent,
     ManageClientSubscriptionDialogComponent,
+    NoInvoicesComponent,
     ProviderBillingHistoryComponent,
     ProviderSubscriptionComponent,
     ProviderSubscriptionStatusComponent,

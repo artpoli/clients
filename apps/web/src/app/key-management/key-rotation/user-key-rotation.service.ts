@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { firstValueFrom, Observable } from "rxjs";
 
+import { LogoutService } from "@bitwarden/auth/common";
 import { Account } from "@bitwarden/common/auth/abstractions/account.service";
 import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { CryptoFunctionService } from "@bitwarden/common/key-management/crypto/abstractions/crypto-function.service";
@@ -9,12 +10,12 @@ import { EncString } from "@bitwarden/common/key-management/crypto/models/enc-st
 import { DeviceTrustServiceAbstraction } from "@bitwarden/common/key-management/device-trust/abstractions/device-trust.service.abstraction";
 import { SecurityStateService } from "@bitwarden/common/key-management/security-state/abstractions/security-state.service";
 import {
+  SignedPublicKey,
   SignedSecurityState,
   UnsignedPublicKey,
   WrappedPrivateKey,
   WrappedSigningKey,
 } from "@bitwarden/common/key-management/types";
-import { VaultTimeoutService } from "@bitwarden/common/key-management/vault-timeout";
 import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
@@ -89,7 +90,7 @@ export class UserKeyRotationService {
     private syncService: SyncService,
     private webauthnLoginAdminService: WebauthnLoginAdminService,
     private logService: LogService,
-    private vaultTimeoutService: VaultTimeoutService,
+    private logoutService: LogoutService,
     private toastService: ToastService,
     private i18nService: I18nService,
     private dialogService: DialogService,
@@ -189,8 +190,7 @@ export class UserKeyRotationService {
       timeout: 15000,
     });
 
-    // temporary until userkey can be better verified
-    await this.vaultTimeoutService.logOut();
+    await this.logoutService.logout(user.id);
   }
 
   protected async ensureIsAllowedToRotateUserKey(): Promise<void> {
@@ -309,9 +309,11 @@ export class UserKeyRotationService {
       userId: asUuid(userId),
       kdfParams: kdfConfig.toSdkConfig(),
       email: email,
-      privateKey: cryptographicStateParameters.publicKeyEncryptionKeyPair.wrappedPrivateKey,
-      signingKey: undefined,
-      securityState: undefined,
+      accountCryptographicState: {
+        V1: {
+          private_key: cryptographicStateParameters.publicKeyEncryptionKeyPair.wrappedPrivateKey,
+        },
+      },
       method: {
         decryptedKey: { decrypted_user_key: cryptographicStateParameters.userKey.toBase64() },
       },
@@ -335,9 +337,15 @@ export class UserKeyRotationService {
       userId: asUuid(userId),
       kdfParams: kdfConfig.toSdkConfig(),
       email: email,
-      privateKey: cryptographicStateParameters.publicKeyEncryptionKeyPair.wrappedPrivateKey,
-      signingKey: cryptographicStateParameters.signingKey,
-      securityState: cryptographicStateParameters.securityState,
+      accountCryptographicState: {
+        V2: {
+          private_key: cryptographicStateParameters.publicKeyEncryptionKeyPair.wrappedPrivateKey,
+          signing_key: cryptographicStateParameters.signingKey,
+          security_state: cryptographicStateParameters.securityState,
+          signed_public_key:
+            cryptographicStateParameters.publicKeyEncryptionKeyPair.signedPublicKey,
+        },
+      },
       method: {
         decryptedKey: { decrypted_user_key: cryptographicStateParameters.userKey.toBase64() },
       },
@@ -633,6 +641,10 @@ export class UserKeyRotationService {
         this.securityStateService.accountSecurityState$(user.id),
         "User security state",
       );
+      const signedPublicKey = await this.firstValueFromOrThrow(
+        this.keyService.userSignedPublicKey$(user.id),
+        "User signed public key",
+      );
 
       return {
         masterKeyKdfConfig,
@@ -643,6 +655,7 @@ export class UserKeyRotationService {
           publicKeyEncryptionKeyPair: {
             wrappedPrivateKey: currentUserKeyWrappedPrivateKey,
             publicKey: publicKey,
+            signedPublicKey: signedPublicKey!,
           },
           signingKey: signingKey!,
           securityState: securityState!,
@@ -680,6 +693,7 @@ export type V2CryptographicStateParameters = {
   publicKeyEncryptionKeyPair: {
     wrappedPrivateKey: WrappedPrivateKey;
     publicKey: UnsignedPublicKey;
+    signedPublicKey: SignedPublicKey;
   };
   signingKey: WrappedSigningKey;
   securityState: SignedSecurityState;

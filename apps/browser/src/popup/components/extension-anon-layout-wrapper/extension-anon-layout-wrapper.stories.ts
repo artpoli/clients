@@ -76,11 +76,14 @@ const decorators = (options: {
         {
           provide: AccountService,
           useValue: {
+            // We can't use mockAccountInfoWith() here because we can't take a dependency on @bitwarden/common/spec.
+            // This is because that package relies on jest dependencies that aren't available here.
             activeAccount$: of({
               id: "test-user-id" as UserId,
               name: "Test User 1",
               email: "test@email.com",
               emailVerified: true,
+              creationDate: "2024-01-01T00:00:00.000Z",
             }),
           },
         },
@@ -164,6 +167,8 @@ type Story = StoryObj<ExtensionAnonLayoutWrapperComponent>;
 
 // Default Example
 
+// FIXME(https://bitwarden.atlassian.net/browse/CL-764): Migrate to OnPush
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
   selector: "bit-default-primary-outlet-example-component",
   template: "<p>Primary Outlet Example: <br> your primary component goes here</p>",
@@ -171,6 +176,8 @@ type Story = StoryObj<ExtensionAnonLayoutWrapperComponent>;
 })
 class DefaultPrimaryOutletExampleComponent {}
 
+// FIXME(https://bitwarden.atlassian.net/browse/CL-764): Migrate to OnPush
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
   selector: "bit-default-secondary-outlet-example-component",
   template: "<p>Secondary Outlet Example: <br> your secondary component goes here</p>",
@@ -178,6 +185,8 @@ class DefaultPrimaryOutletExampleComponent {}
 })
 class DefaultSecondaryOutletExampleComponent {}
 
+// FIXME(https://bitwarden.atlassian.net/browse/CL-764): Migrate to OnPush
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
   selector: "bit-default-env-selector-outlet-example-component",
   template: "<p>Env Selector Outlet Example: <br> your env selector component goes here</p>",
@@ -208,7 +217,9 @@ export const DefaultContentExample: Story = {
         children: [
           {
             path: "default-example",
-            data: {},
+            data: {
+              pageIcon: LockIcon,
+            } satisfies ExtensionAnonLayoutWrapperData,
             children: [
               {
                 path: "",
@@ -230,6 +241,11 @@ export const DefaultContentExample: Story = {
       },
     ],
   }),
+  parameters: {
+    chromatic: {
+      viewports: [380, 1280],
+    },
+  },
 };
 
 // Dynamic Content Example
@@ -244,7 +260,6 @@ const initialData: ExtensionAnonLayoutWrapperData = {
   showAcctSwitcher: true,
   showBackButton: true,
   showLogo: true,
-  hideIcon: false,
 };
 
 const changedData: ExtensionAnonLayoutWrapperData = {
@@ -258,9 +273,10 @@ const changedData: ExtensionAnonLayoutWrapperData = {
   showAcctSwitcher: false,
   showBackButton: false,
   showLogo: false,
-  hideIcon: false,
 };
 
+// FIXME(https://bitwarden.atlassian.net/browse/CL-764): Migrate to OnPush
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
   selector: "bit-dynamic-content-example-component",
   template: `
@@ -337,9 +353,9 @@ export const HasLoggedInAccountExample: Story = {
           {
             path: "has-logged-in-account",
             data: {
-              hasLoggedInAccount: true,
               showAcctSwitcher: true,
-            },
+              pageIcon: LockIcon,
+            } satisfies ExtensionAnonLayoutWrapperData,
             children: [
               {
                 path: "",

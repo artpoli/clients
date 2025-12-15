@@ -12,7 +12,7 @@ import {
 // This import has been flagged as unallowed for this class. It may be involved in a circular dependency loop.
 import { SecurityStateService } from "@bitwarden/common/key-management/security-state/abstractions/security-state.service";
 // eslint-disable-next-line no-restricted-imports
-import { KeyService } from "@bitwarden/key-management";
+import { KdfConfigService, KeyService } from "@bitwarden/key-management";
 
 // FIXME: remove `src` and fix import
 // eslint-disable-next-line no-restricted-imports
@@ -100,6 +100,7 @@ export class DefaultSyncService extends CoreSyncService {
     authService: AuthService,
     stateProvider: StateProvider,
     private securityStateService: SecurityStateService,
+    private kdfConfigService: KdfConfigService,
   ) {
     super(
       tokenService,
@@ -252,6 +253,10 @@ export class DefaultSyncService extends CoreSyncService {
           response.accountKeys.securityState.securityState,
           response.id,
         );
+        await this.keyService.setSignedPublicKey(
+          response.accountKeys.publicKeyEncryptionKeyPair.signedPublicKey,
+          response.id,
+        );
       }
     } else {
       await this.keyService.setPrivateKey(response.privateKey, response.id);
@@ -267,6 +272,7 @@ export class DefaultSyncService extends CoreSyncService {
     await this.tokenService.setSecurityStamp(response.securityStamp, response.id);
     await this.accountService.setAccountEmailVerified(response.id, response.emailVerified);
     await this.accountService.setAccountVerifyNewDeviceLogin(response.id, response.verifyDevices);
+    await this.accountService.setAccountCreationDate(response.id, response.creationDate);
 
     await this.billingAccountProfileStateService.setHasPremium(
       response.premiumPersonally,
@@ -434,6 +440,7 @@ export class DefaultSyncService extends CoreSyncService {
         masterPasswordUnlockData,
         userId,
       );
+      await this.kdfConfigService.setKdfConfig(userId, masterPasswordUnlockData.kdf);
     }
   }
 }

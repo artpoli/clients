@@ -36,10 +36,12 @@ import {
   LoginEmailService,
   SsoUrlService,
   LogoutService,
+  UserDecryptionOptionsServiceAbstraction,
 } from "@bitwarden/auth/common";
 import { ExtensionNewDeviceVerificationComponentService } from "@bitwarden/browser/auth/services/new-device-verification/extension-new-device-verification-component.service";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { EventCollectionService as EventCollectionServiceAbstraction } from "@bitwarden/common/abstractions/event/event-collection.service";
+import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import {
   AccountService,
@@ -66,6 +68,8 @@ import {
   UserNotificationSettingsServiceAbstraction,
 } from "@bitwarden/common/autofill/services/user-notification-settings.service";
 import { BillingAccountProfileStateService } from "@bitwarden/common/billing/abstractions/account/billing-account-profile-state.service";
+import { PhishingDetectionSettingsServiceAbstraction } from "@bitwarden/common/dirt/services/abstractions/phishing-detection-settings.service.abstraction";
+import { PhishingDetectionSettingsService } from "@bitwarden/common/dirt/services/phishing-detection/phishing-detection-settings.service";
 import { ClientType } from "@bitwarden/common/enums";
 import { KeyGenerationService } from "@bitwarden/common/key-management/crypto";
 import { CryptoFunctionService } from "@bitwarden/common/key-management/crypto/abstractions/crypto-function.service";
@@ -75,7 +79,7 @@ import {
   InternalMasterPasswordServiceAbstraction,
   MasterPasswordServiceAbstraction,
 } from "@bitwarden/common/key-management/master-password/abstractions/master-password.service.abstraction";
-import { PinServiceAbstraction } from "@bitwarden/common/key-management/pin/pin.service.abstraction";
+import { SessionTimeoutTypeService } from "@bitwarden/common/key-management/session-timeout";
 import {
   VaultTimeoutService,
   VaultTimeoutStringType,
@@ -135,6 +139,7 @@ import {
   DialogService,
   ToastService,
 } from "@bitwarden/components";
+import { GeneratorServicesModule } from "@bitwarden/generator-components";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legacy";
 import {
   BiometricsService,
@@ -142,7 +147,10 @@ import {
   KdfConfigService,
   KeyService,
 } from "@bitwarden/key-management";
-import { LockComponentService } from "@bitwarden/key-management-ui";
+import {
+  LockComponentService,
+  SessionTimeoutSettingsComponentService,
+} from "@bitwarden/key-management-ui";
 import { DerivedStateProvider, GlobalStateProvider, StateProvider } from "@bitwarden/state";
 import { InlineDerivedStateProvider } from "@bitwarden/state-internal";
 import {
@@ -166,6 +174,8 @@ import AutofillService from "../../autofill/services/autofill.service";
 import { InlineMenuFieldQualificationService } from "../../autofill/services/inline-menu-field-qualification.service";
 import { ForegroundBrowserBiometricsService } from "../../key-management/biometrics/foreground-browser-biometrics";
 import { ExtensionLockComponentService } from "../../key-management/lock/services/extension-lock-component.service";
+import { BrowserSessionTimeoutSettingsComponentService } from "../../key-management/session-timeout/services/browser-session-timeout-settings-component.service";
+import { BrowserSessionTimeoutTypeService } from "../../key-management/session-timeout/services/browser-session-timeout-type.service";
 import { ForegroundVaultTimeoutService } from "../../key-management/vault-timeout/foreground-vault-timeout.service";
 import { BrowserActionsService } from "../../platform/actions/browser-actions.service";
 import { BrowserApi } from "../../platform/browser/browser-api";
@@ -271,7 +281,6 @@ const safeProviders: SafeProvider[] = [
   safeProvider({
     provide: KeyService,
     useFactory: (
-      pinService: PinServiceAbstraction,
       masterPasswordService: InternalMasterPasswordServiceAbstraction,
       keyGenerationService: KeyGenerationService,
       cryptoFunctionService: CryptoFunctionService,
@@ -284,7 +293,6 @@ const safeProviders: SafeProvider[] = [
       kdfConfigService: KdfConfigService,
     ) => {
       const keyService = new DefaultKeyService(
-        pinService,
         masterPasswordService,
         keyGenerationService,
         cryptoFunctionService,
@@ -300,7 +308,6 @@ const safeProviders: SafeProvider[] = [
       return keyService;
     },
     deps: [
-      PinServiceAbstraction,
       InternalMasterPasswordServiceAbstraction,
       KeyGenerationService,
       CryptoFunctionService,
@@ -368,7 +375,7 @@ const safeProviders: SafeProvider[] = [
   safeProvider({
     provide: DomainSettingsService,
     useClass: DefaultDomainSettingsService,
-    deps: [StateProvider],
+    deps: [StateProvider, PolicyService, AccountService],
   }),
   safeProvider({
     provide: AbstractStorageService,
@@ -509,6 +516,17 @@ const safeProviders: SafeProvider[] = [
     deps: [StateProvider],
   }),
   safeProvider({
+    provide: PhishingDetectionSettingsServiceAbstraction,
+    useClass: PhishingDetectionSettingsService,
+    deps: [
+      AccountService,
+      BillingAccountProfileStateService,
+      ConfigService,
+      OrganizationService,
+      StateProvider,
+    ],
+  }),
+  safeProvider({
     provide: MessageListener,
     useFactory: (subject: Subject<Message<Record<string, unknown>>>, ngZone: NgZone) =>
       new MessageListener(
@@ -607,7 +625,12 @@ const safeProviders: SafeProvider[] = [
   safeProvider({
     provide: Fido2UserVerificationService,
     useClass: Fido2UserVerificationService,
-    deps: [PasswordRepromptService, UserVerificationService, DialogService],
+    deps: [
+      PasswordRepromptService,
+      UserDecryptionOptionsServiceAbstraction,
+      DialogService,
+      AccountServiceAbstraction,
+    ],
   }),
   safeProvider({
     provide: AnimationControlService,
@@ -717,10 +740,25 @@ const safeProviders: SafeProvider[] = [
     useClass: ExtensionNewDeviceVerificationComponentService,
     deps: [],
   }),
+  safeProvider({
+    provide: SessionTimeoutTypeService,
+    useClass: BrowserSessionTimeoutTypeService,
+    deps: [PlatformUtilsService],
+  }),
+  safeProvider({
+    provide: SessionTimeoutSettingsComponentService,
+    useClass: BrowserSessionTimeoutSettingsComponentService,
+    deps: [
+      I18nServiceAbstraction,
+      SessionTimeoutTypeService,
+      PolicyService,
+      MessagingServiceAbstraction,
+    ],
+  }),
 ];
 
 @NgModule({
-  imports: [JslibServicesModule],
+  imports: [JslibServicesModule, GeneratorServicesModule],
   declarations: [],
   // Do not register your dependency here! Add it to the typesafeProviders array using the helper function
   providers: safeProviders,

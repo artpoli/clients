@@ -11,6 +11,9 @@
   "favorites": {
     "message": "Обране"
   },
+  "unfavorite": {
+    "message": "Unfavorite"
+  },
   "types": {
     "message": "Типи"
   },
@@ -99,6 +102,70 @@
         "example": "2"
       }
     }
+  },
+  "deletionDateDescV2": {
+    "message": "The Send will be permanently deleted on this date.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "fileToShare": {
+    "message": "File to share"
+  },
+  "hideTextByDefault": {
+    "message": "Hide text by default"
+  },
+  "hideYourEmail": {
+    "message": "Hide your email address from viewers."
+  },
+  "limitSendViews": {
+    "message": "Limit views"
+  },
+  "limitSendViewsCount": {
+    "message": "$ACCESSCOUNT$ views left",
+    "description": "Displayed under the limit views field on Send",
+    "placeholders": {
+      "accessCount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "limitSendViewsHint": {
+    "message": "No one can view this Send after the limit is reached.",
+    "description": "Displayed under the limit views field on Send"
+  },
+  "privateNote": {
+    "message": "Private note"
+  },
+  "sendDetails": {
+    "message": "Send details",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeTextToShare": {
+    "message": "Text to share"
+  },
+  "newItemHeaderTextSend": {
+    "message": "New Text Send",
+    "description": "Header for new text send"
+  },
+  "newItemHeaderFileSend": {
+    "message": "New File Send",
+    "description": "Header for new file send"
+  },
+  "editItemHeaderTextSend": {
+    "message": "Edit Text Send",
+    "description": "Header for edit text send"
+  },
+  "editItemHeaderFileSend": {
+    "message": "Edit File Send",
+    "description": "Header for edit file send"
+  },
+  "deleteSendPermanentConfirmation": {
+    "message": "Are you sure you want to permanently delete this Send?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "new": {
+    "message": "New",
+    "description": "for adding new items"
   },
   "newUri": {
     "message": "Новий URI"
@@ -269,6 +336,22 @@
   },
   "premiumRequiredDesc": {
     "message": "Для використання цієї функції необхідна передплата Premium."
+  },
+  "syncWithBrowser": {
+    "message": "Sync with browser"
+  },
+  "acquireCookieSpeedbumpContent": {
+    "message": "To connect to $VAULTURL$, you need to sync your default browser with the Bitwarden app. You’ll be redirected back to this app once your browser is synced.",
+    "description": "A speedbump message (dialog) shown when the user needs to sync with the browser to acquire an SSO cookie.",
+    "placeholders": {
+      "vaultUrl": {
+        "content": "$1",
+        "example": "https://vault.bitwarden.com"
+      }
+    }
+  },
+  "launchBrowser": {
+    "message": "Launch browser"
   },
   "errorOccurred": {
     "message": "Сталася помилка."
@@ -521,6 +604,12 @@
   },
   "editedItem": {
     "message": "Запис збережено"
+  },
+  "itemAddedToFavorites": {
+    "message": "Item added to favorites"
+  },
+  "itemRemovedFromFavorites": {
+    "message": "Item removed from favorites"
   },
   "deleteItem": {
     "message": "Видалити запис"
@@ -959,6 +1048,9 @@
   "invalidVerificationCode": {
     "message": "Недійсний код підтвердження"
   },
+  "invalidEmailOrVerificationCode": {
+    "message": "Invalid email or verification code"
+  },
   "continue": {
     "message": "Продовжити"
   },
@@ -1204,6 +1296,9 @@
   "changeMasterPass": {
     "message": "Змінити головний пароль"
   },
+  "masterPasswordChanged": {
+    "message": "Master password saved"
+  },
   "continueToWebApp": {
     "message": "Продовжити у вебпрограмі?"
   },
@@ -1282,17 +1377,11 @@
   "twoStepLogin": {
     "message": "Двоетапна перевірка"
   },
-  "vaultTimeoutHeader": {
-    "message": "Час очікування сховища"
-  },
   "vaultTimeout": {
     "message": "Час очікування сховища"
   },
   "vaultTimeout1": {
     "message": "Час очікування"
-  },
-  "vaultTimeoutAction1": {
-    "message": "Дія після часу очікування"
   },
   "vaultTimeoutDesc": {
     "message": "Оберіть дію, яка виконається після завершення часу очікування сховища."
@@ -1488,6 +1577,18 @@
   "unknown": {
     "message": "Невідомо"
   },
+  "copyAddress": {
+    "message": "Copy address"
+  },
+  "copyPhone": {
+    "message": "Copy phone"
+  },
+  "copyNote": {
+    "message": "Copy note"
+  },
+  "copyVerificationCode": {
+    "message": "Copy verification code"
+  },
   "copyUsername": {
     "message": "Копіювати ім'я користувача"
   },
@@ -1570,6 +1671,21 @@
         "example": "$10"
       }
     }
+  },
+  "month": {
+    "message": "month"
+  },
+  "monthly": {
+    "message": "Monthly"
+  },
+  "year": {
+    "message": "year"
+  },
+  "annually": {
+    "message": "Annually"
+  },
+  "annual": {
+    "message": "Annual"
   },
   "refreshComplete": {
     "message": "Оновлення завершено"
@@ -1775,11 +1891,21 @@
   "exportFrom": {
     "message": "Експортувати з"
   },
-  "export": {
-    "message": "Export"
+  "exportNoun": {
+    "message": "Export",
+    "description": "The noun form of the word Export"
   },
-  "import": {
-    "message": "Import"
+  "exportVerb": {
+    "message": "Export",
+    "description": "The verb form of the word Export"
+  },
+  "importNoun": {
+    "message": "Import",
+    "description": "The noun form of the word Import"
+  },
+  "importVerb": {
+    "message": "Import",
+    "description": "The verb form of the word Import"
   },
   "fileFormat": {
     "message": "Формат файлу"
@@ -1991,9 +2117,6 @@
   "vaultTimeoutActionLogOutDesc": {
     "message": "Щоб відновити доступ до сховища, необхідно пройти повторну автентифікацію."
   },
-  "unlockMethodNeededToChangeTimeoutActionDesc": {
-    "message": "Налаштуйте спосіб розблокування, щоб змінити час очікування сховища."
-  },
   "lock": {
     "message": "Блокувати",
     "description": "Verb form: to make secure or inaccessible by"
@@ -2005,6 +2128,24 @@
   "searchTrash": {
     "message": "Шукати в смітнику"
   },
+  "searchArchive": {
+    "message": "Search archive"
+  },
+  "searchLogin": {
+    "message": "Search login"
+  },
+  "searchCard": {
+    "message": "Search card"
+  },
+  "searchIdentity": {
+    "message": "Search identity"
+  },
+  "searchSecureNote": {
+    "message": "Search secure note"
+  },
+  "searchSshKey": {
+    "message": "Search SSH key"
+  },
   "permanentlyDeleteItem": {
     "message": "Остаточно видалити запис"
   },
@@ -2013,6 +2154,9 @@
   },
   "permanentlyDeletedItem": {
     "message": "Запис остаточно видалено"
+  },
+  "archivedItemRestored": {
+    "message": "Archived item restored"
   },
   "restoredItem": {
     "message": "Запис відновлено"
@@ -2298,6 +2442,9 @@
     "message": "Редагування",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "me": {
+    "message": "Me"
+  },
   "myVault": {
     "message": "Моє сховище"
   },
@@ -2399,6 +2546,10 @@
   },
   "deleteSendConfirmation": {
     "message": "Ви дійсно хочете видалити це відправлення?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "copySendLink": {
+    "message": "Copy Send link",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "copySendLinkToClipboard": {
@@ -2583,9 +2734,6 @@
   },
   "vaultTimeoutTooLarge": {
     "message": "Час очікування сховища перевищує обмеження, встановлені вашою організацією."
-  },
-  "vaultTimeoutPolicyAffectingOptions": {
-    "message": "До налаштувань часу очікування застосовано вимоги політики компанії"
   },
   "vaultTimeoutPolicyInEffect": {
     "message": "Політикою вашої організації встановлено максимальний дозволений час очікування сховища $HOURS$ годин, $MINUTES$ хвилин.",
@@ -3619,6 +3767,9 @@
   "exportSuccess": {
     "message": "Дані сховища експортовано"
   },
+  "exportError": {
+    "message": "An error occurred while exporting your vault data"
+  },
   "multifactorAuthenticationCancelled": {
     "message": "Багатофакторну автентифікацію скасовано"
   },
@@ -3993,8 +4144,17 @@
   "changeAtRiskPasswordAndAddWebsite": {
     "message": "Цей запис ризикований, і не має адреси вебсайту. Додайте адресу вебсайту і змініть пароль для вдосконалення безпеки."
   },
+  "vulnerablePassword": {
+    "message": "Vulnerable password."
+  },
+  "changeNow": {
+    "message": "Change now"
+  },
   "missingWebsite": {
     "message": "Немає вебсайту"
+  },
+  "missingPermissions": {
+    "message": "You lack the necessary permissions to perform this action."
   },
   "cannotRemoveViewOnlyCollections": {
     "message": "Ви не можете вилучати збірки, маючи дозвіл лише на перегляд: $COLLECTIONS$",
@@ -4021,9 +4181,15 @@
     "message": "Безпечно надсилайте конфіденційну інформацію",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendsTitleNoSearchResults": {
+    "message": "No search results returned"
+  },
   "sendsBodyNoItems": {
     "message": "Безпечно діліться файлами й даними з ким завгодно, на будь-якій платформі. Ваша інформація наскрізно зашифрована та має обмежений доступ.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendsBodyNoSearchResults": {
+    "message": "Clear filters or try another search term"
   },
   "generatorNudgeTitle": {
     "message": "Швидко створюйте паролі"
@@ -4243,8 +4409,8 @@
   "typeShortcut": {
     "message": "Введіть комбінацію клавіш"
   },
-  "editAutotypeShortcutDescription": {
-    "message": "Використайте один або два таких модифікацій: Ctrl, Alt, Win, Shift, і літеру."
+  "editAutotypeKeyboardModifiersDescription": {
+    "message": "Include one or two of the following modifiers: Ctrl, Alt, Win, and a letter."
   },
   "invalidShortcut": {
     "message": "Недійсна комбінація клавіш"
@@ -4282,6 +4448,9 @@
   "unArchive": {
     "message": "Видобути"
   },
+  "archived": {
+    "message": "Archived"
+  },
   "itemsInArchive": {
     "message": "Записи в архіві"
   },
@@ -4291,17 +4460,32 @@
   "noItemsInArchiveDesc": {
     "message": "Архівовані записи з'являтимуться тут і будуть виключені з результатів звичайного пошуку та пропозицій автозаповнення."
   },
-  "itemWasSentToArchive": {
-    "message": "Запис архівовано"
+  "itemArchiveToast": {
+    "message": "Item archived"
   },
-  "itemWasUnarchived": {
-    "message": "Запис розархівовано"
+  "itemUnarchivedToast": {
+    "message": "Item unarchived"
   },
   "archiveItem": {
     "message": "Архівувати запис"
   },
-  "archiveItemConfirmDesc": {
-    "message": "Архівовані записи виключаються з результатів звичайного пошуку та пропозицій автозаповнення. Ви дійсно хочете архівувати цей запис?"
+  "archiveItemDialogContent": {
+    "message": "Once archived, this item will be excluded from search results and autofill suggestions."
+  },
+  "unArchiveAndSave": {
+    "message": "Unarchive and save"
+  },
+  "restartPremium": {
+    "message": "Restart Premium"
+  },
+  "premiumSubscriptionEnded": {
+    "message": "Your Premium subscription ended"
+  },
+  "premiumSubscriptionEndedDesc": {
+    "message": "To regain access to your archive, restart your Premium subscription. If you edit details for an archived item before restarting, it’ll be moved back into your vault."
+  },
+  "itemRestored": {
+    "message": "Item has been restored"
   },
   "zipPostalCodeLabel": {
     "message": "Поштовий індекс"
@@ -4375,8 +4559,14 @@
   "sessionTimeoutSettingsAction": {
     "message": "Timeout action"
   },
+  "errorCannotDecrypt": {
+    "message": "Error: Cannot decrypt"
+  },
   "sessionTimeoutHeader": {
     "message": "Session timeout"
+  },
+  "resizeSideNavigation": {
+    "message": "Resize side navigation"
   },
   "sessionTimeoutSettingsManagedByOrganization": {
     "message": "This setting is managed by your organization."
@@ -4452,8 +4642,8 @@
       }
     }
   },
-  "transferItemsToOrganizationContent": {
-    "message": "$ORGANIZATION$ is requiring all items to be owned by the organization for security and compliance. Click accept to transfer ownership of your items.",
+  "transferItemsToOrganizationDescription": {
+    "message": "$ORGANIZATION$ is requiring all items to be owned by the organization for security and compliance.",
     "placeholders": {
       "organization": {
         "content": "$1",
@@ -4461,13 +4651,80 @@
       }
     }
   },
+  "transferItemsToOrganizationAction": {
+    "message": "Click accept to transfer ownership of your items."
+  },
+  "openTransferItemsHelpArticle": {
+    "message": "Open help article on transferring items"
+  },
   "acceptTransfer": {
     "message": "Accept transfer"
   },
   "declineAndLeave": {
     "message": "Decline and leave"
   },
-  "whyAmISeeingThis": {
-    "message": "Why am I seeing this?"
+  "organizationIsSuspended": {
+    "message": "Organization is suspended"
+  },
+  "organizationIsSuspendedDesc": {
+    "message": "Items in suspended organizations cannot be accessed. Contact your organization owner for assistance."
+  },
+  "noItemsInTrash": {
+    "message": "No items in trash"
+  },
+  "noItemsInTrashDesc": {
+    "message": "Items you delete will appear here and be permanently deleted after 30 days"
+  },
+  "noItemsInVault": {
+    "message": "No items in the vault"
+  },
+  "emptyVaultDescription": {
+    "message": "The vault protects more than just your passwords. Store secure logins, IDs, cards and notes securely here."
+  },
+  "emptyFavorites": {
+    "message": "You haven't favorited any items"
+  },
+  "emptyFavoritesDesc": {
+    "message": "Add frequently used items to favorites for quick access."
+  },
+  "noSearchResults": {
+    "message": "No search results returned"
+  },
+  "clearFiltersOrTryAnother": {
+    "message": "Clear filters or try another search term"
+  },
+  "sendPasswordHelperText": {
+    "message": "Individuals will need to enter the password to view this Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "emailProtected": {
+    "message": "Email protected"
+  },
+  "emails": {
+    "message": "Emails"
+  },
+  "noAuth": {
+    "message": "Anyone with the link"
+  },
+  "anyOneWithPassword": {
+    "message": "Anyone with a password set by you"
+  },
+  "whoCanView": {
+    "message": "Who can view"
+  },
+  "specificPeople": {
+    "message": "Specific people"
+  },
+  "emailVerificationDesc": {
+    "message": "After sharing this Send link, individuals will need to verify their email with a code to view this Send."
+  },
+  "enterMultipleEmailsSeparatedByComma": {
+    "message": "Enter multiple emails by separating with a comma."
+  },
+  "emailPlaceholder": {
+    "message": "user@bitwarden.com , user@acme.com"
+  },
+  "userVerificationFailed": {
+    "message": "User verification failed."
   }
 }

@@ -11,8 +11,11 @@
   "activity": {
     "message": "Активність"
   },
-  "applicationsAtRisk": {
-    "message": "Ризиковані програми"
+  "criticalAppsAtRisk": {
+    "message": "Critical apps at risk"
+  },
+  "allCriticalApps": {
+    "message": "All critical apps"
   },
   "appLogoLabel": {
     "message": "Логотип Bitwarden"
@@ -324,6 +327,9 @@
   },
   "applicationsMarkedAsCriticalFail": {
     "message": "Failed to mark applications as critical"
+  },
+  "applicationsUnmarkedAsCriticalFail": {
+    "message": "Failed to unmark applications as critical"
   },
   "application": {
     "message": "Програма"
@@ -6241,6 +6247,16 @@
     "message": "У зв'язку з політикою компанії, ви можете лише видалити наявне відправлення.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
+  "sendControls": {
+    "message": "Send controls"
+  },
+  "sendControlsPolicyDesc": {
+    "message": "Set options for creating and editing Sends, including the ability to remove Sends.",
+    "description": "'Send' is the name of a Bitwarden feature (used in the plural here) and should not be translated."
+  },
+  "sendControlsExemption": {
+    "message": "Organization members that can manage the organization's policies are exempt from this policy's enforcement."
+  },
   "sendOptions": {
     "message": "Налаштування відправлень",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
@@ -8398,6 +8414,15 @@
   },
   "pink": {
     "message": "Рожевий"
+  },
+  "coral": {
+    "message": "Coral"
+  },
+  "purple": {
+    "message": "Purple"
+  },
+  "blue": {
+    "message": "Blue"
   },
   "customColor": {
     "message": "Власний колір"

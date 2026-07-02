@@ -297,6 +297,7 @@ export class VaultProgram extends BaseProgram {
           this.serviceContainer.cliRestrictedItemTypesService,
           this.serviceContainer.policyService,
           this.serviceContainer.billingAccountProfileStateService,
+          this.serviceContainer.cipherAuthorizationService,
         );
         const response = await command.run(object, id, encodedJson, cmd);
         this.processResponse(response);
@@ -440,6 +441,8 @@ export class VaultProgram extends BaseProgram {
         const command = new ShareCommand(
           this.serviceContainer.cipherService,
           this.serviceContainer.accountService,
+          this.serviceContainer.collectionService,
+          this.serviceContainer.organizationService,
         );
         const response = await command.run(id, organizationId, encodedJson);
         this.processResponse(response);

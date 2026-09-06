@@ -41,6 +41,7 @@ describe("OrganizationUserNotificationPolicy", () => {
     expect(policy.description).toBe("organizationUserNotificationPolicyDesc");
     expect(policy.type).toBe(PolicyType.OrganizationUserNotification);
     expect(policy.component).toBe(OrganizationUserNotificationPolicyComponent);
+    expect(policy.prerequisiteKey).toBe("singleOrgPrerequisite");
   });
 });
 

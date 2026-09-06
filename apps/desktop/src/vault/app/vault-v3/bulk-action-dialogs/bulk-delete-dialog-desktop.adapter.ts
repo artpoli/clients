@@ -7,6 +7,7 @@ import {
   BulkDeleteDialogRef,
   BulkDeleteDialogResult,
   BulkDeleteService,
+  Vfo1TerminologyService,
 } from "@bitwarden/vault";
 
 @Injectable()
@@ -15,6 +16,7 @@ export class BulkDeleteDialogDesktopAdapter implements BulkDeleteDialogRef {
   private readonly toastService = inject(ToastService);
   private readonly i18nService = inject(I18nService);
   private readonly bulkDelete = inject(BulkDeleteService);
+  private readonly vfo1TerminologyService = inject(Vfo1TerminologyService);
 
   async open(params: BulkDeleteDialogParams): Promise<BulkDeleteDialogResult> {
     if (this.hasItems(params) && this.hasCollections(params)) {
@@ -66,7 +68,15 @@ export class BulkDeleteDialogDesktopAdapter implements BulkDeleteDialogRef {
 
     this.toastService.showToast({
       variant: "success",
-      message: this.i18nService.t(permanent ? "permanentlyDeletedItems" : "deletedItems"),
+      message: this.i18nService.t(
+        permanent
+          ? count === 1
+            ? "permanentlyDeletedItem"
+            : "permanentlyDeletedItems"
+          : count === 1
+            ? "deletedItem"
+            : "deletedItems",
+      ),
     });
 
     return BulkDeleteDialogResult.Deleted;
@@ -80,11 +90,8 @@ export class BulkDeleteDialogDesktopAdapter implements BulkDeleteDialogRef {
 
     const confirmed = await this.dialogService.openSimpleDialog({
       type: "danger",
-      title:
-        count === 1
-          ? { key: "deleteCollection" }
-          : { key: "deleteCollectionsCount", placeholders: [count] },
-      content: { key: count === 1 ? "deleteCollectionDesc" : "deleteCollectionsDesc" },
+      title: this.collectionDeleteTitle(count),
+      content: this.collectionDeleteContent(count),
       acceptButtonText: { key: "delete" },
       cancelButtonText: { key: "cancel" },
     });
@@ -97,7 +104,7 @@ export class BulkDeleteDialogDesktopAdapter implements BulkDeleteDialogRef {
 
     this.toastService.showToast({
       variant: "success",
-      message: this.i18nService.t(count === 1 ? "collectionDeleted" : "collectionsDeleted"),
+      message: this.collectionDeletedMessage(count),
     });
 
     return BulkDeleteDialogResult.Deleted;
@@ -113,7 +120,11 @@ export class BulkDeleteDialogDesktopAdapter implements BulkDeleteDialogRef {
     const confirmed = await this.dialogService.openSimpleDialog({
       type: "danger",
       title: { key: "deleteSelection" },
-      content: { key: "deleteItemsAndCollectionsDesc" },
+      content: {
+        key: this.vfo1TerminologyService.enabled()
+          ? "deleteItemsAndSharedFoldersDesc"
+          : "deleteItemsAndCollectionsDesc",
+      },
       acceptButtonText: { key: "delete" },
       cancelButtonText: { key: "cancel" },
     });
@@ -121,6 +132,8 @@ export class BulkDeleteDialogDesktopAdapter implements BulkDeleteDialogRef {
     if (!confirmed) {
       return BulkDeleteDialogResult.Canceled;
     }
+
+    const cipherCount = cipherIds.length + unassignedCiphers.length;
 
     await Promise.all([
       this.bulkDelete.deleteCiphers({
@@ -134,13 +147,11 @@ export class BulkDeleteDialogDesktopAdapter implements BulkDeleteDialogRef {
 
     this.toastService.showToast({
       variant: "success",
-      message: this.i18nService.t("deletedItems"),
+      message: this.i18nService.t(cipherCount === 1 ? "deletedItem" : "deletedItems"),
     });
     this.toastService.showToast({
       variant: "success",
-      message: this.i18nService.t(
-        collections.length === 1 ? "collectionDeleted" : "collectionsDeleted",
-      ),
+      message: this.collectionDeletedMessage(collections.length),
     });
 
     return BulkDeleteDialogResult.Deleted;
@@ -161,5 +172,32 @@ export class BulkDeleteDialogDesktopAdapter implements BulkDeleteDialogRef {
       return { key: count === 1 ? "deleteItemPermanentlyDesc" : "deleteItemsPermanentlyDesc" };
     }
     return { key: count === 1 ? "deleteItemDesc" : "deleteItemsDesc" };
+  }
+
+  private collectionDeleteTitle(count: number): Translation {
+    const sharedFolder = this.vfo1TerminologyService.enabled();
+    if (count === 1) {
+      return { key: sharedFolder ? "deleteSharedFolder" : "deleteCollection" };
+    }
+    return {
+      key: sharedFolder ? "deleteSharedFoldersCount" : "deleteCollectionsCount",
+      placeholders: [count],
+    };
+  }
+
+  private collectionDeleteContent(count: number): Translation {
+    const sharedFolder = this.vfo1TerminologyService.enabled();
+    if (count === 1) {
+      return { key: sharedFolder ? "deleteSharedFolderKeepItemsDesc" : "deleteCollectionDesc" };
+    }
+    return { key: sharedFolder ? "deleteSharedFoldersKeepItemsDesc" : "deleteCollectionsDesc" };
+  }
+
+  private collectionDeletedMessage(count: number): string {
+    const sharedFolder = this.vfo1TerminologyService.enabled();
+    if (count === 1) {
+      return this.i18nService.t(sharedFolder ? "sharedFolderDeleted" : "collectionDeleted");
+    }
+    return this.i18nService.t(sharedFolder ? "sharedFoldersDeleted" : "collectionsDeleted");
   }
 }

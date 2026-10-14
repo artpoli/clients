@@ -295,7 +295,10 @@ describe("DefaultOrganizationInviteService", () => {
       const result = await sut.validateAndAcceptDirectOrgInvite(invite, activeUserId, acceptOrgUrl);
 
       expect(result).toBe(false);
-      expect(logoutService.logout).toHaveBeenCalled();
+      expect(logoutService.logout).toHaveBeenCalledWith(
+        activeUserId,
+        "masterPasswordPolicyEnforcement",
+      );
       expect(deepLinkRedirectService.persistPostLoginRedirectUrl).toHaveBeenCalledWith(
         acceptOrgUrl,
       );
@@ -783,11 +786,11 @@ describe("DefaultOrganizationInviteService", () => {
     });
 
     /**
-     * Fabricates the `InviteLinkError { variant: "Api" }` shape the SDK produces when a
-     * server response fails. Mirrors `bitwarden-api-base::Error::Response`'s Display
+     * Fabricates the `AcceptInviteLinkError { variant: "Api" }` shape the SDK produces when
+     * a server response fails. Mirrors `bitwarden-api-base::Error::Response`'s Display
      * output: `error in response: status code {status} {reason}: {json-body}`, where
      * `{json-body}` is the raw server error response envelope. The name/variant fields
-     * are what `isInviteLinkError` uses to identify the error.
+     * are what `isAcceptInviteLinkError` uses to identify the error.
      */
     const makeSdkApiError = (statusCode: number, message: string): Error => {
       const reasonPhrase = statusCode === 400 ? "Bad Request" : "Internal Server Error";
@@ -802,7 +805,7 @@ describe("DefaultOrganizationInviteService", () => {
       const err = new Error(
         `error in response: status code ${statusCode} ${reasonPhrase}: ${body}`,
       ) as Error & { name: string; variant: string };
-      err.name = "InviteLinkError";
+      err.name = "AcceptInviteLinkError";
       err.variant = "Api";
       return err;
     };
@@ -816,14 +819,14 @@ describe("DefaultOrganizationInviteService", () => {
       const err = new Error(
         `error in response: status code ${statusCode} Bad Request: ${body}`,
       ) as Error & { name: string; variant: string };
-      err.name = "InviteLinkError";
+      err.name = "AcceptInviteLinkError";
       err.variant = "Api";
       return err;
     };
 
     const makeSdkError = (variant: string, message: string): Error => {
       const err = new Error(message) as Error & { name: string; variant: string };
-      err.name = "InviteLinkError";
+      err.name = "AcceptInviteLinkError";
       err.variant = variant;
       return err;
     };
@@ -915,7 +918,10 @@ describe("DefaultOrganizationInviteService", () => {
       const result = await sut.acceptOpenOrgInvite(open, activeUserId, acceptOrgUrl);
 
       expect(result).toEqual({ kind: "stashed-for-mp-policy-detour" });
-      expect(logoutService.logout).toHaveBeenCalled();
+      expect(logoutService.logout).toHaveBeenCalledWith(
+        activeUserId,
+        "masterPasswordPolicyEnforcement",
+      );
       expect(deepLinkRedirectService.persistPostLoginRedirectUrl).toHaveBeenCalledWith(
         acceptOrgUrl,
       );
@@ -1521,18 +1527,7 @@ describe("DefaultOrganizationInviteService", () => {
         inviteKey: "invite-key",
       });
 
-      it("returns null and skips SDK/state writes when the feature flag is off", async () => {
-        configService.getFeatureFlag.mockResolvedValue(false);
-
-        const result = await sut.sealOpenOrgInvite("user@example.com", validInvite());
-
-        expect(result).toBeNull();
-        expect(registrationClient.seal_open_org_invite_data).not.toHaveBeenCalled();
-        expect(await readRecord()).toBeNull();
-      });
-
-      it("returns the sealedData when the flag is on and persists the paired secret keyed by email", async () => {
-        configService.getFeatureFlag.mockResolvedValue(true);
+      it("returns the sealedData and persists the paired secret keyed by email", async () => {
         registrationClient.seal_open_org_invite_data.mockReturnValue({
           sealedData: "sealed-blob",
           highEntropySecret: "hes-abc",

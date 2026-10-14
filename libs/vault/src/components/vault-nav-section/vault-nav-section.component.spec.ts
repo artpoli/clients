@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, input, signal, Type } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 import { provideRouter, Router } from "@angular/router";
@@ -9,7 +9,12 @@ import { Account, AccountService } from "@bitwarden/common/auth/abstractions/acc
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { FakeGlobalStateProvider } from "@bitwarden/common/spec";
 import { CollectionId, UserId } from "@bitwarden/common/types/guid";
-import { NavigationModule, SideNavService } from "@bitwarden/components";
+import {
+  HoverRevealDirective,
+  NavigationModule,
+  PopoverAnchorForDirective,
+  SideNavService,
+} from "@bitwarden/components";
 import { GlobalStateProvider } from "@bitwarden/state";
 
 import {
@@ -18,6 +23,12 @@ import {
   VaultsNavViewModel,
 } from "../../models/vault-nav-view-model";
 import { VaultNavService } from "../../services/vault-nav.service";
+import {
+  VAULT_NAV_ORGANIZATION_OPTIONS,
+  VaultNavOrganizationOptions,
+} from "../../tokens/vault-nav-organization-options.token";
+import { CoachmarkStepId } from "../coachmark/coachmark-step";
+import { CoachmarkService } from "../coachmark/coachmark.service";
 
 import { VaultNavSectionComponent } from "./vault-nav-section.component";
 
@@ -29,6 +40,7 @@ const personalItem: VaultNavItemViewModel = {
   color: "coral",
   icon: "bwi-user",
   type: VaultNavItemType.Personal,
+  enabled: true,
 };
 
 const orgA: VaultNavItemViewModel = {
@@ -36,6 +48,7 @@ const orgA: VaultNavItemViewModel = {
   label: "Acme corporation",
   icon: "bwi-business",
   type: VaultNavItemType.Organization,
+  enabled: true,
 };
 
 const family: VaultNavItemViewModel = {
@@ -43,6 +56,7 @@ const family: VaultNavItemViewModel = {
   label: "Smith family",
   icon: "bwi-family",
   type: VaultNavItemType.Family,
+  enabled: true,
 };
 
 const personalOnly: VaultsNavViewModel = {
@@ -62,6 +76,15 @@ const orgDataOwnership: VaultsNavViewModel = {
 
 @Component({ template: "", changeDetection: ChangeDetectionStrategy.OnPush })
 class DummyComponent {}
+
+@Component({
+  selector: "stub-organization-options",
+  template: "{{ organizationId() }}",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+class StubOrganizationOptionsComponent {
+  readonly organizationId = input.required<string>();
+}
 
 /** The vault routes the nav links to, and the pages nested under them that it stands in for. */
 const routes = [
@@ -99,6 +122,8 @@ describe("VaultNavSectionComponent", () => {
   const vaultNavService = mock<VaultNavService>();
   const i18nService = mock<I18nService>();
   const accountService = mock<AccountService>();
+  // Read once when the nav is created, so a describe sets it in `beforeAll`.
+  let organizationOptions: Type<VaultNavOrganizationOptions> | null = null;
 
   /** Trimmed first-line text of every rendered nav item, group, and section, in document order. */
   const navText = () =>
@@ -152,8 +177,21 @@ describe("VaultNavSectionComponent", () => {
     fixture.detectChanges();
   };
 
+  const activeStepId = signal<CoachmarkStepId | null>(null);
+  const coachmarkService = {
+    isStepActive: (stepId: CoachmarkStepId) => activeStepId() === stepId,
+    isRunning: () => activeStepId() !== null,
+    getStepPosition: () => "right-center",
+    getStepTitle: () => "",
+    getStepDescription: () => "",
+    getStepLearnMoreUrl: (): string | undefined => undefined,
+    currentStepNumber: () => 1,
+    totalSteps: () => 1,
+  };
+
   beforeEach(async () => {
     jest.clearAllMocks();
+    activeStepId.set(null);
     viewModel$.next(personalOnly);
 
     i18nService.t.mockImplementation((key: string) => key);
@@ -166,6 +204,8 @@ describe("VaultNavSectionComponent", () => {
         { provide: VaultNavService, useValue: vaultNavService },
         { provide: AccountService, useValue: accountService },
         { provide: I18nService, useValue: i18nService },
+        { provide: VAULT_NAV_ORGANIZATION_OPTIONS, useFactory: () => organizationOptions },
+        { provide: CoachmarkService, useValue: coachmarkService },
         { provide: GlobalStateProvider, useValue: new FakeGlobalStateProvider() },
         provideRouter(routes),
       ],
@@ -309,6 +349,51 @@ describe("VaultNavSectionComponent", () => {
     });
   });
 
+  describe("coachmark anchor", () => {
+    /** Where the tour's popover is open, as `"<organization>/<element>"`. */
+    const openAnchors = () =>
+      fixture.debugElement
+        .queryAll(By.directive(PopoverAnchorForDirective))
+        .filter((el) => el.injector.get(PopoverAnchorForDirective).popoverOpen())
+        .map((el) => {
+          let group = el;
+          while (group.parent != null && group.name !== "bit-nav-group") {
+            group = group.parent;
+          }
+          return `${group.componentInstance.text()}/${el.name}`;
+        });
+
+    const navGroup = (label: string) =>
+      fixture.debugElement
+        .queryAll(By.css("bit-nav-group"))
+        .find((el) => el.componentInstance.text() === label);
+
+    beforeEach(() => {
+      viewModel$.next(withOrgs);
+      activeStepId.set("addItem");
+      fixture.detectChanges();
+    });
+
+    it("opens the first organization's group for the whole tour", () => {
+      // Groups collapse by default. See `coachmarkExpands` for why the tour needs
+      // this one open for its whole run.
+      expect(navGroup("Acme corporation").componentInstance.open()).toBe(true);
+      expect(navGroup("Smith family").componentInstance.open()).toBe(false);
+    });
+
+    it("opens on the first organization's Shared folders entry only", () => {
+      activeStepId.set("shareWithCollections");
+      fixture.detectChanges();
+
+      // One Shared folders entry per organization, and a single popover to place.
+      expect(openAnchors()).toEqual(["Acme corporation/bit-nav-item"]);
+    });
+
+    it("stays closed while the step is not active", () => {
+      expect(openAnchors()).toEqual([]);
+    });
+  });
+
   describe("organization data ownership", () => {
     beforeEach(() => {
       viewModel$.next(orgDataOwnership);
@@ -336,6 +421,96 @@ describe("VaultNavSectionComponent", () => {
       const group = expandGroup("Acme corporation");
 
       expect(navItem(group, "myItemsV2")).toBeUndefined();
+    });
+  });
+
+  describe("a suspended organization", () => {
+    /** The suspended-org warning icons rendered in the nav, by the group each sits in. */
+    const suspendedIconGroups = () =>
+      fixture.debugElement
+        .queryAll(By.css("bit-nav-group"))
+        .filter(
+          (group) => group.nativeElement.querySelector("bit-icon.bwi-exclamation-triangle") != null,
+        )
+        .map((group) => group.componentInstance.text());
+
+    it("marks the suspended organization and leaves the enabled ones unmarked", () => {
+      viewModel$.next({ ...withOrgs, vaults: [personalItem, { ...orgA, enabled: false }, family] });
+      fixture.detectChanges();
+
+      expect(suspendedIconGroups()).toEqual(["Acme corporation"]);
+    });
+
+    it("labels the icon so it is not announced as decoration", () => {
+      viewModel$.next({ ...withOrgs, vaults: [personalItem, { ...orgA, enabled: false }, family] });
+      fixture.detectChanges();
+
+      const icon = fixture.nativeElement.querySelector("bit-icon.bwi-exclamation-triangle");
+
+      expect(icon.getAttribute("aria-label")).toBe("organizationIsDisabled");
+    });
+
+    it("marks no organization when every vault is enabled", () => {
+      viewModel$.next(withOrgs);
+      fixture.detectChanges();
+
+      expect(suspendedIconGroups()).toEqual([]);
+    });
+  });
+
+  describe("organization options", () => {
+    /** The organization id each rendered options menu received, by the group it sits in. */
+    const optionsByGroup = () =>
+      fixture.debugElement
+        .queryAll(By.css("bit-nav-group"))
+        .map((group) => [
+          group.componentInstance.text(),
+          group
+            .query(By.directive(StubOrganizationOptionsComponent))
+            ?.componentInstance.organizationId(),
+        ]);
+
+    describe("with a client menu", () => {
+      beforeAll(() => {
+        organizationOptions = StubOrganizationOptionsComponent;
+      });
+
+      afterAll(() => {
+        organizationOptions = null;
+      });
+
+      beforeEach(() => {
+        viewModel$.next(withOrgs);
+        fixture.detectChanges();
+      });
+
+      it("renders one menu per organization, given that organization's id", () => {
+        expect(optionsByGroup()).toEqual([
+          ["Acme corporation", "org-a"],
+          ["Smith family", "org-b"],
+        ]);
+      });
+
+      it("renders no menu for the personal vault", () => {
+        expect(
+          fixture.debugElement.queryAll(By.directive(StubOrganizationOptionsComponent)),
+        ).toHaveLength(2);
+      });
+
+      it("places each menu in its group's end slot, hidden until hover or focus", () => {
+        const menu = fixture.debugElement.query(By.directive(StubOrganizationOptionsComponent));
+        const wrapper = menu.parent;
+
+        expect(wrapper.attributes["slot"]).toBe("end");
+        expect(wrapper.injector.get(HoverRevealDirective, null)).not.toBeNull();
+      });
+    });
+
+    it("renders no menu when the client provides none", () => {
+      viewModel$.next(withOrgs);
+      fixture.detectChanges();
+
+      expect(fixture.debugElement.queryAll(By.directive(HoverRevealDirective))).toHaveLength(0);
     });
   });
 

@@ -2,11 +2,13 @@
   #vaultTable="bitTableV2"
   [tableDef]="table"
   [displayedColumns]="visibleColumns()"
+  stateKey="vaultItems"
   [filter]="filter"
   [filters]="initialFilterValues()"
   [loading]="loading()"
   [selection]="selection"
-  [virtualRowHeight]="56"
+  [trackBy]="trackByCipherId"
+  [virtualRowHeight]="rowHeight"
   [queryParam]="filterNamespace"
   height="fill"
   (selectedChange)="selectedChange.emit($event)"
@@ -31,26 +33,24 @@
 
     <bit-filter-divider></bit-filter-divider>
 
-    <!--
-      The pointer-events override below overrides `BaseChipDirective`'s own
-      `aria-disabled:tw-pointer-events-none` so the tooltip can fire.
-    -->
     <bit-filter-toggle
       [key]="filterKeys.favorites"
       [label]="'favorites' | i18n"
       icon="bwi-star"
       iconActive="bwi-star-f"
       [disabled]="noFavorites()"
-      [bitTooltip]="favoritesDisabledTooltip()"
-      [style.pointer-events]="'auto'"
+      [disabledTooltip]="favoritesDisabledTooltip()"
     ></bit-filter-toggle>
 
     @if (showVaults()) {
       <bit-filter-menu [key]="filterKeys.vault" [placeholderText]="'vault' | i18n" multiple>
         @if (showMyVaultOption()) {
-          <bit-filter-option [value]="MY_VAULT" [iconTile]="myVaultFilterTile()">{{
-            "myVault" | i18n
-          }}</bit-filter-option>
+          <bit-filter-option
+            [value]="MY_VAULT"
+            [iconTile]="myVaultFilterTile()"
+            [count]="myVaultOptionCount()"
+            >{{ "myVault" | i18n }}</bit-filter-option
+          >
         }
         @for (organization of sortedOrganizations(); track organization.id) {
           <bit-filter-option
@@ -62,30 +62,32 @@
       </bit-filter-menu>
     }
 
-    <!--
-      The pointer-events override below overrides `BaseChipDirective`'s own
-      `aria-disabled:tw-pointer-events-none` so the tooltip can fire.
-    -->
+    @if (showMyItems()) {
+      <bit-filter-toggle
+        [key]="filterKeys.myItems"
+        [label]="'myItemsV2' | i18n"
+        icon="bwi-user"
+        [disabled]="noMyItems()"
+        [disabledTooltip]="myItemsDisabledTooltip()"
+      ></bit-filter-toggle>
+    }
+
     @if (showSharedFolders()) {
       <bit-filter-menu
         [key]="filterKeys.sharedFolder"
         [placeholderText]="'sharedFolders' | i18n"
         multiple
         [disabled]="noSharedFolderOptions()"
-        [bitTooltip]="sharedFolderDisabledTooltip()"
-        [style.pointer-events]="'auto'"
+        [disabledTooltip]="sharedFolderDisabledTooltip()"
+        [options]="groupSharedFolders() ? [] : nestedSharedFolders()"
       >
         @if (groupSharedFolders()) {
           @for (group of groupedSharedFolders(); track group.organizationId) {
-            <bit-filter-section [label]="group.name" collapsible>
-              @for (collection of group.collections; track collection.id) {
-                <bit-filter-option [value]="collection.id">{{ collection.name }}</bit-filter-option>
-              }
-            </bit-filter-section>
-          }
-        } @else {
-          @for (collection of sortedCollections(); track collection.id) {
-            <bit-filter-option [value]="collection.id">{{ collection.name }}</bit-filter-option>
+            <bit-filter-section
+              [label]="group.name"
+              collapsible
+              [options]="group.collections"
+            ></bit-filter-section>
           }
         }
       </bit-filter-menu>
@@ -96,14 +98,9 @@
       [placeholderText]="'myFolders' | i18n"
       multiple
       [disabled]="noFolders()"
-      [bitTooltip]="foldersDisabledTooltip()"
-      [style.pointer-events]="'auto'"
-    >
-      <bit-filter-option [value]="NO_FOLDER">{{ "noneFolder" | i18n }}</bit-filter-option>
-      @for (folder of sortedFolders(); track folder.id) {
-        <bit-filter-option [value]="folder.id">{{ folder.name }}</bit-filter-option>
-      }
-    </bit-filter-menu>
+      [disabledTooltip]="foldersDisabledTooltip()"
+      [options]="nestedFolders()"
+    ></bit-filter-menu>
   </bit-table-toolbar>
 
   <vault-empty-vault
@@ -180,7 +177,13 @@
   </bit-column>
 
   <!-- Vault -->
-  <bit-column sortable [sortFn]="sortByVault" width="minmax(176px, 280px)">
+  <bit-column
+    removable
+    [label]="'vault' | i18n"
+    sortable
+    [sortFn]="sortByVault"
+    width="minmax(176px, 280px)"
+  >
     <bit-header-cell>{{ "vault" | i18n }}</bit-header-cell>
     <bit-cell
       *bitCellDef="table.columns.vault; let row"
@@ -201,7 +204,13 @@
   </bit-column>
 
   <!-- Shared folders -->
-  <bit-column sortable [sortFn]="sortBySharedFolders" width="minmax(176px, 280px)">
+  <bit-column
+    removable
+    [label]="'sharedFolders' | i18n"
+    sortable
+    [sortFn]="sortBySharedFolders"
+    width="minmax(176px, 280px)"
+  >
     <bit-header-cell>{{ "sharedFolders" | i18n }}</bit-header-cell>
     <bit-cell
       *bitCellDef="table.columns.sharedFolders; let row"
@@ -224,7 +233,13 @@
   </bit-column>
 
   <!-- My folders -->
-  <bit-column sortable [sortFn]="sortByFolders" width="minmax(140px, 1fr)">
+  <bit-column
+    removable
+    [label]="'myFolders' | i18n"
+    sortable
+    [sortFn]="sortByFolders"
+    width="minmax(140px, 1fr)"
+  >
     <bit-header-cell>{{ "myFolders" | i18n }}</bit-header-cell>
     <bit-cell
       *bitCellDef="table.columns.myFolders; let row"
